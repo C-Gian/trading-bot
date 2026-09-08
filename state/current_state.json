@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "project_name": "Trading Bot",
+  "project_phase": "BACKTEST_SUBSTRATE_READY",
+  "status": "WP_001_COMPLETE",
+  "symbols": ["BTCUSDT"],
+  "canonical_resolution": "1m",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "development_dataset": {
+    "status": "VALIDATED",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "manifest_sha256": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+    "coverage": {"start": "2017-08-17T04:00:00Z", "end": "2024-12-31T23:59:00Z"}
+  },
+  "experiments_completed": 0,
+  "sealed_evaluations_completed": 0,
+  "paper_trades_completed": 0,
+  "champion_status": "NONE",
+  "forward_evidence": "NONE",
+  "real_money_authorized": false,
+  "latest_checkpoint_id": "WP-001",
+  "next_recommended_phase": "WP-002_BACKTEST_SUBSTRATE"
+}

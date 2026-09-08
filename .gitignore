@@ -1,0 +1,13 @@
+data/raw/
+data/canonical/
+data/derived/
+data/reports/*.json
+.venv/
+.tools/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+frontend/node_modules/
+frontend/dist/
+*.pyc

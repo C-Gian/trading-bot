@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","type":"object","required":["manifest_id","dataset_version","source","symbol","market_type","canonical_resolution","coverage","row_counts","files","content_hash","schema_version","integrity","derivation"],"properties":{"symbol":{"const":"BTCUSDT"},"canonical_resolution":{"const":"1m"}},"additionalProperties":true}

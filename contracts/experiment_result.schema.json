@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","type":"object","required":["experiment_id","preregistration_reference","status","primary_metric_result"],"properties":{"status":{"enum":["COMPLETED","FAILED","CANCELLED"]}},"additionalProperties":true}
