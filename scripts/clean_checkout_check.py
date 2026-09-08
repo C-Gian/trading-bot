@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import json
 import subprocess
 import sys
 import tempfile
@@ -27,8 +28,12 @@ def main() -> None:
             python = checkout / (
                 ".venv/Scripts/python.exe" if sys.platform == "win32" else ".venv/bin/python"
             )
+            state = json.loads((checkout / "state/current_state.json").read_text(encoding="utf-8"))
+            command = [str(python), "scripts/check.py", "--no-data"]
+            if state["experiments_completed"] == 0:
+                command.append("--pre-experiment")
             subprocess.run(
-                [str(python), "scripts/check.py", "--no-data", "--pre-experiment"],
+                command,
                 cwd=checkout,
                 env=env,
                 check=True,
