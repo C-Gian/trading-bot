@@ -74,7 +74,10 @@ def governance_checks() -> dict:
     )
     assert (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_bytes() == baseline
     if not os.environ.get("CI"):
-        assert subprocess.check_output(["git","rev-parse","main"],cwd=ROOT,text=True).strip()==SEED
+        assert (
+            subprocess.check_output(["git", "rev-parse", "main"], cwd=ROOT, text=True).strip()
+            == SEED
+        )
     assert (
         subprocess.check_output(["git", "merge-base", BASE, "HEAD"], cwd=ROOT, text=True).strip()
         == BASE
