@@ -1,980 +1,1155 @@
-# CURRENT TASK — WP-003 Substrate Corrections + Fixed Baselines + Negative Controls
+# CURRENT TASK — WP-004 ASTRA ULTRA
+# Scientific Memory + Anti-Circularity + First Serious Algorithm Family
 
-## Status
-COMPLETED
+## STATUS
+ACTIVE
 
-## Work package
+## EXECUTOR
+Astra — ULTRA / maximum reasoning effort.
 
-`WP-003 — Pre-experiment substrate corrections, main-only workflow normalization, and preregistered fixed baseline/negative-control laboratory`
+This checkpoint is intentionally assigned to the strongest reasoning configuration available.
+Do not reduce effort to conserve usage. The Owner explicitly prefers to spend more model usage
+if that materially improves the scientific foundation.
 
-This is intentionally a large autonomous work package. Complete all stages in one run unless a genuine non-recoverable blocker occurs. Do not stop for intermediate approval or ordinary implementation decisions.
-
-The first market experiments are allowed ONLY after the deterministic PRE-EXPERIMENT GATE defined below passes in full.
-
-Profitability is NOT an acceptance criterion. Negative results are normal and must be preserved.
+ChatGPT remains Research Director and final scientific authority.
+Astra is the senior research/algorithm executor for this checkpoint.
+Deterministic code/tests/results remain authoritative over narrative.
 
 ---
 
-# Reviewed starting point
+# 0. WHY YOU ARE HERE
 
-Repository: `C-Gian/trading-bot`
+Trading Bot is a brand-new multi-year quantitative research project.
+
+The Owner is not a quant researcher and does not want to:
+- write code;
+- debug;
+- inspect logs;
+- study trading theory;
+- coordinate agents;
+- manually interpret experiments.
+
+Your job is to do a large, autonomous, high-quality scientific + algorithmic checkpoint.
+
+The product target is:
+
+V1:
+- local web app on the Owner's PC;
+- click `Analyze Market`;
+- system updates market state;
+- output either `NO_TRADE` or one actionable `BTCUSDT` Spot `LONG` paper-trade plan;
+- trade plan contains signal timestamp, entry, stop loss, exit/take-profit rule, expiry,
+  strategy version;
+- UI contains candlestick chart, paper trades, statistics and research status;
+- outcomes are recorded prospectively.
+
+V2 much later:
+- always-on server;
+- continuous market updates;
+- notification when an approved signal appears.
+
+No real money is allowed without a separate final Owner gate after strong long-term evidence.
+
+The scientific goal is NOT hit rate.
+It is robust positive net expectancy after realistic costs.
+
+---
+
+# 1. CURRENT RESEARCH SCOPE — DO NOT EXPAND
+
+Use only:
+
+- crypto Spot;
+- `BTCUSDT`;
+- LONG / NO_TRADE;
+- canonical 1m market path;
+- 1h signal clock;
+- 4h regime/context;
+- maximum holding horizon approximately 24h;
+- closed-bar decisions;
+- next-1m-open execution;
+- paper/research only.
+
+Do NOT add:
+- ETH;
+- other coins;
+- SHORT;
+- perpetual futures;
+- leverage;
+- funding;
+- liquidation;
+- real exchange execution.
+
+No real money.
+
+---
+
+# 2. REPOSITORY / GIT
+
+Repository:
+`C-Gian/trading-bot`
+
+Work directly on:
+`main`
 
 Required starting HEAD:
-`47dd69d73768a9e3a3c92fe08eb1e7e3e8c239f5`
+`2b40aa03cfc05ac7f57d269f596f1ebacdc9d356`
 
-Reviewed predecessor:
-`60ab3141862da74028763e2df72ac3c88b63b5a8`
+Do not create a new branch.
+Do not rewrite history.
+Do not push.
 
-Seed root commit:
-`c6c526124945aa1624118bd7ee6aef9ae5c011b2`
+Use meaningful sequential commits.
+The repository is the scientific memory of the project.
 
-Development dataset remains:
+Before doing anything, read:
 
-- manifest: `BTCUSDT-SPOT-1M-DEV-v1`
-- coverage: `2017-08-17T04:00:00Z` through `2024-12-31T23:59:00Z`
-- post-cutoff detailed BTCUSDT data remains RESERVED and inaccessible
-- no non-BTC asset access
-- no SHORT/perpetual/leverage
-- no real-money functionality
+1. `AGENTS.md`
+2. `governance/SCIENTIFIC_CONSTITUTION.md`
+3. `state/current_state.json`
+4. canonical project brief
+5. canonical roadmap
+6. canonical tech stack
+7. canonical web app spec
+8. `reports/research/WP-003-BASELINES.md`
+9. all six WP-003 preregistrations and result summaries
+10. relevant execution/backtest/data contracts
+11. relevant ADRs
+12. `tasks/CURRENT_TASK.md`
+
+Read only additional files that are actually needed.
 
 ---
 
-# Research Director verdict on WP-002
+# 3. WHAT HAS ALREADY BEEN BUILT
 
-WP-002 is: `ACCEPTED_WITH_FIXES`
+The project already has:
 
-It is accepted as substantial engineering progress, but it is NOT sufficient to authorize market experiments without the mandatory corrections below.
+- governed repository structure;
+- canonical scientific constitution;
+- machine-readable current state;
+- experiment preregistration/result contracts;
+- deterministic validation;
+- FastAPI backend;
+- React + TypeScript + Vite frontend;
+- historical BTCUSDT development chart;
+- canonical BTCUSDT 1m development dataset;
+- deterministic 1h and 4h derived bars;
+- gap/integrity artifacts;
+- deterministic backtest substrate;
+- execution model;
+- versioned cost model;
+- long-only event simulator;
+- leakage-safe as-of interfaces;
+- purged chronological walk-forward splitter;
+- experiment runner;
+- synthetic/golden execution validation;
+- CI.
 
-Create `reports/reviews/WP-002-RESEARCH-DIRECTOR-REVIEW.md`.
+Accepted development dataset:
 
-Record the following review truth without rewriting the executor's original `reports/checkpoints/WP-002.md`.
+`BTCUSDT-SPOT-1M-DEV-v1`
 
-## Positive findings
+Coverage:
 
-- WP-002 correctly starts from reviewed WP-001 HEAD.
-- Canonical state scope was restored.
-- Backend state endpoints now use the authoritative state repository.
-- Cross-record preregistration/result validation materially improved.
-- Frontend tests became behavior-based rather than string-truthiness tests.
-- Gap characterization is useful and deterministic.
-- The accepted development dataset remained unchanged.
-- No strategy research, post-cutoff data, real-money code, non-BTC assets, SHORT, or leverage were introduced.
-- Backtest/execution/cost assumptions were prospectively documented before market strategy experimentation.
+`2017-08-17T04:00:00Z`
+through
+`2024-12-31T23:59:00Z`
 
-## Mandatory findings R1–R9
+Canonical rows:
+`3,870,559`
 
-### R1 — real remote CI failed
+Known missing source minutes:
+`8,560`
 
-GitHub Actions run for reviewed HEAD `47dd69d...` failed.
+Gap intervals:
+`34`
 
-Run ID: `34258648121`
+Missing rows are not filled.
 
-Failure occurred in `python scripts/bootstrap.py` because editable setuptools package discovery treated multiple monorepo top-level directories as packages.
+Detailed BTCUSDT data after the cutoff is RESERVED and must not be accessed.
 
-Therefore the executor's claim that CI passed is not accepted.
-
-Fix Python packaging/bootstrap so a fresh clean checkout installs successfully. The CI workflow must run the complete no-data deterministic validation after bootstrap.
-
-Before any market experiment in this WP, reproduce CI behavior locally from a fresh temporary checkout/worktree.
-
-### R2 — signal/execution boundary semantics are internally inconsistent
-
-The contract says signal time must precede execution time, while implementation/test currently uses the same wall-clock boundary timestamp for the close decision and next 1m open.
-
-Clarify prospectively BEFORE market experiments.
-
-Adopt this event model at UTC hour boundary `t`:
-
-1. the 1h bar `[t-1h, t)` is fully closed;
-2. strategy sees only information available through that close;
-3. the signal decision event is frozen;
-4. the canonical 1m bar opening at wall-clock `t` is then eligible for execution.
-
-The decision event and next-bar open may share wall-clock timestamp `t`, but event ordering is explicit:
-
-`BAR_CLOSE -> SIGNAL_DECISION -> NEXT_1M_OPEN_EXECUTION`
-
-Do not imply that execution happened before the signal.
-
-Update contracts/models/tests to make this unambiguous.
-
-Version corrected semantics prospectively:
+Current substrate:
 
 - `BACKTEST_ENGINE_V2`
 - `EXECUTION_MODEL_V2`
+- `BTCUSDT_SPOT_COST_V1`
 
-The cost model may remain `BTCUSDT_SPOT_COST_V1`.
+Default cost assumptions:
 
-### R3 — target-at-open precedence bug
+- entry fee: 10 bps
+- exit fee: 10 bps
+- adverse entry execution friction: 2 bps
+- adverse exit execution friction: 2 bps
 
-Current engine resolves generic intrabar stop before target.
+Nominal round-trip friction:
+24 bps.
 
-For a long bar that OPENS at or above the target and later trades below stop, target availability at the open is not ambiguous.
-
-Correct ordering:
-
-1. detect path continuity;
-2. if bar opens below stop -> adverse `STOP_GAP`;
-3. else if target exists and bar opens at/above target -> fill at target using the conservative target-price convention;
-4. else evaluate intrabar stop/target:
-   - both touched -> `STOP_FIRST`;
-   - stop only -> stop;
-   - target only -> target.
-
-Add a golden scenario where a position was entered earlier, the next bar opens above target, and the same bar low is below stop. Prove target is filled at target.
-
-### R4 — complete derived bars are not enough; strategy lookbacks must be contiguous
-
-The dataset has fully absent 1h/4h windows in addition to partial rows.
-
-Current `AsOfView` filters incomplete rows but can expose a sequence of complete bars with a temporal hole inside it.
-
-Fix the sanctioned strategy interface.
-
-Requirements:
-
-- sort and validate UTC alignment;
-- reject duplicate timestamps;
-- incomplete bars break continuity;
-- missing expected timestamps break continuity;
-- expose only a contiguous complete suffix for each timeframe, OR equivalent API forcing strategies to request required contiguous lookback;
-- requesting N 1h bars returns exactly N consecutive completed hourly bars or is ineligible;
-- same principle for 4h context;
-- no forward filling;
-- no manufactured bars.
-
-Add synthetic tests and at least one real-data integration test around a known gap without exposing post-cutoff data.
-
-### R5 — cutoff validation must use parsed UTC instants, not ISO string ordering
-
-Current research record/runner cutoff checks compare timestamp strings.
-
-Parse timestamps as timezone-aware datetimes, normalize/compare actual instants, and reject naive timestamps.
-
-Test offset timestamps that are lexically earlier but chronologically after the cutoff, including a negative UTC offset crossing into 2025 UTC.
-
-Apply to preregistration maximum timestamp, dataset manifest coverage end, and all scientific cutoff checks.
-
-### R6 — engine/data interfaces need defense-in-depth cutoff and signal-clock guards
-
-The engine must independently reject:
-
-- any supplied canonical path bar whose instant exceeds the development cutoff;
-- naive timestamps;
-- invalid signal-clock timestamps for the approved 1h research schedule.
-
-For V2 research, market signals occur only on UTC hour boundaries:
-
-- minute = 0
-- second = 0
-- microsecond = 0
-- timezone-aware UTC semantics
-
-Do not rely only on the loader.
-
-### R7 — chronological splitter permits invalid zero-duration configurations
-
-Require positive train duration, validation duration, and holding/label horizon.
-
-Require non-negative purge and embargo.
-
-Require purge >= horizon when that mode is used.
-
-Reject zero-progress/infinite-loop configurations. Normalize or require UTC boundaries. Test zero-duration and timezone edge cases.
-
-### R8 — experiment runner is still fixture-oriented and trial/code accounting is too caller-trusting
-
-Before real market experiments, build a production research runner.
-
-It must:
-
-- validate the full dataset manifest schema;
-- validate exact manifest/content identity;
-- use parsed UTC cutoff checks;
-- own trial iteration/counting rather than trust caller-supplied `trial_count`;
-- enforce preregistered explicit trial plan/search budget;
-- prevent undeclared trial/config execution;
-- preserve every trial result, not only a selected winner;
-- verify strategy/config content identity against preregistration;
-- include reproducible code/content references;
-- refuse finalized-result overwrite;
-- write through staging + atomic finalization;
-- preserve failed/invalid trials.
-
-Do not allow an adapter to claim one trial while silently doing adaptive search.
-
-For this WP, adapters are simple deterministic fixed-rule functions with no optimizer/search facility.
-
-### R9 — branch-per-work-package workflow is retired
-
-The Owner does not want a growing branch-per-WP workflow.
-
-Adopt a main-only sequential repository workflow from this WP forward.
-
-Git history, immutable checkpoint reports, preregistrations, results, hashes, and commit SHAs are the scientific audit trail — not a permanent branch per work package.
+This is intentionally conservative research friction, not a promise about an exchange fee tier.
 
 ---
 
-# Stage 0 — normalize to main-only sequential Git workflow
+# 4. WHAT WP-003 FOUND
 
-Do not create a new work branch.
+Six preregistered development experiments were completed.
 
-Starting from exact reviewed WP-002 HEAD `47dd69d...`:
+All preregistrations were committed before their results.
 
-1. verify current HEAD;
-2. ensure seed and all WP-001/WP-002 commits are ancestors;
-3. move/fast-forward local `main` to exact reviewed WP-002 HEAD;
-4. checkout `main`;
-5. perform ALL WP-003 work directly on `main`;
-6. do not create another branch;
-7. do not delete historical local/remote work branches during this WP;
-8. do not push.
+The real GitHub Actions run for the final WP-003 HEAD passed.
 
-Update `AGENTS.md`:
+Scientific state:
 
-- `main` is the single sequential development/research branch;
-- future work packages commit directly to main;
-- do not rewrite history;
-- checkpoint SHAs + immutable reports are the audit trail;
-- failed experiments/checkpoints remain recorded;
-- Codex still does not push unless explicitly authorized.
+- experiments = 6
+- sealed evaluations = 0
+- paper trades = 0
+- Champion = NONE
+- forward evidence = NONE
+- real money = false
 
-Remove any validator assumption that `main` must forever point at the seed commit.
+Results:
 
-Instead validate seed and reviewed checkpoint ancestry plus current branch `main`.
+## Buy & Hold reference
+
+`EXP-BASE-001-BUYHOLD`
+
+Net total return:
+`20.905930996`
+
+This is reference-only and outside the ~24h product horizon.
+
+## Random-entry negative control
+
+`EXP-CTRL-002-RANDOM`
+
+32 fixed deterministic seeds.
+
+Median net expectancy:
+`-0.0948689556 R`
+
+## Simple trend baseline
+
+`EXP-BASE-003-TREND`
+
+Rule:
+`SMA24 > SMA168`
+
+Default-cost expectancy:
+`-0.0908105341 R`
+
+Trades:
+`2,445`
+
+Zero-cost expectancy:
+approximately `+0.02934 R`
+
+Double-cost expectancy:
+approximately `-0.21096 R`
+
+## Simple 24h breakout baseline
+
+`EXP-BASE-004-BREAKOUT`
+
+Rule:
+current 1h close > maximum high of previous 24 completed 1h bars.
+
+Default-cost expectancy:
+`-0.0482093869 R`
+
+Trades:
+`1,123`
+
+Zero-cost expectancy:
+approximately `+0.07221 R`
+
+Double-cost expectancy:
+approximately `-0.16863 R`
+
+The yearly result is inconsistent:
+some positive years, some materially negative years.
+
+## Delayed trend timing control
+
+`EXP-CTRL-005-TREND-DELAY-1H`
+
+Expectancy:
+`-0.0940234189 R`
+
+Trades:
+`2,446`
+
+## No-trade control
+
+`EXP-CTRL-006-NO-TRADE`
+
+Trades:
+`0`
+
+No Champion exists.
+
+Do NOT treat the breakout result as proof of an edge.
+It is merely a development observation.
+
+However, it is scientifically relevant that the breakout baseline had positive gross/zero-cost
+expectancy but negative net expectancy under the default cost profile.
+
+One plausible research problem is therefore:
+
+> Can we identify a sparse, economically meaningful subset of long breakout/trend opportunities
+> whose gross edge per trade is strong enough and stable enough to survive realistic friction?
+
+This is a hypothesis to investigate, not a conclusion.
 
 ---
 
-# Stage 1 — fix clean-checkout bootstrap and CI
+# 5. THE OWNER'S MOST IMPORTANT LONG-TERM CONCERN
 
-Fix root packaging explicitly for the monorepo.
+This project may run for years.
 
-Use conventional setuptools configuration or another simple standard Python package configuration that discovers only intended backend packages.
+The Owner explicitly wants to prevent the following failure mode:
 
-Do not package data, reports, frontend, research records, governance, state, or contracts as Python modules.
+- test approach 1 -> fails;
+- test approach 2 -> fails;
+- ...
+- test approach 700 -> fails;
+- approach 701 is effectively approach 1 again with different wording;
+- the project becomes circular;
+- time, compute and model usage are wasted;
+- repeated testing eventually manufactures a lucky backtest.
 
-`scripts/bootstrap.py` must work from a fresh clean checkout on Linux and remain Windows-friendly.
+This risk is a PRIMARY objective of WP-004.
 
-Prefer `npm ci` when a frontend lockfile exists. Do not mutate lockfiles during bootstrap.
+The repository must develop durable scientific memory.
 
-Create a deterministic clean-checkout CI simulation.
+It is not enough to save reports.
+The system must be able to answer:
 
-Before market experiments prove:
+- What hypothesis families have already been tested?
+- What exact mechanism did each one claim?
+- What feature families were used?
+- What entry logic?
+- What exit logic?
+- What regime filter?
+- What parameter/time-scale family?
+- What data and execution assumptions?
+- What failed?
+- Under what costs?
+- In which periods?
+- How many variants/trials have already been spent?
+- Is a proposed new idea actually a duplicate or near-duplicate?
+- Is it a genuinely new causal hypothesis or just parameter drift?
+- Is it a descendant of a failed family?
+- What evidence justified revisiting it?
 
-1. fresh checkout/worktree;
-2. bootstrap succeeds;
-3. `python scripts/check.py --no-data` succeeds.
-
-Update GitHub Actions accordingly.
-
-Do not claim remote GitHub Actions passed before the Owner pushes. Executor report must say remote CI `PENDING_PUSH`.
+No future executor should need to remember old chats to answer these questions.
 
 ---
 
-# Stage 2 — implement R2–R8 substrate corrections
+# 6. CORE WP-004 OBJECTIVES
 
-Complete every finding above.
+WP-004 has TWO equally important goals.
 
-Create `decisions/ADR-0003-PRE-EXPERIMENT-SUBSTRATE-CORRECTIONS.md` BEFORE market experiments.
+## Goal A — build the long-term anti-circular scientific memory system
+
+Create the durable mechanism that prevents years of repeated/circular strategy search.
+
+## Goal B — use Astra Ultra to create the first serious algorithmic research family
+
+Do not merely write governance.
+
+Use the existing evidence and first-principles market reasoning to propose a strong,
+falsifiable, bounded next algorithm family.
+
+Then preregister, implement and evaluate it using the development data and the existing
+scientific substrate.
+
+This is the first checkpoint where deep algorithmic creativity is explicitly desired.
+
+But creativity must remain bounded by scientific discipline.
+
+---
+
+# 7. STAGE A — INDEPENDENT WP-003 REVIEW RECORD
+
+Create:
+
+`reports/reviews/WP-003-RESEARCH-DIRECTOR-REVIEW.md`
 
 Record:
 
-- explicit same-boundary event ordering;
-- corrected target-at-open precedence;
-- contiguous-lookback requirement;
-- parsed-UTC cutoff enforcement;
-- engine path cutoff defense;
-- positive fold durations;
-- production trial accounting;
-- engine/execution version bump.
+- final verdict: `ACCEPTED`;
+- reviewed HEAD;
+- real GitHub Actions success after push;
+- six experiments;
+- preregistration-before-result chronology;
+- exact scientific state;
+- negative default-cost results for trend/breakout/random/delayed;
+- no-trade control success;
+- breakout zero-cost positive / default-cost negative observation;
+- no Champion;
+- no sealed data accessed;
+- no product strategy approved.
 
-Update relevant contracts/docs/tests.
-
-Cost model remains `BTCUSDT_SPOT_COST_V1`:
-
-- entry fee 10 bps
-- exit fee 10 bps
-- adverse entry friction 2 bps
-- adverse exit friction 2 bps
+Do not rewrite executor reports.
 
 ---
 
-# Stage 3 — PRE-EXPERIMENT GATE
+# 8. STAGE B — SCIENTIFIC SEARCH MEMORY / ANTI-LOOP SYSTEM
 
-No real BTC market experiment may run unless this gate passes.
+Design and implement a durable research-memory layer.
 
-Implement `python scripts/pre_experiment_gate.py` or an explicit equivalent.
+Prefer simple transparent files + deterministic tooling over an opaque database.
 
-It must prove at minimum:
+Create at minimum:
 
-1. current branch is `main`;
-2. HEAD descends from reviewed WP-002 HEAD;
-3. Constitution preserved;
-4. cutoff unchanged;
-5. dataset manifest/content hash unchanged;
-6. no post-cutoff data exists/loads;
-7. clean-checkout bootstrap simulation PASS;
-8. CI-equivalent no-data validation PASS;
-9. full installed-data validation PASS;
-10. boundary-event tests PASS;
-11. target-at-open + intrabar-stop golden test PASS;
-12. contiguous 1h gap test PASS;
-13. contiguous 4h gap test PASS;
-14. offset-timestamp cutoff bypass rejected;
-15. post-cutoff engine path rejected;
-16. non-hourly signal timestamp rejected;
-17. zero-duration splitter configs rejected;
-18. production runner counts trials itself;
-19. undeclared configs/trials rejected;
-20. code/config identity mismatch rejected;
-21. finalized-result overwrite rejected;
-22. no market experiment result exists yet;
-23. scientific counters still zero;
-24. no real-money/exchange credential/order path exists.
+`research/memory/SEARCH_LEDGER.jsonl`
+or a stronger deterministic equivalent;
 
-Persist a concise deterministic gate artifact under `reports/validation/` with version, HEAD, dataset identity, model versions, checks, PASS/FAIL and hash.
+`research/memory/HYPOTHESIS_FAMILIES.yaml`
+or JSON equivalent;
 
-If gate FAILS, do not run market experiments. Mark WP-003 PARTIAL/FAIL and report.
+`research/memory/FAILURE_MEMORY.md`
 
-If gate PASSES, continue automatically.
+`research/memory/SEARCH_BUDGET.json`
+
+`docs/contracts/RESEARCH_SEARCH_MEMORY_V1.md`
+
+Use schemas where appropriate.
+
+## Each material hypothesis/experiment must be fingerprinted
+
+Fingerprint dimensions should include at minimum:
+
+- hypothesis family;
+- claimed market mechanism;
+- direction;
+- signal timeframe;
+- context timeframe;
+- feature families;
+- feature transformations;
+- entry event type;
+- regime filter type;
+- confirmation/filter type;
+- position policy;
+- stop family;
+- target/exit family;
+- max hold;
+- parameter/time-scale family;
+- cost model;
+- dataset;
+- experiment lineage;
+- parent experiment/family;
+- trial/search budget;
+- result classification;
+- terminal conclusion;
+- reason for rejection/continuation.
+
+Do not rely on free text alone.
+
+Create deterministic canonicalization and hashing for the structured fingerprint.
+
+## Novelty / duplication classification
+
+Before a future material experiment is allowed to run, the system must classify the proposed
+hypothesis relative to prior search memory as one of:
+
+- `NEW_FAMILY`
+- `NEW_MECHANISM_WITHIN_FAMILY`
+- `MEANINGFUL_ABLATION`
+- `PARAMETER_VARIANT`
+- `NEAR_DUPLICATE`
+- `DUPLICATE`
+- `REVISIT_WITH_NEW_EVIDENCE`
+
+A `DUPLICATE` must be rejected.
+
+A `NEAR_DUPLICATE` or `PARAMETER_VARIANT` must require explicit remaining family budget and a
+scientific reason.
+
+A revisit of a previously failed family requires a machine-readable `new_evidence_basis`.
+
+"Maybe this number works better" is not sufficient new evidence.
+
+Add validator tests.
+
+## Family-level budgets
+
+Create a budget system so the project does not only count experiment IDs.
+
+Track:
+
+- global material experiments;
+- family-level experiments;
+- parameter variants;
+- adaptive decisions;
+- strategy descendants;
+- sealed queries separately.
+
+Budgets can be extended later by Research Director decision, but extension must be explicit and
+recorded.
+
+No executor may silently reset a budget by renaming a strategy.
+
+## Failure memory
+
+For failed/negative families, record concise durable lessons:
+
+- what was falsified;
+- what was NOT falsified;
+- whether gross edge existed but costs killed it;
+- whether failure was regime-specific;
+- whether turnover was too high;
+- whether timing controls suggest weak signal specificity;
+- what would count as legitimate new evidence to revisit the family.
+
+The goal is not to permanently ban a concept after one poor test.
+The goal is to prevent unconscious repetition.
 
 ---
 
-# Stage 4 — freeze the first baseline research protocol BEFORE observing results
+# 9. STAGE C — MULTIPLE-TESTING / ADAPTIVE-RESEARCH GOVERNANCE
 
-Create `research/protocols/BASELINES_NEGATIVE_CONTROLS_V1.md`.
+Design a practical mechanism for a long-lived research program.
 
-The exact program is fixed below. No parameter search is allowed.
+Do not overcomplicate with decorative statistics.
 
-## Common scope
+At minimum distinguish:
 
-- BTCUSDT Spot only
-- LONG / no-entry only
-- signal clock: UTC 1h boundary
-- 4h context available as-of; strategies below do not require a 4h regime filter
-- execution path: canonical 1m
-- maximum hold: 1,440 minutes
-- development data only
-- cutoff unchanged
-- one simulated position at a time
-- `IGNORE_WHILE_POSITION_OPEN`
-- corrected gap policy
-- no lookahead
-- no leverage
-- no SHORT
-- no optimization
+- fixed preregistered trial;
+- bounded family exploration;
+- adaptive follow-up;
+- robustness test;
+- development walk-forward;
+- sealed evaluation;
+- future paper evidence.
 
-## Common boundary semantics
+Implement machine-readable accounting for:
 
-At hour boundary `t`:
+- number of material hypotheses;
+- total parameter variants;
+- family budgets consumed;
+- follow-up decisions caused by observed results;
+- result-dependent forks.
 
-`1h close at t -> signal decision -> 1m open at t execution`
+Create:
 
-Wall-clock equality is allowed only because event ordering is explicit.
+`docs/contracts/ADAPTIVE_RESEARCH_GOVERNANCE_V1.md`
 
-## Common eligibility
+and deterministic validators.
 
-To standardize compared signal opportunities:
+The system must make it impossible to present experiment #100 as though it were the first
+independent test.
 
-- require at least 169 consecutive complete 1h bars ending with the just-closed signal bar;
-- any partial/missing 1h interval resets contiguous lookback;
-- all trade-based experiments use this common eligible clock;
-- next canonical 1m execution bar must be observable;
-- no signal timestamp may exceed the final permitted development signal boundary;
-- no forward-fill.
+---
 
-## Common trade template
+# 10. STAGE D — HOW HISTORICAL DATA SHOULD BE USED
 
-Reference price = close of just-completed 1h signal bar, known at signal time.
+We DO want to use the development history broadly, but we do NOT want to repeatedly optimize
+against one monolithic full-history score.
 
-For emitted LONG:
+Design and implement a canonical development-evaluation protocol.
 
-- stop = reference close * 0.98
-- target = reference close * 1.04
-- max hold = 1,440 minutes
-- entry = next eligible canonical 1m open under corrected boundary semantics
+Required principle:
 
-These percentages are fixed ex-ante for laboratory comparison and are NOT optimality claims.
+- full 2017-2024 development history may be used for descriptive/final development summaries;
+- strategy design/model selection should rely on chronological, purged walk-forward structure;
+- no random K-fold;
+- no post-2024 data;
+- no sealed-period feedback.
 
-If execution open makes the plan logically non-tradable because it is already beyond stop/target, record an explicit invalid/non-tradable attempt. Do not crash and do not invent a fill.
+Choose a reasonable fixed walk-forward schedule based on the available history and product
+horizon.
 
-If a trade becomes unresolved across a data gap:
+Prefer large economically meaningful windows over dozens of tiny folds.
 
-- preserve unresolved outcome;
-- do not fabricate P&L;
-- quarantine new-position eligibility until the original position's maximum expiry boundary;
-- report unresolved separately.
+Before seeing new WP-004 strategy results, freeze:
 
-## Primary metric
+- fold boundaries;
+- train/development span;
+- validation span;
+- purge;
+- embargo;
+- aggregation of fold metrics;
+- minimum trade/ESS diagnostics;
+- stability diagnostics.
 
-For trade-based experiments:
+Persist exact UTC boundaries.
 
-`net expectancy in R over VALID RESOLVED trades under BTCUSDT_SPOT_COST_V1`
+Do not optimize fold boundaries based on results.
 
-Always report separately:
+---
 
-- attempted setups
-- valid resolved trades
-- invalid/non-tradable attempts
-- unresolved data-gap/end-of-data trades
-- unresolved rate
+# 11. STAGE E — ASTRA ULTRA ALGORITHM DESIGN MEMO
 
-No result can authorize a Champion.
+This is the deep-reasoning part.
 
-## Descriptive metrics
+Create:
+
+`research/design/ALGORITHM_FAMILY_V1_DESIGN.md`
+
+Think as a senior quantitative researcher.
+
+Use:
+
+- first principles;
+- the known BTC Spot / LONG / 1h / 4h / <=24h product constraints;
+- known WP-003 evidence;
+- execution friction;
+- gap policy;
+- turnover;
+- market regime instability;
+- simplicity;
+- interpretability;
+- falsifiability.
+
+Do NOT perform web-driven strategy shopping.
+Do NOT copy a famous trading recipe merely because it exists.
+
+You may use established quantitative concepts as primitives, but the logic must be justified from
+the project evidence and market mechanism.
+
+## Important observed clue
+
+The fixed 24h breakout baseline:
+
+- positive zero-cost expectancy (~+0.072R);
+- negative default-cost expectancy (~-0.048R);
+- worse at double costs;
+- inconsistent across calendar years.
+
+This suggests that blindly trading every breakout is not sufficient.
+
+A serious next hypothesis should likely address some combination of:
+
+- selectivity;
+- gross edge per trade;
+- regime dependence;
+- volatility state;
+- trend persistence;
+- false breakouts;
+- volume/participation;
+- turnover;
+- exit efficiency.
+
+But this list is guidance, not a requirement to combine everything.
+
+Complexity is penalized.
+
+## Your design task
+
+Propose no more than THREE genuinely distinct candidate hypotheses.
+
+For each candidate explain:
+
+- causal/economic intuition;
+- why it is not a duplicate of WP-003;
+- why it could survive costs;
+- expected failure mode;
+- minimal feature set;
+- exact information availability;
+- why 4h context is or is not needed;
+- why the exit logic fits <=24h;
+- complexity cost;
+- overfitting risk;
+- what observation would falsify it.
+
+Then rank the three BEFORE running any new result.
+
+Choose ONE primary family for execution in WP-004.
+
+The other two remain design alternatives only and must not be secretly tested.
+
+This ranking and selection must be committed BEFORE implementation results are observed.
+
+---
+
+# 12. ALGORITHM SEARCH BUDGET FOR WP-004
+
+This is intentionally bounded.
+
+For the selected primary family:
+
+Maximum:
+- 1 core hypothesis;
+- up to 3 preregistered structural variants/ablations total;
+- no parameter grid;
+- no Bayesian optimization;
+- no evolutionary search;
+- no random search;
+- no try-until-positive behavior;
+- no result-dependent new fourth variant.
+
+The variants must answer distinct scientific questions, not just change a number.
+
+Legitimate structural examples:
+- mechanism alone;
+- mechanism + regime gate;
+- mechanism + orthogonal confirmation;
+- fixed exit vs one predeclared dynamic-exit ablation.
+
+Not legitimate:
+- window 20 vs 21 vs 22 vs 23 vs 24;
+- threshold 1.0 vs 1.1 vs 1.2;
+- dozens of stop/target combinations.
+
+If numeric parameters are required, choose a small number from natural time scales or economic
+interpretation and freeze them before results.
+
+Astra must explicitly count every variant against the research family budget.
+
+---
+
+# 13. PREFERRED SCIENTIFIC DIRECTION — NOT A FORCED STRATEGY
+
+The Research Director considers the following family plausible enough to investigate:
+
+**selective regime-aware continuation / breakout**
+
+Possible mechanism:
+
+- 1h continuation or breakout provides the event;
+- 4h context identifies broader trend/regime;
+- a volatility/participation condition attempts to avoid weak false breakouts;
+- sparse entries reduce cost drag;
+- risk/exit may be volatility-aware rather than a single arbitrary fixed barrier.
+
+However Astra is NOT required to use this exact construction.
+
+If Astra identifies a stronger ex-ante family from first principles, it may choose it.
+
+But Astra must justify why it is structurally superior BEFORE observing new results.
+
+No more than three candidates may be designed.
+
+---
+
+# 14. STAGE F — FEATURE / STRATEGY INFRASTRUCTURE
+
+Implement only the reusable infrastructure required by the selected family.
+
+Keep strategy code deterministic and inspectable.
+
+Requirements:
+
+- 1h signal features calculated only from completed contiguous 1h bars;
+- 4h context only from completed contiguous 4h bars available as-of signal time;
+- no future access;
+- no post-cutoff data;
+- no forward fill across missing bars;
+- versioned feature definitions;
+- exact feature/config hashes;
+- reproducible output.
+
+If adding indicators such as returns/momentum, moving averages, ATR/range, realized volatility,
+rolling highs/lows, volume normalization, or trend slope, implement them transparently.
+
+Do not add a generic TA library just to generate hundreds of unused indicators.
+
+No feature zoo.
+
+---
+
+# 15. STAGE G — FREEZE WP-004 EXPERIMENTS BEFORE RESULTS
+
+After selecting the primary family and exact max-3 variant set:
+
+1. implement strategy + feature code;
+2. synthetic/unit test it;
+3. commit implementation;
+4. create all preregistrations;
+5. update search-memory fingerprints and family budgets;
+6. commit all preregistrations + memory records;
+7. only then run real development results.
+
+Every preregistration must contain:
+
+- exact hypothesis;
+- classification;
+- parent/lineage;
+- novelty classification;
+- mechanism;
+- exact strategy/config hash;
+- exact dataset hash;
+- exact feature definitions;
+- exact cost model;
+- exact walk-forward schedule;
+- exact metric hierarchy;
+- exact trial budget;
+- exact robustness checks;
+- falsification criterion.
+
+Do not amend a preregistration after seeing result.
+
+---
+
+# 16. STAGE H — EVALUATION OF THE SELECTED FAMILY
+
+For each preregistered structural variant, compute at minimum:
+
+## Primary evidence
+
+Purged chronological walk-forward validation:
+
+- net expectancy R after default costs;
+- fold-by-fold expectancy;
+- total valid resolved trades;
+- unresolved rate;
+- cumulative net R;
+- profit factor;
+- max drawdown R;
+- cost drag;
+- calendar/year distribution as descriptive only.
+
+## Robustness
+
+Predeclare and run:
+
+- default cost;
+- 2x cost stress;
+- zero-cost diagnostic;
+- one timing perturbation appropriate to the strategy;
+- one feature-ablation or regime-ablation if not already a structural variant.
+
+Do not select the best robustness profile.
+
+## Stability
+
+Report:
+
+- fraction of validation folds positive;
+- worst fold;
+- best fold;
+- concentration of P&L;
+- trade-count concentration;
+- whether one year dominates;
+- whether one regime dominates;
+- sensitivity to cost;
+- invalid/unresolved counts.
+
+No Champion promotion in WP-004.
+
+No sealed evaluation in WP-004.
+
+---
+
+# 17. STAGE I — COMPARISON AGAINST WP-003 CONTROLS
+
+Compare new variants to:
+
+- random-entry control;
+- trend baseline;
+- breakout baseline;
+- delayed timing control;
+- no-trade control.
+
+Do NOT compare Buy & Hold as though it were a <=24h strategy.
+
+Important question:
+
+Does the selected family improve economically meaningful NET behavior, or merely move around the
+same weak gross signal?
+
+Possible outcomes include:
+
+- genuinely stronger net expectancy;
+- fewer trades but better edge/trade;
+- same gross edge with reduced turnover;
+- still cost-dominated;
+- regime-specific;
+- unstable;
+- no improvement.
+
+All are valid findings.
+
+---
+
+# 18. STAGE J — ANTI-CIRCULARITY VALIDATION ON THE NEW FAMILY
+
+Before finalizing WP-004, test the new search-memory system against deliberate examples.
 
 At minimum:
 
-- trade count
-- net expectancy R
-- cumulative net R
-- profit factor
-- maximum drawdown R
-- hit rate
-- average win R
-- average loss R
-- gross-to-net cost drag R
-- invalid/unresolved counts
-- calendar-year descriptive breakdown
+1. exact duplicate of WP-003 breakout -> rejected as DUPLICATE;
+2. breakout with only window 24 -> 25 -> PARAMETER_VARIANT / near duplicate;
+3. renamed breakout with identical logic -> rejected;
+4. same mechanism with materially new 4h regime gate -> classified appropriately;
+5. previously failed family revisited without new evidence -> rejected;
+6. failed family revisited with explicit new evidence basis -> allowed only if budget/policy permits;
+7. different name but same fingerprint -> same family;
+8. exact current algorithm variant replay -> rejected.
 
-No naive i.i.d. significance tests. No promotion threshold in WP-003.
+Add deterministic tests.
 
 ---
 
-# Stage 5 — preregister all six experiments before running any market result
+# 19. STAGE K — RESEARCH KNOWLEDGE MAP
 
-Create one immutable directory per experiment.
+Create a compact durable research map:
 
-Exact IDs:
+`research/memory/RESEARCH_MAP.md`
 
-1. `EXP-BASE-001-BUYHOLD`
-2. `EXP-CTRL-002-RANDOM`
-3. `EXP-BASE-003-TREND`
-4. `EXP-BASE-004-BREAKOUT`
-5. `EXP-CTRL-005-TREND-DELAY-1H`
-6. `EXP-CTRL-006-NO-TRADE`
+Show:
 
-All six preregistrations must exist, validate, and be committed BEFORE the first market-derived result is computed.
+- tested families;
+- lineage;
+- experiment IDs;
+- current status;
+- consumed budget;
+- key result;
+- key lesson;
+- legitimate future directions;
+- blocked duplicate directions.
 
-Workflow:
+Do not make it a giant append-only diary.
 
-1. implement fixed adapters/configs;
-2. synthetic-test them;
-3. commit implementation/configs;
-4. preregister all six against immutable strategy/config content identities;
-5. commit all six preregistrations;
-6. only then run results.
-
-Do not change strategy/config implementation after observing results.
-
-If a material bug is discovered after results, preserve affected record as invalid/failed and create a new version for any justified rerun.
+Machine-readable files are authoritative; Markdown is the human view.
 
 ---
 
-# Experiment 1 — Buy & Hold reference
+# 20. STAGE L — ASTRA'S SCIENTIFIC INTERPRETATION
 
-ID: `EXP-BASE-001-BUYHOLD`
+Create:
 
-Classification: `REFERENCE_ONLY_NOT_PRODUCT_CANDIDATE`
+`reports/research/WP-004-ASTRA-ULTRA.md`
 
-Purpose: BTC market-direction reference over development history.
+Discuss:
 
-It is outside the ~24h product holding horizon and must never be treated as an actionable V1 strategy.
+- what WP-003 taught;
+- whether cost drag is the dominant current bottleneck;
+- whether breakout gross behavior appears sufficiently non-random to justify continuation research;
+- why the selected algorithm family was chosen;
+- which alternatives were rejected without testing and why;
+- what the new results say;
+- where performance comes from;
+- whether it is broad or concentrated;
+- whether the hypothesis was falsified, weakened, or remains plausible;
+- whether any result deserves another bounded development allocation;
+- what NOT to test next;
+- which families should be temporarily retired;
+- current multiple-testing/adaptive-search burden.
 
-Exact rule:
+Be skeptical.
 
-- entry at first canonical development 1m open;
-- exit at final canonical development 1m close;
-- apply default cost model once at entry and exit;
-- use endpoint return metrics only.
-
-Primary metric: `net total return`
-
-Secondary:
-
-- gross total return
-- cost drag
-- coverage duration
-- first/last timestamp
-
-Trial budget: 1.
+Do not write "we found the strategy" based on development data.
 
 ---
 
-# Experiment 2 — deterministic random-entry null control
+# 21. DECISION RULE AFTER WP-004
 
-ID: `EXP-CTRL-002-RANDOM`
+Astra must NOT promote Champion.
 
-Classification: `NEGATIVE_CONTROL`
+Assign each tested primary-family variant one terminal research classification:
 
-At every common eligible UTC hour boundary while flat, generate deterministic uniform draw.
+- `REJECT`
+- `REJECT_COST_DOMINATED`
+- `REJECT_UNSTABLE`
+- `REJECT_DUPLICATE_MECHANISM`
+- `INCONCLUSIVE`
+- `PROMISING_DEVELOPMENT_ONLY`
 
-Signal probability: `1 / 24`
+`PROMISING_DEVELOPMENT_ONLY` is allowed only if:
 
-Run exactly 32 fixed seeds.
+- default-cost aggregate expectancy > 0;
+- not driven by one fold/year;
+- majority of validation folds are non-negative or a stronger stability argument is documented;
+- trade count is not obviously trivial;
+- 2x cost stress is not catastrophically inconsistent with the claimed mechanism;
+- no structural validation failure;
+- no undeclared search occurred.
 
-Generate seeds deterministically from SHA-256 of:
+This classification does NOT make it Champion.
+It only determines whether another bounded development allocation is justified.
 
-`RANDOM_ENTRY_CONTROL_V1:<index>`
-
-for index 0..31 using a documented integer conversion.
-
-Do not choose/discard/promote the best seed.
-
-Common trade template applies.
-
-Primary aggregate:
-
-`median net expectancy R across all 32 seeds`
-
-Secondary:
-
-- mean
-- min/max
-- deterministic q10/q90
-- trade-count distribution
-- unresolved distribution
-
-Trial budget: 32.
-
-Every seed result is preserved.
+If every variant fails, that is a successful scientific outcome.
 
 ---
 
-# Experiment 3 — simple trend baseline
+# 22. UI / API
 
-ID: `EXP-BASE-003-TREND`
+Only add small research inspection changes if needed.
 
-Classification: `FIXED_BASELINE_NOT_CANDIDATE`
-
-At each common eligible signal boundary:
-
-- SMA of closes over most recent 24 consecutive completed 1h bars;
-- SMA of closes over most recent 168 consecutive completed 1h bars;
-- emit LONG iff `SMA_24 > SMA_168`.
-
-No crossing requirement.
-No additional filter.
-No 4h regime filter.
-No volume filter.
-No tuning.
-
-24h and 168h are fixed natural time clocks, not selected by result.
-
-Common trade template applies.
-
-Primary profile: `BTCUSDT_SPOT_COST_V1`
-
-Predeclared secondary diagnostics:
-
-- zero-cost diagnostic
-- 2x cost stress:
-  - entry fee 20 bps
-  - exit fee 20 bps
-  - entry friction 4 bps
-  - exit friction 4 bps
-
-Do not select the best cost profile.
-
-Primary metric only uses default cost.
-
-Evaluation budget: 3 fixed profiles, zero adaptive search.
-
----
-
-# Experiment 4 — simple 24h breakout baseline
-
-ID: `EXP-BASE-004-BREAKOUT`
-
-Classification: `FIXED_BASELINE_NOT_CANDIDATE`
-
-At each common eligible boundary:
-
-- current signal bar = most recently completed 1h bar;
-- previous 24 completed 1h bars exclude current;
-- emit LONG iff `current_close > max(previous_24_highs)`.
-
-Strict `>`.
-
-No additional filter.
-No 4h regime filter.
-No tuning.
-
-Common trade template applies.
-
-Same three fixed cost profiles as trend.
-
-Primary metric: default-cost net expectancy R.
-
-Evaluation budget: 3 fixed profiles, zero adaptive search.
-
----
-
-# Experiment 5 — 1h delayed trend signal control
-
-ID: `EXP-CTRL-005-TREND-DELAY-1H`
-
-Classification: `TIMING_NEGATIVE_CONTROL`
-
-At boundary `t`, evaluate the exact trend condition that was available at `t-1h`.
-
-If prior condition was true, emit the common LONG plan at `t`, using the latest signal-time reference close allowed by the preregistered delayed-control definition.
-
-Implementation must never access information after `t`.
-
-Document exact reference-price convention prospectively and test synthetically.
-
-Use only `BTCUSDT_SPOT_COST_V1`.
-
-No tuning.
-
-Primary metric: net expectancy R.
-
-Trial budget: 1.
-
-A better result than non-delayed trend is NOT automatically a pipeline failure and must not trigger adaptive redesign.
-
----
-
-# Experiment 6 — no-trade control
-
-ID: `EXP-CTRL-006-NO-TRADE`
-
-Classification: `NEGATIVE_CONTROL`
-
-At every common eligible boundary emit no trade.
-
-Expected:
-
-- attempted entries: 0
-- resolved trades: 0
-- performance metrics requiring trades: null/not applicable
-- no fabricated product `NO_TRADE` advice record
-
-If this experiment produces any trade, WP-003 FAILS.
-
-Trial budget: 1.
-
----
-
-# Structural future-access rejection control
-
-This is validation, not one of the six market experiments.
-
-Create a synthetic strategy adapter/test attempting to obtain/use a future 1h or 4h bar through the sanctioned signal interface.
-
-It must fail deterministically.
-
-No market performance result is produced.
-
----
-
-# Stage 6 — execute the six preregistered experiments
-
-Before execution verify mechanically:
-
-- all six preregistrations exist and validate;
-- exact dataset manifest/content identity matches;
-- exact strategy/config identities match;
-- PRE-EXPERIMENT GATE is PASS;
-- no result exists yet;
-- no code/config drift since prereg;
-- all declared trials explicit.
-
-Execute only the declared matrix.
-
-Do not:
-
-- add experiment because a result is interesting;
-- change parameter because result is bad;
-- stop early because result is good;
-- rerun unusual seed;
-- hide negative/failed/control result.
-
----
-
-# Stage 7 — research summary without narrative overreach
-
-Create `reports/research/WP-003-BASELINES.md` from finalized artifacts.
-
-Clearly separate:
-
-- reference
-- fixed baselines
-- negative controls
-- invalid/unresolved
-- cost stress
-
-Include:
-
-- experiment IDs/versions
-- exact dataset identity
-- model versions
-- preregistered rule summary
-- primary result
-- trade count
-- unresolved/invalid count
-- yearly descriptive stability
-- cost stress where applicable
-- random-control distribution
-- negative-control behavior
-
-Interpretation rules:
-
-- never call a positive baseline "profitable strategy found";
-- never call a negative baseline a project failure;
-- do not promote Champion;
-- do not change research direction adaptively inside WP-003;
-- distinguish development backtest evidence from synthetic substrate validation.
-
-Material experiment count = 6 if all six terminally complete.
-
----
-
-# Stage 8 — API/UI research inspection
-
-Add maintainable read-only research inspection.
-
-API may expose experiment summary, classification, primary metric, evidence stage, validation status.
-
-UI Research Lab may show:
-
-- Champion: NONE
-- completed experiments: 6
-- evidence stage: DEVELOPMENT BACKTEST / CONTROLS
-- fixed baseline results
-- negative controls
-- latest checkpoint
-- next research checkpoint
+Do not turn development experiments into product advice.
 
 Dashboard remains:
 
 - PAPER ONLY
 - no approved strategy
 - Analyze Market unavailable
-- no LONG/NO_TRADE advice
+- no LONG/NO_TRADE product action
 
-Statistics page must not combine baseline development results into fake approved strategy statistics.
+Research Lab may show:
 
-Any shown baseline metrics must be labeled:
+- experiments completed;
+- family budgets;
+- search-memory status;
+- tested families;
+- candidate status;
+- Champion NONE.
+
+Any metric must say:
 
 `DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE`
 
 ---
 
-# Stage 9 — canonical validator
+# 23. STATE UPDATES
+
+At the end, update `state/current_state.json` truthfully.
+
+Preserve:
+
+- sealed evaluations = 0
+- paper trades = 0
+- Champion = NONE
+- forward evidence = NONE
+- real money = false
+- Owner decision required = false
+
+Update:
+
+- experiment count;
+- latest executor checkpoint = WP-004;
+- search-memory version/status;
+- adaptive-search accounting;
+- selected family name;
+- selected family terminal classification;
+- next recommended checkpoint.
+
+Do not dump every metric into current state.
+
+---
+
+# 24. VALIDATION
 
 Strengthen `python scripts/check.py`.
 
-After experiments verify:
+It must validate:
 
-- branch `main`
-- seed/WP ancestry
-- Constitution
-- state schema
-- cutoff and dataset hashes
-- engine/execution V2
-- PRE-EXPERIMENT gate hash
-- exactly six material experiment directories/results
-- all preregistrations predate final results
-- exact code/config identities
-- trial budgets
-- random exactly 32 preserved seeds
-- trend exactly three fixed cost profiles
-- breakout exactly three fixed cost profiles
-- delayed exactly one
-- no-trade exactly one and zero entries
-- buy-hold exactly one
-- no undeclared trial
-- result/prereg linkage
-- state experiment count equals finalized experiment count
-- sealed=0
-- paper=0
-- Champion=NONE
-- forward evidence=NONE
-- real money=false
-- no post-cutoff data
-- no non-BTC assets
-- no SHORT/leverage
-- no exchange execution/credentials
-- backend/frontend tests/build
-- clean-checkout no-data validation
+- current branch main;
+- starting ancestry;
+- Constitution;
+- development cutoff;
+- dataset hash;
+- no post-cutoff data;
+- no non-BTC data;
+- no SHORT/leverage;
+- no real-money code;
+- search-memory schemas;
+- fingerprint determinism;
+- duplicate rejection;
+- family budget accounting;
+- preregistration chronology;
+- exact max-3 WP-004 variant budget;
+- no undeclared strategy trial;
+- walk-forward schedule frozen before results;
+- result linkage;
+- updated experiment count;
+- Champion NONE;
+- sealed 0;
+- paper 0;
+- backend/frontend tests;
+- clean checkout no-data validation.
 
-Profitability must never determine validator PASS/FAIL.
+CI must remain green after Owner push.
+
+Profitability must NEVER determine validator PASS.
 
 ---
 
-# Stage 10 — state and records
+# 25. DEFAULT BRANCH HOUSEKEEPING
 
-If all six experiments and validation pass, update `state/current_state.json` truthfully:
+The remote GitHub repository currently has historical default branch configuration pointing to
+the old WP-001 work branch even though research now proceeds on main.
 
-- project phase: `BASELINE_RESEARCH`
-- status: `EXECUTOR_COMPLETE_PENDING_REVIEW`
-- latest reviewed checkpoint: `WP-002`
-- latest executor checkpoint: `WP-003`
-- development dataset unchanged
-- backtest engine: `BACKTEST_ENGINE_V2`
-- execution model: `EXECUTION_MODEL_V2`
-- cost model: `BTCUSDT_SPOT_COST_V1`
-- experiments completed: 6
-- sealed evaluations: 0
-- paper trades: 0
-- Champion: NONE
-- forward evidence: NONE
-- real money: false
-- Owner decision required: false
-- next recommended work package: Research Director review then bounded strategy-research allocation
+If repository permissions/tooling available to Astra safely support changing the remote default
+branch to `main`, do so and record it.
 
-Do not turn state into a result dump.
+If not, do NOT block WP-004.
+Record a concise external housekeeping item for the Research Director/Owner.
 
-Create `reports/checkpoints/WP-003.md`.
-
-Archive task to `tasks/archive/WP-003.md`.
-
-Mark current task COMPLETED only on full structural success.
+Do not alter old historical work branches.
 
 ---
 
-# Acceptance criteria
+# 26. AGENT POLICY — ASTRA ULTRA
 
-WP-003 executor PASS requires ALL of the following.
+Add a concise durable policy to an appropriate repository governance/agent file:
 
-## Repository/workflow
+- Codex = primary high-throughput engineering executor;
+- Astra Ultra = high-leverage scientific/architecture/red-team/algorithm-design executor;
+- Astra Ultra should be used when reasoning quality materially matters;
+- do not avoid Ultra solely to preserve usage;
+- scientific truth lives in the repository, not an agent chat;
+- no agent is allowed to authorize real capital.
 
-1. Starts exactly from reviewed WP-002 HEAD.
-2. No new branch created.
-3. Work occurs on local `main`.
-4. Seed/WP history preserved.
-5. AGENTS documents main-only sequential workflow.
-6. No push by executor.
-7. Working tree clean.
-
-## WP-002 corrections
-
-8. Fresh clean checkout bootstrap passes.
-9. CI-equivalent no-data check passes.
-10. Event boundary semantics explicit/tested.
-11. Target-at-open precedence fixed/golden-tested.
-12. Contiguous 1h lookback enforced.
-13. Contiguous 4h context enforced.
-14. Parsed UTC cutoff replaces string ordering.
-15. Offset cutoff bypass rejected.
-16. Engine rejects post-cutoff path.
-17. Engine rejects invalid signal clocks.
-18. Splitter rejects zero-duration/non-progress configs.
-19. Production runner owns trial counting.
-20. Undeclared trials/configs rejected.
-21. Code/config identity enforced.
-22. Result immutability enforced.
-23. PRE-EXPERIMENT GATE passes before any real result.
-
-## Scientific execution
-
-24. All six preregistrations exist before first result.
-25. All reference exact dataset/content identity.
-26. No strategy/config change after observing result without new version.
-27. Buy-hold classified reference-only.
-28. Random runs exactly 32 deterministic predeclared seeds.
-29. Trend exactly SMA24>SMA168, no extra filter.
-30. Breakout exactly close > previous-24-high max.
-31. Delayed control exactly 1h and future-safe.
-32. No-trade produces zero trades.
-33. Trade template fixed 2% stop / 4% target / 24h from signal-time close.
-34. Base cost model unchanged.
-35. Trend/breakout stress profiles fixed before results.
-36. No optimizer/grid/random parameter search.
-37. No adaptive trial addition.
-38. Invalid/unresolved records preserved/separated.
-39. Gap rows remain unfilled.
-40. Future-access structural control rejected.
-
-## Evidence/governance
-
-41. Exactly six material experiment results finalized if PASS.
-42. experiments_completed=6.
-43. sealed_evaluations_completed=0.
-44. paper_trades_completed=0.
-45. Champion=NONE.
-46. forward evidence=NONE.
-47. real money=false.
-48. No result described as approved advice.
-49. Negative results preserved.
-50. Development-only evidence clearly distinguished.
-51. Profitability has no bearing on checkpoint PASS.
-52. Full deterministic validation passes.
-53. Remote CI reported PENDING_PUSH, not falsely claimed PASS.
+Do not turn this into vendor-specific project architecture.
+It is an executor policy only.
 
 ---
 
-# Forbidden work
+# 27. FORBIDDEN WORK
 
-Do not:
+Do NOT:
 
-- access BTCUSDT data after `2024-12-31T23:59:00Z`;
-- access ETH or other assets;
-- add SHORT/leverage/perpetuals;
-- optimize baseline parameters;
-- try alternate SMA/breakout windows;
-- try alternate stop/target percentages;
-- choose random seeds by outcome;
-- add filters after seeing results;
-- create Champion;
-- run sealed evaluation;
+- access BTCUSDT after 2024-12-31 23:59 UTC;
+- access another asset;
+- run a sealed test;
 - paper trade;
+- create Champion;
 - enable Analyze Market;
-- create product LONG/NO_TRADE signal;
-- add exchange-order code;
-- add real-money credentials/controls;
-- rewrite failed results;
-- create a new branch.
+- produce current product LONG/NO_TRADE advice;
+- test more than the predeclared WP-004 budget;
+- tune parameters after seeing results;
+- create a parameter grid;
+- run an optimizer;
+- rename duplicates to bypass budgets;
+- delete negative results;
+- overwrite finalized results;
+- create a branch;
+- push;
+- enable real-money functionality.
 
 ---
 
-# Commit discipline
+# 28. COMMIT CHRONOLOGY
 
-Use meaningful sequential commits on `main`.
+Preserve scientific ordering with meaningful commits.
 
-Suggested milestones:
+Suggested sequence:
 
-1. record WP-002 review + main-only workflow;
-2. fix packaging/CI + substrate findings;
-3. complete PRE-EXPERIMENT GATE;
-4. implement fixed adapters + synthetic tests;
-5. commit all six preregistrations BEFORE results;
-6. execute/finalize all six experiments;
-7. add research UI/API summary;
-8. final validator/state/checkpoint.
+1. `docs: record WP-003 review and Astra Ultra research charter`
+2. `feat: add scientific search memory and anti-circularity governance`
+3. `feat: add adaptive research budget and walk-forward protocol`
+4. `research: freeze Astra algorithm family design and ranking`
+5. `feat: implement selected algorithm family and deterministic tests`
+6. `research: preregister WP-004 bounded algorithm variants`
+7. `research: finalize WP-004 development results`
+8. `feat: expose research memory status`
+9. `chore: complete WP-004 state and checkpoint`
 
-Do not squash away preregistration-before-result chronology.
-
----
-
-# Final validation
-
-Before reporting:
-
-1. `python scripts/check.py`
-2. clean-checkout CI-equivalent `--no-data`
-3. verify PRE-EXPERIMENT GATE preceded results
-4. verify branch main
-5. verify exact six experiment records
-6. verify prereg/result Git chronology
-7. verify no config drift
-8. verify dataset/content hashes
-9. verify no post-cutoff access
-10. verify no real-money code
-11. verify state counters
-12. verify git status clean
-13. record HEAD
+Do not squash away preregistration-before-results chronology.
 
 ---
 
-# Required executor response
+# 29. CHECKPOINT RECORD
+
+Create:
+
+`reports/checkpoints/WP-004.md`
+
+Archive:
+
+`tasks/archive/WP-004.md`
+
+Mark `tasks/CURRENT_TASK.md` COMPLETED only on structural success.
+
+---
+
+# 30. REQUIRED FINAL RESPONSE
 
 Return only:
 
 ```text
-WP-003: PASS | PARTIAL | FAIL
+WP-004 ASTRA ULTRA: PASS | PARTIAL | FAIL
 
 Branch:
 HEAD:
@@ -982,51 +1157,68 @@ Base reviewed HEAD:
 Remote CI:
 - PENDING_PUSH
 
-WP-002 remediation:
-- R1 clean bootstrap/CI config: PASS | FAIL
-- R2 event boundary semantics: PASS | FAIL
-- R3 target-at-open precedence: PASS | FAIL
-- R4 contiguous lookbacks: PASS | FAIL
-- R5 parsed UTC cutoff: PASS | FAIL
-- R6 engine cutoff/signal-clock defense: PASS | FAIL
-- R7 splitter hardening: PASS | FAIL
-- R8 production runner/trial accounting: PASS | FAIL
-- R9 main-only workflow: PASS | FAIL
+WP-003 review:
+- ACCEPTED | OTHER
 
-Pre-experiment gate:
-- status:
-- artifact/hash:
-- substrate versions:
+Scientific memory:
+- version:
+- search ledger:
+- hypothesis families tracked:
+- duplicate/near-duplicate validator:
+- adaptive-search accounting:
+- family budget enforcement:
 
-Experiments:
-- EXP-BASE-001-BUYHOLD: <terminal status + primary result>
-- EXP-CTRL-002-RANDOM: <terminal status + median expectancy>
-- EXP-BASE-003-TREND: <terminal status + default-cost expectancy/trade count>
-- EXP-BASE-004-BREAKOUT: <terminal status + default-cost expectancy/trade count>
-- EXP-CTRL-005-TREND-DELAY-1H: <terminal status + expectancy/trade count>
-- EXP-CTRL-006-NO-TRADE: <terminal status + trade count>
+Algorithm design:
+- candidate 1:
+- candidate 2:
+- candidate 3:
+- selected primary family:
+- why selected: <one concise sentence>
+- structural variants executed: <0-3>
 
-Data quality:
-- invalid attempts:
-- unresolved trades:
-- gap policy:
+Evaluation:
+- walk-forward schedule:
+- <variant 1>: <classification, net expectancy, trades, fold stability>
+- <variant 2 if any>: <classification, net expectancy, trades, fold stability>
+- <variant 3 if any>: <classification, net expectancy, trades, fold stability>
+
+Comparison:
+- vs random:
+- vs trend baseline:
+- vs breakout baseline:
+- cost sensitivity:
+- concentration/stability:
+
+Research conclusion:
+- selected family terminal classification:
+- strongest evidence:
+- strongest uncertainty:
+- family/ideas retired:
+- legitimate next research direction:
 
 Scientific state:
-- experiments=6
+- experiments=<count>
 - sealed_evaluations=0
 - paper_trades=0
 - champion=NONE
 - forward_evidence=NONE
 - real_money=false
 
+Anti-loop checks:
+- renamed duplicate rejected: PASS | FAIL
+- parameter-only near duplicate classified: PASS | FAIL
+- failed-family revisit without new evidence rejected: PASS | FAIL
+- family budgets cannot be reset by rename: PASS | FAIL
+
 Validation:
 - <one concise line>
 
 Forbidden-work check:
-- adaptive parameter search: absent
-- post-cutoff BTCUSDT access: absent
+- post-cutoff access: absent
 - non-BTC assets: absent
 - SHORT/leverage: absent
+- adaptive optimizer/search: absent
+- undeclared trials: absent
 - sealed evaluation: absent
 - paper trading: absent
 - real-money functionality: absent
@@ -1038,7 +1230,7 @@ Material deviations:
 - <only material deviations>
 
 Next recommendation:
-- <one sentence; do not promote a Champion>
+- <one sentence; no Champion promotion>
 ```
 
 Do not paste raw logs unless PARTIAL/FAIL and a short excerpt is essential.
