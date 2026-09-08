@@ -165,6 +165,14 @@ At the end:
 
 Do not push to GitHub unless the active task explicitly authorizes it.
 
+## Sequential Git workflow
+
+`main` is the single sequential development and research branch. Future work packages
+commit directly to local `main`; do not create a branch per work package. Never rewrite
+history. Immutable checkpoint reports, experiment records, content hashes, and commit
+SHAs form the audit trail. Failed experiments and failed checkpoints remain recorded.
+Codex does not push unless the active task explicitly authorizes it.
+
 ## Reporting
 
 Final executor reports should be short.
