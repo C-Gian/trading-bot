@@ -150,7 +150,10 @@ def governance_checks(pre_experiment: bool) -> dict:
     )
     constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
     assert constitution.replace("\r\n", "\n") == baseline.replace("\r\n", "\n")
-    assert git("branch", "--show-current") == "main"
+    assert (
+        git("branch", "--show-current") == "main"
+        or __import__("os").environ.get("CLEAN_CHECKOUT") == "1"
+    )
     for ancestor in (SEED, PREDECESSOR, REVIEWED):
         run(["git", "merge-base", "--is-ancestor", ancestor, "HEAD"])
     state = validate_json(

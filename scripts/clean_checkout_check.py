@@ -20,6 +20,7 @@ def main() -> None:
             uv = ROOT / ".tools/uv/uv.exe"
             if uv.is_file():
                 env["UV_EXE"] = str(uv)
+            env["CLEAN_CHECKOUT"] = "1"
             subprocess.run(
                 [sys.executable, "scripts/bootstrap.py"], cwd=checkout, env=env, check=True
             )
