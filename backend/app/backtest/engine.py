@@ -7,6 +7,8 @@ from dataclasses import replace
 from datetime import timedelta
 from decimal import Decimal
 
+from app.data.policy import CUTOFF
+
 from .models import Bar, CostModel, ExitReason, Intent, TradeRecord
 
 BPS = Decimal(10000)
@@ -42,7 +44,7 @@ def _unresolved(intent: Intent, reason: ExitReason) -> TradeRecord:
         net_r=None,
         holding_minutes=None,
         data_quality_status="INVALID"
-        if reason == ExitReason.INVALID_MISSING_ENTRY_BAR
+        if reason in {ExitReason.INVALID_MISSING_ENTRY_BAR, ExitReason.INVALID_NON_TRADABLE}
         else "UNRESOLVED",
         suppressed_signal_count=0,
     )
@@ -77,14 +79,17 @@ def simulate(
     overlapping_signals: Iterable = (),
 ) -> TradeRecord:
     path = tuple(bars)
+    if any(
+        bar.open_time.tzinfo is None or bar.open_time.astimezone(CUTOFF.tzinfo) > CUTOFF
+        for bar in path
+    ):
+        raise ValueError("canonical path timestamp exceeds development boundary")
     if not path or path[0].open_time != intent.signal_timestamp:
         return _unresolved(intent, ExitReason.INVALID_MISSING_ENTRY_BAR)
     entry_bar = path[0]
     entry_raw = entry_bar.open
-    if intent.stop >= entry_raw:
-        raise ValueError("initial long risk must be positive")
-    if intent.target is not None and intent.target <= entry_raw:
-        raise ValueError("long target must exceed entry")
+    if intent.stop >= entry_raw or (intent.target is not None and intent.target <= entry_raw):
+        return _unresolved(intent, ExitReason.INVALID_NON_TRADABLE)
     entry_effective = entry_raw * (BPS + costs.entry_friction_bps) / BPS
     entry_fee = entry_effective * costs.entry_fee_bps / BPS
     expiry = entry_bar.open_time + timedelta(minutes=intent.max_hold_minutes)
@@ -108,6 +113,9 @@ def simulate(
         target_hit = intent.target is not None and bar.high >= intent.target
         if bar.open < intent.stop:
             exit_raw, exit_time, reason = bar.open, bar.open_time, ExitReason.STOP_GAP
+            break
+        if intent.target is not None and bar.open >= intent.target:
+            exit_raw, exit_time, reason = intent.target, bar.open_time, ExitReason.TARGET
             break
         if stop_hit:
             exit_raw, exit_time, reason = intent.stop, bar.open_time, ExitReason.STOP

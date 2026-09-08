@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from decimal import Decimal
 from enum import StrEnum
 from typing import Any
@@ -21,6 +21,7 @@ class ExitReason(StrEnum):
     STOP_GAP = "STOP_GAP"
     EXPIRY = "EXPIRY"
     INVALID_MISSING_ENTRY_BAR = "INVALID_MISSING_ENTRY_BAR"
+    INVALID_NON_TRADABLE = "INVALID_NON_TRADABLE"
     UNRESOLVED_DATA_GAP = "UNRESOLVED_DATA_GAP"
     UNRESOLVED_END_OF_DATA = "UNRESOLVED_END_OF_DATA"
 
@@ -77,8 +78,11 @@ class Intent:
             raise ValueError("unsupported entry timing")
         if not 1 <= self.max_hold_minutes <= 1440:
             raise ValueError("holding horizon exceeds approved maximum")
-        if self.signal_timestamp.tzinfo is None or self.signal_timestamp > CUTOFF:
+        if self.signal_timestamp.tzinfo is None or self.signal_timestamp.astimezone(UTC) > CUTOFF:
             raise ValueError("signal timestamp exceeds development boundary")
+        utc = self.signal_timestamp.astimezone(UTC)
+        if utc.minute or utc.second or utc.microsecond:
+            raise ValueError("signal must occur on a UTC hour boundary")
 
 
 @dataclass(frozen=True)

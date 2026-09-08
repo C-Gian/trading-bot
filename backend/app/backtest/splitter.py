@@ -31,7 +31,11 @@ def make_folds(
         start.tzinfo is None
         or end.tzinfo is None
         or end > CUTOFF
-        or min(train, validation, purge, embargo, horizon) < timedelta(0)
+        or train <= timedelta(0)
+        or validation <= timedelta(0)
+        or horizon <= timedelta(0)
+        or purge < timedelta(0)
+        or embargo < timedelta(0)
         or purge < horizon
     ):
         raise ValueError("invalid boundaries or insufficient horizon purge")

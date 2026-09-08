@@ -77,8 +77,7 @@ def test_scope_horizon_risk_and_cutoff_rejections():
         intent(direction="SHORT")
     with pytest.raises(ValueError):
         intent(max_hold_minutes=1441)
-    with pytest.raises(ValueError):
-        simulate(intent(stop=D(100)), [bar()])
+    assert simulate(intent(stop=D(100)), [bar()]).exit_reason == ExitReason.INVALID_NON_TRADABLE
     with pytest.raises(ValueError):
         intent(signal_timestamp=datetime(2025, 1, 1, tzinfo=UTC))
 
@@ -129,11 +128,10 @@ def test_asof_view_excludes_future_and_incomplete_bars():
     one_hour = (
         Bar(T - timedelta(hours=1), D(1), D(1), D(1), D(1), True),
         Bar(T, D(1), D(1), D(1), D(1), True),
-        Bar(T - timedelta(hours=1), D(1), D(1), D(1), D(1), False),
     )
     four_hour = (
-        Bar(T - timedelta(hours=4), D(1), D(1), D(1), D(1), True),
-        Bar(T - timedelta(hours=8), D(1), D(1), D(1), D(1), False),
+        Bar(T - timedelta(hours=5), D(1), D(1), D(1), D(1), True),
+        Bar(T - timedelta(hours=9), D(1), D(1), D(1), D(1), False),
     )
     view = AsOfView.build(T, one_hour, four_hour)
     assert len(view.signal_bars_1h) == 1 and len(view.context_bars_4h) == 1
@@ -141,5 +139,6 @@ def test_asof_view_excludes_future_and_incomplete_bars():
 
 
 def test_incomplete_signal_bar_rejected_and_context_excluded():
+    view = AsOfView.build(T, (Bar(T - timedelta(hours=1), D(1), D(1), D(1), D(1), False),), ())
     with pytest.raises(ValueError):
-        AsOfView.build(T, (Bar(T - timedelta(hours=1), D(1), D(1), D(1), D(1), False),), ())
+        view.require_1h(1)

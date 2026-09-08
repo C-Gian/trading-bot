@@ -4,7 +4,14 @@ from pathlib import Path
 import jsonschema
 import pytest
 from app.research.records import RecordValidationError, validate_result
-from app.research.runner import deterministic_run_identity, finalize_result, run_fixture
+from app.research.runner import (
+    declared_content_identity,
+    deterministic_run_identity,
+    finalize_result,
+    run_declared_trials,
+    run_fixture,
+    sha256,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -160,3 +167,72 @@ def test_runner_enforces_budget_and_is_reproducibly_identified(tmp_path):
 def test_malformed_dataset_manifest_fails():
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate({"symbol": "BTCUSDT"}, load_schema("dataset_manifest.schema.json"))
+
+
+def test_production_runner_owns_declared_trial_iteration_and_identity(tmp_path):
+    manifest_path = ROOT / "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json"
+    manifest = json.loads(manifest_path.read_text())
+    strategy = tmp_path / "strategy.py"
+    config = tmp_path / "config.json"
+    strategy.write_text("RULE = 'fixed'\n")
+    config.write_text('{"fixed": true}')
+    plan = [
+        {
+            "trial_id": trial_id,
+            "config_path": str(config),
+            "config_sha256": sha256(config),
+        }
+        for trial_id in ("fixed-a", "fixed-b")
+    ]
+    payload = prereg()
+    payload.update(
+        {
+            "dataset": {
+                "manifest_id": manifest["manifest_id"],
+                "content_hash": manifest["content_hash"]["value"],
+                "maximum_timestamp": manifest["coverage"]["end"],
+            },
+            "trial_budget": 2,
+            "seeds": [1, 2],
+            "parameter_space": {
+                "strategy_path": str(strategy),
+                "strategy_sha256": sha256(strategy),
+                "trial_plan": plan,
+            },
+            "code_config_reference": declared_content_identity(strategy, plan),
+        }
+    )
+    path = write(tmp_path / "prereg.json", payload)
+    seen = []
+
+    def adapter(configuration, trial_id):
+        seen.append(trial_id)
+        return {"fixed": configuration["fixed"]}
+
+    trials = run_declared_trials(path, manifest_path, adapter)
+    assert seen == ["fixed-a", "fixed-b"]
+    assert [trial["trial_id"] for trial in trials] == seen
+
+    bad = json.loads(json.dumps(payload))
+    bad["parameter_space"]["trial_plan"].append(
+        {"trial_id": "undeclared", "config_path": str(config), "config_sha256": sha256(config)}
+    )
+    with pytest.raises(RecordValidationError):
+        run_declared_trials(write(tmp_path / "undeclared.json", bad), manifest_path, adapter)
+
+    strategy.write_text("RULE = 'changed'\n")
+    with pytest.raises(RecordValidationError):
+        run_declared_trials(path, manifest_path, adapter)
+
+
+@pytest.mark.parametrize(
+    "timestamp",
+    ["2024-12-31T20:30:00-05:00", "2025-01-01T00:00:00"],
+)
+def test_preregistration_rejects_offset_or_naive_cutoff_bypass(tmp_path, timestamp):
+    from app.research.records import validate_preregistration
+
+    payload = prereg()
+    payload["dataset"]["maximum_timestamp"] = timestamp
+    with pytest.raises(RecordValidationError):
+        validate_preregistration(write(tmp_path / "prereg.json", payload))

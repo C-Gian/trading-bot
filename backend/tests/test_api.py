@@ -46,7 +46,7 @@ def test_cutoff_guards(tmp_path):
 def test_substrate_versions_come_from_state(tmp_path):
     state_path = fixture_state(tmp_path)
     payload = TestClient(create_app(state_path)).get("/api/v1/backtest/substrate").json()
-    assert payload["engine_version"] == "BACKTEST_ENGINE_V1"
+    assert payload["engine_version"] == "BACKTEST_ENGINE_V2"
 
 
 def test_repository_state_and_default_api_are_consistent():

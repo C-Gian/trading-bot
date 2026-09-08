@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 import jsonschema
+
+from app.data.policy import CUTOFF, parse_utc_instant
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -33,7 +34,11 @@ def _validate_schema(record: dict[str, Any], schema_name: str) -> None:
 def validate_preregistration(path: Path) -> dict[str, Any]:
     record = _load(path)
     _validate_schema(record, "experiment_preregistration.schema.json")
-    if record["dataset"]["maximum_timestamp"] > "2024-12-31T23:59:00Z":
+    try:
+        maximum = parse_utc_instant(record["dataset"]["maximum_timestamp"])
+    except ValueError as exc:
+        raise RecordValidationError("dataset timestamp must be timezone-aware") from exc
+    if maximum > CUTOFF:
         raise RecordValidationError("dataset exceeds development cutoff")
     return record
 
@@ -58,8 +63,8 @@ def validate_result(result_path: Path, preregistration_path: Path) -> dict[str, 
         or result["dataset"]["content_hash"] != prereg["dataset"]["content_hash"]
     ):
         raise RecordValidationError("dataset identity mismatch")
-    created = datetime.fromisoformat(prereg["created_at_utc"])
-    completed = datetime.fromisoformat(result["completed_at_utc"])
+    created = parse_utc_instant(prereg["created_at_utc"])
+    completed = parse_utc_instant(result["completed_at_utc"])
     if completed < created:
         raise RecordValidationError("result predates preregistration")
     accounting = result["trial_accounting"]

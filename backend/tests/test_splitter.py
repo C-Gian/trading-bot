@@ -34,6 +34,25 @@ def test_splitter_rejects_insufficient_purge_and_cutoff():
             timedelta(0),
             timedelta(days=1),
         )
+
+
+def test_splitter_rejects_zero_progress_and_naive_boundaries():
+    base = [
+        datetime(2020, 1, 1, tzinfo=UTC),
+        datetime(2020, 3, 1, tzinfo=UTC),
+        timedelta(days=20),
+        timedelta(days=10),
+        timedelta(days=1),
+        timedelta(0),
+        timedelta(days=1),
+    ]
+    for index in (2, 3, 6):
+        args = base.copy()
+        args[index] = timedelta(0)
+        with pytest.raises(ValueError):
+            make_folds(*args)
+    with pytest.raises(ValueError):
+        make_folds(datetime(2020, 1, 1, tzinfo=None), datetime(2020, 3, 1, tzinfo=None), *base[2:])  # noqa: DTZ001
     with pytest.raises(ValueError):
         make_folds(
             datetime(2024, 1, 1, tzinfo=UTC),
