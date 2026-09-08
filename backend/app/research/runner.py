@@ -17,15 +17,16 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def declared_content_identity(strategy_path: Path, plan: list[dict[str, Any]]) -> str:
     digest = hashlib.sha256()
-    digest.update(strategy_path.read_bytes())
+    digest.update(strategy_path.read_bytes().replace(b"\r\n", b"\n"))
     for item in plan:
         config_path = ROOT / item["config_path"]
-        digest.update(item["trial_id"].encode() + b"\0" + config_path.read_bytes() + b"\0")
+        content = config_path.read_bytes().replace(b"\r\n", b"\n")
+        digest.update(item["trial_id"].encode() + b"\0" + content + b"\0")
     return digest.hexdigest()
 
 
