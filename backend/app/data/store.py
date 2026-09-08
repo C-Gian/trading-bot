@@ -20,6 +20,8 @@ def candles(symbol: str, timeframe: str, start: datetime, end: datetime, limit: 
     table = ds.dataset(FILES[timeframe], format="parquet").to_table(
         filter=(ds.field("open_time") >= start) & (ds.field("open_time") <= end)
     )
+    if timeframe in {"1h", "4h"}:
+        table = table.filter(table["complete"])
     return table.slice(0, limit).to_pylist()
 
 

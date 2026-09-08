@@ -1,0 +1,15 @@
+{
+  "classification": "SYNTHETIC TEST FIXTURE — NOT MARKET EVIDENCE",
+  "scenario": "long target from 100 to 110 with BTCUSDT_SPOT_COST_V1",
+  "expected": {
+    "entry_raw_price": "100",
+    "entry_effective_price": "100.02",
+    "exit_raw_price": "110",
+    "exit_effective_price": "109.978",
+    "entry_fee": "0.10002",
+    "exit_fee": "0.109978",
+    "gross_pnl": "10",
+    "net_pnl": "9.748002",
+    "net_r": "0.9748002"
+  }
+}
