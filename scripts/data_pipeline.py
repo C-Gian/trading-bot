@@ -17,7 +17,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
-from app.data.policy import CUTOFF, require_allowed  # noqa: E402
+from app.data.policy import CUTOFF, require_allowed
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m"
@@ -182,7 +182,12 @@ def main():
         "files": files,
         "content_hash": {"algorithm": "sha256-canonical-csv-v1", "value": logical.hexdigest()},
         "schema_version": 1,
-        "integrity": {"duplicates": dup, "missing_minutes": gaps, "invalid_ohlcv": invalid, "incomplete_windows": incomplete},
+        "integrity": {
+            "duplicates": dup,
+            "missing_minutes": gaps,
+            "invalid_ohlcv": invalid,
+            "incomplete_windows": incomplete,
+        },
         "derivation": {
             "1h": "UTC aligned from 1m; incomplete flagged",
             "4h": "UTC aligned from 1m; incomplete flagged",

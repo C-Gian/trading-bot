@@ -10,4 +10,5 @@ __pycache__/
 .ruff_cache/
 frontend/node_modules/
 frontend/dist/
+*.tsbuildinfo
 *.pyc

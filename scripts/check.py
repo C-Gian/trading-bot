@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import subprocess
 import sys
@@ -50,6 +51,22 @@ def main():
             and m["integrity"]["duplicates"] == 0
             and m["integrity"]["invalid_ohlcv"] == 0
         )
+
+        def digest(path: Path) -> str:
+            h = hashlib.sha256()
+            with path.open("rb") as handle:
+                for block in iter(lambda: handle.read(1024 * 1024), b""):
+                    h.update(block)
+            return h.hexdigest()
+
+        for record in [*m["source"]["raw_objects"], *m["files"].values()]:
+            assert digest(R / record["path"]) == record["sha256"]
+        import pyarrow.parquet as pq
+
+        maximum_us = pq.read_table(
+            R / m["files"]["canonical"]["path"], columns=["open_time"]
+        )["open_time"][-1].value
+        assert maximum_us <= 1_735_689_540_000_000
     print("WP-001 deterministic validation: PASS")
 
 
