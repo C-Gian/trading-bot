@@ -1,0 +1,1 @@
+{"rule":"BREAKOUT","profiles":[{"name":"DEFAULT","entry_fee_bps":10,"exit_fee_bps":10,"entry_friction_bps":2,"exit_friction_bps":2},{"name":"ZERO","entry_fee_bps":0,"exit_fee_bps":0,"entry_friction_bps":0,"exit_friction_bps":0},{"name":"DOUBLE","entry_fee_bps":20,"exit_fee_bps":20,"entry_friction_bps":4,"exit_friction_bps":4}]}
