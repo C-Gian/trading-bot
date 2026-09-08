@@ -1,0 +1,64 @@
+{
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1"
+  },
+  "evidence_stage": "DEVELOPMENT BACKTEST / CONTROLS",
+  "experiments": [
+    {
+      "classification": "REFERENCE_ONLY_NOT_PRODUCT_CANDIDATE",
+      "experiment_id": "EXP-BASE-001-BUYHOLD",
+      "primary_metric": "Net total return",
+      "primary_result": 20.905930996,
+      "trade_count": null,
+      "validation_status": "PASS"
+    },
+    {
+      "classification": "FIXED_BASELINE_NOT_CANDIDATE",
+      "experiment_id": "EXP-BASE-003-TREND",
+      "primary_metric": "Default-cost net expectancy R",
+      "primary_result": -0.0908105341,
+      "trade_count": 2445,
+      "validation_status": "PASS"
+    },
+    {
+      "classification": "FIXED_BASELINE_NOT_CANDIDATE",
+      "experiment_id": "EXP-BASE-004-BREAKOUT",
+      "primary_metric": "Default-cost net expectancy R",
+      "primary_result": -0.0482093869,
+      "trade_count": 1123,
+      "validation_status": "PASS"
+    },
+    {
+      "classification": "NEGATIVE_CONTROL",
+      "experiment_id": "EXP-CTRL-002-RANDOM",
+      "primary_metric": "Median net expectancy R across 32 seeds",
+      "primary_result": -0.0948689556,
+      "trade_count": 49255,
+      "validation_status": "PASS"
+    },
+    {
+      "classification": "TIMING_NEGATIVE_CONTROL",
+      "experiment_id": "EXP-CTRL-005-TREND-DELAY-1H",
+      "primary_metric": "Default-cost net expectancy R",
+      "primary_result": -0.0940234189,
+      "trade_count": 2446,
+      "validation_status": "PASS"
+    },
+    {
+      "classification": "NEGATIVE_CONTROL",
+      "experiment_id": "EXP-CTRL-006-NO-TRADE",
+      "primary_metric": "No applicable trade metric",
+      "primary_result": null,
+      "trade_count": 0,
+      "validation_status": "PASS"
+    }
+  ],
+  "latest_checkpoint": "WP-003",
+  "models": {
+    "cost": "BTCUSDT_SPOT_COST_V1",
+    "engine": "BACKTEST_ENGINE_V2",
+    "execution": "EXECUTION_MODEL_V2"
+  },
+  "next_checkpoint": "Research Director review then bounded strategy-research allocation"
+}

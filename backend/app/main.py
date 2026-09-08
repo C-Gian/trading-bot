@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
@@ -14,7 +15,9 @@ from .state import StateRepository
 
 
 def create_app(
-    state_path: Path | None = None, data_probe: Callable[[], bool] = available
+    state_path: Path | None = None,
+    data_probe: Callable[[], bool] = available,
+    research_summary_path: Path | None = None,
 ) -> FastAPI:
     application = FastAPI(title="Trading Bot", version=__version__)
     application.add_middleware(
@@ -24,6 +27,9 @@ def create_app(
         allow_headers=["*"],
     )
     repository = StateRepository(state_path)
+    summary_path = research_summary_path or (
+        Path(__file__).resolve().parents[2] / "reports/research/WP-003-BASELINES.json"
+    )
 
     def state_repository() -> StateRepository:
         return repository
@@ -66,6 +72,12 @@ def create_app(
     @application.get("/api/v1/backtest/substrate")
     def substrate_status(repo: StateRepository = Depends(state_repository)):
         return repo.load()["backtest_substrate"]
+
+    @application.get("/api/v1/research/experiments")
+    def research_experiments():
+        if not summary_path.is_file():
+            return {"evidence_stage": "NONE", "experiments": []}
+        return json.loads(summary_path.read_text(encoding="utf-8"))
 
     @application.get("/api/v1/market/candles")
     def market_candles(

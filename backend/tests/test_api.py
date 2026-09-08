@@ -23,7 +23,7 @@ def test_api_reads_authoritative_fixture_state(tmp_path):
     health = client.get("/api/v1/system/health").json()
     assert health["project_phase"] == "BASELINE_RESEARCH" and health["status"] == "REVIEWED"
     assert health["development_data_available"] is False
-    assert client.get("/api/v1/state").json()["latest_reviewed_checkpoint"] == "WP-001"
+    assert client.get("/api/v1/state").json()["latest_reviewed_checkpoint"] == "WP-002"
 
 
 def test_research_api_uses_fixture_counters(tmp_path):
@@ -47,6 +47,25 @@ def test_substrate_versions_come_from_state(tmp_path):
     state_path = fixture_state(tmp_path)
     payload = TestClient(create_app(state_path)).get("/api/v1/backtest/substrate").json()
     assert payload["engine_version"] == "BACKTEST_ENGINE_V2"
+
+
+def test_research_experiment_summary_is_read_only_and_labeled(tmp_path):
+    summary = tmp_path / "summary.json"
+    summary.write_text(
+        json.dumps(
+            {
+                "evidence_stage": "DEVELOPMENT BACKTEST / CONTROLS",
+                "experiments": [{"experiment_id": "FIXTURE", "classification": "NEGATIVE_CONTROL"}],
+            }
+        )
+    )
+    payload = (
+        TestClient(create_app(fixture_state(tmp_path), research_summary_path=summary))
+        .get("/api/v1/research/experiments")
+        .json()
+    )
+    assert payload["evidence_stage"] == "DEVELOPMENT BACKTEST / CONTROLS"
+    assert payload["experiments"][0]["classification"] == "NEGATIVE_CONTROL"
 
 
 def test_repository_state_and_default_api_are_consistent():
