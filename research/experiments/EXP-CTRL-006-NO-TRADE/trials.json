@@ -1,0 +1,25 @@
+[
+  {
+    "metrics": {
+      "attempted_setups": 0,
+      "average_loss_r": null,
+      "average_win_r": null,
+      "cost_drag_r": null,
+      "cumulative_net_r": null,
+      "hit_rate": null,
+      "invalid_attempts": 0,
+      "maximum_drawdown_r": null,
+      "net_expectancy_r": null,
+      "profit_factor": null,
+      "trade_count": 0,
+      "unresolved_rate": 0,
+      "unresolved_trades": 0,
+      "yearly": {}
+    },
+    "profile": "DEFAULT",
+    "seed": 0,
+    "status": "COMPLETED",
+    "trades": [],
+    "trial_id": "no-trade-0"
+  }
+]

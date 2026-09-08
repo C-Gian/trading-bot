@@ -1,0 +1,17 @@
+[
+  {
+    "metrics": {
+      "cost_drag": 0.0526373887,
+      "coverage_minutes": 3879120,
+      "first_timestamp_us": 1502942400000000,
+      "gross_total_return": 20.9585683847,
+      "last_timestamp_us": 1735689540000000,
+      "net_total_return": 20.905930996
+    },
+    "profile": "DEFAULT",
+    "seed": 0,
+    "status": "COMPLETED",
+    "trades": [],
+    "trial_id": "buyhold-0"
+  }
+]

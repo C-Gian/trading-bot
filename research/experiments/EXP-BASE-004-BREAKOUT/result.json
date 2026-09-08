@@ -1,0 +1,203 @@
+{
+  "artifacts": [
+    "research/experiments/EXP-BASE-004-BREAKOUT/trials.json"
+  ],
+  "code_config_reference": "2b3fb894a31808334826cf4320c5981c97bf051144ef71e68e375106048033d7",
+  "completed_at_utc": "2026-09-08T21:33:38.677323Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1"
+  },
+  "experiment_id": "EXP-BASE-004-BREAKOUT",
+  "experiment_version": 1,
+  "interpretation": "Development backtest evidence for a preregistered reference, fixed baseline, or negative control; not approved strategy performance.",
+  "preregistration_created_at_utc": "2026-09-08T21:33:32.846706Z",
+  "preregistration_reference": "EXP-BASE-004-BREAKOUT",
+  "primary_result": -0.0482093869,
+  "run_identity_hash": "9990de8574c1085bfef0fa694fc1c7c1740ccbbffa55fab1530eae6b1b958c7f",
+  "schema_version": 2,
+  "secondary_results": {
+    "default_metrics": {
+      "attempted_setups": 1129,
+      "average_loss_r": -0.9206419837,
+      "average_win_r": 1.300994765,
+      "cost_drag_r": 135.233633762,
+      "cumulative_net_r": -54.1391414996,
+      "hit_rate": 0.39269813,
+      "invalid_attempts": 0,
+      "maximum_drawdown_r": 77.088680386,
+      "net_expectancy_r": -0.0482093869,
+      "profit_factor": 0.9137744022,
+      "trade_count": 1123,
+      "unresolved_rate": 0.0053144376,
+      "unresolved_trades": 6,
+      "yearly": {
+        "2017": {
+          "cumulative_net_r": 16.6502844229,
+          "expectancy_r": 0.2190826898,
+          "trades": 76
+        },
+        "2018": {
+          "cumulative_net_r": -20.249982244,
+          "expectancy_r": -0.1545800171,
+          "trades": 131
+        },
+        "2019": {
+          "cumulative_net_r": 2.4558281312,
+          "expectancy_r": 0.0171736233,
+          "trades": 143
+        },
+        "2020": {
+          "cumulative_net_r": 7.1829434625,
+          "expectancy_r": 0.0463415707,
+          "trades": 155
+        },
+        "2021": {
+          "cumulative_net_r": -18.4725265634,
+          "expectancy_r": -0.1106139315,
+          "trades": 167
+        },
+        "2022": {
+          "cumulative_net_r": -28.2109081467,
+          "expectancy_r": -0.2015064868,
+          "trades": 140
+        },
+        "2023": {
+          "cumulative_net_r": 2.9121382868,
+          "expectancy_r": 0.0202231825,
+          "trades": 144
+        },
+        "2024": {
+          "cumulative_net_r": -16.4069188489,
+          "expectancy_r": -0.098245023,
+          "trades": 167
+        }
+      }
+    },
+    "double_cost_metrics": {
+      "attempted_setups": 1129,
+      "average_loss_r": -1.0081315874,
+      "average_win_r": 1.2472727902,
+      "cost_drag_r": 270.467235087,
+      "cumulative_net_r": -189.3727428246,
+      "hit_rate": 0.3722172752,
+      "invalid_attempts": 0,
+      "maximum_drawdown_r": 203.7361482575,
+      "net_expectancy_r": -0.1686311156,
+      "profit_factor": 0.7335528189,
+      "trade_count": 1123,
+      "unresolved_rate": 0.0053144376,
+      "unresolved_trades": 6,
+      "yearly": {
+        "2017": {
+          "cumulative_net_r": 7.1668652465,
+          "expectancy_r": 0.0943008585,
+          "trades": 76
+        },
+        "2018": {
+          "cumulative_net_r": -35.9990548675,
+          "expectancy_r": -0.2748019456,
+          "trades": 131
+        },
+        "2019": {
+          "cumulative_net_r": -14.7440920556,
+          "expectancy_r": -0.1031055389,
+          "trades": 143
+        },
+        "2020": {
+          "cumulative_net_r": -11.4405385693,
+          "expectancy_r": -0.0738099263,
+          "trades": 155
+        },
+        "2021": {
+          "cumulative_net_r": -38.5142927873,
+          "expectancy_r": -0.2306245077,
+          "trades": 167
+        },
+        "2022": {
+          "cumulative_net_r": -45.000476757,
+          "expectancy_r": -0.3214319768,
+          "trades": 140
+        },
+        "2023": {
+          "cumulative_net_r": -14.3895009519,
+          "expectancy_r": -0.0999270899,
+          "trades": 144
+        },
+        "2024": {
+          "cumulative_net_r": -36.4516520825,
+          "expectancy_r": -0.2182733658,
+          "trades": 167
+        }
+      }
+    },
+    "zero_cost_metrics": {
+      "attempted_setups": 1129,
+      "average_loss_r": -0.8395996849,
+      "average_win_r": 1.3390491202,
+      "cost_drag_r": 0.0,
+      "cumulative_net_r": 81.0944922624,
+      "hit_rate": 0.4185218166,
+      "invalid_attempts": 0,
+      "maximum_drawdown_r": 23.7519325861,
+      "net_expectancy_r": 0.0722123707,
+      "profit_factor": 1.1479128519,
+      "trade_count": 1123,
+      "unresolved_rate": 0.0053144376,
+      "unresolved_trades": 6,
+      "yearly": {
+        "2017": {
+          "cumulative_net_r": 26.1337140526,
+          "expectancy_r": 0.3438646586,
+          "trades": 76
+        },
+        "2018": {
+          "cumulative_net_r": -4.5009114223,
+          "expectancy_r": -0.0343581025,
+          "trades": 131
+        },
+        "2019": {
+          "cumulative_net_r": 19.6557561804,
+          "expectancy_r": 0.1374528404,
+          "trades": 143
+        },
+        "2020": {
+          "cumulative_net_r": 25.8064358162,
+          "expectancy_r": 0.1664931343,
+          "trades": 155
+        },
+        "2021": {
+          "cumulative_net_r": 1.5692402879,
+          "expectancy_r": 0.0093966484,
+          "trades": 167
+        },
+        "2022": {
+          "cumulative_net_r": -11.4213441043,
+          "expectancy_r": -0.0815810293,
+          "trades": 140
+        },
+        "2023": {
+          "cumulative_net_r": 20.2137856118,
+          "expectancy_r": 0.1403735112,
+          "trades": 144
+        },
+        "2024": {
+          "cumulative_net_r": 3.6378158401,
+          "expectancy_r": 0.0217833284,
+          "trades": 167
+        }
+      }
+    }
+  },
+  "seed_reference": [
+    0,
+    1,
+    2
+  ],
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 3,
+    "executed_trials": 3
+  },
+  "validation_outcome": "PASS"
+}

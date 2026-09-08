@@ -1,0 +1,85 @@
+{
+  "artifacts": [
+    "research/experiments/EXP-CTRL-005-TREND-DELAY-1H/trials.json"
+  ],
+  "code_config_reference": "883a4c23743db26952dce65e647b5bed3de93bae67b86bc55c9acfd86f0b7295",
+  "completed_at_utc": "2026-09-08T21:33:38.677323Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1"
+  },
+  "experiment_id": "EXP-CTRL-005-TREND-DELAY-1H",
+  "experiment_version": 1,
+  "interpretation": "Development backtest evidence for a preregistered reference, fixed baseline, or negative control; not approved strategy performance.",
+  "preregistration_created_at_utc": "2026-09-08T21:33:32.846706Z",
+  "preregistration_reference": "EXP-CTRL-005-TREND-DELAY-1H",
+  "primary_result": -0.0940234189,
+  "run_identity_hash": "25efd2dff25529a0978c5e59975e193d280e4fe5a7307401a52e7789b45fb4c3",
+  "schema_version": 2,
+  "secondary_results": {
+    "attempted_setups": 2459,
+    "average_loss_r": -0.9588576002,
+    "average_win_r": 1.2423748736,
+    "cost_drag_r": 293.8062043366,
+    "cumulative_net_r": -229.9812827305,
+    "hit_rate": 0.3928863451,
+    "invalid_attempts": 0,
+    "maximum_drawdown_r": 263.0618440884,
+    "net_expectancy_r": -0.0940234189,
+    "profit_factor": 0.838485349,
+    "trade_count": 2446,
+    "unresolved_rate": 0.0052867019,
+    "unresolved_trades": 13,
+    "yearly": {
+      "2017": {
+        "cumulative_net_r": 28.2560394091,
+        "expectancy_r": 0.1296148597,
+        "trades": 218
+      },
+      "2018": {
+        "cumulative_net_r": -45.3884187989,
+        "expectancy_r": -0.1712770521,
+        "trades": 265
+      },
+      "2019": {
+        "cumulative_net_r": -29.7834294825,
+        "expectancy_r": -0.0894397282,
+        "trades": 333
+      },
+      "2020": {
+        "cumulative_net_r": 0.3902296009,
+        "expectancy_r": 0.0011789414,
+        "trades": 331
+      },
+      "2021": {
+        "cumulative_net_r": -107.4914576361,
+        "expectancy_r": -0.2431933431,
+        "trades": 442
+      },
+      "2022": {
+        "cumulative_net_r": -56.334522124,
+        "expectancy_r": -0.2086463782,
+        "trades": 270
+      },
+      "2023": {
+        "cumulative_net_r": 1.7551027044,
+        "expectancy_r": 0.0064525835,
+        "trades": 272
+      },
+      "2024": {
+        "cumulative_net_r": -21.3848264034,
+        "expectancy_r": -0.0678883378,
+        "trades": 315
+      }
+    }
+  },
+  "seed_reference": [
+    0
+  ],
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 1,
+    "executed_trials": 1
+  },
+  "validation_outcome": "PASS"
+}

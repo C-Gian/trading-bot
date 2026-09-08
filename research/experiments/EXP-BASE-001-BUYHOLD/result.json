@@ -1,0 +1,35 @@
+{
+  "artifacts": [
+    "research/experiments/EXP-BASE-001-BUYHOLD/trials.json"
+  ],
+  "code_config_reference": "7f9011ba48b7280742d3c06e9d7c3c0b14f60b57dc35a8ef995a8bdfb49fb5d1",
+  "completed_at_utc": "2026-09-08T21:33:38.677323Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1"
+  },
+  "experiment_id": "EXP-BASE-001-BUYHOLD",
+  "experiment_version": 1,
+  "interpretation": "Development backtest evidence for a preregistered reference, fixed baseline, or negative control; not approved strategy performance.",
+  "preregistration_created_at_utc": "2026-09-08T21:33:32.846706Z",
+  "preregistration_reference": "EXP-BASE-001-BUYHOLD",
+  "primary_result": 20.905930996,
+  "run_identity_hash": "3bbc846973ea4de57d50892326939d71dd85d3ee0f32b814e1bc1aabe8520cd6",
+  "schema_version": 2,
+  "secondary_results": {
+    "cost_drag": 0.0526373887,
+    "coverage_minutes": 3879120,
+    "first_timestamp_us": 1502942400000000,
+    "gross_total_return": 20.9585683847,
+    "last_timestamp_us": 1735689540000000
+  },
+  "seed_reference": [
+    0
+  ],
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 1,
+    "executed_trials": 1
+  },
+  "validation_outcome": "PASS"
+}

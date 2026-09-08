@@ -1,0 +1,44 @@
+{
+  "artifacts": [
+    "research/experiments/EXP-CTRL-006-NO-TRADE/trials.json"
+  ],
+  "code_config_reference": "e18b74175d14953422602aa659924035a607e68553391a652a9e1533c6df6791",
+  "completed_at_utc": "2026-09-08T21:33:38.677323Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1"
+  },
+  "experiment_id": "EXP-CTRL-006-NO-TRADE",
+  "experiment_version": 1,
+  "interpretation": "Development backtest evidence for a preregistered reference, fixed baseline, or negative control; not approved strategy performance.",
+  "preregistration_created_at_utc": "2026-09-08T21:33:32.846706Z",
+  "preregistration_reference": "EXP-CTRL-006-NO-TRADE",
+  "primary_result": null,
+  "run_identity_hash": "7011d6c4096974e8b3b38a3046267d804b6f6a15ba0351749af1ffebab47d525",
+  "schema_version": 2,
+  "secondary_results": {
+    "attempted_setups": 0,
+    "average_loss_r": null,
+    "average_win_r": null,
+    "cost_drag_r": null,
+    "cumulative_net_r": null,
+    "hit_rate": null,
+    "invalid_attempts": 0,
+    "maximum_drawdown_r": null,
+    "net_expectancy_r": null,
+    "profit_factor": null,
+    "trade_count": 0,
+    "unresolved_rate": 0,
+    "unresolved_trades": 0,
+    "yearly": {}
+  },
+  "seed_reference": [
+    0
+  ],
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 1,
+    "executed_trials": 1
+  },
+  "validation_outcome": "PASS"
+}
