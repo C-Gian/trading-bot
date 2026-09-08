@@ -1,0 +1,240 @@
+{
+  "code_config_reference": "f2bfe04511ebc68bfc9fe850e5438b3408262e6a5886485f37dff2c3d8771cb7",
+  "cost_execution_reference": "BACKTEST_ENGINE_V2 / EXECUTION_MODEL_V2 / BTCUSDT_SPOT_COST_V1",
+  "created_at_utc": "2026-09-08T21:33:32.846706Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "evaluation_design": "Fixed declared trial matrix under BASELINES_NEGATIVE_CONTROLS_V1; common eligible UTC hourly clock and 1m execution.",
+  "experiment_id": "EXP-CTRL-002-RANDOM",
+  "experiment_version": 1,
+  "hypothesis": "Deterministic random-entry null control",
+  "leakage_controls": [
+    "169 consecutive complete 1h bars",
+    "as-of signal interface",
+    "no post-cutoff access",
+    "no adaptive trials"
+  ],
+  "metrics": {
+    "primary": "Median net expectancy R across 32 seeds",
+    "secondary": [
+      "mean_expectancy_r",
+      "minimum_expectancy_r",
+      "maximum_expectancy_r",
+      "q10_expectancy_r",
+      "q90_expectancy_r",
+      "trade_count_distribution",
+      "unresolved_distribution",
+      "invalid_distribution"
+    ]
+  },
+  "parameter_space": {
+    "classification": "NEGATIVE_CONTROL",
+    "strategy_path": "backend/app/research/baselines.py",
+    "strategy_sha256": "5d8f2f3faa003781aafd506ca004121f25213ad46d5cff9611e4e54ae16f1a3d",
+    "trial_plan": [
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-00"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-01"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-02"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-03"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-04"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-05"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-06"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-07"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-08"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-09"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-10"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-11"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-12"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-13"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-14"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-15"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-16"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-17"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-18"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-19"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-20"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-21"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-22"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-23"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-24"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-25"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-26"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-27"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-28"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-29"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-30"
+      },
+      {
+        "config_path": "research/configs/random.json",
+        "config_sha256": "a0d5b1b9b434a48bfb7019d2188d80186a5786eed5d4ae1f5335c6e2a30c8f29",
+        "trial_id": "random-31"
+      }
+    ]
+  },
+  "rationale": "Preregistered fixed WP-003 laboratory comparison; negative results are retained.",
+  "research_scope": "BTCUSDT Spot development data only; LONG/no-entry; no optimization or promotion.",
+  "schema_version": 2,
+  "seeds": [
+    16912590939832400125,
+    11406341452542275019,
+    10804965924825954064,
+    17430671270387049633,
+    476874493050326413,
+    17238063170134302356,
+    3555956004423686607,
+    16648714895424487146,
+    14772830099193305874,
+    10100395132586312765,
+    10857264817494302951,
+    16623869530185244757,
+    11263473613877951982,
+    13174625731659650280,
+    9106088958850902510,
+    2342060720053035623,
+    557318181705976634,
+    3053805261930463571,
+    17663699828944063485,
+    11873768153686768383,
+    6110051933217136812,
+    215729501924472963,
+    10751231714952754035,
+    4535756292701733080,
+    16650159543635468721,
+    6011097115668837222,
+    11104347911821483716,
+    16227944126223066296,
+    5259367040315441610,
+    16472273485825020794,
+    1274528604086354422,
+    4664589937553869907
+  ],
+  "status": "PREREGISTERED",
+  "stopping_rule": "Execute every declared trial exactly once; no early stopping or additions.",
+  "trial_budget": 32
+}

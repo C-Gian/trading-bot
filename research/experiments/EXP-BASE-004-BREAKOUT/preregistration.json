@@ -1,0 +1,61 @@
+{
+  "code_config_reference": "2b3fb894a31808334826cf4320c5981c97bf051144ef71e68e375106048033d7",
+  "cost_execution_reference": "BACKTEST_ENGINE_V2 / EXECUTION_MODEL_V2 / BTCUSDT_SPOT_COST_V1",
+  "created_at_utc": "2026-09-08T21:33:32.846706Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "evaluation_design": "Fixed declared trial matrix under BASELINES_NEGATIVE_CONTROLS_V1; common eligible UTC hourly clock and 1m execution.",
+  "experiment_id": "EXP-BASE-004-BREAKOUT",
+  "experiment_version": 1,
+  "hypothesis": "Fixed current-close above prior-24-high breakout baseline",
+  "leakage_controls": [
+    "169 consecutive complete 1h bars",
+    "as-of signal interface",
+    "no post-cutoff access",
+    "no adaptive trials"
+  ],
+  "metrics": {
+    "primary": "Default-cost net expectancy R",
+    "secondary": [
+      "default_metrics",
+      "zero_cost_metrics",
+      "double_cost_metrics"
+    ]
+  },
+  "parameter_space": {
+    "classification": "FIXED_BASELINE_NOT_CANDIDATE",
+    "strategy_path": "backend/app/research/baselines.py",
+    "strategy_sha256": "5d8f2f3faa003781aafd506ca004121f25213ad46d5cff9611e4e54ae16f1a3d",
+    "trial_plan": [
+      {
+        "config_path": "research/configs/breakout.json",
+        "config_sha256": "e5956e91f03e65ac9db6c2beb5a1db33c0616b61577726d269cdec70deccebfb",
+        "trial_id": "breakout-0"
+      },
+      {
+        "config_path": "research/configs/breakout.json",
+        "config_sha256": "e5956e91f03e65ac9db6c2beb5a1db33c0616b61577726d269cdec70deccebfb",
+        "trial_id": "breakout-1"
+      },
+      {
+        "config_path": "research/configs/breakout.json",
+        "config_sha256": "e5956e91f03e65ac9db6c2beb5a1db33c0616b61577726d269cdec70deccebfb",
+        "trial_id": "breakout-2"
+      }
+    ]
+  },
+  "rationale": "Preregistered fixed WP-003 laboratory comparison; negative results are retained.",
+  "research_scope": "BTCUSDT Spot development data only; LONG/no-entry; no optimization or promotion.",
+  "schema_version": 2,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "status": "PREREGISTERED",
+  "stopping_rule": "Execute every declared trial exactly once; no early stopping or additions.",
+  "trial_budget": 3
+}

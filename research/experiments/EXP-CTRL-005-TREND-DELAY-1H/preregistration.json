@@ -1,0 +1,60 @@
+{
+  "code_config_reference": "883a4c23743db26952dce65e647b5bed3de93bae67b86bc55c9acfd86f0b7295",
+  "cost_execution_reference": "BACKTEST_ENGINE_V2 / EXECUTION_MODEL_V2 / BTCUSDT_SPOT_COST_V1",
+  "created_at_utc": "2026-09-08T21:33:32.846706Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "evaluation_design": "Fixed declared trial matrix under BASELINES_NEGATIVE_CONTROLS_V1; common eligible UTC hourly clock and 1m execution.",
+  "experiment_id": "EXP-CTRL-005-TREND-DELAY-1H",
+  "experiment_version": 1,
+  "hypothesis": "Exact trend condition delayed one hour; plan reference is latest completed close known at t",
+  "leakage_controls": [
+    "169 consecutive complete 1h bars",
+    "as-of signal interface",
+    "no post-cutoff access",
+    "no adaptive trials"
+  ],
+  "metrics": {
+    "primary": "Default-cost net expectancy R",
+    "secondary": [
+      "attempted_setups",
+      "trade_count",
+      "invalid_attempts",
+      "unresolved_trades",
+      "unresolved_rate",
+      "net_expectancy_r",
+      "cumulative_net_r",
+      "profit_factor",
+      "maximum_drawdown_r",
+      "hit_rate",
+      "average_win_r",
+      "average_loss_r",
+      "cost_drag_r",
+      "yearly"
+    ]
+  },
+  "parameter_space": {
+    "classification": "TIMING_NEGATIVE_CONTROL",
+    "strategy_path": "backend/app/research/baselines.py",
+    "strategy_sha256": "5d8f2f3faa003781aafd506ca004121f25213ad46d5cff9611e4e54ae16f1a3d",
+    "trial_plan": [
+      {
+        "config_path": "research/configs/trend_delay_1h.json",
+        "config_sha256": "741d7cf54df9dd8c8a3a173c07f86e2f3bc2c237317f4709fd9d446e8d1031a4",
+        "trial_id": "trend-delay-0"
+      }
+    ]
+  },
+  "rationale": "Preregistered fixed WP-003 laboratory comparison; negative results are retained.",
+  "research_scope": "BTCUSDT Spot development data only; LONG/no-entry; no optimization or promotion.",
+  "schema_version": 2,
+  "seeds": [
+    0
+  ],
+  "status": "PREREGISTERED",
+  "stopping_rule": "Execute every declared trial exactly once; no early stopping or additions.",
+  "trial_budget": 1
+}
