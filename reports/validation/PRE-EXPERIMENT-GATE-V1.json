@@ -1,0 +1,76 @@
+{
+  "checks": [
+    {
+      "name": "main branch and reviewed ancestry",
+      "status": "PASS"
+    },
+    {
+      "name": "Constitution and cutoff preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "dataset identity and no post-cutoff data",
+      "status": "PASS"
+    },
+    {
+      "name": "clean-checkout bootstrap",
+      "status": "PASS"
+    },
+    {
+      "name": "CI-equivalent no-data validation",
+      "status": "PASS"
+    },
+    {
+      "name": "installed-data validation",
+      "status": "PASS"
+    },
+    {
+      "name": "boundary ordering and target-at-open golden",
+      "status": "PASS"
+    },
+    {
+      "name": "contiguous 1h and 4h gaps",
+      "status": "PASS"
+    },
+    {
+      "name": "parsed UTC bypass rejection",
+      "status": "PASS"
+    },
+    {
+      "name": "engine cutoff and signal-clock guards",
+      "status": "PASS"
+    },
+    {
+      "name": "positive splitter durations",
+      "status": "PASS"
+    },
+    {
+      "name": "runner-owned declared trials and identities",
+      "status": "PASS"
+    },
+    {
+      "name": "immutable result finalization",
+      "status": "PASS"
+    },
+    {
+      "name": "zero experiment records and scientific counters",
+      "status": "PASS"
+    },
+    {
+      "name": "no execution credentials or order path",
+      "status": "PASS"
+    }
+  ],
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1"
+  },
+  "head": "23212ec836427762348a2851f0442ca5bea35877",
+  "models": {
+    "cost": "BTCUSDT_SPOT_COST_V1",
+    "engine": "BACKTEST_ENGINE_V2",
+    "execution": "EXECUTION_MODEL_V2"
+  },
+  "status": "PASS",
+  "version": "PRE-EXPERIMENT-GATE-V1"
+}
