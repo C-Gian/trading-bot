@@ -2,6 +2,7 @@ data/raw/
 data/canonical/
 data/derived/
 data/reports/*.json
+!data/reports/BTCUSDT-SPOT-1M-DEV-v1-gaps.json
 .venv/
 .tools/
 __pycache__/
