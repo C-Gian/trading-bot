@@ -143,7 +143,10 @@ def governance_checks(pre_experiment: bool) -> dict:
     ]
     assert all((ROOT / x).is_file() for x in required)
     baseline = subprocess.check_output(
-        ["git", "show", f"{SEED}:SCIENTIFIC_CONSTITUTION.md"], cwd=ROOT, text=True
+        ["git", "show", f"{SEED}:SCIENTIFIC_CONSTITUTION.md"],
+        cwd=ROOT,
+        text=True,
+        encoding="utf-8",
     )
     constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
     assert constitution.replace("\r\n", "\n") == baseline.replace("\r\n", "\n")
