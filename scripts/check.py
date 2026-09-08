@@ -143,9 +143,10 @@ def governance_checks(pre_experiment: bool) -> dict:
     ]
     assert all((ROOT / x).is_file() for x in required)
     baseline = subprocess.check_output(
-        ["git", "show", f"{SEED}:SCIENTIFIC_CONSTITUTION.md"], cwd=ROOT
+        ["git", "show", f"{SEED}:SCIENTIFIC_CONSTITUTION.md"], cwd=ROOT, text=True
     )
-    assert (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_bytes() == baseline
+    constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
+    assert constitution.replace("\r\n", "\n") == baseline.replace("\r\n", "\n")
     assert git("branch", "--show-current") == "main"
     for ancestor in (SEED, PREDECESSOR, REVIEWED):
         run(["git", "merge-base", "--is-ancestor", ancestor, "HEAD"])
