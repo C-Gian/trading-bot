@@ -30,6 +30,7 @@ def main() -> None:
             subprocess.run(
                 [str(python), "scripts/check.py", "--no-data", "--pre-experiment"],
                 cwd=checkout,
+                env=env,
                 check=True,
             )
         finally:
