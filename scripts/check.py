@@ -57,9 +57,8 @@ def suite_hash() -> str:
     )
     digest = hashlib.sha256()
     for path in paths:
-        digest.update(
-            path.relative_to(ROOT).as_posix().encode() + b"\0" + path.read_bytes() + b"\0"
-        )
+        content = path.read_bytes().replace(b"\r\n", b"\n")
+        digest.update(path.relative_to(ROOT).as_posix().encode() + b"\0" + content + b"\0")
     return digest.hexdigest()
 
 
