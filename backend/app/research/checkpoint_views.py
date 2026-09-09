@@ -13,6 +13,7 @@ from .search_memory import accounting, load_memory, render_failure_memory, rende
 from .wp004 import ROOT, SPEC
 from .wp006 import SPEC as WP006_SPEC
 from .wp007 import SPEC as WP007_SPEC
+from .wp008 import SPEC as WP008_SPEC
 
 LABEL = "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
 CONTROL_IDS = (
@@ -116,21 +117,22 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
         **dict.fromkeys(SPEC, "WP-004 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP006_SPEC, "WP-006 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP007_SPEC, "WP-007 exposed annual validation (2019–2024)"),
+        **dict.fromkeys(WP008_SPEC, "WP-008 exposed annual validation (2019–2024)"),
     }
     for eid, window in windows.items():
         path = root / "research/experiments" / eid / "result.json"
         if not path.is_file():
             continue
         result = read_json(path)
+        default_profile = result["secondary_results"]["profiles"]["DEFAULT"]
+        default_summary = default_profile.get("summary", default_profile)
         experiments.append(
             {
                 "experiment_id": eid,
                 "classification": result["secondary_results"]["terminal_classification"],
                 "primary_metric": "Default-cost validation net expectancy R",
                 "primary_result": result["primary_result"],
-                "trade_count": result["secondary_results"]["profiles"]["DEFAULT"]["metrics"][
-                    "trade_count"
-                ],
+                "trade_count": default_summary["metrics"]["trade_count"],
                 "validation_status": result["validation_outcome"],
                 "evidence_window": window,
             }
