@@ -1,0 +1,290 @@
+[
+  {
+    "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+    "coefficients": [
+      -0.05118050001471187,
+      -0.08664458813869391,
+      0.11147767687671038,
+      0.04180219786807004,
+      -0.021048063775801113,
+      0.10569896615348368
+    ],
+    "condition_number": 5.209654590327978,
+    "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+    "feature_order": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H"
+    ],
+    "fold_id": "DEV-2019",
+    "full_rank": true,
+    "hyperparameters_searched": 0,
+    "intercept": -0.076409383963301,
+    "means": [
+      6.346230201401774e-06,
+      -0.00013281135908261234,
+      -0.03259960492435472,
+      0.009151618673720809,
+      -0.10395392246897785,
+      0.0018808880101108519
+    ],
+    "model_hash": "c83f4bfa8b6ffdcc76cbf7dff14714314d0cd5d73a99b9c2e7caa08773b09a34",
+    "rank": 7,
+    "regularization": "NONE",
+    "signal_threshold": 0.0,
+    "stds_ddof_0": [
+      0.011164489570382916,
+      0.048619373129076236,
+      0.035852339971871795,
+      0.00646113253263556,
+      0.4964600500666015,
+      0.2363353025640354
+    ],
+    "thresholds_searched": 0,
+    "training_label_hash": "3a8c0e86cd8bd39988dc8d09a757247b50fa2859172a9d9bc4da5bde4d72851f",
+    "training_matrix_hash": "e54484d255cd406e3116d10f2f251b29d49241a75e6ad489bf85e46c9d294251"
+  },
+  {
+    "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+    "coefficients": [
+      -0.023186864294093237,
+      -0.06530225259407473,
+      0.08104449330644874,
+      0.017572235161455223,
+      -0.014454454349815096,
+      0.11881869352590306
+    ],
+    "condition_number": 5.020764820241169,
+    "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+    "feature_order": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H"
+    ],
+    "fold_id": "DEV-2020",
+    "full_rank": true,
+    "hyperparameters_searched": 0,
+    "intercept": -0.07774024289144567,
+    "means": [
+      3.223554925824059e-05,
+      0.0008030663654914846,
+      -0.028329271700548404,
+      0.007728911518679776,
+      -0.12283266956327102,
+      0.0176975804327253
+    ],
+    "model_hash": "f19f3708c9ed8cc2cbd01e4e8b6c3aa784fa3da7c4548ffc8c97d593f93a7db7",
+    "rank": 7,
+    "regularization": "NONE",
+    "signal_threshold": 0.0,
+    "stds_ddof_0": [
+      0.009655703494410457,
+      0.04390869713403551,
+      0.03217742278213216,
+      0.00581552417896618,
+      0.525319830991779,
+      0.23906147479364512
+    ],
+    "thresholds_searched": 0,
+    "training_label_hash": "2886d3916f11b6692304e058decb2e84daea271fdb120206b82eae1688137d6c",
+    "training_matrix_hash": "aa908dd7a20019db4896a2b4cdee60ddbeaca04ee8e71b7e685ea0848d0d55cd"
+  },
+  {
+    "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+    "coefficients": [
+      -0.019221365015882053,
+      -0.05452897548723228,
+      0.07542672341604517,
+      6.157002220440536e-05,
+      -0.001896510094209916,
+      0.09149422664648305
+    ],
+    "condition_number": 5.203710881823488,
+    "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+    "feature_order": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H"
+    ],
+    "fold_id": "DEV-2021",
+    "full_rank": true,
+    "hyperparameters_searched": 0,
+    "intercept": -0.048669885239255764,
+    "means": [
+      6.787461952219663e-05,
+      0.0015733347638196317,
+      -0.0261156320972594,
+      0.007190160990730521,
+      -0.12388190229051982,
+      0.036129689316559244
+    ],
+    "model_hash": "1b9edc2b655aa3b005727e5b2a0b926a0f4fac11c629d469e080d84ea3eae63d",
+    "rank": 7,
+    "regularization": "NONE",
+    "signal_threshold": 0.0,
+    "stds_ddof_0": [
+      0.009234809484425925,
+      0.04205270071843025,
+      0.03173063910222994,
+      0.005809873623259368,
+      0.5249188541880127,
+      0.23321303497421925
+    ],
+    "thresholds_searched": 0,
+    "training_label_hash": "08737f279aa7c98af13746fa2e9dc41d22eb341e4d2f49fbf6e3cea7ff927dff",
+    "training_matrix_hash": "7d64742899c8e696b3a16dea55cef514acb7e437d2c954b35710b427b4287590"
+  },
+  {
+    "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+    "coefficients": [
+      -0.01406324903420619,
+      -0.049462025001715884,
+      0.06267412367624733,
+      -0.0029971898460167713,
+      -0.0015672982298714014,
+      0.0684493530371218
+    ],
+    "condition_number": 5.0737412570896,
+    "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+    "feature_order": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H"
+    ],
+    "fold_id": "DEV-2022",
+    "full_rank": true,
+    "hyperparameters_searched": 0,
+    "intercept": -0.07845059276846311,
+    "means": [
+      5.052292729857625e-05,
+      0.0012159423500412603,
+      -0.027437069139913388,
+      0.007483269621555641,
+      -0.11909613605773996,
+      0.033038274844951754
+    ],
+    "model_hash": "94a6ac6ff640ff8684bd143b847702d3c91301fa6626f72bf507d5d47af54eba",
+    "rank": 7,
+    "regularization": "NONE",
+    "signal_threshold": 0.0,
+    "stds_ddof_0": [
+      0.009290645991832413,
+      0.042714551592822676,
+      0.03163577841503942,
+      0.005517083694199831,
+      0.5148933344840043,
+      0.22475411183670446
+    ],
+    "thresholds_searched": 0,
+    "training_label_hash": "285032faa0003cac300e47516393b95293f30385285af836d068039e16df459e",
+    "training_matrix_hash": "7d6e6cdff03e931db6af02bde74e0c804b1534183d96fbdb67b2d9f99f14340b"
+  },
+  {
+    "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+    "coefficients": [
+      -0.011364962009545669,
+      -0.041993374194286025,
+      0.055348226160790825,
+      0.006376420109689102,
+      0.0055719448025293855,
+      0.05505646194625764
+    ],
+    "condition_number": 5.059064254006156,
+    "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+    "feature_order": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H"
+    ],
+    "fold_id": "DEV-2023",
+    "full_rank": true,
+    "hyperparameters_searched": 0,
+    "intercept": -0.10423907346772315,
+    "means": [
+      1.2893116552819267e-05,
+      0.00033391361442223805,
+      -0.02703761517029935,
+      0.007166785082375997,
+      -0.11943229374875938,
+      0.018725502099775502
+    ],
+    "model_hash": "e6365cf25b742ecc51cdeb9d62d05ea97f432ba2f350e96c24d69a79b61840af",
+    "rank": 7,
+    "regularization": "NONE",
+    "signal_threshold": 0.0,
+    "stds_ddof_0": [
+      0.008829045364332648,
+      0.04096819675252711,
+      0.03039435814667306,
+      0.005166793893235398,
+      0.5185484112019817,
+      0.22305695747968338
+    ],
+    "thresholds_searched": 0,
+    "training_label_hash": "711392194265d0cfa0b0749aed2028e6f0c4b413691e92f55b6074990015ea70",
+    "training_matrix_hash": "5ae93250c519a5d5fbcd75c2977e27031b527875a6e6c96426f4ca194b4044f3"
+  },
+  {
+    "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+    "coefficients": [
+      -0.00951682482944334,
+      -0.040134301865209415,
+      0.05258846455761511,
+      0.006529326691935141,
+      0.0009742187732978301,
+      0.054238416569900236
+    ],
+    "condition_number": 5.025865105868041,
+    "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+    "feature_order": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H"
+    ],
+    "fold_id": "DEV-2024",
+    "full_rank": true,
+    "hyperparameters_searched": 0,
+    "intercept": -0.09216867697117478,
+    "means": [
+      2.9453310264804324e-05,
+      0.0007271508754570696,
+      -0.0249247935123229,
+      0.006588756073222047,
+      -0.12615280991645178,
+      0.023783236201657343
+    ],
+    "model_hash": "d606226178e8fc8ea0fd25bc9e560cca0a5e7f2cfc94e956382b468e8bb20610",
+    "rank": 7,
+    "regularization": "NONE",
+    "signal_threshold": 0.0,
+    "stds_ddof_0": [
+      0.00824561798645919,
+      0.038487756122327334,
+      0.028595791946599204,
+      0.00496536933615816,
+      0.5328953799088547,
+      0.2287252871965104
+    ],
+    "thresholds_searched": 0,
+    "training_label_hash": "fe73c25c31dd0a42ba7385fb08086213675a88856531a675352cda712a4709f7",
+    "training_matrix_hash": "32834bee01df69c8282d34cd6bac8518fc70d5c3493ea542fd112e856b0aedb6"
+  }
+]

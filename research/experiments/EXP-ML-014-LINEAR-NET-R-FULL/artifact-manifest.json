@@ -1,0 +1,95 @@
+{
+  "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+  "columns": [
+    {
+      "name": "profile",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "fold_id",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "signal_us",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "prediction_signal_us",
+      "nullable": false,
+      "type": "int64"
+    },
+    {
+      "name": "predicted_default_net_r",
+      "nullable": false,
+      "type": "double"
+    },
+    {
+      "name": "reference",
+      "nullable": false,
+      "type": "double"
+    },
+    {
+      "name": "status",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "reason",
+      "nullable": false,
+      "type": "string"
+    },
+    {
+      "name": "exit_us",
+      "nullable": true,
+      "type": "int64"
+    },
+    {
+      "name": "net_r",
+      "nullable": true,
+      "type": "double"
+    },
+    {
+      "name": "gross_r",
+      "nullable": true,
+      "type": "double"
+    },
+    {
+      "name": "cost_drag_r",
+      "nullable": true,
+      "type": "double"
+    },
+    {
+      "name": "net_return_bps",
+      "nullable": true,
+      "type": "double"
+    },
+    {
+      "name": "position_available_us",
+      "nullable": false,
+      "type": "int64"
+    }
+  ],
+  "file_sha256": "b0ff2c44588a20204e516fe3a2177bd2bb035f569b7a98178b8810502cfeceec",
+  "format": "PARQUET_ZSTD",
+  "logical_sha256": "ab4f83c12d41ceb43e054e0ff374affc58c54159df4213412c6e5d402b5f0d64",
+  "path": "research/experiments/EXP-ML-014-LINEAR-NET-R-FULL/trials.parquet",
+  "rows": 4061,
+  "schema_version": 1,
+  "sort_key": [
+    "profile",
+    "fold_id",
+    "signal_us"
+  ],
+  "writer": {
+    "compression": "zstd",
+    "compression_level": 9,
+    "data_page_version": "1.0",
+    "pyarrow_version": "21.0.0",
+    "use_dictionary": false,
+    "version": "2.6",
+    "write_statistics": true
+  }
+}

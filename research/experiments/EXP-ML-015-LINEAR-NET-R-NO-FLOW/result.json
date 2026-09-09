@@ -1,0 +1,2463 @@
+{
+  "artifacts": [
+    "research/experiments/EXP-ML-015-LINEAR-NET-R-NO-FLOW/trials.parquet",
+    "research/experiments/EXP-ML-015-LINEAR-NET-R-NO-FLOW/artifact-manifest.json",
+    "research/experiments/EXP-ML-015-LINEAR-NET-R-NO-FLOW/training-manifests.json",
+    "research/experiments/EXP-ML-015-LINEAR-NET-R-NO-FLOW/fold-models.json"
+  ],
+  "code_config_reference": "7f991c6eb25c253eaf7ab0e5cf84ba0e4553087943ab4d6ad24e57b29605fa6e",
+  "completed_at_utc": "2026-09-09T17:28:48.984611Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1"
+  },
+  "experiment_id": "EXP-ML-015-LINEAR-NET-R-NO-FLOW",
+  "experiment_version": 1,
+  "interpretation": "EXPOSED DEVELOPMENT RESEARCH \u2014 NOT APPROVED STRATEGY PERFORMANCE. Fixed OLS with training-only scaling and labels; no tuning or validation refit.",
+  "preregistration_created_at_utc": "2026-09-09T17:16:42.918734Z",
+  "preregistration_reference": "EXP-ML-015-LINEAR-NET-R-NO-FLOW",
+  "primary_result": -0.1172203904,
+  "run_identity_hash": "f06760ff55071eb4117595884d769d387b82e574b54a75d545488919a4c828f8",
+  "schema_version": 2,
+  "secondary_results": {
+    "artifact_manifest": {
+      "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+      "columns": [
+        {
+          "name": "profile",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "fold_id",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "signal_us",
+          "nullable": false,
+          "type": "int64"
+        },
+        {
+          "name": "prediction_signal_us",
+          "nullable": false,
+          "type": "int64"
+        },
+        {
+          "name": "predicted_default_net_r",
+          "nullable": false,
+          "type": "double"
+        },
+        {
+          "name": "reference",
+          "nullable": false,
+          "type": "double"
+        },
+        {
+          "name": "status",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "reason",
+          "nullable": false,
+          "type": "string"
+        },
+        {
+          "name": "exit_us",
+          "nullable": true,
+          "type": "int64"
+        },
+        {
+          "name": "net_r",
+          "nullable": true,
+          "type": "double"
+        },
+        {
+          "name": "gross_r",
+          "nullable": true,
+          "type": "double"
+        },
+        {
+          "name": "cost_drag_r",
+          "nullable": true,
+          "type": "double"
+        },
+        {
+          "name": "net_return_bps",
+          "nullable": true,
+          "type": "double"
+        },
+        {
+          "name": "position_available_us",
+          "nullable": false,
+          "type": "int64"
+        }
+      ],
+      "file_sha256": "9c20495415395886af7705fa93a78222f55515207b7f3ccb4246d7c2d9bbae1f",
+      "format": "PARQUET_ZSTD",
+      "logical_sha256": "7ed34cca31b83619bfd4855f689c1a2d2e93ee40939ecaf7d1e6bc8820c930a8",
+      "path": "research/experiments/EXP-ML-015-LINEAR-NET-R-NO-FLOW/trials.parquet",
+      "rows": 3922,
+      "schema_version": 1,
+      "sort_key": [
+        "profile",
+        "fold_id",
+        "signal_us"
+      ],
+      "writer": {
+        "compression": "zstd",
+        "compression_level": 9,
+        "data_page_version": "1.0",
+        "pyarrow_version": "21.0.0",
+        "use_dictionary": false,
+        "version": "2.6",
+        "write_statistics": true
+      }
+    },
+    "execution_provenance": {
+      "accounting": {
+        "experiments": 2,
+        "numeric_parameter_variants": 0,
+        "strategy_variants": 2,
+        "trials": 8
+      },
+      "admission_commit": "4c56620e16d506da464b56446e755fbcba0a78e8",
+      "allocation": "WP008-LINEAR-SUPERVISED-ALLOCATION",
+      "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+      "execution_commit": "2d8bc11b2bbc76db387652804f7ad8c492e3d493",
+      "family_classification": "NEW_FAMILY",
+      "feature_searches": 0,
+      "feature_version": "SUPERVISED_FEATURES_V1",
+      "hyperparameter_searches": 0,
+      "label_version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+      "model_fits": 6,
+      "order_flow_gate": {
+        "eligible_1h_buckets": 64135,
+        "eligible_4h_buckets": 16008,
+        "integrity_artifact_sha256": "50dc532d4ef5d5768d84809ca58283c76303e1661f43c0d77118a5316a2b834b",
+        "integrity_status": "PASS",
+        "reconciliation_status": "PASS",
+        "substrate_content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
+        "substrate_manifest_id": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1"
+      },
+      "preregistration_commit": "2d8bc11b2bbc76db387652804f7ad8c492e3d493",
+      "preregistration_hashes": {
+        "EXP-ML-014-LINEAR-NET-R-FULL": "7e8869124ffde0539fec80f1060b1150693370ad8181d089233783a57a683af9",
+        "EXP-ML-015-LINEAR-NET-R-NO-FLOW": "946d1048f4dab0413a19f2253f80f97eff0bc257cb40bddff7da6284721e4157"
+      },
+      "status": "PASS",
+      "stress_profile_refits": 0,
+      "threshold_searches": 0,
+      "trial_count": 4
+    },
+    "fold_models": [
+      {
+        "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+        "coefficients": [
+          -0.05118050001471187,
+          -0.08664458813869391,
+          0.11147767687671038,
+          0.04180219786807004,
+          -0.021048063775801113,
+          0.10569896615348368
+        ],
+        "condition_number": 5.209654590327978,
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "fold_id": "DEV-2019",
+        "full_rank": true,
+        "hyperparameters_searched": 0,
+        "intercept": -0.076409383963301,
+        "means": [
+          6.346230201401774e-06,
+          -0.00013281135908261234,
+          -0.03259960492435472,
+          0.009151618673720809,
+          -0.10395392246897785,
+          0.0018808880101108519
+        ],
+        "model_hash": "c83f4bfa8b6ffdcc76cbf7dff14714314d0cd5d73a99b9c2e7caa08773b09a34",
+        "rank": 7,
+        "regularization": "NONE",
+        "signal_threshold": 0.0,
+        "stds_ddof_0": [
+          0.011164489570382916,
+          0.048619373129076236,
+          0.035852339971871795,
+          0.00646113253263556,
+          0.4964600500666015,
+          0.2363353025640354
+        ],
+        "thresholds_searched": 0,
+        "training_label_hash": "3a8c0e86cd8bd39988dc8d09a757247b50fa2859172a9d9bc4da5bde4d72851f",
+        "training_matrix_hash": "e54484d255cd406e3116d10f2f251b29d49241a75e6ad489bf85e46c9d294251"
+      },
+      {
+        "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+        "coefficients": [
+          -0.023186864294093237,
+          -0.06530225259407473,
+          0.08104449330644874,
+          0.017572235161455223,
+          -0.014454454349815096,
+          0.11881869352590306
+        ],
+        "condition_number": 5.020764820241169,
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "fold_id": "DEV-2020",
+        "full_rank": true,
+        "hyperparameters_searched": 0,
+        "intercept": -0.07774024289144567,
+        "means": [
+          3.223554925824059e-05,
+          0.0008030663654914846,
+          -0.028329271700548404,
+          0.007728911518679776,
+          -0.12283266956327102,
+          0.0176975804327253
+        ],
+        "model_hash": "f19f3708c9ed8cc2cbd01e4e8b6c3aa784fa3da7c4548ffc8c97d593f93a7db7",
+        "rank": 7,
+        "regularization": "NONE",
+        "signal_threshold": 0.0,
+        "stds_ddof_0": [
+          0.009655703494410457,
+          0.04390869713403551,
+          0.03217742278213216,
+          0.00581552417896618,
+          0.525319830991779,
+          0.23906147479364512
+        ],
+        "thresholds_searched": 0,
+        "training_label_hash": "2886d3916f11b6692304e058decb2e84daea271fdb120206b82eae1688137d6c",
+        "training_matrix_hash": "aa908dd7a20019db4896a2b4cdee60ddbeaca04ee8e71b7e685ea0848d0d55cd"
+      },
+      {
+        "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+        "coefficients": [
+          -0.019221365015882053,
+          -0.05452897548723228,
+          0.07542672341604517,
+          6.157002220440536e-05,
+          -0.001896510094209916,
+          0.09149422664648305
+        ],
+        "condition_number": 5.203710881823488,
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "fold_id": "DEV-2021",
+        "full_rank": true,
+        "hyperparameters_searched": 0,
+        "intercept": -0.048669885239255764,
+        "means": [
+          6.787461952219663e-05,
+          0.0015733347638196317,
+          -0.0261156320972594,
+          0.007190160990730521,
+          -0.12388190229051982,
+          0.036129689316559244
+        ],
+        "model_hash": "1b9edc2b655aa3b005727e5b2a0b926a0f4fac11c629d469e080d84ea3eae63d",
+        "rank": 7,
+        "regularization": "NONE",
+        "signal_threshold": 0.0,
+        "stds_ddof_0": [
+          0.009234809484425925,
+          0.04205270071843025,
+          0.03173063910222994,
+          0.005809873623259368,
+          0.5249188541880127,
+          0.23321303497421925
+        ],
+        "thresholds_searched": 0,
+        "training_label_hash": "08737f279aa7c98af13746fa2e9dc41d22eb341e4d2f49fbf6e3cea7ff927dff",
+        "training_matrix_hash": "7d64742899c8e696b3a16dea55cef514acb7e437d2c954b35710b427b4287590"
+      },
+      {
+        "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+        "coefficients": [
+          -0.01406324903420619,
+          -0.049462025001715884,
+          0.06267412367624733,
+          -0.0029971898460167713,
+          -0.0015672982298714014,
+          0.0684493530371218
+        ],
+        "condition_number": 5.0737412570896,
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "fold_id": "DEV-2022",
+        "full_rank": true,
+        "hyperparameters_searched": 0,
+        "intercept": -0.07845059276846311,
+        "means": [
+          5.052292729857625e-05,
+          0.0012159423500412603,
+          -0.027437069139913388,
+          0.007483269621555641,
+          -0.11909613605773996,
+          0.033038274844951754
+        ],
+        "model_hash": "94a6ac6ff640ff8684bd143b847702d3c91301fa6626f72bf507d5d47af54eba",
+        "rank": 7,
+        "regularization": "NONE",
+        "signal_threshold": 0.0,
+        "stds_ddof_0": [
+          0.009290645991832413,
+          0.042714551592822676,
+          0.03163577841503942,
+          0.005517083694199831,
+          0.5148933344840043,
+          0.22475411183670446
+        ],
+        "thresholds_searched": 0,
+        "training_label_hash": "285032faa0003cac300e47516393b95293f30385285af836d068039e16df459e",
+        "training_matrix_hash": "7d6e6cdff03e931db6af02bde74e0c804b1534183d96fbdb67b2d9f99f14340b"
+      },
+      {
+        "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+        "coefficients": [
+          -0.011364962009545669,
+          -0.041993374194286025,
+          0.055348226160790825,
+          0.006376420109689102,
+          0.0055719448025293855,
+          0.05505646194625764
+        ],
+        "condition_number": 5.059064254006156,
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "fold_id": "DEV-2023",
+        "full_rank": true,
+        "hyperparameters_searched": 0,
+        "intercept": -0.10423907346772315,
+        "means": [
+          1.2893116552819267e-05,
+          0.00033391361442223805,
+          -0.02703761517029935,
+          0.007166785082375997,
+          -0.11943229374875938,
+          0.018725502099775502
+        ],
+        "model_hash": "e6365cf25b742ecc51cdeb9d62d05ea97f432ba2f350e96c24d69a79b61840af",
+        "rank": 7,
+        "regularization": "NONE",
+        "signal_threshold": 0.0,
+        "stds_ddof_0": [
+          0.008829045364332648,
+          0.04096819675252711,
+          0.03039435814667306,
+          0.005166793893235398,
+          0.5185484112019817,
+          0.22305695747968338
+        ],
+        "thresholds_searched": 0,
+        "training_label_hash": "711392194265d0cfa0b0749aed2028e6f0c4b413691e92f55b6074990015ea70",
+        "training_matrix_hash": "5ae93250c519a5d5fbcd75c2977e27031b527875a6e6c96426f4ca194b4044f3"
+      },
+      {
+        "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+        "coefficients": [
+          -0.00951682482944334,
+          -0.040134301865209415,
+          0.05258846455761511,
+          0.006529326691935141,
+          0.0009742187732978301,
+          0.054238416569900236
+        ],
+        "condition_number": 5.025865105868041,
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "fold_id": "DEV-2024",
+        "full_rank": true,
+        "hyperparameters_searched": 0,
+        "intercept": -0.09216867697117478,
+        "means": [
+          2.9453310264804324e-05,
+          0.0007271508754570696,
+          -0.0249247935123229,
+          0.006588756073222047,
+          -0.12615280991645178,
+          0.023783236201657343
+        ],
+        "model_hash": "d606226178e8fc8ea0fd25bc9e560cca0a5e7f2cfc94e956382b468e8bb20610",
+        "rank": 7,
+        "regularization": "NONE",
+        "signal_threshold": 0.0,
+        "stds_ddof_0": [
+          0.00824561798645919,
+          0.038487756122327334,
+          0.028595791946599204,
+          0.00496536933615816,
+          0.5328953799088547,
+          0.2287252871965104
+        ],
+        "thresholds_searched": 0,
+        "training_label_hash": "fe73c25c31dd0a42ba7385fb08086213675a88856531a675352cda712a4709f7",
+        "training_matrix_hash": "32834bee01df69c8282d34cd6bac8518fc70d5c3493ea542fd112e856b0aedb6"
+      }
+    ],
+    "prediction_diagnostics": [
+      {
+        "fold_id": "DEV-2019",
+        "isolated_label_exclusions": 60,
+        "isolated_label_valid_count": 7581,
+        "mean_isolated_realized_r_prediction_positive": 0.047468214529465265,
+        "mean_prediction": -0.05228632388368006,
+        "prediction_hash": "423c78069b512c0b7038980c570bfb3c975b1891fe1baff426c8dbfef2832979",
+        "prediction_label_pearson": 0.11862630746894472,
+        "prediction_positive_count": 2425,
+        "validation_eligible_count": 7641
+      },
+      {
+        "fold_id": "DEV-2020",
+        "isolated_label_exclusions": 116,
+        "isolated_label_valid_count": 7335,
+        "mean_isolated_realized_r_prediction_positive": 0.016745178402871406,
+        "mean_prediction": -0.0388616602075832,
+        "prediction_hash": "73233d4de31766099378fc9e6ce8975be0fcb2f21358ffa43e63bb1c939ac6f4",
+        "prediction_label_pearson": 0.02900687634651671,
+        "prediction_positive_count": 2730,
+        "validation_eligible_count": 7451
+      },
+      {
+        "fold_id": "DEV-2021",
+        "isolated_label_exclusions": 50,
+        "isolated_label_valid_count": 7655,
+        "mean_isolated_realized_r_prediction_positive": -0.25354265883028293,
+        "mean_prediction": -0.06382037323357555,
+        "prediction_hash": "fba69cca22170844f28886a9bb05685edb46b6478c335b458f7cd4bdc7b9bbf1",
+        "prediction_label_pearson": -0.03207761151400407,
+        "prediction_positive_count": 1862,
+        "validation_eligible_count": 7705
+      },
+      {
+        "fold_id": "DEV-2022",
+        "isolated_label_exclusions": 0,
+        "isolated_label_valid_count": 8713,
+        "mean_isolated_realized_r_prediction_positive": -0.19079719595334843,
+        "mean_prediction": -0.08946150053180142,
+        "prediction_hash": "0732189a57db540e826c18b9f5c35f94615ab08dc76c864a1ff2dc4f83bde05d",
+        "prediction_label_pearson": -0.0187487565166582,
+        "prediction_positive_count": 800,
+        "validation_eligible_count": 8713
+      },
+      {
+        "fold_id": "DEV-2023",
+        "isolated_label_exclusions": 20,
+        "isolated_label_valid_count": 8517,
+        "mean_isolated_realized_r_prediction_positive": 0.18301438060689804,
+        "mean_prediction": -0.0814962456660762,
+        "prediction_hash": "42d22a45d1ec14010aa6a80b569d1627562c376ba701b77e00036933ce774485",
+        "prediction_label_pearson": 0.031032330354787186,
+        "prediction_positive_count": 854,
+        "validation_eligible_count": 8537
+      },
+      {
+        "fold_id": "DEV-2024",
+        "isolated_label_exclusions": 0,
+        "isolated_label_valid_count": 8737,
+        "mean_isolated_realized_r_prediction_positive": 0.05290849466619597,
+        "mean_prediction": -0.07645245574549717,
+        "prediction_hash": "ee171b64fd80aef0ad5d7d58da454ec5e38a6633425cfabbd9ca05ba693cce23",
+        "prediction_label_pearson": 0.011349009836713287,
+        "prediction_positive_count": 729,
+        "validation_eligible_count": 8737
+      }
+    ],
+    "profiles": {
+      "DEFAULT": {
+        "fold_diagnostics": [
+          {
+            "emitted_trade_count": 276,
+            "fold_id": "DEV-2019",
+            "prediction_positive_count": 2425,
+            "suppressed_positive_count": 2149,
+            "validation_eligible_count": 7641
+          },
+          {
+            "emitted_trade_count": 241,
+            "fold_id": "DEV-2020",
+            "prediction_positive_count": 2730,
+            "suppressed_positive_count": 2489,
+            "validation_eligible_count": 7451
+          },
+          {
+            "emitted_trade_count": 232,
+            "fold_id": "DEV-2021",
+            "prediction_positive_count": 1862,
+            "suppressed_positive_count": 1630,
+            "validation_eligible_count": 7705
+          },
+          {
+            "emitted_trade_count": 80,
+            "fold_id": "DEV-2022",
+            "prediction_positive_count": 800,
+            "suppressed_positive_count": 720,
+            "validation_eligible_count": 8713
+          },
+          {
+            "emitted_trade_count": 72,
+            "fold_id": "DEV-2023",
+            "prediction_positive_count": 854,
+            "suppressed_positive_count": 782,
+            "validation_eligible_count": 8537
+          },
+          {
+            "emitted_trade_count": 76,
+            "fold_id": "DEV-2024",
+            "prediction_positive_count": 729,
+            "suppressed_positive_count": 653,
+            "validation_eligible_count": 8737
+          }
+        ],
+        "profile": "DEFAULT",
+        "summary": {
+          "diagnostics": {
+            "active_week_count": 199,
+            "active_week_kish_count": 111.2381234451,
+            "constant_return_series": false,
+            "interpretation": "DEPENDENCE_AND_CONCENTRATION_DIAGNOSTICS_NOT_INDEPENDENT_EVIDENCE",
+            "minimum_fold_trades": 72,
+            "positive_autocorrelations": [
+              0.0474050197,
+              0.0,
+              0.0411295841,
+              0.0428019857,
+              0.0166702821
+            ],
+            "trade_ess": 747.677256668
+          },
+          "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+          "excluded_outside_validation_attempt_count": 0,
+          "folds": [
+            {
+              "fold_id": "DEV-2019",
+              "metrics": {
+                "attempted_setups": 276,
+                "average_loss_r": -0.9494203997,
+                "average_win_r": 1.2567004236,
+                "cost_drag_r": 32.8192272778,
+                "cumulative_net_bps": -1973.8995361275,
+                "cumulative_net_r": -9.9001160764,
+                "hit_rate": 0.4139194139,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 35.605920915,
+                "net_expectancy_bps": -7.2304012312,
+                "net_expectancy_r": -0.0362641615,
+                "net_return_bps_observation_count": 273,
+                "profit_factor": 0.9348278955,
+                "trade_count": 273,
+                "unresolved_rate": 0.0108695652,
+                "unresolved_trades": 3,
+                "yearly": {
+                  "2019": {
+                    "cumulative_net_r": -9.9001160764,
+                    "expectancy_r": -0.0362641615,
+                    "trades": 273
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2020",
+              "metrics": {
+                "attempted_setups": 241,
+                "average_loss_r": -0.9421871304,
+                "average_win_r": 1.1209053976,
+                "cost_drag_r": 28.5886594753,
+                "cumulative_net_bps": -2765.3116735696,
+                "cumulative_net_r": -13.8050991713,
+                "hit_rate": 0.4285714286,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 23.5884191333,
+                "net_expectancy_bps": -11.6189566116,
+                "net_expectancy_r": -0.0580046184,
+                "net_return_bps_observation_count": 238,
+                "profit_factor": 0.8922633531,
+                "trade_count": 238,
+                "unresolved_rate": 0.0124481328,
+                "unresolved_trades": 3,
+                "yearly": {
+                  "2020": {
+                    "cumulative_net_r": -13.8050991713,
+                    "expectancy_r": -0.0580046184,
+                    "trades": 238
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2021",
+              "metrics": {
+                "attempted_setups": 232,
+                "average_loss_r": -1.0451459592,
+                "average_win_r": 1.3832796475,
+                "cost_drag_r": 27.589567223,
+                "cumulative_net_bps": -10641.1267262428,
+                "cumulative_net_r": -53.3947988987,
+                "hit_rate": 0.3347826087,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 59.4728510283,
+                "net_expectancy_bps": -46.265768375,
+                "net_expectancy_r": -0.2321512996,
+                "net_return_bps_observation_count": 230,
+                "profit_factor": 0.6660891135,
+                "trade_count": 230,
+                "unresolved_rate": 0.0086206897,
+                "unresolved_trades": 2,
+                "yearly": {
+                  "2021": {
+                    "cumulative_net_r": -53.3947988987,
+                    "expectancy_r": -0.2321512996,
+                    "trades": 230
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2022",
+              "metrics": {
+                "attempted_setups": 80,
+                "average_loss_r": -0.9494179433,
+                "average_win_r": 0.7728729961,
+                "cost_drag_r": 9.5765158861,
+                "cumulative_net_bps": -5890.5824840409,
+                "cumulative_net_r": -29.4515801007,
+                "hit_rate": 0.3375,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 34.6575149053,
+                "net_expectancy_bps": -73.6322810505,
+                "net_expectancy_r": -0.3681447513,
+                "net_return_bps_observation_count": 80,
+                "profit_factor": 0.4147043518,
+                "trade_count": 80,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2022": {
+                    "cumulative_net_r": -29.4515801007,
+                    "expectancy_r": -0.3681447513,
+                    "trades": 80
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2023",
+              "metrics": {
+                "attempted_setups": 72,
+                "average_loss_r": -0.7851261945,
+                "average_win_r": 0.8167325185,
+                "cost_drag_r": 8.6506485792,
+                "cumulative_net_bps": 231.6079394049,
+                "cumulative_net_r": 1.137827662,
+                "hit_rate": 0.5,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 11.0484096116,
+                "net_expectancy_bps": 3.2167769362,
+                "net_expectancy_r": 0.015803162,
+                "net_return_bps_observation_count": 72,
+                "profit_factor": 1.0402563615,
+                "trade_count": 72,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2023": {
+                    "cumulative_net_r": 1.137827662,
+                    "expectancy_r": 0.015803162,
+                    "trades": 72
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2024",
+              "metrics": {
+                "attempted_setups": 76,
+                "average_loss_r": -0.8534643973,
+                "average_win_r": 1.2461838441,
+                "cost_drag_r": 9.1211526869,
+                "cumulative_net_bps": -1634.533588394,
+                "cumulative_net_r": -8.1727916794,
+                "hit_rate": 0.3552631579,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 12.2069220091,
+                "net_expectancy_bps": -21.5070208999,
+                "net_expectancy_r": -0.1075367326,
+                "net_return_bps_observation_count": 76,
+                "profit_factor": 0.8045710314,
+                "trade_count": 76,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2024": {
+                    "cumulative_net_r": -8.1727916794,
+                    "expectancy_r": -0.1075367326,
+                    "trades": 76
+                  }
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "attempted_setups": 977,
+            "average_loss_r": -0.9546090203,
+            "average_win_r": 1.1695521902,
+            "cost_drag_r": 116.3457711283,
+            "cumulative_net_bps": -22673.8460689699,
+            "cumulative_net_r": -113.5865582645,
+            "hit_rate": 0.3942208462,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 137.1970245807,
+            "net_expectancy_bps": -23.3992219494,
+            "net_expectancy_r": -0.1172203904,
+            "net_return_bps_observation_count": 969,
+            "profit_factor": 0.7972955395,
+            "trade_count": 969,
+            "unresolved_rate": 0.0081883316,
+            "unresolved_trades": 8,
+            "yearly": {
+              "2019": {
+                "cumulative_net_r": -9.9001160764,
+                "expectancy_r": -0.0362641615,
+                "trades": 273
+              },
+              "2020": {
+                "cumulative_net_r": -13.8050991713,
+                "expectancy_r": -0.0580046184,
+                "trades": 238
+              },
+              "2021": {
+                "cumulative_net_r": -53.3947988987,
+                "expectancy_r": -0.2321512996,
+                "trades": 230
+              },
+              "2022": {
+                "cumulative_net_r": -29.4515801007,
+                "expectancy_r": -0.3681447513,
+                "trades": 80
+              },
+              "2023": {
+                "cumulative_net_r": 1.137827662,
+                "expectancy_r": 0.015803162,
+                "trades": 72
+              },
+              "2024": {
+                "cumulative_net_r": -8.1727916794,
+                "expectancy_r": -0.1075367326,
+                "trades": 76
+              }
+            }
+          },
+          "protocol_id": "DEVELOPMENT_WALK_FORWARD_V1",
+          "protocol_sha256": "8701587ddda8789d09e8a3087dccab7b4c6a01fb47a16a2baae77a62d2d5448c",
+          "regime_metrics": {
+            "OTHER": {
+              "attempted_setups": 0,
+              "average_loss_r": null,
+              "average_win_r": null,
+              "cost_drag_r": null,
+              "cumulative_net_bps": null,
+              "cumulative_net_r": null,
+              "hit_rate": null,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": null,
+              "net_expectancy_bps": null,
+              "net_expectancy_r": null,
+              "net_return_bps_observation_count": 0,
+              "profit_factor": null,
+              "trade_count": 0,
+              "unresolved_rate": 0,
+              "unresolved_trades": 0,
+              "yearly": {}
+            },
+            "PERSISTENT_UP": {
+              "attempted_setups": 0,
+              "average_loss_r": null,
+              "average_win_r": null,
+              "cost_drag_r": null,
+              "cumulative_net_bps": null,
+              "cumulative_net_r": null,
+              "hit_rate": null,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": null,
+              "net_expectancy_bps": null,
+              "net_expectancy_r": null,
+              "net_return_bps_observation_count": 0,
+              "profit_factor": null,
+              "trade_count": 0,
+              "unresolved_rate": 0,
+              "unresolved_trades": 0,
+              "yearly": {}
+            },
+            "UNCLASSIFIED": {
+              "attempted_setups": 977,
+              "average_loss_r": -0.9546090203,
+              "average_win_r": 1.1695521902,
+              "cost_drag_r": 116.3457711283,
+              "cumulative_net_bps": -22673.8460689699,
+              "cumulative_net_r": -113.5865582645,
+              "hit_rate": 0.3942208462,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": 137.1970245807,
+              "net_expectancy_bps": -23.3992219494,
+              "net_expectancy_r": -0.1172203904,
+              "net_return_bps_observation_count": 969,
+              "profit_factor": 0.7972955395,
+              "trade_count": 969,
+              "unresolved_rate": 0.0081883316,
+              "unresolved_trades": 8,
+              "yearly": {
+                "2019": {
+                  "cumulative_net_r": -9.9001160764,
+                  "expectancy_r": -0.0362641615,
+                  "trades": 273
+                },
+                "2020": {
+                  "cumulative_net_r": -13.8050991713,
+                  "expectancy_r": -0.0580046184,
+                  "trades": 238
+                },
+                "2021": {
+                  "cumulative_net_r": -53.3947988987,
+                  "expectancy_r": -0.2321512996,
+                  "trades": 230
+                },
+                "2022": {
+                  "cumulative_net_r": -29.4515801007,
+                  "expectancy_r": -0.3681447513,
+                  "trades": 80
+                },
+                "2023": {
+                  "cumulative_net_r": 1.137827662,
+                  "expectancy_r": 0.015803162,
+                  "trades": 72
+                },
+                "2024": {
+                  "cumulative_net_r": -8.1727916794,
+                  "expectancy_r": -0.1075367326,
+                  "trades": 76
+                }
+              }
+            }
+          },
+          "regime_stability": {
+            "max_absolute_regime_pnl_share": 1.0,
+            "max_positive_regime_profit_share": null,
+            "max_regime_trade_share": 1.0
+          },
+          "stability": {
+            "best_fold": {
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": 0.015803162
+            },
+            "empty_fold_count": 0,
+            "equal_fold_mean": -0.1310497336,
+            "equal_fold_mean_policy": "NONEMPTY_FOLDS_ONLY_EMPTY_FOLDS_RETAINED_IN_DIAGNOSTICS",
+            "leave_one_fold_out_expectancy": {
+              "DEV-2019": -0.1489747733,
+              "DEV-2020": -0.136499944,
+              "DEV-2021": -0.0814502833,
+              "DEV-2022": -0.0946400204,
+              "DEV-2023": -0.1278978661,
+              "DEV-2024": -0.1180445315
+            },
+            "max_absolute_fold_pnl_share": 0.4608473914,
+            "max_fold_trade_share": 0.2817337461,
+            "max_positive_fold_profit_share": 1.0,
+            "nonnegative_fold_count": 1,
+            "nonnegative_fold_fraction": 0.1666666667,
+            "populated_fold_count": 6,
+            "positive_fold_fraction": 0.1666666667,
+            "worst_fold": {
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.3681447513
+            }
+          },
+          "supplied_attempt_count": 977,
+          "validation_outcome": "PASS"
+        },
+        "variant": "LINEAR_NO_FLOW"
+      },
+      "DELAY_1H": {
+        "fold_diagnostics": [
+          {
+            "emitted_trade_count": 273,
+            "fold_id": "DEV-2019",
+            "prediction_positive_count": 2422,
+            "suppressed_positive_count": 2149,
+            "validation_eligible_count": 7641
+          },
+          {
+            "emitted_trade_count": 249,
+            "fold_id": "DEV-2020",
+            "prediction_positive_count": 2727,
+            "suppressed_positive_count": 2478,
+            "validation_eligible_count": 7451
+          },
+          {
+            "emitted_trade_count": 240,
+            "fold_id": "DEV-2021",
+            "prediction_positive_count": 1862,
+            "suppressed_positive_count": 1622,
+            "validation_eligible_count": 7705
+          },
+          {
+            "emitted_trade_count": 79,
+            "fold_id": "DEV-2022",
+            "prediction_positive_count": 800,
+            "suppressed_positive_count": 721,
+            "validation_eligible_count": 8713
+          },
+          {
+            "emitted_trade_count": 73,
+            "fold_id": "DEV-2023",
+            "prediction_positive_count": 854,
+            "suppressed_positive_count": 781,
+            "validation_eligible_count": 8537
+          },
+          {
+            "emitted_trade_count": 77,
+            "fold_id": "DEV-2024",
+            "prediction_positive_count": 729,
+            "suppressed_positive_count": 652,
+            "validation_eligible_count": 8737
+          }
+        ],
+        "profile": "DELAY_1H",
+        "summary": {
+          "diagnostics": {
+            "active_week_count": 197,
+            "active_week_kish_count": 112.5555037857,
+            "constant_return_series": false,
+            "interpretation": "DEPENDENCE_AND_CONCENTRATION_DIAGNOSTICS_NOT_INDEPENDENT_EVIDENCE",
+            "minimum_fold_trades": 72,
+            "positive_autocorrelations": [
+              0.0939921818,
+              0.0279543444,
+              0.0016799271,
+              0.0038548903,
+              0.0254243148
+            ],
+            "trade_ess": 752.7886971535
+          },
+          "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+          "excluded_outside_validation_attempt_count": 0,
+          "folds": [
+            {
+              "fold_id": "DEV-2019",
+              "metrics": {
+                "attempted_setups": 273,
+                "average_loss_r": -0.9382548099,
+                "average_win_r": 1.2115884646,
+                "cost_drag_r": 32.5576467936,
+                "cumulative_net_bps": -1838.2485760975,
+                "cumulative_net_r": -9.184920194,
+                "hit_rate": 0.4206642066,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 39.1837842302,
+                "net_expectancy_bps": -6.7832050779,
+                "net_expectancy_r": -0.0338926944,
+                "net_return_bps_observation_count": 271,
+                "profit_factor": 0.9376473472,
+                "trade_count": 271,
+                "unresolved_rate": 0.0073260073,
+                "unresolved_trades": 2,
+                "yearly": {
+                  "2019": {
+                    "cumulative_net_r": -9.184920194,
+                    "expectancy_r": -0.0338926944,
+                    "trades": 271
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2020",
+              "metrics": {
+                "attempted_setups": 249,
+                "average_loss_r": -0.9294931341,
+                "average_win_r": 1.1291715473,
+                "cost_drag_r": 29.5558675082,
+                "cumulative_net_bps": -858.0480664249,
+                "cumulative_net_r": -4.2608607125,
+                "hit_rate": 0.4430894309,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 20.0173726108,
+                "net_expectancy_bps": -3.48800027,
+                "net_expectancy_r": -0.017320572,
+                "net_return_bps_observation_count": 246,
+                "profit_factor": 0.9665396419,
+                "trade_count": 246,
+                "unresolved_rate": 0.0120481928,
+                "unresolved_trades": 3,
+                "yearly": {
+                  "2020": {
+                    "cumulative_net_r": -4.2608607125,
+                    "expectancy_r": -0.017320572,
+                    "trades": 246
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2021",
+              "metrics": {
+                "attempted_setups": 240,
+                "average_loss_r": -1.0603749164,
+                "average_win_r": 1.3717141144,
+                "cost_drag_r": 28.5335246618,
+                "cumulative_net_bps": -12514.1475231484,
+                "cumulative_net_r": -62.6662856987,
+                "hit_rate": 0.3277310924,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 67.2808653365,
+                "net_expectancy_bps": -52.5804517779,
+                "net_expectancy_r": -0.2633037214,
+                "net_return_bps_observation_count": 238,
+                "profit_factor": 0.630636033,
+                "trade_count": 238,
+                "unresolved_rate": 0.0083333333,
+                "unresolved_trades": 2,
+                "yearly": {
+                  "2021": {
+                    "cumulative_net_r": -62.6662856987,
+                    "expectancy_r": -0.2633037214,
+                    "trades": 238
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2022",
+              "metrics": {
+                "attempted_setups": 79,
+                "average_loss_r": -0.8632140757,
+                "average_win_r": 0.894432424,
+                "cost_drag_r": 9.4554081918,
+                "cumulative_net_bps": -5558.1945950074,
+                "cumulative_net_r": -27.7680424884,
+                "hit_rate": 0.2911392405,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 32.7160447288,
+                "net_expectancy_bps": -70.3568936077,
+                "net_expectancy_r": -0.3514942087,
+                "net_return_bps_observation_count": 79,
+                "profit_factor": 0.4255678684,
+                "trade_count": 79,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2022": {
+                    "cumulative_net_r": -27.7680424884,
+                    "expectancy_r": -0.3514942087,
+                    "trades": 79
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2023",
+              "metrics": {
+                "attempted_setups": 73,
+                "average_loss_r": -0.7674183776,
+                "average_win_r": 0.9343890664,
+                "cost_drag_r": 8.6558908227,
+                "cumulative_net_bps": 1204.4038240518,
+                "cumulative_net_r": 6.0109447938,
+                "hit_rate": 0.5,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 8.1191674138,
+                "net_expectancy_bps": 16.7278308896,
+                "net_expectancy_r": 0.0834853444,
+                "net_return_bps_observation_count": 72,
+                "profit_factor": 1.2175745246,
+                "trade_count": 72,
+                "unresolved_rate": 0.0136986301,
+                "unresolved_trades": 1,
+                "yearly": {
+                  "2023": {
+                    "cumulative_net_r": 6.0109447938,
+                    "expectancy_r": 0.0834853444,
+                    "trades": 72
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2024",
+              "metrics": {
+                "attempted_setups": 77,
+                "average_loss_r": -0.9151698535,
+                "average_win_r": 1.1455405182,
+                "cost_drag_r": 9.2456616869,
+                "cumulative_net_bps": -905.0643162963,
+                "cumulative_net_r": -4.5253468256,
+                "hit_rate": 0.4155844156,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 11.8494929203,
+                "net_expectancy_bps": -11.7540820298,
+                "net_expectancy_r": -0.058770738,
+                "net_return_bps_observation_count": 77,
+                "profit_factor": 0.8901151929,
+                "trade_count": 77,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2024": {
+                    "cumulative_net_r": -4.5253468256,
+                    "expectancy_r": -0.058770738,
+                    "trades": 77
+                  }
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "attempted_setups": 991,
+            "average_loss_r": -0.9500105658,
+            "average_win_r": 1.1710758502,
+            "cost_drag_r": 118.0039996651,
+            "cumulative_net_bps": -20469.2992529226,
+            "cumulative_net_r": -102.3945111255,
+            "hit_rate": 0.3987792472,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 132.8304143655,
+            "net_expectancy_bps": -20.8232952726,
+            "net_expectancy_r": -0.1041653216,
+            "net_return_bps_observation_count": 983,
+            "profit_factor": 0.8176269083,
+            "trade_count": 983,
+            "unresolved_rate": 0.0080726539,
+            "unresolved_trades": 8,
+            "yearly": {
+              "2019": {
+                "cumulative_net_r": -9.184920194,
+                "expectancy_r": -0.0338926944,
+                "trades": 271
+              },
+              "2020": {
+                "cumulative_net_r": -4.2608607125,
+                "expectancy_r": -0.017320572,
+                "trades": 246
+              },
+              "2021": {
+                "cumulative_net_r": -62.6662856987,
+                "expectancy_r": -0.2633037214,
+                "trades": 238
+              },
+              "2022": {
+                "cumulative_net_r": -27.7680424884,
+                "expectancy_r": -0.3514942087,
+                "trades": 79
+              },
+              "2023": {
+                "cumulative_net_r": 6.0109447938,
+                "expectancy_r": 0.0834853444,
+                "trades": 72
+              },
+              "2024": {
+                "cumulative_net_r": -4.5253468256,
+                "expectancy_r": -0.058770738,
+                "trades": 77
+              }
+            }
+          },
+          "protocol_id": "DEVELOPMENT_WALK_FORWARD_V1",
+          "protocol_sha256": "8701587ddda8789d09e8a3087dccab7b4c6a01fb47a16a2baae77a62d2d5448c",
+          "regime_metrics": {
+            "OTHER": {
+              "attempted_setups": 0,
+              "average_loss_r": null,
+              "average_win_r": null,
+              "cost_drag_r": null,
+              "cumulative_net_bps": null,
+              "cumulative_net_r": null,
+              "hit_rate": null,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": null,
+              "net_expectancy_bps": null,
+              "net_expectancy_r": null,
+              "net_return_bps_observation_count": 0,
+              "profit_factor": null,
+              "trade_count": 0,
+              "unresolved_rate": 0,
+              "unresolved_trades": 0,
+              "yearly": {}
+            },
+            "PERSISTENT_UP": {
+              "attempted_setups": 0,
+              "average_loss_r": null,
+              "average_win_r": null,
+              "cost_drag_r": null,
+              "cumulative_net_bps": null,
+              "cumulative_net_r": null,
+              "hit_rate": null,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": null,
+              "net_expectancy_bps": null,
+              "net_expectancy_r": null,
+              "net_return_bps_observation_count": 0,
+              "profit_factor": null,
+              "trade_count": 0,
+              "unresolved_rate": 0,
+              "unresolved_trades": 0,
+              "yearly": {}
+            },
+            "UNCLASSIFIED": {
+              "attempted_setups": 991,
+              "average_loss_r": -0.9500105658,
+              "average_win_r": 1.1710758502,
+              "cost_drag_r": 118.0039996651,
+              "cumulative_net_bps": -20469.2992529226,
+              "cumulative_net_r": -102.3945111255,
+              "hit_rate": 0.3987792472,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": 132.8304143655,
+              "net_expectancy_bps": -20.8232952726,
+              "net_expectancy_r": -0.1041653216,
+              "net_return_bps_observation_count": 983,
+              "profit_factor": 0.8176269083,
+              "trade_count": 983,
+              "unresolved_rate": 0.0080726539,
+              "unresolved_trades": 8,
+              "yearly": {
+                "2019": {
+                  "cumulative_net_r": -9.184920194,
+                  "expectancy_r": -0.0338926944,
+                  "trades": 271
+                },
+                "2020": {
+                  "cumulative_net_r": -4.2608607125,
+                  "expectancy_r": -0.017320572,
+                  "trades": 246
+                },
+                "2021": {
+                  "cumulative_net_r": -62.6662856987,
+                  "expectancy_r": -0.2633037214,
+                  "trades": 238
+                },
+                "2022": {
+                  "cumulative_net_r": -27.7680424884,
+                  "expectancy_r": -0.3514942087,
+                  "trades": 79
+                },
+                "2023": {
+                  "cumulative_net_r": 6.0109447938,
+                  "expectancy_r": 0.0834853444,
+                  "trades": 72
+                },
+                "2024": {
+                  "cumulative_net_r": -4.5253468256,
+                  "expectancy_r": -0.058770738,
+                  "trades": 77
+                }
+              }
+            }
+          },
+          "regime_stability": {
+            "max_absolute_regime_pnl_share": 1.0,
+            "max_positive_regime_profit_share": null,
+            "max_regime_trade_share": 1.0
+          },
+          "stability": {
+            "best_fold": {
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": 0.0834853444
+            },
+            "empty_fold_count": 0,
+            "equal_fold_mean": -0.106882765,
+            "equal_fold_mean_policy": "NONEMPTY_FOLDS_ONLY_EMPTY_FOLDS_RETAINED_IN_DIAGNOSTICS",
+            "leave_one_fold_out_expectancy": {
+              "DEV-2019": -0.1309123468,
+              "DEV-2020": -0.1331528499,
+              "DEV-2021": -0.0533264771,
+              "DEV-2022": -0.0825514034,
+              "DEV-2023": -0.1189961097,
+              "DEV-2024": -0.1080233602
+            },
+            "max_absolute_fold_pnl_share": 0.5477036973,
+            "max_fold_trade_share": 0.2756866734,
+            "max_positive_fold_profit_share": 1.0,
+            "nonnegative_fold_count": 1,
+            "nonnegative_fold_fraction": 0.1666666667,
+            "populated_fold_count": 6,
+            "positive_fold_fraction": 0.1666666667,
+            "worst_fold": {
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.3514942087
+            }
+          },
+          "supplied_attempt_count": 991,
+          "validation_outcome": "PASS"
+        },
+        "variant": "LINEAR_NO_FLOW"
+      },
+      "DOUBLE": {
+        "fold_diagnostics": [
+          {
+            "emitted_trade_count": 276,
+            "fold_id": "DEV-2019",
+            "prediction_positive_count": 2425,
+            "suppressed_positive_count": 2149,
+            "validation_eligible_count": 7641
+          },
+          {
+            "emitted_trade_count": 241,
+            "fold_id": "DEV-2020",
+            "prediction_positive_count": 2730,
+            "suppressed_positive_count": 2489,
+            "validation_eligible_count": 7451
+          },
+          {
+            "emitted_trade_count": 232,
+            "fold_id": "DEV-2021",
+            "prediction_positive_count": 1862,
+            "suppressed_positive_count": 1630,
+            "validation_eligible_count": 7705
+          },
+          {
+            "emitted_trade_count": 80,
+            "fold_id": "DEV-2022",
+            "prediction_positive_count": 800,
+            "suppressed_positive_count": 720,
+            "validation_eligible_count": 8713
+          },
+          {
+            "emitted_trade_count": 72,
+            "fold_id": "DEV-2023",
+            "prediction_positive_count": 854,
+            "suppressed_positive_count": 782,
+            "validation_eligible_count": 8537
+          },
+          {
+            "emitted_trade_count": 76,
+            "fold_id": "DEV-2024",
+            "prediction_positive_count": 729,
+            "suppressed_positive_count": 653,
+            "validation_eligible_count": 8737
+          }
+        ],
+        "profile": "DOUBLE",
+        "summary": {
+          "diagnostics": {
+            "active_week_count": 199,
+            "active_week_kish_count": 111.2381234451,
+            "constant_return_series": false,
+            "interpretation": "DEPENDENCE_AND_CONCENTRATION_DIAGNOSTICS_NOT_INDEPENDENT_EVIDENCE",
+            "minimum_fold_trades": 72,
+            "positive_autocorrelations": [
+              0.0474214012,
+              0.0,
+              0.0410674482,
+              0.0427568237,
+              0.0166723212
+            ],
+            "trade_ess": 747.7798181852
+          },
+          "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+          "excluded_outside_validation_attempt_count": 0,
+          "folds": [
+            {
+              "fold_id": "DEV-2019",
+              "metrics": {
+                "attempted_setups": 276,
+                "average_loss_r": -1.0261095569,
+                "average_win_r": 1.2135939794,
+                "cost_drag_r": 65.638445388,
+                "cumulative_net_bps": -8531.397105808,
+                "cumulative_net_r": -42.7193341866,
+                "hit_rate": 0.3882783883,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 49.0213228948,
+                "net_expectancy_bps": -31.2505388491,
+                "net_expectancy_r": -0.1564810776,
+                "net_return_bps_observation_count": 273,
+                "profit_factor": 0.7507045962,
+                "trade_count": 273,
+                "unresolved_rate": 0.0108695652,
+                "unresolved_trades": 3,
+                "yearly": {
+                  "2019": {
+                    "cumulative_net_r": -42.7193341866,
+                    "expectancy_r": -0.1564810776,
+                    "trades": 273
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2020",
+              "metrics": {
+                "attempted_setups": 241,
+                "average_loss_r": -1.0121588544,
+                "average_win_r": 1.0773154046,
+                "cost_drag_r": 57.1773130373,
+                "cumulative_net_bps": -8480.8501770448,
+                "cumulative_net_r": -42.3937527332,
+                "hit_rate": 0.3991596639,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 47.3550288142,
+                "net_expectancy_bps": -35.6338242733,
+                "net_expectancy_r": -0.1781250115,
+                "net_return_bps_observation_count": 238,
+                "profit_factor": 0.7071015009,
+                "trade_count": 238,
+                "unresolved_rate": 0.0124481328,
+                "unresolved_trades": 3,
+                "yearly": {
+                  "2020": {
+                    "cumulative_net_r": -42.3937527332,
+                    "expectancy_r": -0.1781250115,
+                    "trades": 238
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2021",
+              "metrics": {
+                "attempted_setups": 232,
+                "average_loss_r": -1.1154019742,
+                "average_win_r": 1.3925705633,
+                "cost_drag_r": 55.179144768,
+                "cumulative_net_bps": -16154.977068488,
+                "cumulative_net_r": -80.9843764437,
+                "hit_rate": 0.3043478261,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 85.003154794,
+                "net_expectancy_bps": -70.2390307326,
+                "net_expectancy_r": -0.3521059845,
+                "net_return_bps_observation_count": 230,
+                "profit_factor": 0.5462152977,
+                "trade_count": 230,
+                "unresolved_rate": 0.0086206897,
+                "unresolved_trades": 2,
+                "yearly": {
+                  "2021": {
+                    "cumulative_net_r": -80.9843764437,
+                    "expectancy_r": -0.3521059845,
+                    "trades": 230
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2022",
+              "metrics": {
+                "attempted_setups": 80,
+                "average_loss_r": -0.9980233493,
+                "average_win_r": 0.7764881293,
+                "cost_drag_r": 19.1530397222,
+                "cumulative_net_bps": -7805.8144467184,
+                "cumulative_net_r": -39.0281039368,
+                "hit_rate": 0.2875,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 43.507400095,
+                "net_expectancy_bps": -97.572680584,
+                "net_expectancy_r": -0.4878512992,
+                "net_return_bps_observation_count": 80,
+                "profit_factor": 0.3139403218,
+                "trade_count": 80,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2022": {
+                    "cumulative_net_r": -39.0281039368,
+                    "expectancy_r": -0.4878512992,
+                    "trades": 80
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2023",
+              "metrics": {
+                "attempted_setups": 72,
+                "average_loss_r": -0.7860920998,
+                "average_win_r": 0.8501017064,
+                "cost_drag_r": 17.3012932431,
+                "cumulative_net_bps": -1498.7452376995,
+                "cumulative_net_r": -7.5128170019,
+                "hit_rate": 0.4166666667,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 15.4912927975,
+                "net_expectancy_bps": -20.8159060792,
+                "net_expectancy_r": -0.1043446806,
+                "net_return_bps_observation_count": 72,
+                "profit_factor": 0.7724482979,
+                "trade_count": 72,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2023": {
+                    "cumulative_net_r": -7.5128170019,
+                    "expectancy_r": -0.1043446806,
+                    "trades": 72
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2024",
+              "metrics": {
+                "attempted_setups": 76,
+                "average_loss_r": -0.9725838934,
+                "average_win_r": 1.1245432144,
+                "cost_drag_r": 18.2423049944,
+                "cumulative_net_bps": -3458.7611073854,
+                "cumulative_net_r": -17.2939439869,
+                "hit_rate": 0.3552631579,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 19.1875489501,
+                "net_expectancy_bps": -45.5100145709,
+                "net_expectancy_r": -0.2275518946,
+                "net_return_bps_observation_count": 76,
+                "profit_factor": 0.6371134307,
+                "trade_count": 76,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2024": {
+                    "cumulative_net_r": -17.2939439869,
+                    "expectancy_r": -0.2275518946,
+                    "trades": 76
+                  }
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "attempted_setups": 977,
+            "average_loss_r": -1.022852974,
+            "average_win_r": 1.1458427625,
+            "cost_drag_r": 232.691541153,
+            "cumulative_net_bps": -45930.545143144,
+            "cumulative_net_r": -229.9323282891,
+            "hit_rate": 0.3622291022,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 234.5011382891,
+            "net_expectancy_bps": -47.3999433882,
+            "net_expectancy_r": -0.2372882645,
+            "net_return_bps_observation_count": 969,
+            "profit_factor": 0.6362538966,
+            "trade_count": 969,
+            "unresolved_rate": 0.0081883316,
+            "unresolved_trades": 8,
+            "yearly": {
+              "2019": {
+                "cumulative_net_r": -42.7193341866,
+                "expectancy_r": -0.1564810776,
+                "trades": 273
+              },
+              "2020": {
+                "cumulative_net_r": -42.3937527332,
+                "expectancy_r": -0.1781250115,
+                "trades": 238
+              },
+              "2021": {
+                "cumulative_net_r": -80.9843764437,
+                "expectancy_r": -0.3521059845,
+                "trades": 230
+              },
+              "2022": {
+                "cumulative_net_r": -39.0281039368,
+                "expectancy_r": -0.4878512992,
+                "trades": 80
+              },
+              "2023": {
+                "cumulative_net_r": -7.5128170019,
+                "expectancy_r": -0.1043446806,
+                "trades": 72
+              },
+              "2024": {
+                "cumulative_net_r": -17.2939439869,
+                "expectancy_r": -0.2275518946,
+                "trades": 76
+              }
+            }
+          },
+          "protocol_id": "DEVELOPMENT_WALK_FORWARD_V1",
+          "protocol_sha256": "8701587ddda8789d09e8a3087dccab7b4c6a01fb47a16a2baae77a62d2d5448c",
+          "regime_metrics": {
+            "OTHER": {
+              "attempted_setups": 0,
+              "average_loss_r": null,
+              "average_win_r": null,
+              "cost_drag_r": null,
+              "cumulative_net_bps": null,
+              "cumulative_net_r": null,
+              "hit_rate": null,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": null,
+              "net_expectancy_bps": null,
+              "net_expectancy_r": null,
+              "net_return_bps_observation_count": 0,
+              "profit_factor": null,
+              "trade_count": 0,
+              "unresolved_rate": 0,
+              "unresolved_trades": 0,
+              "yearly": {}
+            },
+            "PERSISTENT_UP": {
+              "attempted_setups": 0,
+              "average_loss_r": null,
+              "average_win_r": null,
+              "cost_drag_r": null,
+              "cumulative_net_bps": null,
+              "cumulative_net_r": null,
+              "hit_rate": null,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": null,
+              "net_expectancy_bps": null,
+              "net_expectancy_r": null,
+              "net_return_bps_observation_count": 0,
+              "profit_factor": null,
+              "trade_count": 0,
+              "unresolved_rate": 0,
+              "unresolved_trades": 0,
+              "yearly": {}
+            },
+            "UNCLASSIFIED": {
+              "attempted_setups": 977,
+              "average_loss_r": -1.022852974,
+              "average_win_r": 1.1458427625,
+              "cost_drag_r": 232.691541153,
+              "cumulative_net_bps": -45930.545143144,
+              "cumulative_net_r": -229.9323282891,
+              "hit_rate": 0.3622291022,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": 234.5011382891,
+              "net_expectancy_bps": -47.3999433882,
+              "net_expectancy_r": -0.2372882645,
+              "net_return_bps_observation_count": 969,
+              "profit_factor": 0.6362538966,
+              "trade_count": 969,
+              "unresolved_rate": 0.0081883316,
+              "unresolved_trades": 8,
+              "yearly": {
+                "2019": {
+                  "cumulative_net_r": -42.7193341866,
+                  "expectancy_r": -0.1564810776,
+                  "trades": 273
+                },
+                "2020": {
+                  "cumulative_net_r": -42.3937527332,
+                  "expectancy_r": -0.1781250115,
+                  "trades": 238
+                },
+                "2021": {
+                  "cumulative_net_r": -80.9843764437,
+                  "expectancy_r": -0.3521059845,
+                  "trades": 230
+                },
+                "2022": {
+                  "cumulative_net_r": -39.0281039368,
+                  "expectancy_r": -0.4878512992,
+                  "trades": 80
+                },
+                "2023": {
+                  "cumulative_net_r": -7.5128170019,
+                  "expectancy_r": -0.1043446806,
+                  "trades": 72
+                },
+                "2024": {
+                  "cumulative_net_r": -17.2939439869,
+                  "expectancy_r": -0.2275518946,
+                  "trades": 76
+                }
+              }
+            }
+          },
+          "regime_stability": {
+            "max_absolute_regime_pnl_share": 1.0,
+            "max_positive_regime_profit_share": null,
+            "max_regime_trade_share": 1.0
+          },
+          "stability": {
+            "best_fold": {
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": -0.1043446806
+            },
+            "empty_fold_count": 0,
+            "equal_fold_mean": -0.251076658,
+            "equal_fold_mean_policy": "NONEMPTY_FOLDS_ONLY_EMPTY_FOLDS_RETAINED_IN_DIAGNOSTICS",
+            "leave_one_fold_out_expectancy": {
+              "DEV-2019": -0.2689841869,
+              "DEV-2020": -0.256550719,
+              "DEV-2021": -0.2015533854,
+              "DEV-2022": -0.2147404098,
+              "DEV-2023": -0.2479593214,
+              "DEV-2024": -0.2381168917
+            },
+            "max_absolute_fold_pnl_share": 0.3522096134,
+            "max_fold_trade_share": 0.2817337461,
+            "max_positive_fold_profit_share": null,
+            "nonnegative_fold_count": 0,
+            "nonnegative_fold_fraction": 0.0,
+            "populated_fold_count": 6,
+            "positive_fold_fraction": 0.0,
+            "worst_fold": {
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.4878512992
+            }
+          },
+          "supplied_attempt_count": 977,
+          "validation_outcome": "PASS"
+        },
+        "variant": "LINEAR_NO_FLOW"
+      },
+      "ZERO": {
+        "fold_diagnostics": [
+          {
+            "emitted_trade_count": 276,
+            "fold_id": "DEV-2019",
+            "prediction_positive_count": 2425,
+            "suppressed_positive_count": 2149,
+            "validation_eligible_count": 7641
+          },
+          {
+            "emitted_trade_count": 241,
+            "fold_id": "DEV-2020",
+            "prediction_positive_count": 2730,
+            "suppressed_positive_count": 2489,
+            "validation_eligible_count": 7451
+          },
+          {
+            "emitted_trade_count": 232,
+            "fold_id": "DEV-2021",
+            "prediction_positive_count": 1862,
+            "suppressed_positive_count": 1630,
+            "validation_eligible_count": 7705
+          },
+          {
+            "emitted_trade_count": 80,
+            "fold_id": "DEV-2022",
+            "prediction_positive_count": 800,
+            "suppressed_positive_count": 720,
+            "validation_eligible_count": 8713
+          },
+          {
+            "emitted_trade_count": 72,
+            "fold_id": "DEV-2023",
+            "prediction_positive_count": 854,
+            "suppressed_positive_count": 782,
+            "validation_eligible_count": 8537
+          },
+          {
+            "emitted_trade_count": 76,
+            "fold_id": "DEV-2024",
+            "prediction_positive_count": 729,
+            "suppressed_positive_count": 653,
+            "validation_eligible_count": 8737
+          }
+        ],
+        "profile": "ZERO",
+        "summary": {
+          "diagnostics": {
+            "active_week_count": 199,
+            "active_week_kish_count": 111.2381234451,
+            "constant_return_series": false,
+            "interpretation": "DEPENDENCE_AND_CONCENTRATION_DIAGNOSTICS_NOT_INDEPENDENT_EVIDENCE",
+            "minimum_fold_trades": 72,
+            "positive_autocorrelations": [
+              0.0473885601,
+              0.0,
+              0.0411915984,
+              0.0428469681,
+              0.0166682794
+            ],
+            "trade_ess": 747.5751185195
+          },
+          "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+          "excluded_outside_validation_attempt_count": 0,
+          "folds": [
+            {
+              "fold_id": "DEV-2019",
+              "metrics": {
+                "attempted_setups": 276,
+                "average_loss_r": -0.8772983716,
+                "average_win_r": 1.2914749064,
+                "cost_drag_r": 0.0,
+                "cumulative_net_bps": 4583.5998669929,
+                "cumulative_net_r": 22.9191112015,
+                "hit_rate": 0.4432234432,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 22.1905278115,
+                "net_expectancy_bps": 16.7897431025,
+                "net_expectancy_r": 0.0839527883,
+                "net_return_bps_observation_count": 273,
+                "profit_factor": 1.1718726846,
+                "trade_count": 273,
+                "unresolved_rate": 0.0108695652,
+                "unresolved_trades": 3,
+                "yearly": {
+                  "2019": {
+                    "cumulative_net_r": 22.9191112015,
+                    "expectancy_r": 0.0839527883,
+                    "trades": 273
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2020",
+              "metrics": {
+                "attempted_setups": 241,
+                "average_loss_r": -0.8704071956,
+                "average_win_r": 1.1657439316,
+                "cost_drag_r": 0.0,
+                "cumulative_net_bps": 2950.2280099968,
+                "cumulative_net_r": 14.7835603041,
+                "hit_rate": 0.4579831933,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 9.9740397771,
+                "net_expectancy_bps": 12.3959160084,
+                "net_expectancy_r": 0.0621157996,
+                "net_return_bps_observation_count": 238,
+                "profit_factor": 1.1316639422,
+                "trade_count": 238,
+                "unresolved_rate": 0.0124481328,
+                "unresolved_trades": 3,
+                "yearly": {
+                  "2020": {
+                    "cumulative_net_r": 14.7835603041,
+                    "expectancy_r": 0.0621157996,
+                    "trades": 238
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2021",
+              "metrics": {
+                "attempted_setups": 232,
+                "average_loss_r": -0.9601415817,
+                "average_win_r": 1.4182405173,
+                "cost_drag_r": 0.0,
+                "cumulative_net_bps": -5127.278434909,
+                "cumulative_net_r": -25.8052316757,
+                "hit_rate": 0.3565217391,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 36.6081718691,
+                "net_expectancy_bps": -22.2925149344,
+                "net_expectancy_r": -0.1121966595,
+                "net_return_bps_observation_count": 230,
+                "profit_factor": 0.8184021223,
+                "trade_count": 230,
+                "unresolved_rate": 0.0086206897,
+                "unresolved_trades": 2,
+                "yearly": {
+                  "2021": {
+                    "cumulative_net_r": -25.8052316757,
+                    "expectancy_r": -0.1121966595,
+                    "trades": 230
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2022",
+              "metrics": {
+                "attempted_setups": 80,
+                "average_loss_r": -0.8663804399,
+                "average_win_r": 0.8382875248,
+                "cost_drag_r": 0.0,
+                "cumulative_net_bps": -3975.3521115043,
+                "cumulative_net_r": -19.8750642146,
+                "hit_rate": 0.3625,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 25.8076400387,
+                "net_expectancy_bps": -49.6919013938,
+                "net_expectancy_r": -0.2484383027,
+                "net_return_bps_observation_count": 80,
+                "profit_factor": 0.5501893585,
+                "trade_count": 80,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2022": {
+                    "cumulative_net_r": -19.8750642146,
+                    "expectancy_r": -0.2484383027,
+                    "trades": 80
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2023",
+              "metrics": {
+                "attempted_setups": 72,
+                "average_loss_r": -0.8142745695,
+                "average_win_r": 0.8146836506,
+                "cost_drag_r": 0.0,
+                "cumulative_net_bps": 1961.9619012941,
+                "cumulative_net_r": 9.7884762412,
+                "hit_rate": 0.5833333333,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 7.5776059354,
+                "net_expectancy_bps": 27.2494708513,
+                "net_expectancy_r": 0.1359510589,
+                "net_return_bps_observation_count": 72,
+                "profit_factor": 1.4007033421,
+                "trade_count": 72,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2023": {
+                    "cumulative_net_r": 9.7884762412,
+                    "expectancy_r": 0.1359510589,
+                    "trades": 72
+                  }
+                }
+              }
+            },
+            {
+              "fold_id": "DEV-2024",
+              "metrics": {
+                "attempted_setups": 76,
+                "average_loss_r": -0.7518224608,
+                "average_win_r": 1.3227085403,
+                "cost_drag_r": 0.0,
+                "cumulative_net_bps": 189.6940064749,
+                "cumulative_net_r": 0.9483610074,
+                "hit_rate": 0.3684210526,
+                "invalid_attempts": 0,
+                "invalid_rate": 0.0,
+                "maximum_drawdown_r": 7.7989528766,
+                "net_expectancy_bps": 2.4959737694,
+                "net_expectancy_r": 0.0124784343,
+                "net_return_bps_observation_count": 76,
+                "profit_factor": 1.0262795035,
+                "trade_count": 76,
+                "unresolved_rate": 0.0,
+                "unresolved_trades": 0,
+                "yearly": {
+                  "2024": {
+                    "cumulative_net_r": 0.9483610074,
+                    "expectancy_r": 0.0124784343,
+                    "trades": 76
+                  }
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "attempted_setups": 977,
+            "average_loss_r": -0.8824981227,
+            "average_win_r": 1.2048495506,
+            "cost_drag_r": 0.0,
+            "cumulative_net_bps": 582.8532383455,
+            "cumulative_net_r": 2.7592128638,
+            "hit_rate": 0.4241486068,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 56.4832360837,
+            "net_expectancy_bps": 0.60149973,
+            "net_expectancy_r": 0.0028474849,
+            "net_return_bps_observation_count": 969,
+            "profit_factor": 1.0056032141,
+            "trade_count": 969,
+            "unresolved_rate": 0.0081883316,
+            "unresolved_trades": 8,
+            "yearly": {
+              "2019": {
+                "cumulative_net_r": 22.9191112015,
+                "expectancy_r": 0.0839527883,
+                "trades": 273
+              },
+              "2020": {
+                "cumulative_net_r": 14.7835603041,
+                "expectancy_r": 0.0621157996,
+                "trades": 238
+              },
+              "2021": {
+                "cumulative_net_r": -25.8052316757,
+                "expectancy_r": -0.1121966595,
+                "trades": 230
+              },
+              "2022": {
+                "cumulative_net_r": -19.8750642146,
+                "expectancy_r": -0.2484383027,
+                "trades": 80
+              },
+              "2023": {
+                "cumulative_net_r": 9.7884762412,
+                "expectancy_r": 0.1359510589,
+                "trades": 72
+              },
+              "2024": {
+                "cumulative_net_r": 0.9483610074,
+                "expectancy_r": 0.0124784343,
+                "trades": 76
+              }
+            }
+          },
+          "protocol_id": "DEVELOPMENT_WALK_FORWARD_V1",
+          "protocol_sha256": "8701587ddda8789d09e8a3087dccab7b4c6a01fb47a16a2baae77a62d2d5448c",
+          "regime_metrics": {
+            "OTHER": {
+              "attempted_setups": 0,
+              "average_loss_r": null,
+              "average_win_r": null,
+              "cost_drag_r": null,
+              "cumulative_net_bps": null,
+              "cumulative_net_r": null,
+              "hit_rate": null,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": null,
+              "net_expectancy_bps": null,
+              "net_expectancy_r": null,
+              "net_return_bps_observation_count": 0,
+              "profit_factor": null,
+              "trade_count": 0,
+              "unresolved_rate": 0,
+              "unresolved_trades": 0,
+              "yearly": {}
+            },
+            "PERSISTENT_UP": {
+              "attempted_setups": 0,
+              "average_loss_r": null,
+              "average_win_r": null,
+              "cost_drag_r": null,
+              "cumulative_net_bps": null,
+              "cumulative_net_r": null,
+              "hit_rate": null,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": null,
+              "net_expectancy_bps": null,
+              "net_expectancy_r": null,
+              "net_return_bps_observation_count": 0,
+              "profit_factor": null,
+              "trade_count": 0,
+              "unresolved_rate": 0,
+              "unresolved_trades": 0,
+              "yearly": {}
+            },
+            "UNCLASSIFIED": {
+              "attempted_setups": 977,
+              "average_loss_r": -0.8824981227,
+              "average_win_r": 1.2048495506,
+              "cost_drag_r": 0.0,
+              "cumulative_net_bps": 582.8532383455,
+              "cumulative_net_r": 2.7592128638,
+              "hit_rate": 0.4241486068,
+              "invalid_attempts": 0,
+              "invalid_rate": 0.0,
+              "maximum_drawdown_r": 56.4832360837,
+              "net_expectancy_bps": 0.60149973,
+              "net_expectancy_r": 0.0028474849,
+              "net_return_bps_observation_count": 969,
+              "profit_factor": 1.0056032141,
+              "trade_count": 969,
+              "unresolved_rate": 0.0081883316,
+              "unresolved_trades": 8,
+              "yearly": {
+                "2019": {
+                  "cumulative_net_r": 22.9191112015,
+                  "expectancy_r": 0.0839527883,
+                  "trades": 273
+                },
+                "2020": {
+                  "cumulative_net_r": 14.7835603041,
+                  "expectancy_r": 0.0621157996,
+                  "trades": 238
+                },
+                "2021": {
+                  "cumulative_net_r": -25.8052316757,
+                  "expectancy_r": -0.1121966595,
+                  "trades": 230
+                },
+                "2022": {
+                  "cumulative_net_r": -19.8750642146,
+                  "expectancy_r": -0.2484383027,
+                  "trades": 80
+                },
+                "2023": {
+                  "cumulative_net_r": 9.7884762412,
+                  "expectancy_r": 0.1359510589,
+                  "trades": 72
+                },
+                "2024": {
+                  "cumulative_net_r": 0.9483610074,
+                  "expectancy_r": 0.0124784343,
+                  "trades": 76
+                }
+              }
+            }
+          },
+          "regime_stability": {
+            "max_absolute_regime_pnl_share": 1.0,
+            "max_positive_regime_profit_share": 1.0,
+            "max_regime_trade_share": 1.0
+          },
+          "stability": {
+            "best_fold": {
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": 0.1359510589
+            },
+            "empty_fold_count": 0,
+            "equal_fold_mean": -0.0110228135,
+            "equal_fold_mean_policy": "NONEMPTY_FOLDS_ONLY_EMPTY_FOLDS_RETAINED_IN_DIAGNOSTICS",
+            "leave_one_fold_out_expectancy": {
+              "DEV-2019": -0.0289653712,
+              "DEV-2020": -0.0164491757,
+              "DEV-2021": 0.0386528343,
+              "DEV-2022": 0.0254603792,
+              "DEV-2023": -0.007836414,
+              "DEV-2024": 0.0020278296
+            },
+            "max_absolute_fold_pnl_share": 0.2741743013,
+            "max_fold_trade_share": 0.2817337461,
+            "max_positive_fold_profit_share": 0.4731491254,
+            "nonnegative_fold_count": 4,
+            "nonnegative_fold_fraction": 0.6666666667,
+            "populated_fold_count": 6,
+            "positive_fold_fraction": 0.6666666667,
+            "worst_fold": {
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.2484383027
+            }
+          },
+          "supplied_attempt_count": 977,
+          "validation_outcome": "PASS"
+        },
+        "variant": "LINEAR_NO_FLOW"
+      }
+    },
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "training_manifests": [
+      {
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "exclusions": {
+          "feature_ineligible": 2030,
+          "label_invalid": 5,
+          "label_unresolved": 81
+        },
+        "feature_label_dependencies": {
+          "backend/app/backtest/engine.py": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1",
+          "backend/app/backtest/models.py": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845",
+          "backend/app/research/continuation_lab.py": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9",
+          "backend/app/research/order_flow.py": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a",
+          "backend/app/research/supervised.py": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318",
+          "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+          "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json": "be037acd5568f847077fe7131353b042a4a10cd4ffcf78bbaaca9e0f456f71e9",
+          "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json": "41d274c31262328b1813f2e4387fd12904e111f91e60462ecb42b9cba4e503c0",
+          "research/protocols/WP-008-LINEAR-NET-R-V1.json": "73ae7ac49af1ae2fc9e70f959d7b6a65d954df5b5f8595efd94da8347c8ffa05"
+        },
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "feature_version": "SUPERVISED_FEATURES_V1",
+        "fit_rows": 9736,
+        "fold_id": "DEV-2019",
+        "max_training_label_outcome_us": 1545612660000000,
+        "purge_boundary_exclusive_us": 1545609600000000,
+        "regeneration_command": ".venv/Scripts/python.exe scripts/run_wp008.py",
+        "training_label_logical_sha256": "3a8c0e86cd8bd39988dc8d09a757247b50fa2859172a9d9bc4da5bde4d72851f",
+        "training_matrix_logical_sha256": "e54484d255cd406e3116d10f2f251b29d49241a75e6ad489bf85e46c9d294251",
+        "training_rows_committed": false,
+        "training_signal_max_us": 1545606000000000,
+        "training_signal_min_us": 1503565200000000,
+        "validation_end_exclusive_us": 1577836800000000,
+        "validation_start_us": 1546387200000000
+      },
+      {
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "exclusions": {
+          "feature_ineligible": 3102,
+          "label_invalid": 10,
+          "label_unresolved": 136
+        },
+        "feature_label_dependencies": {
+          "backend/app/backtest/engine.py": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1",
+          "backend/app/backtest/models.py": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845",
+          "backend/app/research/continuation_lab.py": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9",
+          "backend/app/research/order_flow.py": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a",
+          "backend/app/research/supervised.py": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318",
+          "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+          "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json": "be037acd5568f847077fe7131353b042a4a10cd4ffcf78bbaaca9e0f456f71e9",
+          "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json": "41d274c31262328b1813f2e4387fd12904e111f91e60462ecb42b9cba4e503c0",
+          "research/protocols/WP-008-LINEAR-NET-R-V1.json": "73ae7ac49af1ae2fc9e70f959d7b6a65d954df5b5f8595efd94da8347c8ffa05"
+        },
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "feature_version": "SUPERVISED_FEATURES_V1",
+        "fit_rows": 17364,
+        "fold_id": "DEV-2020",
+        "max_training_label_outcome_us": 1577228400000000,
+        "purge_boundary_exclusive_us": 1577145600000000,
+        "regeneration_command": ".venv/Scripts/python.exe scripts/run_wp008.py",
+        "training_label_logical_sha256": "2886d3916f11b6692304e058decb2e84daea271fdb120206b82eae1688137d6c",
+        "training_matrix_logical_sha256": "aa908dd7a20019db4896a2b4cdee60ddbeaca04ee8e71b7e685ea0848d0d55cd",
+        "training_rows_committed": false,
+        "training_signal_max_us": 1577142000000000,
+        "training_signal_min_us": 1503565200000000,
+        "validation_end_exclusive_us": 1609459200000000,
+        "validation_start_us": 1577923200000000
+      },
+      {
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "exclusions": {
+          "feature_ineligible": 4219,
+          "label_invalid": 14,
+          "label_unresolved": 248
+        },
+        "feature_label_dependencies": {
+          "backend/app/backtest/engine.py": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1",
+          "backend/app/backtest/models.py": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845",
+          "backend/app/research/continuation_lab.py": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9",
+          "backend/app/research/order_flow.py": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a",
+          "backend/app/research/supervised.py": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318",
+          "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+          "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json": "be037acd5568f847077fe7131353b042a4a10cd4ffcf78bbaaca9e0f456f71e9",
+          "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json": "41d274c31262328b1813f2e4387fd12904e111f91e60462ecb42b9cba4e503c0",
+          "research/protocols/WP-008-LINEAR-NET-R-V1.json": "73ae7ac49af1ae2fc9e70f959d7b6a65d954df5b5f8595efd94da8347c8ffa05"
+        },
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "feature_version": "SUPERVISED_FEATURES_V1",
+        "fit_rows": 24915,
+        "fold_id": "DEV-2021",
+        "max_training_label_outcome_us": 1608552720000000,
+        "purge_boundary_exclusive_us": 1608768000000000,
+        "regeneration_command": ".venv/Scripts/python.exe scripts/run_wp008.py",
+        "training_label_logical_sha256": "08737f279aa7c98af13746fa2e9dc41d22eb341e4d2f49fbf6e3cea7ff927dff",
+        "training_matrix_logical_sha256": "7d64742899c8e696b3a16dea55cef514acb7e437d2c954b35710b427b4287590",
+        "training_rows_committed": false,
+        "training_signal_max_us": 1608552000000000,
+        "training_signal_min_us": 1503565200000000,
+        "validation_end_exclusive_us": 1640995200000000,
+        "validation_start_us": 1609545600000000
+      },
+      {
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "exclusions": {
+          "feature_ineligible": 5428,
+          "label_invalid": 18,
+          "label_unresolved": 294
+        },
+        "feature_label_dependencies": {
+          "backend/app/backtest/engine.py": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1",
+          "backend/app/backtest/models.py": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845",
+          "backend/app/research/continuation_lab.py": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9",
+          "backend/app/research/order_flow.py": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a",
+          "backend/app/research/supervised.py": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318",
+          "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+          "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json": "be037acd5568f847077fe7131353b042a4a10cd4ffcf78bbaaca9e0f456f71e9",
+          "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json": "41d274c31262328b1813f2e4387fd12904e111f91e60462ecb42b9cba4e503c0",
+          "research/protocols/WP-008-LINEAR-NET-R-V1.json": "73ae7ac49af1ae2fc9e70f959d7b6a65d954df5b5f8595efd94da8347c8ffa05"
+        },
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "feature_version": "SUPERVISED_FEATURES_V1",
+        "fit_rows": 32416,
+        "fold_id": "DEV-2022",
+        "max_training_label_outcome_us": 1640386800000000,
+        "purge_boundary_exclusive_us": 1640304000000000,
+        "regeneration_command": ".venv/Scripts/python.exe scripts/run_wp008.py",
+        "training_label_logical_sha256": "285032faa0003cac300e47516393b95293f30385285af836d068039e16df459e",
+        "training_matrix_logical_sha256": "7d6e6cdff03e931db6af02bde74e0c804b1534183d96fbdb67b2d9f99f14340b",
+        "training_rows_committed": false,
+        "training_signal_max_us": 1640300400000000,
+        "training_signal_min_us": 1503565200000000,
+        "validation_end_exclusive_us": 1672531200000000,
+        "validation_start_us": 1641081600000000
+      },
+      {
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "exclusions": {
+          "feature_ineligible": 5428,
+          "label_invalid": 18,
+          "label_unresolved": 294
+        },
+        "feature_label_dependencies": {
+          "backend/app/backtest/engine.py": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1",
+          "backend/app/backtest/models.py": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845",
+          "backend/app/research/continuation_lab.py": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9",
+          "backend/app/research/order_flow.py": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a",
+          "backend/app/research/supervised.py": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318",
+          "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+          "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json": "be037acd5568f847077fe7131353b042a4a10cd4ffcf78bbaaca9e0f456f71e9",
+          "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json": "41d274c31262328b1813f2e4387fd12904e111f91e60462ecb42b9cba4e503c0",
+          "research/protocols/WP-008-LINEAR-NET-R-V1.json": "73ae7ac49af1ae2fc9e70f959d7b6a65d954df5b5f8595efd94da8347c8ffa05"
+        },
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "feature_version": "SUPERVISED_FEATURES_V1",
+        "fit_rows": 41176,
+        "fold_id": "DEV-2023",
+        "max_training_label_outcome_us": 1671922800000000,
+        "purge_boundary_exclusive_us": 1671840000000000,
+        "regeneration_command": ".venv/Scripts/python.exe scripts/run_wp008.py",
+        "training_label_logical_sha256": "711392194265d0cfa0b0749aed2028e6f0c4b413691e92f55b6074990015ea70",
+        "training_matrix_logical_sha256": "5ae93250c519a5d5fbcd75c2977e27031b527875a6e6c96426f4ca194b4044f3",
+        "training_rows_committed": false,
+        "training_signal_max_us": 1671836400000000,
+        "training_signal_min_us": 1503565200000000,
+        "validation_end_exclusive_us": 1704067200000000,
+        "validation_start_us": 1672617600000000
+      },
+      {
+        "dependency_hash": "2a5b702d331f3eb5eb4810dee254f82c03954e7648d9739b61d10e4c7611d27c",
+        "exclusions": {
+          "feature_ineligible": 5604,
+          "label_invalid": 18,
+          "label_unresolved": 314
+        },
+        "feature_label_dependencies": {
+          "backend/app/backtest/engine.py": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1",
+          "backend/app/backtest/models.py": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845",
+          "backend/app/research/continuation_lab.py": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9",
+          "backend/app/research/order_flow.py": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a",
+          "backend/app/research/supervised.py": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318",
+          "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+          "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json": "be037acd5568f847077fe7131353b042a4a10cd4ffcf78bbaaca9e0f456f71e9",
+          "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json": "41d274c31262328b1813f2e4387fd12904e111f91e60462ecb42b9cba4e503c0",
+          "research/protocols/WP-008-LINEAR-NET-R-V1.json": "73ae7ac49af1ae2fc9e70f959d7b6a65d954df5b5f8595efd94da8347c8ffa05"
+        },
+        "feature_order": [
+          "LOG_RETURN_1H",
+          "LOG_RETURN_24H",
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "REALIZED_VOL_24H",
+          "LOG_RELATIVE_VOLUME_1H",
+          "DIRECTIONAL_EFFICIENCY_4H"
+        ],
+        "feature_version": "SUPERVISED_FEATURES_V1",
+        "fit_rows": 49740,
+        "fold_id": "DEV-2024",
+        "max_training_label_outcome_us": 1703456100000000,
+        "purge_boundary_exclusive_us": 1703376000000000,
+        "regeneration_command": ".venv/Scripts/python.exe scripts/run_wp008.py",
+        "training_label_logical_sha256": "fe73c25c31dd0a42ba7385fb08086213675a88856531a675352cda712a4709f7",
+        "training_matrix_logical_sha256": "32834bee01df69c8282d34cd6bac8518fc70d5c3493ea542fd112e856b0aedb6",
+        "training_rows_committed": false,
+        "training_signal_max_us": 1703372400000000,
+        "training_signal_min_us": 1503565200000000,
+        "validation_end_exclusive_us": 1735689600000000,
+        "validation_start_us": 1704153600000000
+      }
+    ]
+  },
+  "seed_reference": [
+    0
+  ],
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 4,
+    "executed_trials": 4
+  },
+  "validation_outcome": "PASS"
+}

@@ -1,0 +1,41 @@
+{
+  "accounting": {
+    "experiments": 2,
+    "numeric_parameter_variants": 0,
+    "strategy_variants": 2,
+    "trials": 8
+  },
+  "admission_commit": "4c56620e16d506da464b56446e755fbcba0a78e8",
+  "allocation": "WP008-LINEAR-SUPERVISED-ALLOCATION",
+  "execution_commit": "2d8bc11b2bbc76db387652804f7ad8c492e3d493",
+  "family_classification": "NEW_FAMILY",
+  "feature_version": "SUPERVISED_FEATURES_V1",
+  "label_version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+  "order_flow_gate": {
+    "eligible_1h_buckets": 64135,
+    "eligible_4h_buckets": 16008,
+    "integrity_artifact_sha256": "50dc532d4ef5d5768d84809ca58283c76303e1661f43c0d77118a5316a2b834b",
+    "integrity_status": "PASS",
+    "reconciliation_status": "PASS",
+    "substrate_content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
+    "substrate_manifest_id": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1"
+  },
+  "preregistration_commit": "2d8bc11b2bbc76db387652804f7ad8c492e3d493",
+  "preregistration_hashes": {
+    "EXP-ML-014-LINEAR-NET-R-FULL": "7e8869124ffde0539fec80f1060b1150693370ad8181d089233783a57a683af9",
+    "EXP-ML-015-LINEAR-NET-R-NO-FLOW": "946d1048f4dab0413a19f2253f80f97eff0bc257cb40bddff7da6284721e4157"
+  },
+  "root_family": "FAM-SUPERVISED-LINEAR",
+  "started_at_utc": "2026-09-09T17:17:11.994583Z",
+  "status": "PASS",
+  "trial_ids": [
+    "LINEAR_FULL:DEFAULT",
+    "LINEAR_FULL:ZERO",
+    "LINEAR_FULL:DOUBLE",
+    "LINEAR_FULL:DELAY_1H",
+    "LINEAR_NO_FLOW:DEFAULT",
+    "LINEAR_NO_FLOW:ZERO",
+    "LINEAR_NO_FLOW:DOUBLE",
+    "LINEAR_NO_FLOW:DELAY_1H"
+  ]
+}
