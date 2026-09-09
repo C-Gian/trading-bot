@@ -26,6 +26,23 @@ with no WP-004 numeric-search allowance. Cost profiles, folds and random seeds a
 No automatic promotion follows a positive development outcome. See FAILURE_MEMORY.md for falsified
 claims and limitations, and the adaptive decision ledger for result-dependent research forks.
 
+## Retained WP-003 evidence
+
+DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE
+
+These are original full-development summaries, not the matched annual-window comparison.
+Buy-and-hold is outside the product horizon; random seed results share one market history.
+The later source-grid finding qualifies 2017/2018 availability, without rewriting this evidence.
+
+| Experiment | Reported primary result | Key lesson |
+|---|---|---|
+| EXP-BASE-001-BUYHOLD | Net total return: +20.9059309960 | Positive endpoint reference is outside the product horizon. |
+| EXP-BASE-003-TREND | Default-cost net expectancy R: -0.0908105341 | Fixed SMA trend and delayed timing both lose after default costs; delay did not materially change that conclusion. |
+| EXP-BASE-004-BREAKOUT | Default-cost net expectancy R: -0.0482093869 | Ungated prior-24h breakout was gross-positive but default-net-negative and inconsistent across years. |
+| EXP-CTRL-002-RANDOM | Median net expectancy R across 32 seeds: -0.0948689556 | 32 fixed random seeds produced negative median net expectancy under default costs. |
+| EXP-CTRL-005-TREND-DELAY-1H | Default-cost net expectancy R: -0.0940234189 | Fixed SMA trend and delayed timing both lose after default costs; delay did not materially change that conclusion. |
+| EXP-CTRL-006-NO-TRADE | No applicable trade metric: N/A (zero trades) | Zero attempts and trades confirms no-entry control. |
+
 ## WP-004 evidence and current research dispositions
 
 Generated from WP-004-LESSONS.json and immutable results. Earlier family revisit text above is

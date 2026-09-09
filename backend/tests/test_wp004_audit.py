@@ -3,7 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 
 import pytest
-from app.research.checkpoint_views import build_comparison
+from app.research.checkpoint_views import build_comparison, memory_views
 from app.research.evaluation_protocol import load_protocol
 from app.research.wp004 import ROOT
 from app.research.wp004_validation import read_json, validate_trade, validate_trial
@@ -58,3 +58,11 @@ def test_comparison_preserves_all_seeds_and_excludes_buy_hold():
         result["selected_family_terminal_classification"]
         == result["variants"]["ALIGNED"]["terminal_classification"]
     )
+
+
+def test_generated_memory_preserves_old_and_new_key_results():
+    views = memory_views()
+    assert "-0.0482093869" in views["RESEARCH_MAP.md"]
+    assert "+0.1373934676" in views["RESEARCH_MAP.md"]
+    assert "outside the product horizon" in views["RESEARCH_MAP.md"]
+    assert "never tested" in views["FAILURE_MEMORY.md"]

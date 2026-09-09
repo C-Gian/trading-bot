@@ -157,14 +157,41 @@ def memory_views(root: Path = ROOT) -> dict[str, str]:
     lessons = read_json(root / "research/memory/WP-004-LESSONS.json")
     rows = [
         "",
-        "## WP-004 evidence and current research dispositions",
+        "## Retained WP-003 evidence",
         "",
-        "Generated from WP-004-LESSONS.json and immutable results. Earlier family revisit text above is",
-        "historical admission rationale, not a fresh allocation; the WP-003 clue has now been consumed.",
+        LABEL,
         "",
-        "| Experiment | Default net expectancy R | Resolved trades | Key lesson |",
-        "|---|---:|---:|---|",
+        "These are original full-development summaries, not the matched annual-window comparison.",
+        "Buy-and-hold is outside the product horizon; random seed results share one market history.",
+        "The later source-grid finding qualifies 2017/2018 availability, without rewriting this evidence.",
+        "",
+        "| Experiment | Reported primary result | Key lesson |",
+        "|---|---|---|",
     ]
+    historical = read_json(root / "reports/research/WP-003-BASELINES.json")
+    outcomes = {item["experiment_id"]: item for item in memory["outcomes"]}
+    for item in historical["experiments"]:
+        eid = item["experiment_id"]
+        value = (
+            "N/A (zero trades)"
+            if item["primary_result"] is None
+            else f"{item['primary_result']:+.10f}"
+        )
+        rows.append(
+            f"| {eid} | {item['primary_metric']}: {value} | {outcomes[eid]['conclusion']} |"
+        )
+    rows.extend(
+        [
+            "",
+            "## WP-004 evidence and current research dispositions",
+            "",
+            "Generated from WP-004-LESSONS.json and immutable results. Earlier family revisit text above is",
+            "historical admission rationale, not a fresh allocation; the WP-003 clue has now been consumed.",
+            "",
+            "| Experiment | Default net expectancy R | Resolved trades | Key lesson |",
+            "|---|---:|---:|---|",
+        ]
+    )
     for eid, item in lessons["experiments"].items():
         result = read_json(root / item["result_path"])
         metrics = result["secondary_results"]["profiles"]["DEFAULT"]["metrics"]
@@ -187,6 +214,8 @@ def memory_views(root: Path = ROOT) -> dict[str, str]:
         "## WP-004 interpretive limits and retirement",
         "",
         "Generated from WP-004-LESSONS.json; the original outcomes above are not amended.",
+        "The original generic 'not falsified' prose reserves untested extrapolations; it does not mean",
+        "the three declared variants were never tested. Their actual executions/verdicts remain authoritative.",
         "",
     ]
     for eid, item in lessons["experiments"].items():

@@ -114,6 +114,8 @@ Legitimate revisit: Retain WP-003 and WP-004 evidence. No exact replay, threshol
 ## WP-004 interpretive limits and retirement
 
 Generated from WP-004-LESSONS.json; the original outcomes above are not amended.
+The original generic 'not falsified' prose reserves untested extrapolations; it does not mean
+the three declared variants were never tested. Their actual executions/verdicts remain authoritative.
 
 - EXP-ALG-007-REGIME: Positive default net expectancy does not overcome the 10-trade minimum fold, negative equal-fold mean, and negative double-cost result. Regime gating alone is not established as a stable, friction-robust continuation mechanism.
 - EXP-ALG-008-PARTICIPATION: A small positive default margin becomes negative at double costs and after delay; removing 2020 makes pooled default expectancy negative. Unsigned volume is not directional buying pressure; the result does not establish volume-only confirmation as sufficient. One default and two delayed unresolved paths remain recorded without invented P&L.
