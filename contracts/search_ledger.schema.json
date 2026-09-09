@@ -1,0 +1,373 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "work_package",
+    "record_kind",
+    "strategy_label",
+    "family_id",
+    "hypothesis_id",
+    "hypothesis_role",
+    "claimed_market_mechanism",
+    "fingerprint",
+    "behavior_hash",
+    "structure_hash",
+    "parent_experiment_ids",
+    "parent_family_id",
+    "novelty",
+    "scientific_reason",
+    "new_evidence_basis",
+    "budget_units",
+    "preregistration_path",
+    "preregistration_sha256",
+    "result_path",
+    "outcome_reference"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "work_package": {
+      "type": "string",
+      "pattern": "^WP-[0-9]{3}$"
+    },
+    "record_kind": {
+      "enum": [
+        "RETROSPECTIVE_IMPORT",
+        "PREREGISTERED_ADMISSION"
+      ]
+    },
+    "strategy_label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "family_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hypothesis_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hypothesis_role": {
+      "enum": [
+        "ECONOMIC_CORE",
+        "STRUCTURAL_ABLATION",
+        "TIMING_CONTROL",
+        "RANDOM_CONTROL",
+        "REFERENCE",
+        "NO_TRADE_CONTROL"
+      ]
+    },
+    "claimed_market_mechanism": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fingerprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "symbol",
+        "market",
+        "direction",
+        "signal_minutes",
+        "context_minutes",
+        "feature_families",
+        "feature_transformations",
+        "entry_event",
+        "regime_filter",
+        "confirmation_filter",
+        "position_policy",
+        "stop_family",
+        "exit_family",
+        "max_hold_minutes",
+        "parameters",
+        "execution_model",
+        "cost_model",
+        "dataset"
+      ],
+      "properties": {
+        "symbol": {
+          "const": "BTCUSDT"
+        },
+        "market": {
+          "const": "SPOT"
+        },
+        "direction": {
+          "enum": [
+            "LONG",
+            "NO_TRADE"
+          ]
+        },
+        "signal_minutes": {
+          "const": 60
+        },
+        "context_minutes": {
+          "enum": [
+            0,
+            240
+          ]
+        },
+        "feature_families": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          },
+          "uniqueItems": true
+        },
+        "feature_transformations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          },
+          "uniqueItems": true
+        },
+        "entry_event": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "regime_filter": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "confirmation_filter": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "position_policy": {
+          "enum": [
+            "SINGLE_LONG_NO_OVERLAP",
+            "NO_POSITION",
+            "ENDPOINT_REFERENCE"
+          ]
+        },
+        "stop_family": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "exit_family": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "max_hold_minutes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1440
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parameters": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "execution_model": {
+          "const": "EXECUTION_MODEL_V2"
+        },
+        "cost_model": {
+          "const": "BTCUSDT_SPOT_COST_V1"
+        },
+        "dataset": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "manifest_id",
+            "content_hash",
+            "maximum_timestamp"
+          ],
+          "properties": {
+            "manifest_id": {
+              "const": "BTCUSDT-SPOT-1M-DEV-v1"
+            },
+            "content_hash": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "maximum_timestamp": {
+              "const": "2024-12-31T23:59:00Z"
+            }
+          }
+        }
+      }
+    },
+    "behavior_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "structure_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "parent_experiment_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "parent_family_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "novelty": {
+      "enum": [
+        "NEW_FAMILY",
+        "NEW_MECHANISM_WITHIN_FAMILY",
+        "MEANINGFUL_ABLATION",
+        "PARAMETER_VARIANT",
+        "NEAR_DUPLICATE",
+        "DUPLICATE",
+        "REVISIT_WITH_NEW_EVIDENCE"
+      ]
+    },
+    "scientific_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "new_evidence_basis": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "source_experiment_id",
+            "source_path",
+            "source_sha256",
+            "observations",
+            "structural_response",
+            "falsifiable_prediction"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "OBSERVED_DIAGNOSTIC_WITH_STRUCTURAL_RESPONSE",
+                "NEW_DATA_WITHIN_APPROVED_CUTOFF",
+                "DOCUMENTED_EXECUTION_CORRECTION"
+              ]
+            },
+            "source_experiment_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "observations": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "json_pointer",
+                  "expected_value"
+                ],
+                "properties": {
+                  "json_pointer": {
+                    "type": "string",
+                    "pattern": "^/"
+                  },
+                  "expected_value": {
+                    "type": [
+                      "number",
+                      "string",
+                      "boolean",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "structural_response": {
+              "type": "string",
+              "minLength": 1
+            },
+            "falsifiable_prediction": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "budget_units": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "experiments",
+        "strategy_variants",
+        "trials",
+        "numeric_parameter_variants"
+      ],
+      "properties": {
+        "experiments": {
+          "const": 1
+        },
+        "strategy_variants": {
+          "const": 1
+        },
+        "trials": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "numeric_parameter_variants": {
+          "enum": [
+            0,
+            1
+          ]
+        }
+      }
+    },
+    "preregistration_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preregistration_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "result_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "outcome_reference": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

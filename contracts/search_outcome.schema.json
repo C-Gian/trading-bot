@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "result_path",
+    "result_sha256",
+    "terminal_classification",
+    "conclusion",
+    "falsified",
+    "not_falsified",
+    "evidence_facts",
+    "failure_modes",
+    "legitimate_revisit"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "terminal_classification": {
+      "enum": [
+        "REFERENCE_ONLY",
+        "CONTROL_BEHAVES_AS_EXPECTED",
+        "REJECT",
+        "REJECT_COST_DOMINATED",
+        "REJECT_UNSTABLE",
+        "REJECT_DUPLICATE_MECHANISM",
+        "INCONCLUSIVE",
+        "PROMISING_DEVELOPMENT_ONLY"
+      ]
+    },
+    "conclusion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "falsified": {
+      "type": "string",
+      "minLength": 1
+    },
+    "not_falsified": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_facts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "json_pointer",
+          "expected_value"
+        ],
+        "properties": {
+          "json_pointer": {
+            "type": "string",
+            "pattern": "^/"
+          },
+          "expected_value": {
+            "type": [
+              "number",
+              "string",
+              "boolean",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]*$"
+      },
+      "uniqueItems": true
+    },
+    "legitimate_revisit": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

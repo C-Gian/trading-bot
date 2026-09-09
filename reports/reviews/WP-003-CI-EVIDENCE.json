@@ -1,0 +1,13 @@
+{
+  "reviewed_head": "2b40aa03cfc05ac7f57d269f596f1ebacdc9d356",
+  "source": "https://api.github.com/repos/C-Gian/trading-bot/actions/runs?head_sha=2b40aa03cfc05ac7f57d269f596f1ebacdc9d356&per_page=10",
+  "run_url": "https://github.com/C-Gian/trading-bot/actions/runs/34282380513",
+  "run_id": 34282380513,
+  "name": "check",
+  "branch": "main",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at_utc": "2026-09-08T21:45:56Z",
+  "updated_at_utc": "2026-09-08T21:46:35Z",
+  "verification": "Unauthenticated official GitHub API read during WP-004 independent substrate review"
+}

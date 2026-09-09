@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "version",
+    "allocation_id",
+    "authority_record",
+    "global_limits",
+    "family_limits",
+    "sealed_query_limit",
+    "wp004_limits",
+    "counting_policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "version": {
+      "const": "SEARCH_MEMORY_V1"
+    },
+    "allocation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_record": {
+      "type": "string",
+      "minLength": 1
+    },
+    "global_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "experiments",
+        "strategy_variants",
+        "trials",
+        "numeric_parameter_variants"
+      ],
+      "properties": {
+        "experiments": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "strategy_variants": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "trials": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "numeric_parameter_variants": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "family_limits": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "experiments",
+          "strategy_variants",
+          "trials",
+          "numeric_parameter_variants"
+        ],
+        "properties": {
+          "experiments": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "strategy_variants": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "trials": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "numeric_parameter_variants": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "sealed_query_limit": {
+      "const": 0
+    },
+    "wp004_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "economic_core_hypotheses",
+        "strategy_variants",
+        "trials",
+        "numeric_parameter_variants"
+      ],
+      "properties": {
+        "economic_core_hypotheses": {
+          "const": 1
+        },
+        "strategy_variants": {
+          "const": 3
+        },
+        "trials": {
+          "const": 12
+        },
+        "numeric_parameter_variants": {
+          "const": 0
+        }
+      }
+    },
+    "counting_policy": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

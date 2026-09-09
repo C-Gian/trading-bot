@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "families": [
+    {
+      "family_id": "FAM-REFERENCE",
+      "aliases": [
+        "BUYHOLD"
+      ],
+      "entry_event_anchors": [
+        "FIRST_CANONICAL_OPEN"
+      ],
+      "parent_family_id": null,
+      "mechanism": "Market direction endpoint reference outside the product holding horizon.",
+      "status": "REFERENCE_ONLY",
+      "failure_experiment_ids": [],
+      "legitimate_revisit": "Reference recomputation requires a new declared data/execution question; never treat endpoint return as a product strategy."
+    },
+    {
+      "family_id": "FAM-RANDOM",
+      "aliases": [
+        "RANDOM_ENTRY_CONTROL_V1"
+      ],
+      "entry_event_anchors": [
+        "DETERMINISTIC_RANDOM_BERNOULLI"
+      ],
+      "parent_family_id": null,
+      "mechanism": "Negative-control entries independent of price features.",
+      "status": "CONTROL_ONLY",
+      "failure_experiment_ids": [],
+      "legitimate_revisit": "New matched eligibility/control question with fixed declared seeds; extra seeds do not create new economic hypotheses."
+    },
+    {
+      "family_id": "FAM-TREND",
+      "aliases": [
+        "TREND",
+        "TREND_DELAY_1H",
+        "SMA_TREND"
+      ],
+      "entry_event_anchors": [
+        "FAST_SMA_ABOVE_SLOW_SMA"
+      ],
+      "parent_family_id": null,
+      "mechanism": "Recent mean price above slower mean proxies persistent upward movement.",
+      "status": "FAILED_REQUIRES_EVIDENCE",
+      "failure_experiment_ids": [
+        "EXP-BASE-003-TREND",
+        "EXP-CTRL-005-TREND-DELAY-1H"
+      ],
+      "legitimate_revisit": "Immutable diagnostic evidence and a distinct causal structural response; window or stop drift alone is insufficient."
+    },
+    {
+      "family_id": "FAM-BREAKOUT",
+      "aliases": [
+        "BREAKOUT",
+        "SELECTIVE_CONTINUATION",
+        "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+      ],
+      "entry_event_anchors": [
+        "CLOSE_ABOVE_PRIOR_HIGH"
+      ],
+      "parent_family_id": null,
+      "mechanism": "A completed close beyond a prior high may indicate persistent directional demand.",
+      "status": "FAILED_REQUIRES_EVIDENCE",
+      "failure_experiment_ids": [
+        "EXP-BASE-004-BREAKOUT"
+      ],
+      "legitimate_revisit": "A fixed orthogonal regime/participation hypothesis responding to observed gross-positive, net-negative and unstable behavior; no numeric search."
+    },
+    {
+      "family_id": "FAM-NO-TRADE",
+      "aliases": [
+        "NO_TRADE"
+      ],
+      "entry_event_anchors": [
+        "NEVER"
+      ],
+      "parent_family_id": null,
+      "mechanism": "Structural control forbids entries.",
+      "status": "CONTROL_ONLY",
+      "failure_experiment_ids": [],
+      "legitimate_revisit": "Control changes only when testing changed eligibility or accounting semantics."
+    }
+  ]
+}

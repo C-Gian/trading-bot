@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "symbol",
+    "market",
+    "direction",
+    "signal_minutes",
+    "context_minutes",
+    "feature_families",
+    "feature_transformations",
+    "entry_event",
+    "regime_filter",
+    "confirmation_filter",
+    "position_policy",
+    "stop_family",
+    "exit_family",
+    "max_hold_minutes",
+    "parameters",
+    "execution_model",
+    "cost_model",
+    "dataset"
+  ],
+  "properties": {
+    "symbol": {
+      "const": "BTCUSDT"
+    },
+    "market": {
+      "const": "SPOT"
+    },
+    "direction": {
+      "enum": [
+        "LONG",
+        "NO_TRADE"
+      ]
+    },
+    "signal_minutes": {
+      "const": 60
+    },
+    "context_minutes": {
+      "enum": [
+        0,
+        240
+      ]
+    },
+    "feature_families": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]*$"
+      },
+      "uniqueItems": true
+    },
+    "feature_transformations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]*$"
+      },
+      "uniqueItems": true
+    },
+    "entry_event": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "regime_filter": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "confirmation_filter": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "position_policy": {
+      "enum": [
+        "SINGLE_LONG_NO_OVERLAP",
+        "NO_POSITION",
+        "ENDPOINT_REFERENCE"
+      ]
+    },
+    "stop_family": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "exit_family": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "max_hold_minutes": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1440
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "parameters": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "execution_model": {
+      "const": "EXECUTION_MODEL_V2"
+    },
+    "cost_model": {
+      "const": "BTCUSDT_SPOT_COST_V1"
+    },
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest_id",
+        "content_hash",
+        "maximum_timestamp"
+      ],
+      "properties": {
+        "manifest_id": {
+          "const": "BTCUSDT-SPOT-1M-DEV-v1"
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "maximum_timestamp": {
+          "const": "2024-12-31T23:59:00Z"
+        }
+      }
+    }
+  }
+}

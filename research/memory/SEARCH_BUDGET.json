@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "version": "SEARCH_MEMORY_V1",
+  "allocation_id": "WP004-INITIAL-BOUNDED-ALLOCATION",
+  "authority_record": "tasks/CURRENT_TASK.md",
+  "global_limits": {
+    "experiments": 9,
+    "strategy_variants": 9,
+    "trials": 53,
+    "numeric_parameter_variants": 0
+  },
+  "family_limits": {
+    "FAM-REFERENCE": {
+      "experiments": 1,
+      "strategy_variants": 1,
+      "trials": 1,
+      "numeric_parameter_variants": 0
+    },
+    "FAM-RANDOM": {
+      "experiments": 1,
+      "strategy_variants": 1,
+      "trials": 32,
+      "numeric_parameter_variants": 0
+    },
+    "FAM-TREND": {
+      "experiments": 2,
+      "strategy_variants": 2,
+      "trials": 4,
+      "numeric_parameter_variants": 0
+    },
+    "FAM-BREAKOUT": {
+      "experiments": 4,
+      "strategy_variants": 4,
+      "trials": 15,
+      "numeric_parameter_variants": 0
+    },
+    "FAM-NO-TRADE": {
+      "experiments": 1,
+      "strategy_variants": 1,
+      "trials": 1,
+      "numeric_parameter_variants": 0
+    }
+  },
+  "sealed_query_limit": 0,
+  "wp004_limits": {
+    "economic_core_hypotheses": 1,
+    "strategy_variants": 3,
+    "trials": 12,
+    "numeric_parameter_variants": 0
+  },
+  "counting_policy": "Six original WP-003 configurations and 41 evaluations (1+32+3+3+1+1), plus at most three WP-004 configurations and 12 evaluations. Cost profiles and random seeds are evaluation trials, not independent economic mechanisms. Numeric-only variants consume a separate counter whose current allowance is zero. Budgets reserve admissions, not only successful executions; failed/cancelled admissions never restore capacity. Extensions require a new explicit Research Director decision and immutable allocation record."
+}
