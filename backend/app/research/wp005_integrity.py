@@ -57,6 +57,11 @@ def file_hash(path: Path) -> str:
     return digest.hexdigest()
 
 
+def normalized_file_hash(path: Path) -> str:
+    """Match the WP-004 declared text identity convention."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
 def instant_us(value: int) -> str:
     return (datetime(1970, 1, 1, tzinfo=UTC) + timedelta(microseconds=value)).isoformat().replace(
         "+00:00", "Z"
@@ -542,7 +547,7 @@ def exact_wp004_replay(root: Path) -> dict[str, Any]:
         )
         dependencies = prereg["parameter_space"]["dependencies"]
         for dependency in dependencies:
-            if file_hash(root / dependency["path"]) != dependency["sha256"]:
+            if normalized_file_hash(root / dependency["path"]) != dependency["sha256"]:
                 raise ValueError(f"WP-004 dependency identity drift: {dependency['path']}")
         config_path = root / f"research/configs/wp004/{variant.lower()}.json"
         if variant == "REGIME_ONLY":

@@ -1,0 +1,86 @@
+{
+  "artifact_id": "WP-005-WP004-INTEGRITY-REPLAY",
+  "classification": "INTEGRITY_REPLAY",
+  "dataset_content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+  "fold_components_replayed": 72,
+  "new_experiment_result_ids": 0,
+  "post_cutoff_bytes_read": false,
+  "profiles_replayed": 12,
+  "schema_version": 1,
+  "status": "PASS",
+  "temporary_outputs": "IN_MEMORY_ONLY_NONE_RETAINED",
+  "trials": [
+    {
+      "canonical_content_sha256": "f95fa5243843e184bba18b4ff33c3a79c29c2ce107eaccc678a36ae2d9c9fd2e",
+      "finalized_canonical_content_sha256": "f95fa5243843e184bba18b4ff33c3a79c29c2ce107eaccc678a36ae2d9c9fd2e",
+      "status": "EXACT_MATCH",
+      "trial_id": "REGIME_ONLY:DEFAULT"
+    },
+    {
+      "canonical_content_sha256": "a729ecb656ca9e94463dfce0a44402ce7315599be9749eba708990d2c61fa77b",
+      "finalized_canonical_content_sha256": "a729ecb656ca9e94463dfce0a44402ce7315599be9749eba708990d2c61fa77b",
+      "status": "EXACT_MATCH",
+      "trial_id": "REGIME_ONLY:ZERO"
+    },
+    {
+      "canonical_content_sha256": "94467444d7a2cd19f93452f54ad149498b74bfea5955b067355e01cae6c1e54d",
+      "finalized_canonical_content_sha256": "94467444d7a2cd19f93452f54ad149498b74bfea5955b067355e01cae6c1e54d",
+      "status": "EXACT_MATCH",
+      "trial_id": "REGIME_ONLY:DOUBLE"
+    },
+    {
+      "canonical_content_sha256": "4c6bc636287d8b8460152ed9704f013ccdc94508c3c75d67d2712775f5688b9d",
+      "finalized_canonical_content_sha256": "4c6bc636287d8b8460152ed9704f013ccdc94508c3c75d67d2712775f5688b9d",
+      "status": "EXACT_MATCH",
+      "trial_id": "REGIME_ONLY:DELAY_1H"
+    },
+    {
+      "canonical_content_sha256": "0f925dd96d36e6d377ace44d70321da42bd5299a98b418751b30a468d54e31c9",
+      "finalized_canonical_content_sha256": "0f925dd96d36e6d377ace44d70321da42bd5299a98b418751b30a468d54e31c9",
+      "status": "EXACT_MATCH",
+      "trial_id": "PARTICIPATION_ONLY:DEFAULT"
+    },
+    {
+      "canonical_content_sha256": "699b0a51e18ba8b3eecf004f6698ed2ec6d061e389725b8d608ac36fe36e8513",
+      "finalized_canonical_content_sha256": "699b0a51e18ba8b3eecf004f6698ed2ec6d061e389725b8d608ac36fe36e8513",
+      "status": "EXACT_MATCH",
+      "trial_id": "PARTICIPATION_ONLY:ZERO"
+    },
+    {
+      "canonical_content_sha256": "e881da17a3dceac166ee87779b1a943512e15725af104ce3fcf714f75ae6454d",
+      "finalized_canonical_content_sha256": "e881da17a3dceac166ee87779b1a943512e15725af104ce3fcf714f75ae6454d",
+      "status": "EXACT_MATCH",
+      "trial_id": "PARTICIPATION_ONLY:DOUBLE"
+    },
+    {
+      "canonical_content_sha256": "ea4781933364567d6edbda987b7a0583ff2c465c8324e33a2df15c472d1c2dbd",
+      "finalized_canonical_content_sha256": "ea4781933364567d6edbda987b7a0583ff2c465c8324e33a2df15c472d1c2dbd",
+      "status": "EXACT_MATCH",
+      "trial_id": "PARTICIPATION_ONLY:DELAY_1H"
+    },
+    {
+      "canonical_content_sha256": "049f79c13bb35f36a3eab3d6ede5bd64e4be5932cb8a42f34e14f68158f26f16",
+      "finalized_canonical_content_sha256": "049f79c13bb35f36a3eab3d6ede5bd64e4be5932cb8a42f34e14f68158f26f16",
+      "status": "EXACT_MATCH",
+      "trial_id": "ALIGNED:DEFAULT"
+    },
+    {
+      "canonical_content_sha256": "5807ca0be57e2746460e52a0cd665fd99b74fb47b329a43f28f27a284818cdc9",
+      "finalized_canonical_content_sha256": "5807ca0be57e2746460e52a0cd665fd99b74fb47b329a43f28f27a284818cdc9",
+      "status": "EXACT_MATCH",
+      "trial_id": "ALIGNED:ZERO"
+    },
+    {
+      "canonical_content_sha256": "42b853b74e83f4c7c7c4ba76d2948110e7b1188470fc2538dcc9e53fd2bdb15c",
+      "finalized_canonical_content_sha256": "42b853b74e83f4c7c7c4ba76d2948110e7b1188470fc2538dcc9e53fd2bdb15c",
+      "status": "EXACT_MATCH",
+      "trial_id": "ALIGNED:DOUBLE"
+    },
+    {
+      "canonical_content_sha256": "6737b829779b25bda72d26d0b6a4be6586bd01473485a8aaad619c9d744ec6f3",
+      "finalized_canonical_content_sha256": "6737b829779b25bda72d26d0b6a4be6586bd01473485a8aaad619c9d744ec6f3",
+      "status": "EXACT_MATCH",
+      "trial_id": "ALIGNED:DELAY_1H"
+    }
+  ]
+}
