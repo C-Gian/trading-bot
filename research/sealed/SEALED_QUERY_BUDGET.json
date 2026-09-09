@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "version": "SEALED_EVALUATION_V1",
+  "authority": "governance/SCIENTIFIC_CONSTITUTION.md",
+  "contract": "docs/contracts/SEALED_EVALUATION_V1.md",
+  "request_schema": "contracts/sealed_evaluation_request.schema.json",
+  "result_schema": "contracts/sealed_evaluation_result.schema.json",
+  "eligibility_table": "research/sealed/SEALED_CANDIDATE_ELIGIBILITY.json",
+  "scopes": {
+    "BTCUSDT_POST_CUTOFF": {
+      "symbol": "BTCUSDT",
+      "dataset_state": "RESERVED_NOT_ACQUIRED",
+      "sealed_interval_start": "2025-01-01T00:00:00Z",
+      "development_cutoff": "2024-12-31T23:59:00Z",
+      "authorized_queries": 0,
+      "consumed_queries": 0,
+      "status": "LOCKED_NO_AUTHORIZED_QUERY",
+      "authorization_record": null,
+      "sealed_root": "data/sealed/BTCUSDT_POST_CUTOFF",
+      "consumption_ledger": "research/sealed/BTCUSDT_POST_CUTOFF/CONSUMPTION_LEDGER.jsonl",
+      "result_directory": "research/sealed/BTCUSDT_POST_CUTOFF/results"
+    }
+  },
+  "unlock_policy": "Only an explicit Owner-authorised Research Director allocation may raise authorized_queries above zero. No executor, agent or automated process may unlock a scope, and WP-006 does not unlock it.",
+  "consumption_policy": "A query is consumed by the append-only ledger before any result is finalized. A negative, rejected-after-consumption or failed execution consumes the same budget. Deleting a result never restores capacity.",
+  "isolation_policy": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED"
+}

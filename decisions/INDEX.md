@@ -5,3 +5,4 @@
 - [ADR-0003](ADR-0003-PRE-EXPERIMENT-SUBSTRATE-CORRECTIONS.md) — pre-experiment substrate corrections
 - [ADR-0004](ADR-0004-BOUNDED-ADAPTIVE-DEVELOPMENT.md) — cumulative search budgets and chronological development
 - [ADR-0005](ADR-0005-PREEXECUTION-SOURCE-GRID-QUARANTINE.md) — source-grid quarantine before any WP-004 result
+- [ADR-0006](ADR-0006-SEALED-EVALUATION-ARCHITECTURE.md) — sealed evaluation architecture V1, built locked
