@@ -16,7 +16,7 @@ SCHEMA = pa.schema(
 
 
 def test_deterministic_parquet_round_trip(tmp_path: Path) -> None:
-    rows = [
+    rows: list[dict[str, object]] = [
         {"fold": 2020, "timestamp": 2, "value": None},
         {"fold": 2019, "timestamp": 1, "value": 0.25},
     ]

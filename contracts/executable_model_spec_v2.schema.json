@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SEARCH_MEMORY_V2 executable supervised model specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "root_family", "family", "algorithm", "label", "features",
+    "train_window_rule", "scaling", "regularization", "hyperparameters", "signal_rule",
+    "execution_geometry", "dataset", "cost_model_reference", "execution_model_reference",
+    "implementation_dependencies", "config_dependencies"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "root_family": {"type": "string", "minLength": 1},
+    "family": {"type": "string", "minLength": 1},
+    "algorithm": {"type": "string", "minLength": 1},
+    "label": {"type": "object"},
+    "features": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "train_window_rule": {"type": "object"},
+    "scaling": {"type": "object"},
+    "regularization": {"type": "object"},
+    "hyperparameters": {"type": "object"},
+    "signal_rule": {"type": "object"},
+    "execution_geometry": {"type": "object"},
+    "dataset": {"type": "object"},
+    "cost_model_reference": {"type": "string", "minLength": 1},
+    "execution_model_reference": {"type": "string", "minLength": 1},
+    "implementation_dependencies": {"$ref": "#/$defs/dependencies"},
+    "config_dependencies": {"$ref": "#/$defs/dependencies"}
+  },
+  "$defs": {
+    "dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "dependencies": {"type": "array", "items": {"$ref": "#/$defs/dependency"}}
+  }
+}

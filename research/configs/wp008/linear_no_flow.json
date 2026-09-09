@@ -1,0 +1,26 @@
+{
+  "strategy_version": "LINEAR_NET_R_SELECTION_V1",
+  "variant": "LINEAR_NO_FLOW",
+  "feature_version": "SUPERVISED_FEATURES_V1",
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H"
+  ],
+  "label": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+  "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+  "fit_intercept": true,
+  "scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+  "regularization": "NONE",
+  "signal_rule": "predicted_default_net_R > 0.0",
+  "signal_threshold": 0.0,
+  "stop_fraction": 0.02,
+  "target_fraction": 0.04,
+  "max_hold_minutes": 1440,
+  "profiles": ["DEFAULT", "ZERO", "DOUBLE", "DELAY_1H"],
+  "hyperparameter_searches": 0,
+  "threshold_searches": 0
+}
