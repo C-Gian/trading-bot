@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "allocation_id": "WP005-INTEGRITY-COMPARABILITY-ALLOCATION",
+  "work_package": "WP-005",
+  "kind": "POST_RESULT_ADAPTIVE_DIAGNOSTIC",
+  "authority": "tasks/CURRENT_TASK.md",
+  "source_experiment_id": "EXP-ALG-009-ALIGNED",
+  "source_result_path": "research/experiments/EXP-ALG-009-ALIGNED/result.json",
+  "source_result_sha256": "51896354acb545383a8f58680af4ad8791d32fdfdbe3cf1cf1280633ac193758",
+  "motivation": "Observed WP-004 economics require integrity and exactly matched comparability diagnostics before any further strategy allocation.",
+  "new_economic_hypotheses": 0,
+  "new_strategy_variants": 0,
+  "numeric_parameter_variants": 0,
+  "integrity_replay": {
+    "kind": "INTEGRITY_REPLAY",
+    "wp004_profiles": 12,
+    "fold_components": 72
+  },
+  "matched_parent_control": {
+    "kind": "SAME_MECHANISM_DIAGNOSTIC",
+    "profiles": ["DEFAULT", "ZERO", "DOUBLE"],
+    "diagnostic_evaluations": 3
+  },
+  "matched_random_gate_control": {
+    "kind": "CONTROL_DIAGNOSTIC",
+    "fixed_seeds": 32,
+    "profiles": ["DEFAULT"],
+    "diagnostic_evaluations": 32,
+    "economic_hypotheses": 0
+  },
+  "coverage_diagnostic": {
+    "kind": "DESCRIPTIVE_COUNTS_ONLY",
+    "diagnostic_evaluations": 0,
+    "threshold_searches": 0
+  },
+  "diagnostic_evaluations": 35,
+  "adaptive_decision_increment": 1,
+  "result_dependent_fork_increment": 1,
+  "parameter_searches": 0,
+  "sealed_queries": 0,
+  "paper_observations": 0,
+  "family_budget_policy": "FAM-BREAKOUT strategy budget remains exhausted; diagnostic allocation does not reset it."
+}

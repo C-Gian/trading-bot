@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "protocol_id": "WP-005-MATCHED-CONTROLS-V1",
+  "allocation_id": "WP005-INTEGRITY-COMPARABILITY-ALLOCATION",
+  "evidence_stage": "EXPOSED_DEVELOPMENT_DIAGNOSTIC_NOT_INDEPENDENT_EVIDENCE",
+  "market": "BTCUSDT_SPOT",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "strategy_experiments_added": 0,
+  "new_economic_hypotheses": 0,
+  "new_strategy_variants": 0,
+  "numeric_parameter_variants": 0,
+  "shared_universe": {
+    "validation_protocol": "DEVELOPMENT_WALK_FORWARD_V1",
+    "folds": ["DEV-2019", "DEV-2020", "DEV-2021", "DEV-2022", "DEV-2023", "DEV-2024"],
+    "last_signal_full_horizon_containment": true,
+    "hourly_history": "26 complete contiguous 1h bars",
+    "context_history": "43 complete contiguous 4h bars available at t and t-1h",
+    "source_grid_policy": "QUARANTINE_SOURCE_OFF_GRID_INTERVALS_V1",
+    "signal_clock": "COMPLETED_1H_CLOSE_THEN_NEXT_1M_OPEN",
+    "execution_resolution": "canonical 1m",
+    "direction": "LONG",
+    "position_policy": "SINGLE_LONG_NO_OVERLAP_WAIT_THROUGH_INTRABAR_EXIT_MINUTE",
+    "stop_fraction": 0.02,
+    "target_fraction": 0.04,
+    "max_hold_minutes": 1440,
+    "gap_policy": "NO_FILL",
+    "unresolved_policy": "NO_INVENTED_PNL_BLOCK_FOR_FULL_HORIZON",
+    "execution_model": "EXECUTION_MODEL_V2",
+    "cost_model": "BTCUSDT_SPOT_COST_V1"
+  },
+  "matched_parent": {
+    "diagnostic_id": "WP005-MATCHED-PARENT-BREAKOUT",
+    "rule": "current completed 1h close > max(previous 24 completed 1h highs)",
+    "persistence_gate": false,
+    "participation_gate": false,
+    "profiles": ["DEFAULT", "ZERO", "DOUBLE"],
+    "diagnostic_evaluations": 3
+  },
+  "matched_random_gate": {
+    "diagnostic_id": "WP005-MATCHED-RANDOM-GATE",
+    "purpose": "Select a similarly sparse deterministic subset of the same raw parent opportunity set without ALIGNED regime or participation information.",
+    "candidate_stage": "RAW_PARENT_BREAKOUT_BEFORE_POSITION_OCCUPANCY",
+    "k_rule": "Per fold K equals raw ALIGNED gate-positive candidate count before occupancy.",
+    "k_by_fold": {"DEV-2019": 45, "DEV-2020": 40, "DEV-2021": 15, "DEV-2022": 7, "DEV-2023": 45, "DEV-2024": 43},
+    "rank_rule": "ascending SHA-256 bytes of WP005_MATCHED_RANDOM_GATE_V1:<seed>:<timestamp>; take exactly K",
+    "cost_profile": "DEFAULT",
+    "seed_derivation": "unsigned big-endian integer from first 8 bytes of SHA-256(WP005_MATCHED_RANDOM_GATE_SEED:<index>)",
+    "seed_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+    "seeds": [11624029624526925664, 18320139958788909848, 2985261141928236173, 1503995779817600863, 15529440140866380553, 9267011221987546533, 18407693237160822353, 11680755660178067115, 11974564571018108483, 381625144723507164, 15045886718366421404, 8465405101228413139, 8686172138200078990, 9461468592419128097, 2289736445114598762, 1045113798529258291, 17343730379221626851, 1375993070204364291, 13669831147734219279, 10714264925169856112, 6243612495718424435, 11017542418593957393, 9511394679510123082, 10267421352572873078, 9639320030507359921, 12409376006353949203, 11407602447295483083, 15482255385152803172, 7984153563619046234, 287938643165067020, 1419857177795689219, 12258752712694973949],
+    "seed_count": 32,
+    "selection_policy": "ALL_32_FIXED_SEEDS_NO_SELECTION_OR_REPLACEMENT",
+    "diagnostic_evaluations": 32,
+    "quantile_convention": "Sort ascending; position p*(n-1); linearly interpolate adjacent values (Hyndman-Fan type 7 / NumPy default), then round to 10 decimal places.",
+    "reported_distribution": ["mean_expectancy", "median_expectancy", "minimum_expectancy", "maximum_expectancy", "q10_expectancy", "q90_expectancy", "trade_count", "positive_fold_count", "cumulative_net_r"],
+    "interpretation": "CONTROL_DIAGNOSTIC_NOT_A_FORMAL_INDEPENDENT_P_VALUE"
+  },
+  "coverage": {
+    "purpose": "Explain sparsity without threshold change or outcome-conditioned regime search.",
+    "per_fold_funnel": ["total_hourly_boundaries", "common_quality_eligible_boundaries", "raw_parent_breakout_candidates", "persistent_up_pass_among_breakouts", "participation_pass_among_breakouts", "aligned_pass_among_breakouts", "emitted_signals_while_flat", "suppressed_by_active_position", "invalid_attempts", "unresolved_trades", "resolved_trades"],
+    "additional": ["persistent_up_coverage_eligible", "persistent_up_coverage_breakouts", "participation_coverage_breakouts", "aligned_coverage_breakouts", "monthly_aligned_raw_candidates", "active_position_suppression_rate"],
+    "threshold_searches": 0
+  },
+  "decision_rule": {
+    "hard_prerequisites": ["source provenance PASS", "independent feature reconciliation PASS", "exact WP-004 replay PASS", "no strategy/config change", "protocol committed before results", "all 32 seeds preserved", "no undeclared evaluation"],
+    "aligned_default_expectancy_r": 0.1373934676,
+    "matched_parent_hurdle": "delta_parent >= 0.12 R",
+    "delta_parent_definition": "ALIGNED default expectancy - matched-parent default expectancy",
+    "sparse_selection_hurdle": "ALIGNED default expectancy > matched-random-gate q90 expectancy",
+    "both_pass": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
+    "either_fails": "ALIGNED_DIAGNOSTIC_WEAKENED",
+    "prerequisite_failure": "ALIGNED_DIAGNOSTIC_UNRESOLVED",
+    "underlying_wp004_classification": "INCONCLUSIVE"
+  },
+  "result_paths": {
+    "matched_parent": "research/diagnostics/WP-005/matched-parent.json",
+    "matched_random_gate": "research/diagnostics/WP-005/matched-random-gate.json",
+    "coverage": "research/diagnostics/WP-005/coverage-funnel.json",
+    "classification": "research/diagnostics/WP-005/final-classification.json"
+  }
+}
