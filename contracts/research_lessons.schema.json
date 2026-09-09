@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_kind", "work_package", "family_id", "selected_hypothesis", "primary_experiment_id", "family_terminal_classification", "new_trial_allocation", "experiments", "family_disposition", "legitimate_next_direction", "blocked_directions", "integrity_limitation"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "record_kind": {"const": "POST_RESULT_SCIENTIFIC_INTERPRETATION"},
+    "work_package": {"const": "WP-004"},
+    "family_id": {"const": "FAM-BREAKOUT"},
+    "selected_hypothesis": {"const": "ALIGNED_PARTICIPATION_CONTINUATION_V1"},
+    "primary_experiment_id": {"const": "EXP-ALG-009-ALIGNED"},
+    "family_terminal_classification": {"type": "string", "minLength": 1},
+    "new_trial_allocation": {"const": 0},
+    "experiments": {
+      "type": "object", "minProperties": 3, "maxProperties": 3,
+      "propertyNames": {"enum": ["EXP-ALG-007-REGIME", "EXP-ALG-008-PARTICIPATION", "EXP-ALG-009-ALIGNED"]},
+      "additionalProperties": {
+        "type": "object", "additionalProperties": false,
+        "required": ["result_path", "result_sha256", "terminal_classification", "key_lesson", "not_established"],
+        "properties": {
+          "result_path": {"type": "string", "pattern": "^research/experiments/EXP-ALG-00[789]-[A-Z]+/result\\.json$"},
+          "result_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "terminal_classification": {"type": "string", "minLength": 1},
+          "key_lesson": {"type": "string", "minLength": 1},
+          "not_established": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "family_disposition": {"type": "string", "minLength": 1},
+    "legitimate_next_direction": {"type": "string", "minLength": 1},
+    "blocked_directions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "integrity_limitation": {"type": "string", "minLength": 1}
+  }
+}

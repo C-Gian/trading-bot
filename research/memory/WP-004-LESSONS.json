@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "record_kind": "POST_RESULT_SCIENTIFIC_INTERPRETATION",
+  "work_package": "WP-004",
+  "family_id": "FAM-BREAKOUT",
+  "selected_hypothesis": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+  "primary_experiment_id": "EXP-ALG-009-ALIGNED",
+  "family_terminal_classification": "INCONCLUSIVE",
+  "new_trial_allocation": 0,
+  "experiments": {
+    "EXP-ALG-007-REGIME": {
+      "result_path": "research/experiments/EXP-ALG-007-REGIME/result.json",
+      "result_sha256": "3d24ff5840a0f7e6665054e9ef0de02710c46d4bf145cf8d9b4bed9ec6f75877",
+      "terminal_classification": "INCONCLUSIVE",
+      "key_lesson": "Positive default net expectancy does not overcome the 10-trade minimum fold, negative equal-fold mean, and negative double-cost result.",
+      "not_established": "Regime gating alone is not established as a stable, friction-robust continuation mechanism."
+    },
+    "EXP-ALG-008-PARTICIPATION": {
+      "result_path": "research/experiments/EXP-ALG-008-PARTICIPATION/result.json",
+      "result_sha256": "c4fd7cc446d682fc6373a29af6f29b1a37c7294d8c91f2b669316d90e881123d",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "key_lesson": "A small positive default margin becomes negative at double costs and after delay; removing 2020 makes pooled default expectancy negative.",
+      "not_established": "Unsigned volume is not directional buying pressure; the result does not establish volume-only confirmation as sufficient. One default and two delayed unresolved paths remain recorded without invented P&L."
+    },
+    "EXP-ALG-009-ALIGNED": {
+      "result_path": "research/experiments/EXP-ALG-009-ALIGNED/result.json",
+      "result_sha256": "51896354acb545383a8f58680af4ad8791d32fdfdbe3cf1cf1280633ac193758",
+      "terminal_classification": "INCONCLUSIVE",
+      "key_lesson": "Stronger gross and default net expectancy is a clue, not established edge: two sparse folds, only 3/6 positive, and 2019 exceeds half of positive fold profit.",
+      "not_established": "Nominal trade ESS is not independent regime evidence. Thin double-cost margin and weaker delayed behavior do not establish robust timing specificity or deployable profitability."
+    }
+  },
+  "family_disposition": "Current breakout/continuation allocation is exhausted. Temporarily retire ungated trend/breakout, volume-only confirmation, and the tested one-gate branches as active candidates. ALIGNED is parked INCONCLUSIVE, not promoted; no branch is entitled to automatic further trials.",
+  "legitimate_next_direction": "Research Director review, then an integrity/control-comparability checkpoint: audit derived-bar availability and execution occupancy before considering a separately preregistered, explicitly budgeted diagnostic of regime coverage. A later ALIGNED follow-up is defensible only if it answers a genuinely new falsifiable diagnostic, preserves both WP-003/WP-004 failures, and does not relax the frozen evidence thresholds. No new allocation, sealed access, paper trading or Champion follows from this record.",
+  "blocked_directions": [
+    "renamed replay of any tested behavior",
+    "24-to-25-hour or efficiency/volume threshold drift",
+    "stop/target/holding-period search to rescue net R",
+    "retuning folds, ESS or minimum trade counts after observing sparsity",
+    "recycling the consumed WP-003 gross-positive clue as independent new evidence",
+    "choosing an ablation or robustness profile as a replacement primary",
+    "testing the two unexecuted design alternatives merely because ALIGNED is inconclusive"
+  ],
+  "integrity_limitation": "Immutable canonical source contains 21602 off-grid minute opens in 2017/2018. The zero-trial pre-execution correction quarantines affected feature buckets without snapping or deleting source data. WP-003 full-history interpretation is qualified; its evidence remains unchanged."
+}

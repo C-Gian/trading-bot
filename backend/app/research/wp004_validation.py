@@ -437,6 +437,13 @@ def validate_checkpoint(
     if require_committed_results:
         results_commits.add(immutable_from_first_commit(attempt_path, root))
         require(len(results_commits) == 1, "WP-004 result evidence was not committed together")
+        result_commit = next(iter(results_commits))
+        outcomes = "research/memory/OUTCOMES.jsonl"
+        require(
+            historical_bytes(result_commit, outcomes, root)
+            == (root / outcomes).read_bytes().replace(b"\r\n", b"\n"),
+            "finalized memory outcomes changed after observation",
+        )
     return {
         "status": "PASS",
         "experiments": 9,

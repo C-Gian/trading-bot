@@ -9,7 +9,7 @@ from typing import Any
 
 from .evaluation_protocol import load_protocol, protocol_hash, summarize_trades
 from .runner import sha256
-from .search_memory import load_memory, render_failure_memory, render_research_map
+from .search_memory import accounting, load_memory, render_failure_memory, render_research_map
 from .wp004 import ROOT, SPEC
 
 LABEL = "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
@@ -103,8 +103,8 @@ def build_comparison(root: Path = ROOT) -> dict[str, Any]:
     }
 
 
-def experiment_view(root: Path = ROOT) -> dict[str, Any]:
-    state = read_json(root / "state/current_state.json")
+def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -> dict[str, Any]:
+    state = state if state is not None else read_json(root / "state/current_state.json")
     historical = read_json(root / "reports/research/WP-003-BASELINES.json")
     experiments = [
         {**item, "evidence_window": "WP-003 full development history (2017–2024)"}
@@ -135,6 +135,21 @@ def experiment_view(root: Path = ROOT) -> dict[str, Any]:
         "latest_checkpoint": state["latest_executor_checkpoint"],
         "next_checkpoint": state["next_recommended_work_package"],
     }
+
+
+def budget_view(root: Path = ROOT) -> list[dict[str, Any]]:
+    memory = load_memory(root)
+    counts = accounting(memory)
+    return [
+        {
+            "family_id": family,
+            "experiments_consumed": counts["families"][family]["experiments"],
+            "experiments_limit": limit["experiments"],
+            "trials_consumed": counts["families"][family]["trials"],
+            "trials_limit": limit["trials"],
+        }
+        for family, limit in memory["budget"]["family_limits"].items()
+    ]
 
 
 def memory_views(root: Path = ROOT) -> dict[str, str]:

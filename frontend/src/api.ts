@@ -1,7 +1,8 @@
 export type Coverage={start:string;end:string};
 export type Health={health:string;status:string;project_phase:string;development_data_available:boolean;development_coverage:Coverage;real_money_authorized:boolean};
-export type Research={champion:string;experiments_completed:number;evidence:string;backtest_substrate:string;engine_version:string;execution_model_version:string;cost_model_version:string;synthetic_validation:string};
-export type ExperimentSummary={experiment_id:string;classification:string;primary_metric:string;primary_result:number|null;trade_count:number|null;validation_status:string};
+export type FamilyBudget={family_id:string;experiments_consumed:number;experiments_limit:number;trials_consumed:number;trials_limit:number};
+export type Research={champion:string;experiments_completed:number;evidence:string;backtest_substrate:string;engine_version:string;execution_model_version:string;cost_model_version:string;synthetic_validation:string;search_memory?:{version:string;status:string;families_tracked:number}|null;adaptive_search?:{material_economic_hypotheses:number;configuration_variants:number;profile_trials:number;adaptive_decisions:number;result_dependent_forks:number}|null;selected_family?:{name:string;terminal_classification:string}|null;family_budgets?:FamilyBudget[]};
+export type ExperimentSummary={experiment_id:string;classification:string;primary_metric:string;primary_result:number|null;trade_count:number|null;validation_status:string;evidence_window?:string};
 export type ExperimentPayload={evidence_stage:string;latest_checkpoint:string;next_checkpoint:string;experiments:ExperimentSummary[]};
 export type Candle={open_time:string;open:number;high:number;low:number;close:number;complete?:boolean};
 export type CandlePayload={classification:string;coverage:Coverage;candles:Candle[]};

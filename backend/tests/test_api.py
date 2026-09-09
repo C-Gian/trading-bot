@@ -18,7 +18,12 @@ def fixture_state(tmp_path, **changes):
 
 
 def test_api_reads_authoritative_fixture_state(tmp_path):
-    path = fixture_state(tmp_path, project_phase="BASELINE_RESEARCH", status="REVIEWED")
+    path = fixture_state(
+        tmp_path,
+        project_phase="BASELINE_RESEARCH",
+        status="REVIEWED",
+        latest_reviewed_checkpoint="WP-002",
+    )
     client = TestClient(create_app(path, lambda: False))
     health = client.get("/api/v1/system/health").json()
     assert health["project_phase"] == "BASELINE_RESEARCH" and health["status"] == "REVIEWED"
@@ -81,3 +86,30 @@ def test_repository_state_and_default_api_are_consistent():
         research["experiments_completed"] == state["experiments_completed"]
         and research["champion"] == state["champion_status"]
     )
+
+
+def test_memory_inspection_is_read_only_and_counters_come_from_state(tmp_path):
+    memory = {"version": "SEARCH_MEMORY_V1", "status": "VALIDATED", "families_tracked": 5}
+    selected = {
+        "name": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+        "primary_experiment_id": "EXP-ALG-009-ALIGNED",
+        "terminal_classification": "INCONCLUSIVE",
+    }
+    path = fixture_state(tmp_path, search_memory=memory, selected_family=selected)
+    client = TestClient(create_app(path))
+    payload = client.get("/api/v1/research/status").json()
+    assert payload["search_memory"] == memory and payload["selected_family"] == selected
+    breakout = next(x for x in payload["family_budgets"] if x["family_id"] == "FAM-BREAKOUT")
+    assert breakout["experiments_consumed"] == breakout["experiments_limit"] == 4
+    assert breakout["trials_consumed"] == breakout["trials_limit"] == 15
+    assert client.post("/api/v1/research/status", json={"champion": "APPROVED"}).status_code == 405
+    assert client.post("/api/v1/analyze").status_code == 404
+
+
+def test_all_nine_experiments_have_explicit_evidence_windows():
+    payload = TestClient(app).get("/api/v1/research/experiments").json()
+    assert payload["label"] == "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
+    assert len(payload["experiments"]) == 9
+    assert all(item["evidence_window"] for item in payload["experiments"])
+    aligned = next(x for x in payload["experiments"] if x["experiment_id"] == "EXP-ALG-009-ALIGNED")
+    assert aligned["classification"] == "INCONCLUSIVE" and aligned["trade_count"] == 125

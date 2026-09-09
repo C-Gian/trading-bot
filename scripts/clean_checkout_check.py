@@ -12,7 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main() -> None:
     with tempfile.TemporaryDirectory(prefix="trading-bot-clean-") as temporary:
-        checkout = Path(temporary) / "checkout"
+        temporary_root = Path(temporary).resolve()
+        checkout = (temporary_root / "checkout").resolve()
+        if checkout.parent != temporary_root or checkout == ROOT.resolve() or checkout.exists():
+            raise ValueError("unsafe temporary checkout path")
         subprocess.run(
             ["git", "worktree", "add", "--detach", str(checkout), "HEAD"], cwd=ROOT, check=True
         )
@@ -39,6 +42,8 @@ def main() -> None:
                 check=True,
             )
         finally:
+            if checkout.resolve().parent != temporary_root:
+                raise ValueError("refusing cleanup outside the owned temporary directory")
             subprocess.run(
                 ["git", "worktree", "remove", "--force", str(checkout)], cwd=ROOT, check=True
             )

@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import __version__
 from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
 from .data.store import available, candles
+from .research.checkpoint_views import budget_view, experiment_view
 from .state import StateRepository
 
 
@@ -27,9 +28,6 @@ def create_app(
         allow_headers=["*"],
     )
     repository = StateRepository(state_path)
-    summary_path = research_summary_path or (
-        Path(__file__).resolve().parents[2] / "reports/research/WP-003-BASELINES.json"
-    )
 
     def state_repository() -> StateRepository:
         return repository
@@ -67,6 +65,10 @@ def create_app(
             "execution_model_version": substrate["execution_model_version"],
             "cost_model_version": substrate["cost_model_version"],
             "synthetic_validation": substrate["synthetic_validation"]["status"],
+            "search_memory": state.get("search_memory"),
+            "adaptive_search": state.get("adaptive_search"),
+            "selected_family": state.get("selected_family"),
+            "family_budgets": budget_view(),
         }
 
     @application.get("/api/v1/backtest/substrate")
@@ -74,10 +76,12 @@ def create_app(
         return repo.load()["backtest_substrate"]
 
     @application.get("/api/v1/research/experiments")
-    def research_experiments():
-        if not summary_path.is_file():
+    def research_experiments(repo: StateRepository = Depends(state_repository)):
+        if research_summary_path is None:
+            return experiment_view(state=repo.load())
+        if not research_summary_path.is_file():
             return {"evidence_stage": "NONE", "experiments": []}
-        return json.loads(summary_path.read_text(encoding="utf-8"))
+        return json.loads(research_summary_path.read_text(encoding="utf-8"))
 
     @application.get("/api/v1/market/candles")
     def market_candles(

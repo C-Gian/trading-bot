@@ -25,3 +25,20 @@ Exact behavior and renamed exact behavior are blocked. Parameter-only changes ar
 with no WP-004 numeric-search allowance. Cost profiles, folds and random seeds are not new mechanisms.
 No automatic promotion follows a positive development outcome. See FAILURE_MEMORY.md for falsified
 claims and limitations, and the adaptive decision ledger for result-dependent research forks.
+
+## WP-004 evidence and current research dispositions
+
+Generated from WP-004-LESSONS.json and immutable results. Earlier family revisit text above is
+historical admission rationale, not a fresh allocation; the WP-003 clue has now been consumed.
+
+| Experiment | Default net expectancy R | Resolved trades | Key lesson |
+|---|---:|---:|---|
+| EXP-ALG-007-REGIME | +0.0745672948 | 186 | Positive default net expectancy does not overcome the 10-trade minimum fold, negative equal-fold mean, and negative double-cost result. |
+| EXP-ALG-008-PARTICIPATION | +0.0231377752 | 623 | A small positive default margin becomes negative at double costs and after delay; removing 2020 makes pooled default expectancy negative. |
+| EXP-ALG-009-ALIGNED | +0.1373934676 | 125 | Stronger gross and default net expectancy is a clue, not established edge: two sparse folds, only 3/6 positive, and 2019 exceeds half of positive fold profit. |
+
+Current family disposition: Current breakout/continuation allocation is exhausted. Temporarily retire ungated trend/breakout, volume-only confirmation, and the tested one-gate branches as active candidates. ALIGNED is parked INCONCLUSIVE, not promoted; no branch is entitled to automatic further trials.
+
+Legitimate next direction: Research Director review, then an integrity/control-comparability checkpoint: audit derived-bar availability and execution occupancy before considering a separately preregistered, explicitly budgeted diagnostic of regime coverage. A later ALIGNED follow-up is defensible only if it answers a genuinely new falsifiable diagnostic, preserves both WP-003/WP-004 failures, and does not relax the frozen evidence thresholds. No new allocation, sealed access, paper trading or Champion follows from this record.
+
+Blocked repeats: renamed replay of any tested behavior; 24-to-25-hour or efficiency/volume threshold drift; stop/target/holding-period search to rescue net R; retuning folds, ESS or minimum trade counts after observing sparsity; recycling the consumed WP-003 gross-positive clue as independent new evidence; choosing an ablation or robustness profile as a replacement primary; testing the two unexecuted design alternatives merely because ALIGNED is inconclusive.

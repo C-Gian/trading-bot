@@ -110,3 +110,15 @@ Not falsified: All continuation mechanisms, other exits, and prospective behavio
 Recorded failure modes: INCONCLUSIVE.
 
 Legitimate revisit: Retain WP-003 and WP-004 evidence. No exact replay, threshold drift or recycled WP-003 clue alone; require a new diagnostic/structural prediction and explicit cumulative allocation.
+
+## WP-004 interpretive limits and retirement
+
+Generated from WP-004-LESSONS.json; the original outcomes above are not amended.
+
+- EXP-ALG-007-REGIME: Positive default net expectancy does not overcome the 10-trade minimum fold, negative equal-fold mean, and negative double-cost result. Regime gating alone is not established as a stable, friction-robust continuation mechanism.
+- EXP-ALG-008-PARTICIPATION: A small positive default margin becomes negative at double costs and after delay; removing 2020 makes pooled default expectancy negative. Unsigned volume is not directional buying pressure; the result does not establish volume-only confirmation as sufficient. One default and two delayed unresolved paths remain recorded without invented P&L.
+- EXP-ALG-009-ALIGNED: Stronger gross and default net expectancy is a clue, not established edge: two sparse folds, only 3/6 positive, and 2019 exceeds half of positive fold profit. Nominal trade ESS is not independent regime evidence. Thin double-cost margin and weaker delayed behavior do not establish robust timing specificity or deployable profitability.
+
+Current breakout/continuation allocation is exhausted. Temporarily retire ungated trend/breakout, volume-only confirmation, and the tested one-gate branches as active candidates. ALIGNED is parked INCONCLUSIVE, not promoted; no branch is entitled to automatic further trials.
+
+Research Director review, then an integrity/control-comparability checkpoint: audit derived-bar availability and execution occupancy before considering a separately preregistered, explicitly budgeted diagnostic of regime coverage. A later ALIGNED follow-up is defensible only if it answers a genuinely new falsifiable diagnostic, preserves both WP-003/WP-004 failures, and does not relax the frozen evidence thresholds. No new allocation, sealed access, paper trading or Champion follows from this record.

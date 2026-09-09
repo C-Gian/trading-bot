@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from datetime import UTC, datetime
@@ -13,6 +14,7 @@ import jsonschema
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 REVIEWED = "47dd69d73768a9e3a3c92fe08eb1e7e3e8c239f5"
+WP004_BASE = "2b40aa03cfc05ac7f57d269f596f1ebacdc9d356"
 PREDECESSOR = "60ab3141862da74028763e2df72ac3c88b63b5a8"
 SEED = "c6c526124945aa1624118bd7ee6aef9ae5c011b2"
 CUTOFF = datetime(2024, 12, 31, 23, 59, tzinfo=UTC)
@@ -77,9 +79,12 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.records import validate_result
     from app.research.runner import declared_content_identity
     from app.research.runner import sha256 as runner_sha
+    from app.research.wp004 import SPEC
+    from app.research.wp004_validation import validate_checkpoint
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
-    assert directories == set(EXPERIMENTS) and len(results) == state["experiments_completed"] == 6
+    assert directories == set(EXPERIMENTS) | set(SPEC)
+    assert len(results) == state["experiments_completed"] == 9
     for experiment_id, budget in EXPERIMENTS.items():
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path, result_path = directory / "preregistration.json", directory / "result.json"
@@ -128,6 +133,80 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         json.loads((ROOT / "reports/validation/PRE-EXPERIMENT-GATE-V1.json").read_text())["status"]
         == "PASS"
     )
+    audit = validate_checkpoint()
+    assert (
+        state["selected_family"]["terminal_classification"]
+        == audit["selected_family_terminal_classification"]
+    )
+
+
+def validate_research_views(state: dict) -> None:
+    from app.research.adaptive import validate_adaptive
+    from app.research.checkpoint_views import build_comparison, experiment_view, memory_views
+    from app.research.runner import sha256 as text_sha
+    from app.research.search_memory import load_memory
+    from app.research.wp004 import SPEC, immutable_from_first_commit
+
+    memory = load_memory()
+    assert state["schema_version"] == 3
+    assert state["search_memory"] == {
+        "version": "SEARCH_MEMORY_V1",
+        "status": "VALIDATED",
+        "families_tracked": len(memory["families"]["families"]),
+    }
+    assert state["adaptive_search"] == {**validate_adaptive(), "numeric_parameter_variants": 0}
+    assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
+    assert (
+        state["latest_reviewed_checkpoint"] == "WP-003"
+        and state["latest_executor_checkpoint"] == "WP-004"
+    )
+    assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
+    path = "research/memory/WP-004-LESSONS.json"
+    lessons = validate_json(ROOT / path, ROOT / "contracts/research_lessons.schema.json")
+    immutable_from_first_commit(path)
+    assert (
+        lessons["family_terminal_classification"]
+        == state["selected_family"]["terminal_classification"]
+    )
+    assert set(lessons["experiments"]) == set(SPEC)
+    for eid, item in lessons["experiments"].items():
+        result_path = ROOT / f"research/experiments/{eid}/result.json"
+        result = json.loads(result_path.read_text(encoding="utf-8"))
+        assert item["result_path"] == result_path.relative_to(ROOT).as_posix()
+        assert item["result_sha256"] == text_sha(result_path)
+        assert (
+            item["terminal_classification"]
+            == result["secondary_results"]["terminal_classification"]
+        )
+    comparison = "reports/research/WP-004-COMPARISON.json"
+    immutable_from_first_commit(comparison)
+    assert json.loads((ROOT / comparison).read_text(encoding="utf-8")) == build_comparison()
+    for name, content in memory_views().items():
+        assert (ROOT / "research/memory" / name).read_text(encoding="utf-8") == content
+    projection = experiment_view(state=state)
+    assert len(projection["experiments"]) == state["experiments_completed"]
+    assert projection["latest_checkpoint"] == state["latest_executor_checkpoint"]
+
+
+def dataset_scope_checks() -> None:
+    """Metadata/inventory admission also runs in a checkout with no installed market data."""
+    from app.research.continuation_lab import MANIFEST_SHA256
+    from app.research.runner import sha256 as text_sha
+
+    approved = ROOT / "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json"
+    assert set((ROOT / "data/manifests").glob("*.json")) == {approved}
+    manifest = validate_json(approved, ROOT / "contracts/dataset_manifest.schema.json")
+    assert text_sha(approved) == MANIFEST_SHA256 and manifest["symbol"] == "BTCUSDT"
+    assert manifest["coverage"]["end"] == "2024-12-31T23:59:00Z"
+    raw = {ROOT / item["path"] for item in manifest["source"]["raw_objects"]}
+    assert set((ROOT / "data/raw").rglob("*.zip")) <= raw
+    approved_parquet = {ROOT / item["path"] for item in manifest["files"].values()}
+    assert (
+        set((ROOT / "data/canonical").rglob("*.parquet"))
+        | set((ROOT / "data/derived").rglob("*.parquet"))
+        <= approved_parquet
+    )
 
 
 def governance_checks(pre_experiment: bool) -> dict:
@@ -139,6 +218,9 @@ def governance_checks(pre_experiment: bool) -> dict:
         "docs/contracts/EXECUTION_MODEL_V2.md",
         "docs/contracts/COST_MODEL_V1.md",
         "data/reports/BTCUSDT-SPOT-1M-DEV-v1-gaps.json",
+        "reports/reviews/WP-003-RESEARCH-DIRECTOR-REVIEW.md",
+        "reports/research/WP-004-ASTRA-ULTRA.md",
+        "governance/EXECUTOR_POLICY.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     baseline = subprocess.check_output(
@@ -149,16 +231,17 @@ def governance_checks(pre_experiment: bool) -> dict:
     )
     constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
     assert constitution.replace("\r\n", "\n") == baseline.replace("\r\n", "\n")
-    assert (
-        git("branch", "--show-current") == "main"
-        or __import__("os").environ.get("CLEAN_CHECKOUT") == "1"
+    assert git("branch", "--show-current") == "main" or (
+        git("branch", "--show-current") == "" and os.environ.get("CLEAN_CHECKOUT") == "1"
     )
-    for ancestor in (SEED, PREDECESSOR, REVIEWED):
+    for ancestor in (SEED, PREDECESSOR, REVIEWED, WP004_BASE):
         run(["git", "merge-base", "--is-ancestor", ancestor, "HEAD"])
     state = validate_json(
         ROOT / "state/current_state.json", ROOT / "contracts/project_state.schema.json"
     )
     assert state["development_cutoff"] == "2024-12-31T23:59:00Z"
+    approved_state = json.loads(git("show", f"{WP004_BASE}:state/current_state.json"))
+    assert state["development_dataset"] == approved_state["development_dataset"]
     assert state["sealed_evaluations_completed"] == state["paper_trades_completed"] == 0
     assert (
         state["champion_status"] == state["forward_evidence"] == "NONE"
@@ -176,6 +259,8 @@ def governance_checks(pre_experiment: bool) -> dict:
         assert state["experiments_completed"] == 0 and not results
     else:
         validate_experiments(state, results)
+        validate_research_views(state)
+    dataset_scope_checks()
     assert not any(
         (ROOT / p).exists()
         for p in ("backend/app/exchange", "backend/app/orders", "backend/app/credentials")
@@ -184,6 +269,13 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert all(
         x not in source
         for x in ("create_order(", "api_key", "secret_key", "ccxt", "binance.client")
+    )
+    from app.main import app
+
+    assert all(
+        set(route.methods or ()) <= {"GET", "HEAD"}
+        for route in app.routes
+        if hasattr(route, "methods")
     )
     return state
 
@@ -194,6 +286,7 @@ def data_checks(state: dict) -> None:
     import pyarrow.parquet as pq
     from analyze_gaps import build_artifact
     from app.data.policy import parse_utc_instant
+    from app.research.source_grid import grid_audit
 
     schema = ROOT / "contracts/dataset_manifest.schema.json"
     manifests = list((ROOT / "data/manifests").glob("*.json"))
@@ -228,6 +321,10 @@ def data_checks(state: dict) -> None:
             opens[-1].as_py() <= int(CUTOFF.timestamp() * 1_000_000)
             and pc.count_distinct(opens).as_py() == table.num_rows
         )
+        if label == "canonical":
+            assert grid_audit(opens.to_numpy()) == json.loads(
+                (ROOT / "reports/validation/WP-004-SOURCE-GRID.json").read_text()
+            )
     artifact = json.loads((ROOT / "data/reports/BTCUSDT-SPOT-1M-DEV-v1-gaps.json").read_text())
     assert (
         artifact == build_artifact()
@@ -257,7 +354,7 @@ def main() -> None:
         run(command, ROOT / "frontend")
     if not options.no_data:
         data_checks(state)
-    print("WP-003 deterministic validation: PASS")
+    print("WP-004 deterministic validation: PASS (profitability is not a validation gate)")
 
 
 if __name__ == "__main__":

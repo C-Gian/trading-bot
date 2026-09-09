@@ -12,9 +12,9 @@
   "additionalProperties": false,
   "required": ["schema_version","project_name","project_phase","status","product_surface","research_market","symbols","canonical_resolution","signal_timeframe","regime_timeframe","max_holding_horizon","directions","development_cutoff","development_dataset","experiments_completed","sealed_evaluations_completed","paper_trades_completed","champion_status","forward_evidence","real_money_authorized","owner_decision_required","latest_reviewed_checkpoint","latest_executor_checkpoint","next_recommended_work_package","backtest_substrate"],
   "properties": {
-    "schema_version": {"const": 2},
+    "schema_version": {"enum": [2, 3]},
     "project_name": {"const": "Trading Bot"},
-    "project_phase": {"enum": ["BOOTSTRAP", "FOUNDATION_DATA", "BACKTEST_SUBSTRATE", "BASELINE_RESEARCH"]},
+    "project_phase": {"enum": ["BOOTSTRAP", "FOUNDATION_DATA", "BACKTEST_SUBSTRATE", "BASELINE_RESEARCH", "STRATEGY_RESEARCH"]},
     "status": {"enum": ["IN_PROGRESS", "EXECUTOR_COMPLETE_PENDING_REVIEW", "REVIEWED"]},
     "product_surface": {"const": "LOCAL_WEB_APP"},
     "research_market": {"const": "crypto_spot"},
@@ -36,6 +36,40 @@
     "latest_reviewed_checkpoint": {"type": "string", "minLength": 1},
     "latest_executor_checkpoint": {"type": "string", "minLength": 1},
     "next_recommended_work_package": {"type": "string", "minLength": 1},
+    "search_memory": {
+      "type": "object", "additionalProperties": false,
+      "required": ["version", "status", "families_tracked"],
+      "properties": {
+        "version": {"const": "SEARCH_MEMORY_V1"},
+        "status": {"enum": ["PENDING", "VALIDATED"]},
+        "families_tracked": {"type": "integer", "minimum": 0}
+      }
+    },
+    "adaptive_search": {
+      "type": "object", "additionalProperties": false,
+      "required": ["material_economic_hypotheses", "configuration_variants", "profile_trials", "numeric_parameter_variants", "adaptive_decisions", "result_dependent_forks", "strategy_descendants", "wp004_variants_reserved", "wp004_profiles_reserved", "sealed_queries"],
+      "properties": {
+        "material_economic_hypotheses": {"type": "integer", "minimum": 0},
+        "configuration_variants": {"type": "integer", "minimum": 0},
+        "profile_trials": {"type": "integer", "minimum": 0},
+        "numeric_parameter_variants": {"type": "integer", "minimum": 0},
+        "adaptive_decisions": {"type": "integer", "minimum": 0},
+        "result_dependent_forks": {"type": "integer", "minimum": 0},
+        "strategy_descendants": {"type": "integer", "minimum": 0},
+        "wp004_variants_reserved": {"type": "integer", "minimum": 0},
+        "wp004_profiles_reserved": {"type": "integer", "minimum": 0},
+        "sealed_queries": {"type": "integer", "minimum": 0}
+      }
+    },
+    "selected_family": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "primary_experiment_id", "terminal_classification"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "primary_experiment_id": {"type": "string", "minLength": 1},
+        "terminal_classification": {"enum": ["REJECT", "REJECT_COST_DOMINATED", "REJECT_UNSTABLE", "REJECT_DUPLICATE_MECHANISM", "INCONCLUSIVE", "PROMISING_DEVELOPMENT_ONLY"]}
+      }
+    },
     "backtest_substrate": {
       "type": "object", "additionalProperties": false,
       "required": ["status", "engine_version", "execution_model_version", "cost_model_version", "synthetic_validation", "gap_artifact"],
@@ -48,5 +82,6 @@
         "gap_artifact": {"type": "object", "additionalProperties": false, "required": ["id", "sha256"], "properties": {"id": {"type": ["string", "null"]}, "sha256": {"anyOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]}}}
       }
     }
-  }
+  },
+  "allOf": [{"if": {"properties": {"schema_version": {"const": 3}}}, "then": {"required": ["search_memory", "adaptive_search", "selected_family"]}}]
 }
