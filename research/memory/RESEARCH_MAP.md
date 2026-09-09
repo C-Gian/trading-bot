@@ -98,3 +98,25 @@ Current family disposition: FAM-PULLBACK-RECOVERY is INCONCLUSIVE after one allo
 Legitimate next direction: Only a distinct causal structural response to this immutable evidence, with an explicit new Research Director allocation. The binding limitation is trade sparsity in 2022 and profit concentration, not the sign of the expectancy.
 
 Blocked repeats: Changing the 24-hour mean period, the 2:1 persistence ratio, the 2%/4% barriers or the 24-hour horizon; that is numeric drift, not a revisit.; Adopting RECOVERY_CONFIRM as the family conclusion because it scored better than the preselected primary.; Adding a pullback-depth threshold, a volume gate, an indicator zoo or any gate chosen after seeing these numbers.; Reopening FAM-BREAKOUT, whose strategy budget stays exhausted.; Any sealed query, paper trade or Champion promotion on this evidence.
+
+
+## WP-007 order-flow root and its retained evidence
+
+DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE
+
+Root family FAM-ORDER-FLOW was admitted as NEW_FAMILY before results.
+Exactly one economic hypothesis, two configurations, eight profiles and zero
+numeric variants were consumed; every negative result is retained.
+
+Family conclusion follows the preselected primary EXP-ALG-012-ORDERFLOW-CORE: REJECT_COST_DOMINATED.
+
+| Experiment | Default R | Zero-cost R | Double-cost R | Trades |
+|---|---:|---:|---:|---:|
+| EXP-ALG-012-ORDERFLOW-CORE | -0.0667167056 | +0.0533577522 | -0.1867911419 | 1828 |
+| EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE | -0.0505303537 | +0.0695709705 | -0.1706316500 | 1565 |
+
+The transition has positive gross expectancy, but realistic default friction consumes it and doubled costs deepen the loss. Broad fold coverage and high ESS do not rescue negative net expectancy.
+
+Current family disposition: FAM-ORDER-FLOW is REJECT_COST_DOMINATED after its one fixed allocation. Both configurations and all eight profiles are consumed; the family is not seal-eligible and has no Champion standing.
+
+Blocked repeats: Changing the 0.5 accounting balance point, 4h context duration, 2%/4% barriers, or 24h horizon.; Adding price, breakout, trend, pullback, persistence, indicator, volume-multiple, or other gates chosen after these results.; Adopting FLOW_PRICE_RESPONSE as the family conclusion because its loss is smaller.; Modifying ALIGNED or pullback recovery, or reopening exhausted FAM-BREAKOUT.; Any sealed query, paper trade, Champion promotion, or real-money action on this evidence.

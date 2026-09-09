@@ -11,7 +11,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .search_memory import load_memory, text_sha256
+from .registry import admission_ledger, all_outcomes
+from .search_memory import text_sha256
 from .wp004 import ROOT
 
 ELIGIBLE = "PROMISING_DEVELOPMENT_ONLY"
@@ -51,30 +52,17 @@ def _spec_hashes(root: Path) -> dict[str, dict[str, str]]:
         }
         for item in document["signatures"]
     }
-    ledger = root / "research/memory/ADMISSION_LEDGER_V2.jsonl"
-    if ledger.is_file():
-        for line in ledger.read_text(encoding="utf-8").splitlines():
-            if not line.strip():
-                continue
-            entry = json.loads(line)
-            hashes[entry["experiment_id"]] = {
-                "executable_spec_hash": entry["executable_spec_hash"],
-                "root_family": entry["root_family"],
-                "binding": "VALID",
-            }
+    for entry in admission_ledger(root):
+        hashes[entry["experiment_id"]] = {
+            "executable_spec_hash": entry["executable_spec_hash"],
+            "root_family": entry["root_family"],
+            "binding": "VALID",
+        }
     return hashes
 
 
 def _outcomes(root: Path) -> list[dict[str, Any]]:
-    outcomes = list(load_memory(root)["outcomes"])
-    ledger = root / "research/memory/OUTCOMES_V2.jsonl"
-    if ledger.is_file():
-        outcomes += [
-            json.loads(line)
-            for line in ledger.read_text(encoding="utf-8").splitlines()
-            if line.strip()
-        ]
-    return outcomes
+    return all_outcomes(root)
 
 
 def build_eligibility_table(root: Path = ROOT) -> dict[str, Any]:
@@ -114,6 +102,8 @@ def build_eligibility_table(root: Path = ROOT) -> dict[str, Any]:
             "research/memory/OUTCOMES_V2.jsonl",
             "research/memory/LEGACY_EXECUTABLE_SIGNATURES_V2.json",
             "research/memory/ADMISSION_LEDGER_V2.jsonl",
+            "research/memory/registry/ledger/*.jsonl",
+            "research/memory/registry/outcomes/*.jsonl",
         ],
         "policy": (
             "Only PROMISING_DEVELOPMENT_ONLY can ever become eligible, and only together with an "

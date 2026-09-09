@@ -1,0 +1,71 @@
+{
+  "blocked_directions": [
+    "Changing the 0.5 accounting balance point, 4h context duration, 2%/4% barriers, or 24h horizon.",
+    "Adding price, breakout, trend, pullback, persistence, indicator, volume-multiple, or other gates chosen after these results.",
+    "Adopting FLOW_PRICE_RESPONSE as the family conclusion because its loss is smaller.",
+    "Modifying ALIGNED or pullback recovery, or reopening exhausted FAM-BREAKOUT.",
+    "Any sealed query, paper trade, Champion promotion, or real-money action on this evidence."
+  ],
+  "comparison": {
+    "core_minus_aligned_r": -0.2041101732,
+    "core_minus_breakout_r": -0.0131190073,
+    "core_minus_pullback_recovery_r": -0.0670990131,
+    "core_minus_random_mean_r": 0.0300607551,
+    "core_minus_trend_r": 0.0414043173,
+    "path": "reports/research/WP-007-COMPARISON.json",
+    "sha256": "70d02aaf380ec7cdb68b1186052bea5b4aa38103082f7b62aabb44f8dbcd2c9f"
+  },
+  "confirmation_lesson": "FLOW_PRICE_RESPONSE improves default expectancy by 0.0161863519 R and reduces coverage by 263 trades, but remains cost-dominated and cannot replace the preselected primary.",
+  "experiments": {
+    "EXP-ALG-012-ORDERFLOW-CORE": {
+      "default_net_expectancy_r": -0.0667167056,
+      "delay_net_expectancy_r": -0.0619009982,
+      "double_cost_net_expectancy_r": -0.1867911419,
+      "invalid_attempts": 1,
+      "max_positive_fold_profit_share": 1.0,
+      "minimum_fold_trades": 241,
+      "nonnegative_fold_count": 1,
+      "result_path": "research/experiments/EXP-ALG-012-ORDERFLOW-CORE/result.json",
+      "result_sha256": "c52e069866ad8524a491773cdc6ab94fb3399935c50f9a49f76a9f1aa302c25a",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1828,
+      "trade_ess": 1630.9163209691,
+      "unresolved_trades": 11,
+      "zero_cost_net_expectancy_r": 0.0533577522
+    },
+    "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE": {
+      "default_net_expectancy_r": -0.0505303537,
+      "delay_net_expectancy_r": -0.0504141518,
+      "double_cost_net_expectancy_r": -0.17063165,
+      "invalid_attempts": 0,
+      "max_positive_fold_profit_share": 0.6334123995,
+      "minimum_fold_trades": 204,
+      "nonnegative_fold_count": 2,
+      "result_path": "research/experiments/EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE/result.json",
+      "result_sha256": "c2907f19a5ab13e05e793757bc3e3a743d4cc6ac2295db165f42823a56f41879",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1565,
+      "trade_ess": 1331.5974088832,
+      "unresolved_trades": 7,
+      "zero_cost_net_expectancy_r": 0.0695709705
+    }
+  },
+  "family_conclusion_policy": "The family follows preselected FLOW_CORE, never the better-scoring confirmation variant.",
+  "family_disposition": "FAM-ORDER-FLOW is REJECT_COST_DOMINATED after its one fixed allocation. Both configurations and all eight profiles are consumed; the family is not seal-eligible and has no Champion standing.",
+  "family_terminal_classification": "REJECT_COST_DOMINATED",
+  "integrity_limitation": "All six folds are exposed development history. Binance taker-buy base share is a venue-level aggressive-participation proxy, not market-wide signed demand, investor intent, or causal evidence.",
+  "key_lesson": "The transition has positive gross expectancy, but realistic default friction consumes it and doubled costs deepen the loss. Broad fold coverage and high ESS do not rescue negative net expectancy.",
+  "new_trial_allocation": 0,
+  "novelty_admission": {
+    "family_classification": "NEW_FAMILY",
+    "path": "research/memory/registry/admissions/WP007-NOVELTY-ADMISSION.json",
+    "sha256": "11120b1137df4c3c34ea29a6c3f8c663860e9485b72e2a8d6b407a6e12ea3a0a"
+  },
+  "primary_experiment_id": "EXP-ALG-012-ORDERFLOW-CORE",
+  "record_kind": "POST_RESULT_SCIENTIFIC_INTERPRETATION",
+  "root_family": "FAM-ORDER-FLOW",
+  "schema_version": 1,
+  "selected_hypothesis": "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
+  "timing_lesson": "DELAY_1H changes CORE expectancy by only +0.0048157074 R and removes 10 trades; it does not reverse the negative net result.",
+  "work_package": "WP-007"
+}

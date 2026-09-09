@@ -151,3 +151,14 @@ the pullback-recovery mechanism has no edge.
 All six folds are previously exposed development history, not fresh out-of-sample or sealed evidence. The 4h persistence descriptor and the whole data-eligibility and quarantine universe are inherited from WP-004 and are not independent new evidence. Executed-signal overlap with the breakout and ALIGNED paths is zero, which describes distinct firing times rather than proving an independent economic mechanism.
 
 FAM-PULLBACK-RECOVERY is INCONCLUSIVE after one allocation. Its 2/2 configurations and 8/8 profile evaluations are consumed. It is not seal-eligible, has no Champion standing, and is not authorized for another variant.
+
+
+## WP-007 retained order-flow failure
+
+The transition has positive gross expectancy, but realistic default friction consumes it and doubled costs deepen the loss. Broad fold coverage and high ESS do not rescue negative net expectancy.
+FLOW_PRICE_RESPONSE improves default expectancy by 0.0161863519 R and reduces coverage by 263 trades, but remains cost-dominated and cannot replace the preselected primary.
+DELAY_1H changes CORE expectancy by only +0.0048157074 R and removes 10 trades; it does not reverse the negative net result.
+
+All six folds are exposed development history. Binance taker-buy base share is a venue-level aggressive-participation proxy, not market-wide signed demand, investor intent, or causal evidence.
+
+FAM-ORDER-FLOW is REJECT_COST_DOMINATED after its one fixed allocation. Both configurations and all eight profiles are consumed; the family is not seal-eligible and has no Champion standing.

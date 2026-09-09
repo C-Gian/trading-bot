@@ -12,6 +12,7 @@ from .runner import sha256
 from .search_memory import accounting, load_memory, render_failure_memory, render_research_map
 from .wp004 import ROOT, SPEC
 from .wp006 import SPEC as WP006_SPEC
+from .wp007 import SPEC as WP007_SPEC
 
 LABEL = "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
 CONTROL_IDS = (
@@ -114,6 +115,7 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
     windows = {
         **dict.fromkeys(SPEC, "WP-004 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP006_SPEC, "WP-006 exposed annual validation (2019–2024)"),
+        **dict.fromkeys(WP007_SPEC, "WP-007 exposed annual validation (2019–2024)"),
     }
     for eid, window in windows.items():
         path = root / "research/experiments" / eid / "result.json"
@@ -326,6 +328,62 @@ def memory_views(root: Path = ROOT) -> dict[str, str]:
                 f"{lessons['family_terminal_classification']} is a sufficiency verdict, not a claim that",
                 "the pullback-recovery mechanism has no edge.",
                 *[f"- {item}" for item in lessons["unresolved_limitations"]],
+                "",
+                lessons["integrity_limitation"],
+                "",
+                lessons["family_disposition"],
+                "",
+            ]
+        )
+    wp007_path = root / "research/memory/WP-007-LESSONS.json"
+    if wp007_path.is_file():
+        lessons = read_json(wp007_path)
+        rows.extend(
+            [
+                "",
+                "## WP-007 order-flow root and its retained evidence",
+                "",
+                LABEL,
+                "",
+                f"Root family {lessons['root_family']} was admitted as NEW_FAMILY before results.",
+                "Exactly one economic hypothesis, two configurations, eight profiles and zero",
+                "numeric variants were consumed; every negative result is retained.",
+                "",
+                (
+                    "Family conclusion follows the preselected primary "
+                    f"{lessons['primary_experiment_id']}: "
+                    f"{lessons['family_terminal_classification']}."
+                ),
+                "",
+                "| Experiment | Default R | Zero-cost R | Double-cost R | Trades |",
+                "|---|---:|---:|---:|---:|",
+            ]
+        )
+        for eid, item in lessons["experiments"].items():
+            rows.append(
+                f"| {eid} | {item['default_net_expectancy_r']:+.10f} | "
+                f"{item['zero_cost_net_expectancy_r']:+.10f} | "
+                f"{item['double_cost_net_expectancy_r']:+.10f} | {item['trade_count']} |"
+            )
+        rows.extend(
+            [
+                "",
+                lessons["key_lesson"],
+                "",
+                "Current family disposition: " + lessons["family_disposition"],
+                "",
+                "Blocked repeats: " + "; ".join(lessons["blocked_directions"]),
+                "",
+            ]
+        )
+        failures.extend(
+            [
+                "",
+                "## WP-007 retained order-flow failure",
+                "",
+                lessons["key_lesson"],
+                lessons["confirmation_lesson"],
+                lessons["timing_lesson"],
                 "",
                 lessons["integrity_limitation"],
                 "",

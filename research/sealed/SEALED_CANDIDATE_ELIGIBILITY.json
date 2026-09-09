@@ -76,6 +76,36 @@
       "unresolved_material_integrity_issues": 0
     },
     {
+      "development_result_path": "research/experiments/EXP-ALG-012-ORDERFLOW-CORE/result.json",
+      "development_result_sha256": "c52e069866ad8524a491773cdc6ab94fb3399935c50f9a49f76a9f1aa302c25a",
+      "executable_spec_hash": "98e6311c2703d6539f3948354cbafabcf119afc85273230a6dabaf257ae8f4ae",
+      "experiment_id": "EXP-ALG-012-ORDERFLOW-CORE",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-ORDER-FLOW",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE/result.json",
+      "development_result_sha256": "c2907f19a5ab13e05e793757bc3e3a743d4cc6ac2295db165f42823a56f41879",
+      "executable_spec_hash": "743036a47494d555d91a6af45e91b24ba01d1a03c90cc8ee58982d59a2eafd26",
+      "experiment_id": "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-ORDER-FLOW",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
       "development_result_path": "research/experiments/EXP-BASE-001-BUYHOLD/result.json",
       "development_result_sha256": "fec7d3744e820eb09499cfae735cb5a06d7722d058d61c906a1a7aaa35f7cc53",
       "executable_spec_hash": "349472bb6fd244bd069ab12db6487ca10454707b5d51a921787a93ac079ad0ac",
@@ -170,7 +200,9 @@
     "research/memory/OUTCOMES.jsonl",
     "research/memory/OUTCOMES_V2.jsonl",
     "research/memory/LEGACY_EXECUTABLE_SIGNATURES_V2.json",
-    "research/memory/ADMISSION_LEDGER_V2.jsonl"
+    "research/memory/ADMISSION_LEDGER_V2.jsonl",
+    "research/memory/registry/ledger/*.jsonl",
+    "research/memory/registry/outcomes/*.jsonl"
   ],
   "label": "DEVELOPMENT RESEARCH \u2014 NOT APPROVED STRATEGY PERFORMANCE",
   "policy": "Only PROMISING_DEVELOPMENT_ONLY can ever become eligible, and only together with an explicit Research Director sealed allocation. INCONCLUSIVE is never seal-eligible.",
