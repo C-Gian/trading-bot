@@ -1,0 +1,481 @@
+{
+  "family_terminal_classification": "REJECT_COST_DOMINATED",
+  "full_deltas": {
+    "aligned": -0.251615313,
+    "breakout": -0.0606241471,
+    "no_trade": null,
+    "order_flow_core": -0.0475051398,
+    "pullback_recovery_core": -0.1146041529,
+    "random_control_mean": -0.0174443847,
+    "sma_trend": -0.0061008225
+  },
+  "interpretation": {
+    "broad_long_drift_only": false,
+    "default_friction_consumes_signal": true,
+    "delay_materially_changes_disposition": false,
+    "double_cost_survives": false,
+    "no_flow_materially_improves_disposition": false,
+    "one_positive_year_only": true,
+    "zero_cost_signal_positive": true
+  },
+  "label": "DEVELOPMENT RESEARCH \u2014 NOT APPROVED STRATEGY PERFORMANCE",
+  "limitations": [
+    "All folds are exposed development history, not sealed or prospective evidence.",
+    "Reference families have different eligibility and occupancy; deltas are descriptive, not causal or paired.",
+    "OLS coefficients are fold outputs, not independently tested hypotheses.",
+    "No post-result feature, threshold, model, regularization, interaction, or execution change is authorized."
+  ],
+  "method": "DESCRIPTIVE_COMPARISON_OF_IMMUTABLE_RESULTS_NO_NEW_TRIAL",
+  "new_strategy_trials": 0,
+  "paired_comparison": false,
+  "primary_variant": "LINEAR_FULL",
+  "references": {
+    "aligned": 0.1373934676,
+    "breakout": -0.0535976983,
+    "no_trade": null,
+    "order_flow_core": -0.0667167056,
+    "pullback_recovery_core": 0.0003823075,
+    "random_control_mean": -0.0967774607,
+    "sma_trend": -0.1081210229
+  },
+  "schema_version": 1,
+  "variants": {
+    "LINEAR_FULL": {
+      "artifact_manifest": {
+        "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+        "columns": [
+          {
+            "name": "profile",
+            "nullable": false,
+            "type": "string"
+          },
+          {
+            "name": "fold_id",
+            "nullable": false,
+            "type": "string"
+          },
+          {
+            "name": "signal_us",
+            "nullable": false,
+            "type": "int64"
+          },
+          {
+            "name": "prediction_signal_us",
+            "nullable": false,
+            "type": "int64"
+          },
+          {
+            "name": "predicted_default_net_r",
+            "nullable": false,
+            "type": "double"
+          },
+          {
+            "name": "reference",
+            "nullable": false,
+            "type": "double"
+          },
+          {
+            "name": "status",
+            "nullable": false,
+            "type": "string"
+          },
+          {
+            "name": "reason",
+            "nullable": false,
+            "type": "string"
+          },
+          {
+            "name": "exit_us",
+            "nullable": true,
+            "type": "int64"
+          },
+          {
+            "name": "net_r",
+            "nullable": true,
+            "type": "double"
+          },
+          {
+            "name": "gross_r",
+            "nullable": true,
+            "type": "double"
+          },
+          {
+            "name": "cost_drag_r",
+            "nullable": true,
+            "type": "double"
+          },
+          {
+            "name": "net_return_bps",
+            "nullable": true,
+            "type": "double"
+          },
+          {
+            "name": "position_available_us",
+            "nullable": false,
+            "type": "int64"
+          }
+        ],
+        "file_sha256": "b0ff2c44588a20204e516fe3a2177bd2bb035f569b7a98178b8810502cfeceec",
+        "format": "PARQUET_ZSTD",
+        "logical_sha256": "ab4f83c12d41ceb43e054e0ff374affc58c54159df4213412c6e5d402b5f0d64",
+        "path": "research/experiments/EXP-ML-014-LINEAR-NET-R-FULL/trials.parquet",
+        "rows": 4061,
+        "schema_version": 1,
+        "sort_key": [
+          "profile",
+          "fold_id",
+          "signal_us"
+        ],
+        "writer": {
+          "compression": "zstd",
+          "compression_level": 9,
+          "data_page_version": "1.0",
+          "pyarrow_version": "21.0.0",
+          "use_dictionary": false,
+          "version": "2.6",
+          "write_statistics": true
+        }
+      },
+      "coefficient_sign_consistent_features": 5,
+      "coefficient_signs_by_fold": {
+        "DIRECTIONAL_EFFICIENCY_4H": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "LOG_RELATIVE_VOLUME_1H": [
+          -1,
+          -1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        "LOG_RETURN_1H": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "LOG_RETURN_24H": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "REALIZED_VOL_24H": [
+          1,
+          1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        "TAKER_BUY_SHARE_1H_CENTERED": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "TAKER_BUY_SHARE_4H_CENTERED": [
+          -1,
+          -1,
+          -1,
+          1,
+          1,
+          1
+        ]
+      },
+      "condition_number_max": 5.282662220465725,
+      "condition_number_min": 5.104280315573544,
+      "default_net_expectancy_r": -0.1142218454,
+      "delay_net_expectancy_r": -0.1098336131,
+      "delay_trade_count": 1016,
+      "double_cost_net_expectancy_r": -0.2342683271,
+      "experiment_id": "EXP-ML-014-LINEAR-NET-R-FULL",
+      "folds": [
+        {
+          "cumulative_net_r": -15.9110127511,
+          "fold_id": "DEV-2019",
+          "net_expectancy_r": -0.0611962029,
+          "trade_count": 260
+        },
+        {
+          "cumulative_net_r": -12.3550569648,
+          "fold_id": "DEV-2020",
+          "net_expectancy_r": -0.0510539544,
+          "trade_count": 242
+        },
+        {
+          "cumulative_net_r": -52.272499113,
+          "fold_id": "DEV-2021",
+          "net_expectancy_r": -0.2224361664,
+          "trade_count": 235
+        },
+        {
+          "cumulative_net_r": -21.9248142127,
+          "fold_id": "DEV-2022",
+          "net_expectancy_r": -0.2463462271,
+          "trade_count": 89
+        },
+        {
+          "cumulative_net_r": 4.7718349464,
+          "fold_id": "DEV-2023",
+          "net_expectancy_r": 0.0581931091,
+          "trade_count": 82
+        },
+        {
+          "cumulative_net_r": -16.8729628358,
+          "fold_id": "DEV-2024",
+          "net_expectancy_r": -0.1776101351,
+          "trade_count": 95
+        }
+      ],
+      "max_absolute_fold_pnl_share": 0.4211849595,
+      "max_positive_fold_profit_share": 1.0,
+      "minimum_fold_trades": 82,
+      "nonnegative_fold_count": 1,
+      "prediction_label_pearson_max": 0.10908605004167768,
+      "prediction_label_pearson_mean": 0.021859439838774156,
+      "prediction_label_pearson_min": -0.03306521573987849,
+      "prediction_positive_count": 9535,
+      "prediction_positive_fraction": 0.1954534274,
+      "result_path": "research/experiments/EXP-ML-014-LINEAR-NET-R-FULL/result.json",
+      "result_sha256": "efe1c360fd29728f3a3f72a0bc8142e1d6dba6551dc25302c4780d280a0a29e0",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1003,
+      "trade_ess": 852.7543541507,
+      "validation_eligible_count": 48784,
+      "variant": "LINEAR_FULL",
+      "zero_cost_net_expectancy_r": 0.0058246386
+    },
+    "LINEAR_NO_FLOW": {
+      "artifact_manifest": {
+        "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+        "columns": [
+          {
+            "name": "profile",
+            "nullable": false,
+            "type": "string"
+          },
+          {
+            "name": "fold_id",
+            "nullable": false,
+            "type": "string"
+          },
+          {
+            "name": "signal_us",
+            "nullable": false,
+            "type": "int64"
+          },
+          {
+            "name": "prediction_signal_us",
+            "nullable": false,
+            "type": "int64"
+          },
+          {
+            "name": "predicted_default_net_r",
+            "nullable": false,
+            "type": "double"
+          },
+          {
+            "name": "reference",
+            "nullable": false,
+            "type": "double"
+          },
+          {
+            "name": "status",
+            "nullable": false,
+            "type": "string"
+          },
+          {
+            "name": "reason",
+            "nullable": false,
+            "type": "string"
+          },
+          {
+            "name": "exit_us",
+            "nullable": true,
+            "type": "int64"
+          },
+          {
+            "name": "net_r",
+            "nullable": true,
+            "type": "double"
+          },
+          {
+            "name": "gross_r",
+            "nullable": true,
+            "type": "double"
+          },
+          {
+            "name": "cost_drag_r",
+            "nullable": true,
+            "type": "double"
+          },
+          {
+            "name": "net_return_bps",
+            "nullable": true,
+            "type": "double"
+          },
+          {
+            "name": "position_available_us",
+            "nullable": false,
+            "type": "int64"
+          }
+        ],
+        "file_sha256": "9c20495415395886af7705fa93a78222f55515207b7f3ccb4246d7c2d9bbae1f",
+        "format": "PARQUET_ZSTD",
+        "logical_sha256": "7ed34cca31b83619bfd4855f689c1a2d2e93ee40939ecaf7d1e6bc8820c930a8",
+        "path": "research/experiments/EXP-ML-015-LINEAR-NET-R-NO-FLOW/trials.parquet",
+        "rows": 3922,
+        "schema_version": 1,
+        "sort_key": [
+          "profile",
+          "fold_id",
+          "signal_us"
+        ],
+        "writer": {
+          "compression": "zstd",
+          "compression_level": 9,
+          "data_page_version": "1.0",
+          "pyarrow_version": "21.0.0",
+          "use_dictionary": false,
+          "version": "2.6",
+          "write_statistics": true
+        }
+      },
+      "coefficient_sign_consistent_features": 4,
+      "coefficient_signs_by_fold": {
+        "DIRECTIONAL_EFFICIENCY_4H": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "LOG_RELATIVE_VOLUME_1H": [
+          -1,
+          -1,
+          -1,
+          -1,
+          1,
+          1
+        ],
+        "LOG_RETURN_1H": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "LOG_RETURN_24H": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "REALIZED_VOL_24H": [
+          1,
+          1,
+          1,
+          -1,
+          1,
+          1
+        ]
+      },
+      "condition_number_max": 5.209654590327978,
+      "condition_number_min": 5.020764820241169,
+      "default_net_expectancy_r": -0.1172203904,
+      "delay_net_expectancy_r": -0.1041653216,
+      "delay_trade_count": 983,
+      "double_cost_net_expectancy_r": -0.2372882645,
+      "experiment_id": "EXP-ML-015-LINEAR-NET-R-NO-FLOW",
+      "folds": [
+        {
+          "cumulative_net_r": -9.9001160764,
+          "fold_id": "DEV-2019",
+          "net_expectancy_r": -0.0362641615,
+          "trade_count": 273
+        },
+        {
+          "cumulative_net_r": -13.8050991713,
+          "fold_id": "DEV-2020",
+          "net_expectancy_r": -0.0580046184,
+          "trade_count": 238
+        },
+        {
+          "cumulative_net_r": -53.3947988987,
+          "fold_id": "DEV-2021",
+          "net_expectancy_r": -0.2321512996,
+          "trade_count": 230
+        },
+        {
+          "cumulative_net_r": -29.4515801007,
+          "fold_id": "DEV-2022",
+          "net_expectancy_r": -0.3681447513,
+          "trade_count": 80
+        },
+        {
+          "cumulative_net_r": 1.137827662,
+          "fold_id": "DEV-2023",
+          "net_expectancy_r": 0.015803162,
+          "trade_count": 72
+        },
+        {
+          "cumulative_net_r": -8.1727916794,
+          "fold_id": "DEV-2024",
+          "net_expectancy_r": -0.1075367326,
+          "trade_count": 76
+        }
+      ],
+      "max_absolute_fold_pnl_share": 0.4608473914,
+      "max_positive_fold_profit_share": 1.0,
+      "minimum_fold_trades": 72,
+      "nonnegative_fold_count": 1,
+      "prediction_label_pearson_max": 0.11862630746894472,
+      "prediction_label_pearson_mean": 0.023198025996049938,
+      "prediction_label_pearson_min": -0.03207761151400407,
+      "prediction_positive_count": 9400,
+      "prediction_positive_fraction": 0.1926861266,
+      "result_path": "research/experiments/EXP-ML-015-LINEAR-NET-R-NO-FLOW/result.json",
+      "result_sha256": "9c2fa34c017e785968a83156ac86520fc04f3670d06623ec742f1c7e805d3e30",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 969,
+      "trade_ess": 747.677256668,
+      "validation_eligible_count": 48784,
+      "variant": "LINEAR_NO_FLOW",
+      "zero_cost_net_expectancy_r": 0.0028474849
+    }
+  },
+  "work_package": "WP-008"
+}

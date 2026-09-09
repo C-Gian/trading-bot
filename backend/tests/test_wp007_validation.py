@@ -15,7 +15,7 @@ def test_repository_checkpoint_validates():
         "FLOW_CORE": "REJECT_COST_DOMINATED",
         "FLOW_PRICE_RESPONSE": "REJECT_COST_DOMINATED",
     }
-    assert result["sealed"] == {"assessed": 13, "eligible": 0, "queries": 0}
+    assert result["sealed"] == {"assessed": 15, "eligible": 0, "queries": 0}
 
 
 def test_results_answer_the_preregistered_cost_and_timing_questions():
@@ -39,11 +39,12 @@ def test_admission_reproduces_after_its_own_ledger_exists():
 
 def test_cumulative_search_accounting_is_exact():
     totals = cumulative_accounting()
-    assert totals["material_economic_hypotheses"] == 5
-    assert totals["configuration_variants"] == 13
-    assert totals["profile_trials"] == 69
+    assert totals["material_economic_hypotheses"] == 6
+    assert totals["configuration_variants"] == 15
+    assert totals["profile_trials"] == 77
+    assert totals["supervised_model_fits"] == 12
     assert totals["numeric_parameter_variants"] == 0
-    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 4
+    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 5
 
 
 def test_both_order_flow_candidates_are_sealed_ineligible():

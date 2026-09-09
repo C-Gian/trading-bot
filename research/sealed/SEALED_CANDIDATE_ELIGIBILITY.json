@@ -194,6 +194,36 @@
       "structural_validator": "PASS",
       "terminal_classification": "CONTROL_BEHAVES_AS_EXPECTED",
       "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-014-LINEAR-NET-R-FULL/result.json",
+      "development_result_sha256": "efe1c360fd29728f3a3f72a0bc8142e1d6dba6551dc25302c4780d280a0a29e0",
+      "executable_spec_hash": "72b8574eec40999c2cd8cc3fd5f7fd2a701d356803278e1b1b18ef643d0a8de0",
+      "experiment_id": "EXP-ML-014-LINEAR-NET-R-FULL",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-SUPERVISED-LINEAR",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-015-LINEAR-NET-R-NO-FLOW/result.json",
+      "development_result_sha256": "9c2fa34c017e785968a83156ac86520fc04f3670d06623ec742f1c7e805d3e30",
+      "executable_spec_hash": "f1aed3aa6b11ac55846df51668769f858808bbc1c3a2ca338d52b4f47f54d16d",
+      "experiment_id": "EXP-ML-015-LINEAR-NET-R-NO-FLOW",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-SUPERVISED-LINEAR",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
     }
   ],
   "generated_from": [

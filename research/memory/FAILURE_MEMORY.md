@@ -162,3 +162,13 @@ DELAY_1H changes CORE expectancy by only +0.0048157074 R and removes 10 trades; 
 All six folds are exposed development history. Binance taker-buy base share is a venue-level aggressive-participation proxy, not market-wide signed demand, investor intent, or causal evidence.
 
 FAM-ORDER-FLOW is REJECT_COST_DOMINATED after its one fixed allocation. Both configurations and all eight profiles are consumed; the family is not seal-eligible and has no Champion standing.
+
+
+## WP-008 retained supervised-family failure
+
+The fixed supervised combination barely clears zero costs but loses materially under default and doubled friction; learning does not rescue the exposed descriptors.
+Removing F7/F8 changes default expectancy by only -0.0029985450 R and leaves the same cost-dominated rejection.
+FULL is nonnegative in only 1/6 folds; 2023 is the sole positive year and positive-fold profit concentration is 100%.
+Foldwise isolated-label correlations range from -0.0330652157 to +0.1090860500 and change sign, consistent with weak unstable ranking rather than robust OOS prediction.
+
+Park FAM-SUPERVISED-LINEAR. Do not tune its features, threshold, regularization, algorithm, interactions, label, stop, target, or horizon.

@@ -347,12 +347,49 @@ def novelty_decision(root: Path = ROOT) -> dict[str, Any]:
 
 
 def validate_admission(root: Path = ROOT) -> dict[str, Any]:
-    """The committed gate record must reproduce exactly from the frozen specs."""
+    """Validate the historical gate against its frozen specs, not later registry growth."""
     recorded = read_json(root / ADMISSION_PATH)
-    if recorded != json.loads(json.dumps(novelty_decision(root))):
+    if (
+        recorded.get("schema_version") != 1
+        or recorded.get("version") != "SEARCH_MEMORY_V2"
+        or recorded.get("work_package") != "WP-007"
+        or recorded.get("gate") != "GOVERNED_NOVELTY_ADMISSION_BEFORE_ANY_MARKET_RESULT"
+        or recorded.get("proposed_root_family") != ROOT_FAMILY
+        or recorded.get("proposed_hypothesis_id") != HYPOTHESIS_ID
+        or recorded.get("entry_event") != ENTRY_EVENT
+        or recorded.get("family_classification") not in NEW_ROOT_CLASSIFICATIONS
+        or not recorded["admitted"]
+        or recorded["market_results_observed_at_admission"] != 0
+        or recorded.get("classifier_modified") is not False
+        or recorded.get("renamed_to_force_novelty") is not False
+        or recorded.get("conditions_added_to_force_novelty") is not False
+        or recorded["reference_signatures"]
+        != {"v1_reference_translations": 9, "v2_admitted_behaviours": 2}
+    ):
         raise SearchMemoryError("novelty admission record differs from the deterministic gate")
-    if recorded["family_classification"] not in NEW_ROOT_CLASSIFICATIONS:
-        raise SearchMemoryError("admitted family is not an explicit new root")
+    expected = {item["experiment_id"]: item for item in recorded["variants"]}
+    if set(expected) != set(SPEC):
+        raise SearchMemoryError("WP-007 admission variant set changed")
+    for experiment_id, variant in SPEC.items():
+        item = expected[experiment_id]
+        spec = executable_spec(variant, root)
+        binding = bind_executable_spec(spec, runtime_spec=spec)
+        expected_classification = (
+            "NEW_FAMILY" if variant == PRIMARY_VARIANT else "DESCENDANT_MECHANISM_CHANGE"
+        )
+        expected_matches = [] if variant == PRIMARY_VARIANT else [next(iter(SPEC))]
+        if (
+            item["variant"] != variant
+            or item["hypothesis_role"] != ROLES[variant]
+            or item["classification"] != expected_classification
+            or item["matched_experiment_ids"] != expected_matches
+            or item["spec"] != json.loads(json.dumps(spec.to_dict()))
+            or item["behavior_hash"] != binding.behavior_hash
+            or item["structural_hash"] != binding.structural_hash
+            or item["executable_spec_hash"] != binding.executable_spec_hash
+            or item["dependency_hash"] != binding.dependency_hash
+        ):
+            raise SearchMemoryError("novelty admission record differs from the deterministic gate")
     return recorded
 
 
@@ -413,7 +450,7 @@ def validate_family_record(root: Path = ROOT) -> dict[str, Any]:
         raise SearchMemoryError("WP-007 family record changed its entry-event anchor")
     if family["allocation_id"] != ALLOCATION_ID or family["admitted_by"] != ADMISSION_PATH:
         raise SearchMemoryError("WP-007 family record is not bound to its governed admission")
-    entries = registry_ledger(root)
+    entries = [item for item in registry_ledger(root) if item["work_package"] == "WP-007"]
     if {entry["root_family"] for entry in entries} - {ROOT_FAMILY}:
         raise SearchMemoryError("the WP-007 registry ledger admits an unallocated family")
     return family
@@ -426,7 +463,7 @@ def validate_ledger(root: Path = ROOT) -> dict[str, int]:
     admission = read_json(root / ADMISSION_PATH)
     admitted = {item["experiment_id"]: item for item in admission["variants"]}
     seen: set[str] = set()
-    entries = registry_ledger(root)
+    entries = [item for item in registry_ledger(root) if item["work_package"] == "WP-007"]
     for entry in entries:
         validator.validate(entry)
         experiment_id = entry["experiment_id"]
@@ -454,7 +491,13 @@ def validate_ledger(root: Path = ROOT) -> dict[str, int]:
         if counts[field] > limit:
             raise SearchMemoryError(f"WP-007 {field} budget exceeded")
     prior = {item["experiment_id"] for item in admission_ledger(root)} - set(SPEC)
-    if len(prior) != 2:
+    if (
+        not {
+            "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+            "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM",
+        }
+        <= prior
+    ):
         raise SearchMemoryError("a prior work package's admissions changed")
     return counts
 
@@ -483,7 +526,9 @@ def effective_preregistration(experiment_id: str, root: Path = ROOT) -> Path:
     return path
 
 
-def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
+def validate_identity(
+    prereg: dict[str, Any], root: Path = ROOT, *, validate_current_dependencies: bool = True
+) -> None:
     """The preregistration must bind to the exact admitted spec, config and protocol."""
     experiment_id = prereg["experiment_id"]
     if experiment_id not in SPEC:
@@ -509,7 +554,7 @@ def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
         or prereg["seeds"] != [0]
     ):
         raise SearchMemoryError("undeclared variant/profile/configuration trial")
-    if space["dependencies"] != dependency_manifest(root):
+    if validate_current_dependencies and space["dependencies"] != dependency_manifest(root):
         raise SearchMemoryError("implementation dependency identity mismatch")
     strategy_path = root / "backend/app/research/flow.py"
     if (

@@ -120,3 +120,27 @@ The transition has positive gross expectancy, but realistic default friction con
 Current family disposition: FAM-ORDER-FLOW is REJECT_COST_DOMINATED after its one fixed allocation. Both configurations and all eight profiles are consumed; the family is not seal-eligible and has no Champion standing.
 
 Blocked repeats: Changing the 0.5 accounting balance point, 4h context duration, 2%/4% barriers, or 24h horizon.; Adding price, breakout, trend, pullback, persistence, indicator, volume-multiple, or other gates chosen after these results.; Adopting FLOW_PRICE_RESPONSE as the family conclusion because its loss is smaller.; Modifying ALIGNED or pullback recovery, or reopening exhausted FAM-BREAKOUT.; Any sealed query, paper trade, Champion promotion, or real-money action on this evidence.
+
+
+## WP-008 leakage-safe linear challenger
+
+DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE
+
+Root family FAM-SUPERVISED-LINEAR was admitted as NEW_FAMILY before results.
+Exactly one hypothesis, two configurations, eight profiles, twelve fold models,
+and zero numeric or hyperparameter variants were consumed.
+
+Family conclusion follows the preselected primary EXP-ML-014-LINEAR-NET-R-FULL: REJECT_COST_DOMINATED.
+
+| Experiment | Default R | Zero-cost R | Double-cost R | Trades |
+|---|---:|---:|---:|---:|
+| EXP-ML-014-LINEAR-NET-R-FULL | -0.1142218454 | +0.0058246386 | -0.2342683271 | 1003 |
+| EXP-ML-015-LINEAR-NET-R-NO-FLOW | -0.1172203904 | +0.0028474849 | -0.2372882645 | 969 |
+
+The fixed supervised combination barely clears zero costs but loses materially under default and doubled friction; learning does not rescue the exposed descriptors.
+Removing F7/F8 changes default expectancy by only -0.0029985450 R and leaves the same cost-dominated rejection.
+Foldwise isolated-label correlations range from -0.0330652157 to +0.1090860500 and change sign, consistent with weak unstable ranking rather than robust OOS prediction.
+
+Current family disposition: Park FAM-SUPERVISED-LINEAR. Do not tune its features, threshold, regularization, algorithm, interactions, label, stop, target, or horizon.
+
+Blocked repeats: LINEAR_NET_R_SELECTION_V1 threshold or feature rescue; LINEAR_NO_FLOW promotion over the preselected primary; model zoo or regularization search; automatic sealed query, Champion promotion, or paper trading

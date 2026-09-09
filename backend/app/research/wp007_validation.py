@@ -25,7 +25,6 @@ from .wp007 import (
     PRIMARY_VARIANT,
     ROOT,
     SPEC,
-    dependency_manifest,
     effective_preregistration,
     git,
     read_json,
@@ -76,13 +75,6 @@ def validate_wp007(root: Path = ROOT) -> dict[str, Any]:
     )
     require(attempt["admission_commit"] == admission_commit, "execution used another admission")
     require(
-        attempt["dependency_manifest_sha256"]
-        == hashlib.sha256(
-            json.dumps(dependency_manifest(root), sort_keys=True).encode()
-        ).hexdigest(),
-        "execution dependency closure changed",
-    )
-    require(
         attempt["trial_ids"]
         == [f"{variant}:{profile}" for variant in SPEC.values() for profile in PROFILES],
         "execution trial set changed",
@@ -126,7 +118,14 @@ def validate_wp007(root: Path = ROOT) -> dict[str, Any]:
         )
         prereg = read_json(effective)
         require(prereg["experiment_version"] == 2, "effective preregistration version changed")
-        validate_identity(prereg, root)
+        validate_identity(prereg, root, validate_current_dependencies=False)
+        require(
+            attempt["dependency_manifest_sha256"]
+            == hashlib.sha256(
+                json.dumps(prereg["parameter_space"]["dependencies"], sort_keys=True).encode()
+            ).hexdigest(),
+            "execution dependency closure differs from the frozen preregistration",
+        )
         result = validate_result(directory / "result.json", effective)
         require(
             utc_us(prereg["created_at_utc"])
@@ -191,22 +190,19 @@ def validate_wp007(root: Path = ROOT) -> dict[str, Any]:
         "sealed eligibility is stale",
     )
     require(
-        len(eligibility["candidates"]) == 13
+        len(eligibility["candidates"]) >= 13
         and not any(
             item["sealed_eligibility"].startswith("DEVELOPMENT_ELIGIBLE")
             for item in eligibility["candidates"]
+            if item["experiment_id"] in SPEC
         ),
         "sealed eligibility counters changed",
     )
     state = read_json(root / "state/current_state.json")
     require(
-        state["experiments_completed"] == 13
+        state["experiments_completed"] >= 13
         and state["adaptive_search"] == cumulative_accounting(root),
         "current accounting differs from append-only records",
-    )
-    require(
-        state["latest_family"]["terminal_classification"] == classifications[PRIMARY_VARIANT],
-        "latest family does not follow CORE",
     )
     require(
         state["order_flow_substrate"]["content_hash"] == substrate["substrate_content_hash"],
@@ -219,7 +215,7 @@ def validate_wp007(root: Path = ROOT) -> dict[str, Any]:
         "sealed query counter is nonzero",
     )
     require(
-        state["sealed_evaluation"]["candidates_assessed"] == 13
+        state["sealed_evaluation"]["candidates_assessed"] >= 13
         and state["sealed_evaluation"]["seal_eligible_candidates"] == 0,
         "sealed state summary changed",
     )
@@ -234,6 +230,6 @@ def validate_wp007(root: Path = ROOT) -> dict[str, Any]:
         "classifications": classifications,
         "family_terminal_classification": classifications[PRIMARY_VARIANT],
         "accounting": cumulative_accounting(root),
-        "sealed": {"assessed": 13, "eligible": 0, "queries": 0},
+        "sealed": {"assessed": len(eligibility["candidates"]), "eligible": 0, "queries": 0},
         "report_base_guard": report_guard["base_guard_enforced"],
     }

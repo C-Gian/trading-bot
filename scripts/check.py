@@ -20,6 +20,7 @@ WP006_BASE = "444172a359e2663887624da82254cc2185ff85e1"
 WP005_BASE_SUCCESSOR = "444172a359e2663887624da82254cc2185ff85e1"
 WP006_HEAD = "d92088d5ef0426bf64f34326a3224dd9aba93603"
 WP007_BASE = "d92088d5ef0426bf64f34326a3224dd9aba93603"
+WP007_HEAD = "762b3b77f686305b1c73f19956d0b9b16b7a9b1c"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -92,11 +93,14 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.wp004_validation import validate_checkpoint
     from app.research.wp006 import SPEC as WP006_SPEC
     from app.research.wp007 import SPEC as WP007_SPEC
+    from app.research.wp008 import SPEC as WP008_SPEC
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
-    assert directories == set(EXPERIMENTS) | set(SPEC) | set(WP006_SPEC) | set(WP007_SPEC)
+    assert directories == (
+        set(EXPERIMENTS) | set(SPEC) | set(WP006_SPEC) | set(WP007_SPEC) | set(WP008_SPEC)
+    )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
-    assert len(results) == state["experiments_completed"] == 13
+    assert len(results) == state["experiments_completed"] == 15
     for experiment_id, budget in EXPERIMENTS.items():
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path, result_path = directory / "preregistration.json", directory / "result.json"
@@ -179,8 +183,8 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
-        state["latest_reviewed_checkpoint"] == "WP-006"
-        and state["latest_executor_checkpoint"] == "WP-007"
+        state["latest_reviewed_checkpoint"] == "WP-007"
+        and state["latest_executor_checkpoint"] == "WP-008"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -229,7 +233,17 @@ def validate_research_views(state: dict) -> None:
     wp007 = validate_wp007()
     assert wp007["status"] == "PASS"
     assert wp007["family_terminal_classification"] == "REJECT_COST_DOMINATED"
-    assert wp007["sealed"] == {"assessed": 13, "eligible": 0, "queries": 0}
+    assert wp007["sealed"] == {"assessed": 15, "eligible": 0, "queries": 0}
+
+    from app.research.wp008_validation import validate_wp008
+
+    wp008 = validate_wp008()
+    assert wp008["status"] == "PASS"
+    assert wp008["classifications"] == {
+        "LINEAR_FULL": "REJECT_COST_DOMINATED",
+        "LINEAR_NO_FLOW": "REJECT_COST_DOMINATED",
+    }
+    assert wp008["model_fits"] == 12 and wp008["profile_trials"] == 8
 
     from app.research.wp005_validation import validate_wp005
 
@@ -243,10 +257,11 @@ def validate_research_views(state: dict) -> None:
     }
     assert "remote_ci" not in state["wp005_integrity"], "stale pending CI state was reintroduced"
     remote = state["remote_ci"]["work_packages"]
-    assert set(remote) == {"WP-005", "WP-006"}
+    assert set(remote) == {"WP-005", "WP-006", "WP-007"}
     for work_package, expected_head in (
         ("WP-005", WP005_BASE_SUCCESSOR),
         ("WP-006", WP006_HEAD),
+        ("WP-007", WP007_HEAD),
     ):
         record = remote[work_package]
         evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
@@ -337,12 +352,26 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/research/WP-007-ORDER-FLOW.md",
         "reports/checkpoints/WP-007.md",
         "tasks/archive/WP-007.md",
+        "reports/reviews/WP-007-RESEARCH-DIRECTOR-REVIEW.md",
+        "reports/reviews/WP-007-CI-EVIDENCE.json",
+        "docs/contracts/RESEARCH_ARTIFACT_STORAGE_V1.md",
+        "docs/contracts/SUPERVISED_CHALLENGER_V1.md",
+        "docs/contracts/RESEARCH_SEARCH_MEMORY_V2_MODEL_EXTENSION.md",
+        "contracts/executable_model_spec_v2.schema.json",
+        "research/protocols/WP-008-LINEAR-NET-R-V1.json",
+        "reports/validation/WP-008-SUPERVISED-LEAKAGE-AUDIT.json",
+        "reports/validation/WP-008-MODEL-RECONCILIATION.json",
+        "reports/research/WP-008-LINEAR-CHALLENGER.md",
+        "reports/research/WP-008-COMPARISON.json",
+        "research/memory/WP-008-LESSONS.json",
+        "reports/checkpoints/WP-008.md",
+        "tasks/archive/WP-008.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     assert "## STATUS\nCOMPLETED" in (ROOT / "tasks/CURRENT_TASK.md").read_text(
         encoding="utf-8"
     ).replace("\r\n", "\n")
-    assert (ROOT / "tasks/archive/WP-007.md").read_bytes().replace(b"\r\n", b"\n") == (
+    assert (ROOT / "tasks/archive/WP-008.md").read_bytes().replace(b"\r\n", b"\n") == (
         ROOT / "tasks/CURRENT_TASK.md"
     ).read_bytes().replace(b"\r\n", b"\n")
     wp005_ci = json.loads(
@@ -373,6 +402,7 @@ def governance_checks(pre_experiment: bool) -> dict:
         WP005_BASE,
         WP006_BASE,
         WP007_BASE,
+        WP007_HEAD,
     ):
         run(["git", "merge-base", "--is-ancestor", ancestor, "HEAD"])
     state = validate_json(
@@ -507,6 +537,9 @@ def data_checks(state: dict) -> None:
     assert audit["status"] == "PASS" and audit["material_violations"] == 0
     assert oracle["status"] == "PASS" and oracle["content_hash_match"]
     assert flow_manifest["content_hash"]["value"] == oracle["production_content_hash"]
+    from app.research.wp008_validation import validate_installed_data_reconciliation
+
+    assert validate_installed_data_reconciliation()["status"] == "PASS"
 
 
 def main() -> None:
@@ -532,7 +565,7 @@ def main() -> None:
     if not options.no_data:
         data_checks(state)
     assert not git("status", "--porcelain"), "working tree must be clean at checkpoint validation"
-    print("WP-007 deterministic validation: PASS (profitability is not a validation gate)")
+    print("WP-008 deterministic validation: PASS (profitability is not a validation gate)")
 
 
 if __name__ == "__main__":

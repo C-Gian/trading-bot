@@ -30,38 +30,41 @@
       "end": "2024-12-31T23:59:00Z"
     }
   },
-  "experiments_completed": 13,
+  "experiments_completed": 15,
   "sealed_evaluations_completed": 0,
   "paper_trades_completed": 0,
   "champion_status": "NONE",
   "forward_evidence": "NONE",
   "real_money_authorized": false,
   "owner_decision_required": false,
-  "latest_reviewed_checkpoint": "WP-006",
-  "latest_executor_checkpoint": "WP-007",
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP007_THEN_DECIDE_DISTINCT_STRUCTURAL_DIRECTION_NO_AUTOMATIC_SEALED_QUERY",
+  "latest_reviewed_checkpoint": "WP-007",
+  "latest_executor_checkpoint": "WP-008",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP008_THEN_SELECT_GENUINELY_DISTINCT_PREREGISTERED_DIRECTION_NO_AUTOMATIC_SEALED_QUERY",
   "search_memory": {
     "version": "SEARCH_MEMORY_V2",
     "status": "VALIDATED",
-    "families_tracked": 7
+    "families_tracked": 8
   },
   "adaptive_search": {
-    "material_economic_hypotheses": 5,
-    "configuration_variants": 13,
-    "profile_trials": 69,
+    "material_economic_hypotheses": 6,
+    "configuration_variants": 15,
+    "profile_trials": 77,
     "numeric_parameter_variants": 0,
-    "adaptive_decisions": 4,
-    "result_dependent_forks": 4,
-    "strategy_descendants": 6,
+    "adaptive_decisions": 5,
+    "result_dependent_forks": 5,
+    "strategy_descendants": 7,
     "wp004_variants_reserved": 3,
     "wp004_profiles_reserved": 12,
     "wp006_variants_reserved": 2,
     "wp006_profiles_reserved": 8,
     "wp007_variants_reserved": 2,
     "wp007_profiles_reserved": 8,
+    "wp008_variants_reserved": 2,
+    "wp008_profiles_reserved": 8,
     "integrity_replay_profiles": 12,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
+    "supervised_model_fits": 12,
     "sealed_queries": 0
   },
   "selected_family": {
@@ -90,6 +93,12 @@
         "head": "d92088d5ef0426bf64f34326a3224dd9aba93603",
         "run_id": 34362902153,
         "evidence": "reports/reviews/WP-006-CI-EVIDENCE.json"
+      },
+      "WP-007": {
+        "status": "SUCCESS",
+        "head": "762b3b77f686305b1c73f19956d0b9b16b7a9b1c",
+        "run_id": 34375244463,
+        "evidence": "reports/reviews/WP-007-CI-EVIDENCE.json"
       }
     }
   },
@@ -108,9 +117,9 @@
     }
   },
   "latest_family": {
-    "name": "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
-    "root_family": "FAM-ORDER-FLOW",
-    "primary_experiment_id": "EXP-ALG-012-ORDERFLOW-CORE",
+    "name": "LINEAR_NET_R_SELECTION_V1",
+    "root_family": "FAM-SUPERVISED-LINEAR",
+    "primary_experiment_id": "EXP-ML-014-LINEAR-NET-R-FULL",
     "novelty_classification": "NEW_FAMILY",
     "terminal_classification": "REJECT_COST_DOMINATED"
   },
@@ -122,6 +131,24 @@
     "eligible_4h_buckets": 16008,
     "oracle_reconciliation": "PASS"
   },
+  "artifact_storage": {
+    "version": "RESEARCH_ARTIFACT_STORAGE_V1",
+    "status": "VALIDATED",
+    "trial_artifact_format": "PARQUET_ZSTD",
+    "historical_evidence_rewritten": false,
+    "training_matrices_committed": false
+  },
+  "supervised_challenger": {
+    "version": "LINEAR_NET_R_SELECTION_V1",
+    "status": "VALIDATED",
+    "target": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+    "primary": "LINEAR_FULL",
+    "secondary": "LINEAR_NO_FLOW",
+    "model_fits": 12,
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "leakage_audit": "PASS",
+    "model_reconciliation": "PASS"
+  },
   "sealed_evaluation": {
     "version": "SEALED_EVALUATION_V1_1",
     "status": "LOCKED_NO_AUTHORIZED_QUERY",
@@ -130,6 +157,6 @@
     "consumed_btc_queries": 0,
     "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
     "seal_eligible_candidates": 0,
-    "candidates_assessed": 13
+    "candidates_assessed": 15
   }
 }

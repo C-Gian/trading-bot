@@ -391,6 +391,63 @@ def memory_views(root: Path = ROOT) -> dict[str, str]:
                 "",
             ]
         )
+    wp008_path = root / "research/memory/WP-008-LESSONS.json"
+    if wp008_path.is_file():
+        lessons = read_json(wp008_path)
+        rows.extend(
+            [
+                "",
+                "## WP-008 leakage-safe linear challenger",
+                "",
+                LABEL,
+                "",
+                f"Root family {lessons['root_family']} was admitted as NEW_FAMILY before results.",
+                "Exactly one hypothesis, two configurations, eight profiles, twelve fold models,",
+                "and zero numeric or hyperparameter variants were consumed.",
+                "",
+                (
+                    "Family conclusion follows the preselected primary "
+                    f"{lessons['primary_experiment_id']}: "
+                    f"{lessons['family_terminal_classification']}."
+                ),
+                "",
+                "| Experiment | Default R | Zero-cost R | Double-cost R | Trades |",
+                "|---|---:|---:|---:|---:|",
+            ]
+        )
+        for eid, item in lessons["experiments"].items():
+            rows.append(
+                f"| {eid} | {item['default_net_expectancy_r']:+.10f} | "
+                f"{item['zero_cost_net_expectancy_r']:+.10f} | "
+                f"{item['double_cost_net_expectancy_r']:+.10f} | {item['trade_count']} |"
+            )
+        rows.extend(
+            [
+                "",
+                lessons["key_lesson"],
+                lessons["ablation_lesson"],
+                lessons["prediction_lesson"],
+                "",
+                "Current family disposition: " + lessons["family_disposition"],
+                "",
+                "Blocked repeats: " + "; ".join(lessons["blocked_directions"]),
+                "",
+            ]
+        )
+        failures.extend(
+            [
+                "",
+                "## WP-008 retained supervised-family failure",
+                "",
+                lessons["key_lesson"],
+                lessons["ablation_lesson"],
+                lessons["stability_lesson"],
+                lessons["prediction_lesson"],
+                "",
+                lessons["family_disposition"],
+                "",
+            ]
+        )
     return {
         "RESEARCH_MAP.md": render_research_map(memory) + "\n".join(rows),
         "FAILURE_MEMORY.md": render_failure_memory(memory) + "\n".join(failures),

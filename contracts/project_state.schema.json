@@ -251,7 +251,10 @@
         "wp006_variants_reserved",
         "wp006_profiles_reserved",
         "wp007_variants_reserved",
-        "wp007_profiles_reserved"
+        "wp007_profiles_reserved",
+        "wp008_variants_reserved",
+        "wp008_profiles_reserved",
+        "supervised_model_fits"
       ],
       "properties": {
         "material_economic_hypotheses": {
@@ -319,6 +322,18 @@
           "minimum": 0
         },
         "wp007_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp008_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp008_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "supervised_model_fits": {
           "type": "integer",
           "minimum": 0
         }
@@ -547,6 +562,58 @@
         }
       }
     },
+    "artifact_storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "trial_artifact_format",
+        "historical_evidence_rewritten",
+        "training_matrices_committed"
+      ],
+      "properties": {
+        "version": {"const": "RESEARCH_ARTIFACT_STORAGE_V1"},
+        "status": {"const": "VALIDATED"},
+        "trial_artifact_format": {"const": "PARQUET_ZSTD"},
+        "historical_evidence_rewritten": {"const": false},
+        "training_matrices_committed": {"const": false}
+      }
+    },
+    "supervised_challenger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "target",
+        "primary",
+        "secondary",
+        "model_fits",
+        "terminal_classification",
+        "leakage_audit",
+        "model_reconciliation"
+      ],
+      "properties": {
+        "version": {"const": "LINEAR_NET_R_SELECTION_V1"},
+        "status": {"const": "VALIDATED"},
+        "target": {"const": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1"},
+        "primary": {"const": "LINEAR_FULL"},
+        "secondary": {"const": "LINEAR_NO_FLOW"},
+        "model_fits": {"const": 12},
+        "terminal_classification": {
+          "enum": [
+            "REJECT",
+            "REJECT_COST_DOMINATED",
+            "REJECT_UNSTABLE",
+            "INCONCLUSIVE",
+            "PROMISING_DEVELOPMENT_ONLY"
+          ]
+        },
+        "leakage_audit": {"const": "PASS"},
+        "model_reconciliation": {"const": "PASS"}
+      }
+    },
     "sealed_evaluation": {
       "type": "object",
       "additionalProperties": false,
@@ -659,7 +726,9 @@
           "search_memory",
           "adaptive_search",
           "selected_family",
-          "order_flow_substrate"
+          "order_flow_substrate",
+          "artifact_storage",
+          "supervised_challenger"
         ]
       }
     }

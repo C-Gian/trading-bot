@@ -200,7 +200,9 @@ def cumulative_accounting(root: Path = ROOT) -> dict[str, int]:
         decisions += allocation["adaptive_decision_increment"]
         forks += allocation["result_dependent_fork_increment"]
         reserved[allocation["work_package"]] = {
-            "variants": allocation["strategy_variants"],
+            "variants": allocation.get(
+                "strategy_variants", allocation.get("model_configurations", 0)
+            ),
             "profiles": allocation["profile_evaluations"],
         }
     totals = {
@@ -224,6 +226,9 @@ def cumulative_accounting(root: Path = ROOT) -> dict[str, int]:
         integrity_replay_profiles=12,
         diagnostic_evaluations=35,
         diagnostic_execution_attempts=2,
+        supervised_model_fits=sum(
+            allocation.get("supervised_model_fits", 0) for allocation in allocations(root)
+        ),
         sealed_queries=0,
     )
     return totals

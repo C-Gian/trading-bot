@@ -161,8 +161,12 @@ def test_the_gate_checks_both_v1_and_v2_historical_signatures():
     reference = recorded["reference_signatures"]
     assert reference["v1_reference_translations"] == 9
     assert reference["v2_admitted_behaviours"] == 2
-    assert len(signatures(exclude_experiment_ids=set(SPEC))) == 11
-    assert len(signatures()) == 13
+    future_wp008 = {
+        "EXP-ML-014-LINEAR-NET-R-FULL",
+        "EXP-ML-015-LINEAR-NET-R-NO-FLOW",
+    }
+    assert len(signatures(exclude_experiment_ids=set(SPEC) | future_wp008)) == 11
+    assert len(signatures()) == 15
 
 
 def test_neither_variant_duplicates_any_prior_admitted_behaviour():

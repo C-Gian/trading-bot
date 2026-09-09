@@ -255,7 +255,9 @@ def validate_allocation(root: Path = ROOT) -> dict[str, Any]:
     return allocation
 
 
-def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
+def validate_identity(
+    prereg: dict[str, Any], root: Path = ROOT, *, validate_current_dependencies: bool = True
+) -> None:
     experiment_id = prereg["experiment_id"]
     variant = SPEC.get(experiment_id)
     if variant is None:
@@ -273,7 +275,7 @@ def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
     space = prereg["parameter_space"]
     if prereg["trial_budget"] != 4 or space["trial_plan"] != plan or prereg["seeds"] != [0]:
         raise SearchMemoryError("undeclared WP-008 trial plan")
-    if space["dependencies"] != dependency_manifest(root):
+    if validate_current_dependencies and space["dependencies"] != dependency_manifest(root):
         raise SearchMemoryError("WP-008 dependency identity mismatch")
     strategy_path = root / "backend/app/research/linear_lab.py"
     if (
