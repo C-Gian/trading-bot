@@ -11,6 +11,7 @@ from .evaluation_protocol import load_protocol, protocol_hash, summarize_trades
 from .runner import sha256
 from .search_memory import accounting, load_memory, render_failure_memory, render_research_map
 from .wp004 import ROOT, SPEC
+from .wp006 import SPEC as WP006_SPEC
 
 LABEL = "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
 CONTROL_IDS = (
@@ -110,7 +111,11 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
         {**item, "evidence_window": "WP-003 full development history (2017–2024)"}
         for item in historical["experiments"]
     ]
-    for eid in SPEC:
+    windows = {
+        **dict.fromkeys(SPEC, "WP-004 exposed annual validation (2019–2024)"),
+        **dict.fromkeys(WP006_SPEC, "WP-006 exposed annual validation (2019–2024)"),
+    }
+    for eid, window in windows.items():
         path = root / "research/experiments" / eid / "result.json"
         if not path.is_file():
             continue
@@ -125,7 +130,7 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
                     "trade_count"
                 ],
                 "validation_status": result["validation_outcome"],
-                "evidence_window": "WP-004 exposed annual validation (2019–2024)",
+                "evidence_window": window,
             }
         )
     return {
@@ -258,6 +263,73 @@ def memory_views(root: Path = ROOT) -> dict[str, str]:
                 diagnostic["family_disposition"],
                 "",
                 "Legitimate revisit: " + diagnostic["legitimate_revisit"],
+                "",
+            ]
+        )
+    wp006_path = root / "research/memory/WP-006-LESSONS.json"
+    if wp006_path.is_file():
+        lessons = read_json(wp006_path)
+        admission = lessons["novelty_admission"]
+        comparison = lessons["comparison"]
+        rows.extend(
+            [
+                "",
+                "## WP-006 pullback-recovery root and its evidence",
+                "",
+                LABEL,
+                "",
+                f"Root family {lessons['root_family']} was admitted as {admission['family_classification']}",
+                "by the governed SEARCH_MEMORY_V2 gate before any market result existed. FAM-BREAKOUT stays",
+                "exhausted and no prior budget was reset. Exactly one economic hypothesis, two configurations,",
+                "zero numeric variants and eight profile evaluations were authorized and consumed.",
+                "",
+                (
+                    "Family conclusion follows the preselected primary "
+                    f"{lessons['primary_experiment_id']}: "
+                    f"{lessons['family_terminal_classification']}."
+                ),
+                "",
+                "| Experiment | Default net expectancy R | Resolved trades | Worst-fold trades | Key lesson |",
+                "|---|---:|---:|---:|---|",
+            ]
+        )
+        for eid, item in lessons["experiments"].items():
+            rows.append(
+                f"| {eid} | {item['default_net_expectancy_r']:+.10f} | {item['trade_count']} | "
+                f"{item['minimum_fold_trades']} | {item['key_lesson']} |"
+            )
+        rows.extend(
+            [
+                "",
+                (
+                    "Descriptive deltas against preserved references: matched parent breakout "
+                    f"{comparison['core_minus_matched_parent_r']:+.10f} R, breakout "
+                    f"{comparison['core_minus_breakout_r']:+.10f} R, SMA trend "
+                    f"{comparison['core_minus_trend_r']:+.10f} R, ALIGNED "
+                    f"{comparison['core_minus_aligned_r']:+.10f} R, random-control mean "
+                    f"{comparison['core_minus_random_mean_r']:+.10f} R."
+                ),
+                "",
+                "Current family disposition: " + lessons["family_disposition"],
+                "",
+                "Legitimate next direction: " + lessons["legitimate_next_direction"],
+                "",
+                "Blocked repeats: " + "; ".join(lessons["blocked_directions"]),
+                "",
+            ]
+        )
+        failures.extend(
+            [
+                "",
+                "## WP-006 retained limitations",
+                "",
+                f"{lessons['family_terminal_classification']} is a sufficiency verdict, not a claim that",
+                "the pullback-recovery mechanism has no edge.",
+                *[f"- {item}" for item in lessons["unresolved_limitations"]],
+                "",
+                lessons["integrity_limitation"],
+                "",
+                lessons["family_disposition"],
                 "",
             ]
         )

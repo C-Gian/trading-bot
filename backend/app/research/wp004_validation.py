@@ -307,8 +307,9 @@ def validate_checkpoint(
     attempt_path = "research/runs/WP-004-ATTEMPT.json"
     attempt = read_json(root / attempt_path)
     require(
-        set((root / "research/runs").iterdir()) == {root / attempt_path},
-        "undeclared execution attempt",
+        {path for path in (root / "research/runs").iterdir() if path.name.startswith("WP-004")}
+        == {root / attempt_path},
+        "undeclared WP-004 execution attempt",
     )
     require(
         attempt["status"] == "PASS" and attempt["adaptive_accounting"] == adaptive,

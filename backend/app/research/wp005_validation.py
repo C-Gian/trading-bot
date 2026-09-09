@@ -31,6 +31,21 @@ from .wp005_integrity import (
 WP005_BASE = "3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153"
 WP004_REVIEWED = "2b40aa03cfc05ac7f57d269f596f1ebacdc9d356"
 DIAGNOSTIC_DIR = Path("research/diagnostics/WP-005")
+# The nine strategy experiments that existed at the WP-005 checkpoint. Later work
+# packages may add experiments; none of these may ever disappear or be renamed.
+WP005_EXPERIMENTS = frozenset(
+    {
+        "EXP-BASE-001-BUYHOLD",
+        "EXP-CTRL-002-RANDOM",
+        "EXP-BASE-003-TREND",
+        "EXP-BASE-004-BREAKOUT",
+        "EXP-CTRL-005-TREND-DELAY-1H",
+        "EXP-CTRL-006-NO-TRADE",
+        "EXP-ALG-007-REGIME",
+        "EXP-ALG-008-PARTICIPATION",
+        "EXP-ALG-009-ALIGNED",
+    }
+)
 
 
 def _read(root: Path, relative: str | Path) -> Any:
@@ -303,7 +318,14 @@ def validate_wp005(root: Path = ROOT, *, data_available: bool = False) -> dict[s
     )
 
     experiments = {path.name for path in (root / "research/experiments").iterdir() if path.is_dir()}
-    _require(len(experiments) == 9, "WP-005 changed material strategy experiment count")
+    _require(
+        WP005_EXPERIMENTS <= experiments,
+        "a strategy experiment present at WP-005 has disappeared",
+    )
+    _require(
+        len(WP005_EXPERIMENTS) == 9,
+        "WP-005 material strategy experiment identities changed",
+    )
 
     if data_available:
         observed_source = json.loads(json.dumps(source_provenance(root)))

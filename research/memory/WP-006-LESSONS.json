@@ -1,0 +1,75 @@
+{
+  "blocked_directions": [
+    "Changing the 24-hour mean period, the 2:1 persistence ratio, the 2%/4% barriers or the 24-hour horizon; that is numeric drift, not a revisit.",
+    "Adopting RECOVERY_CONFIRM as the family conclusion because it scored better than the preselected primary.",
+    "Adding a pullback-depth threshold, a volume gate, an indicator zoo or any gate chosen after seeing these numbers.",
+    "Reopening FAM-BREAKOUT, whose strategy budget stays exhausted.",
+    "Any sealed query, paper trade or Champion promotion on this evidence."
+  ],
+  "comparison": {
+    "core_minus_aligned_r": -0.1370111601,
+    "core_minus_breakout_r": 0.0539800058,
+    "core_minus_matched_parent_r": 0.0551211781,
+    "core_minus_random_mean_r": 0.0971597682,
+    "core_minus_trend_r": 0.1085033304,
+    "executed_signal_overlap_with_aligned": 0,
+    "executed_signal_overlap_with_matched_parent_breakout": 0,
+    "path": "reports/research/WP-006-COMPARISON.json",
+    "sha256": "b8261541787d1e8fc564049588f66e1127390151e36a6e5fa0d82f332d354100"
+  },
+  "experiments": {
+    "EXP-ALG-010-PULLBACK-RECOVERY-CORE": {
+      "default_net_expectancy_r": 0.0003823075,
+      "delay_net_expectancy_r": 0.0069160662,
+      "double_cost_net_expectancy_r": -0.1196734624,
+      "key_lesson": "The recovery transition survives default costs only marginally (+0.0003823075 R) and fails the preregistered sufficiency hurdles: DEV-2022 holds 8 trades against a required 15, only 3/6 folds are nonnegative, and 68.6% of positive-fold profit sits in one fold. Doubled costs turn it negative.",
+      "max_positive_fold_profit_share": 0.6864194506,
+      "minimum_fold_trades": 8,
+      "nonnegative_fold_count": 3,
+      "not_established": "No claim is established that the pullback-recovery mechanism has no edge; the evidence is too sparse and too concentrated to decide either way, and nothing about 2025 or later is touched.",
+      "result_path": "research/experiments/EXP-ALG-010-PULLBACK-RECOVERY-CORE/result.json",
+      "result_sha256": "1e82ce7063bfeafd483c6b431bffbdbd1b5e58c3e94b1800f42c641842e2596f",
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": 126,
+      "zero_cost_net_expectancy_r": 0.1204381257
+    },
+    "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": {
+      "default_net_expectancy_r": 0.0219437002,
+      "delay_net_expectancy_r": 0.0321112582,
+      "double_cost_net_expectancy_r": -0.0981191942,
+      "key_lesson": "Requiring the close to exceed the previous hour's high removes 23 of 126 trades, raises default expectancy by +0.0215613927 R and lifts nonnegative folds to 4/6, but drops the total to 103 trades against a required 120 and the worst fold to 7, so it is also INCONCLUSIVE.",
+      "max_positive_fold_profit_share": 0.4626792068,
+      "minimum_fold_trades": 7,
+      "nonnegative_fold_count": 4,
+      "not_established": "The apparent confirmation improvement is not established as real: it is measured on the same exposed history, was not preselected as primary, and its sample is smaller than the core's.",
+      "result_path": "research/experiments/EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM/result.json",
+      "result_sha256": "b377c24b88c95873045547b26933971ccf7142abc92381545af5a39b82348438",
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": 103,
+      "zero_cost_net_expectancy_r": 0.1420066513
+    }
+  },
+  "family_conclusion_policy": "The family follows the preselected primary RECOVERY_CORE, never whichever variant scored better.",
+  "family_disposition": "FAM-PULLBACK-RECOVERY is INCONCLUSIVE after one allocation. Its 2/2 configurations and 8/8 profile evaluations are consumed. It is not seal-eligible, has no Champion standing, and is not authorized for another variant.",
+  "family_terminal_classification": "INCONCLUSIVE",
+  "integrity_limitation": "All six folds are previously exposed development history, not fresh out-of-sample or sealed evidence. The 4h persistence descriptor and the whole data-eligibility and quarantine universe are inherited from WP-004 and are not independent new evidence. Executed-signal overlap with the breakout and ALIGNED paths is zero, which describes distinct firing times rather than proving an independent economic mechanism.",
+  "legitimate_next_direction": "Only a distinct causal structural response to this immutable evidence, with an explicit new Research Director allocation. The binding limitation is trade sparsity in 2022 and profit concentration, not the sign of the expectancy.",
+  "new_trial_allocation": 0,
+  "novelty_admission": {
+    "family_classification": "NEW_FAMILY",
+    "path": "research/memory/WP006-NOVELTY-ADMISSION.json",
+    "sha256": "05217ba78cbf02c6dc82685186f6b6a7ab3775249c11071fa9544826a85fcf91"
+  },
+  "primary_experiment_id": "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+  "record_kind": "POST_RESULT_SCIENTIFIC_INTERPRETATION",
+  "root_family": "FAM-PULLBACK-RECOVERY",
+  "schema_version": 1,
+  "selected_hypothesis": "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
+  "unresolved_limitations": [
+    "DEV-2022 supplies only 8 core trades and 7 confirm trades against a required 15.",
+    "Positive-fold profit concentration is 68.6% for the core variant, above the 50% limit.",
+    "Default-cost expectancy is positive by 0.0004 R, which is economically indistinguishable from zero once doubled costs are applied.",
+    "Comparisons against WP-003 controls retain their unmatched eligibility and occupancy semantics."
+  ],
+  "work_package": "WP-006"
+}

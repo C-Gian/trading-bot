@@ -1,102 +1,574 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$defs": {
-    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
     "coverage": {
-      "type": "object", "additionalProperties": false,
-      "required": ["start", "end"],
-      "properties": {"start": {"type": "string", "format": "date-time"}, "end": {"type": "string", "format": "date-time"}}
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     }
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version","project_name","project_phase","status","product_surface","research_market","symbols","canonical_resolution","signal_timeframe","regime_timeframe","max_holding_horizon","directions","development_cutoff","development_dataset","experiments_completed","sealed_evaluations_completed","paper_trades_completed","champion_status","forward_evidence","real_money_authorized","owner_decision_required","latest_reviewed_checkpoint","latest_executor_checkpoint","next_recommended_work_package","backtest_substrate"],
+  "required": [
+    "schema_version",
+    "project_name",
+    "project_phase",
+    "status",
+    "product_surface",
+    "research_market",
+    "symbols",
+    "canonical_resolution",
+    "signal_timeframe",
+    "regime_timeframe",
+    "max_holding_horizon",
+    "directions",
+    "development_cutoff",
+    "development_dataset",
+    "experiments_completed",
+    "sealed_evaluations_completed",
+    "paper_trades_completed",
+    "champion_status",
+    "forward_evidence",
+    "real_money_authorized",
+    "owner_decision_required",
+    "latest_reviewed_checkpoint",
+    "latest_executor_checkpoint",
+    "next_recommended_work_package",
+    "backtest_substrate"
+  ],
   "properties": {
-    "schema_version": {"enum": [2, 3]},
-    "project_name": {"const": "Trading Bot"},
-    "project_phase": {"enum": ["BOOTSTRAP", "FOUNDATION_DATA", "BACKTEST_SUBSTRATE", "BASELINE_RESEARCH", "STRATEGY_RESEARCH"]},
-    "status": {"enum": ["IN_PROGRESS", "EXECUTOR_COMPLETE_PENDING_REVIEW", "REVIEWED"]},
-    "product_surface": {"const": "LOCAL_WEB_APP"},
-    "research_market": {"const": "crypto_spot"},
-    "symbols": {"type": "array", "prefixItems": [{"const": "BTCUSDT"}], "minItems": 1, "maxItems": 1},
-    "canonical_resolution": {"const": "1m"},
-    "signal_timeframe": {"const": "1h"},
-    "regime_timeframe": {"const": "4h"},
-    "max_holding_horizon": {"type": "object", "additionalProperties": false, "required": ["iso8601", "minutes"], "properties": {"iso8601": {"const": "PT24H"}, "minutes": {"const": 1440}}},
-    "directions": {"type": "array", "items": {"enum": ["LONG", "NO_TRADE"]}, "minItems": 2, "maxItems": 2, "uniqueItems": true},
-    "development_cutoff": {"type": "string", "format": "date-time", "const": "2024-12-31T23:59:00Z"},
-    "development_dataset": {"type": "object", "additionalProperties": false, "required": ["status", "manifest_id", "manifest_sha256", "content_hash", "coverage"], "properties": {"status": {"const": "VALIDATED"}, "manifest_id": {"type": "string", "minLength": 1}, "manifest_sha256": {"$ref": "#/$defs/sha256"}, "content_hash": {"$ref": "#/$defs/sha256"}, "coverage": {"$ref": "#/$defs/coverage"}}},
-    "experiments_completed": {"type": "integer", "minimum": 0},
-    "sealed_evaluations_completed": {"type": "integer", "minimum": 0},
-    "paper_trades_completed": {"type": "integer", "minimum": 0},
-    "champion_status": {"type": "string", "minLength": 1},
-    "forward_evidence": {"type": "string", "minLength": 1},
-    "real_money_authorized": {"type": "boolean"},
-    "owner_decision_required": {"type": "boolean"},
-    "latest_reviewed_checkpoint": {"type": "string", "minLength": 1},
-    "latest_executor_checkpoint": {"type": "string", "minLength": 1},
-    "next_recommended_work_package": {"type": "string", "minLength": 1},
-    "search_memory": {
-      "type": "object", "additionalProperties": false,
-      "required": ["version", "status", "families_tracked"],
+    "schema_version": {
+      "enum": [
+        2,
+        3
+      ]
+    },
+    "project_name": {
+      "const": "Trading Bot"
+    },
+    "project_phase": {
+      "enum": [
+        "BOOTSTRAP",
+        "FOUNDATION_DATA",
+        "BACKTEST_SUBSTRATE",
+        "BASELINE_RESEARCH",
+        "STRATEGY_RESEARCH"
+      ]
+    },
+    "status": {
+      "enum": [
+        "IN_PROGRESS",
+        "EXECUTOR_COMPLETE_PENDING_REVIEW",
+        "REVIEWED"
+      ]
+    },
+    "product_surface": {
+      "const": "LOCAL_WEB_APP"
+    },
+    "research_market": {
+      "const": "crypto_spot"
+    },
+    "symbols": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "BTCUSDT"
+        }
+      ],
+      "minItems": 1,
+      "maxItems": 1
+    },
+    "canonical_resolution": {
+      "const": "1m"
+    },
+    "signal_timeframe": {
+      "const": "1h"
+    },
+    "regime_timeframe": {
+      "const": "4h"
+    },
+    "max_holding_horizon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "iso8601",
+        "minutes"
+      ],
       "properties": {
-        "version": {"enum": ["SEARCH_MEMORY_V1", "SEARCH_MEMORY_V2"]},
-        "status": {"enum": ["PENDING", "VALIDATED"]},
-        "families_tracked": {"type": "integer", "minimum": 0}
+        "iso8601": {
+          "const": "PT24H"
+        },
+        "minutes": {
+          "const": 1440
+        }
+      }
+    },
+    "directions": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "LONG",
+          "NO_TRADE"
+        ]
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "development_cutoff": {
+      "type": "string",
+      "format": "date-time",
+      "const": "2024-12-31T23:59:00Z"
+    },
+    "development_dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "manifest_id",
+        "manifest_sha256",
+        "content_hash",
+        "coverage"
+      ],
+      "properties": {
+        "status": {
+          "const": "VALIDATED"
+        },
+        "manifest_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "content_hash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "coverage": {
+          "$ref": "#/$defs/coverage"
+        }
+      }
+    },
+    "experiments_completed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "sealed_evaluations_completed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "paper_trades_completed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "champion_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "forward_evidence": {
+      "type": "string",
+      "minLength": 1
+    },
+    "real_money_authorized": {
+      "type": "boolean"
+    },
+    "owner_decision_required": {
+      "type": "boolean"
+    },
+    "latest_reviewed_checkpoint": {
+      "type": "string",
+      "minLength": 1
+    },
+    "latest_executor_checkpoint": {
+      "type": "string",
+      "minLength": 1
+    },
+    "next_recommended_work_package": {
+      "type": "string",
+      "minLength": 1
+    },
+    "search_memory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "families_tracked"
+      ],
+      "properties": {
+        "version": {
+          "enum": [
+            "SEARCH_MEMORY_V1",
+            "SEARCH_MEMORY_V2"
+          ]
+        },
+        "status": {
+          "enum": [
+            "PENDING",
+            "VALIDATED"
+          ]
+        },
+        "families_tracked": {
+          "type": "integer",
+          "minimum": 0
+        }
       }
     },
     "adaptive_search": {
-      "type": "object", "additionalProperties": false,
-      "required": ["material_economic_hypotheses", "configuration_variants", "profile_trials", "numeric_parameter_variants", "adaptive_decisions", "result_dependent_forks", "strategy_descendants", "wp004_variants_reserved", "wp004_profiles_reserved", "integrity_replay_profiles", "diagnostic_evaluations", "diagnostic_execution_attempts", "sealed_queries"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "material_economic_hypotheses",
+        "configuration_variants",
+        "profile_trials",
+        "numeric_parameter_variants",
+        "adaptive_decisions",
+        "result_dependent_forks",
+        "strategy_descendants",
+        "wp004_variants_reserved",
+        "wp004_profiles_reserved",
+        "integrity_replay_profiles",
+        "diagnostic_evaluations",
+        "diagnostic_execution_attempts",
+        "sealed_queries",
+        "wp006_variants_reserved",
+        "wp006_profiles_reserved"
+      ],
       "properties": {
-        "material_economic_hypotheses": {"type": "integer", "minimum": 0},
-        "configuration_variants": {"type": "integer", "minimum": 0},
-        "profile_trials": {"type": "integer", "minimum": 0},
-        "numeric_parameter_variants": {"type": "integer", "minimum": 0},
-        "adaptive_decisions": {"type": "integer", "minimum": 0},
-        "result_dependent_forks": {"type": "integer", "minimum": 0},
-        "strategy_descendants": {"type": "integer", "minimum": 0},
-        "wp004_variants_reserved": {"type": "integer", "minimum": 0},
-        "wp004_profiles_reserved": {"type": "integer", "minimum": 0},
-        "integrity_replay_profiles": {"type": "integer", "minimum": 0},
-        "diagnostic_evaluations": {"type": "integer", "minimum": 0},
-        "diagnostic_execution_attempts": {"type": "integer", "minimum": 0},
-        "sealed_queries": {"type": "integer", "minimum": 0}
+        "material_economic_hypotheses": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "configuration_variants": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "profile_trials": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "numeric_parameter_variants": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "adaptive_decisions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "result_dependent_forks": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "strategy_descendants": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp004_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp004_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "integrity_replay_profiles": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "diagnostic_evaluations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "diagnostic_execution_attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sealed_queries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp006_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp006_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        }
       }
     },
     "wp005_integrity": {
-      "type": "object", "additionalProperties": false,
-      "required": ["status", "source_provenance_classification", "independent_reconciliation", "integrity_replay_profiles", "matched_control_classification", "remote_ci"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "source_provenance_classification",
+        "independent_reconciliation",
+        "integrity_replay_profiles",
+        "matched_control_classification",
+        "remote_ci"
+      ],
       "properties": {
-        "status": {"const": "PASS"},
-        "source_provenance_classification": {"enum": ["SOURCE_ARCHIVE_OFF_GRID_CONFIRMED", "DATA_PIPELINE_DEFECT"]},
-        "independent_reconciliation": {"const": "PASS"},
-        "integrity_replay_profiles": {"const": 12},
-        "matched_control_classification": {"enum": ["ALIGNED_DIAGNOSTIC_WEAKENED", "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE", "ALIGNED_DIAGNOSTIC_UNRESOLVED"]},
-        "remote_ci": {"const": "PENDING_PUSH"}
+        "status": {
+          "const": "PASS"
+        },
+        "source_provenance_classification": {
+          "enum": [
+            "SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
+            "DATA_PIPELINE_DEFECT"
+          ]
+        },
+        "independent_reconciliation": {
+          "const": "PASS"
+        },
+        "integrity_replay_profiles": {
+          "const": 12
+        },
+        "matched_control_classification": {
+          "enum": [
+            "ALIGNED_DIAGNOSTIC_WEAKENED",
+            "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
+            "ALIGNED_DIAGNOSTIC_UNRESOLVED"
+          ]
+        },
+        "remote_ci": {
+          "const": "PENDING_PUSH"
+        }
       }
     },
     "selected_family": {
-      "type": "object", "additionalProperties": false,
-      "required": ["name", "primary_experiment_id", "terminal_classification"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "primary_experiment_id",
+        "terminal_classification"
+      ],
       "properties": {
-        "name": {"type": "string", "minLength": 1},
-        "primary_experiment_id": {"type": "string", "minLength": 1},
-        "terminal_classification": {"enum": ["REJECT", "REJECT_COST_DOMINATED", "REJECT_UNSTABLE", "REJECT_DUPLICATE_MECHANISM", "INCONCLUSIVE", "PROMISING_DEVELOPMENT_ONLY"]}
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primary_experiment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terminal_classification": {
+          "enum": [
+            "REJECT",
+            "REJECT_COST_DOMINATED",
+            "REJECT_UNSTABLE",
+            "REJECT_DUPLICATE_MECHANISM",
+            "INCONCLUSIVE",
+            "PROMISING_DEVELOPMENT_ONLY"
+          ]
+        }
       }
     },
     "backtest_substrate": {
-      "type": "object", "additionalProperties": false,
-      "required": ["status", "engine_version", "execution_model_version", "cost_model_version", "synthetic_validation", "gap_artifact"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "engine_version",
+        "execution_model_version",
+        "cost_model_version",
+        "synthetic_validation",
+        "gap_artifact"
+      ],
       "properties": {
-        "status": {"enum": ["PENDING", "VALIDATED"]},
-        "engine_version": {"type": "string", "minLength": 1},
-        "execution_model_version": {"type": "string", "minLength": 1},
-        "cost_model_version": {"type": "string", "minLength": 1},
-        "synthetic_validation": {"type": "object", "additionalProperties": false, "required": ["status", "suite_hash"], "properties": {"status": {"enum": ["PENDING", "PASS"]}, "suite_hash": {"anyOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]}}},
-        "gap_artifact": {"type": "object", "additionalProperties": false, "required": ["id", "sha256"], "properties": {"id": {"type": ["string", "null"]}, "sha256": {"anyOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]}}}
+        "status": {
+          "enum": [
+            "PENDING",
+            "VALIDATED"
+          ]
+        },
+        "engine_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "execution_model_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cost_model_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "synthetic_validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "suite_hash"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "PENDING",
+                "PASS"
+              ]
+            },
+            "suite_hash": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/sha256"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "gap_artifact": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "sha256"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sha256": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/sha256"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "latest_family": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "root_family",
+        "primary_experiment_id",
+        "novelty_classification",
+        "terminal_classification"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "root_family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primary_experiment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "novelty_classification": {
+          "enum": [
+            "NEW_FAMILY",
+            "DESCENDANT_MECHANISM_CHANGE"
+          ]
+        },
+        "terminal_classification": {
+          "enum": [
+            "REJECT",
+            "REJECT_COST_DOMINATED",
+            "REJECT_UNSTABLE",
+            "REJECT_DUPLICATE_MECHANISM",
+            "INCONCLUSIVE",
+            "PROMISING_DEVELOPMENT_ONLY"
+          ]
+        }
+      }
+    },
+    "sealed_evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "dataset_state",
+        "authorized_btc_queries",
+        "consumed_btc_queries",
+        "isolation",
+        "seal_eligible_candidates",
+        "candidates_assessed"
+      ],
+      "properties": {
+        "version": {
+          "const": "SEALED_EVALUATION_V1"
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dataset_state": {
+          "const": "RESERVED_NOT_ACQUIRED"
+        },
+        "authorized_btc_queries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "consumed_btc_queries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "isolation": {
+          "const": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED"
+        },
+        "seal_eligible_candidates": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "candidates_assessed": {
+          "type": "integer",
+          "minimum": 0
+        }
       }
     }
   },
-  "allOf": [{"if": {"properties": {"schema_version": {"const": 3}}}, "then": {"required": ["search_memory", "adaptive_search", "selected_family"]}}]
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": 3
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "search_memory",
+          "adaptive_search",
+          "selected_family"
+        ]
+      }
+    }
+  ]
 }

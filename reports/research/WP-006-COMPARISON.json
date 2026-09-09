@@ -1,0 +1,181 @@
+{
+  "buy_hold_excluded": true,
+  "deltas": {
+    "core_minus_aligned_r": -0.1370111601,
+    "core_minus_breakout_r": 0.0539800058,
+    "core_minus_matched_parent_r": 0.0551211781,
+    "core_minus_random_mean_r": 0.0971597682,
+    "core_minus_trend_r": 0.1085033304
+  },
+  "diagnostic_evaluations": 0,
+  "interpretation": {
+    "concentration": {
+      "active_week_kish_count": 53.2751677852,
+      "limit": 0.5,
+      "max_positive_fold_profit_share": 0.6864194506
+    },
+    "confirmation_effect": {
+      "expectancy_change_r": 0.0215613927,
+      "minimum_fold_trades_change": -1,
+      "trades_removed": 23
+    },
+    "cost_drag_r": 0.1200558182,
+    "default_cost_survival": true,
+    "distinction_from_breakout": {
+      "method": "EXECUTED_SIGNAL_TIMESTAMP_OVERLAP_ON_IMMUTABLE_RETAINED_TRADES_AFTER_OCCUPANCY_SUPPRESSION",
+      "vs_aligned": {
+        "jaccard": 0.0,
+        "left_share_shared": 0.0,
+        "left_signals": 127,
+        "right_signals": 125,
+        "shared_signals": 0
+      },
+      "vs_matched_parent_breakout": {
+        "jaccard": 0.0,
+        "left_share_shared": 0.0,
+        "left_signals": 127,
+        "right_signals": 912,
+        "shared_signals": 0
+      }
+    },
+    "double_cost_sensitivity_r": 0.1200557699,
+    "double_cost_survival": false,
+    "fold_coverage": {
+      "minimum_fold_trades": 8,
+      "populated_folds": 6,
+      "required_minimum_fold_trades": 15,
+      "required_total_trades": 120,
+      "total_trades": 126
+    },
+    "gross_margin_r": 0.1204381257,
+    "timing_delay_sensitivity": {
+      "core_expectancy_change_r": 0.0065337587,
+      "core_trade_count_change": 3
+    }
+  },
+  "label": "DEVELOPMENT RESEARCH \u2014 NOT APPROVED STRATEGY PERFORMANCE",
+  "limitations": [
+    "All history here is previously exposed development data, not fresh out-of-sample or sealed evidence.",
+    "The WP-003 controls keep their own eligibility, occupancy and execution semantics; differences are not paired causal estimates.",
+    "Random seeds share one price history and are not independent evidence.",
+    "Overlap is measured on executed signals after occupancy suppression, not on raw conditions; it describes when the rules fired, not why, and low overlap is not proof of an independent economic mechanism.",
+    "Summed R is trade accounting, not a funded, equal-capital compounded portfolio return.",
+    "Neither variant met its preregistered sufficiency diagnostics, so none of these differences is decision-grade."
+  ],
+  "method": "DESCRIPTIVE_SLICING_OF_IMMUTABLE_TRADES_NO_RESIMULATION",
+  "new_strategy_trials": 0,
+  "primary_variant": "RECOVERY_CORE",
+  "protocol_sha256": "8701587ddda8789d09e8a3087dccab7b4c6a01fb47a16a2baae77a62d2d5448c",
+  "references": {
+    "aligned": {
+      "default_net_expectancy_r": 0.1373934676,
+      "experiment_id": "EXP-ALG-009-ALIGNED",
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": 125
+    },
+    "breakout": {
+      "default_net_expectancy_r": -0.0535976983,
+      "experiment_id": "EXP-BASE-004-BREAKOUT",
+      "trade_count": 911
+    },
+    "matched_parent_breakout": {
+      "default_net_expectancy_r": -0.0547388706,
+      "source_path": "research/diagnostics/WP-005/matched-parent.json",
+      "trade_count": 908
+    },
+    "no_trade": {
+      "experiment_id": "EXP-CTRL-006-NO-TRADE",
+      "trade_count": 0
+    },
+    "random_control": {
+      "experiment_id": "EXP-CTRL-002-RANDOM",
+      "maximum_net_expectancy_r": -0.0440530266,
+      "mean_net_expectancy_r": -0.0967774607,
+      "median_net_expectancy_r": -0.103139617,
+      "minimum_net_expectancy_r": -0.13840759,
+      "seed_count": 32,
+      "selection_policy": "ALL_32_FIXED_SEEDS_NO_SELECTION"
+    },
+    "sma_trend": {
+      "default_net_expectancy_r": -0.1081210229,
+      "experiment_id": "EXP-BASE-003-TREND",
+      "trade_count": 1955
+    },
+    "sma_trend_delay_1h": {
+      "default_net_expectancy_r": -0.1099414994,
+      "experiment_id": "EXP-CTRL-005-TREND-DELAY-1H",
+      "trade_count": 1960
+    }
+  },
+  "schema_version": 1,
+  "variants": {
+    "RECOVERY_CONFIRM": {
+      "active_week_kish_count": 48.4429223744,
+      "default_net_expectancy_r": 0.0219437002,
+      "delay_net_expectancy_r": 0.0321112582,
+      "delay_trade_count": 102,
+      "double_cost_net_expectancy_r": -0.0981191942,
+      "experiment_id": "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM",
+      "fold_net_expectancy_r": {
+        "DEV-2019": 0.3813974235,
+        "DEV-2020": -0.3138691478,
+        "DEV-2021": 0.0207821463,
+        "DEV-2022": -1.034549928,
+        "DEV-2023": 0.151969629,
+        "DEV-2024": 0.1838904563
+      },
+      "fold_trade_counts": {
+        "DEV-2019": 18,
+        "DEV-2020": 17,
+        "DEV-2021": 15,
+        "DEV-2022": 7,
+        "DEV-2023": 25,
+        "DEV-2024": 21
+      },
+      "max_positive_fold_profit_share": 0.4626792068,
+      "minimum_fold_trades": 7,
+      "nonnegative_fold_count": 4,
+      "source_path": "research/experiments/EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM/result.json",
+      "source_sha256": "b377c24b88c95873045547b26933971ccf7142abc92381545af5a39b82348438",
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": 103,
+      "trade_ess": 91.5347809103,
+      "unresolved_rate": 0.0,
+      "zero_cost_net_expectancy_r": 0.1420066513
+    },
+    "RECOVERY_CORE": {
+      "active_week_kish_count": 53.2751677852,
+      "default_net_expectancy_r": 0.0003823075,
+      "delay_net_expectancy_r": 0.0069160662,
+      "delay_trade_count": 129,
+      "double_cost_net_expectancy_r": -0.1196734624,
+      "experiment_id": "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+      "fold_net_expectancy_r": {
+        "DEV-2019": 0.4577752556,
+        "DEV-2020": -0.2615826519,
+        "DEV-2021": -0.0803795528,
+        "DEV-2022": -0.9403588228,
+        "DEV-2023": 0.069293301,
+        "DEV-2024": 0.100880537
+      },
+      "fold_trade_counts": {
+        "DEV-2019": 22,
+        "DEV-2020": 21,
+        "DEV-2021": 20,
+        "DEV-2022": 8,
+        "DEV-2023": 30,
+        "DEV-2024": 25
+      },
+      "max_positive_fold_profit_share": 0.6864194506,
+      "minimum_fold_trades": 8,
+      "nonnegative_fold_count": 3,
+      "source_path": "research/experiments/EXP-ALG-010-PULLBACK-RECOVERY-CORE/result.json",
+      "source_sha256": "1e82ce7063bfeafd483c6b431bffbdbd1b5e58c3e94b1800f42c641842e2596f",
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": 126,
+      "trade_ess": 117.2545509817,
+      "unresolved_rate": 0.0078740157,
+      "zero_cost_net_expectancy_r": 0.1204381257
+    }
+  }
+}

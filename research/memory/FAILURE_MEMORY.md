@@ -137,3 +137,17 @@ ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE does not change the underlying INC
 ALIGNED remains parked INCONCLUSIVE. The matched diagnostics support continued scientific interest but do not establish robust profitability, stability, or deployability and do not reopen the exhausted FAM-BREAKOUT strategy budget.
 
 Legitimate revisit: Only a future explicit Research Director allocation based on genuinely new evidence may revisit the family; parameter drift, renamed replay, threshold rescue, extra random seeds, or reuse of the same exposed-development comparison is insufficient.
+
+
+## WP-006 retained limitations
+
+INCONCLUSIVE is a sufficiency verdict, not a claim that
+the pullback-recovery mechanism has no edge.
+- DEV-2022 supplies only 8 core trades and 7 confirm trades against a required 15.
+- Positive-fold profit concentration is 68.6% for the core variant, above the 50% limit.
+- Default-cost expectancy is positive by 0.0004 R, which is economically indistinguishable from zero once doubled costs are applied.
+- Comparisons against WP-003 controls retain their unmatched eligibility and occupancy semantics.
+
+All six folds are previously exposed development history, not fresh out-of-sample or sealed evidence. The 4h persistence descriptor and the whole data-eligibility and quarantine universe are inherited from WP-004 and are not independent new evidence. Executed-signal overlap with the breakout and ALIGNED paths is zero, which describes distinct firing times rather than proving an independent economic mechanism.
+
+FAM-PULLBACK-RECOVERY is INCONCLUSIVE after one allocation. Its 2/2 configurations and 8/8 profile evaluations are consumed. It is not seal-eligible, has no Champion standing, and is not authorized for another variant.

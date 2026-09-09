@@ -1,90 +1,109 @@
 {
-  "schema_version":3,
-  "project_name":"Trading Bot",
-  "project_phase":"STRATEGY_RESEARCH",
-  "status":"EXECUTOR_COMPLETE_PENDING_REVIEW",
-  "product_surface":"LOCAL_WEB_APP",
-  "research_market":"crypto_spot",
-  "symbols":[
+  "schema_version": 3,
+  "project_name": "Trading Bot",
+  "project_phase": "STRATEGY_RESEARCH",
+  "status": "EXECUTOR_COMPLETE_PENDING_REVIEW",
+  "product_surface": "LOCAL_WEB_APP",
+  "research_market": "crypto_spot",
+  "symbols": [
     "BTCUSDT"
   ],
-  "canonical_resolution":"1m",
-  "signal_timeframe":"1h",
-  "regime_timeframe":"4h",
-  "max_holding_horizon":{
-    "iso8601":"PT24H",
-    "minutes":1440
+  "canonical_resolution": "1m",
+  "signal_timeframe": "1h",
+  "regime_timeframe": "4h",
+  "max_holding_horizon": {
+    "iso8601": "PT24H",
+    "minutes": 1440
   },
-  "directions":[
+  "directions": [
     "LONG",
     "NO_TRADE"
   ],
-  "development_cutoff":"2024-12-31T23:59:00Z",
-  "development_dataset":{
-    "status":"VALIDATED",
-    "manifest_id":"BTCUSDT-SPOT-1M-DEV-v1",
-    "manifest_sha256":"4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
-    "content_hash":"02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
-    "coverage":{
-      "start":"2017-08-17T04:00:00Z",
-      "end":"2024-12-31T23:59:00Z"
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "development_dataset": {
+    "status": "VALIDATED",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "manifest_sha256": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "coverage": {
+      "start": "2017-08-17T04:00:00Z",
+      "end": "2024-12-31T23:59:00Z"
     }
   },
-  "experiments_completed":9,
-  "sealed_evaluations_completed":0,
-  "paper_trades_completed":0,
-  "champion_status":"NONE",
-  "forward_evidence":"NONE",
-  "real_money_authorized":false,
-  "owner_decision_required":false,
-  "latest_reviewed_checkpoint":"WP-004",
-  "latest_executor_checkpoint":"WP-005",
-  "next_recommended_work_package":"RESEARCH_DIRECTOR_REVIEW_THEN_DECIDE_FUTURE_INCONCLUSIVE_FAMILY_ALLOCATION",
-  "search_memory":{
-    "version":"SEARCH_MEMORY_V2",
-    "status":"VALIDATED",
-    "families_tracked":5
+  "experiments_completed": 11,
+  "sealed_evaluations_completed": 0,
+  "paper_trades_completed": 0,
+  "champion_status": "NONE",
+  "forward_evidence": "NONE",
+  "real_money_authorized": false,
+  "owner_decision_required": false,
+  "latest_reviewed_checkpoint": "WP-005",
+  "latest_executor_checkpoint": "WP-006",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_THEN_DECIDE_WHETHER_ANY_FAMILY_MERITS_A_FURTHER_ALLOCATION",
+  "search_memory": {
+    "version": "SEARCH_MEMORY_V2",
+    "status": "VALIDATED",
+    "families_tracked": 6
   },
-  "adaptive_search":{
-    "material_economic_hypotheses":3,
-    "configuration_variants":9,
-    "profile_trials":53,
-    "numeric_parameter_variants":0,
-    "adaptive_decisions":2,
-    "result_dependent_forks":2,
-    "strategy_descendants":4,
-    "wp004_variants_reserved":3,
-    "wp004_profiles_reserved":12,
-    "integrity_replay_profiles":12,
-    "diagnostic_evaluations":35,
-    "diagnostic_execution_attempts":2,
-    "sealed_queries":0
+  "adaptive_search": {
+    "material_economic_hypotheses": 4,
+    "configuration_variants": 11,
+    "profile_trials": 61,
+    "numeric_parameter_variants": 0,
+    "adaptive_decisions": 3,
+    "result_dependent_forks": 3,
+    "strategy_descendants": 5,
+    "wp004_variants_reserved": 3,
+    "wp004_profiles_reserved": 12,
+    "wp006_variants_reserved": 2,
+    "wp006_profiles_reserved": 8,
+    "integrity_replay_profiles": 12,
+    "diagnostic_evaluations": 35,
+    "diagnostic_execution_attempts": 2,
+    "sealed_queries": 0
   },
-  "selected_family":{
-    "name":"ALIGNED_PARTICIPATION_CONTINUATION_V1",
-    "primary_experiment_id":"EXP-ALG-009-ALIGNED",
-    "terminal_classification":"INCONCLUSIVE"
+  "selected_family": {
+    "name": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "primary_experiment_id": "EXP-ALG-009-ALIGNED",
+    "terminal_classification": "INCONCLUSIVE"
   },
-  "wp005_integrity":{
-    "status":"PASS",
-    "source_provenance_classification":"SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
-    "independent_reconciliation":"PASS",
-    "integrity_replay_profiles":12,
-    "matched_control_classification":"ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
-    "remote_ci":"PENDING_PUSH"
+  "wp005_integrity": {
+    "status": "PASS",
+    "source_provenance_classification": "SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
+    "independent_reconciliation": "PASS",
+    "integrity_replay_profiles": 12,
+    "matched_control_classification": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
+    "remote_ci": "PENDING_PUSH"
   },
-  "backtest_substrate":{
-    "status":"VALIDATED",
-    "engine_version":"BACKTEST_ENGINE_V2",
-    "execution_model_version":"EXECUTION_MODEL_V2",
-    "cost_model_version":"BTCUSDT_SPOT_COST_V1",
-    "synthetic_validation":{
-      "status":"PASS",
-      "suite_hash":"ca71d3b8b64e3d4cc6d0dcbe1f4df7d96fa1979be6d9d8a957f59dbb9b9db819"
+  "backtest_substrate": {
+    "status": "VALIDATED",
+    "engine_version": "BACKTEST_ENGINE_V2",
+    "execution_model_version": "EXECUTION_MODEL_V2",
+    "cost_model_version": "BTCUSDT_SPOT_COST_V1",
+    "synthetic_validation": {
+      "status": "PASS",
+      "suite_hash": "ca71d3b8b64e3d4cc6d0dcbe1f4df7d96fa1979be6d9d8a957f59dbb9b9db819"
     },
-    "gap_artifact":{
-      "id":"BTCUSDT-SPOT-1M-DEV-v1-GAPS",
-      "sha256":"eaaed86d83897bc47479bbe71fea8775a72c248473a0e205bf4afee9cb551007"
+    "gap_artifact": {
+      "id": "BTCUSDT-SPOT-1M-DEV-v1-GAPS",
+      "sha256": "eaaed86d83897bc47479bbe71fea8775a72c248473a0e205bf4afee9cb551007"
     }
+  },
+  "latest_family": {
+    "name": "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
+    "root_family": "FAM-PULLBACK-RECOVERY",
+    "primary_experiment_id": "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+    "novelty_classification": "NEW_FAMILY",
+    "terminal_classification": "INCONCLUSIVE"
+  },
+  "sealed_evaluation": {
+    "version": "SEALED_EVALUATION_V1",
+    "status": "LOCKED_NO_AUTHORIZED_QUERY",
+    "dataset_state": "RESERVED_NOT_ACQUIRED",
+    "authorized_btc_queries": 0,
+    "consumed_btc_queries": 0,
+    "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
+    "seal_eligible_candidates": 0,
+    "candidates_assessed": 11
   }
 }

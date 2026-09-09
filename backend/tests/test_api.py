@@ -107,10 +107,15 @@ def test_memory_inspection_is_read_only_and_counters_come_from_state(tmp_path):
     assert client.post("/api/v1/analyze").status_code == 404
 
 
-def test_all_nine_experiments_have_explicit_evidence_windows():
+def test_all_experiments_have_explicit_evidence_windows():
     payload = TestClient(app).get("/api/v1/research/experiments").json()
     assert payload["label"] == "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
-    assert len(payload["experiments"]) == 9
+    assert len(payload["experiments"]) == 11
+    recovery = next(
+        x for x in payload["experiments"] if x["experiment_id"].endswith("RECOVERY-CORE")
+    )
+    assert recovery["classification"] == "INCONCLUSIVE"
+    assert recovery["evidence_window"].startswith("WP-006")
     assert all(item["evidence_window"] for item in payload["experiments"])
     aligned = next(x for x in payload["experiments"] if x["experiment_id"] == "EXP-ALG-009-ALIGNED")
     assert aligned["classification"] == "INCONCLUSIVE" and aligned["trade_count"] == 125

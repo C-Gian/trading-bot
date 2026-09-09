@@ -46,6 +46,36 @@
       "unresolved_material_integrity_issues": 0
     },
     {
+      "development_result_path": "research/experiments/EXP-ALG-010-PULLBACK-RECOVERY-CORE/result.json",
+      "development_result_sha256": "1e82ce7063bfeafd483c6b431bffbdbd1b5e58c3e94b1800f42c641842e2596f",
+      "executable_spec_hash": "a11badc6b318883948df7a40d3ca81c72fe51774e039ce8f267a4a744b91ed18",
+      "experiment_id": "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+      "integrity_status": "PASS",
+      "rejection_reason": "Development evidence is insufficient under DEVELOPMENT_EVALUATION_V1; INCONCLUSIVE is never seal-eligible.",
+      "root_family": "FAM-PULLBACK-RECOVERY",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_INCONCLUSIVE",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "INCONCLUSIVE",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM/result.json",
+      "development_result_sha256": "b377c24b88c95873045547b26933971ccf7142abc92381545af5a39b82348438",
+      "executable_spec_hash": "4494fb0e505f729cae5ecbea45151fb5ea607a8192dbbca0033918b0efc06dcb",
+      "experiment_id": "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM",
+      "integrity_status": "PASS",
+      "rejection_reason": "Development evidence is insufficient under DEVELOPMENT_EVALUATION_V1; INCONCLUSIVE is never seal-eligible.",
+      "root_family": "FAM-PULLBACK-RECOVERY",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_INCONCLUSIVE",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "INCONCLUSIVE",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
       "development_result_path": "research/experiments/EXP-BASE-001-BUYHOLD/result.json",
       "development_result_sha256": "fec7d3744e820eb09499cfae735cb5a06d7722d058d61c906a1a7aaa35f7cc53",
       "executable_spec_hash": "349472bb6fd244bd069ab12db6487ca10454707b5d51a921787a93ac079ad0ac",

@@ -12,6 +12,8 @@ from . import __version__
 from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
 from .data.store import available, candles
 from .research.checkpoint_views import budget_view, experiment_view
+from .research.wp006_views import v2_budget_view
+from .sealed import public_status
 from .state import StateRepository
 
 
@@ -69,7 +71,10 @@ def create_app(
             "adaptive_search": state.get("adaptive_search"),
             "selected_family": state.get("selected_family"),
             "wp005_integrity": state.get("wp005_integrity"),
-            "family_budgets": budget_view(),
+            "latest_family": state.get("latest_family"),
+            "sealed_evaluation": state.get("sealed_evaluation"),
+            "sealed_system": public_status(),
+            "family_budgets": budget_view() + v2_budget_view(),
         }
 
     @application.get("/api/v1/backtest/substrate")
