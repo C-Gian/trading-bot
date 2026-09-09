@@ -1,0 +1,39 @@
+{
+  "admission_commit": "32409883709405f0326101931603710c49893827",
+  "dependency_manifest_sha256": "37bef7308c28ecd92e916575e44089a45a2053c30c536348d0a0682daf91ad6b",
+  "execution_commit": "e541da5db097d322a10d9f7666973a2f4829a0c2",
+  "family_classification": "NEW_FAMILY",
+  "order_flow_substrate": {
+    "eligible_1h_buckets": 64135,
+    "eligible_4h_buckets": 16008,
+    "integrity_artifact_sha256": "50dc532d4ef5d5768d84809ca58283c76303e1661f43c0d77118a5316a2b834b",
+    "integrity_status": "PASS",
+    "reconciliation_status": "PASS",
+    "substrate_content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
+    "substrate_manifest_id": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1"
+  },
+  "preregistration_commit": "e541da5db097d322a10d9f7666973a2f4829a0c2",
+  "preregistration_hashes": {
+    "EXP-ALG-012-ORDERFLOW-CORE": "fae775ac9144757be957b1657cdcbe738d2c34d5f0cc000a1ca0547fd3ede539",
+    "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE": "56d05e673445fa7fd22b1a0da0d45139c04224f243a2d793d6c8a9ba72f74a23"
+  },
+  "root_family": "FAM-ORDER-FLOW",
+  "started_at_utc": "2026-09-09T15:36:47.511764Z",
+  "status": "PASS",
+  "trial_ids": [
+    "FLOW_CORE:DEFAULT",
+    "FLOW_CORE:ZERO",
+    "FLOW_CORE:DOUBLE",
+    "FLOW_CORE:DELAY_1H",
+    "FLOW_PRICE_RESPONSE:DEFAULT",
+    "FLOW_PRICE_RESPONSE:ZERO",
+    "FLOW_PRICE_RESPONSE:DOUBLE",
+    "FLOW_PRICE_RESPONSE:DELAY_1H"
+  ],
+  "wp007_accounting": {
+    "experiments": 2,
+    "numeric_parameter_variants": 0,
+    "strategy_variants": 2,
+    "trials": 8
+  }
+}
