@@ -167,7 +167,9 @@ def reconcile(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
                             [[prior.values[index] for index in indices]], dtype=np.float64
                         )
                         prediction = float(
-                            coefficients[0] + ((prior_matrix - means) / stds) @ coefficients[1:]
+                            (coefficients[0] + ((prior_matrix - means) / stds) @ coefficients[1:])[
+                                0
+                            ]
                         )
                     if prediction <= 0.0 or row.signal_us < blocked_until:
                         continue
