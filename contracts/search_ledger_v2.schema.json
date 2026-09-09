@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SEARCH_MEMORY_V2 admission ledger entry",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {"sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+  "required": [
+    "schema_version", "experiment_id", "work_package", "record_kind", "strategy_label",
+    "root_family", "hypothesis_id", "hypothesis_role", "claimed_market_mechanism",
+    "allocation_id", "classification", "matched_experiment_ids", "behavior_hash",
+    "structural_hash", "executable_spec_hash", "dependency_hash", "parent_experiment_ids",
+    "novelty", "scientific_reason", "budget_units", "preregistration_path",
+    "preregistration_sha256", "result_path", "outcome_reference"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "experiment_id": {"type": "string", "pattern": "^[A-Z0-9_-]+$"},
+    "work_package": {"type": "string", "pattern": "^WP-[0-9]{3}$"},
+    "record_kind": {"const": "PREREGISTERED_ADMISSION"},
+    "strategy_label": {"type": "string", "minLength": 1},
+    "root_family": {"type": "string", "minLength": 1},
+    "hypothesis_id": {"type": "string", "minLength": 1},
+    "hypothesis_role": {"enum": ["ECONOMIC_CORE", "STRUCTURAL_CONFIRMATION_VARIANT"]},
+    "claimed_market_mechanism": {"type": "string", "minLength": 1},
+    "allocation_id": {"type": "string", "minLength": 1},
+    "classification": {"enum": ["NEW_FAMILY", "DESCENDANT_MECHANISM_CHANGE"]},
+    "matched_experiment_ids": {"type": "array", "items": {"type": "string"}},
+    "behavior_hash": {"$ref": "#/$defs/sha256"},
+    "structural_hash": {"$ref": "#/$defs/sha256"},
+    "executable_spec_hash": {"$ref": "#/$defs/sha256"},
+    "dependency_hash": {"$ref": "#/$defs/sha256"},
+    "parent_experiment_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "novelty": {"enum": ["NEW_FAMILY", "DESCENDANT_MECHANISM_CHANGE"]},
+    "scientific_reason": {"type": "string", "minLength": 1},
+    "budget_units": {
+      "type": "object", "additionalProperties": false,
+      "required": ["experiments", "strategy_variants", "trials", "numeric_parameter_variants"],
+      "properties": {
+        "experiments": {"const": 1},
+        "strategy_variants": {"const": 1},
+        "trials": {"const": 4},
+        "numeric_parameter_variants": {"const": 0}
+      }
+    },
+    "preregistration_path": {"type": "string", "minLength": 1},
+    "preregistration_sha256": {"$ref": "#/$defs/sha256"},
+    "result_path": {"type": "string", "minLength": 1},
+    "outcome_reference": {"type": "string", "minLength": 1}
+  }
+}

@@ -6,3 +6,4 @@
 - [ADR-0004](ADR-0004-BOUNDED-ADAPTIVE-DEVELOPMENT.md) — cumulative search budgets and chronological development
 - [ADR-0005](ADR-0005-PREEXECUTION-SOURCE-GRID-QUARANTINE.md) — source-grid quarantine before any WP-004 result
 - [ADR-0006](ADR-0006-SEALED-EVALUATION-ARCHITECTURE.md) — sealed evaluation architecture V1, built locked
+- [ADR-0007](ADR-0007-PULLBACK-RECOVERY-ROOT-AND-V2-MEMORY-LAYER.md) — new pullback-recovery root and additive V2 record layer

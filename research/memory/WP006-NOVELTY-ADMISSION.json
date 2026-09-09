@@ -1,0 +1,386 @@
+{
+  "admitted": true,
+  "classifier_modified": false,
+  "conflicting_root_check": {
+    "breakout_budget": "EXHAUSTED_AND_NOT_REOPENED",
+    "collisions": [],
+    "registered_aliases_and_anchors": 19
+  },
+  "entry_event": "CLOSE_RECOVERS_ABOVE_DAILY_MEAN_AFTER_PULLBACK",
+  "family_classification": "NEW_FAMILY",
+  "gate": "GOVERNED_NOVELTY_ADMISSION_BEFORE_ANY_MARKET_RESULT",
+  "market_results_observed_at_admission": 0,
+  "proposed_hypothesis_id": "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
+  "proposed_root_family": "FAM-PULLBACK-RECOVERY",
+  "reference_signatures": {
+    "legacy_count": 9,
+    "path": "research/memory/LEGACY_EXECUTABLE_SIGNATURES_V2.json",
+    "sha256": "fa3a448b40948d6f0a43a2db6c46d32c6306febd338f4c3c65b4d794c7c527cf"
+  },
+  "renamed_to_force_novelty": false,
+  "schema_version": 1,
+  "variants": [
+    {
+      "behavior_hash": "78b2c3fc1b9b5ae64a85925764cb5e01ee1f07d922768ec6787b99b40ccc078b",
+      "classification": "NEW_FAMILY",
+      "dependency_hash": "4c9e85b3e3ef37d484289f764a6ef012c18fa9653bcee14630e00e2ebe217b78",
+      "executable_spec_hash": "a11badc6b318883948df7a40d3ca81c72fe51774e039ce8f267a4a744b91ed18",
+      "experiment_id": "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+      "hypothesis_role": "ECONOMIC_CORE",
+      "matched_experiment_ids": [],
+      "spec": {
+        "comparisons": [
+          {
+            "left": "previous_completed_1h_close",
+            "operator": "<=",
+            "right": "sma24_previous",
+            "threshold": null
+          },
+          {
+            "left": "current_completed_1h_close",
+            "operator": ">",
+            "right": "sma24",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp006/recovery_core.json",
+            "sha256": "1ee5938003a9bfaf1e01f35ca45d0785213e16ea6bdfa5e7da5308ab2872c4dc"
+          }
+        ],
+        "confirmation_gates": [],
+        "context_timeframe_minutes": 240,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "CLOSE_RECOVERS_ABOVE_DAILY_MEAN_AFTER_PULLBACK",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": {
+            "name": "target_fraction",
+            "unit": "fraction",
+            "value": 0.04
+          }
+        },
+        "family": "FAM-PULLBACK-RECOVERY",
+        "feature_primitives": [
+          {
+            "lookback": {
+              "name": "sma_hours",
+              "unit": "hours",
+              "value": 24
+            },
+            "name": "HOURLY_MEAN_LEVEL",
+            "timeframe_minutes": 60,
+            "transformation": "ARITHMETIC_MEAN_OF_COMPLETED_CLOSES"
+          },
+          {
+            "lookback": {
+              "name": "sma_hours",
+              "unit": "hours",
+              "value": 24
+            },
+            "name": "LAGGED_HOURLY_MEAN_LEVEL",
+            "timeframe_minutes": 60,
+            "transformation": "ARITHMETIC_MEAN_OF_COMPLETED_CLOSES_ENDING_ONE_HOUR_EARLIER"
+          },
+          {
+            "lookback": {
+              "name": "context_increments",
+              "unit": "increments",
+              "value": 42
+            },
+            "name": "DIRECTIONAL_PERSISTENCE",
+            "timeframe_minutes": 240,
+            "transformation": "SIGNED_PRICE_EFFICIENCY"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+          },
+          {
+            "path": "backend/app/research/source_grid.py",
+            "sha256": "d73b43e386b49d6dc1dd9643e1327a9ffb37c1a4e3e8b2c1d5ad326de898891a"
+          },
+          {
+            "path": "backend/app/research/continuation.py",
+            "sha256": "2cc0a307ba5f12f521980090642e68d5ead365e14a6d79258680972c2e58fb2d"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/pullback.py",
+            "sha256": "46cd7543a61eea8bfe6717b5f703327c19860eb1947c83f70383e35ba711decf"
+          },
+          {
+            "path": "backend/app/research/pullback_lab.py",
+            "sha256": "92bda298a67bf1800c42a801a57622a4f1ee6e0ce6d22a08995a5fb147f7fc08"
+          }
+        ],
+        "numeric_parameters": [
+          {
+            "name": "sma_hours",
+            "unit": "hours",
+            "value": 24
+          },
+          {
+            "name": "context_increments",
+            "unit": "increments",
+            "value": 42
+          },
+          {
+            "name": "up_to_down_ratio",
+            "unit": "ratio",
+            "value": 2
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "fraction",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "fraction",
+            "value": 0.04
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "LATEST_COMPLETED_1H_CLOSE",
+        "regime_gates": [
+          "PERSISTENT_UP_4H_GATE"
+        ],
+        "root_family": "FAM-PULLBACK-RECOVERY",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": {
+            "name": "stop_fraction",
+            "unit": "fraction",
+            "value": 0.02
+          }
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "ea3551f60109dc403a9f75865bdd74f68f4050bd2ad7c39b96ebbf78299a9112",
+      "variant": "RECOVERY_CORE"
+    },
+    {
+      "behavior_hash": "b1d092515f2e818fe0c83b5ea7a0af4db1ffc7546e09d6a6b6635476c5c91711",
+      "classification": "DESCENDANT_MECHANISM_CHANGE",
+      "dependency_hash": "1dea97e1468ea41ecac4d6680f31bc2269b4023bee53979d2c139d7f5e34e598",
+      "executable_spec_hash": "4494fb0e505f729cae5ecbea45151fb5ea607a8192dbbca0033918b0efc06dcb",
+      "experiment_id": "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM",
+      "hypothesis_role": "STRUCTURAL_CONFIRMATION_VARIANT",
+      "matched_experiment_ids": [
+        "EXP-ALG-010-PULLBACK-RECOVERY-CORE"
+      ],
+      "spec": {
+        "comparisons": [
+          {
+            "left": "previous_completed_1h_close",
+            "operator": "<=",
+            "right": "sma24_previous",
+            "threshold": null
+          },
+          {
+            "left": "current_completed_1h_close",
+            "operator": ">",
+            "right": "sma24",
+            "threshold": null
+          },
+          {
+            "left": "current_completed_1h_close",
+            "operator": ">",
+            "right": "previous_1h_high",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp006/recovery_confirm.json",
+            "sha256": "0bd36e921d734cba57b436c0b8785bb0c9f6aea69fdea1a95499aa1dd1a86753"
+          }
+        ],
+        "confirmation_gates": [
+          "PREVIOUS_HOUR_HIGH_GATE"
+        ],
+        "context_timeframe_minutes": 240,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "CLOSE_RECOVERS_ABOVE_DAILY_MEAN_AFTER_PULLBACK",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": {
+            "name": "target_fraction",
+            "unit": "fraction",
+            "value": 0.04
+          }
+        },
+        "family": "FAM-PULLBACK-RECOVERY",
+        "feature_primitives": [
+          {
+            "lookback": {
+              "name": "sma_hours",
+              "unit": "hours",
+              "value": 24
+            },
+            "name": "HOURLY_MEAN_LEVEL",
+            "timeframe_minutes": 60,
+            "transformation": "ARITHMETIC_MEAN_OF_COMPLETED_CLOSES"
+          },
+          {
+            "lookback": {
+              "name": "sma_hours",
+              "unit": "hours",
+              "value": 24
+            },
+            "name": "LAGGED_HOURLY_MEAN_LEVEL",
+            "timeframe_minutes": 60,
+            "transformation": "ARITHMETIC_MEAN_OF_COMPLETED_CLOSES_ENDING_ONE_HOUR_EARLIER"
+          },
+          {
+            "lookback": {
+              "name": "context_increments",
+              "unit": "increments",
+              "value": 42
+            },
+            "name": "DIRECTIONAL_PERSISTENCE",
+            "timeframe_minutes": 240,
+            "transformation": "SIGNED_PRICE_EFFICIENCY"
+          },
+          {
+            "lookback": {
+              "name": "previous_bars",
+              "unit": "bars",
+              "value": 1
+            },
+            "name": "PREVIOUS_HOUR_HIGH",
+            "timeframe_minutes": 60,
+            "transformation": "PRIOR_BAR_MAXIMUM"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+          },
+          {
+            "path": "backend/app/research/source_grid.py",
+            "sha256": "d73b43e386b49d6dc1dd9643e1327a9ffb37c1a4e3e8b2c1d5ad326de898891a"
+          },
+          {
+            "path": "backend/app/research/continuation.py",
+            "sha256": "2cc0a307ba5f12f521980090642e68d5ead365e14a6d79258680972c2e58fb2d"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/pullback.py",
+            "sha256": "46cd7543a61eea8bfe6717b5f703327c19860eb1947c83f70383e35ba711decf"
+          },
+          {
+            "path": "backend/app/research/pullback_lab.py",
+            "sha256": "92bda298a67bf1800c42a801a57622a4f1ee6e0ce6d22a08995a5fb147f7fc08"
+          }
+        ],
+        "numeric_parameters": [
+          {
+            "name": "sma_hours",
+            "unit": "hours",
+            "value": 24
+          },
+          {
+            "name": "context_increments",
+            "unit": "increments",
+            "value": 42
+          },
+          {
+            "name": "up_to_down_ratio",
+            "unit": "ratio",
+            "value": 2
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "fraction",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "fraction",
+            "value": 0.04
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "LATEST_COMPLETED_1H_CLOSE",
+        "regime_gates": [
+          "PERSISTENT_UP_4H_GATE"
+        ],
+        "root_family": "FAM-PULLBACK-RECOVERY",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": {
+            "name": "stop_fraction",
+            "unit": "fraction",
+            "value": 0.02
+          }
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "80bfd52ae00ffe6061d5f81041779fff32041c27f7fca302b0f41c94d511c795",
+      "variant": "RECOVERY_CONFIRM"
+    }
+  ],
+  "version": "SEARCH_MEMORY_V2",
+  "work_package": "WP-006"
+}

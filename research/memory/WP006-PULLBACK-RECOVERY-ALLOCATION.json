@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "allocation_id": "WP006-PULLBACK-RECOVERY-ALLOCATION",
+  "work_package": "WP-006",
+  "kind": "RESULT_DEPENDENT_NEW_FAMILY_ALLOCATION",
+  "authority": "tasks/CURRENT_TASK.md",
+  "review_authority": "reports/reviews/WP-005-RESEARCH-DIRECTOR-REVIEW.md",
+  "motivation": "WP-005 closed the ALIGNED comparability question diagnostically without changing its INCONCLUSIVE classification and left FAM-BREAKOUT exhausted. Exactly one genuinely new algorithmic family is allocated instead of another breakout descendant or a parameter rescue.",
+  "root_family": "FAM-PULLBACK-RECOVERY",
+  "hypothesis_id": "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
+  "primary_variant": "RECOVERY_CORE",
+  "experiment_ids": [
+    "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+    "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM"
+  ],
+  "new_economic_hypotheses": 1,
+  "strategy_variants": 2,
+  "numeric_parameter_variants": 0,
+  "profiles_per_variant": 4,
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "profile_evaluations": 8,
+  "fold_executions": 48,
+  "adaptive_decision_increment": 1,
+  "result_dependent_fork_increment": 1,
+  "prior_adaptive_decisions": 2,
+  "prior_result_dependent_forks": 2,
+  "cumulative_adaptive_decisions": 3,
+  "cumulative_result_dependent_forks": 3,
+  "parameter_searches": 0,
+  "sealed_queries": 0,
+  "paper_observations": 0,
+  "family_budget_policy": "FAM-BREAKOUT remains exhausted; this allocation creates a new root and resets nothing.",
+  "conditionality": "This allocation authorizes execution only if the governed SEARCH_MEMORY_V2 novelty gate admits the proposal as an explicit new root before any market result exists.",
+  "counting_policy": "Cost profiles and the timing perturbation are evaluation trials, not independent economic mechanisms. No other family, variant, profile, seed or numeric parameter is authorized. Budgets reserve admissions, not successful executions; a failed admission never restores capacity."
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 2,
+  "version": "SEARCH_MEMORY_V2",
+  "allocation_id": "WP006-PULLBACK-RECOVERY-ALLOCATION",
+  "authority_record": "research/memory/WP006-PULLBACK-RECOVERY-ALLOCATION.json",
+  "prior_budget_reference": "research/memory/SEARCH_BUDGET.json",
+  "prior_consumed": {
+    "experiments": 9,
+    "strategy_variants": 9,
+    "trials": 53,
+    "numeric_parameter_variants": 0
+  },
+  "family_limits": {
+    "FAM-PULLBACK-RECOVERY": {
+      "experiments": 2,
+      "strategy_variants": 2,
+      "trials": 8,
+      "numeric_parameter_variants": 0
+    }
+  },
+  "sealed_query_limit": 0,
+  "counting_policy": "The V1 budget is consumed and carried forward unchanged; FAM-BREAKOUT stays exhausted at 4/4 configurations and 15/15 trials. This V2 allocation adds exactly two configurations and eight profile evaluations under one new root. Cost profiles and the timing perturbation are trials, not mechanisms. Numeric-only variants have a zero allowance. Extensions require a new explicit Research Director decision and immutable allocation record."
+}

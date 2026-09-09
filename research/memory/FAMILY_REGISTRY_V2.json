@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "version": "SEARCH_MEMORY_V2",
+  "purpose": "Root families admitted under the executable-spec novelty gate. The V1 registry research/memory/HYPOTHESIS_FAMILIES.json remains authoritative for the nine frozen legacy strategies and is not rewritten.",
+  "prior_registry_reference": "research/memory/HYPOTHESIS_FAMILIES.json",
+  "families": [
+    {
+      "family_id": "FAM-PULLBACK-RECOVERY",
+      "aliases": [
+        "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
+        "RECOVERY_CORE",
+        "RECOVERY_CONFIRM"
+      ],
+      "entry_event_anchors": [
+        "CLOSE_RECOVERS_ABOVE_DAILY_MEAN_AFTER_PULLBACK"
+      ],
+      "parent_family_id": null,
+      "admitted_by": "research/memory/WP006-NOVELTY-ADMISSION.json",
+      "allocation_id": "WP006-PULLBACK-RECOVERY-ALLOCATION",
+      "mechanism": "An hourly close recovering above its one-day mean after the previous hour sat at or below it may mark the end of a temporary countertrend pullback inside an already persistent uptrend.",
+      "status": "ADMITTED_PENDING_RESULTS",
+      "failure_experiment_ids": [],
+      "legitimate_revisit": "A distinct causal structural response to the immutable WP-006 evidence. Changing the mean period, the persistence ratio, the pullback depth, the barriers or the horizon is numeric drift and is not a revisit."
+    }
+  ]
+}
