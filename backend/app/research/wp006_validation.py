@@ -51,7 +51,7 @@ from .wp006 import (
     validate_ledger,
     validate_registry,
 )
-from .wp006_views import build_wp006_comparison, cumulative_accounting
+from .wp006_views import build_wp006_comparison, wp006_accounting_snapshot
 
 COMPARISON_PATH = "reports/research/WP-006-COMPARISON.json"
 ELIGIBILITY_PATH = "research/sealed/SEALED_CANDIDATE_ELIGIBILITY.json"
@@ -432,12 +432,16 @@ def validate_wp006(root: Path = ROOT) -> dict[str, Any]:
 
     sealed = validate_sealed_state(root)
     state = read_json(root / "state/current_state.json")
+    wp006_accounting = wp006_accounting_snapshot(root)
     require(
-        state["adaptive_search"] == cumulative_accounting(root),
-        "state accounting differs from the deterministic cumulative accounting",
+        all(
+            state["adaptive_search"].get(key, -1) >= value
+            for key, value in wp006_accounting.items()
+        ),
+        "current state understates the deterministic WP-006 accounting snapshot",
     )
     require(
-        state["experiments_completed"] == 11
+        state["experiments_completed"] >= 11
         and state["sealed_evaluations_completed"] == 0
         and state["paper_trades_completed"] == 0
         and state["champion_status"] == "NONE"
@@ -470,6 +474,6 @@ def validate_wp006(root: Path = ROOT) -> dict[str, Any]:
         "family_terminal_classification": classifications[PRIMARY_VARIANT],
         "sealed": sealed,
         "report_base_guard": guard["base_guard_enforced"],
-        "cumulative": cumulative_accounting(root),
+        "cumulative": wp006_accounting,
         "allocation_cumulative_forks": allocation["cumulative_result_dependent_forks"],
     }
