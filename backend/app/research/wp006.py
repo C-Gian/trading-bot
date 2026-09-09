@@ -61,6 +61,7 @@ ADMISSION_PATH = "research/memory/WP006-NOVELTY-ADMISSION.json"
 LEDGER_PATH = "research/memory/ADMISSION_LEDGER_V2.jsonl"
 OUTCOMES_PATH = "research/memory/OUTCOMES_V2.jsonl"
 ATTEMPT_PATH = "research/runs/WP-006-ATTEMPT.json"
+AMENDMENT_PATH = "research/protocols/WP-006-PREEXECUTION-AMENDMENTS.json"
 NEW_ROOT_CLASSIFICATIONS = {"NEW_FAMILY"}
 DESCENDANT_CLASSIFICATIONS = {"DESCENDANT_MECHANISM_CHANGE"}
 
@@ -449,6 +450,34 @@ def validate_ledger(root: Path = ROOT) -> dict[str, int]:
     return counts
 
 
+def effective_preregistration(experiment_id: str, root: Path = ROOT) -> Path:
+    """Resolve the effective preregistration through the pre-execution supersession registry.
+
+    A correction is only admissible while zero strategy trials have been executed, and it may
+    never add a variant, a profile or a numeric search. The superseded document is preserved.
+    """
+    registry = read_json(root / AMENDMENT_PATH)
+    if (
+        registry["kind"] != "PRE_EXECUTION_IDENTITY_BINDING_CORRECTION"
+        or registry["strategy_trials_before_amendment"] != 0
+        or registry["results_observed_before_amendment"] != 0
+        or registry["additional_strategy_variants"] != 0
+        or registry["additional_profile_trials"] != 0
+        or registry["additional_numeric_parameter_variants"] != 0
+        or set(registry["amendments"]) != set(SPEC)
+    ):
+        raise SearchMemoryError("invalid pre-execution supersession registry")
+    item = registry["amendments"][experiment_id]
+    expected = f"research/experiments/{experiment_id}/preregistration.v2.json"
+    superseded = root / f"research/experiments/{experiment_id}/preregistration.json"
+    if item["effective_path"] != expected or item["superseded_sha256"] != sha256(superseded):
+        raise SearchMemoryError("superseded preregistration identity changed")
+    path = root / expected
+    if sha256(path) != item["effective_sha256"]:
+        raise SearchMemoryError("effective preregistration identity changed")
+    return path
+
+
 def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
     """The preregistration must bind to the exact admitted spec, config and protocol."""
     experiment_id = prereg["experiment_id"]
@@ -496,10 +525,13 @@ def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
         raise SearchMemoryError("undeclared allocation or parameter search")
     spec = executable_spec(variant, root)
     binding = bind_executable_spec(spec, declared_fingerprint=space["executable_spec_fingerprint"])
+    # The stored spec is JSON, so compare through one canonical round trip.
     if (
-        space["executable_spec"] != spec.to_dict()
+        space["executable_spec"] != json.loads(json.dumps(spec.to_dict()))
         or space["executable_spec_hash"] != binding.executable_spec_hash
         or space["behavior_hash"] != binding.behavior_hash
+        or space["structural_hash"] != binding.structural_hash
+        or space["dependency_hash"] != binding.dependency_hash
     ):
         raise SearchMemoryError("preregistered executable spec differs from the admitted spec")
 
@@ -517,8 +549,8 @@ def preflight(root: Path = ROOT) -> dict[str, Any]:
     validate_registry(root)
     admission = validate_admission(root)
     admission_commit = immutable_from_first_commit(ADMISSION_PATH, root)
-    for path in SPEC_DEPENDENCY_PATHS:
-        commit = first_commit(path, root)
+    for dependency in SPEC_DEPENDENCY_PATHS:
+        commit = first_commit(dependency, root)
         if commit == admission_commit or not ancestor(commit, admission_commit, root):
             raise SearchMemoryError("executable behaviour must be committed before admission")
     records: dict[str, str] = {}
@@ -527,13 +559,19 @@ def preflight(root: Path = ROOT) -> dict[str, Any]:
         directory = root / "research/experiments" / experiment_id
         if any((directory / name).exists() for name in ("result.json", "trials.json")):
             raise SearchMemoryError("WP-006 execution cannot overwrite or repeat an observed trial")
-        relative = f"research/experiments/{experiment_id}/preregistration.json"
-        prereg = validate_preregistration(root / relative)
-        validate_identity(prereg, root)
-        commit = immutable_from_first_commit(relative, root)
-        if commit == admission_commit or not ancestor(admission_commit, commit, root):
+        original = f"research/experiments/{experiment_id}/preregistration.json"
+        original_commit = immutable_from_first_commit(original, root)
+        if original_commit == admission_commit or not ancestor(
+            admission_commit, original_commit, root
+        ):
             raise SearchMemoryError("preregistration must follow the governed novelty admission")
-        records[experiment_id] = sha256(root / relative)
+        effective = effective_preregistration(experiment_id, root)
+        prereg = validate_preregistration(effective)
+        validate_identity(prereg, root)
+        commit = immutable_from_first_commit(effective.relative_to(root).as_posix(), root)
+        if commit == original_commit or not ancestor(original_commit, commit, root):
+            raise SearchMemoryError("effective preregistration must follow the superseded one")
+        records[experiment_id] = sha256(effective)
         pre_commits.add(commit)
     if len(pre_commits) != 1:
         raise SearchMemoryError("both WP-006 preregistrations must be frozen together")

@@ -34,6 +34,7 @@ from app.research.wp006 import (
     OUTCOMES_PATH,
     ROOT_FAMILY,
     SPEC,
+    effective_preregistration,
     preflight,
 )
 
@@ -117,7 +118,7 @@ def main() -> None:
     )
     for experiment_id, variant in SPEC.items():
         directory = ROOT / "research/experiments" / experiment_id
-        prereg_path = directory / "preregistration.json"
+        prereg_path = effective_preregistration(experiment_id)
         prereg = json.loads(prereg_path.read_text(encoding="utf-8"))
 
         def adapter(config, trial_id, eid=experiment_id):
