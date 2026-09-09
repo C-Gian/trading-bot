@@ -104,8 +104,11 @@ def alias_map(root: Path = ROOT, *, exclude: str | None = None) -> dict[str, str
     return aliases
 
 
-def signatures(root: Path = ROOT) -> list[dict[str, Any]]:
+def signatures(
+    root: Path = ROOT, *, exclude_experiment_ids: set[str] | None = None
+) -> list[dict[str, Any]]:
     """Frozen V1 reference translations plus every V2-era admitted behaviour."""
+    excluded = exclude_experiment_ids or set()
     document = read_json(root / LEGACY_SIGNATURES)
     entries = [
         {
@@ -115,6 +118,7 @@ def signatures(root: Path = ROOT) -> list[dict[str, Any]]:
             "structural_hash": item["structural_hash"],
         }
         for item in document["signatures"]
+        if item["experiment_id"] not in excluded
     ]
     entries.extend(
         {
@@ -124,6 +128,7 @@ def signatures(root: Path = ROOT) -> list[dict[str, Any]]:
             "structural_hash": item["structural_hash"],
         }
         for item in admission_ledger(root)
+        if item["experiment_id"] not in excluded
     )
     return entries
 

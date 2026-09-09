@@ -161,11 +161,12 @@ def test_the_gate_checks_both_v1_and_v2_historical_signatures():
     reference = recorded["reference_signatures"]
     assert reference["v1_reference_translations"] == 9
     assert reference["v2_admitted_behaviours"] == 2
-    assert len(signatures()) == 11
+    assert len(signatures(exclude_experiment_ids=set(SPEC))) == 11
+    assert len(signatures()) == 13
 
 
 def test_neither_variant_duplicates_any_prior_admitted_behaviour():
-    known = signatures()
+    known = signatures(exclude_experiment_ids=set(SPEC))
     for variant in SPEC.values():
         binding = bind_executable_spec(executable_spec(variant))
         assert binding.behavior_hash not in {item["behavior_hash"] for item in known}

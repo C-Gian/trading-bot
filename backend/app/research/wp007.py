@@ -60,6 +60,7 @@ REJECTION_PATH = "research/memory/registry/admissions/WP007-NOVELTY-REJECTION.js
 LEDGER_PATH = "research/memory/registry/ledger/WP-007.jsonl"
 OUTCOMES_PATH = "research/memory/registry/outcomes/WP-007.jsonl"
 ATTEMPT_PATH = "research/runs/WP-007-ATTEMPT.json"
+AMENDMENT_PATH = "research/protocols/WP-007-PREEXECUTION-AMENDMENTS.json"
 INTEGRITY_PATH = "reports/validation/WP-007-ORDER-FLOW-INTEGRITY.json"
 RECONCILIATION_PATH = "reports/validation/WP-007-ORDER-FLOW-RECONCILIATION.json"
 NEW_ROOT_CLASSIFICATIONS = {"NEW_FAMILY"}
@@ -268,7 +269,9 @@ def novelty_decision(root: Path = ROOT) -> dict[str, Any]:
         raise NoveltyRejected(
             f"proposed root family or entry event collides with a registered anchor: {collisions}"
         )
-    known = signatures(root)
+    # Reproduction after preregistration must compare against the same prior corpus
+    # used at admission, not against WP-007's own append-only ledger entries.
+    known = signatures(root, exclude_experiment_ids=set(SPEC))
     reference = {"v1_reference_translations": 9, "v2_admitted_behaviours": len(known) - 9}
     variants = []
     for experiment_id, variant in SPEC.items():
@@ -456,6 +459,30 @@ def validate_ledger(root: Path = ROOT) -> dict[str, int]:
     return counts
 
 
+def effective_preregistration(experiment_id: str, root: Path = ROOT) -> Path:
+    """Resolve the prospectively corrected, zero-result WP-007 declaration."""
+    registry = read_json(root / AMENDMENT_PATH)
+    if (
+        registry["kind"] != "PRE_EXECUTION_NOVELTY_SELF_REFERENCE_CORRECTION"
+        or registry["strategy_trials_before_amendment"] != 0
+        or registry["results_observed_before_amendment"] != 0
+        or registry["additional_strategy_variants"] != 0
+        or registry["additional_profile_trials"] != 0
+        or registry["additional_numeric_parameter_variants"] != 0
+        or set(registry["amendments"]) != set(SPEC)
+    ):
+        raise SearchMemoryError("invalid WP-007 pre-execution supersession registry")
+    item = registry["amendments"][experiment_id]
+    expected = f"research/experiments/{experiment_id}/preregistration.v2.json"
+    superseded = root / f"research/experiments/{experiment_id}/preregistration.json"
+    if item["effective_path"] != expected or item["superseded_sha256"] != sha256(superseded):
+        raise SearchMemoryError("superseded WP-007 preregistration identity changed")
+    path = root / expected
+    if sha256(path) != item["effective_sha256"]:
+        raise SearchMemoryError("effective WP-007 preregistration identity changed")
+    return path
+
+
 def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
     """The preregistration must bind to the exact admitted spec, config and protocol."""
     experiment_id = prereg["experiment_id"]
@@ -543,13 +570,19 @@ def preflight(root: Path = ROOT) -> dict[str, Any]:
         directory = root / "research/experiments" / experiment_id
         if any((directory / name).exists() for name in ("result.json", "trials.json")):
             raise SearchMemoryError("WP-007 execution cannot overwrite or repeat an observed trial")
-        relative = f"research/experiments/{experiment_id}/preregistration.json"
-        prereg = validate_preregistration(root / relative)
-        validate_identity(prereg, root)
-        commit = immutable_from_first_commit(relative, root)
-        if commit == admission_commit or not ancestor(admission_commit, commit, root):
+        original = f"research/experiments/{experiment_id}/preregistration.json"
+        original_commit = immutable_from_first_commit(original, root)
+        if original_commit == admission_commit or not ancestor(
+            admission_commit, original_commit, root
+        ):
             raise SearchMemoryError("preregistration must follow the governed novelty admission")
-        records[experiment_id] = sha256(root / relative)
+        effective = effective_preregistration(experiment_id, root)
+        prereg = validate_preregistration(effective)
+        validate_identity(prereg, root)
+        commit = immutable_from_first_commit(effective.relative_to(root).as_posix(), root)
+        if commit == original_commit or not ancestor(original_commit, commit, root):
+            raise SearchMemoryError("effective preregistration must follow the superseded one")
+        records[experiment_id] = sha256(effective)
         pre_commits.add(commit)
     if len(pre_commits) != 1:
         raise SearchMemoryError("both WP-007 preregistrations must be frozen together")
