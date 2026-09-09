@@ -1,0 +1,935 @@
+{
+  "artifact_sha256": "50dc532d4ef5d5768d84809ca58283c76303e1661f43c0d77118a5316a2b834b",
+  "audit_version": "ORDER_FLOW_INTEGRITY_V1",
+  "canonical_audit": {
+    "audit_version": "ORDER_FLOW_INTEGRITY_V1",
+    "containment": {
+      "absolute_tolerance": 1e-09,
+      "maximum_base_excess": 0.0,
+      "maximum_quote_excess": 0.0,
+      "policy": "COUNT_AND_REPORT_NEVER_CLAMP",
+      "relative_tolerance": 1e-12,
+      "taker_base_exceeds_volume_beyond_tolerance": 0,
+      "taker_base_exceeds_volume_exact": 0,
+      "taker_quote_exceeds_quote_volume_beyond_tolerance": 0,
+      "taker_quote_exceeds_quote_volume_exact": 0
+    },
+    "counts": {
+      "clamped_ratios": 0,
+      "invalid_taker_ratio_rows": 0,
+      "quoted_rows": 3846556,
+      "tradable_rows": 3846556,
+      "zero_quote_volume_rows": 24003,
+      "zero_quote_volume_with_nonzero_taker_quote": 0,
+      "zero_volume_rows": 24003,
+      "zero_volume_with_nonzero_taker_base": 0
+    },
+    "cutoff": {
+      "development_cutoff": "2024-12-31T23:59:00Z",
+      "maximum_open_time": "2024-12-31T23:59:00Z",
+      "post_cutoff_bytes_read": false,
+      "post_cutoff_rows": 0
+    },
+    "dataset": {
+      "canonical_sha256": "ae604813448ef9b83e76c9740c471afe0af18cbb22a8c987f87754d6c40f47e1",
+      "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+      "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+      "rows": 3870559
+    },
+    "finite": {
+      "quote_volume": true,
+      "taker_base": true,
+      "taker_quote": true,
+      "volume": true
+    },
+    "negative_values": {
+      "quote_volume": 0,
+      "taker_base": 0,
+      "taker_quote": 0,
+      "volume": 0
+    },
+    "quarantine": {
+      "matches_accepted_wp004_audit": true,
+      "off_grid_rows": 21602,
+      "policy": "QUARANTINE_SOURCE_OFF_GRID_INTERVALS_V1",
+      "quarantined_1h_buckets": 363,
+      "quarantined_4h_buckets": 92,
+      "repairs_or_fills": 0
+    },
+    "timestamps": {
+      "gap_intervals": 34,
+      "manifest_missing_minutes": 8560,
+      "missing_minutes": 8560,
+      "missing_minutes_filled": false,
+      "missing_minutes_match_manifest": true,
+      "strictly_increasing_and_unique": true,
+      "sub_minute_intervals": 1
+    }
+  },
+  "canonical_data_modified": false,
+  "interpretation": "Exchange-reported taker buy volume on Binance Spot. It is a venue-level proxy for aggressive buy-side participation, not market-wide order flow, investor intent, signed cross-venue demand, or evidence of causality.",
+  "material_violations": 0,
+  "recorded_at_utc": "2026-09-09T14:51:04.491478Z",
+  "source_provenance_sample": {
+    "anomaly_rows_compared": 21602,
+    "archives": [
+      {
+        "accepted_sha256": "b4e525fa0549688dca9e09cc24093f50526db2a255d03961791da3bfd7c24d81",
+        "observed_sha256": "b4e525fa0549688dca9e09cc24093f50526db2a255d03961791da3bfd7c24d81",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2017-09.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 42780
+      },
+      {
+        "accepted_sha256": "0ebedd17183039d66b8a11bd85b0726b9cd7e0072a02f1ce69152ba6e98d7871",
+        "observed_sha256": "0ebedd17183039d66b8a11bd85b0726b9cd7e0072a02f1ce69152ba6e98d7871",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2017-11.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 43200
+      },
+      {
+        "accepted_sha256": "131667f0d4ff73685852d84a406e07f8a3fdf7037798b1bdb0519e7e987e19ad",
+        "observed_sha256": "131667f0d4ff73685852d84a406e07f8a3fdf7037798b1bdb0519e7e987e19ad",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-02.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 38261
+      },
+      {
+        "accepted_sha256": "80c181ac104619d0a89209a2b38831aa91147140b728f736b356853555c78dfd",
+        "observed_sha256": "80c181ac104619d0a89209a2b38831aa91147140b728f736b356853555c78dfd",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-05.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "84e642279217d5577111c0ea8800a9a14439582c2c9860369f1adcdcb7a5f83e",
+        "observed_sha256": "84e642279217d5577111c0ea8800a9a14439582c2c9860369f1adcdcb7a5f83e",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-07.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44183
+      },
+      {
+        "accepted_sha256": "9000ed4af64f13ad7c13020fda026154c57006de99f6d4c91ea7fc35b1978903",
+        "observed_sha256": "9000ed4af64f13ad7c13020fda026154c57006de99f6d4c91ea7fc35b1978903",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-12.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "5ef0c96cb6f7cadb70cdceeb190ac350bf605dcde3930cdb3cc8942dc0ac98bc",
+        "observed_sha256": "5ef0c96cb6f7cadb70cdceeb190ac350bf605dcde3930cdb3cc8942dc0ac98bc",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-02.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 40320
+      },
+      {
+        "accepted_sha256": "7a32f26d7f878332384dc61dde639e49c5007c2b45d6bc360b0bec37817baa08",
+        "observed_sha256": "7a32f26d7f878332384dc61dde639e49c5007c2b45d6bc360b0bec37817baa08",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-05.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44040
+      },
+      {
+        "accepted_sha256": "f907354d0d2ce079c828d1654093729b4e571b4e1134159bf8f9a023ba955739",
+        "observed_sha256": "f907354d0d2ce079c828d1654093729b4e571b4e1134159bf8f9a023ba955739",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-07.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "6a896c7a603a2c8deb12233e53c3f8fbc2676b8c0b7b85fcf53a3b57fad021d7",
+        "observed_sha256": "6a896c7a603a2c8deb12233e53c3f8fbc2676b8c0b7b85fcf53a3b57fad021d7",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-11.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 42937
+      },
+      {
+        "accepted_sha256": "ee5d21ec0f3c5bdef1da330d8b74d8571779fe757bb7e9f272847d36b95a71a2",
+        "observed_sha256": "ee5d21ec0f3c5bdef1da330d8b74d8571779fe757bb7e9f272847d36b95a71a2",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-03.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44512
+      },
+      {
+        "accepted_sha256": "3a38ca9123ab0c44063561faed5e90c3e716c93ea42c3e67a968be505b677ba0",
+        "observed_sha256": "3a38ca9123ab0c44063561faed5e90c3e716c93ea42c3e67a968be505b677ba0",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-05.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "a60c06861b59893bb2f06813b7f181cba970b5dac9d38fcf5db8e2c13fbd27f7",
+        "observed_sha256": "a60c06861b59893bb2f06813b7f181cba970b5dac9d38fcf5db8e2c13fbd27f7",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-09.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 43200
+      },
+      {
+        "accepted_sha256": "07ff8e3aa21d340a9e25c32644a4cd6c15e4280879d39815159eb5c858895488",
+        "observed_sha256": "07ff8e3aa21d340a9e25c32644a4cd6c15e4280879d39815159eb5c858895488",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-11.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 43140
+      },
+      {
+        "accepted_sha256": "21723e4951ba30037cb8417278b7cf4a38d47c625b1cb5ac97864d539ae6d407",
+        "observed_sha256": "21723e4951ba30037cb8417278b7cf4a38d47c625b1cb5ac97864d539ae6d407",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-02.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 40241
+      },
+      {
+        "accepted_sha256": "29ff5a78be8701d67376d480041f93957f5d26b3435c9feb48001a77ac973c62",
+        "observed_sha256": "29ff5a78be8701d67376d480041f93957f5d26b3435c9feb48001a77ac973c62",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-06.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 43200
+      },
+      {
+        "accepted_sha256": "27edb4a4623701ba3c5b3f6d4de1848964abb31188036236827fd28cf9bdb853",
+        "observed_sha256": "27edb4a4623701ba3c5b3f6d4de1848964abb31188036236827fd28cf9bdb853",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-09.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 43080
+      },
+      {
+        "accepted_sha256": "aad7e2fa6d48c33098b61ac5f7dbbbb4d4234222b5a5ebb4e9b1bbced7670f3f",
+        "observed_sha256": "aad7e2fa6d48c33098b61ac5f7dbbbb4d4234222b5a5ebb4e9b1bbced7670f3f",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-10.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "748844587c78902e4c35886620197053ee39f3e7104fbdcbfde00fe829bbfd1a",
+        "observed_sha256": "748844587c78902e4c35886620197053ee39f3e7104fbdcbfde00fe829bbfd1a",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-02.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 40320
+      },
+      {
+        "accepted_sha256": "154311f08aa264e233b0c7b472aa490c8cfd1b6083ba86cf6c18134e50536b89",
+        "observed_sha256": "154311f08aa264e233b0c7b472aa490c8cfd1b6083ba86cf6c18134e50536b89",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-05.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "7517a604803c40cd38b29fb490d7bce83d01e1e4ac9e9ae2bcd52adaea55a291",
+        "observed_sha256": "7517a604803c40cd38b29fb490d7bce83d01e1e4ac9e9ae2bcd52adaea55a291",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-08.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "38f93ad56a5f13491094b0ef965f03cea2d6097cc72b7179489b7d60d5fd446b",
+        "observed_sha256": "38f93ad56a5f13491094b0ef965f03cea2d6097cc72b7179489b7d60d5fd446b",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-12.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "664116c2f33465d191684887f0d4834c02eb0a2635ada43eca855a99e6b6b0c5",
+        "observed_sha256": "664116c2f33465d191684887f0d4834c02eb0a2635ada43eca855a99e6b6b0c5",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-01.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "c71baedea84f9fc1a0ad297b383505b1cb84c0a7fc111caa149aa6fb2defa5da",
+        "observed_sha256": "c71baedea84f9fc1a0ad297b383505b1cb84c0a7fc111caa149aa6fb2defa5da",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-04.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 43200
+      },
+      {
+        "accepted_sha256": "22333eaa3f971ad0686c02532b7b23d02e5e32c298d9bf4fa55894fbb755da99",
+        "observed_sha256": "22333eaa3f971ad0686c02532b7b23d02e5e32c298d9bf4fa55894fbb755da99",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-09.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 43200
+      },
+      {
+        "accepted_sha256": "9e854972545806398d124571916348238ce39961072730c200cca3c2e0bd50a3",
+        "observed_sha256": "9e854972545806398d124571916348238ce39961072730c200cca3c2e0bd50a3",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-10.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "431132e0db8b9fe6e5c93c8e9ba3ae37dbcfa0edcdd57618b1b78ac18d14be79",
+        "observed_sha256": "431132e0db8b9fe6e5c93c8e9ba3ae37dbcfa0edcdd57618b1b78ac18d14be79",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-02.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 41760
+      },
+      {
+        "accepted_sha256": "90f4fc3f55918787848c71f4cd0f2f1a5851bbffaf6392e76e9ab555b7479d2b",
+        "observed_sha256": "90f4fc3f55918787848c71f4cd0f2f1a5851bbffaf6392e76e9ab555b7479d2b",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-06.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 43200
+      },
+      {
+        "accepted_sha256": "9cfd749fd2027a0c6f261bed607b49dd1256369fb41b784934544a3676f8162e",
+        "observed_sha256": "9cfd749fd2027a0c6f261bed607b49dd1256369fb41b784934544a3676f8162e",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-07.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "58fef0b7c7abce7a0201efd04ed3732f236f607f3fcecf228fb8384cad1ae2c1",
+        "observed_sha256": "58fef0b7c7abce7a0201efd04ed3732f236f607f3fcecf228fb8384cad1ae2c1",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-12.zip",
+        "role": "QUARTERLY_SAMPLE",
+        "rows": 44640
+      },
+      {
+        "accepted_sha256": "3d41da2da488a69a21e9223221863c3a8ed6ccb9263d30cf1d3a012a48cfffc1",
+        "observed_sha256": "3d41da2da488a69a21e9223221863c3a8ed6ccb9263d30cf1d3a012a48cfffc1",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2017-12.zip",
+        "role": "OFF_GRID_ANOMALY_INTERVAL",
+        "rows": 44564
+      },
+      {
+        "accepted_sha256": "131667f0d4ff73685852d84a406e07f8a3fdf7037798b1bdb0519e7e987e19ad",
+        "observed_sha256": "131667f0d4ff73685852d84a406e07f8a3fdf7037798b1bdb0519e7e987e19ad",
+        "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-02.zip",
+        "role": "OFF_GRID_ANOMALY_INTERVAL",
+        "rows": 38261
+      }
+    ],
+    "audit_version": "ORDER_FLOW_INTEGRITY_V1",
+    "field_mismatches": {},
+    "parsing_semantics": "PYTHON_FLOAT_OF_RAW_CSV_TEXT_IDENTICAL_TO_ACQUISITION",
+    "quarterly_rows_compared": 30,
+    "sample_plan": {
+      "anomaly_months": [
+        "2017-12",
+        "2018-02"
+      ],
+      "anomaly_policy": "EVERY_OFF_GRID_ROW_IN_BOTH_KNOWN_ANOMALY_ARCHIVES_IS_REVERIFIED",
+      "outcome_conditioned_selection": false,
+      "plan_sha256": "10cb641a3280c8da2e82a1f5543609c48ed2b7f27874377b6395df2eb61a2d87",
+      "quarters": [
+        {
+          "months_available": 2,
+          "quarter": "2017Q3",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2017-09.zip",
+          "selected_sha256": "b4e525fa0549688dca9e09cc24093f50526db2a255d03961791da3bfd7c24d81"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2017Q4",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2017-11.zip",
+          "selected_sha256": "0ebedd17183039d66b8a11bd85b0726b9cd7e0072a02f1ce69152ba6e98d7871"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2018Q1",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-02.zip",
+          "selected_sha256": "131667f0d4ff73685852d84a406e07f8a3fdf7037798b1bdb0519e7e987e19ad"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2018Q2",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-05.zip",
+          "selected_sha256": "80c181ac104619d0a89209a2b38831aa91147140b728f736b356853555c78dfd"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2018Q3",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-07.zip",
+          "selected_sha256": "84e642279217d5577111c0ea8800a9a14439582c2c9860369f1adcdcb7a5f83e"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2018Q4",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-12.zip",
+          "selected_sha256": "9000ed4af64f13ad7c13020fda026154c57006de99f6d4c91ea7fc35b1978903"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2019Q1",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-02.zip",
+          "selected_sha256": "5ef0c96cb6f7cadb70cdceeb190ac350bf605dcde3930cdb3cc8942dc0ac98bc"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2019Q2",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-05.zip",
+          "selected_sha256": "7a32f26d7f878332384dc61dde639e49c5007c2b45d6bc360b0bec37817baa08"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2019Q3",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-07.zip",
+          "selected_sha256": "f907354d0d2ce079c828d1654093729b4e571b4e1134159bf8f9a023ba955739"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2019Q4",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-11.zip",
+          "selected_sha256": "6a896c7a603a2c8deb12233e53c3f8fbc2676b8c0b7b85fcf53a3b57fad021d7"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2020Q1",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-03.zip",
+          "selected_sha256": "ee5d21ec0f3c5bdef1da330d8b74d8571779fe757bb7e9f272847d36b95a71a2"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2020Q2",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-05.zip",
+          "selected_sha256": "3a38ca9123ab0c44063561faed5e90c3e716c93ea42c3e67a968be505b677ba0"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2020Q3",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-09.zip",
+          "selected_sha256": "a60c06861b59893bb2f06813b7f181cba970b5dac9d38fcf5db8e2c13fbd27f7"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2020Q4",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-11.zip",
+          "selected_sha256": "07ff8e3aa21d340a9e25c32644a4cd6c15e4280879d39815159eb5c858895488"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2021Q1",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-02.zip",
+          "selected_sha256": "21723e4951ba30037cb8417278b7cf4a38d47c625b1cb5ac97864d539ae6d407"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2021Q2",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-06.zip",
+          "selected_sha256": "29ff5a78be8701d67376d480041f93957f5d26b3435c9feb48001a77ac973c62"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2021Q3",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-09.zip",
+          "selected_sha256": "27edb4a4623701ba3c5b3f6d4de1848964abb31188036236827fd28cf9bdb853"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2021Q4",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-10.zip",
+          "selected_sha256": "aad7e2fa6d48c33098b61ac5f7dbbbb4d4234222b5a5ebb4e9b1bbced7670f3f"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2022Q1",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-02.zip",
+          "selected_sha256": "748844587c78902e4c35886620197053ee39f3e7104fbdcbfde00fe829bbfd1a"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2022Q2",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-05.zip",
+          "selected_sha256": "154311f08aa264e233b0c7b472aa490c8cfd1b6083ba86cf6c18134e50536b89"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2022Q3",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-08.zip",
+          "selected_sha256": "7517a604803c40cd38b29fb490d7bce83d01e1e4ac9e9ae2bcd52adaea55a291"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2022Q4",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-12.zip",
+          "selected_sha256": "38f93ad56a5f13491094b0ef965f03cea2d6097cc72b7179489b7d60d5fd446b"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2023Q1",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-01.zip",
+          "selected_sha256": "664116c2f33465d191684887f0d4834c02eb0a2635ada43eca855a99e6b6b0c5"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2023Q2",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-04.zip",
+          "selected_sha256": "c71baedea84f9fc1a0ad297b383505b1cb84c0a7fc111caa149aa6fb2defa5da"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2023Q3",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-09.zip",
+          "selected_sha256": "22333eaa3f971ad0686c02532b7b23d02e5e32c298d9bf4fa55894fbb755da99"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2023Q4",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-10.zip",
+          "selected_sha256": "9e854972545806398d124571916348238ce39961072730c200cca3c2e0bd50a3"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2024Q1",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-02.zip",
+          "selected_sha256": "431132e0db8b9fe6e5c93c8e9ba3ae37dbcfa0edcdd57618b1b78ac18d14be79"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2024Q2",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-06.zip",
+          "selected_sha256": "90f4fc3f55918787848c71f4cd0f2f1a5851bbffaf6392e76e9ab555b7479d2b"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2024Q3",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-07.zip",
+          "selected_sha256": "9cfd749fd2027a0c6f261bed607b49dd1256369fb41b784934544a3676f8162e"
+        },
+        {
+          "months_available": 3,
+          "quarter": "2024Q4",
+          "selected_path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-12.zip",
+          "selected_sha256": "58fef0b7c7abce7a0201efd04ed3732f236f607f3fcecf228fb8384cad1ae2c1"
+        }
+      ],
+      "rule_id": "WP007-ORDER-FLOW-SAMPLE-V1",
+      "selection_inputs": "ARCHIVE_LABEL_AND_ROW_COUNT_ONLY_NO_MARKET_VALUE"
+    },
+    "samples": [
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2017-09.zip",
+        "archive_sha256": "b4e525fa0549688dca9e09cc24093f50526db2a255d03961791da3bfd7c24d81",
+        "open_time": "2017-09-10T20:21:00Z",
+        "quarter": "2017Q3",
+        "raw": {
+          "quote_volume": "0.00000000",
+          "taker_base": "0.00000000",
+          "taker_quote": "0.00000000",
+          "volume": "0.00000000"
+        },
+        "row_index": 13761,
+        "rows_in_archive": 42780
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2017-11.zip",
+        "archive_sha256": "0ebedd17183039d66b8a11bd85b0726b9cd7e0072a02f1ce69152ba6e98d7871",
+        "open_time": "2017-11-22T05:26:00Z",
+        "quarter": "2017Q4",
+        "raw": {
+          "quote_volume": "5272.29826922",
+          "taker_base": "0.30755400",
+          "taker_quote": "2515.26752184",
+          "volume": "0.64411300"
+        },
+        "row_index": 30566,
+        "rows_in_archive": 43200
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-02.zip",
+        "archive_sha256": "131667f0d4ff73685852d84a406e07f8a3fdf7037798b1bdb0519e7e987e19ad",
+        "open_time": "2018-02-28T03:58:00Z",
+        "quarter": "2018Q1",
+        "raw": {
+          "quote_volume": "308972.71128647",
+          "taker_base": "7.44931200",
+          "taker_quote": "81313.98434032",
+          "volume": "28.31289800"
+        },
+        "row_index": 37059,
+        "rows_in_archive": 38261
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-05.zip",
+        "archive_sha256": "80c181ac104619d0a89209a2b38831aa91147140b728f736b356853555c78dfd",
+        "open_time": "2018-05-16T14:29:00Z",
+        "quarter": "2018Q2",
+        "raw": {
+          "quote_volume": "129866.05627146",
+          "taker_base": "5.60106500",
+          "taker_quote": "45868.80602224",
+          "volume": "15.86371600"
+        },
+        "row_index": 22469,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-07.zip",
+        "archive_sha256": "84e642279217d5577111c0ea8800a9a14439582c2c9860369f1adcdcb7a5f83e",
+        "open_time": "2018-07-16T13:57:00Z",
+        "quarter": "2018Q3",
+        "raw": {
+          "quote_volume": "126140.44567977",
+          "taker_base": "15.43131300",
+          "taker_quote": "101742.66580621",
+          "volume": "19.13182600"
+        },
+        "row_index": 21980,
+        "rows_in_archive": 44183
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-12.zip",
+        "archive_sha256": "9000ed4af64f13ad7c13020fda026154c57006de99f6d4c91ea7fc35b1978903",
+        "open_time": "2018-12-03T22:13:00Z",
+        "quarter": "2018Q4",
+        "raw": {
+          "quote_volume": "138203.72802174",
+          "taker_base": "25.79987600",
+          "taker_quote": "100858.45549434",
+          "volume": "35.34653800"
+        },
+        "row_index": 4213,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-02.zip",
+        "archive_sha256": "5ef0c96cb6f7cadb70cdceeb190ac350bf605dcde3930cdb3cc8942dc0ac98bc",
+        "open_time": "2019-02-19T05:28:00Z",
+        "quarter": "2019Q1",
+        "raw": {
+          "quote_volume": "150376.12853424",
+          "taker_base": "31.15716200",
+          "taker_quote": "121166.57693562",
+          "volume": "38.66710600"
+        },
+        "row_index": 26248,
+        "rows_in_archive": 40320
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-05.zip",
+        "archive_sha256": "7a32f26d7f878332384dc61dde639e49c5007c2b45d6bc360b0bec37817baa08",
+        "open_time": "2019-05-26T17:27:00Z",
+        "quarter": "2019Q2",
+        "raw": {
+          "quote_volume": "25326.46108406",
+          "taker_base": "2.23517400",
+          "taker_quote": "17841.75214852",
+          "volume": "3.17302900"
+        },
+        "row_index": 36447,
+        "rows_in_archive": 44040
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-07.zip",
+        "archive_sha256": "f907354d0d2ce079c828d1654093729b4e571b4e1134159bf8f9a023ba955739",
+        "open_time": "2019-07-20T09:43:00Z",
+        "quarter": "2019Q3",
+        "raw": {
+          "quote_volume": "63230.51056497",
+          "taker_base": "3.78226700",
+          "taker_quote": "39997.63280106",
+          "volume": "5.97930500"
+        },
+        "row_index": 27943,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2019-11.zip",
+        "archive_sha256": "6a896c7a603a2c8deb12233e53c3f8fbc2676b8c0b7b85fcf53a3b57fad021d7",
+        "open_time": "2019-11-03T00:10:00Z",
+        "quarter": "2019Q4",
+        "raw": {
+          "quote_volume": "129228.49251968",
+          "taker_base": "3.80423200",
+          "taker_quote": "35465.94915651",
+          "volume": "13.86313900"
+        },
+        "row_index": 2890,
+        "rows_in_archive": 42937
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-03.zip",
+        "archive_sha256": "ee5d21ec0f3c5bdef1da330d8b74d8571779fe757bb7e9f272847d36b95a71a2",
+        "open_time": "2020-03-29T04:44:00Z",
+        "quarter": "2020Q1",
+        "raw": {
+          "quote_volume": "41667.07291712",
+          "taker_base": "1.81489900",
+          "taker_quote": "11253.20146101",
+          "volume": "6.72036900"
+        },
+        "row_index": 40476,
+        "rows_in_archive": 44512
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-05.zip",
+        "archive_sha256": "3a38ca9123ab0c44063561faed5e90c3e716c93ea42c3e67a968be505b677ba0",
+        "open_time": "2020-05-02T23:29:00Z",
+        "quarter": "2020Q2",
+        "raw": {
+          "quote_volume": "125308.43458393",
+          "taker_base": "8.99754200",
+          "taker_quote": "80641.48206704",
+          "volume": "13.98139900"
+        },
+        "row_index": 2849,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-09.zip",
+        "archive_sha256": "a60c06861b59893bb2f06813b7f181cba970b5dac9d38fcf5db8e2c13fbd27f7",
+        "open_time": "2020-09-13T15:39:00Z",
+        "quarter": "2020Q3",
+        "raw": {
+          "quote_volume": "645799.90337585",
+          "taker_base": "15.28574600",
+          "taker_quote": "157721.67311164",
+          "volume": "62.58165400"
+        },
+        "row_index": 18219,
+        "rows_in_archive": 43200
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2020-11.zip",
+        "archive_sha256": "07ff8e3aa21d340a9e25c32644a4cd6c15e4280879d39815159eb5c858895488",
+        "open_time": "2020-11-23T00:12:00Z",
+        "quarter": "2020Q4",
+        "raw": {
+          "quote_volume": "997952.07008481",
+          "taker_base": "8.79710000",
+          "taker_quote": "162621.86642130",
+          "volume": "53.96977800"
+        },
+        "row_index": 31692,
+        "rows_in_archive": 43140
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-02.zip",
+        "archive_sha256": "21723e4951ba30037cb8417278b7cf4a38d47c625b1cb5ac97864d539ae6d407",
+        "open_time": "2021-02-02T09:06:00Z",
+        "quarter": "2021Q1",
+        "raw": {
+          "quote_volume": "14142128.29285408",
+          "taker_base": "270.29222500",
+          "taker_quote": "9531986.06219622",
+          "volume": "401.12648500"
+        },
+        "row_index": 1986,
+        "rows_in_archive": 40241
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-06.zip",
+        "archive_sha256": "29ff5a78be8701d67376d480041f93957f5d26b3435c9feb48001a77ac973c62",
+        "open_time": "2021-06-04T19:26:00Z",
+        "quarter": "2021Q2",
+        "raw": {
+          "quote_volume": "2499584.47272876",
+          "taker_base": "31.68912600",
+          "taker_quote": "1174239.54469777",
+          "volume": "67.44970900"
+        },
+        "row_index": 5486,
+        "rows_in_archive": 43200
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-09.zip",
+        "archive_sha256": "27edb4a4623701ba3c5b3f6d4de1848964abb31188036236827fd28cf9bdb853",
+        "open_time": "2021-09-14T07:00:00Z",
+        "quarter": "2021Q3",
+        "raw": {
+          "quote_volume": "13526967.03677300",
+          "taker_base": "174.75103000",
+          "taker_quote": "8001537.52632900",
+          "volume": "295.41917000"
+        },
+        "row_index": 19140,
+        "rows_in_archive": 43080
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2021-10.zip",
+        "archive_sha256": "aad7e2fa6d48c33098b61ac5f7dbbbb4d4234222b5a5ebb4e9b1bbced7670f3f",
+        "open_time": "2021-10-24T13:45:00Z",
+        "quarter": "2021Q4",
+        "raw": {
+          "quote_volume": "859048.38683930",
+          "taker_base": "6.82334000",
+          "taker_quote": "413063.52167120",
+          "volume": "14.19035000"
+        },
+        "row_index": 33945,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-02.zip",
+        "archive_sha256": "748844587c78902e4c35886620197053ee39f3e7104fbdcbfde00fe829bbfd1a",
+        "open_time": "2022-02-17T06:37:00Z",
+        "quarter": "2022Q1",
+        "raw": {
+          "quote_volume": "189595.36639260",
+          "taker_base": "2.29286000",
+          "taker_quote": "100379.10174770",
+          "volume": "4.33059000"
+        },
+        "row_index": 23437,
+        "rows_in_archive": 40320
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-05.zip",
+        "archive_sha256": "154311f08aa264e233b0c7b472aa490c8cfd1b6083ba86cf6c18134e50536b89",
+        "open_time": "2022-05-10T15:02:00Z",
+        "quarter": "2022Q2",
+        "raw": {
+          "quote_volume": "6018427.46307310",
+          "taker_base": "82.23268000",
+          "taker_quote": "2560464.92421430",
+          "volume": "193.28532000"
+        },
+        "row_index": 13862,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-08.zip",
+        "archive_sha256": "7517a604803c40cd38b29fb490d7bce83d01e1e4ac9e9ae2bcd52adaea55a291",
+        "open_time": "2022-08-16T08:56:00Z",
+        "quarter": "2022Q3",
+        "raw": {
+          "quote_volume": "2026504.55225200",
+          "taker_base": "37.19886000",
+          "taker_quote": "892491.48888910",
+          "volume": "84.46542000"
+        },
+        "row_index": 22136,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2022-12.zip",
+        "archive_sha256": "38f93ad56a5f13491094b0ef965f03cea2d6097cc72b7179489b7d60d5fd446b",
+        "open_time": "2022-12-11T05:01:00Z",
+        "quarter": "2022Q4",
+        "raw": {
+          "quote_volume": "1364323.15364500",
+          "taker_base": "28.82928000",
+          "taker_quote": "494959.12023860",
+          "volume": "79.46846000"
+        },
+        "row_index": 14701,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-01.zip",
+        "archive_sha256": "664116c2f33465d191684887f0d4834c02eb0a2635ada43eca855a99e6b6b0c5",
+        "open_time": "2023-01-18T10:58:00Z",
+        "quarter": "2023Q1",
+        "raw": {
+          "quote_volume": "6070951.01434290",
+          "taker_base": "109.17400000",
+          "taker_quote": "2312132.30755330",
+          "volume": "286.66503000"
+        },
+        "row_index": 25138,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-04.zip",
+        "archive_sha256": "c71baedea84f9fc1a0ad297b383505b1cb84c0a7fc111caa149aa6fb2defa5da",
+        "open_time": "2023-04-19T21:26:00Z",
+        "quarter": "2023Q2",
+        "raw": {
+          "quote_volume": "1875670.86926680",
+          "taker_base": "34.72153000",
+          "taker_quote": "1012395.28261830",
+          "volume": "64.32903000"
+        },
+        "row_index": 27206,
+        "rows_in_archive": 43200
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-09.zip",
+        "archive_sha256": "22333eaa3f971ad0686c02532b7b23d02e5e32c298d9bf4fa55894fbb755da99",
+        "open_time": "2023-09-25T18:16:00Z",
+        "quarter": "2023Q3",
+        "raw": {
+          "quote_volume": "463423.91556080",
+          "taker_base": "11.92726000",
+          "taker_quote": "314159.45428280",
+          "volume": "17.59296000"
+        },
+        "row_index": 35656,
+        "rows_in_archive": 43200
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2023-10.zip",
+        "archive_sha256": "9e854972545806398d124571916348238ce39961072730c200cca3c2e0bd50a3",
+        "open_time": "2023-10-22T21:23:00Z",
+        "quarter": "2023Q4",
+        "raw": {
+          "quote_volume": "263228.75287960",
+          "taker_base": "6.99775000",
+          "taker_quote": "208506.94776160",
+          "volume": "8.83432000"
+        },
+        "row_index": 31523,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-02.zip",
+        "archive_sha256": "431132e0db8b9fe6e5c93c8e9ba3ae37dbcfa0edcdd57618b1b78ac18d14be79",
+        "open_time": "2024-02-10T17:52:00Z",
+        "quarter": "2024Q1",
+        "raw": {
+          "quote_volume": "554422.50041840",
+          "taker_base": "9.90707000",
+          "taker_quote": "467633.90292020",
+          "volume": "11.74555000"
+        },
+        "row_index": 14032,
+        "rows_in_archive": 41760
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-06.zip",
+        "archive_sha256": "90f4fc3f55918787848c71f4cd0f2f1a5851bbffaf6392e76e9ab555b7479d2b",
+        "open_time": "2024-06-25T13:21:00Z",
+        "quarter": "2024Q2",
+        "raw": {
+          "quote_volume": "2012683.58530100",
+          "taker_base": "8.48049000",
+          "taker_quote": "518387.79171030",
+          "volume": "32.92527000"
+        },
+        "row_index": 35361,
+        "rows_in_archive": 43200
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-07.zip",
+        "archive_sha256": "9cfd749fd2027a0c6f261bed607b49dd1256369fb41b784934544a3676f8162e",
+        "open_time": "2024-07-17T02:39:00Z",
+        "quarter": "2024Q3",
+        "raw": {
+          "quote_volume": "844520.14507110",
+          "taker_base": "8.40454000",
+          "taker_quote": "552393.61698780",
+          "volume": "12.85016000"
+        },
+        "row_index": 23199,
+        "rows_in_archive": 44640
+      },
+      {
+        "archive": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2024-12.zip",
+        "archive_sha256": "58fef0b7c7abce7a0201efd04ed3732f236f607f3fcecf228fb8384cad1ae2c1",
+        "open_time": "2024-12-23T20:58:00Z",
+        "quarter": "2024Q4",
+        "raw": {
+          "quote_volume": "2208134.76448090",
+          "taker_base": "16.95776000",
+          "taker_quote": "1584565.56377420",
+          "volume": "23.63060000"
+        },
+        "row_index": 32938,
+        "rows_in_archive": 44640
+      }
+    ],
+    "status": "PASS",
+    "third_party_data_used": false,
+    "total_rows_compared": 21632
+  },
+  "status": "PASS",
+  "violations": {
+    "invalid_taker_ratio_rows": 0,
+    "negative_values": 0,
+    "non_finite_fields": 0,
+    "post_cutoff_rows": 0,
+    "provenance_field_mismatches": 0,
+    "taker_base_exceeds_volume": 0,
+    "taker_quote_exceeds_quote_volume": 0,
+    "zero_volume_with_nonzero_taker_base": 0
+  }
+}
