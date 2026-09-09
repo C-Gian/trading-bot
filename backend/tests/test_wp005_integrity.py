@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import numpy as np
-
 from app.research.wp005_integrity import HOUR_US, _mask_hash, _unsafe, canonical_hash
 
 
@@ -17,6 +16,7 @@ def test_canonical_hash_ignores_mapping_order():
 
 def test_wp005_artifacts_are_outside_experiment_tree():
     root = Path(__file__).resolve().parents[2]
-    assert "research/diagnostics" in (
-        root / "research/diagnostics/WP-005/feature-result-reconciliation.json"
-    ).as_posix()
+    assert (
+        "research/diagnostics"
+        in (root / "research/diagnostics/WP-005/feature-result-reconciliation.json").as_posix()
+    )

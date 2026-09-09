@@ -40,14 +40,14 @@
       "type": "object", "additionalProperties": false,
       "required": ["version", "status", "families_tracked"],
       "properties": {
-        "version": {"const": "SEARCH_MEMORY_V1"},
+        "version": {"enum": ["SEARCH_MEMORY_V1", "SEARCH_MEMORY_V2"]},
         "status": {"enum": ["PENDING", "VALIDATED"]},
         "families_tracked": {"type": "integer", "minimum": 0}
       }
     },
     "adaptive_search": {
       "type": "object", "additionalProperties": false,
-      "required": ["material_economic_hypotheses", "configuration_variants", "profile_trials", "numeric_parameter_variants", "adaptive_decisions", "result_dependent_forks", "strategy_descendants", "wp004_variants_reserved", "wp004_profiles_reserved", "sealed_queries"],
+      "required": ["material_economic_hypotheses", "configuration_variants", "profile_trials", "numeric_parameter_variants", "adaptive_decisions", "result_dependent_forks", "strategy_descendants", "wp004_variants_reserved", "wp004_profiles_reserved", "integrity_replay_profiles", "diagnostic_evaluations", "diagnostic_execution_attempts", "sealed_queries"],
       "properties": {
         "material_economic_hypotheses": {"type": "integer", "minimum": 0},
         "configuration_variants": {"type": "integer", "minimum": 0},
@@ -58,7 +58,22 @@
         "strategy_descendants": {"type": "integer", "minimum": 0},
         "wp004_variants_reserved": {"type": "integer", "minimum": 0},
         "wp004_profiles_reserved": {"type": "integer", "minimum": 0},
+        "integrity_replay_profiles": {"type": "integer", "minimum": 0},
+        "diagnostic_evaluations": {"type": "integer", "minimum": 0},
+        "diagnostic_execution_attempts": {"type": "integer", "minimum": 0},
         "sealed_queries": {"type": "integer", "minimum": 0}
+      }
+    },
+    "wp005_integrity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "source_provenance_classification", "independent_reconciliation", "integrity_replay_profiles", "matched_control_classification", "remote_ci"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "source_provenance_classification": {"enum": ["SOURCE_ARCHIVE_OFF_GRID_CONFIRMED", "DATA_PIPELINE_DEFECT"]},
+        "independent_reconciliation": {"const": "PASS"},
+        "integrity_replay_profiles": {"const": 12},
+        "matched_control_classification": {"enum": ["ALIGNED_DIAGNOSTIC_WEAKENED", "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE", "ALIGNED_DIAGNOSTIC_UNRESOLVED"]},
+        "remote_ci": {"const": "PENDING_PUSH"}
       }
     },
     "selected_family": {

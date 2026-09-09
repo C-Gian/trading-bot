@@ -377,7 +377,7 @@ def build_diagnostics(root: Path) -> dict[str, dict[str, Any]]:
         for fold in protocol["folds"]
     }
     funnel = []
-    monthly = Counter()
+    monthly: Counter[str] = Counter()
     for fold_id, value in universe.items():
         trades = aligned_by_fold[fold_id]["trades"]
         resolved = sum(trade["status"] == "VALID" for trade in trades)

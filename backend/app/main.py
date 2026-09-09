@@ -68,6 +68,7 @@ def create_app(
             "search_memory": state.get("search_memory"),
             "adaptive_search": state.get("adaptive_search"),
             "selected_family": state.get("selected_family"),
+            "wp005_integrity": state.get("wp005_integrity"),
             "family_budgets": budget_view(),
         }
 

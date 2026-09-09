@@ -63,8 +63,10 @@ def normalized_file_hash(path: Path) -> str:
 
 
 def instant_us(value: int) -> str:
-    return (datetime(1970, 1, 1, tzinfo=UTC) + timedelta(microseconds=value)).isoformat().replace(
-        "+00:00", "Z"
+    return (
+        (datetime(1970, 1, 1, tzinfo=UTC) + timedelta(microseconds=value))
+        .isoformat()
+        .replace("+00:00", "Z")
     )
 
 
@@ -145,10 +147,11 @@ def source_provenance(root: Path) -> dict[str, Any]:
     if timestamp_mismatches:
         raise ValueError("raw anomaly timestamp is missing from canonical data")
 
-    payload_mismatches = Counter()
+    payload_mismatches: Counter[str] = Counter()
     for output_index, (row, position) in enumerate(zip(anomaly_rows, positions, strict=True)):
         del output_index
         for name, raw_index in RAW_MAPPING.items():
+            actual: int | float
             if name == "open_time":
                 expected: int | float = int(row[raw_index]) * 1000
                 actual = int(canonical_us[position])
@@ -398,7 +401,7 @@ def feature_and_result_reconciliation(root: Path) -> dict[str, Any]:
         variant: {fold["fold_id"]: [] for fold in protocol["folds"]}
         for variant in VARIANT_EXPERIMENTS
     }
-    eligible_counts = Counter()
+    eligible_counts: Counter[tuple[str, str]] = Counter()
     production_mismatches = 0
     feature_value_mismatches = 0
     for fold in protocol["folds"]:
@@ -415,9 +418,9 @@ def feature_and_result_reconciliation(root: Path) -> dict[str, Any]:
                 continue
             eligible_counts[(fold_id, "eligible")] += 1
             for variant in VARIANT_EXPERIMENTS:
-                expected = _emit(current, variant)
+                emits_expected = _emit(current, variant)
                 observed, feature, reference = production.features.decision(signal, variant, 0)
-                if observed != expected:
+                if observed != emits_expected:
                     production_mismatches += 1
                 if reference != current["reference"]:
                     feature_value_mismatches += 1
@@ -434,7 +437,7 @@ def feature_and_result_reconciliation(root: Path) -> dict[str, Any]:
                     wanted = current[name]
                     if actual != wanted:
                         feature_value_mismatches += 1
-                if expected:
+                if emits_expected:
                     candidates[variant][fold_id].append(signal)
     if production_mismatches or feature_value_mismatches:
         raise ValueError("independent feature oracle disagrees with production behavior")
@@ -444,9 +447,7 @@ def feature_and_result_reconciliation(root: Path) -> dict[str, Any]:
     metric_checks = []
     for variant, variant_trials in trials.items():
         default = next(item for item in variant_trials if item["profile"] == "DEFAULT")
-        expected_counts = {
-            fold: len(values) for fold, values in candidates[variant].items()
-        }
+        expected_counts = {fold: len(values) for fold, values in candidates[variant].items()}
         stored_counts = {
             item["fold_id"]: item["conditions_emitted"] for item in default["clock_diagnostics"]
         }
@@ -462,8 +463,8 @@ def feature_and_result_reconciliation(root: Path) -> dict[str, Any]:
         if any(value not in candidate_set for value in executed):
             raise ValueError(f"executed non-candidate in {variant}")
         for trade in default["trades"]:
-            expected = oracle.features(trade["signal_us"])
-            if expected is None or trade["reference"] != expected["reference"]:
+            expected_feature = oracle.features(trade["signal_us"])
+            if expected_feature is None or trade["reference"] != expected_feature["reference"]:
                 raise ValueError("executed trade reference does not reconcile")
         executed_checks[variant] = {
             "executed_default_attempts": len(executed),
@@ -476,7 +477,9 @@ def feature_and_result_reconciliation(root: Path) -> dict[str, Any]:
             stored = trial["summary"]["metrics"]
             for key, value in overall.items():
                 if stored[key] != value:
-                    raise ValueError(f"independent metric mismatch {variant}/{trial['profile']}/{key}")
+                    raise ValueError(
+                        f"independent metric mismatch {variant}/{trial['profile']}/{key}"
+                    )
             fold_results = {}
             for fold in protocol["folds"]:
                 subset = [trade for trade in trial["trades"] if trade["fold_id"] == fold["fold_id"]]
@@ -562,7 +565,11 @@ def exact_wp004_replay(root: Path) -> dict[str, Any]:
         )
         for profile in PROFILES:
             trial_id = f"{variant}:{profile}"
-            replayed = {"trial_id": trial_id, "status": "COMPLETED", **lab.run_trial(config, trial_id)}
+            replayed = {
+                "trial_id": trial_id,
+                "status": "COMPLETED",
+                **lab.run_trial(config, trial_id),
+            }
             original = next(item for item in finalized if item["trial_id"] == trial_id)
             replay_hash = canonical_hash(replayed)
             original_hash = canonical_hash(original)

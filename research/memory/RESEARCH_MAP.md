@@ -59,3 +59,17 @@ Current family disposition: Current breakout/continuation allocation is exhauste
 Legitimate next direction: Research Director review, then an integrity/control-comparability checkpoint: audit derived-bar availability and execution occupancy before considering a separately preregistered, explicitly budgeted diagnostic of regime coverage. A later ALIGNED follow-up is defensible only if it answers a genuinely new falsifiable diagnostic, preserves both WP-003/WP-004 failures, and does not relax the frozen evidence thresholds. No new allocation, sealed access, paper trading or Champion follows from this record.
 
 Blocked repeats: renamed replay of any tested behavior; 24-to-25-hour or efficiency/volume threshold drift; stop/target/holding-period search to rescue net R; retuning folds, ESS or minimum trade counts after observing sparsity; recycling the consumed WP-003 gross-positive clue as independent new evidence; choosing an ablation or robustness profile as a replacement primary; testing the two unexecuted design alternatives merely because ALIGNED is inconclusive.
+
+
+## WP-005 integrity and matched-control memory
+
+DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE
+
+Diagnostic classification: ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE; underlying WP-004 classification remains INCONCLUSIVE.
+Matched parent default expectancy: -0.0547388706 R; ALIGNED delta: +0.1921323382 R.
+Matched random-gate median/q90: +0.0269808015 / +0.1107856627 R across all 32 fixed seeds.
+Coverage funnel: 1875 raw parent -> 195 raw ALIGNED -> 125 emitted while flat; 70 suppressed.
+
+ALIGNED remains parked INCONCLUSIVE. The matched diagnostics support continued scientific interest but do not establish robust profitability, stability, or deployability and do not reopen the exhausted FAM-BREAKOUT strategy budget.
+
+Legitimate revisit: Only a future explicit Research Director allocation based on genuinely new evidence may revisit the family; parameter drift, renamed replay, threshold rescue, extra random seeds, or reuse of the same exposed-development comparison is insufficient.

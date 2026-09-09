@@ -223,6 +223,44 @@ def memory_views(root: Path = ROOT) -> dict[str, str]:
     failures.extend(
         ["", lessons["family_disposition"], "", lessons["legitimate_next_direction"], ""]
     )
+    wp005_path = root / "research/memory/WP-005-LESSONS.json"
+    if wp005_path.is_file():
+        diagnostic = read_json(wp005_path)
+        parent = diagnostic["matched_parent"]
+        random = diagnostic["matched_random_gate"]
+        coverage = diagnostic["coverage"]
+        rows.extend(
+            [
+                "",
+                "## WP-005 integrity and matched-control memory",
+                "",
+                LABEL,
+                "",
+                f"Diagnostic classification: {diagnostic['diagnostic_classification']}; underlying WP-004 classification remains {diagnostic['underlying_classification']}.",
+                f"Matched parent default expectancy: {parent['default_expectancy_r']:+.10f} R; ALIGNED delta: {parent['delta_aligned_r']:+.10f} R.",
+                f"Matched random-gate median/q90: {random['median_expectancy_r']:+.10f} / {random['q90_expectancy_r']:+.10f} R across all {random['seed_count']} fixed seeds.",
+                f"Coverage funnel: {coverage['raw_parent_candidates']} raw parent -> {coverage['raw_aligned_candidates']} raw ALIGNED -> {coverage['emitted_while_flat']} emitted while flat; {coverage['suppressed_by_active_position']} suppressed.",
+                "",
+                diagnostic["family_disposition"],
+                "",
+                "Legitimate revisit: " + diagnostic["legitimate_revisit"],
+                "",
+            ]
+        )
+        failures.extend(
+            [
+                "",
+                "## WP-005 retained diagnostic limitations",
+                "",
+                f"{diagnostic['diagnostic_classification']} does not change the underlying {diagnostic['underlying_classification']} classification.",
+                *[f"- {item}" for item in diagnostic["unresolved_limitations"]],
+                "",
+                diagnostic["family_disposition"],
+                "",
+                "Legitimate revisit: " + diagnostic["legitimate_revisit"],
+                "",
+            ]
+        )
     return {
         "RESEARCH_MAP.md": render_research_map(memory) + "\n".join(rows),
         "FAILURE_MEMORY.md": render_failure_memory(memory) + "\n".join(failures),

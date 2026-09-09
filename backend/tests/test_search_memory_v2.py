@@ -1,7 +1,6 @@
 from dataclasses import replace
 
 import pytest
-
 from app.research.search_memory import SearchMemoryError
 from app.research.search_memory_v2 import (
     Comparison,
@@ -24,9 +23,7 @@ def _spec(**changes):
         root_family="FAM-BREAKOUT",
         family="FAM-BREAKOUT",
         entry_event="CLOSE_ABOVE_PRIOR_HIGH",
-        feature_primitives=(
-            FeaturePrimitive("PRICE_HIGH_BREAKOUT", "PRIOR_HIGH_MAXIMUM", 60),
-        ),
+        feature_primitives=(FeaturePrimitive("PRICE_HIGH_BREAKOUT", "PRIOR_HIGH_MAXIMUM", 60),),
         comparisons=(Comparison("close", ">", "prior_high"),),
         numeric_parameters=(NumericTerm("breakout_hours", 24, "hours"),),
         regime_gates=(),
@@ -36,7 +33,9 @@ def _spec(**changes):
         direction="LONG",
         reference_price_rule="LATEST_COMPLETED_1H_CLOSE",
         stop=Rule("FIXED_PERCENT_OF_SIGNAL_CLOSE", NumericTerm("stop_fraction", 0.02, "fraction")),
-        exit=Rule("FIXED_TARGET_OR_STOP_OR_HORIZON", NumericTerm("target_fraction", 0.04, "fraction")),
+        exit=Rule(
+            "FIXED_TARGET_OR_STOP_OR_HORIZON", NumericTerm("target_fraction", 0.04, "fraction")
+        ),
         holding_horizon_minutes=1440,
         timing_perturbation="NONE",
         position_policy="SINGLE_LONG_NO_OVERLAP",
@@ -62,9 +61,14 @@ def _signature(spec, experiment="LEGACY"):
 def test_renamed_identical_spec_and_false_family_are_duplicate():
     spec = _spec()
     signatures = [_signature(spec)]
-    assert classify_bound_spec(bind_executable_spec(spec), signatures)["classification"] == "DUPLICATE"
+    assert (
+        classify_bound_spec(bind_executable_spec(spec), signatures)["classification"] == "DUPLICATE"
+    )
     false_family = replace(spec, family="FRESH", root_family="FRESH")
-    assert classify_bound_spec(bind_executable_spec(false_family), signatures)["classification"] == "DUPLICATE"
+    assert (
+        classify_bound_spec(bind_executable_spec(false_family), signatures)["classification"]
+        == "DUPLICATE"
+    )
     with pytest.raises(SearchMemoryError, match="DUPLICATE"):
         admit_executable_spec(
             false_family,
@@ -77,9 +81,7 @@ def test_renamed_identical_spec_and_false_family_are_duplicate():
 
 def test_24_to_25_is_parameter_variant():
     base = _spec()
-    changed = replace(
-        base, numeric_parameters=(NumericTerm("breakout_hours", 25, "hours"),)
-    )
+    changed = replace(base, numeric_parameters=(NumericTerm("breakout_hours", 25, "hours"),))
     decision = classify_bound_spec(bind_executable_spec(changed), [_signature(base)])
     assert decision["classification"] == "PARAMETER_VARIANT"
 
@@ -89,9 +91,7 @@ def test_falsified_fingerprint_and_stale_threshold_are_rejected():
     falsified = derived_fingerprint(spec) | {"entry_event": "SOMETHING_ELSE"}
     with pytest.raises(SearchMemoryError, match="declared fingerprint"):
         bind_executable_spec(spec, declared_fingerprint=falsified)
-    changed = replace(
-        spec, numeric_parameters=(NumericTerm("breakout_hours", 25, "hours"),)
-    )
+    changed = replace(spec, numeric_parameters=(NumericTerm("breakout_hours", 25, "hours"),))
     with pytest.raises(SearchMemoryError, match="declared fingerprint"):
         bind_executable_spec(changed, declared_fingerprint=derived_fingerprint(spec))
 
@@ -104,7 +104,10 @@ def test_data_and_cost_do_not_create_behavioral_family():
         cost_model_reference="OTHER_COST",
     )
     assert bind_executable_spec(spec).behavior_hash == bind_executable_spec(changed).behavior_hash
-    assert bind_executable_spec(spec).executable_spec_hash != bind_executable_spec(changed).executable_spec_hash
+    assert (
+        bind_executable_spec(spec).executable_spec_hash
+        != bind_executable_spec(changed).executable_spec_hash
+    )
 
 
 def test_true_orthogonal_gate_stays_descendant():

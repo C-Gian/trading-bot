@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "record_kind": "POST_DIAGNOSTIC_SCIENTIFIC_INTERPRETATION",
+  "work_package": "WP-005",
+  "family_id": "FAM-BREAKOUT",
+  "selected_hypothesis": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+  "underlying_classification": "INCONCLUSIVE",
+  "diagnostic_classification": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
+  "source_provenance": {
+    "classification": "SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
+    "path": "reports/validation/WP-005-SOURCE-PROVENANCE.json",
+    "sha256": "cfd515f7b45c6a9ed3e4e3e76bee504406fcb3fb6d913cf6b57521b112da9f8a"
+  },
+  "integrity": {
+    "independent_feature_result_reconciliation": "PASS",
+    "exact_wp004_replay": "PASS",
+    "search_memory_version": "SEARCH_MEMORY_V2"
+  },
+  "matched_parent": {
+    "path": "research/diagnostics/WP-005/matched-parent.json",
+    "sha256": "3c23e9c26655587b944c96579ed1a2314e4501558ae57005f087c6000d8768a5",
+    "default_expectancy_r": -0.0547388706,
+    "zero_expectancy_r": 0.0653485444,
+    "double_expectancy_r": -0.1748262594,
+    "delta_aligned_r": 0.1921323382,
+    "hurdle_r": 0.12,
+    "hurdle_pass": true
+  },
+  "matched_random_gate": {
+    "path": "research/diagnostics/WP-005/matched-random-gate.json",
+    "sha256": "ec535819965f2bf04cd694c0e0ac02c9e796a4a39311505aec11a9507663b12c",
+    "seed_count": 32,
+    "median_expectancy_r": 0.0269808015,
+    "q90_expectancy_r": 0.1107856627,
+    "aligned_above_q90": true
+  },
+  "coverage": {
+    "path": "research/diagnostics/WP-005/coverage-funnel.json",
+    "sha256": "80100e173daf680f642eb757aa3439c32c92e3c0602a07dfba9f12817750d7e9",
+    "eligible_hours": 48784,
+    "raw_parent_candidates": 1875,
+    "raw_aligned_candidates": 195,
+    "emitted_while_flat": 125,
+    "suppressed_by_active_position": 70,
+    "active_position_suppression_rate": 0.358974359
+  },
+  "scientific_accounting": {
+    "strategy_experiments": 9,
+    "new_economic_hypotheses": 0,
+    "new_strategy_variants": 0,
+    "numeric_parameter_variants": 0,
+    "unique_diagnostic_evaluations": 35,
+    "integrity_replay_profiles": 12,
+    "cumulative_adaptive_decisions": 2,
+    "cumulative_result_dependent_forks": 2
+  },
+  "family_disposition": "ALIGNED remains parked INCONCLUSIVE. The matched diagnostics support continued scientific interest but do not establish robust profitability, stability, or deployability and do not reopen the exhausted FAM-BREAKOUT strategy budget.",
+  "legitimate_revisit": "Only a future explicit Research Director allocation based on genuinely new evidence may revisit the family; parameter drift, renamed replay, threshold rescue, extra random seeds, or reuse of the same exposed-development comparison is insufficient.",
+  "unresolved_limitations": [
+    "At least two WP-004 folds remain below 15 resolved trades.",
+    "Only 3/6 WP-004 folds are nonnegative.",
+    "Positive-fold profit concentration remains above 50%.",
+    "All matched diagnostics use exposed development history and are not a formal independent p-value."
+  ],
+  "champion": "NONE",
+  "sealed_evaluations": 0,
+  "paper_trades": 0,
+  "real_money": false
+}

@@ -85,6 +85,7 @@ def test_repository_state_and_default_api_are_consistent():
     assert (
         research["experiments_completed"] == state["experiments_completed"]
         and research["champion"] == state["champion_status"]
+        and research["wp005_integrity"] == state.get("wp005_integrity")
     )
 
 

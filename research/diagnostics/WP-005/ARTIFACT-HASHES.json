@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "hash_algorithm": "sha256-lf-normalized-text-v1",
+  "artifacts": [
+    {"path": "reports/validation/WP-005-SOURCE-PROVENANCE.json", "sha256": "cfd515f7b45c6a9ed3e4e3e76bee504406fcb3fb6d913cf6b57521b112da9f8a"},
+    {"path": "research/diagnostics/WP-005/feature-result-reconciliation.json", "sha256": "a0806c4d31a87469b6751386c92ca80b448eb91855e18da3ccf05d73282f93b1"},
+    {"path": "research/diagnostics/WP-005/wp004-integrity-replay.json", "sha256": "71873a15edd650b2b10f1ca9d42a0d08b52af8cbc86d0462a8f132ebe2274f90"},
+    {"path": "research/diagnostics/WP-005/matched-controls-attempt-001-failure.json", "sha256": "3b7cd1ddabecf9ee3410d30740127f5eb98c118513c817caf0760e0e0f1c64c0"},
+    {"path": "research/diagnostics/WP-005/matched-parent.json", "sha256": "3c23e9c26655587b944c96579ed1a2314e4501558ae57005f087c6000d8768a5"},
+    {"path": "research/diagnostics/WP-005/matched-random-gate.json", "sha256": "ec535819965f2bf04cd694c0e0ac02c9e796a4a39311505aec11a9507663b12c"},
+    {"path": "research/diagnostics/WP-005/coverage-funnel.json", "sha256": "80100e173daf680f642eb757aa3439c32c92e3c0602a07dfba9f12817750d7e9"},
+    {"path": "research/diagnostics/WP-005/final-classification.json", "sha256": "a61d0a9d3230816eae9d68d522db88c4aa1354ab26b89088c78889ba9d0ef8dc"},
+    {"path": "research/protocols/WP-005-MATCHED-CONTROLS-V1.json", "sha256": "e8062227665dd44b062b60779352efe6e6a51525d8d94b0c911da33bbe868045"},
+    {"path": "research/memory/WP-005-DIAGNOSTIC-ALLOCATION.json", "sha256": "53c07f24b5599dfe800b5ff2d9f35dbc43c0bf3334a1de3f1a8a538656431b58"},
+    {"path": "research/memory/SEARCH_MEMORY_V2.json", "sha256": "8aa3ad2f5a8fb89a2d993d23960d1395e78e68010a363a56cacaf1f833f10ac2"},
+    {"path": "research/memory/ADAPTIVE_DIAGNOSTICS_V2.json", "sha256": "c72b23e53ebc16209337dc8a1c0c49ad50db771ec96d1f46ace0cc618f03ba64"},
+    {"path": "research/memory/DIAGNOSTIC_LEDGER.jsonl", "sha256": "1413cad3b2eb60529281fe51b9628ba518ed4fa08e4ec0c6b9c0e69b63ab8aee"},
+    {"path": "research/memory/WP-005-LESSONS.json", "sha256": "6e8249687b97c7a3f62f7e4f7c47ab8b2173281a65712c8b66f9803600c59a66"}
+  ]
+}

@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 
-from app.research.wp005_integrity import (  # noqa: E402
+from app.research.wp005_integrity import (
     exact_wp004_replay,
     feature_and_result_reconciliation,
     source_provenance,

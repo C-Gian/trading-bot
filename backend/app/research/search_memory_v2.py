@@ -9,9 +9,10 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+from collections.abc import Mapping
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 from .search_memory import SearchMemoryError, accounting, load_memory, text_sha256
 
@@ -21,9 +22,7 @@ ENVIRONMENT_FIELDS = {"dataset", "cost_model_reference", "execution_model_refere
 
 def _canonical(value: Any, *, mask_numbers: bool = False) -> Any:
     if isinstance(value, dict):
-        return {
-            key: _canonical(value[key], mask_numbers=mask_numbers) for key in sorted(value)
-        }
+        return {key: _canonical(value[key], mask_numbers=mask_numbers) for key in sorted(value)}
     if isinstance(value, (tuple, list)):
         return [_canonical(item, mask_numbers=mask_numbers) for item in value]
     if isinstance(value, bool) or value is None:
@@ -122,7 +121,10 @@ class ExecutableStrategySpec:
             raise SearchMemoryError("unsupported governed direction")
         if self.signal_timeframe_minutes <= 0 or self.context_timeframe_minutes < 0:
             raise SearchMemoryError("invalid governed time scale")
-        if self.holding_horizon_minutes is not None and not 1 <= self.holding_horizon_minutes <= 1440:
+        if (
+            self.holding_horizon_minutes is not None
+            and not 1 <= self.holding_horizon_minutes <= 1440
+        ):
             raise SearchMemoryError("holding horizon is outside governance")
         names = [item.name for item in self.numeric_parameters]
         if len(names) != len(set(names)):
@@ -255,6 +257,8 @@ def admit_executable_spec(
     runtime_spec: ExecutableStrategySpec | None = None,
     family_budget_remaining: bool = True,
 ) -> dict[str, Any]:
+    if spec is None:
+        raise SearchMemoryError("executable spec identity is missing")
     binding = bind_executable_spec(
         spec,
         declared_fingerprint=declared_fingerprint,
@@ -350,7 +354,9 @@ def validate_legacy_signatures(root: Path = ROOT) -> dict[str, Any]:
     document = json.loads(path.read_text(encoding="utf-8"))
     expected = generate_legacy_signatures(root)
     if _canonical(document) != _canonical(expected):
-        raise SearchMemoryError("legacy executable signatures differ from deterministic translation")
+        raise SearchMemoryError(
+            "legacy executable signatures differ from deterministic translation"
+        )
     if len(document["signatures"]) != 9:
         raise SearchMemoryError("all nine frozen legacy strategies require V2 signatures")
     if len({item["behavior_hash"] for item in document["signatures"]}) != 9:

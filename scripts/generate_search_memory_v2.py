@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 
-from app.research.search_memory_v2 import generate_legacy_signatures  # noqa: E402
+from app.research.search_memory_v2 import generate_legacy_signatures
 
 
 def main() -> None:

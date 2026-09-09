@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 REVIEWED = "47dd69d73768a9e3a3c92fe08eb1e7e3e8c239f5"
 WP004_BASE = "2b40aa03cfc05ac7f57d269f596f1ebacdc9d356"
+WP005_BASE = "3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153"
 PREDECESSOR = "60ab3141862da74028763e2df72ac3c88b63b5a8"
 SEED = "c6c526124945aa1624118bd7ee6aef9ae5c011b2"
 CUTOFF = datetime(2024, 12, 31, 23, 59, tzinfo=UTC)
@@ -145,21 +146,32 @@ def validate_research_views(state: dict) -> None:
     from app.research.checkpoint_views import build_comparison, experiment_view, memory_views
     from app.research.runner import sha256 as text_sha
     from app.research.search_memory import load_memory
+    from app.research.search_memory_v2 import validate_search_memory_v2
     from app.research.wp004 import SPEC, immutable_from_first_commit
 
     memory = load_memory()
     assert state["schema_version"] == 3
     assert state["search_memory"] == {
-        "version": "SEARCH_MEMORY_V1",
+        "version": "SEARCH_MEMORY_V2",
         "status": "VALIDATED",
         "families_tracked": len(memory["families"]["families"]),
     }
-    assert state["adaptive_search"] == {**validate_adaptive(), "numeric_parameter_variants": 0}
+    prior = validate_adaptive()
+    assert state["adaptive_search"] == {
+        **prior,
+        "numeric_parameter_variants": 0,
+        "adaptive_decisions": 2,
+        "result_dependent_forks": 2,
+        "integrity_replay_profiles": 12,
+        "diagnostic_evaluations": 35,
+        "diagnostic_execution_attempts": 2,
+    }
+    assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
-        state["latest_reviewed_checkpoint"] == "WP-003"
-        and state["latest_executor_checkpoint"] == "WP-004"
+        state["latest_reviewed_checkpoint"] == "WP-004"
+        and state["latest_executor_checkpoint"] == "WP-005"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -187,6 +199,17 @@ def validate_research_views(state: dict) -> None:
     projection = experiment_view(state=state)
     assert len(projection["experiments"]) == state["experiments_completed"]
     assert projection["latest_checkpoint"] == state["latest_executor_checkpoint"]
+    from app.research.wp005_validation import validate_wp005
+
+    wp005 = validate_wp005(data_available=False)
+    assert state["wp005_integrity"] == {
+        "status": "PASS",
+        "source_provenance_classification": wp005["source_provenance"],
+        "independent_reconciliation": wp005["independent_reconciliation"],
+        "integrity_replay_profiles": wp005["integrity_replay_profiles"],
+        "matched_control_classification": wp005["classification"],
+        "remote_ci": "PENDING_PUSH",
+    }
 
 
 def dataset_scope_checks() -> None:
@@ -221,6 +244,11 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/reviews/WP-003-RESEARCH-DIRECTOR-REVIEW.md",
         "reports/research/WP-004-ASTRA-ULTRA.md",
         "governance/EXECUTOR_POLICY.md",
+        "reports/reviews/WP-004-RESEARCH-DIRECTOR-REVIEW.md",
+        "docs/contracts/RESEARCH_SEARCH_MEMORY_V2.md",
+        "reports/validation/WP-005-SOURCE-PROVENANCE.json",
+        "research/protocols/WP-005-MATCHED-CONTROLS-V1.json",
+        "research/diagnostics/WP-005/final-classification.json",
     ]
     assert all((ROOT / x).is_file() for x in required)
     baseline = subprocess.check_output(
@@ -234,7 +262,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert git("branch", "--show-current") == "main" or (
         git("branch", "--show-current") == "" and os.environ.get("CLEAN_CHECKOUT") == "1"
     )
-    for ancestor in (SEED, PREDECESSOR, REVIEWED, WP004_BASE):
+    for ancestor in (SEED, PREDECESSOR, REVIEWED, WP004_BASE, WP005_BASE):
         run(["git", "merge-base", "--is-ancestor", ancestor, "HEAD"])
     state = validate_json(
         ROOT / "state/current_state.json", ROOT / "contracts/project_state.schema.json"
@@ -330,6 +358,9 @@ def data_checks(state: dict) -> None:
         artifact == build_artifact()
         and artifact["total_missing_minutes"] == manifest["integrity"]["missing_minutes"]
     )
+    from app.research.wp005_validation import validate_wp005
+
+    assert validate_wp005(data_available=True)["status"] == "PASS"
 
 
 def main() -> None:
@@ -354,7 +385,8 @@ def main() -> None:
         run(command, ROOT / "frontend")
     if not options.no_data:
         data_checks(state)
-    print("WP-004 deterministic validation: PASS (profitability is not a validation gate)")
+    assert not git("status", "--porcelain"), "working tree must be clean at checkpoint validation"
+    print("WP-005 deterministic validation: PASS (profitability is not a validation gate)")
 
 
 if __name__ == "__main__":

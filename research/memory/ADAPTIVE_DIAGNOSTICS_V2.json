@@ -1,0 +1,28 @@
+{
+  "schema_version": 2,
+  "version": "ADAPTIVE_RESEARCH_GOVERNANCE_V2",
+  "prior_strategy_decisions_reference": "research/memory/ADAPTIVE_DECISIONS.json",
+  "prior_adaptive_decisions": 1,
+  "prior_result_dependent_forks": 1,
+  "diagnostic_decisions": [
+    {
+      "decision_id": "WP005-DIAGNOSTIC-001",
+      "work_package": "WP-005",
+      "kind": "POST_RESULT_ADAPTIVE_DIAGNOSTIC",
+      "allocation": "research/memory/WP-005-DIAGNOSTIC-ALLOCATION.json",
+      "source_experiment_id": "EXP-ALG-009-ALIGNED",
+      "family_id": "FAM-BREAKOUT",
+      "result_dependent_forks": 1,
+      "new_economic_hypotheses": 0,
+      "new_strategy_variants": 0,
+      "numeric_parameter_variants": 0,
+      "integrity_replay_profiles": 12,
+      "unique_diagnostic_evaluations": 35,
+      "failed_finalization_attempts": 1,
+      "sealed_queries": 0,
+      "paper_observations": 0
+    }
+  ],
+  "cumulative_adaptive_decisions": 2,
+  "cumulative_result_dependent_forks": 2
+}

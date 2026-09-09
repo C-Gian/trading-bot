@@ -37,11 +37,11 @@
   "forward_evidence":"NONE",
   "real_money_authorized":false,
   "owner_decision_required":false,
-  "latest_reviewed_checkpoint":"WP-003",
-  "latest_executor_checkpoint":"WP-004",
-  "next_recommended_work_package":"RESEARCH_DIRECTOR_REVIEW_THEN_INTEGRITY_CONTROL_COMPARABILITY",
+  "latest_reviewed_checkpoint":"WP-004",
+  "latest_executor_checkpoint":"WP-005",
+  "next_recommended_work_package":"RESEARCH_DIRECTOR_REVIEW_THEN_DECIDE_FUTURE_INCONCLUSIVE_FAMILY_ALLOCATION",
   "search_memory":{
-    "version":"SEARCH_MEMORY_V1",
+    "version":"SEARCH_MEMORY_V2",
     "status":"VALIDATED",
     "families_tracked":5
   },
@@ -50,17 +50,28 @@
     "configuration_variants":9,
     "profile_trials":53,
     "numeric_parameter_variants":0,
-    "adaptive_decisions":1,
-    "result_dependent_forks":1,
+    "adaptive_decisions":2,
+    "result_dependent_forks":2,
     "strategy_descendants":4,
     "wp004_variants_reserved":3,
     "wp004_profiles_reserved":12,
+    "integrity_replay_profiles":12,
+    "diagnostic_evaluations":35,
+    "diagnostic_execution_attempts":2,
     "sealed_queries":0
   },
   "selected_family":{
     "name":"ALIGNED_PARTICIPATION_CONTINUATION_V1",
     "primary_experiment_id":"EXP-ALG-009-ALIGNED",
     "terminal_classification":"INCONCLUSIVE"
+  },
+  "wp005_integrity":{
+    "status":"PASS",
+    "source_provenance_classification":"SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
+    "independent_reconciliation":"PASS",
+    "integrity_replay_profiles":12,
+    "matched_control_classification":"ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
+    "remote_ci":"PENDING_PUSH"
   },
   "backtest_substrate":{
     "status":"VALIDATED",

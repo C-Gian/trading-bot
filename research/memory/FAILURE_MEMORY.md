@@ -124,3 +124,16 @@ the three declared variants were never tested. Their actual executions/verdicts 
 Current breakout/continuation allocation is exhausted. Temporarily retire ungated trend/breakout, volume-only confirmation, and the tested one-gate branches as active candidates. ALIGNED is parked INCONCLUSIVE, not promoted; no branch is entitled to automatic further trials.
 
 Research Director review, then an integrity/control-comparability checkpoint: audit derived-bar availability and execution occupancy before considering a separately preregistered, explicitly budgeted diagnostic of regime coverage. A later ALIGNED follow-up is defensible only if it answers a genuinely new falsifiable diagnostic, preserves both WP-003/WP-004 failures, and does not relax the frozen evidence thresholds. No new allocation, sealed access, paper trading or Champion follows from this record.
+
+
+## WP-005 retained diagnostic limitations
+
+ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE does not change the underlying INCONCLUSIVE classification.
+- At least two WP-004 folds remain below 15 resolved trades.
+- Only 3/6 WP-004 folds are nonnegative.
+- Positive-fold profit concentration remains above 50%.
+- All matched diagnostics use exposed development history and are not a formal independent p-value.
+
+ALIGNED remains parked INCONCLUSIVE. The matched diagnostics support continued scientific interest but do not establish robust profitability, stability, or deployability and do not reopen the exhausted FAM-BREAKOUT strategy budget.
+
+Legitimate revisit: Only a future explicit Research Director allocation based on genuinely new evidence may revisit the family; parameter drift, renamed replay, threshold rescue, extra random seeds, or reuse of the same exposed-development comparison is insufficient.
