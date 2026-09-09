@@ -1,0 +1,13 @@
+{
+  "activation_work_package": "WP-005",
+  "contract": "docs/contracts/RESEARCH_SEARCH_MEMORY_V2.md",
+  "executable_spec_schema": "contracts/executable_strategy_spec_v2.schema.json",
+  "future_admission_policy": "FINGERPRINT_DERIVED_FROM_RUNNER_EXECUTABLE_SPEC",
+  "legacy_evidence_policy": "REFERENCE_ONLY_NO_RETROACTIVE_REWRITE",
+  "legacy_signatures_path": "research/memory/LEGACY_EXECUTABLE_SIGNATURES_V2.json",
+  "legacy_signatures_sha256": "fa3a448b40948d6f0a43a2db6c46d32c6306febd338f4c3c65b4d794c7c527cf",
+  "schema_version": 2,
+  "status": "VALIDATED",
+  "strategy_budget_reference": "research/memory/SEARCH_BUDGET.json",
+  "version": "SEARCH_MEMORY_V2"
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SEARCH_MEMORY_V2 executable strategy specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "root_family", "family", "entry_event", "feature_primitives",
+    "comparisons", "numeric_parameters", "regime_gates", "confirmation_gates",
+    "signal_timeframe_minutes", "context_timeframe_minutes", "direction",
+    "reference_price_rule", "stop", "exit", "holding_horizon_minutes",
+    "timing_perturbation", "position_policy", "execution_model_reference",
+    "cost_model_reference", "dataset", "implementation_dependencies", "config_dependencies"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "root_family": {"type": "string", "minLength": 1},
+    "family": {"type": "string", "minLength": 1},
+    "entry_event": {"type": "string", "minLength": 1},
+    "feature_primitives": {"type": "array"},
+    "comparisons": {"type": "array"},
+    "numeric_parameters": {"type": "array"},
+    "regime_gates": {"type": "array", "items": {"type": "string"}},
+    "confirmation_gates": {"type": "array", "items": {"type": "string"}},
+    "signal_timeframe_minutes": {"type": "integer", "minimum": 1},
+    "context_timeframe_minutes": {"type": "integer", "minimum": 0},
+    "direction": {"enum": ["LONG", "NO_TRADE"]},
+    "reference_price_rule": {"type": "string", "minLength": 1},
+    "stop": {"type": "object"},
+    "exit": {"type": "object"},
+    "holding_horizon_minutes": {"type": ["integer", "null"], "minimum": 1, "maximum": 1440},
+    "timing_perturbation": {"type": "string", "minLength": 1},
+    "position_policy": {"type": "string", "minLength": 1},
+    "execution_model_reference": {"type": "string", "minLength": 1},
+    "cost_model_reference": {"type": "string", "minLength": 1},
+    "dataset": {"type": "object"},
+    "implementation_dependencies": {"type": "array"},
+    "config_dependencies": {"type": "array"}
+  }
+}

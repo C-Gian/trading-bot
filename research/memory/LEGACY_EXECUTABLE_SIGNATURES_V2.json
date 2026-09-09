@@ -1,0 +1,828 @@
+{
+  "purpose": "FROZEN_LEGACY_DUPLICATE_REFERENCE_ONLY_NOT_RETROACTIVE_EVIDENCE",
+  "schema_version": 2,
+  "signatures": [
+    {
+      "behavior_hash": "6e47a6fc1bd9735ceb87aaa77ad13e8504bb06cbc24a958ba054e9821cccd6e2",
+      "dependency_hash": "bd56ad6e58947155061cff2c9631e038aa6b324c8d0f5ecfc294dd4aa151e607",
+      "executable_spec_hash": "349472bb6fd244bd069ab12db6487ca10454707b5d51a921787a93ac079ad0ac",
+      "experiment_id": "EXP-BASE-001-BUYHOLD",
+      "root_family": "FAM-REFERENCE",
+      "spec": {
+        "comparisons": [
+          {
+            "left": "LEGACY_LEFT",
+            "operator": "LEGACY_DECLARED_COMPARISON",
+            "right": "LEGACY_RIGHT",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [],
+        "confirmation_gates": [],
+        "context_timeframe_minutes": 0,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "FIRST_CANONICAL_OPEN",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FINAL_CANONICAL_CLOSE",
+          "value": null
+        },
+        "family": "FAM-REFERENCE",
+        "feature_primitives": [],
+        "holding_horizon_minutes": null,
+        "implementation_dependencies": [],
+        "numeric_parameters": [],
+        "position_policy": "ENDPOINT_REFERENCE",
+        "reference_price_rule": "FROZEN_LEGACY_V1_REFERENCE",
+        "regime_gates": [],
+        "root_family": "FAM-REFERENCE",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "NONE",
+          "value": null
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "c99778255b4c8fa8a24e7f0e093ce67604094fa5b88baa4a21da314cca35ccce"
+    },
+    {
+      "behavior_hash": "eccaa2fcb9dda765687b85d8c7d74a35a0e733331cd1356df566cd45c0f0b6a8",
+      "dependency_hash": "bd56ad6e58947155061cff2c9631e038aa6b324c8d0f5ecfc294dd4aa151e607",
+      "executable_spec_hash": "29c50ab223789deb94abf8a68df8b08543ec65a34143d45371830be682d4a1dd",
+      "experiment_id": "EXP-BASE-003-TREND",
+      "root_family": "FAM-TREND",
+      "spec": {
+        "comparisons": [
+          {
+            "left": "LEGACY_LEFT",
+            "operator": "LEGACY_DECLARED_COMPARISON",
+            "right": "LEGACY_RIGHT",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [],
+        "confirmation_gates": [],
+        "context_timeframe_minutes": 0,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "FAST_SMA_ABOVE_SLOW_SMA",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": null
+        },
+        "family": "FAM-TREND",
+        "feature_primitives": [
+          {
+            "lookback": null,
+            "name": "PRICE_TREND",
+            "timeframe_minutes": 60,
+            "transformation": "ARITHMETIC_MOVING_AVERAGE"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [],
+        "numeric_parameters": [
+          {
+            "name": "fast_sma_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 24
+          },
+          {
+            "name": "history_1h_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 169
+          },
+          {
+            "name": "signal_delay_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0
+          },
+          {
+            "name": "slow_sma_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 168
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.04
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "FROZEN_LEGACY_V1_REFERENCE",
+        "regime_gates": [],
+        "root_family": "FAM-TREND",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": null
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "b8727edb2c25ae0ae26103c18692d738cbc29fa6cb5b40346fcc8d22d71f109d"
+    },
+    {
+      "behavior_hash": "4ba49d48145fd65df0f0dc4fd16fbd98e03a0cdf0c966a90152e09639c1abcf6",
+      "dependency_hash": "bd56ad6e58947155061cff2c9631e038aa6b324c8d0f5ecfc294dd4aa151e607",
+      "executable_spec_hash": "c094d2bcac8caef6f03c14de1e1156b302688162351315ce956218d92c3e1625",
+      "experiment_id": "EXP-BASE-004-BREAKOUT",
+      "root_family": "FAM-BREAKOUT",
+      "spec": {
+        "comparisons": [
+          {
+            "left": "LEGACY_LEFT",
+            "operator": "LEGACY_DECLARED_COMPARISON",
+            "right": "LEGACY_RIGHT",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [],
+        "confirmation_gates": [],
+        "context_timeframe_minutes": 0,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "CLOSE_ABOVE_PRIOR_HIGH",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": null
+        },
+        "family": "FAM-BREAKOUT",
+        "feature_primitives": [
+          {
+            "lookback": null,
+            "name": "PRICE_EXTREME",
+            "timeframe_minutes": 60,
+            "transformation": "ROLLING_MAXIMUM_PRIOR_HIGH"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [],
+        "numeric_parameters": [
+          {
+            "name": "breakout_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 24
+          },
+          {
+            "name": "history_1h_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 169
+          },
+          {
+            "name": "signal_delay_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.04
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "FROZEN_LEGACY_V1_REFERENCE",
+        "regime_gates": [],
+        "root_family": "FAM-BREAKOUT",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": null
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "4dd2d0ea56f640b944ccd37ef9f5defcdd1462787f88629bf11694ee7bf3d736"
+    },
+    {
+      "behavior_hash": "adf6979dd76a93e104aa92a162d06716f231fc97502cd0c9c085b33ed315dd58",
+      "dependency_hash": "bd56ad6e58947155061cff2c9631e038aa6b324c8d0f5ecfc294dd4aa151e607",
+      "executable_spec_hash": "b6c81169e41fe11d952f3eeadd59fca16971e6a7b0e6129f5542dc0f1456cee0",
+      "experiment_id": "EXP-CTRL-002-RANDOM",
+      "root_family": "FAM-RANDOM",
+      "spec": {
+        "comparisons": [
+          {
+            "left": "LEGACY_LEFT",
+            "operator": "LEGACY_DECLARED_COMPARISON",
+            "right": "LEGACY_RIGHT",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [],
+        "confirmation_gates": [],
+        "context_timeframe_minutes": 0,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "DETERMINISTIC_RANDOM_BERNOULLI",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": null
+        },
+        "family": "FAM-RANDOM",
+        "feature_primitives": [],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [],
+        "numeric_parameters": [
+          {
+            "name": "entry_probability",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.041666666666666664
+          },
+          {
+            "name": "history_1h_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 169
+          },
+          {
+            "name": "signal_delay_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.04
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "FROZEN_LEGACY_V1_REFERENCE",
+        "regime_gates": [],
+        "root_family": "FAM-RANDOM",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": null
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "24d30f104ffd90fa98010ca272c0b7022a475c287811bf131543974a35345ec2"
+    },
+    {
+      "behavior_hash": "440d2719212924c787f6c7dac083cbf40e3b4c918a18cb9642b9f0c157c0c28b",
+      "dependency_hash": "bd56ad6e58947155061cff2c9631e038aa6b324c8d0f5ecfc294dd4aa151e607",
+      "executable_spec_hash": "694ea124de0dac484f9c910a7b25f4f6bcb3387fe08ca1c2c9dec1ffdca03175",
+      "experiment_id": "EXP-CTRL-005-TREND-DELAY-1H",
+      "root_family": "FAM-TREND",
+      "spec": {
+        "comparisons": [
+          {
+            "left": "LEGACY_LEFT",
+            "operator": "LEGACY_DECLARED_COMPARISON",
+            "right": "LEGACY_RIGHT",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [],
+        "confirmation_gates": [],
+        "context_timeframe_minutes": 0,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "FAST_SMA_ABOVE_SLOW_SMA",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": null
+        },
+        "family": "FAM-TREND",
+        "feature_primitives": [
+          {
+            "lookback": null,
+            "name": "PRICE_TREND",
+            "timeframe_minutes": 60,
+            "transformation": "ARITHMETIC_MOVING_AVERAGE"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [],
+        "numeric_parameters": [
+          {
+            "name": "fast_sma_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 24
+          },
+          {
+            "name": "history_1h_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 169
+          },
+          {
+            "name": "signal_delay_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 1
+          },
+          {
+            "name": "slow_sma_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 168
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.04
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "FROZEN_LEGACY_V1_REFERENCE",
+        "regime_gates": [],
+        "root_family": "FAM-TREND",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": null
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_1"
+      },
+      "structural_hash": "53c1af4edddc64734d80c3c49203524456fd7c5e3a7a465ea642b962dd641dfa"
+    },
+    {
+      "behavior_hash": "22aa146a203e9fba5b1db507b5a1dd11374027e800b478af682636d6fd039aff",
+      "dependency_hash": "bd56ad6e58947155061cff2c9631e038aa6b324c8d0f5ecfc294dd4aa151e607",
+      "executable_spec_hash": "54d5c5e01be2f228fa7fcb5fa4b92dd9a387d2b6abc02aeb42d3ed12d9edb116",
+      "experiment_id": "EXP-CTRL-006-NO-TRADE",
+      "root_family": "FAM-NO-TRADE",
+      "spec": {
+        "comparisons": [
+          {
+            "left": "LEGACY_LEFT",
+            "operator": "LEGACY_DECLARED_COMPARISON",
+            "right": "LEGACY_RIGHT",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [],
+        "confirmation_gates": [],
+        "context_timeframe_minutes": 0,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "NO_TRADE",
+        "entry_event": "NEVER",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "NONE",
+          "value": null
+        },
+        "family": "FAM-NO-TRADE",
+        "feature_primitives": [],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [],
+        "numeric_parameters": [],
+        "position_policy": "NO_POSITION",
+        "reference_price_rule": "FROZEN_LEGACY_V1_REFERENCE",
+        "regime_gates": [],
+        "root_family": "FAM-NO-TRADE",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "NONE",
+          "value": null
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "f4e78b4fcbd11dfd069d4d0727e72f34a57f6ea9f5fa005c04bece6217da8c69"
+    },
+    {
+      "behavior_hash": "9e14ccf8f954fb484b4e2dd0653bea69bc783a775f19b5904f49560e23961080",
+      "dependency_hash": "bd56ad6e58947155061cff2c9631e038aa6b324c8d0f5ecfc294dd4aa151e607",
+      "executable_spec_hash": "e5b1cd40181a70e6d3e2d57822c32f5a5b7a4c7a9310ba0e73795095d691198f",
+      "experiment_id": "EXP-ALG-009-ALIGNED",
+      "root_family": "FAM-BREAKOUT",
+      "spec": {
+        "comparisons": [
+          {
+            "left": "LEGACY_LEFT",
+            "operator": "LEGACY_DECLARED_COMPARISON",
+            "right": "LEGACY_RIGHT",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [],
+        "confirmation_gates": [
+          "RELATIVE_VOLUME_GATE"
+        ],
+        "context_timeframe_minutes": 240,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "CLOSE_ABOVE_PRIOR_HIGH",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": null
+        },
+        "family": "FAM-BREAKOUT",
+        "feature_primitives": [
+          {
+            "lookback": null,
+            "name": "PRICE_HIGH_BREAKOUT",
+            "timeframe_minutes": 60,
+            "transformation": "PRIOR_HIGH_MAXIMUM"
+          },
+          {
+            "lookback": null,
+            "name": "DIRECTIONAL_PERSISTENCE",
+            "timeframe_minutes": 240,
+            "transformation": "SIGNED_PRICE_EFFICIENCY"
+          },
+          {
+            "lookback": null,
+            "name": "PARTICIPATION",
+            "timeframe_minutes": 60,
+            "transformation": "RELATIVE_BASE_VOLUME"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [],
+        "numeric_parameters": [
+          {
+            "name": "breakout_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 24
+          },
+          {
+            "name": "context_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 43
+          },
+          {
+            "name": "context_increments",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 42
+          },
+          {
+            "name": "history_1h_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 26
+          },
+          {
+            "name": "signal_delay_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.04
+          },
+          {
+            "name": "up_to_down_ratio",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 2
+          },
+          {
+            "name": "volume_baseline_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 24
+          },
+          {
+            "name": "volume_multiplier",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 2
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "FROZEN_LEGACY_V1_REFERENCE",
+        "regime_gates": [
+          "SIGNED_EFFICIENCY_GATE"
+        ],
+        "root_family": "FAM-BREAKOUT",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": null
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "750d0ab39ce65baac7597e4fbbf4895879e7d768de2a685421f7c9059fa4e8fa"
+    },
+    {
+      "behavior_hash": "586399c208dc2b672968681667022f9e8a81744f6945dee11ea192302780a94e",
+      "dependency_hash": "bd56ad6e58947155061cff2c9631e038aa6b324c8d0f5ecfc294dd4aa151e607",
+      "executable_spec_hash": "a33d0434372e2a909db06de321b62e8f4f6c898a2d68a1f9b676585110d9f9a0",
+      "experiment_id": "EXP-ALG-007-REGIME",
+      "root_family": "FAM-BREAKOUT",
+      "spec": {
+        "comparisons": [
+          {
+            "left": "LEGACY_LEFT",
+            "operator": "LEGACY_DECLARED_COMPARISON",
+            "right": "LEGACY_RIGHT",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [],
+        "confirmation_gates": [],
+        "context_timeframe_minutes": 240,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "CLOSE_ABOVE_PRIOR_HIGH",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": null
+        },
+        "family": "FAM-BREAKOUT",
+        "feature_primitives": [
+          {
+            "lookback": null,
+            "name": "PRICE_HIGH_BREAKOUT",
+            "timeframe_minutes": 60,
+            "transformation": "PRIOR_HIGH_MAXIMUM"
+          },
+          {
+            "lookback": null,
+            "name": "DIRECTIONAL_PERSISTENCE",
+            "timeframe_minutes": 240,
+            "transformation": "SIGNED_PRICE_EFFICIENCY"
+          },
+          {
+            "lookback": null,
+            "name": "PARTICIPATION",
+            "timeframe_minutes": 60,
+            "transformation": "RELATIVE_BASE_VOLUME"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [],
+        "numeric_parameters": [
+          {
+            "name": "breakout_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 24
+          },
+          {
+            "name": "context_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 43
+          },
+          {
+            "name": "context_increments",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 42
+          },
+          {
+            "name": "history_1h_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 26
+          },
+          {
+            "name": "signal_delay_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.04
+          },
+          {
+            "name": "up_to_down_ratio",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 2
+          },
+          {
+            "name": "volume_baseline_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 24
+          },
+          {
+            "name": "volume_multiplier",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 2
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "FROZEN_LEGACY_V1_REFERENCE",
+        "regime_gates": [
+          "SIGNED_EFFICIENCY_GATE"
+        ],
+        "root_family": "FAM-BREAKOUT",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": null
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "dff2011d1d730c6a83fca60eda131f81d6ae4182bea32eb41a810e8811289df3"
+    },
+    {
+      "behavior_hash": "60236d36d67438dd663754a2b187676211deb204264883b93c98847ff1930bbb",
+      "dependency_hash": "bd56ad6e58947155061cff2c9631e038aa6b324c8d0f5ecfc294dd4aa151e607",
+      "executable_spec_hash": "ea44e633af7e15e1a812aa3ed9e749af73c998047b89fa2bf03e162ece07621b",
+      "experiment_id": "EXP-ALG-008-PARTICIPATION",
+      "root_family": "FAM-BREAKOUT",
+      "spec": {
+        "comparisons": [
+          {
+            "left": "LEGACY_LEFT",
+            "operator": "LEGACY_DECLARED_COMPARISON",
+            "right": "LEGACY_RIGHT",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [],
+        "confirmation_gates": [
+          "RELATIVE_VOLUME_GATE"
+        ],
+        "context_timeframe_minutes": 240,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "CLOSE_ABOVE_PRIOR_HIGH",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": null
+        },
+        "family": "FAM-BREAKOUT",
+        "feature_primitives": [
+          {
+            "lookback": null,
+            "name": "PRICE_HIGH_BREAKOUT",
+            "timeframe_minutes": 60,
+            "transformation": "PRIOR_HIGH_MAXIMUM"
+          },
+          {
+            "lookback": null,
+            "name": "DIRECTIONAL_PERSISTENCE",
+            "timeframe_minutes": 240,
+            "transformation": "SIGNED_PRICE_EFFICIENCY"
+          },
+          {
+            "lookback": null,
+            "name": "PARTICIPATION",
+            "timeframe_minutes": 60,
+            "transformation": "RELATIVE_BASE_VOLUME"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [],
+        "numeric_parameters": [
+          {
+            "name": "breakout_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 24
+          },
+          {
+            "name": "context_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 43
+          },
+          {
+            "name": "context_increments",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 42
+          },
+          {
+            "name": "history_1h_bars",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 26
+          },
+          {
+            "name": "signal_delay_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 0.04
+          },
+          {
+            "name": "up_to_down_ratio",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 2
+          },
+          {
+            "name": "volume_baseline_hours",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 24
+          },
+          {
+            "name": "volume_multiplier",
+            "unit": "DECLARED_V1_UNIT",
+            "value": 2
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "FROZEN_LEGACY_V1_REFERENCE",
+        "regime_gates": [],
+        "root_family": "FAM-BREAKOUT",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": null
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "f118116d6d58e60f113ae08a260c0bf855d1dc6b7e53f4d811395ea9112f2db1"
+    }
+  ],
+  "version": "SEARCH_MEMORY_V2"
+}
