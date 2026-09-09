@@ -1,0 +1,21 @@
+{
+  "admitted_by": "research/memory/registry/admissions/WP008-NOVELTY-ADMISSION.json",
+  "aliases": [
+    "LINEAR_NET_R_SELECTION_V1",
+    "LINEAR_FULL",
+    "LINEAR_NO_FLOW"
+  ],
+  "allocation_id": "WP008-LINEAR-SUPERVISED-ALLOCATION",
+  "entry_event_anchors": [
+    "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO"
+  ],
+  "failure_experiment_ids": [],
+  "family_id": "FAM-SUPERVISED-LINEAR",
+  "information_source": "FIXED_LOW_DIMENSIONAL_PRICE_VOLATILITY_VOLUME_REGIME_AND_TAKER_FLOW_DESCRIPTORS",
+  "legitimate_revisit": "A new Research Director allocation with explicit accounting; feature, label, threshold, regularization, algorithm, barrier, or horizon drift is not this experiment.",
+  "mechanism": "A fixed historical OLS combination may rank default-cost long opportunity quality; predictive, not causal.",
+  "parent_family_id": null,
+  "schema_version": 1,
+  "status": "ADMITTED_PENDING_RESULTS",
+  "work_package": "WP-008"
+}

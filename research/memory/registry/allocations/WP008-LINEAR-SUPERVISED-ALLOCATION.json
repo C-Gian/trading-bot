@@ -1,0 +1,46 @@
+{
+  "adaptive_decision_increment": 1,
+  "algorithm_variants": 0,
+  "allocation_id": "WP008-LINEAR-SUPERVISED-ALLOCATION",
+  "authority": "tasks/CURRENT_TASK.md",
+  "conditionality": "Execution requires committed admission and preregistrations, leakage-safe fold containment, full-rank OLS fits, and zero sealed access.",
+  "cumulative_adaptive_decisions": 5,
+  "cumulative_result_dependent_forks": 5,
+  "experiment_ids": [
+    "EXP-ML-014-LINEAR-NET-R-FULL",
+    "EXP-ML-015-LINEAR-NET-R-NO-FLOW"
+  ],
+  "family_limits": {
+    "experiments": 2,
+    "numeric_parameter_variants": 0,
+    "strategy_variants": 2,
+    "trials": 8
+  },
+  "hyperparameter_searches": 0,
+  "hypothesis_id": "LINEAR_NET_R_SELECTION_V1",
+  "kind": "RESULT_DEPENDENT_NEW_MODEL_FAMILY_ALLOCATION",
+  "model_configurations": 2,
+  "new_economic_hypotheses": 1,
+  "numeric_parameter_variants": 0,
+  "paper_observations": 0,
+  "primary_variant": "LINEAR_FULL",
+  "prior_adaptive_decisions": 4,
+  "prior_family_budget_policy": "All prior family budgets and dispositions remain unchanged; this predictive model root resets nothing.",
+  "prior_result_dependent_forks": 4,
+  "profile_evaluations": 8,
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "profiles_per_configuration": 4,
+  "result_dependent_fork_increment": 1,
+  "review_authority": "reports/reviews/WP-007-RESEARCH-DIRECTOR-REVIEW.md",
+  "root_family": "FAM-SUPERVISED-LINEAR",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "supervised_model_fits": 12,
+  "threshold_searches": 0,
+  "work_package": "WP-008"
+}
