@@ -73,6 +73,7 @@ def create_app(
             "wp005_integrity": state.get("wp005_integrity"),
             "remote_ci": state.get("remote_ci"),
             "latest_family": state.get("latest_family"),
+            "order_flow_substrate": state.get("order_flow_substrate"),
             "sealed_evaluation": state.get("sealed_evaluation"),
             "sealed_system": public_status(),
             "family_budgets": budget_view() + v2_budget_view(),
