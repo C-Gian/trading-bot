@@ -1,0 +1,31 @@
+{
+  "aligned_default_expectancy_r": 0.1373934676,
+  "artifact_content_hashes": {
+    "coverage": "572203626aec15cb8ef753f04916f078a66dd53301fb469ac21993bf32af9871",
+    "matched_parent": "0da56b60d4785a85730d9aeee00758307044181611c36c5e81ffe55df98514c7",
+    "matched_random_gate": "55db970fe4a45a44ed1216aa9e4b30832d7339cd85d3f4f47b952ba33d3213a8"
+  },
+  "champion": "NONE",
+  "classification": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
+  "delta_parent_r": 0.1921323382,
+  "diagnostic_id": "WP005-FINAL-COMPARABILITY-CLASSIFICATION",
+  "hard_prerequisites": {
+    "all_32_seeds_preserved": true,
+    "exact_wp004_replay": "PASS",
+    "independent_feature_reconciliation": "PASS",
+    "protocol_first_commit": "74a1275830c106d7061d1e64eaaf18d28bcb4dfd",
+    "protocol_sha256": "e8062227665dd44b062b60779352efe6e6a51525d8d94b0c911da33bbe868045",
+    "source_provenance": "PASS",
+    "strategy_config_unchanged": true,
+    "undeclared_evaluations": 0
+  },
+  "interpretation": "Diagnostic allocation rule on exposed development evidence; not a formal p-value or independent strategy approval.",
+  "matched_parent_default_expectancy_r": -0.0547388706,
+  "matched_random_gate_q90_expectancy_r": 0.1107856627,
+  "parent_hurdle_pass": true,
+  "parent_hurdle_r": 0.12,
+  "schema_version": 1,
+  "sparse_selection_hurdle_pass": true,
+  "status": "PASS",
+  "underlying_wp004_classification": "INCONCLUSIVE"
+}
