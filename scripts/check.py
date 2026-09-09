@@ -249,8 +249,17 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/validation/WP-005-SOURCE-PROVENANCE.json",
         "research/protocols/WP-005-MATCHED-CONTROLS-V1.json",
         "research/diagnostics/WP-005/final-classification.json",
+        "reports/validation/WP-005-CHECKPOINT.json",
+        "reports/checkpoints/WP-005.md",
+        "tasks/archive/WP-005.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
+    assert "## STATUS\nCOMPLETED" in (ROOT / "tasks/CURRENT_TASK.md").read_text(
+        encoding="utf-8"
+    ).replace("\r\n", "\n")
+    assert (ROOT / "tasks/archive/WP-005.md").read_bytes().replace(
+        b"\r\n", b"\n"
+    ) == (ROOT / "tasks/CURRENT_TASK.md").read_bytes().replace(b"\r\n", b"\n")
     baseline = subprocess.check_output(
         ["git", "show", f"{SEED}:SCIENTIFIC_CONSTITUTION.md"],
         cwd=ROOT,
