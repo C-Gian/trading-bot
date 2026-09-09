@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "protocol_id": "DEVELOPMENT_WALK_FORWARD_V1",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+  "purge_hours": 216,
+  "embargo_hours": 24,
+  "max_hold_minutes": 1440,
+  "fit_policy": "NO_FITTING_NO_FOLD_SELECTION",
+  "primary_aggregation": "POOLED_VALID_RESOLVED_NET_R",
+  "diagnostics": {
+    "minimum_total_trades": 120,
+    "minimum_fold_trades": 15,
+    "minimum_trade_ess": 60,
+    "maximum_unresolved_rate": 0.01,
+    "ess_lags": 5,
+    "minimum_nonnegative_folds": 4,
+    "maximum_positive_fold_profit_share": 0.5,
+    "minimum_double_cost_expectancy": 0
+  },
+  "folds": [
+    {
+      "fold_id": "DEV-2019",
+      "train_start": "2017-08-17T04:00:00Z",
+      "train_end_exclusive": "2018-12-24T00:00:00Z",
+      "validation_start": "2019-01-02T00:00:00Z",
+      "validation_end_exclusive": "2020-01-01T00:00:00Z",
+      "last_signal_inclusive": "2019-12-31T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2020",
+      "train_start": "2017-08-17T04:00:00Z",
+      "train_end_exclusive": "2019-12-24T00:00:00Z",
+      "validation_start": "2020-01-02T00:00:00Z",
+      "validation_end_exclusive": "2021-01-01T00:00:00Z",
+      "last_signal_inclusive": "2020-12-31T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2021",
+      "train_start": "2017-08-17T04:00:00Z",
+      "train_end_exclusive": "2020-12-24T00:00:00Z",
+      "validation_start": "2021-01-02T00:00:00Z",
+      "validation_end_exclusive": "2022-01-01T00:00:00Z",
+      "last_signal_inclusive": "2021-12-31T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2022",
+      "train_start": "2017-08-17T04:00:00Z",
+      "train_end_exclusive": "2021-12-24T00:00:00Z",
+      "validation_start": "2022-01-02T00:00:00Z",
+      "validation_end_exclusive": "2023-01-01T00:00:00Z",
+      "last_signal_inclusive": "2022-12-31T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2023",
+      "train_start": "2017-08-17T04:00:00Z",
+      "train_end_exclusive": "2022-12-24T00:00:00Z",
+      "validation_start": "2023-01-02T00:00:00Z",
+      "validation_end_exclusive": "2024-01-01T00:00:00Z",
+      "last_signal_inclusive": "2023-12-31T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2024",
+      "train_start": "2017-08-17T04:00:00Z",
+      "train_end_exclusive": "2023-12-24T00:00:00Z",
+      "validation_start": "2024-01-02T00:00:00Z",
+      "validation_end_exclusive": "2025-01-01T00:00:00Z",
+      "last_signal_inclusive": "2024-12-31T00:00:00Z"
+    }
+  ]
+}

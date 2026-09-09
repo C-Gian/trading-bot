@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "version": "ADAPTIVE_RESEARCH_GOVERNANCE_V1",
+  "decisions": [
+    {
+      "decision_id": "WP004-ADAPT-001",
+      "work_package": "WP-004",
+      "kind": "ADAPTIVE_FOLLOW_UP",
+      "authority": "decisions/ADR-0004-BOUNDED-ADAPTIVE-DEVELOPMENT.md",
+      "source_experiment_id": "EXP-BASE-004-BREAKOUT",
+      "source_result_sha256": "365f69530f99edceb9f74a5bbf5600bad1fd0b587355956cbbe9b8ab6da12f4a",
+      "source_path": "research/experiments/EXP-BASE-004-BREAKOUT/result.json",
+      "observation": "Gross-positive, default-net-negative, calendar-unstable breakout motivates orthogonal gates.",
+      "hypothesis_id": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+      "family_id": "FAM-BREAKOUT",
+      "primary_experiment_id": "EXP-ALG-009-ALIGNED",
+      "descendant_experiment_ids": [
+        "EXP-ALG-007-REGIME",
+        "EXP-ALG-008-PARTICIPATION",
+        "EXP-ALG-009-ALIGNED"
+      ],
+      "result_dependent_forks": 1,
+      "parameter_searches": 0,
+      "allocated_core_hypotheses": 1,
+      "allocated_structural_variants": 3,
+      "allocated_profile_trials": 12,
+      "allocated_fold_executions": 72,
+      "sealed_queries": 0,
+      "paper_observations": 0
+    }
+  ],
+  "prior_adaptive_decisions": 0,
+  "prior_result_dependent_forks": 0
+}
