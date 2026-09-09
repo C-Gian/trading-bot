@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "work_package": "WP-009",
+  "status": "PRE_BULK_ACQUISITION_RESOLUTION_CORRECTION",
+  "catalog": "research/exogenous/GDELT_QUERY_CATALOG_V1.json",
+  "catalog_channels_or_vocabulary_changed": false,
+  "btc_prices_returns_or_outcomes_used": false,
+  "accepted_rows_before_correction": 0,
+  "finding": "Official GDELT DOC 2.0 semantics specify hourly timelines only for spans from 72 hours through one week; spans greater than one week become daily.",
+  "rejected_chunk_hours": 240,
+  "effective_chunk_hours": 168,
+  "resolution_rule": "REQUIRE_HOUR_RESPONSE_FOR_72_TO_168_HOUR_CHUNKS; REJECT_DAILY",
+  "scientific_scope_change": false,
+  "query_count": 5,
+  "modes_changed": false,
+  "smoothing_changed": false
+}
