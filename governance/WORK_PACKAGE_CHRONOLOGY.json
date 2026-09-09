@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "purpose": "Authoritative starting/final HEAD identity per work package so an executor report cannot claim a different reviewed base.",
+  "policy": "Every work package from WP-006 onward must report the exact starting HEAD recorded here. Historical reports are never rewritten; a known reporting error is documented, not corrected in place.",
+  "work_packages": [
+    {
+      "work_package": "WP-004",
+      "start_head": "2b40aa03cfc05ac7f57d269f596f1ebacdc9d356",
+      "final_head": "3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153",
+      "review": "reports/reviews/WP-004-RESEARCH-DIRECTOR-REVIEW.md",
+      "base_guard_enforced": false,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-005",
+      "start_head": "3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153",
+      "final_head": "444172a359e2663887624da82254cc2185ff85e1",
+      "review": "reports/reviews/WP-005-RESEARCH-DIRECTOR-REVIEW.md",
+      "base_guard_enforced": false,
+      "documented_reporting_error": {
+        "kind": "REPORTED_BASE_HEAD_TYPO",
+        "reported_value": "2b40aa03cfc05ac7f57d269f596f1ebacdc9d356",
+        "true_value": "3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153",
+        "materiality": "NON_MATERIAL",
+        "reason": "The WP-005 executor chat report printed the WP-004 reviewed base instead of the WP-005 merge base. Git ancestry independently establishes the true base. No committed scientific artifact was affected and no historical report is rewritten.",
+        "recorded_in": "reports/reviews/WP-005-RESEARCH-DIRECTOR-REVIEW.md"
+      }
+    },
+    {
+      "work_package": "WP-006",
+      "start_head": "444172a359e2663887624da82254cc2185ff85e1",
+      "final_head": null,
+      "review": null,
+      "base_guard_enforced": true,
+      "documented_reporting_error": null
+    }
+  ]
+}
