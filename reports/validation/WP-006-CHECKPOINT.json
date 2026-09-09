@@ -1,0 +1,51 @@
+{
+  "base_reviewed_head": "444172a359e2663887624da82254cc2185ff85e1",
+  "classifications": {
+    "RECOVERY_CONFIRM": "INCONCLUSIVE",
+    "RECOVERY_CORE": "INCONCLUSIVE"
+  },
+  "cumulative_accounting": {
+    "adaptive_decisions": 3,
+    "configuration_variants": 11,
+    "diagnostic_evaluations": 35,
+    "diagnostic_execution_attempts": 2,
+    "integrity_replay_profiles": 12,
+    "material_economic_hypotheses": 4,
+    "numeric_parameter_variants": 0,
+    "profile_trials": 61,
+    "result_dependent_forks": 3,
+    "sealed_queries": 0,
+    "strategy_descendants": 5,
+    "wp004_profiles_reserved": 12,
+    "wp004_variants_reserved": 3,
+    "wp006_profiles_reserved": 8,
+    "wp006_variants_reserved": 2
+  },
+  "family_terminal_classification": "INCONCLUSIVE",
+  "novelty_classification": "NEW_FAMILY",
+  "numeric_parameter_variants": 0,
+  "profile_trials": 8,
+  "profitability_is_a_gate": false,
+  "recorded_at_utc": "2026-09-09T14:02:43.748369Z",
+  "remote_ci": "PENDING_PUSH",
+  "root_family": "FAM-PULLBACK-RECOVERY",
+  "schema_version": 1,
+  "sealed": {
+    "authorized_btc_queries": 0,
+    "candidates_assessed": 11,
+    "consumed_btc_queries": 0,
+    "seal_eligible_candidates": 0,
+    "sealed_queries_executed": 0,
+    "status": "LOCKED_NO_AUTHORIZED_QUERY",
+    "version": "SEALED_EVALUATION_V1"
+  },
+  "status": "PASS",
+  "strategy_variants": 2,
+  "work_package": "WP-006",
+  "wp005_revalidation": "PASS",
+  "wp005_review": {
+    "remote_ci": "SUCCESS",
+    "reported_base_typo": "DOCUMENTED",
+    "verdict": "ACCEPTED"
+  }
+}

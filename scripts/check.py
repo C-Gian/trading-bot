@@ -16,6 +16,11 @@ sys.path.insert(0, str(ROOT / "backend"))
 REVIEWED = "47dd69d73768a9e3a3c92fe08eb1e7e3e8c239f5"
 WP004_BASE = "2b40aa03cfc05ac7f57d269f596f1ebacdc9d356"
 WP005_BASE = "3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153"
+WP006_BASE = "444172a359e2663887624da82254cc2185ff85e1"
+WP006_EXPERIMENTS = {
+    "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
+    "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
+}
 PREDECESSOR = "60ab3141862da74028763e2df72ac3c88b63b5a8"
 SEED = "c6c526124945aa1624118bd7ee6aef9ae5c011b2"
 CUTOFF = datetime(2024, 12, 31, 23, 59, tzinfo=UTC)
@@ -82,10 +87,12 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.runner import sha256 as runner_sha
     from app.research.wp004 import SPEC
     from app.research.wp004_validation import validate_checkpoint
+    from app.research.wp006 import SPEC as WP006_SPEC
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
-    assert directories == set(EXPERIMENTS) | set(SPEC)
-    assert len(results) == state["experiments_completed"] == 9
+    assert directories == set(EXPERIMENTS) | set(SPEC) | set(WP006_SPEC)
+    assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
+    assert len(results) == state["experiments_completed"] == 11
     for experiment_id, budget in EXPERIMENTS.items():
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path, result_path = directory / "preregistration.json", directory / "result.json"
@@ -151,27 +158,28 @@ def validate_research_views(state: dict) -> None:
 
     memory = load_memory()
     assert state["schema_version"] == 3
+    from app.research.wp006 import REGISTRY_PATH
+
+    v2_families = json.loads((ROOT / REGISTRY_PATH).read_text(encoding="utf-8"))["families"]
     assert state["search_memory"] == {
         "version": "SEARCH_MEMORY_V2",
         "status": "VALIDATED",
-        "families_tracked": len(memory["families"]["families"]),
+        "families_tracked": len(memory["families"]["families"]) + len(v2_families),
     }
+    from app.research.wp006_views import cumulative_accounting
+
     prior = validate_adaptive()
-    assert state["adaptive_search"] == {
-        **prior,
-        "numeric_parameter_variants": 0,
-        "adaptive_decisions": 2,
-        "result_dependent_forks": 2,
-        "integrity_replay_profiles": 12,
-        "diagnostic_evaluations": 35,
-        "diagnostic_execution_attempts": 2,
-    }
+    assert prior["adaptive_decisions"] == prior["result_dependent_forks"] == 1
+    assert prior["profile_trials"] == 53 and prior["configuration_variants"] == 9
+    assert state["adaptive_search"] == cumulative_accounting()
+    assert state["adaptive_search"]["numeric_parameter_variants"] == 0
+    assert state["adaptive_search"]["sealed_queries"] == 0
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
-        state["latest_reviewed_checkpoint"] == "WP-004"
-        and state["latest_executor_checkpoint"] == "WP-005"
+        state["latest_reviewed_checkpoint"] == "WP-005"
+        and state["latest_executor_checkpoint"] == "WP-006"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -199,6 +207,22 @@ def validate_research_views(state: dict) -> None:
     projection = experiment_view(state=state)
     assert len(projection["experiments"]) == state["experiments_completed"]
     assert projection["latest_checkpoint"] == state["latest_executor_checkpoint"]
+    from app.research.wp006_validation import validate_wp006
+
+    wp006 = validate_wp006()
+    assert wp006["status"] == "PASS" and wp006["novelty_classification"] == "NEW_FAMILY"
+    assert wp006["variants"] == 2 and wp006["profile_trials"] == 8
+    assert wp006["numeric_parameter_variants"] == 0
+    assert wp006["sealed"]["seal_eligible"] == 0
+    assert wp006["report_base_guard"] == ["WP-006"]
+    comparison = "reports/research/WP-006-COMPARISON.json"
+    immutable_from_first_commit(comparison)
+    from app.research.wp006_views import build_wp006_comparison
+
+    assert json.loads((ROOT / comparison).read_text(encoding="utf-8")) == json.loads(
+        json.dumps(build_wp006_comparison())
+    )
+
     from app.research.wp005_validation import validate_wp005
 
     wp005 = validate_wp005(data_available=False)
@@ -252,14 +276,41 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/validation/WP-005-CHECKPOINT.json",
         "reports/checkpoints/WP-005.md",
         "tasks/archive/WP-005.md",
+        "reports/reviews/WP-005-RESEARCH-DIRECTOR-REVIEW.md",
+        "reports/reviews/WP-005-CI-EVIDENCE.json",
+        "governance/WORK_PACKAGE_CHRONOLOGY.json",
+        "docs/contracts/SEALED_EVALUATION_V1.md",
+        "contracts/sealed_evaluation_request.schema.json",
+        "contracts/sealed_evaluation_result.schema.json",
+        "research/sealed/SEALED_QUERY_BUDGET.json",
+        "research/sealed/SEALED_CANDIDATE_ELIGIBILITY.json",
+        "decisions/ADR-0006-SEALED-EVALUATION-ARCHITECTURE.md",
+        "decisions/ADR-0007-PULLBACK-RECOVERY-ROOT-AND-V2-MEMORY-LAYER.md",
+        "research/design/PULLBACK_RECOVERY_V1_DESIGN.md",
+        "research/memory/WP006-NOVELTY-ADMISSION.json",
+        "research/memory/WP006-PULLBACK-RECOVERY-ALLOCATION.json",
+        "research/memory/WP-006-LESSONS.json",
+        "reports/validation/WP-006-PREEXECUTION-CORRECTION.json",
+        "reports/checkpoints/WP-006.md",
+        "reports/research/WP-006-PULLBACK-RECOVERY.md",
+        "tasks/archive/WP-006.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     assert "## STATUS\nCOMPLETED" in (ROOT / "tasks/CURRENT_TASK.md").read_text(
         encoding="utf-8"
     ).replace("\r\n", "\n")
-    assert (ROOT / "tasks/archive/WP-005.md").read_bytes().replace(b"\r\n", b"\n") == (
+    assert (ROOT / "tasks/archive/WP-006.md").read_bytes().replace(b"\r\n", b"\n") == (
         ROOT / "tasks/CURRENT_TASK.md"
     ).read_bytes().replace(b"\r\n", b"\n")
+    wp005_ci = json.loads(
+        (ROOT / "reports/reviews/WP-005-CI-EVIDENCE.json").read_text(encoding="utf-8")
+    )
+    assert wp005_ci["reviewed_head"] == "444172a359e2663887624da82254cc2185ff85e1"
+    assert wp005_ci["conclusion"] == "success" and wp005_ci["branch"] == "main"
+    review = (ROOT / "reports/reviews/WP-005-RESEARCH-DIRECTOR-REVIEW.md").read_text(
+        encoding="utf-8"
+    )
+    assert "ACCEPTED" in review and WP005_BASE in review and WP004_BASE in review
     baseline = subprocess.check_output(
         ["git", "show", f"{SEED}:SCIENTIFIC_CONSTITUTION.md"],
         cwd=ROOT,
@@ -271,7 +322,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert git("branch", "--show-current") == "main" or (
         git("branch", "--show-current") == "" and os.environ.get("CLEAN_CHECKOUT") == "1"
     )
-    for ancestor in (SEED, PREDECESSOR, REVIEWED, WP004_BASE, WP005_BASE):
+    for ancestor in (SEED, PREDECESSOR, REVIEWED, WP004_BASE, WP005_BASE, WP006_BASE):
         run(["git", "merge-base", "--is-ancestor", ancestor, "HEAD"])
     state = validate_json(
         ROOT / "state/current_state.json", ROOT / "contracts/project_state.schema.json"
@@ -307,6 +358,14 @@ def governance_checks(pre_experiment: bool) -> dict:
         x not in source
         for x in ("create_order(", "api_key", "secret_key", "ccxt", "binance.client")
     )
+    for name in ("optimize", "grid_search", "bayesian", "evolutionary", "hyperopt", "optuna"):
+        assert name not in source, f"an optimizer entered the research code: {name}"
+    assert not (ROOT / "data/sealed").exists()
+    for directory in ("data/raw", "data/canonical", "data/derived"):
+        for path in (ROOT / directory).rglob("*"):
+            assert path.is_dir() or not any(
+                f"-{year}-" in path.name for year in range(2025, 2100)
+            ), f"post-cutoff market file: {path.name}"
     from app.main import app
 
     assert all(
@@ -395,7 +454,7 @@ def main() -> None:
     if not options.no_data:
         data_checks(state)
     assert not git("status", "--porcelain"), "working tree must be clean at checkpoint validation"
-    print("WP-005 deterministic validation: PASS (profitability is not a validation gate)")
+    print("WP-006 deterministic validation: PASS (profitability is not a validation gate)")
 
 
 if __name__ == "__main__":
