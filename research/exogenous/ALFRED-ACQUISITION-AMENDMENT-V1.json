@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "work_package": "WP-009",
+  "status": "PRE_BULK_ACQUISITION_TRANSPORT_CORRECTION",
+  "catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+  "catalog_series_changed": false,
+  "btc_prices_returns_or_outcomes_used": false,
+  "accepted_rows_before_correction": 0,
+  "finding": "The public ALFRED graph endpoint applies a single vintage_date parameter only to the first series in a combined id request; remaining columns are labeled with the retrieval-day vintage and would constitute current-revised substitution.",
+  "rejected_method": "ONE_COMBINED_SNAPSHOT_PER_CALENDAR_VINTAGE_DATE_WITH_FIXED_OBSERVATION_BOUNDS",
+  "effective_method": "ONE_SNAPSHOT_PER_SERIES_PER_CALENDAR_VINTAGE_DATE_WITH_FIXED_OBSERVATION_BOUNDS",
+  "identity_rule": "Every response column must equal SERIES_ID_YYYYMMDD for the requested series and vintage date; any mismatch fails closed.",
+  "scientific_scope_change": false,
+  "series_count": 8,
+  "availability_rule_changed": false,
+  "current_revised_substitution_allowed": false
+}
