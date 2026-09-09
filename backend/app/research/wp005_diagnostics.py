@@ -417,7 +417,12 @@ def build_diagnostics(root: Path) -> dict[str, dict[str, Any]]:
                 "active_position_suppression_rate": round(suppressed / len(value["aligned"]), 10),
             }
         )
-    total = lambda key: sum(value[key] for value in universe.values())
+    def total(key: str) -> int:
+        return sum(
+            len(value[key]) if isinstance(value[key], list) else int(value[key])
+            for value in universe.values()
+        )
+
     total_aligned = total("aligned")
     total_parent = total("parent")
     total_eligible = total("eligible")

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "attempt_id": "WP005-MATCHED-CONTROLS-ATTEMPT-001",
+  "kind": "DIAGNOSTIC_EXECUTION_ATTEMPT_FAILURE",
+  "execution_commit": "f028f82",
+  "protocol_first_commit": "74a1275",
+  "protocol_final_pre_result_commit": "817910b",
+  "declared_unique_diagnostic_evaluations_invoked": 35,
+  "result_artifacts_finalized": 0,
+  "result_values_reported_or_used_for_adaptation": 0,
+  "failure_stage": "POST_EXECUTION_COVERAGE_AGGREGATION_BEFORE_ANY_ARTIFACT_WRITE",
+  "error": "TypeError: unsupported operand type(s) for +: 'int' and 'list'",
+  "cause": "Coverage total helper summed candidate timestamp lists instead of their lengths.",
+  "correction_scope": "Mechanical aggregation only; protocol, candidates, seeds, execution, metrics, hurdles, and strategy configuration unchanged.",
+  "disposition": "Preserve this failed attempt and rerun the same 35 unique diagnostic identities; the rerun is reproducibility overhead, not a new hypothesis, variant, seed, or adaptive fork."
+}
