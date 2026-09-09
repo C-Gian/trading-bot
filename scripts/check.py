@@ -215,7 +215,7 @@ def validate_research_views(state: dict) -> None:
     assert wp006["variants"] == 2 and wp006["profile_trials"] == 8
     assert wp006["numeric_parameter_variants"] == 0
     assert wp006["sealed"]["seal_eligible"] == 0
-    assert wp006["report_base_guard"] == ["WP-006"]
+    assert {"WP-006", "WP-007"} <= set(wp006["report_base_guard"])
     comparison = "reports/research/WP-006-COMPARISON.json"
     immutable_from_first_commit(comparison)
     from app.research.wp006_views import build_wp006_comparison
