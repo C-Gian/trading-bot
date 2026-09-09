@@ -43,6 +43,7 @@
     "k_rule": "Per fold K equals raw ALIGNED gate-positive candidate count before occupancy.",
     "k_by_fold": {"DEV-2019": 45, "DEV-2020": 40, "DEV-2021": 15, "DEV-2022": 7, "DEV-2023": 45, "DEV-2024": 43},
     "rank_rule": "ascending SHA-256 bytes of WP005_MATCHED_RANDOM_GATE_V1:<seed>:<timestamp>; take exactly K",
+    "rank_timestamp_encoding": "base-10 integer UTC microseconds since Unix epoch, no sign or leading zeros",
     "cost_profile": "DEFAULT",
     "seed_derivation": "unsigned big-endian integer from first 8 bytes of SHA-256(WP005_MATCHED_RANDOM_GATE_SEED:<index>)",
     "seed_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],

@@ -16,7 +16,9 @@ The matched parent is the frozen 24h close-above-prior-high rule with no regime 
 participation gate, run exactly at DEFAULT, ZERO, and DOUBLE costs. Each of 32
 fixed random controls selects, per fold and before occupancy, exactly as many
 parent candidates as ALIGNED had raw gate-positive candidates. Ranking uses only
-the preregistered seed and timestamp SHA-256; outcomes cannot affect selection.
+the preregistered seed and timestamp SHA-256; the timestamp is encoded as a
+base-10 UTC-microsecond Unix integer with no sign or leading zeros. Outcomes
+cannot affect selection.
 
 Quantiles use sorted values, position `p*(n-1)`, and linear interpolation between
 adjacent values (Hyndman-Fan type 7 / NumPy default), rounded to 10 decimals. The
