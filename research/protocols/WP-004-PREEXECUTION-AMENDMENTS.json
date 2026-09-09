@@ -1,0 +1,33 @@
+{
+  "abort_record": "reports/validation/WP-004-PREEXECUTION-ABORT.json",
+  "abort_record_sha256": "21ec86c6a0f3af7d7fb7d87f5c25a16fdf0b0698664a0dfd1bed7a85f5a9fd8c",
+  "additional_profile_trials": 0,
+  "additional_strategy_variants": 0,
+  "amendments": {
+    "EXP-ALG-007-REGIME": {
+      "effective_experiment_version": 2,
+      "effective_path": "research/experiments/EXP-ALG-007-REGIME/preregistration.v2.json",
+      "effective_sha256": "425e478cae85f2c751a007bf99770d212d471645d5534b956cec8da5dbd0b9d1",
+      "implementation_commit": "9fe1a00c87a8acb7b6cd1a9143f4d1d057d11663",
+      "superseded_sha256": "d36d177b4485debb7af322fb457d669be06cb53bbedd51dc46e06b2df46db128"
+    },
+    "EXP-ALG-008-PARTICIPATION": {
+      "effective_experiment_version": 2,
+      "effective_path": "research/experiments/EXP-ALG-008-PARTICIPATION/preregistration.v2.json",
+      "effective_sha256": "db0eba8c10b4f15140cb79b29aecefdfbab2ab74ff639082b75554319e46f659",
+      "implementation_commit": "9fe1a00c87a8acb7b6cd1a9143f4d1d057d11663",
+      "superseded_sha256": "99adee14b15a4684760cf8890a9bfcce255e2e958b583d937525c46421a50629"
+    },
+    "EXP-ALG-009-ALIGNED": {
+      "effective_experiment_version": 2,
+      "effective_path": "research/experiments/EXP-ALG-009-ALIGNED/preregistration.v2.json",
+      "effective_sha256": "b6abbd6b0a1d3f5049af40fc4f0a1ed7dc42620e5f5b0f8de3d55ca535e1dfaa",
+      "implementation_commit": "9fe1a00c87a8acb7b6cd1a9143f4d1d057d11663",
+      "superseded_sha256": "20bc5e9d3238cb65e81dbf5d46b7c13ff1f39b845c7db61db6f228d1c6b04723"
+    }
+  },
+  "authority": "decisions/ADR-0005-PREEXECUTION-SOURCE-GRID-QUARANTINE.md",
+  "kind": "PRE_EXECUTION_DATA_INTEGRITY_CORRECTION",
+  "schema_version": 1,
+  "strategy_trials_before_amendment": 0
+}

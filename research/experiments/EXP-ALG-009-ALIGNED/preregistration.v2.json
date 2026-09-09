@@ -1,0 +1,457 @@
+{
+  "code_config_reference": "01ab663b6e7e040e0a3f1b0de4065c7b478dabe6b258e89935e6b41096c30865",
+  "cost_execution_reference": "BACKTEST_ENGINE_V2 / EXECUTION_MODEL_V2 / BTCUSDT_SPOT_COST_V1",
+  "created_at_utc": "2026-09-09T07:42:22.802246Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "evaluation_design": "DEVELOPMENT_WALK_FORWARD_V1; no fitting or fold-wise selection; ALIGNED preselected family primary; every profile and fold retained.",
+  "experiment_id": "EXP-ALG-009-ALIGNED",
+  "experiment_version": 2,
+  "hypothesis": "A sufficiently sampled fixed rule has positive default-cost expectancy distributed across annual development folds, with robustness to doubled costs. Configuration: ALIGNED.",
+  "leakage_controls": [
+    "26 contiguous complete 1h bars; 43 contiguous complete 4h bars available both at t and t-1h",
+    "ineligible; never forward fill or impute",
+    "expiry close is known at its boundary; any other exit with minute-open timestamp releases the position only after that minute closes",
+    "216h purge /24h embargo",
+    "full 24h outcome containment",
+    "cutoff enforced before data inspection",
+    "Every 1h/4h bucket intersecting an off-grid source interval [open,open+1m) is incomplete, including a next bucket crossed by a late close; exact canonical bytes unchanged."
+  ],
+  "metrics": {
+    "primary": "Pooled valid resolved default-cost net expectancy R over six fixed chronological folds",
+    "secondary": [
+      "profiles",
+      "terminal_classification",
+      "execution_provenance"
+    ]
+  },
+  "parameter_space": {
+    "adaptive_decision_id": "WP004-ADAPT-001",
+    "classification": "BOUNDED_FAMILY_EXPLORATION",
+    "cost_profiles": {
+      "DEFAULT": {
+        "entry_fee_bps": "10",
+        "entry_friction_bps": "2",
+        "exit_fee_bps": "10",
+        "exit_friction_bps": "2"
+      },
+      "DELAY_1H": {
+        "entry_fee_bps": "10",
+        "entry_friction_bps": "2",
+        "exit_fee_bps": "10",
+        "exit_friction_bps": "2"
+      },
+      "DOUBLE": {
+        "entry_fee_bps": "20",
+        "entry_friction_bps": "4",
+        "exit_fee_bps": "20",
+        "exit_friction_bps": "4"
+      },
+      "ZERO": {
+        "entry_fee_bps": "0",
+        "entry_friction_bps": "0",
+        "exit_fee_bps": "0",
+        "exit_friction_bps": "0"
+      }
+    },
+    "dependencies": [
+      {
+        "path": "backend/app/data/policy.py",
+        "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+      },
+      {
+        "path": "backend/app/backtest/__init__.py",
+        "sha256": "ca82d603250bb0218128822c3f226c90408d719b7a95b23bf3728b4c6b3c2445"
+      },
+      {
+        "path": "backend/app/backtest/models.py",
+        "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+      },
+      {
+        "path": "backend/app/backtest/engine.py",
+        "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+      },
+      {
+        "path": "backend/app/research/baselines.py",
+        "sha256": "5d8f2f3faa003781aafd506ca004121f25213ad46d5cff9611e4e54ae16f1a3d"
+      },
+      {
+        "path": "backend/app/research/records.py",
+        "sha256": "eae12d88aa2341700453370b1aa2f099c8d7891d9932597b319361a3b5391b69"
+      },
+      {
+        "path": "backend/app/research/runner.py",
+        "sha256": "00acad4fd01c21e69f7eac4c36987e53c7cb27016f83a07cf4d2c0eac985740a"
+      },
+      {
+        "path": "backend/app/research/search_memory.py",
+        "sha256": "4e468cd195ec735425e41a73178841bb397844ca49383b26458df19702a7233c"
+      },
+      {
+        "path": "backend/app/research/adaptive.py",
+        "sha256": "6231ec1a14d7d70dd8fbbf8aed0a4c33c23713a47c58c23ec4261a4f4a699dce"
+      },
+      {
+        "path": "backend/app/research/evaluation_protocol.py",
+        "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+      },
+      {
+        "path": "backend/app/research/continuation.py",
+        "sha256": "2cc0a307ba5f12f521980090642e68d5ead365e14a6d79258680972c2e58fb2d"
+      },
+      {
+        "path": "backend/app/research/continuation_lab.py",
+        "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+      },
+      {
+        "path": "backend/app/research/source_grid.py",
+        "sha256": "d73b43e386b49d6dc1dd9643e1327a9ffb37c1a4e3e8b2c1d5ad326de898891a"
+      },
+      {
+        "path": "backend/app/research/wp004.py",
+        "sha256": "1a57803e79da5eccc64263d7eb52e00a30dcb40d9121fbd6c0871f12f949835b"
+      },
+      {
+        "path": "backend/tests/test_continuation.py",
+        "sha256": "13de22b3ddf07b38070f7af12d98eb4a67d0b6fb5295110ef5b7ce8d79b36936"
+      },
+      {
+        "path": "backend/tests/test_evaluation_protocol.py",
+        "sha256": "468ed5bb779030869bcd0b0c014874b4ab3617edd35cb4a170f6b97482e9717d"
+      },
+      {
+        "path": "backend/tests/test_search_memory.py",
+        "sha256": "8be32fa12aa3294fcf9082693de479776731835ad6e655ce79d8786b35a6e801"
+      },
+      {
+        "path": "backend/tests/test_wp004.py",
+        "sha256": "97d5f1379ca9a96cc12b0e09feb8dd7da2c79c151627a9fd4770f6a1e0af8d2e"
+      },
+      {
+        "path": "backend/tests/test_source_grid.py",
+        "sha256": "da92fcc7c8b15660c4ca5ccf3de10edec6bf99542f1c6506b70264ddd4acffda"
+      },
+      {
+        "path": "scripts/run_wp004.py",
+        "sha256": "05e259053f903d8daeb0a32002d4e52845334bcd1e45e16f747f247e79be8e2e"
+      },
+      {
+        "path": "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+        "sha256": "2b78b3582a1244ef6fcbb848d15e37febb8e8137d35b3722c86ad4569d92626c"
+      },
+      {
+        "path": "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json",
+        "sha256": "41d274c31262328b1813f2e4387fd12904e111f91e60462ecb42b9cba4e503c0"
+      },
+      {
+        "path": "research/protocols/CONTINUATION_FEATURES_V1.json",
+        "sha256": "19a618998ff59fe9a5ef7c8cad6b47dc84319764247540cabde1ce4526213a63"
+      },
+      {
+        "path": "research/protocols/CONTINUATION_FEATURES_V2.json",
+        "sha256": "1860ce39274c4fe5ad5379119f6ee99aeed65d9774d403cee4c2eda90ac2f66b"
+      },
+      {
+        "path": "reports/validation/WP-004-SOURCE-GRID.json",
+        "sha256": "2a1ecc8d771961f2f64d5e4d4da2dc41a3ba34e5143bcbf0e06c09d23a433afd"
+      },
+      {
+        "path": "reports/validation/WP-004-PREEXECUTION-ABORT.json",
+        "sha256": "21ec86c6a0f3af7d7fb7d87f5c25a16fdf0b0698664a0dfd1bed7a85f5a9fd8c"
+      },
+      {
+        "path": "decisions/ADR-0005-PREEXECUTION-SOURCE-GRID-QUARANTINE.md",
+        "sha256": "de81d638f7b89fe879cda519db9b7251ae219394ee330218e8f97677fd396256"
+      },
+      {
+        "path": "research/memory/SEARCH_BUDGET.json",
+        "sha256": "1a6c037123e9c5eabd133dd9c8aa1da3d50317657b2a1f15231bb817187e2f08"
+      },
+      {
+        "path": "research/memory/ADAPTIVE_DECISIONS.json",
+        "sha256": "aa4fec171dc6c79dce86c95999735782129ce512b0f8d724370192505c16d1da"
+      },
+      {
+        "path": "docs/contracts/DEVELOPMENT_EVALUATION_V1.md",
+        "sha256": "2687c4a7bec4e3e10dd394f78e9609d10063a14719285a2e3bcecfc0f28dc7fa"
+      },
+      {
+        "path": "docs/contracts/EXECUTION_MODEL_V2.md",
+        "sha256": "5bc7c6a034e2c0f82b70764be494968692f2ba24f1eaa90612a81412fd649500"
+      },
+      {
+        "path": "docs/contracts/COST_MODEL_V1.md",
+        "sha256": "01f776da15ce0fada20f1cfa178b90869155248c650712c1168482a44d4a481e"
+      },
+      {
+        "path": "uv.lock",
+        "sha256": "9c24b3581bffc75c52ce0c5076d867a553d5b7ac4f97b2b4788e37f11c74904a"
+      },
+      {
+        "path": "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json",
+        "sha256": "50279396df26965188214cb39199a775f2683e70dbfe66240dc03d1fa7bc6806"
+      }
+    ],
+    "falsification": "DEVELOPMENT_EVALUATION_V1 deterministic terminal rule; adequately sampled nonpositive default net rejects economic sufficiency, sparse evidence is inconclusive.",
+    "family_id": "FAM-BREAKOUT",
+    "feature_definitions": {
+      "ALIGNED": "breakout AND persistence AND participation",
+      "PARTICIPATION_ONLY": "breakout AND participation",
+      "REGIME_ONLY": "breakout AND persistence",
+      "breakout": "current completed 1h close strictly greater than maximum of preceding 24 completed 1h highs; current high excluded",
+      "common_eligibility": "26 contiguous complete 1h bars; 43 contiguous complete 4h bars available both at t and t-1h",
+      "context_clock": "MOST_RECENT_COMPLETED_UTC_4H_BAR_AGE_0_TO_3_HOURS",
+      "expiry_minutes": 1440,
+      "gaps": "ineligible; never forward fill or impute",
+      "participation": "current 1h base volume >= 2 * arithmetic mean(previous 24 completed 1h base volumes); prior mean must be positive",
+      "persistence": "42 price-close increments from 43 completed 4h closes; U=sum positive changes, D=absolute sum negative changes; U>=2*D and U+D>0",
+      "position_availability": "expiry close is known at its boundary; any other exit with minute-open timestamp releases the position only after that minute closes",
+      "pre_execution_correction": "ADR-0005; no strategy outputs existed for version 1.",
+      "reference": "latest completed 1h close at t",
+      "relative_volume_diagnostic": "current base volume / preceding-24 mean, null if prior mean zero",
+      "signal_clock": "COMPLETED_1H_CLOSE_THEN_NEXT_1M_OPEN",
+      "signed_efficiency_diagnostic": "(U-D)/(U+D), null for flat context",
+      "source_grid_quarantine": "Every 1h/4h bucket intersecting an off-grid source interval [open,open+1m) is incomplete, including a next bucket crossed by a late close; exact canonical bytes unchanged.",
+      "stop": "0.98*reference fixed before entry",
+      "symbol": "BTCUSDT",
+      "target": "1.04*reference fixed before entry",
+      "timing_perturbation": "condition at t-1h with reference close known at t; costs and 24h entry horizon unchanged",
+      "version": "CONTINUATION_FEATURES_V2"
+    },
+    "feature_definitions_sha256": "1860ce39274c4fe5ad5379119f6ee99aeed65d9774d403cee4c2eda90ac2f66b",
+    "fingerprint": {
+      "confirmation_filter": "RELATIVE_VOLUME_GATE",
+      "context_minutes": 240,
+      "cost_model": "BTCUSDT_SPOT_COST_V1",
+      "dataset": {
+        "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+        "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+        "maximum_timestamp": "2024-12-31T23:59:00Z"
+      },
+      "direction": "LONG",
+      "entry_event": "CLOSE_ABOVE_PRIOR_HIGH",
+      "execution_model": "EXECUTION_MODEL_V2",
+      "exit_family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+      "feature_families": [
+        "PRICE_HIGH_BREAKOUT",
+        "DIRECTIONAL_PERSISTENCE",
+        "PARTICIPATION"
+      ],
+      "feature_transformations": [
+        "PRIOR_HIGH_MAXIMUM",
+        "SIGNED_PRICE_EFFICIENCY",
+        "RELATIVE_BASE_VOLUME"
+      ],
+      "market": "SPOT",
+      "max_hold_minutes": 1440,
+      "parameters": {
+        "breakout_hours": 24,
+        "context_bars": 43,
+        "context_increments": 42,
+        "history_1h_bars": 26,
+        "signal_delay_hours": 0,
+        "stop_fraction": 0.02,
+        "target_fraction": 0.04,
+        "up_to_down_ratio": 2,
+        "volume_baseline_hours": 24,
+        "volume_multiplier": 2
+      },
+      "position_policy": "SINGLE_LONG_NO_OVERLAP",
+      "regime_filter": "SIGNED_EFFICIENCY_GATE",
+      "signal_minutes": 60,
+      "stop_family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+      "symbol": "BTCUSDT"
+    },
+    "hypothesis_id": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "hypothesis_role": "ECONOMIC_CORE",
+    "implementation_commit": "9fe1a00c87a8acb7b6cd1a9143f4d1d057d11663",
+    "metric_hierarchy": [
+      "default pooled net expectancy",
+      "count/ESS/data-quality sufficiency",
+      "fold/year/regime stability",
+      "doubled costs",
+      "timing and structural diagnostics"
+    ],
+    "new_evidence_basis": {
+      "falsifiable_prediction": "A sufficiently sampled fixed rule has positive default-cost expectancy distributed across annual development folds, with robustness to doubled costs.",
+      "kind": "OBSERVED_DIAGNOSTIC_WITH_STRUCTURAL_RESPONSE",
+      "observations": [
+        {
+          "expected_value": -0.0482093869,
+          "json_pointer": "/primary_result"
+        },
+        {
+          "expected_value": 0.0722123707,
+          "json_pointer": "/secondary_results/zero_cost_metrics/net_expectancy_r"
+        }
+      ],
+      "source_experiment_id": "EXP-BASE-004-BREAKOUT",
+      "source_path": "research/experiments/EXP-BASE-004-BREAKOUT/result.json",
+      "source_sha256": "365f69530f99edceb9f74a5bbf5600bad1fd0b587355956cbbe9b8ab6da12f4a",
+      "structural_response": "ALIGNED: distinguish sustained upward path and unusual participation as conditional filters, retaining baseline barriers."
+    },
+    "novelty": "REVISIT_WITH_NEW_EVIDENCE",
+    "parent_experiment_ids": [
+      "EXP-BASE-004-BREAKOUT"
+    ],
+    "pre_execution_correction": {
+      "abort_record": "reports/validation/WP-004-PREEXECUTION-ABORT.json",
+      "authority": "decisions/ADR-0005-PREEXECUTION-SOURCE-GRID-QUARANTINE.md",
+      "strategy_trials_before_amendment": 0,
+      "superseded_path": "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json",
+      "superseded_sha256": "20bc5e9d3238cb65e81dbf5d46b7c13ff1f39b845c7db61db6f228d1c6b04723"
+    },
+    "primary_family_variant": "ALIGNED",
+    "protocol_sha256": "8701587ddda8789d09e8a3087dccab7b4c6a01fb47a16a2baae77a62d2d5448c",
+    "robustness": {
+      "cost": [
+        "DEFAULT",
+        "ZERO",
+        "DOUBLE"
+      ],
+      "selection": "NO_BEST_PROFILE_SELECTION",
+      "structural_ablations": [
+        "EXP-ALG-007-REGIME",
+        "EXP-ALG-008-PARTICIPATION",
+        "EXP-ALG-009-ALIGNED"
+      ],
+      "timing": "condition at t-1h with reference close known at t; costs and 24h entry horizon unchanged"
+    },
+    "source_grid_expected": {
+      "intervals": [
+        {
+          "end": "2017-12-18T10:00:20.799000Z",
+          "rows": 20401,
+          "start": "2017-12-04T06:00:20.799000Z"
+        },
+        {
+          "end": "2018-02-10T05:59:14.789000Z",
+          "rows": 1201,
+          "start": "2018-02-09T09:59:14.789000Z"
+        }
+      ],
+      "off_grid_rows": 21602,
+      "off_grid_timestamps_sha256": "cae48504c02956dd74c4a12c30f7e7731702246460e93b83992db5b6cd4e586f",
+      "policy": "QUARANTINE_SOURCE_OFF_GRID_INTERVALS_V1",
+      "quarantine_masks_sha256": "27f629a5e0edde9fada51c9cd373e591e4ba4a8a53c9d1e68327e10b3c4c5bd5",
+      "quarantined_1h_buckets": 363,
+      "quarantined_4h_buckets": 92,
+      "repairs_or_fills": 0
+    },
+    "strategy_path": "backend/app/research/continuation.py",
+    "strategy_sha256": "2cc0a307ba5f12f521980090642e68d5ead365e14a6d79258680972c2e58fb2d",
+    "trial_plan": [
+      {
+        "config_path": "research/configs/wp004/aligned.json",
+        "config_sha256": "6af1603b4f837a57f773af8470f59cd886d1e0cf5b18e91f9fba925b47282156",
+        "trial_id": "ALIGNED:DEFAULT"
+      },
+      {
+        "config_path": "research/configs/wp004/aligned.json",
+        "config_sha256": "6af1603b4f837a57f773af8470f59cd886d1e0cf5b18e91f9fba925b47282156",
+        "trial_id": "ALIGNED:ZERO"
+      },
+      {
+        "config_path": "research/configs/wp004/aligned.json",
+        "config_sha256": "6af1603b4f837a57f773af8470f59cd886d1e0cf5b18e91f9fba925b47282156",
+        "trial_id": "ALIGNED:DOUBLE"
+      },
+      {
+        "config_path": "research/configs/wp004/aligned.json",
+        "config_sha256": "6af1603b4f837a57f773af8470f59cd886d1e0cf5b18e91f9fba925b47282156",
+        "trial_id": "ALIGNED:DELAY_1H"
+      }
+    ],
+    "trial_units": {
+      "core_hypotheses_shared": 1,
+      "family_structural_variant_cap": 3,
+      "fold_executions": 24,
+      "parameter_searches": 0,
+      "profile_trials": 4,
+      "this_structural_variant": 1
+    },
+    "walk_forward": {
+      "development_cutoff": "2024-12-31T23:59:00Z",
+      "diagnostics": {
+        "ess_lags": 5,
+        "maximum_positive_fold_profit_share": 0.5,
+        "maximum_unresolved_rate": 0.01,
+        "minimum_double_cost_expectancy": 0,
+        "minimum_fold_trades": 15,
+        "minimum_nonnegative_folds": 4,
+        "minimum_total_trades": 120,
+        "minimum_trade_ess": 60
+      },
+      "embargo_hours": 24,
+      "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+      "fit_policy": "NO_FITTING_NO_FOLD_SELECTION",
+      "folds": [
+        {
+          "fold_id": "DEV-2019",
+          "last_signal_inclusive": "2019-12-31T00:00:00Z",
+          "train_end_exclusive": "2018-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2020-01-01T00:00:00Z",
+          "validation_start": "2019-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2020",
+          "last_signal_inclusive": "2020-12-31T00:00:00Z",
+          "train_end_exclusive": "2019-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2021-01-01T00:00:00Z",
+          "validation_start": "2020-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2021",
+          "last_signal_inclusive": "2021-12-31T00:00:00Z",
+          "train_end_exclusive": "2020-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2022-01-01T00:00:00Z",
+          "validation_start": "2021-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2022",
+          "last_signal_inclusive": "2022-12-31T00:00:00Z",
+          "train_end_exclusive": "2021-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2023-01-01T00:00:00Z",
+          "validation_start": "2022-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2023",
+          "last_signal_inclusive": "2023-12-31T00:00:00Z",
+          "train_end_exclusive": "2022-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2024-01-01T00:00:00Z",
+          "validation_start": "2023-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2024",
+          "last_signal_inclusive": "2024-12-31T00:00:00Z",
+          "train_end_exclusive": "2023-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2025-01-01T00:00:00Z",
+          "validation_start": "2024-01-02T00:00:00Z"
+        }
+      ],
+      "max_hold_minutes": 1440,
+      "primary_aggregation": "POOLED_VALID_RESOLVED_NET_R",
+      "protocol_id": "DEVELOPMENT_WALK_FORWARD_V1",
+      "purge_hours": 216,
+      "schema_version": 1
+    }
+  },
+  "rationale": "ALIGNED: distinguish sustained upward path and unusual participation as conditional filters, retaining baseline barriers.",
+  "research_scope": "BTCUSDT Spot LONG/no-entry; exposed development only; no optimization, sealed test, paper action, or Champion.",
+  "schema_version": 2,
+  "seeds": [
+    0
+  ],
+  "status": "PREREGISTERED",
+  "stopping_rule": "Run every declared profile exactly once; preserve failures and negatives; no post-result edits or added variants.",
+  "trial_budget": 4
+}
