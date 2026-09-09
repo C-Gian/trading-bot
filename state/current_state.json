@@ -30,33 +30,35 @@
       "end": "2024-12-31T23:59:00Z"
     }
   },
-  "experiments_completed": 11,
+  "experiments_completed": 13,
   "sealed_evaluations_completed": 0,
   "paper_trades_completed": 0,
   "champion_status": "NONE",
   "forward_evidence": "NONE",
   "real_money_authorized": false,
   "owner_decision_required": false,
-  "latest_reviewed_checkpoint": "WP-005",
-  "latest_executor_checkpoint": "WP-006",
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_THEN_DECIDE_WHETHER_ANY_FAMILY_MERITS_A_FURTHER_ALLOCATION",
+  "latest_reviewed_checkpoint": "WP-006",
+  "latest_executor_checkpoint": "WP-007",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP007_THEN_DECIDE_DISTINCT_STRUCTURAL_DIRECTION_NO_AUTOMATIC_SEALED_QUERY",
   "search_memory": {
     "version": "SEARCH_MEMORY_V2",
     "status": "VALIDATED",
-    "families_tracked": 6
+    "families_tracked": 7
   },
   "adaptive_search": {
-    "material_economic_hypotheses": 4,
-    "configuration_variants": 11,
-    "profile_trials": 61,
+    "material_economic_hypotheses": 5,
+    "configuration_variants": 13,
+    "profile_trials": 69,
     "numeric_parameter_variants": 0,
-    "adaptive_decisions": 3,
-    "result_dependent_forks": 3,
-    "strategy_descendants": 5,
+    "adaptive_decisions": 4,
+    "result_dependent_forks": 4,
+    "strategy_descendants": 6,
     "wp004_variants_reserved": 3,
     "wp004_profiles_reserved": 12,
     "wp006_variants_reserved": 2,
     "wp006_profiles_reserved": 8,
+    "wp007_variants_reserved": 2,
+    "wp007_profiles_reserved": 8,
     "integrity_replay_profiles": 12,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
@@ -106,11 +108,19 @@
     }
   },
   "latest_family": {
-    "name": "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
-    "root_family": "FAM-PULLBACK-RECOVERY",
-    "primary_experiment_id": "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+    "name": "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
+    "root_family": "FAM-ORDER-FLOW",
+    "primary_experiment_id": "EXP-ALG-012-ORDERFLOW-CORE",
     "novelty_classification": "NEW_FAMILY",
-    "terminal_classification": "INCONCLUSIVE"
+    "terminal_classification": "REJECT_COST_DOMINATED"
+  },
+  "order_flow_substrate": {
+    "version": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1",
+    "status": "VALIDATED",
+    "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
+    "eligible_1h_buckets": 64135,
+    "eligible_4h_buckets": 16008,
+    "oracle_reconciliation": "PASS"
   },
   "sealed_evaluation": {
     "version": "SEALED_EVALUATION_V1_1",
@@ -120,6 +130,6 @@
     "consumed_btc_queries": 0,
     "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
     "seal_eligible_candidates": 0,
-    "candidates_assessed": 11
+    "candidates_assessed": 13
   }
 }

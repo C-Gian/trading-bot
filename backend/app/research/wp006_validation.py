@@ -450,11 +450,9 @@ def validate_wp006(root: Path = ROOT) -> dict[str, Any]:
         "WP-006 state counters are not truthful",
     )
     require(
-        state["latest_family"]["terminal_classification"] == classifications[PRIMARY_VARIANT]
-        and state["latest_family"]["novelty_classification"] == "NEW_FAMILY"
-        and state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+        state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
         and state["selected_family"]["terminal_classification"] == "INCONCLUSIVE",
-        "state family identity changed",
+        "selected-family identity changed",
     )
     require(
         state["sealed_evaluation"]["authorized_btc_queries"] == 0

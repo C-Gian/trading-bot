@@ -34,7 +34,8 @@ def test_repository_checkpoint_validates():
     assert result["variants"] == 2 and result["profile_trials"] == 8
     assert result["numeric_parameter_variants"] == 0
     assert result["family_terminal_classification"] == result["classifications"]["RECOVERY_CORE"]
-    assert result["sealed"] == {"candidates": 11, "seal_eligible": 0}
+    assert result["sealed"]["candidates"] >= 11
+    assert result["sealed"]["seal_eligible"] == 0
     assert result["cumulative"]["sealed_queries"] == 0
 
 
@@ -105,6 +106,8 @@ def _sealed_mirror(tmp_path: Path) -> Path:
         "research/memory/SEARCH_LEDGER.jsonl",
         "research/memory/HYPOTHESIS_FAMILIES.json",
         "research/memory/SEARCH_BUDGET.json",
+        "research/memory/registry/ledger/WP-007.jsonl",
+        "research/memory/registry/outcomes/WP-007.jsonl",
     ):
         target = root / relative
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -123,7 +126,8 @@ def _sealed_mirror(tmp_path: Path) -> Path:
 
 def test_sealed_state_is_locked_at_zero(tmp_path: Path):
     root = _sealed_mirror(tmp_path)
-    assert validate_sealed_state(root) == {"candidates": 11, "seal_eligible": 0}
+    sealed = validate_sealed_state(root)
+    assert sealed["candidates"] >= 11 and sealed["seal_eligible"] == 0
 
 
 def test_a_materialized_sealed_dataset_is_rejected(tmp_path: Path):

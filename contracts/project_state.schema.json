@@ -249,7 +249,9 @@
         "diagnostic_execution_attempts",
         "sealed_queries",
         "wp006_variants_reserved",
-        "wp006_profiles_reserved"
+        "wp006_profiles_reserved",
+        "wp007_variants_reserved",
+        "wp007_profiles_reserved"
       ],
       "properties": {
         "material_economic_hypotheses": {
@@ -311,6 +313,48 @@
         "wp006_profiles_reserved": {
           "type": "integer",
           "minimum": 0
+        },
+        "wp007_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp007_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "order_flow_substrate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "content_hash",
+        "eligible_1h_buckets",
+        "eligible_4h_buckets",
+        "oracle_reconciliation"
+      ],
+      "properties": {
+        "version": {
+          "const": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1"
+        },
+        "status": {
+          "const": "VALIDATED"
+        },
+        "content_hash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "eligible_1h_buckets": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "eligible_4h_buckets": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "oracle_reconciliation": {
+          "const": "PASS"
         }
       }
     },
@@ -614,7 +658,8 @@
         "required": [
           "search_memory",
           "adaptive_search",
-          "selected_family"
+          "selected_family",
+          "order_flow_substrate"
         ]
       }
     }

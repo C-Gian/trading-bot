@@ -91,11 +91,12 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.wp004 import SPEC
     from app.research.wp004_validation import validate_checkpoint
     from app.research.wp006 import SPEC as WP006_SPEC
+    from app.research.wp007 import SPEC as WP007_SPEC
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
-    assert directories == set(EXPERIMENTS) | set(SPEC) | set(WP006_SPEC)
+    assert directories == set(EXPERIMENTS) | set(SPEC) | set(WP006_SPEC) | set(WP007_SPEC)
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
-    assert len(results) == state["experiments_completed"] == 11
+    assert len(results) == state["experiments_completed"] == 13
     for experiment_id, budget in EXPERIMENTS.items():
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path, result_path = directory / "preregistration.json", directory / "result.json"
@@ -155,19 +156,16 @@ def validate_research_views(state: dict) -> None:
     from app.research.adaptive import validate_adaptive
     from app.research.checkpoint_views import build_comparison, experiment_view, memory_views
     from app.research.runner import sha256 as text_sha
-    from app.research.search_memory import load_memory
     from app.research.search_memory_v2 import validate_search_memory_v2
     from app.research.wp004 import SPEC, immutable_from_first_commit
 
-    memory = load_memory()
     assert state["schema_version"] == 3
-    from app.research.wp006 import REGISTRY_PATH
+    from app.research.registry import all_families
 
-    v2_families = json.loads((ROOT / REGISTRY_PATH).read_text(encoding="utf-8"))["families"]
     assert state["search_memory"] == {
         "version": "SEARCH_MEMORY_V2",
         "status": "VALIDATED",
-        "families_tracked": len(memory["families"]["families"]) + len(v2_families),
+        "families_tracked": len(all_families()),
     }
     from app.research.wp006_views import cumulative_accounting
 
@@ -181,8 +179,8 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
-        state["latest_reviewed_checkpoint"] == "WP-005"
-        and state["latest_executor_checkpoint"] == "WP-006"
+        state["latest_reviewed_checkpoint"] == "WP-006"
+        and state["latest_executor_checkpoint"] == "WP-007"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -226,6 +224,13 @@ def validate_research_views(state: dict) -> None:
         json.dumps(build_wp006_comparison())
     )
 
+    from app.research.wp007_validation import validate_wp007
+
+    wp007 = validate_wp007()
+    assert wp007["status"] == "PASS"
+    assert wp007["family_terminal_classification"] == "REJECT_COST_DOMINATED"
+    assert wp007["sealed"] == {"assessed": 13, "eligible": 0, "queries": 0}
+
     from app.research.wp005_validation import validate_wp005
 
     wp005 = validate_wp005(data_available=False)
@@ -257,13 +262,20 @@ def dataset_scope_checks() -> None:
     from app.research.runner import sha256 as text_sha
 
     approved = ROOT / "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json"
-    assert set((ROOT / "data/manifests").glob("*.json")) == {approved}
+    order_flow = ROOT / "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json"
+    assert set((ROOT / "data/manifests").glob("*.json")) == {approved, order_flow}
     manifest = validate_json(approved, ROOT / "contracts/dataset_manifest.schema.json")
+    flow_manifest = json.loads(order_flow.read_text(encoding="utf-8"))
     assert text_sha(approved) == MANIFEST_SHA256 and manifest["symbol"] == "BTCUSDT"
     assert manifest["coverage"]["end"] == "2024-12-31T23:59:00Z"
+    assert flow_manifest["derived_from"]["content_hash"] == manifest["content_hash"]["value"]
+    assert flow_manifest["coverage"]["end"] <= manifest["coverage"]["end"]
     raw = {ROOT / item["path"] for item in manifest["source"]["raw_objects"]}
     assert set((ROOT / "data/raw").rglob("*.zip")) <= raw
-    approved_parquet = {ROOT / item["path"] for item in manifest["files"].values()}
+    approved_parquet = {
+        *(ROOT / item["path"] for item in manifest["files"].values()),
+        *(ROOT / item["path"] for item in flow_manifest["files"].values()),
+    }
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
         | set((ROOT / "data/derived").rglob("*.parquet"))
@@ -309,12 +321,28 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/checkpoints/WP-006.md",
         "reports/research/WP-006-PULLBACK-RECOVERY.md",
         "tasks/archive/WP-006.md",
+        "reports/reviews/WP-006-RESEARCH-DIRECTOR-REVIEW.md",
+        "reports/reviews/WP-006-CI-EVIDENCE.json",
+        "docs/contracts/SEALED_EVALUATION_V1_1.md",
+        "decisions/ADR-0008-SEALED-SCIENTIFIC-ALLOCATION-AUTHORITY.md",
+        "decisions/ADR-0009-APPEND-ONLY-RESEARCH-REGISTRY.md",
+        "docs/contracts/ORDER_FLOW_FEATURES_V1.md",
+        "reports/validation/WP-007-ORDER-FLOW-INTEGRITY.json",
+        "reports/validation/WP-007-ORDER-FLOW-RECONCILIATION.json",
+        "reports/validation/WP-007-PREREGISTRATION-TOOL-CORRECTION.json",
+        "reports/validation/WP-007-PREFLIGHT-CORRECTION.json",
+        "research/protocols/WP-007-PREEXECUTION-AMENDMENTS.json",
+        "research/memory/WP-007-LESSONS.json",
+        "reports/research/WP-007-COMPARISON.json",
+        "reports/research/WP-007-ORDER-FLOW.md",
+        "reports/checkpoints/WP-007.md",
+        "tasks/archive/WP-007.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     assert "## STATUS\nCOMPLETED" in (ROOT / "tasks/CURRENT_TASK.md").read_text(
         encoding="utf-8"
     ).replace("\r\n", "\n")
-    assert (ROOT / "tasks/archive/WP-006.md").read_bytes().replace(b"\r\n", b"\n") == (
+    assert (ROOT / "tasks/archive/WP-007.md").read_bytes().replace(b"\r\n", b"\n") == (
         ROOT / "tasks/CURRENT_TASK.md"
     ).read_bytes().replace(b"\r\n", b"\n")
     wp005_ci = json.loads(
@@ -337,7 +365,15 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert git("branch", "--show-current") == "main" or (
         git("branch", "--show-current") == "" and os.environ.get("CLEAN_CHECKOUT") == "1"
     )
-    for ancestor in (SEED, PREDECESSOR, REVIEWED, WP004_BASE, WP005_BASE, WP006_BASE):
+    for ancestor in (
+        SEED,
+        PREDECESSOR,
+        REVIEWED,
+        WP004_BASE,
+        WP005_BASE,
+        WP006_BASE,
+        WP007_BASE,
+    ):
         run(["git", "merge-base", "--is-ancestor", ancestor, "HEAD"])
     state = validate_json(
         ROOT / "state/current_state.json", ROOT / "contracts/project_state.schema.json"
@@ -357,6 +393,19 @@ def governance_checks(pre_experiment: bool) -> dict:
         substrate["cost_model_version"],
     ) == ("BACKTEST_ENGINE_V2", "EXECUTION_MODEL_V2", "BTCUSDT_SPOT_COST_V1")
     assert substrate["synthetic_validation"]["suite_hash"] == suite_hash()
+    sealed_budget = json.loads(
+        (ROOT / "research/sealed/SEALED_QUERY_BUDGET.json").read_text(encoding="utf-8")
+    )
+    authorization = sealed_budget["authorization_policy"]
+    sealed_scope = sealed_budget["scopes"]["BTCUSDT_POST_CUTOFF"]
+    assert sealed_budget["version"] == "SEALED_EVALUATION_V1_1"
+    assert authorization["accepted_issuers"] == ["RESEARCH_DIRECTOR"]
+    assert set(authorization["rejected_issuers"]) == {"EXECUTOR", "AUTOMATION"}
+    assert not authorization["executor_self_authorization"]
+    assert not authorization["automated_self_authorization"]
+    assert sealed_scope["authorized_queries"] == sealed_scope["consumed_queries"] == 0
+    assert sealed_scope["dataset_state"] == "RESERVED_NOT_ACQUIRED"
+    assert not list((ROOT / "research/sealed/allocations").glob("*.json"))
     results = list((ROOT / "research/experiments").glob("*/result.json"))
     if pre_experiment:
         assert state["experiments_completed"] == 0 and not results
@@ -400,13 +449,14 @@ def data_checks(state: dict) -> None:
     from app.research.source_grid import grid_audit
 
     schema = ROOT / "contracts/dataset_manifest.schema.json"
-    manifests = list((ROOT / "data/manifests").glob("*.json"))
-    assert manifests
-    for path in manifests:
-        m = validate_json(path, schema)
-        assert m["symbol"] == "BTCUSDT" and parse_utc_instant(m["coverage"]["end"]) <= CUTOFF
     path = ROOT / "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json"
+    flow_path = ROOT / "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json"
+    assert set((ROOT / "data/manifests").glob("*.json")) == {path, flow_path}
     manifest = validate_json(path, schema)
+    flow_manifest = json.loads(flow_path.read_text(encoding="utf-8"))
+    assert manifest["symbol"] == "BTCUSDT"
+    assert parse_utc_instant(manifest["coverage"]["end"]) <= CUTOFF
+    assert parse_utc_instant(flow_manifest["coverage"]["end"]) <= CUTOFF
     assert (
         sha256(path) == state["development_dataset"]["manifest_sha256"]
         and manifest["content_hash"]["value"] == state["development_dataset"]["content_hash"]
@@ -416,13 +466,18 @@ def data_checks(state: dict) -> None:
     assert all(
         "BTCUSDT" in p.name and not any(f"-{y}-" in p.name for y in range(2025, 2100)) for p in raw
     )
-    parquet = {ROOT / x["path"] for x in manifest["files"].values()}
+    parquet = {
+        *(ROOT / x["path"] for x in manifest["files"].values()),
+        *(ROOT / x["path"] for x in flow_manifest["files"].values()),
+    }
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
         | set((ROOT / "data/derived").rglob("*.parquet"))
         == parquet
     )
     for record in [*manifest["source"]["raw_objects"], *manifest["files"].values()]:
+        assert sha256(ROOT / record["path"]) == record["sha256"]
+    for record in flow_manifest["files"].values():
         assert sha256(ROOT / record["path"]) == record["sha256"]
     for label, record in manifest["files"].items():
         table = pq.read_table(ROOT / record["path"])
@@ -444,6 +499,14 @@ def data_checks(state: dict) -> None:
     from app.research.wp005_validation import validate_wp005
 
     assert validate_wp005(data_available=True)["status"] == "PASS"
+    from app.research.order_flow_audit import order_flow_integrity
+    from app.research.order_flow_oracle import reconcile
+
+    audit = order_flow_integrity()
+    oracle = reconcile(from_disk=True)
+    assert audit["status"] == "PASS" and audit["material_violations"] == 0
+    assert oracle["status"] == "PASS" and oracle["content_hash_match"]
+    assert flow_manifest["content_hash"]["value"] == oracle["production_content_hash"]
 
 
 def main() -> None:
@@ -469,7 +532,7 @@ def main() -> None:
     if not options.no_data:
         data_checks(state)
     assert not git("status", "--porcelain"), "working tree must be clean at checkpoint validation"
-    print("WP-006 deterministic validation: PASS (profitability is not a validation gate)")
+    print("WP-007 deterministic validation: PASS (profitability is not a validation gate)")
 
 
 if __name__ == "__main__":
