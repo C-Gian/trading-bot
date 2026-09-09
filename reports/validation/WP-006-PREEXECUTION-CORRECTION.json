@@ -1,0 +1,12 @@
+{
+  "detected_before_any_market_result": true,
+  "reason": "The original preregistrations embedded the typed executable spec as JSON while the identity validator compared it against the in-memory dataclass form, so tuple and list serialization differed and the binding could never verify. The validator now compares through one canonical JSON round trip and also pins the structural and dependency hashes. Correcting the validator changed its own file hash, so the frozen dependency manifest had to be re-frozen; the scientific declaration itself is unchanged.",
+  "recorded_at_utc": "2026-09-09T13:48:18.073848Z",
+  "registry": "research/protocols/WP-006-PREEXECUTION-AMENDMENTS.json",
+  "result_artifacts_finalized": 0,
+  "schema_version": 1,
+  "status": "PRE_EXECUTION_CORRECTION",
+  "strategy_trials_executed": 0,
+  "superseded_documents_preserved": true,
+  "work_package": "WP-006"
+}

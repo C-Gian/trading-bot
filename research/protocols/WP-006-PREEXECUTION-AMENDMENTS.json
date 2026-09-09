@@ -1,0 +1,30 @@
+{
+  "additional_numeric_parameter_variants": 0,
+  "additional_profile_trials": 0,
+  "additional_strategy_variants": 0,
+  "amendments": {
+    "EXP-ALG-010-PULLBACK-RECOVERY-CORE": {
+      "effective_path": "research/experiments/EXP-ALG-010-PULLBACK-RECOVERY-CORE/preregistration.v2.json",
+      "effective_sha256": "9ddf43765643727e5662483520608fff183c7f88fea44898ba65a6d221e276ba",
+      "superseded_path": "research/experiments/EXP-ALG-010-PULLBACK-RECOVERY-CORE/preregistration.json",
+      "superseded_sha256": "0ceab7ce3735a2c56141558d663fec75a6eb3db2805e27b306e828cd8f122e90"
+    },
+    "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": {
+      "effective_path": "research/experiments/EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM/preregistration.v2.json",
+      "effective_sha256": "cdeec5fa4b85dd064d299b02e6f9ffb5f9ee07bf8c5987bb874f5f19a7545bdd",
+      "superseded_path": "research/experiments/EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM/preregistration.json",
+      "superseded_sha256": "1c3fedb12025a9530c7e3ca39e63b4ec882a4b826a927241b993b26c94f203ce"
+    }
+  },
+  "correction_record": "reports/validation/WP-006-PREEXECUTION-CORRECTION.json",
+  "evaluation_protocol_changed": false,
+  "hypothesis_changed": false,
+  "kind": "PRE_EXECUTION_IDENTITY_BINDING_CORRECTION",
+  "primary_metric_changed": false,
+  "primary_variant_changed": false,
+  "reason": "The original preregistrations embedded the typed executable spec as JSON while the identity validator compared it against the in-memory dataclass form, so tuple and list serialization differed and the binding could never verify. The validator now compares through one canonical JSON round trip and also pins the structural and dependency hashes. Correcting the validator changed its own file hash, so the frozen dependency manifest had to be re-frozen; the scientific declaration itself is unchanged.",
+  "results_observed_before_amendment": 0,
+  "schema_version": 1,
+  "strategy_trials_before_amendment": 0,
+  "work_package": "WP-006"
+}
