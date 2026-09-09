@@ -12,7 +12,7 @@ import os
 import tempfile
 from collections.abc import Callable, Mapping
 from datetime import UTC, datetime
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 import jsonschema
@@ -23,9 +23,14 @@ from .isolation import SealedAccessDenied, is_sealed_path
 
 ROOT = Path(__file__).resolve().parents[3]
 BUDGET_PATH = Path("research/sealed/SEALED_QUERY_BUDGET.json")
-VERSION = "SEALED_EVALUATION_V1"
+VERSION = "SEALED_EVALUATION_V1_1"
+# V1 identities stay valid so no historical sealed record is invalidated.
+SUPPORTED_VERSIONS = ("SEALED_EVALUATION_V1", "SEALED_EVALUATION_V1_1")
 LOCKED = "LOCKED_NO_AUTHORIZED_QUERY"
 ELIGIBLE = "PROMISING_DEVELOPMENT_ONLY"
+ALLOCATION_AUTHORITY = "RESEARCH_DIRECTOR_SEALED_ALLOCATION"
+ALLOWED_ISSUER = "RESEARCH_DIRECTOR"
+DENIED_ISSUERS = ("EXECUTOR", "AUTOMATION")
 MetricRunner = Callable[[Mapping[str, Any]], Mapping[str, Any]]
 
 
@@ -58,9 +63,85 @@ def _ledger_entries(path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in lines if line.strip()]
 
 
+def _authorization_policy(document: Mapping[str, Any]) -> dict[str, Any]:
+    """V1.1 governance: only a Research Director allocation may raise a budget."""
+    policy = document.get("authorization_policy")
+    if policy is None:
+        raise SealedEvaluationError("V1.1 budget is missing its authorization policy")
+    _require(
+        policy["authority"] == ALLOCATION_AUTHORITY,
+        "sealed authorization authority is not the Research Director allocation",
+    )
+    _require(
+        policy["executor_self_authorization"] is False
+        and policy["automated_self_authorization"] is False,
+        "the budget claims an executor or automated workflow may self-authorize",
+    )
+    _require(
+        policy["accepted_issuers"] == [ALLOWED_ISSUER]
+        and sorted(policy["rejected_issuers"]) == sorted(DENIED_ISSUERS),
+        "sealed issuer policy was widened",
+    )
+    _require(
+        "REAL_CAPITAL" in policy["owner_gate_required_for"],
+        "real capital must remain a separate mandatory Owner gate",
+    )
+    return dict(policy)
+
+
+def validate_authorization(
+    document: Mapping[str, Any], name: str, scope: Mapping[str, Any], root: Path
+) -> None:
+    """A raised budget must name a Research Director allocation that actually grants it."""
+    authorized = scope["authorized_queries"]
+    record = scope["authorization_record"]
+    if authorized == 0:
+        _require(record is None, f"{name} is locked but names an authorization record")
+        return
+    policy = _authorization_policy(document)
+    _require(record is not None, f"{name} claims authorized queries without an allocation")
+    directory = PurePosixPath(policy["allocation_directory"])
+    relative = PurePosixPath(str(record))
+    _require(
+        directory in relative.parents,
+        f"{name} allocation must live under {policy['allocation_directory']}",
+    )
+    path = root / relative
+    _require(path.is_file(), f"{name} allocation artifact is missing: {record}")
+    allocation = json.loads(path.read_text(encoding="utf-8"))
+    _require(
+        allocation["kind"] == "SEALED_SCIENTIFIC_ALLOCATION",
+        f"{name} allocation is not a sealed scientific allocation",
+    )
+    issuer = allocation["issuer"]
+    _require(
+        issuer not in DENIED_ISSUERS,
+        f"{name} allocation was self-authorized by {issuer}; only the Research Director may allocate",
+    )
+    _require(issuer == ALLOWED_ISSUER, f"{name} allocation issuer is not the Research Director")
+    _require(allocation["scope"] == name, f"{name} allocation authorizes a different scope")
+    _require(
+        allocation["authorized_queries"] == authorized,
+        f"{name} allocation does not grant the claimed query count",
+    )
+    _require(
+        bool(allocation["candidate_experiment_ids"]),
+        f"{name} allocation names no candidate",
+    )
+    _require(
+        allocation["real_money_authorized"] is False,
+        "a sealed allocation can never authorize real capital",
+    )
+
+
 def load_budget(root: Path = ROOT) -> dict[str, Any]:
     document = json.loads((root / BUDGET_PATH).read_text(encoding="utf-8"))
-    _require(document["schema_version"] == 1 and document["version"] == VERSION, "unknown budget")
+    _require(
+        document["schema_version"] == 1 and document["version"] in SUPPORTED_VERSIONS,
+        "unknown budget",
+    )
+    if document["version"] == VERSION:
+        _authorization_policy(document)
     for name, scope in document["scopes"].items():
         authorized, consumed = scope["authorized_queries"], scope["consumed_queries"]
         _require(0 <= consumed <= authorized, f"{name} budget is incoherent")
@@ -68,10 +149,13 @@ def load_budget(root: Path = ROOT) -> dict[str, Any]:
             (scope["status"] == LOCKED) == (authorized == 0),
             f"{name} status disagrees with its authorized query count",
         )
-        _require(
-            scope["authorization_record"] is not None or authorized == 0,
-            f"{name} claims authorized queries without an authorization record",
-        )
+        if document["version"] == VERSION:
+            validate_authorization(document, name, scope, root)
+        else:
+            _require(
+                scope["authorization_record"] is not None or authorized == 0,
+                f"{name} claims authorized queries without an authorization record",
+            )
         ledger = root / scope["consumption_ledger"]
         _require(ledger.is_file(), f"{name} has no append-only consumption ledger")
         _require(

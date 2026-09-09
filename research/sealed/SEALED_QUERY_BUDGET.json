@@ -1,11 +1,33 @@
 {
   "schema_version": 1,
-  "version": "SEALED_EVALUATION_V1",
-  "authority": "governance/SCIENTIFIC_CONSTITUTION.md",
-  "contract": "docs/contracts/SEALED_EVALUATION_V1.md",
+  "version": "SEALED_EVALUATION_V1_1",
+  "authority": "decisions/ADR-0008-SEALED-SCIENTIFIC-ALLOCATION-AUTHORITY.md",
+  "contract": "docs/contracts/SEALED_EVALUATION_V1_1.md",
+  "superseded_contract": "docs/contracts/SEALED_EVALUATION_V1.md",
   "request_schema": "contracts/sealed_evaluation_request.schema.json",
   "result_schema": "contracts/sealed_evaluation_result.schema.json",
   "eligibility_table": "research/sealed/SEALED_CANDIDATE_ELIGIBILITY.json",
+  "authorization_policy": {
+    "authority": "RESEARCH_DIRECTOR_SEALED_ALLOCATION",
+    "allocation_directory": "research/sealed/allocations",
+    "executor_self_authorization": false,
+    "automated_self_authorization": false,
+    "accepted_issuers": [
+      "RESEARCH_DIRECTOR"
+    ],
+    "rejected_issuers": [
+      "EXECUTOR",
+      "AUTOMATION"
+    ],
+    "owner_gate_required_for": [
+      "REAL_CAPITAL",
+      "EXTERNAL_IRREVERSIBLE_ACTION",
+      "EXPENDITURE_OR_CREDENTIALS",
+      "MATERIAL_PRODUCT_OR_RISK_OBJECTIVE_CHANGE"
+    ],
+    "real_money_gate": "SEPARATE_MANDATORY_OWNER_GATE_UNAFFECTED_BY_THIS_CONTRACT",
+    "supersedes": "docs/contracts/SEALED_EVALUATION_V1.md#unlocking"
+  },
   "scopes": {
     "BTCUSDT_POST_CUTOFF": {
       "symbol": "BTCUSDT",
@@ -21,7 +43,7 @@
       "result_directory": "research/sealed/BTCUSDT_POST_CUTOFF/results"
     }
   },
-  "unlock_policy": "Only an explicit Owner-authorised Research Director allocation may raise authorized_queries above zero. No executor, agent or automated process may unlock a scope, and WP-006 does not unlock it.",
+  "unlock_policy": "Only an explicit Research Director sealed-allocation artifact under research/sealed/allocations may raise authorized_queries above zero. Executors and automated workflows cannot self-authorize; the loader rejects any allocation not issued by the Research Director. Real capital remains a separate mandatory Owner gate. WP-007 unlocked nothing.",
   "consumption_policy": "A query is consumed by the append-only ledger before any result is finalized. A negative, rejected-after-consumption or failed execution consumes the same budget. Deleting a result never restores capacity.",
   "isolation_policy": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED"
 }

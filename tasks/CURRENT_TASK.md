@@ -1,54 +1,90 @@
-# CURRENT TASK — WP-006
-# Sealed-Evaluation Infrastructure + First Truly New Post-Breakout Family
+# CURRENT TASK — WP-007
+# Order-Flow Feature Foundation + Aggressive Buy-Flow Transition Family
 
 ## STATUS
-COMPLETED
+ACTIVE
 
 ## EXECUTOR
 Primary: Codex.
 Fallback/overflow: Claude Code if Codex usage is unavailable.
+
+This task is executor-neutral. Scientific truth lives in repository artifacts.
+
 ChatGPT / GPT-5.6 Sol remains Research Director and final scientific authority.
-Astra Ultra is NOT allocated to WP-006.
-
-## PURPOSE
-
-WP-005 independently strengthened WP-004.
-
-Verified:
-- ALIGNED remains `INCONCLUSIVE`;
-- matched parent breakout default expectancy = `-0.0547388706 R`;
-- ALIGNED default expectancy = `+0.1373934676 R`;
-- matched-parent delta = `+0.1921323382 R`;
-- matched random-gate q90 = `+0.1107856627 R`;
-- ALIGNED exceeds q90 by `+0.0266078049 R`;
-- source anomalies are confirmed in accepted official Binance archives;
-- independent feature/result reconciliation passed;
-- exact 12-profile WP-004 replay passed;
-- SEARCH_MEMORY_V2 is active;
-- FAM-BREAKOUT strategy budget is exhausted.
-
-Diagnostic conclusion:
-`ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE`
-
-WP-006 has two objectives:
-
-1. Build SEALED_EVALUATION_V1 without acquiring, reading, summarizing or querying any reserved BTC data.
-2. Test exactly one genuinely new algorithmic family: `PERSISTENT_TREND_PULLBACK_RECOVERY_V1`.
-
-No parameter optimizer. No additional families. No result-dependent rescue.
+Astra Ultra is NOT allocated to WP-007.
 
 ---
 
-## REQUIRED START
+# 0. PURPOSE
 
-Repository: `C-Gian/trading-bot`
-Branch: `main`
-Required starting HEAD: `444172a359e2663887624da82254cc2185ff85e1`
-True reviewed predecessor: `3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153`
+WP-006 is independently accepted as structurally sound, with one non-material current-state
+reporting fix assigned here.
 
-The WP-005 executor report incorrectly printed `2b40aa...` as Base reviewed HEAD.
-Git ancestry was independently verified: `3fdeffe5...` is the actual WP-005 start/merge base.
-Treat this as a non-material reporting error. Do not rewrite the old report.
+WP-006 produced a genuinely distinct pullback/recovery family, but the primary rule is not worth
+parameter rescue:
+
+- RECOVERY_CORE default expectancy: +0.0003823075 R
+- ZERO: +0.1204381257 R
+- DOUBLE: -0.1196734624 R
+- 126 resolved trades
+- only 3/6 nonnegative folds
+- minimum fold trades = 8
+- positive-fold profit concentration = 68.64%
+
+RECOVERY_CONFIRM:
+- default +0.0219437002 R
+- 103 trades
+- 4/6 nonnegative folds
+- minimum fold trades = 7
+- still INCONCLUSIVE
+
+The family is parked. Do NOT modify it.
+
+The strongest current development clue remains ALIGNED:
+`+0.1373934676 R` default, but INCONCLUSIVE and not seal-eligible.
+
+Across multiple price-only families, gross expectancy has often existed while default friction
+consumed much or all of the margin.
+
+WP-007 therefore moves to a genuinely different information source already present in the
+accepted canonical Binance Spot data:
+
+- `taker_base`
+- `taker_quote`
+- total base `volume`
+- total `quote_volume`
+
+The new economic question is:
+
+> Does an exchange-reported transition toward aggressive taker buying, when broader completed
+> 4h taker flow is already buy-dominant, contain enough next-day continuation information to
+> survive realistic BTCUSDT Spot friction?
+
+This is an order-flow proxy hypothesis, not another breakout/trend/pullback price pattern.
+
+WP-007 has three major objectives:
+
+1. independently audit and version the historical taker-volume feature substrate;
+2. prospectively correct sealed-query authorization governance so ordinary scientific sealed
+   allocation does not require Owner interruption, while keeping query budget at zero;
+3. preregister and evaluate exactly one new order-flow family with two fixed variants and zero
+   parameter search.
+
+---
+
+# 1. REQUIRED START
+
+Repository:
+`C-Gian/trading-bot`
+
+Branch:
+`main`
+
+Required starting HEAD:
+`d92088d5ef0426bf64f34326a3224dd9aba93603`
+
+Reviewed predecessor:
+`444172a359e2663887624da82254cc2185ff85e1`
 
 Do not create a branch.
 Do not rewrite history.
@@ -56,55 +92,68 @@ Do not push.
 
 ---
 
-## STAGE A — RECORD WP-005 RESEARCH DIRECTOR REVIEW
+# 2. WP-006 RESEARCH DIRECTOR REVIEW
 
 Create:
-`reports/reviews/WP-005-RESEARCH-DIRECTOR-REVIEW.md`
+
+`reports/reviews/WP-006-RESEARCH-DIRECTOR-REVIEW.md`
 
 Record:
 
-- verdict: `ACCEPTED`;
-- WP-005 HEAD: `444172a359e2663887624da82254cc2185ff85e1`;
-- true starting HEAD: `3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153`;
-- real GitHub Actions after push: SUCCESS;
-- report-base typo documented;
-- raw 2017-12 and 2018-02 archive hashes match accepted manifest;
-- 21,602 off-grid rows already exist in accepted official Binance archives;
-- raw->canonical timestamp/OHLCV mapping exact;
-- no validation/warm-up intersection;
-- quarantine reproduced;
-- exact 12/12 WP-004 replay;
-- independent reconciliation PASS;
-- SEARCH_MEMORY_V2 active;
-- matched-control protocol preceded results;
-- 32/32 seeds preserved;
-- experiments remain 9;
+## Verdict
+
+`ACCEPTED_WITH_STATE_FIX`
+
+## Verified evidence
+
+- WP-006 starts exactly from `444172a...`;
+- final HEAD `d92088d...`;
+- real GitHub Actions run `34362902153` completed SUCCESS;
+- novelty admission commit preceded preregistration/result commits;
+- effective v2 preregistrations were committed before result finalization;
+- the pre-execution binding correction happened with zero trials/results;
+- originals were preserved;
+- RECOVERY_CORE and RECOVERY_CONFIRM are both INCONCLUSIVE;
+- no parameter optimization occurred;
+- FAM-BREAKOUT remained exhausted;
+- 0 sealed BTC queries;
+- sealed dataset state `RESERVED_NOT_ACQUIRED`;
+- 0 paper trades;
 - Champion NONE;
-- sealed=0;
-- paper=0;
-- real money=false.
+- real money false.
 
-Scientific conclusion:
-`ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE`
+## Non-material state finding
 
-Do NOT reopen FAM-BREAKOUT.
-Do NOT modify ALIGNED.
-Do NOT promote Champion.
-Do NOT query sealed data.
+`state/current_state.json` still contains:
+`wp005_integrity.remote_ci = PENDING_PUSH`
+
+even though WP-005 real remote CI was already verified SUCCESS.
+
+Fix the authoritative current state prospectively.
+
+Do not rewrite historical WP-005/WP-006 checkpoint artifacts merely to update a once-pending
+external fact.
+
+Add current-state remote-CI truth fields sufficient to represent:
+
+- WP-005: SUCCESS
+- WP-006: SUCCESS after Research Director review
+
+and remove stale pending state from the authoritative current state.
 
 ---
 
-## STARTING SCIENTIFIC STATE
+# 3. SCIENTIFIC START STATE
 
-Expected:
+Expected before new experiment execution:
 
-- strategy experiments = 9
-- material economic hypotheses = 3
-- configuration variants = 9
-- profile/seed trials = 53
-- adaptive decisions = 2
-- result-dependent forks = 2
-- numeric variants = 0
+- experiments_completed = 11
+- material economic hypotheses = 4
+- configuration variants = 11
+- profile/seed trials = 61
+- numeric parameter variants = 0
+- adaptive decisions = 3
+- result-dependent forks = 3
 - sealed queries = 0
 - sealed evaluations = 0
 - paper trades = 0
@@ -114,142 +163,261 @@ Expected:
 
 ---
 
-## FORBIDDEN WORK
+# 4. FORBIDDEN WORK
 
 Do NOT:
 
+- modify ALIGNED;
 - reopen FAM-BREAKOUT;
-- modify ALIGNED or its thresholds;
-- test another breakout window;
+- modify pullback recovery;
+- adopt RECOVERY_CONFIRM because it scored better;
 - test contraction-to-expansion in this WP;
-- create more than the exact pullback-recovery variants below;
-- optimize SMA period, persistence period/threshold, stop, target, horizon, folds;
-- add RSI/MACD/indicator zoo;
-- grid/Bayesian/random/evolutionary search;
-- access BTCUSDT after `2024-12-31T23:59:00Z`;
-- download reserved BTC historical data;
-- inspect 2025+ BTC prices/returns/charts;
-- access other assets;
+- add price breakout/trend/pullback gates to the new order-flow core;
+- optimize the 50% flow-balance threshold;
+- test 51/52/55/60% taker ratios;
+- optimize context duration;
+- optimize stop/target/horizon;
+- add RSI/MACD/TA indicator zoo;
+- grid search;
+- random/Bayesian/evolutionary search;
+- access BTC data after `2024-12-31T23:59:00Z`;
+- acquire sealed BTC data;
+- query sealed BTC data;
+- access non-BTC assets;
 - SHORT;
 - leverage/perpetuals;
-- sealed BTC evaluation;
 - paper trade;
 - enable Analyze Market;
-- product LONG/NO_TRADE advice;
-- real-money code;
-- Champion promotion;
-- create a branch;
+- produce product LONG/NO_TRADE advice;
+- create Champion;
+- real-money/exchange execution code;
+- create a new branch;
 - push.
 
 Profitability is never a structural PASS criterion.
 
 ---
 
-## STAGE B — RECORD REAL WP-005 CI / REPORTING GUARD
+# 5. STAGE A — SEALED AUTHORITY CORRECTION BEFORE FIRST USE
 
-Update current/review state to record WP-005 real remote CI success.
+WP-006 sealed infrastructure is technically sound, but its unlock text unnecessarily requires
+Owner authorization for an ordinary scientific sealed evaluation.
 
-Do not mutate historical WP-005 result artifacts just to replace `PENDING_PUSH`.
+The Owner has already delegated research direction and experiment allocation to the Research
+Director. Owner interruption is reserved for genuinely consequential Owner decisions such as real
+capital, external irreversible actions, expenditure/credentials, or material changes to the
+product/risk objective.
 
-Add deterministic validation so future executor reports cannot claim a Base reviewed HEAD other than the exact task starting HEAD.
+A historical sealed evaluation is a scientific research allocation, not real-capital authorization.
 
----
+Prospectively create:
 
-## STAGE C — SEALED EVALUATION ARCHITECTURE V1
+`SEALED_EVALUATION_V1_1`
 
-Build `SEALED_EVALUATION_V1` without obtaining or reading reserved BTC data.
+and:
 
-Create at minimum:
+`decisions/ADR-0008-SEALED-SCIENTIFIC-ALLOCATION-AUTHORITY.md`
 
-- `docs/contracts/SEALED_EVALUATION_V1.md`
-- `contracts/sealed_evaluation_request.schema.json`
-- `contracts/sealed_evaluation_result.schema.json`
-- `research/sealed/SEALED_QUERY_BUDGET.json`
-- evaluator/validator modules
-- synthetic sealed fixtures/tests only
+Do NOT rewrite the WP-006 contract as though the earlier wording never existed.
 
-A future sealed request must freeze:
+V1.1 must change ONLY authorization governance:
 
-- candidate experiment ID/version;
-- executable-spec hash;
-- code/dependency hash;
-- development-result hash;
-- sealed interval identity;
-- engine/execution/cost versions;
-- primary metric;
-- allowed secondary metrics;
-- robustness profiles;
-- query ID;
-- query budget.
+- only an explicit Research Director sealed-allocation artifact may raise the query budget;
+- executors cannot self-authorize;
+- automated workflows cannot self-authorize;
+- candidate eligibility rules remain unchanged;
+- query consumption/immutability rules remain unchanged;
+- real money remains a separate mandatory Owner gate;
+- authorized BTC queries remain 0;
+- consumed BTC queries remain 0;
+- sealed dataset remains RESERVED_NOT_ACQUIRED.
 
-The evaluator must:
+No sealed query in WP-007.
 
-1. validate candidate eligibility;
-2. validate request immutability;
-3. verify exact code/config identity;
-4. keep development and sealed datasets separate;
-5. prevent ordinary research loaders from opening sealed paths;
-6. execute only declared metrics/profiles;
-7. atomically finalize immutable result;
-8. consume query budget even on a negative result;
-9. prohibit overwrite/retry of same candidate/query identity;
-10. expose bounded preregistered result output, not an exploratory sealed-data browser.
-
-Candidate eligibility:
-- development terminal classification must be `PROMISING_DEVELOPMENT_ONLY`;
-- structural validator PASS;
-- explicit future Research Director sealed allocation;
-- SEARCH_MEMORY_V2 binding valid;
-- no unresolved material integrity issue.
-
-`INCONCLUSIVE` is NOT seal-eligible.
-Therefore ALIGNED is NOT eligible.
-
-Initial sealed state:
-- BTC authorized queries = 0
-- BTC consumed queries = 0
-- status = `LOCKED_NO_AUTHORIZED_QUERY`
-
-WP-006 MUST NOT unlock it.
-
-Isolation must be honest: document actual app/repository-layer isolation and do not claim OS-grade secrecy unless actually implemented.
-
-Synthetic tests must prove:
-
-- unauthorized query rejected;
-- INCONCLUSIVE candidate rejected;
-- missing executable spec rejected;
-- code/config drift rejected;
-- duplicate query rejected;
-- exhausted budget rejected;
-- undeclared metric rejected;
-- result overwrite rejected;
-- ordinary development loader cannot open sealed path;
-- test-only synthetic authorized request succeeds;
-- consumed synthetic query cannot be restored by deleting output.
-
-No real BTC post-cutoff data.
+Update synthetic tests accordingly.
 
 ---
 
-## STAGE D — NEW FAMILY ALLOCATION
+# 6. STAGE B — CANONICAL TAKER-FIELD INTEGRITY AUDIT
 
-Create immutable allocation:
+The accepted canonical 1m Parquet already contains:
 
-`WP006-PULLBACK-RECOVERY-ALLOCATION`
+- open_time
+- OHLC
+- volume
+- quote_volume
+- trades
+- taker_base
+- taker_quote
 
-This is one result-dependent adaptive allocation.
+The new family may not use these fields until a deterministic integrity audit passes.
+
+Create:
+
+`docs/contracts/ORDER_FLOW_FEATURES_V1.md`
+
+`reports/validation/WP-007-ORDER-FLOW-INTEGRITY.json`
+
+`reports/research/WP-007-ORDER-FLOW-DATA.md`
+
+## Audit every available canonical 1m row
+
+Verify at minimum:
+
+- same accepted dataset content identity;
+- max timestamp <= development cutoff;
+- no post-cutoff read;
+- `volume >= 0`;
+- `quote_volume >= 0`;
+- `taker_base >= 0`;
+- `taker_quote >= 0`;
+- `taker_base <= volume` within an explicitly documented numerical tolerance;
+- `taker_quote <= quote_volume` within an explicitly documented numerical tolerance;
+- counts of zero-volume rows;
+- counts of zero-quote-volume rows;
+- counts of invalid taker ratios;
+- finite numeric values;
+- canonical timestamps remain ordered/unique;
+- known source-grid quarantine is applied;
+- missing minutes remain unfilled.
+
+Do not silently clamp a bad ratio to [0,1].
+
+If material violations exist:
+
+- preserve counts/examples;
+- do not run order-flow market experiments;
+- WP-007 research stage becomes PARTIAL;
+- do not modify the accepted canonical dataset.
+
+## Source provenance sample
+
+Independently verify the taker fields against immutable raw Binance archives for a deterministic
+sample spread across the development history.
+
+The sample selection rule must be frozen before inspection and use only timestamp/hash identity,
+not values.
+
+At minimum:
+- one deterministic sample per calendar quarter with available raw data;
+- include both known off-grid anomaly intervals;
+- compare canonical volume/quote_volume/taker_base/taker_quote to raw CSV fields exactly or under
+  the same deterministic float parsing semantics used by acquisition.
+
+Record mismatches.
+
+No third-party data.
+
+---
+
+# 7. STAGE C — ORDER-FLOW DERIVED FEATURE SUBSTRATE
+
+Do NOT alter canonical data.
+
+Create a separate versioned derived feature substrate:
+
+`BTCUSDT-SPOT-ORDERFLOW-DEV-v1`
+
+Suggested local files:
+
+- `data/derived/BTCUSDT-1h-orderflow-v1.parquet`
+- `data/derived/BTCUSDT-4h-orderflow-v1.parquet`
+
+and tracked manifest:
+
+`data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json`
+
+Actual large derived files remain subject to existing data/git policy.
+
+## 1h feature bucket
+
+For each UTC-aligned completed 1h bucket:
+
+- `source_minutes`
+- `complete`
+- total base volume
+- total quote volume
+- total taker-buy base volume
+- total taker-buy quote volume
+- `taker_buy_base_share = sum(taker_base) / sum(volume)` if denominator > 0 else null
+- source-grid-quarantine status
+- eligible status
+
+## 4h feature bucket
+
+Same aggregation on UTC-aligned completed 4h buckets.
+
+No mean of minute-level ratios.
+Use ratio of summed taker volume to summed total volume.
+
+Incomplete/quarantined buckets are ineligible.
+
+No fill.
+
+## Independent oracle
+
+Create an independent aggregation/oracle path that does not call the production feature builder.
+
+Reconcile:
+- full bucket counts;
+- eligible bucket counts;
+- deterministic sample values;
+- edge buckets;
+- source-grid anomaly buckets;
+- hashes.
+
+If the derived substrate cannot reproduce deterministically, stop before market results.
+
+---
+
+# 8. STAGE D — ORDER-FLOW FEATURE SEMANTICS
+
+Use `taker_buy_base_share`.
+
+Interpretation must be conservative:
+
+It is Binance's exchange-reported **taker buy base asset volume share**.
+
+It is a proxy for aggressive buy-side participation on that venue.
+
+Do NOT claim:
+- complete market-wide order flow;
+- investor intent;
+- signed net demand across exchanges;
+- causality merely from correlation.
+
+Natural balance point:
+
+`0.5`
+
+means taker-buy base volume equals half total base volume.
+
+The exact threshold 0.5 is chosen from the field's accounting meaning, not fitted.
+
+No alternate threshold is authorized in WP-007.
+
+---
+
+# 9. STAGE E — NEW FAMILY ALLOCATION
+
+Create:
+
+`WP007-AGGRESSIVE-BUY-FLOW-ALLOCATION`
+
+This is one adaptive/result-dependent research allocation because accumulated development evidence
+motivated moving away from price-only patterns toward a closer-to-mechanism feature family.
 
 Increment:
+
 - adaptive decisions +1
 - result-dependent forks +1
 
 Authorize exactly:
 
-- economic hypotheses: 1
-- strategy variants: 2
+- new economic hypotheses: 1
+- strategy configurations: 2
 - numeric parameter variants: 0
-- profiles per variant: 4
+- profiles per configuration: 4
 
 Profiles:
 - DEFAULT
@@ -257,221 +425,257 @@ Profiles:
 - DOUBLE
 - DELAY_1H
 
-Total new strategy profile evaluations: 8.
+Total new strategy profile evaluations:
+8
 
-No other family/profile is authorized.
+No additional seed/control in WP-007.
 
----
-
-## STAGE E — NEW ALGORITHM FAMILY
-
-Root:
-`FAM-PULLBACK-RECOVERY`
-
-Hypothesis:
-
-During an already persistent multi-day uptrend, an hourly close recovering above its one-day mean after the previous hour was at/below that mean may identify temporary countertrend weakness ending, offering a better continuation entry than buying a fresh high.
-
-This must be distinct from prior families:
-
-- no close-above-24h-high requirement;
-- no SMA24>SMA168 membership rule;
-- event is a recovery transition after pullback.
-
-### Inherited 4h context
-
-Use the already frozen persistent-up descriptor:
-
-From 43 completed contiguous 4h closes:
-- 42 close-to-close changes;
-- U = sum positive changes;
-- D = absolute sum negative changes;
-- persistent-up iff `U >= 2*D` and `U+D > 0`.
-
-Record that this is an inherited primitive, not independent new evidence.
-
-### SMA definitions
-
-At hourly decision boundary t:
-
-`SMA24_t`
-= arithmetic mean of the 24 completed 1h closes ending with the just-closed current bar.
-
-`SMA24_prev`
-= arithmetic mean of the 24 completed 1h closes ending one hour earlier.
-
-All windows must be complete and contiguous.
-
-### Variant 1 — RECOVERY_CORE (PRIMARY)
-
-Emit LONG iff:
-
-- previous_close <= SMA24_prev
-- current_close > SMA24_t
-- persistent_up(t)
-
-### Variant 2 — RECOVERY_CONFIRM
-
-RECOVERY_CORE
-AND
-- current_close > previous_1h_high
-
-No volume condition.
-No breakout condition.
-No SMA168.
-No alternate SMA periods.
-No pullback-depth threshold.
-
-Primary is fixed as `RECOVERY_CORE` before results.
+If results later justify matched controls, they require another explicit allocation.
 
 ---
 
-## STAGE F — SEARCH_MEMORY_V2 NOVELTY GATE
+# 10. STAGE F — PROPOSED ROOT FAMILY
 
-Represent both variants as canonical executable V2 specs before any market result.
+Proposed root:
 
-The proposed family must pass SEARCH_MEMORY_V2 admission.
+`FAM-ORDER-FLOW`
 
-Expected classification:
+Hypothesis ID:
+
+`AGGRESSIVE_BUY_FLOW_TRANSITION_V1`
+
+Economic hypothesis:
+
+> A transition from non-dominant to dominant exchange-reported taker buying in the just-completed
+> 1h bar, when the most recently available non-overlapping completed 4h context is already
+> buy-dominant, may indicate renewed aggressive demand with enough next-day continuation to
+> survive BTCUSDT Spot friction.
+
+This is intentionally not a price-boundary, trend-membership or pullback-recovery hypothesis.
+
+---
+
+# 11. STAGE G — EXACT AS-OF CONTEXT
+
+At UTC hourly decision boundary `t`:
+
+Current signal hour:
+`[t-1h, t)`
+
+Previous signal hour:
+`[t-2h, t-1h)`
+
+For 4h context, use:
+
+the most recent completed UTC-aligned 4h bucket whose close timestamp is
+`<= t-1h`.
+
+This guarantees the 4h context does NOT contain the current 1h signal bar.
+
+Document the possible context staleness honestly.
+
+No open/incomplete 4h bar.
+
+All buckets must be complete, contiguous as required, and not quarantined.
+
+---
+
+# 12. STAGE H — EXACT VARIANTS
+
+## Variant 1 — FLOW_CORE (PRIMARY)
+
+Preselect as family primary before results.
+
+Emit LONG iff all are true:
+
+1. previous completed 1h `taker_buy_base_share <= 0.5`
+2. current completed 1h `taker_buy_base_share > 0.5`
+3. most recent non-overlapping completed 4h context `taker_buy_base_share > 0.5`
+
+This is a transition event:
+non-dominant -> dominant aggressive taker buying,
+inside a buy-dominant slower context.
+
+No price condition.
+
+## Variant 2 — FLOW_PRICE_RESPONSE
+
+FLOW_CORE
+AND:
+
+`current_completed_1h_close > current_completed_1h_open`
+
+Scientific role:
+
+Tests whether aggressive buy-flow transition is more informative when price responds positively
+during the same completed hour.
+
+This is the only price confirmation.
+
+No breakout.
+No SMA.
+No persistence U/D.
+No volume-multiple threshold.
+No pullback rule.
+
+---
+
+# 13. STAGE I — SEARCH_MEMORY_V2 NOVELTY GATE
+
+Before market results, create executable strategy specs for both variants.
+
+Submit them to SEARCH_MEMORY_V2.
+
+Expected primary classification:
+
 `NEW_FAMILY`
-or an equivalent explicit new-root classification.
 
-If classified as DUPLICATE, PARAMETER_VARIANT, NEAR_DUPLICATE or conflicting-root:
+or an equivalent governed new-root outcome.
+
+FLOW_PRICE_RESPONSE may be a descendant/confirmation within the new root.
+
+If primary is classified as:
+
+- DUPLICATE;
+- PARAMETER_VARIANT;
+- NEAR_DUPLICATE;
+- conflicting root/family;
+
+then:
 
 - do not weaken classifier;
 - do not rename;
-- do not alter rule merely to force novelty;
-- do not run market results;
+- do not add conditions just to force novelty;
+- do not execute market results;
 - preserve rejection;
-- sealed-infrastructure work may still complete but WP-006 research stage is PARTIAL.
+- feature substrate may still complete;
+- WP-007 research stage becomes PARTIAL.
 
-Add `FAM-PULLBACK-RECOVERY` to family registry only after successful governed admission.
-
-FAM-BREAKOUT remains exhausted.
+Check against both V1 and V2 historical signatures.
 
 ---
 
-## STAGE G — COMMON EXECUTION RULES
+# 14. STAGE J — EXECUTION RULES
 
-Use unchanged:
+Unchanged:
 
 - BTCUSDT Spot
 - LONG only
-- 1h signal
+- 1h decision clock
 - 4h context
-- canonical 1m path
-- `BACKTEST_ENGINE_V2`
-- `EXECUTION_MODEL_V2`
-- `BTCUSDT_SPOT_COST_V1`
+- canonical 1m execution path
+- BACKTEST_ENGINE_V2
+- EXECUTION_MODEL_V2
+- BTCUSDT_SPOT_COST_V1
 - one active position
 - no leverage
 - no SHORT
 
-Boundary:
+Signal event ordering:
+
 `BAR_CLOSE -> SIGNAL_DECISION -> NEXT_1M_OPEN_EXECUTION`
 
-Reference:
+Reference price:
+
 current completed 1h close.
 
 Trade geometry:
+
 - stop = reference * 0.98
 - target = reference * 1.04
 - max hold = 1,440 minutes
 
-Keep existing conservative gap/unresolved rules.
+No exit search.
+
+Existing gap/unresolved rules unchanged.
 
 ---
 
-## STAGE H — DATA ELIGIBILITY
-
-Use accepted source-grid quarantine and contiguous-data policy.
-
-Require enough complete contiguous history for:
-
-- current SMA24;
-- previous SMA24;
-- current/previous signal bars;
-- current and delayed 43x4h persistence context;
-- all quarantine checks.
-
-Implement exact required lookback from formula.
-
-No forward fill.
-No manufactured bars.
-No post-cutoff data.
-
----
-
-## STAGE I — DEVELOPMENT EVALUATION
+# 15. STAGE K — DEVELOPMENT EVALUATION
 
 Use unchanged:
+
 `DEVELOPMENT_EVALUATION_V1`
 
-Six exposed-development folds 2019–2024.
+Six exposed-development folds:
+2019–2024.
 
-Do not change:
+Do not modify:
+
 - purge;
 - embargo;
-- full outcome containment;
-- primary pooled default net R;
+- containment;
+- minimum total trades;
+- minimum fold trades;
 - ESS diagnostics;
-- minimum trade requirements;
-- fold stability;
-- concentration limit;
-- unresolved rule;
-- double-cost hurdle.
+- fold-stability rule;
+- concentration rule;
+- doubled-cost rule;
+- terminal classification order.
 
-This history is exposed development, not fresh OOS.
+No full-history optimizer.
 
 ---
 
-## STAGE J — ROBUSTNESS PROFILES
+# 16. STAGE L — ROBUSTNESS PROFILES
 
-Both variants run exactly:
+For each variant run exactly:
 
 1. DEFAULT
 2. ZERO
 3. DOUBLE
 4. DELAY_1H
 
-For DELAY_1H:
-at t use the exact recovery condition that was available at t-1h, using the latest current signal-time reference close at t, consistent with existing delay-control convention.
+## DELAY_1H
 
-No other delay.
+At boundary `t`, use the exact order-flow condition that was available at `t-1h`.
+
+Use the latest current signal-time close at `t` as reference price following existing delay-control
+convention.
+
+No other timing shifts.
 
 ---
 
-## STAGE K — PREREGISTRATION CHRONOLOGY
+# 17. STAGE M — PREREGISTRATION CHRONOLOGY
 
-Before any market result:
+Before any order-flow market result:
 
-1. implement executable specs/features;
-2. synthetic-test;
-3. commit implementation;
-4. pass SEARCH_MEMORY_V2 admission;
-5. create family/allocation records;
-6. create both preregistrations;
-7. commit preregistrations;
-8. only then run development evaluations.
+1. feature substrate integrity PASS;
+2. production feature builder + independent oracle implemented;
+3. exact strategy code/specs implemented;
+4. synthetic tests PASS;
+5. commit implementation;
+6. SEARCH_MEMORY_V2 admission PASS;
+7. family allocation/registry committed;
+8. create both preregistrations;
+9. commit preregistrations;
+10. only then execute market results.
 
 Suggested IDs:
 
-- `EXP-ALG-010-PULLBACK-RECOVERY-CORE`
-- `EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM`
+- `EXP-ALG-012-ORDERFLOW-CORE`
+- `EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE`
 
-If a pre-result integrity correction is required, preserve old preregistration and version prospectively.
+If a true pre-execution integrity bug is discovered:
 
-If a material bug is found after observing results:
-- preserve affected result;
+- preserve originals;
+- record zero trials/results;
+- correct prospectively.
+
+If a material bug is discovered after result observation:
+
+- preserve affected evidence;
 - do not overwrite;
-- stop;
-- require future Research Director allocation.
+- stop and require a future allocation.
 
 ---
 
-## STAGE L — TERMINAL CLASSIFICATION
+# 18. STAGE N — TERMINAL CLASSIFICATION
 
-Use exact `DEVELOPMENT_EVALUATION_V1` classification order:
+Use unchanged `DEVELOPMENT_EVALUATION_V1`.
+
+Possible:
 
 - INCONCLUSIVE
 - REJECT_COST_DOMINATED
@@ -479,112 +683,155 @@ Use exact `DEVELOPMENT_EVALUATION_V1` classification order:
 - REJECT_UNSTABLE
 - PROMISING_DEVELOPMENT_ONLY
 
-Family conclusion follows PRIMARY `RECOVERY_CORE`, never whichever variant scores best.
+Family conclusion follows preselected `FLOW_CORE`, not the better-scoring variant.
 
 Even if PROMISING:
+
 - no Champion;
 - no sealed query;
-- no paper trading.
+- no paper trade.
 
 ---
 
-## STAGE M — COMPARISON
+# 19. STAGE O — INTERPRETATION
 
-Descriptively compare with preserved:
+Create:
+
+`reports/research/WP-007-ORDER-FLOW.md`
+
+Report:
+
+- feature integrity;
+- source provenance sample;
+- exact order-flow semantics;
+- variant definitions;
+- fold results;
+- cost sensitivity;
+- timing sensitivity;
+- total/fold trade counts;
+- ESS/concentration;
+- invalid/unresolved;
+- comparison with prior preserved references.
+
+At minimum compare descriptively with:
 
 - random control;
 - SMA trend;
 - breakout;
 - ALIGNED;
+- pullback recovery core;
 - no-trade.
 
-Do not use Buy & Hold as product-horizon comparator.
+Do not call comparisons paired unless they are actually matched.
 
-Interpret:
+Questions:
 
-- gross margin;
-- default-cost survival;
-- double-cost sensitivity;
-- fold coverage;
-- concentration;
-- confirmation effect;
-- timing-delay sensitivity;
-- distinction from breakout behavior.
+- Does taker-flow transition generate positive zero-cost expectancy?
+- Does default friction consume the signal?
+- Does double cost survive?
+- Is evidence more evenly distributed than ALIGNED?
+- Does price-response confirmation improve economics or only reduce coverage?
+- Does DELAY_1H weaken the event?
+- Is the new mechanism truly behaviorally distinct?
 
-No post-result new variant.
+No new post-result gate.
 
 ---
 
-## STAGE N — SEARCH MEMORY UPDATE
+# 20. STAGE P — SEARCH MEMORY UPDATE
 
-If admitted/executed:
+If admitted and executed:
 
 Add exactly:
+
 - one new root family;
-- one economic hypothesis;
-- two strategy configurations;
+- one new economic hypothesis;
+- two configurations;
 - eight profile evaluations;
 - zero numeric variants.
 
-Preserve FAM-BREAKOUT exhausted.
+Cumulative expected if fully executed:
 
-Record legitimate revisit criteria for pullback recovery and all prior families.
+- experiments_completed = 13
+- material economic hypotheses = 5
+- configurations = 13
+- profile/seed trials = 69
+- numeric variants = 0
+- adaptive decisions = 4
+- result-dependent forks = 4
+
+Preserve:
+
+- FAM-BREAKOUT exhausted;
+- FAM-PULLBACK-RECOVERY consumed/parked;
+- ALIGNED parked INCONCLUSIVE.
+
+No budget reset through names.
 
 ---
 
-## STAGE O — SEALED CANDIDATE ELIGIBILITY TABLE
+# 21. STAGE Q — SEALED ELIGIBILITY
 
-Create a machine-readable table for every development strategy family:
+Regenerate candidate eligibility under `SEALED_EVALUATION_V1_1`.
 
-- family/strategy;
-- terminal development classification;
-- integrity status;
-- SEARCH_MEMORY_V2 binding;
-- sealed eligibility;
-- rejection reason.
+Still:
 
-ALIGNED expected:
-`NOT_ELIGIBLE_INCONCLUSIVE`
+- authorized BTC queries = 0
+- consumed BTC queries = 0
+- sealed data RESERVED_NOT_ACQUIRED
+- no sealed query.
 
-If RECOVERY_CORE becomes PROMISING:
+ALIGNED remains NOT_ELIGIBLE_INCONCLUSIVE.
+
+Pullback variants remain NOT_ELIGIBLE_INCONCLUSIVE.
+
+If FLOW_CORE becomes PROMISING_DEVELOPMENT_ONLY:
+
+record:
+
 `DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_SEALED_ALLOCATION`
 
-Still do NOT perform a sealed query.
+but execute no sealed query in WP-007.
+
+FLOW_PRICE_RESPONSE does not replace the primary merely because it scores higher.
 
 ---
 
-## STAGE P — UI/API
+# 22. STAGE R — UI/API
 
-Small research-only updates allowed.
+Only small research inspection additions.
 
 Research Lab may show:
+
+- order-flow feature substrate status;
+- latest family result;
 - SEARCH_MEMORY_V2;
-- family status;
-- sealed system: `LOCKED — NO AUTHORIZED QUERY`;
-- sealed queries consumed: 0;
+- SEALED_EVALUATION_V1_1;
+- `LOCKED — 0 AUTHORIZED / 0 CONSUMED`;
 - Champion NONE.
 
 Dashboard remains:
 - PAPER ONLY
 - Analyze Market disabled
-- no live signal
+- no product signal
 
-No sealed-data browser.
+No sealed browser.
 
 ---
 
-## STAGE Q — STATE
+# 23. STAGE S — STATE
 
-If both new experiments execute:
+On full execution:
 
-Expected cumulative:
-- experiments_completed = 11
-- material_economic_hypotheses = 4
-- configuration_variants = 11
-- profile_trials = 61
+Expected:
+
+- experiments_completed = 13
+- material_economic_hypotheses = 5
+- configurations = 13
+- profile_trials = 69
 - numeric_parameter_variants = 0
-- adaptive_decisions = 3
-- result_dependent_forks = 3
+- adaptive_decisions = 4
+- result_dependent_forks = 4
 - sealed_queries = 0
 - sealed_evaluations = 0
 - paper_trades = 0
@@ -592,94 +839,104 @@ Expected cumulative:
 - forward evidence = NONE
 - real money = false
 
-If novelty gate blocks execution, keep truthful counters.
+Update:
 
-Add sealed infrastructure version/status and candidate eligibility state.
+- latest reviewed checkpoint = WP-006
+- latest executor checkpoint = WP-007
+- WP-005 remote CI = SUCCESS
+- WP-006 remote CI = SUCCESS
+- order-flow feature substrate identity/status
+- latest family
+- sealed version/status
+- next recommended checkpoint.
 
-Latest reviewed checkpoint = WP-005.
-Latest executor checkpoint = WP-006.
+If market execution is blocked, use truthful counters.
 
 ---
 
-## STAGE R — VALIDATION
+# 24. STAGE T — VALIDATION
 
 Strengthen `python scripts/check.py`.
 
-Validate:
+Validate at minimum:
 
-### WP-005 review truth
-- correct WP-005 ancestry;
-- real remote CI evidence SUCCESS;
-- old artifacts unchanged;
-- report-base typo documented.
+## Review/state
+- exact WP-007 base `d92088d...`;
+- WP-006 real CI SUCCESS evidence;
+- current state no stale WP-005 pending CI;
+- report-base guard.
 
-### Sealed infrastructure
-- no reserved BTC files;
-- no post-cutoff BTC bytes read;
-- BTC authorized queries=0;
-- BTC consumed queries=0;
-- unauthorized request rejected;
-- INCONCLUSIVE candidate rejected;
-- code/config drift rejected;
-- duplicate query rejected;
-- metric drift rejected;
-- overwrite rejected;
-- development loader blocked from sealed path;
-- synthetic evaluator tests pass;
-- synthetic consumed query cannot reset.
+## Order-flow data
+- canonical content hash unchanged;
+- no canonical rewrite;
+- taker-field audit PASS;
+- source sample reproducible;
+- no outcome-based sample selection;
+- no invalid/clamped ratios;
+- feature manifest/hash;
+- production/oracle reconciliation;
+- source-grid quarantine;
+- no post-cutoff.
 
-### New family
-- max two variants;
-- one economic hypothesis;
-- novelty admission before results;
-- no old budget reset;
+## Sealed
+- SEALED_EVALUATION_V1_1;
+- Research Director scientific allocation authority;
+- executor cannot self-authorize;
+- BTC authorized=0;
+- BTC consumed=0;
+- sealed dataset not acquired;
+- no sealed result.
+
+## Search/algorithm
+- novelty admission before market results;
+- exact one economic hypothesis;
+- exact two configs;
 - zero numeric variants;
-- executable specs match runtime;
-- exact SMA24 rule;
-- exact persistent-up rule;
-- exact CORE/CONFIRM rules;
-- no breakout condition;
-- no SMA168;
-- no volume gate;
+- exact 50% threshold only;
+- exact non-overlapping 4h context rule;
+- exact FLOW_CORE;
+- exact FLOW_PRICE_RESPONSE;
+- no breakout/SMA/persistence/pullback gate;
+- exact 4 profiles/config;
 - fixed 2/4/24 geometry;
-- exact four profiles each;
 - DEVELOPMENT_EVALUATION_V1 unchanged;
-- preregistration precedes results;
-- no undeclared profiles;
-- no overwrite.
+- preregistration before result;
+- all negative evidence retained;
+- no optimizer.
 
-### Governance
-- no post-cutoff;
+## Governance
 - BTC only;
 - LONG only;
 - no leverage;
+- no post-cutoff;
 - no sealed BTC query;
 - no paper;
-- no Champion;
-- no real money;
-- no optimizer.
+- Champion NONE;
+- real money false.
 
-### Software
+## Software
 - backend tests;
 - frontend tests/build;
 - lint;
 - format;
 - typing;
-- clean-checkout no-data validation;
-- clean working tree.
+- clean-checkout no-data check;
+- installed-data check;
+- clean tree.
 
-Remote CI report:
+Remote CI in executor report:
 `PENDING_PUSH`
 
 ---
 
-## DEFAULT BRANCH HOUSEKEEPING
+# 25. DEFAULT BRANCH HOUSEKEEPING
 
-Remote default branch may still be old WP-001 branch.
+Remote default branch may still be the historical WP-001 branch.
 
-Do not block WP-006.
+Do not block WP-007.
 
-If safe authenticated local GitHub CLI is already available without new credentials, it may set default branch to `main`.
+If safe already-authenticated repo administration is available without new credentials, set default
+branch to `main`.
 
 Otherwise report PENDING.
 
@@ -687,99 +944,96 @@ Do not delete old branches.
 
 ---
 
-## COMMIT CHRONOLOGY
+# 26. COMMIT CHRONOLOGY
 
 Recommended:
 
-1. `docs: record WP-005 Research Director acceptance`
-2. `feat: add locked sealed evaluation infrastructure`
-3. `research: allocate and admit pullback recovery family`
-4. `feat: implement governed pullback recovery specs and tests`
-5. `research: preregister pullback recovery variants`
-6. `research: finalize pullback recovery development results`
-7. `feat: expose sealed and research eligibility status`
-8. `chore: complete WP-006 validation state and checkpoint`
+1. `docs: record WP-006 Research Director review and sealed authority correction`
+2. `audit: validate canonical Binance taker fields`
+3. `feat: add deterministic order-flow feature substrate`
+4. `research: allocate and admit aggressive buy-flow family`
+5. `feat: implement governed order-flow variants and tests`
+6. `research: preregister order-flow variants`
+7. `research: finalize order-flow development results`
+8. `feat: expose order-flow and sealed research status`
+9. `chore: complete WP-007 validation state and checkpoint`
 
-Do not squash preregistration-before-result chronology.
+Preserve scientific chronology.
 
 ---
 
-## CHECKPOINT
+# 27. CHECKPOINT
 
 Create:
 
-- `reports/checkpoints/WP-006.md`
-- `reports/research/WP-006-PULLBACK-RECOVERY.md`
-- `tasks/archive/WP-006.md`
+- `reports/checkpoints/WP-007.md`
+- `reports/research/WP-007-ORDER-FLOW.md`
+- `tasks/archive/WP-007.md`
 
 Mark CURRENT_TASK completed only on structural completion.
 
 ---
 
-## ACCEPTANCE CRITERIA
+# 28. ACCEPTANCE CRITERIA
 
-WP-006 PASS requires:
+WP-007 PASS requires:
 
-1. exact start at `444172a...`;
+1. exact start HEAD;
 2. main only;
-3. no new branch;
+3. no branch;
 4. no push;
 5. clean tree;
-6. WP-005 review ACCEPTED;
-7. report-base typo documented;
-8. real WP-005 CI SUCCESS recorded;
-9. SEALED_EVALUATION_V1 exists;
-10. no real sealed BTC data read/acquired;
-11. BTC authorized queries=0;
-12. BTC consumed queries=0;
-13. INCONCLUSIVE candidate cannot query;
-14. duplicate/overwrite/drift guards pass;
-15. normal research loader cannot open sealed path;
-16. synthetic sealed tests pass;
-17. pullback family submitted to SEARCH_MEMORY_V2 before market result;
-18. duplicate/parameter classification would block execution;
-19. no classifier weakening/renaming workaround;
-20. FAM-BREAKOUT remains exhausted;
-21. exactly one new economic hypothesis if executed;
-22. exactly two variants;
-23. zero numeric variants;
-24. no alternative family tested;
-25. exact CORE;
-26. exact CONFIRM;
-27. exact 4h persistence;
-28. no breakout rule;
-29. no SMA168;
-30. no volume gate;
-31. only SMA24 recovery event;
-32. no parameter fit;
-33. fixed stop/target/horizon;
-34. exact 4 profiles each;
-35. same DEVELOPMENT_EVALUATION_V1;
-36. preregistration before result;
-37. primary CORE fixed before result;
-38. all folds retained;
-39. negative evidence preserved;
-40. deterministic classification;
-41. no sealed query even if PROMISING;
-42. counters truthful;
-43. sealed=0;
-44. paper=0;
-45. Champion NONE;
-46. forward evidence NONE;
-47. real money=false;
-48. full installed-data check passes;
-49. clean-checkout no-data check passes;
-50. remote CI reported PENDING_PUSH;
-51. profitability is not a structural PASS gate.
+6. WP-006 review recorded;
+7. WP-006 real CI SUCCESS recorded;
+8. current-state stale WP-005 CI fixed;
+9. sealed authority prospectively corrected without query;
+10. sealed authorized=0;
+11. sealed consumed=0;
+12. sealed data not acquired;
+13. canonical dataset unchanged;
+14. taker field audit PASS;
+15. deterministic raw-source sample PASS;
+16. invalid ratios not silently clipped;
+17. order-flow derived substrate versioned;
+18. independent oracle reconciliation PASS;
+19. quarantine preserved;
+20. no post-cutoff data;
+21. SEARCH_MEMORY_V2 admission before results;
+22. no classifier weakening/rename workaround;
+23. one new economic hypothesis max;
+24. two configs max;
+25. zero numeric variants;
+26. exact 0.5 balance threshold;
+27. exact non-overlapping 4h context;
+28. exact FLOW_CORE;
+29. exact FLOW_PRICE_RESPONSE;
+30. no price gate in CORE;
+31. no breakout/SMA/pullback/persistence gate;
+32. fixed stop/target/horizon;
+33. exactly 4 profiles each;
+34. no parameter optimization;
+35. preregistration before result;
+36. family conclusion follows CORE;
+37. no result rewrite;
+38. counters truthful;
+39. sealed=0;
+40. paper=0;
+41. Champion NONE;
+42. forward evidence NONE;
+43. real money=false;
+44. full installed-data validation PASS;
+45. clean-checkout no-data validation PASS;
+46. remote CI reported PENDING_PUSH;
+47. profitability does not determine structural PASS.
 
 ---
 
-## REQUIRED EXECUTOR RESPONSE
+# 29. REQUIRED EXECUTOR RESPONSE
 
 Return only:
 
 ```text
-WP-006: PASS | PARTIAL | FAIL
+WP-007: PASS | PARTIAL | FAIL
 
 Branch:
 HEAD:
@@ -787,41 +1041,51 @@ Base reviewed HEAD:
 Remote CI:
 - PENDING_PUSH
 
-WP-005 review:
+WP-006 review:
 - verdict:
-- true reviewed base:
-- report-base typo recorded:
 - real CI evidence:
+- stale WP-005 CI state fixed:
 
-Sealed infrastructure:
+Sealed governance:
 - version:
-- status:
+- authorization authority:
 - authorized BTC queries:
 - consumed BTC queries:
-- normal-loader isolation:
-- synthetic evaluator:
-- duplicate/overwrite guards:
-- candidate admission guard:
+- dataset state:
+- sealed query executed:
+
+Order-flow substrate:
+- version:
+- canonical dataset unchanged:
+- taker_base integrity:
+- taker_quote integrity:
+- zero-volume rows:
+- source provenance sample:
+- 1h eligible buckets:
+- 4h eligible buckets:
+- production/oracle reconciliation:
+- artifact/manifest hash:
 
 Search-memory admission:
 - proposed family:
-- novelty classification:
-- admitted: YES | NO
-- breakout budget remains exhausted: YES | NO
+- CORE classification:
+- PRICE_RESPONSE classification:
+- admitted:
+- prior family budgets unchanged:
 
 Algorithm:
 - primary:
 - secondary:
-- executable spec binding:
-- parameters searched:
+- threshold searched:
+- other parameters searched:
 - profiles executed:
 
 Evaluation:
-- RECOVERY_CORE: <classification, default R, trades, positive folds, min-fold trades>
-- RECOVERY_CONFIRM: <classification, default R, trades, positive folds, min-fold trades>
-- core ZERO:
-- core DOUBLE:
-- core DELAY:
+- FLOW_CORE: <classification, default R, trades, nonnegative folds, min-fold trades>
+- FLOW_PRICE_RESPONSE: <classification, default R, trades, nonnegative folds, min-fold trades>
+- CORE ZERO:
+- CORE DOUBLE:
+- CORE DELAY:
 - concentration/stability:
 
 Comparison:
@@ -829,22 +1093,24 @@ Comparison:
 - vs trend:
 - vs breakout:
 - vs ALIGNED:
+- vs pullback core:
 - interpretation: <one concise sentence>
 
 Sealed eligibility:
 - ALIGNED:
-- RECOVERY_CORE:
-- RECOVERY_CONFIRM:
+- PULLBACK_CORE:
+- FLOW_CORE:
+- FLOW_PRICE_RESPONSE:
 - sealed query executed: NO
 
 Scientific accounting:
-- strategy experiments=<truthful count>
-- material economic hypotheses=<truthful count>
-- configurations=<truthful count>
-- profile/seed trials=<truthful count>
+- strategy experiments=<truth>
+- material economic hypotheses=<truth>
+- configurations=<truth>
+- profile/seed trials=<truth>
 - numeric parameter variants=0
-- adaptive decisions=<truthful count>
-- result-dependent forks=<truthful count>
+- adaptive decisions=<truth>
+- result-dependent forks=<truth>
 - sealed_evaluations=0
 - sealed_queries=0
 - paper_trades=0
@@ -857,6 +1123,7 @@ Validation:
 
 Forbidden-work check:
 - ALIGNED modification: absent
+- pullback rescue: absent
 - breakout reopening: absent
 - optimizer/search: absent
 - post-cutoff access: absent
@@ -876,7 +1143,7 @@ Material deviations:
 - <only material deviations>
 
 Next recommendation:
-- <one sentence; never auto-query sealed or promote Champion>
+- <one sentence; no automatic sealed query or Champion promotion>
 ```
 
-Do not paste raw logs unless PARTIAL/FAIL and required to diagnose blocker.
+Do not paste raw logs unless PARTIAL/FAIL and essential for diagnosis.

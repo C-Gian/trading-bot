@@ -52,19 +52,63 @@ def lab(tmp_path: Path) -> Path:
         '{"experiment_id": "EXP-SYNTH-001"}\n', encoding="utf-8", newline="\n"
     )
     (root / "strategy.py").write_text("# synthetic frozen strategy\n", encoding="utf-8")
+    _write_allocation(root)
     _write_budget(root, authorized=1)
     _write_eligibility(root, classification="PROMISING_DEVELOPMENT_ONLY")
     return root
 
 
-def _write_budget(root: Path, *, authorized: int, consumed: int = 0) -> None:
+ALLOCATION_PATH = "research/sealed/allocations/SYNTHETIC-ALLOC.json"
+
+
+def _write_allocation(
+    root: Path, *, issuer: str = "RESEARCH_DIRECTOR", queries: int = 1, **changes
+):
+    payload = {
+        "schema_version": 1,
+        "allocation_id": "SYNTHETIC-ALLOC",
+        "kind": "SEALED_SCIENTIFIC_ALLOCATION",
+        "issuer": issuer,
+        "scope": SCOPE,
+        "authorized_queries": queries,
+        "candidate_experiment_ids": ["EXP-SYNTH-001"],
+        "real_money_authorized": False,
+    }
+    payload.update(changes)
+    path = root / ALLOCATION_PATH
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n")
+
+
+def _write_budget(
+    root: Path,
+    *,
+    authorized: int,
+    consumed: int = 0,
+    record: str | None = ALLOCATION_PATH,
+    allocation_queries: int | None = None,
+) -> None:
+    """Keep the Research Director allocation consistent with the budget it grants."""
+    if authorized > 0 and record == ALLOCATION_PATH:
+        _write_allocation(
+            root, queries=authorized if allocation_queries is None else allocation_queries
+        )
     (root / "research/sealed/SEALED_QUERY_BUDGET.json").write_text(
         json.dumps(
             {
                 "schema_version": 1,
-                "version": "SEALED_EVALUATION_V1",
+                "version": "SEALED_EVALUATION_V1_1",
                 "eligibility_table": "research/sealed/SYNTHETIC_ELIGIBILITY.json",
                 "isolation_policy": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
+                "authorization_policy": {
+                    "authority": "RESEARCH_DIRECTOR_SEALED_ALLOCATION",
+                    "allocation_directory": "research/sealed/allocations",
+                    "executor_self_authorization": False,
+                    "automated_self_authorization": False,
+                    "accepted_issuers": ["RESEARCH_DIRECTOR"],
+                    "rejected_issuers": ["EXECUTOR", "AUTOMATION"],
+                    "owner_gate_required_for": ["REAL_CAPITAL"],
+                },
                 "scopes": {
                     SCOPE: {
                         "symbol": "SYNTHETIC",
@@ -75,7 +119,7 @@ def _write_budget(root: Path, *, authorized: int, consumed: int = 0) -> None:
                         "status": (
                             "LOCKED_NO_AUTHORIZED_QUERY" if authorized == 0 else "AUTHORIZED"
                         ),
-                        "authorization_record": None if authorized == 0 else "SYNTHETIC-ALLOC",
+                        "authorization_record": None if authorized == 0 else record,
                         "sealed_root": "data/sealed/SYNTHETIC",
                         "consumption_ledger": "research/sealed/SYNTHETIC/CONSUMPTION_LEDGER.jsonl",
                         "result_directory": "research/sealed/SYNTHETIC/results",
@@ -171,7 +215,7 @@ def _runner(_request: Any) -> dict[str, Any]:
 def test_repository_sealed_scope_is_locked_with_zero_queries():
     status = public_status()
     scope = status["scopes"][0]
-    assert status["version"] == "SEALED_EVALUATION_V1"
+    assert status["version"] == "SEALED_EVALUATION_V1_1"
     assert scope["scope"] == "BTCUSDT_POST_CUTOFF" and scope["symbol"] == "BTCUSDT"
     assert scope["status"] == "LOCKED_NO_AUTHORIZED_QUERY"
     assert scope["authorized_queries"] == 0 and scope["consumed_queries"] == 0
@@ -181,6 +225,108 @@ def test_repository_sealed_scope_is_locked_with_zero_queries():
 
 def test_repository_isolation_claim_is_not_overstated():
     assert load_budget()["isolation_policy"].endswith("NOT_OS_ENFORCED")
+
+
+def test_repository_uses_v1_1_research_director_authority():
+    budget = load_budget()
+    assert budget["version"] == "SEALED_EVALUATION_V1_1"
+    policy = budget["authorization_policy"]
+    assert policy["authority"] == "RESEARCH_DIRECTOR_SEALED_ALLOCATION"
+    assert policy["executor_self_authorization"] is False
+    assert policy["automated_self_authorization"] is False
+    assert policy["accepted_issuers"] == ["RESEARCH_DIRECTOR"]
+    assert sorted(policy["rejected_issuers"]) == ["AUTOMATION", "EXECUTOR"]
+    assert "REAL_CAPITAL" in policy["owner_gate_required_for"]
+    assert not list((ROOT / "research/sealed/allocations").glob("*.json"))
+    assert budget["scopes"]["BTCUSDT_POST_CUTOFF"]["authorization_record"] is None
+
+
+def test_eligibility_rules_are_unchanged_by_the_authority_correction():
+    """V1.1 changes who may allocate, never who may be queried."""
+    from app.sealed.evaluator import ELIGIBLE
+
+    assert ELIGIBLE == "PROMISING_DEVELOPMENT_ONLY"
+    table = json.loads(
+        (ROOT / "research/sealed/SEALED_CANDIDATE_ELIGIBILITY.json").read_text(encoding="utf-8")
+    )
+    assert all(
+        row["sealed_eligibility"] != "DEVELOPMENT_ELIGIBLE" or row["sealed_allocation"]
+        for row in table["candidates"]
+    )
+
+
+def test_a_raised_budget_without_an_allocation_is_refused(lab: Path):
+    _write_budget(lab, authorized=1, record=None)
+    with pytest.raises(SealedEvaluationError, match="without an allocation"):
+        load_budget(lab)
+
+
+@pytest.mark.parametrize("issuer", ["EXECUTOR", "AUTOMATION"])
+def test_executor_and_automation_cannot_self_authorize(lab: Path, issuer: str):
+    _write_allocation(lab, issuer=issuer)
+    with pytest.raises(SealedEvaluationError, match="self-authorized"):
+        load_budget(lab)
+    with pytest.raises(SealedEvaluationError, match="self-authorized"):
+        SealedEvaluator(lab).evaluate(_request(lab), _runner)
+
+
+def test_an_allocation_cannot_grant_more_than_it_declares(lab: Path):
+    _write_budget(lab, authorized=2, allocation_queries=1)
+    with pytest.raises(SealedEvaluationError, match="does not grant the claimed query count"):
+        load_budget(lab)
+
+
+def test_an_allocation_for_another_scope_is_refused(lab: Path):
+    _write_allocation(lab, scope="OTHER_SCOPE")
+    with pytest.raises(SealedEvaluationError, match="different scope"):
+        load_budget(lab)
+
+
+def test_a_sealed_allocation_can_never_authorize_real_capital(lab: Path):
+    _write_allocation(lab, real_money_authorized=True)
+    with pytest.raises(SealedEvaluationError, match="never authorize real capital"):
+        load_budget(lab)
+
+
+def test_a_budget_claiming_executor_self_authorization_is_refused(lab: Path):
+    path = lab / "research/sealed/SEALED_QUERY_BUDGET.json"
+    budget = json.loads(path.read_text(encoding="utf-8"))
+    budget["authorization_policy"]["executor_self_authorization"] = True
+    path.write_text(json.dumps(budget, indent=2), encoding="utf-8")
+    with pytest.raises(SealedEvaluationError, match="may self-authorize"):
+        load_budget(lab)
+
+
+def test_an_allocation_outside_the_declared_directory_is_refused(lab: Path):
+    stray = lab / "research/sealed/STRAY-ALLOC.json"
+    stray.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "allocation_id": "STRAY",
+                "kind": "SEALED_SCIENTIFIC_ALLOCATION",
+                "issuer": "RESEARCH_DIRECTOR",
+                "scope": SCOPE,
+                "authorized_queries": 1,
+                "candidate_experiment_ids": ["EXP-SYNTH-001"],
+                "real_money_authorized": False,
+            }
+        ),
+        encoding="utf-8",
+    )
+    _write_budget(lab, authorized=1, record="research/sealed/STRAY-ALLOC.json")
+    with pytest.raises(SealedEvaluationError, match="must live under"):
+        load_budget(lab)
+
+
+def test_a_locked_scope_may_not_name_an_allocation(lab: Path):
+    _write_budget(lab, authorized=0)
+    path = lab / "research/sealed/SEALED_QUERY_BUDGET.json"
+    budget = json.loads(path.read_text(encoding="utf-8"))
+    budget["scopes"][SCOPE]["authorization_record"] = ALLOCATION_PATH
+    path.write_text(json.dumps(budget, indent=2), encoding="utf-8")
+    with pytest.raises(SealedEvaluationError, match="locked but names an authorization record"):
+        load_budget(lab)
 
 
 def test_unauthorized_btc_request_is_refused_before_touching_anything(lab: Path):

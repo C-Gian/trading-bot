@@ -72,8 +72,24 @@
     "source_provenance_classification": "SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
     "independent_reconciliation": "PASS",
     "integrity_replay_profiles": 12,
-    "matched_control_classification": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
-    "remote_ci": "PENDING_PUSH"
+    "matched_control_classification": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE"
+  },
+  "remote_ci": {
+    "policy": "Authoritative current remote CI truth per work package, linked to immutable evidence. Historical checkpoint reports are never rewritten when a once-pending external fact resolves.",
+    "work_packages": {
+      "WP-005": {
+        "status": "SUCCESS",
+        "head": "444172a359e2663887624da82254cc2185ff85e1",
+        "run_id": 34355806303,
+        "evidence": "reports/reviews/WP-005-CI-EVIDENCE.json"
+      },
+      "WP-006": {
+        "status": "SUCCESS",
+        "head": "d92088d5ef0426bf64f34326a3224dd9aba93603",
+        "run_id": 34362902153,
+        "evidence": "reports/reviews/WP-006-CI-EVIDENCE.json"
+      }
+    }
   },
   "backtest_substrate": {
     "status": "VALIDATED",
@@ -97,7 +113,7 @@
     "terminal_classification": "INCONCLUSIVE"
   },
   "sealed_evaluation": {
-    "version": "SEALED_EVALUATION_V1",
+    "version": "SEALED_EVALUATION_V1_1",
     "status": "LOCKED_NO_AUTHORIZED_QUERY",
     "dataset_state": "RESERVED_NOT_ACQUIRED",
     "authorized_btc_queries": 0,

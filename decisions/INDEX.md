@@ -7,3 +7,4 @@
 - [ADR-0005](ADR-0005-PREEXECUTION-SOURCE-GRID-QUARANTINE.md) — source-grid quarantine before any WP-004 result
 - [ADR-0006](ADR-0006-SEALED-EVALUATION-ARCHITECTURE.md) — sealed evaluation architecture V1, built locked
 - [ADR-0007](ADR-0007-PULLBACK-RECOVERY-ROOT-AND-V2-MEMORY-LAYER.md) — new pullback-recovery root and additive V2 record layer
+- [ADR-0008](ADR-0008-SEALED-SCIENTIFIC-ALLOCATION-AUTHORITY.md) — sealed scientific allocation is a Research Director decision

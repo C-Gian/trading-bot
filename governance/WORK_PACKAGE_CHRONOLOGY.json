@@ -29,6 +29,14 @@
     {
       "work_package": "WP-006",
       "start_head": "444172a359e2663887624da82254cc2185ff85e1",
+      "final_head": "d92088d5ef0426bf64f34326a3224dd9aba93603",
+      "review": "reports/reviews/WP-006-RESEARCH-DIRECTOR-REVIEW.md",
+      "base_guard_enforced": true,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-007",
+      "start_head": "d92088d5ef0426bf64f34326a3224dd9aba93603",
       "final_head": null,
       "review": null,
       "base_guard_enforced": true,

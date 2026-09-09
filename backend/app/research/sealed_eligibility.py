@@ -107,7 +107,7 @@ def build_eligibility_table(root: Path = ROOT) -> dict[str, Any]:
     candidates.sort(key=lambda item: item["experiment_id"])
     return {
         "schema_version": 1,
-        "version": "SEALED_EVALUATION_V1",
+        "version": "SEALED_EVALUATION_V1_1",
         "label": "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE",
         "generated_from": [
             "research/memory/OUTCOMES.jsonl",

@@ -176,5 +176,5 @@
   "policy": "Only PROMISING_DEVELOPMENT_ONLY can ever become eligible, and only together with an explicit Research Director sealed allocation. INCONCLUSIVE is never seal-eligible.",
   "schema_version": 1,
   "sealed_queries_executed": 0,
-  "version": "SEALED_EVALUATION_V1"
+  "version": "SEALED_EVALUATION_V1_1"
 }

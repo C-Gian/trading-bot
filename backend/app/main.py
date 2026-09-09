@@ -71,6 +71,7 @@ def create_app(
             "adaptive_search": state.get("adaptive_search"),
             "selected_family": state.get("selected_family"),
             "wp005_integrity": state.get("wp005_integrity"),
+            "remote_ci": state.get("remote_ci"),
             "latest_family": state.get("latest_family"),
             "sealed_evaluation": state.get("sealed_evaluation"),
             "sealed_system": public_status(),

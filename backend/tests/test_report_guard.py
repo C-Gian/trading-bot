@@ -14,6 +14,7 @@ from app.research.report_guard import (
 from app.research.wp004 import ROOT
 
 WP006_BASE = "444172a359e2663887624da82254cc2185ff85e1"
+WP007_BASE = "d92088d5ef0426bf64f34326a3224dd9aba93603"
 
 
 def _mirror(tmp_path: Path) -> Path:
@@ -38,11 +39,12 @@ def _write(root: Path, document: dict) -> None:
     )
 
 
-def test_repository_chronology_passes_and_pins_wp006_base():
+def test_repository_chronology_passes_and_pins_every_enforced_base():
     result = validate_report_bases()
     assert result["status"] == "PASS"
-    assert result["base_guard_enforced"] == ["WP-006"]
+    assert result["base_guard_enforced"] == ["WP-006", "WP-007"]
     assert declared_base("WP-006") == WP006_BASE
+    assert declared_base("WP-007") == WP007_BASE
     assert result["documented_reporting_errors"] == [
         {"work_package": "WP-005", "kind": "REPORTED_BASE_HEAD_TYPO"}
     ]

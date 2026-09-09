@@ -322,8 +322,7 @@
         "source_provenance_classification",
         "independent_reconciliation",
         "integrity_replay_profiles",
-        "matched_control_classification",
-        "remote_ci"
+        "matched_control_classification"
       ],
       "properties": {
         "status": {
@@ -347,9 +346,6 @@
             "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
             "ALIGNED_DIAGNOSTIC_UNRESOLVED"
           ]
-        },
-        "remote_ci": {
-          "const": "PENDING_PUSH"
         }
       }
     },
@@ -522,7 +518,10 @@
       ],
       "properties": {
         "version": {
-          "const": "SEALED_EVALUATION_V1"
+          "enum": [
+            "SEALED_EVALUATION_V1",
+            "SEALED_EVALUATION_V1_1"
+          ]
         },
         "status": {
           "type": "string",
@@ -549,6 +548,55 @@
         "candidates_assessed": {
           "type": "integer",
           "minimum": 0
+        }
+      }
+    },
+    "remote_ci": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "work_packages"
+      ],
+      "properties": {
+        "policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "work_packages": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "status",
+              "head",
+              "run_id",
+              "evidence"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "SUCCESS",
+                  "FAILURE",
+                  "PENDING_PUSH"
+                ]
+              },
+              "head": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "run_id": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
         }
       }
     }

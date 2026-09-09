@@ -17,6 +17,9 @@ REVIEWED = "47dd69d73768a9e3a3c92fe08eb1e7e3e8c239f5"
 WP004_BASE = "2b40aa03cfc05ac7f57d269f596f1ebacdc9d356"
 WP005_BASE = "3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153"
 WP006_BASE = "444172a359e2663887624da82254cc2185ff85e1"
+WP005_BASE_SUCCESSOR = "444172a359e2663887624da82254cc2185ff85e1"
+WP006_HEAD = "d92088d5ef0426bf64f34326a3224dd9aba93603"
+WP007_BASE = "d92088d5ef0426bf64f34326a3224dd9aba93603"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -232,8 +235,20 @@ def validate_research_views(state: dict) -> None:
         "independent_reconciliation": wp005["independent_reconciliation"],
         "integrity_replay_profiles": wp005["integrity_replay_profiles"],
         "matched_control_classification": wp005["classification"],
-        "remote_ci": "PENDING_PUSH",
     }
+    assert "remote_ci" not in state["wp005_integrity"], "stale pending CI state was reintroduced"
+    remote = state["remote_ci"]["work_packages"]
+    assert set(remote) == {"WP-005", "WP-006"}
+    for work_package, expected_head in (
+        ("WP-005", WP005_BASE_SUCCESSOR),
+        ("WP-006", WP006_HEAD),
+    ):
+        record = remote[work_package]
+        evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
+        assert record["status"] == "SUCCESS" and record["head"] == expected_head
+        assert evidence["conclusion"] == "success" and evidence["branch"] == "main"
+        assert evidence["reviewed_head"] == expected_head
+        assert evidence["run_id"] == record["run_id"]
 
 
 def dataset_scope_checks() -> None:
