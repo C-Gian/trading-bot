@@ -417,6 +417,7 @@ def build_diagnostics(root: Path) -> dict[str, dict[str, Any]]:
                 "active_position_suppression_rate": round(suppressed / len(value["aligned"]), 10),
             }
         )
+
     def total(key: str) -> int:
         return sum(
             len(value[key]) if isinstance(value[key], list) else int(value[key])
