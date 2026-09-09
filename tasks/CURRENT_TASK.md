@@ -1,1155 +1,874 @@
-# CURRENT TASK — WP-004 ASTRA ULTRA
-# Scientific Memory + Anti-Circularity + First Serious Algorithm Family
+# CURRENT TASK — WP-005
+# Integrity Audit, Matched-Control Comparability, and Search-Memory V2
 
 ## STATUS
-COMPLETED
+ACTIVE
 
 ## EXECUTOR
-Astra — ULTRA / maximum reasoning effort.
+Primary: Codex.
+Fallback/overflow: Claude Code when Codex usage is unavailable.
 
-This checkpoint is intentionally assigned to the strongest reasoning configuration available.
-Do not reduce effort to conserve usage. The Owner explicitly prefers to spend more model usage
-if that materially improves the scientific foundation.
-
-ChatGPT remains Research Director and final scientific authority.
-Astra is the senior research/algorithm executor for this checkpoint.
-Deterministic code/tests/results remain authoritative over narrative.
+This task is executor-neutral. Scientific truth lives in repository artifacts, not in executor chat.
+Astra Ultra is not the default executor for WP-005. Reserve Ultra for a future explicitly assigned high-leverage reasoning checkpoint.
+ChatGPT / GPT-5.6 Sol remains Research Director and final scientific reviewer.
 
 ---
 
-# 0. WHY YOU ARE HERE
+# 0. PURPOSE
 
-Trading Bot is a brand-new multi-year quantitative research project.
+WP-004 produced the first algorithm family with positive exposed-development net expectancy:
 
-The Owner is not a quant researcher and does not want to:
-- write code;
-- debug;
-- inspect logs;
-- study trading theory;
-- coordinate agents;
-- manually interpret experiments.
+`ALIGNED_PARTICIPATION_CONTINUATION_V1`
 
-Your job is to do a large, autonomous, high-quality scientific + algorithmic checkpoint.
+Primary variant `ALIGNED`:
 
-The product target is:
+- default-cost expectancy: `+0.1373934676 R`
+- zero-cost expectancy: `+0.2577702239 R`
+- double-cost expectancy: `+0.0170168144 R`
+- delayed-1h expectancy: `+0.0151299901 R`
+- resolved default trades: `125`
+- positive folds: `3/6`
+- minimum fold trades: `5`
+- 2019 positive-fold profit concentration: `53.3%`
 
-V1:
-- local web app on the Owner's PC;
-- click `Analyze Market`;
-- system updates market state;
-- output either `NO_TRADE` or one actionable `BTCUSDT` Spot `LONG` paper-trade plan;
-- trade plan contains signal timestamp, entry, stop loss, exit/take-profit rule, expiry,
-  strategy version;
-- UI contains candlestick chart, paper trades, statistics and research status;
-- outcomes are recorded prospectively.
+Its frozen classification is correctly `INCONCLUSIVE`.
 
-V2 much later:
-- always-on server;
-- continuous market updates;
-- notification when an approved signal appears.
+It is NOT Champion evidence.
 
-No real money is allowed without a separate final Owner gate after strong long-term evidence.
+WP-005 does NOT search for a better strategy.
 
-The scientific goal is NOT hit rate.
-It is robust positive net expectancy after realistic costs.
+WP-005 asks:
+
+> Is the apparent improvement of ALIGNED over the prior breakout baseline still present when data eligibility, source-integrity handling, clock rules, position occupancy, execution semantics, and comparison windows are made genuinely comparable?
+
+WP-005 also closes two long-lived infrastructure risks:
+
+1. source-grid anomaly provenance;
+2. strategy-search memory depending too heavily on self-declared fingerprints.
+
+No new economic strategy hypothesis is authorized.
 
 ---
 
-# 1. CURRENT RESEARCH SCOPE — DO NOT EXPAND
+# 1. REQUIRED STARTING POINT
 
-Use only:
+Repository: `C-Gian/trading-bot`
 
-- crypto Spot;
-- `BTCUSDT`;
-- LONG / NO_TRADE;
-- canonical 1m market path;
-- 1h signal clock;
-- 4h regime/context;
-- maximum holding horizon approximately 24h;
-- closed-bar decisions;
-- next-1m-open execution;
-- paper/research only.
-
-Do NOT add:
-- ETH;
-- other coins;
-- SHORT;
-- perpetual futures;
-- leverage;
-- funding;
-- liquidation;
-- real exchange execution.
-
-No real money.
-
----
-
-# 2. REPOSITORY / GIT
-
-Repository:
-`C-Gian/trading-bot`
-
-Work directly on:
-`main`
+Branch: `main`
 
 Required starting HEAD:
+`3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153`
+
+Reviewed predecessor:
 `2b40aa03cfc05ac7f57d269f596f1ebacdc9d356`
 
-Do not create a new branch.
+Do not create a branch.
 Do not rewrite history.
 Do not push.
-
-Use meaningful sequential commits.
-The repository is the scientific memory of the project.
-
-Before doing anything, read:
-
-1. `AGENTS.md`
-2. `governance/SCIENTIFIC_CONSTITUTION.md`
-3. `state/current_state.json`
-4. canonical project brief
-5. canonical roadmap
-6. canonical tech stack
-7. canonical web app spec
-8. `reports/research/WP-003-BASELINES.md`
-9. all six WP-003 preregistrations and result summaries
-10. relevant execution/backtest/data contracts
-11. relevant ADRs
-12. `tasks/CURRENT_TASK.md`
-
-Read only additional files that are actually needed.
+Use meaningful sequential commits directly on local `main`.
 
 ---
 
-# 3. WHAT HAS ALREADY BEEN BUILT
-
-The project already has:
-
-- governed repository structure;
-- canonical scientific constitution;
-- machine-readable current state;
-- experiment preregistration/result contracts;
-- deterministic validation;
-- FastAPI backend;
-- React + TypeScript + Vite frontend;
-- historical BTCUSDT development chart;
-- canonical BTCUSDT 1m development dataset;
-- deterministic 1h and 4h derived bars;
-- gap/integrity artifacts;
-- deterministic backtest substrate;
-- execution model;
-- versioned cost model;
-- long-only event simulator;
-- leakage-safe as-of interfaces;
-- purged chronological walk-forward splitter;
-- experiment runner;
-- synthetic/golden execution validation;
-- CI.
-
-Accepted development dataset:
-
-`BTCUSDT-SPOT-1M-DEV-v1`
-
-Coverage:
-
-`2017-08-17T04:00:00Z`
-through
-`2024-12-31T23:59:00Z`
-
-Canonical rows:
-`3,870,559`
-
-Known missing source minutes:
-`8,560`
-
-Gap intervals:
-`34`
-
-Missing rows are not filled.
-
-Detailed BTCUSDT data after the cutoff is RESERVED and must not be accessed.
-
-Current substrate:
-
-- `BACKTEST_ENGINE_V2`
-- `EXECUTION_MODEL_V2`
-- `BTCUSDT_SPOT_COST_V1`
-
-Default cost assumptions:
-
-- entry fee: 10 bps
-- exit fee: 10 bps
-- adverse entry execution friction: 2 bps
-- adverse exit execution friction: 2 bps
-
-Nominal round-trip friction:
-24 bps.
-
-This is intentionally conservative research friction, not a promise about an exchange fee tier.
-
----
-
-# 4. WHAT WP-003 FOUND
-
-Six preregistered development experiments were completed.
-
-All preregistrations were committed before their results.
-
-The real GitHub Actions run for the final WP-003 HEAD passed.
-
-Scientific state:
-
-- experiments = 6
-- sealed evaluations = 0
-- paper trades = 0
-- Champion = NONE
-- forward evidence = NONE
-- real money = false
-
-Results:
-
-## Buy & Hold reference
-
-`EXP-BASE-001-BUYHOLD`
-
-Net total return:
-`20.905930996`
-
-This is reference-only and outside the ~24h product horizon.
-
-## Random-entry negative control
-
-`EXP-CTRL-002-RANDOM`
-
-32 fixed deterministic seeds.
-
-Median net expectancy:
-`-0.0948689556 R`
-
-## Simple trend baseline
-
-`EXP-BASE-003-TREND`
-
-Rule:
-`SMA24 > SMA168`
-
-Default-cost expectancy:
-`-0.0908105341 R`
-
-Trades:
-`2,445`
-
-Zero-cost expectancy:
-approximately `+0.02934 R`
-
-Double-cost expectancy:
-approximately `-0.21096 R`
-
-## Simple 24h breakout baseline
-
-`EXP-BASE-004-BREAKOUT`
-
-Rule:
-current 1h close > maximum high of previous 24 completed 1h bars.
-
-Default-cost expectancy:
-`-0.0482093869 R`
-
-Trades:
-`1,123`
-
-Zero-cost expectancy:
-approximately `+0.07221 R`
-
-Double-cost expectancy:
-approximately `-0.16863 R`
-
-The yearly result is inconsistent:
-some positive years, some materially negative years.
-
-## Delayed trend timing control
-
-`EXP-CTRL-005-TREND-DELAY-1H`
-
-Expectancy:
-`-0.0940234189 R`
-
-Trades:
-`2,446`
-
-## No-trade control
-
-`EXP-CTRL-006-NO-TRADE`
-
-Trades:
-`0`
-
-No Champion exists.
-
-Do NOT treat the breakout result as proof of an edge.
-It is merely a development observation.
-
-However, it is scientifically relevant that the breakout baseline had positive gross/zero-cost
-expectancy but negative net expectancy under the default cost profile.
-
-One plausible research problem is therefore:
-
-> Can we identify a sparse, economically meaningful subset of long breakout/trend opportunities
-> whose gross edge per trade is strong enough and stable enough to survive realistic friction?
-
-This is a hypothesis to investigate, not a conclusion.
-
----
-
-# 5. THE OWNER'S MOST IMPORTANT LONG-TERM CONCERN
-
-This project may run for years.
-
-The Owner explicitly wants to prevent the following failure mode:
-
-- test approach 1 -> fails;
-- test approach 2 -> fails;
-- ...
-- test approach 700 -> fails;
-- approach 701 is effectively approach 1 again with different wording;
-- the project becomes circular;
-- time, compute and model usage are wasted;
-- repeated testing eventually manufactures a lucky backtest.
-
-This risk is a PRIMARY objective of WP-004.
-
-The repository must develop durable scientific memory.
-
-It is not enough to save reports.
-The system must be able to answer:
-
-- What hypothesis families have already been tested?
-- What exact mechanism did each one claim?
-- What feature families were used?
-- What entry logic?
-- What exit logic?
-- What regime filter?
-- What parameter/time-scale family?
-- What data and execution assumptions?
-- What failed?
-- Under what costs?
-- In which periods?
-- How many variants/trials have already been spent?
-- Is a proposed new idea actually a duplicate or near-duplicate?
-- Is it a genuinely new causal hypothesis or just parameter drift?
-- Is it a descendant of a failed family?
-- What evidence justified revisiting it?
-
-No future executor should need to remember old chats to answer these questions.
-
----
-
-# 6. CORE WP-004 OBJECTIVES
-
-WP-004 has TWO equally important goals.
-
-## Goal A — build the long-term anti-circular scientific memory system
-
-Create the durable mechanism that prevents years of repeated/circular strategy search.
-
-## Goal B — use Astra Ultra to create the first serious algorithmic research family
-
-Do not merely write governance.
-
-Use the existing evidence and first-principles market reasoning to propose a strong,
-falsifiable, bounded next algorithm family.
-
-Then preregister, implement and evaluate it using the development data and the existing
-scientific substrate.
-
-This is the first checkpoint where deep algorithmic creativity is explicitly desired.
-
-But creativity must remain bounded by scientific discipline.
-
----
-
-# 7. STAGE A — INDEPENDENT WP-003 REVIEW RECORD
+# 2. RESEARCH DIRECTOR WP-004 VERDICT
 
 Create:
 
-`reports/reviews/WP-003-RESEARCH-DIRECTOR-REVIEW.md`
+`reports/reviews/WP-004-RESEARCH-DIRECTOR-REVIEW.md`
 
 Record:
 
-- final verdict: `ACCEPTED`;
-- reviewed HEAD;
-- real GitHub Actions success after push;
-- six experiments;
-- preregistration-before-result chronology;
-- exact scientific state;
-- negative default-cost results for trend/breakout/random/delayed;
-- no-trade control success;
-- breakout zero-cost positive / default-cost negative observation;
-- no Champion;
-- no sealed data accessed;
-- no product strategy approved.
+## Structural verdict
 
-Do not rewrite executor reports.
+`ACCEPTED`
 
----
+## Scientific family verdict
 
-# 8. STAGE B — SCIENTIFIC SEARCH MEMORY / ANTI-LOOP SYSTEM
+`ALIGNED_PARTICIPATION_CONTINUATION_V1 = INCONCLUSIVE`
 
-Design and implement a durable research-memory layer.
+## Verified facts
 
-Prefer simple transparent files + deterministic tooling over an opaque database.
+- final WP-004 HEAD is `3fdeffe5de59ebf3d80dcb70e26fe8dff8a28153`;
+- real GitHub Actions after push succeeded;
+- design -> implementation -> preregistration -> zero-trial integrity correction -> version-2 preregistration -> result chronology is preserved;
+- post-cutoff access absent;
+- Champion NONE;
+- sealed=0;
+- paper=0;
+- real money=false;
+- search memory/family budgets active;
+- no numeric parameter search;
+- WP-004 breakout-root strategy budget exhausted;
+- ALIGNED positive default/double-cost behavior is development-only;
+- ALIGNED fails preregistered sufficiency/stability because:
+  - fewer than 15 trades in at least two folds;
+  - only 3/6 nonnegative folds;
+  - positive-fold profit concentration above 50%.
 
-Create at minimum:
+Interpretation:
 
-`research/memory/SEARCH_LEDGER.jsonl`
-or a stronger deterministic equivalent;
+ALIGNED is worth diagnostic investigation because it improved gross/net economics relative to the old descriptive breakout result, but its sparse/concentrated evidence does not justify another strategy variant, Champion promotion, sealed evaluation, or parameter rescue.
 
-`research/memory/HYPOTHESIS_FAMILIES.yaml`
-or JSON equivalent;
+The old WP-003 controls were not fully matched to WP-004 data eligibility and occupancy semantics. That comparability limitation must be resolved before allocating more algorithm research to this family.
 
-`research/memory/FAILURE_MEMORY.md`
-
-`research/memory/SEARCH_BUDGET.json`
-
-`docs/contracts/RESEARCH_SEARCH_MEMORY_V1.md`
-
-Use schemas where appropriate.
-
-## Each material hypothesis/experiment must be fingerprinted
-
-Fingerprint dimensions should include at minimum:
-
-- hypothesis family;
-- claimed market mechanism;
-- direction;
-- signal timeframe;
-- context timeframe;
-- feature families;
-- feature transformations;
-- entry event type;
-- regime filter type;
-- confirmation/filter type;
-- position policy;
-- stop family;
-- target/exit family;
-- max hold;
-- parameter/time-scale family;
-- cost model;
-- dataset;
-- experiment lineage;
-- parent experiment/family;
-- trial/search budget;
-- result classification;
-- terminal conclusion;
-- reason for rejection/continuation.
-
-Do not rely on free text alone.
-
-Create deterministic canonicalization and hashing for the structured fingerprint.
-
-## Novelty / duplication classification
-
-Before a future material experiment is allowed to run, the system must classify the proposed
-hypothesis relative to prior search memory as one of:
-
-- `NEW_FAMILY`
-- `NEW_MECHANISM_WITHIN_FAMILY`
-- `MEANINGFUL_ABLATION`
-- `PARAMETER_VARIANT`
-- `NEAR_DUPLICATE`
-- `DUPLICATE`
-- `REVISIT_WITH_NEW_EVIDENCE`
-
-A `DUPLICATE` must be rejected.
-
-A `NEAR_DUPLICATE` or `PARAMETER_VARIANT` must require explicit remaining family budget and a
-scientific reason.
-
-A revisit of a previously failed family requires a machine-readable `new_evidence_basis`.
-
-"Maybe this number works better" is not sufficient new evidence.
-
-Add validator tests.
-
-## Family-level budgets
-
-Create a budget system so the project does not only count experiment IDs.
-
-Track:
-
-- global material experiments;
-- family-level experiments;
-- parameter variants;
-- adaptive decisions;
-- strategy descendants;
-- sealed queries separately.
-
-Budgets can be extended later by Research Director decision, but extension must be explicit and
-recorded.
-
-No executor may silently reset a budget by renaming a strategy.
-
-## Failure memory
-
-For failed/negative families, record concise durable lessons:
-
-- what was falsified;
-- what was NOT falsified;
-- whether gross edge existed but costs killed it;
-- whether failure was regime-specific;
-- whether turnover was too high;
-- whether timing controls suggest weak signal specificity;
-- what would count as legitimate new evidence to revisit the family.
-
-The goal is not to permanently ban a concept after one poor test.
-The goal is to prevent unconscious repetition.
+Do not rewrite WP-004 executor reports.
 
 ---
 
-# 9. STAGE C — MULTIPLE-TESTING / ADAPTIVE-RESEARCH GOVERNANCE
+# 3. STARTING SCIENTIFIC STATE
 
-Design a practical mechanism for a long-lived research program.
+Expected:
 
-Do not overcomplicate with decorative statistics.
-
-At minimum distinguish:
-
-- fixed preregistered trial;
-- bounded family exploration;
-- adaptive follow-up;
-- robustness test;
-- development walk-forward;
-- sealed evaluation;
-- future paper evidence.
-
-Implement machine-readable accounting for:
-
-- number of material hypotheses;
-- total parameter variants;
-- family budgets consumed;
-- follow-up decisions caused by observed results;
-- result-dependent forks.
-
-Create:
-
-`docs/contracts/ADAPTIVE_RESEARCH_GOVERNANCE_V1.md`
-
-and deterministic validators.
-
-The system must make it impossible to present experiment #100 as though it were the first
-independent test.
-
----
-
-# 10. STAGE D — HOW HISTORICAL DATA SHOULD BE USED
-
-We DO want to use the development history broadly, but we do NOT want to repeatedly optimize
-against one monolithic full-history score.
-
-Design and implement a canonical development-evaluation protocol.
-
-Required principle:
-
-- full 2017-2024 development history may be used for descriptive/final development summaries;
-- strategy design/model selection should rely on chronological, purged walk-forward structure;
-- no random K-fold;
-- no post-2024 data;
-- no sealed-period feedback.
-
-Choose a reasonable fixed walk-forward schedule based on the available history and product
-horizon.
-
-Prefer large economically meaningful windows over dozens of tiny folds.
-
-Before seeing new WP-004 strategy results, freeze:
-
-- fold boundaries;
-- train/development span;
-- validation span;
-- purge;
-- embargo;
-- aggregation of fold metrics;
-- minimum trade/ESS diagnostics;
-- stability diagnostics.
-
-Persist exact UTC boundaries.
-
-Do not optimize fold boundaries based on results.
-
----
-
-# 11. STAGE E — ASTRA ULTRA ALGORITHM DESIGN MEMO
-
-This is the deep-reasoning part.
-
-Create:
-
-`research/design/ALGORITHM_FAMILY_V1_DESIGN.md`
-
-Think as a senior quantitative researcher.
-
-Use:
-
-- first principles;
-- the known BTC Spot / LONG / 1h / 4h / <=24h product constraints;
-- known WP-003 evidence;
-- execution friction;
-- gap policy;
-- turnover;
-- market regime instability;
-- simplicity;
-- interpretability;
-- falsifiability.
-
-Do NOT perform web-driven strategy shopping.
-Do NOT copy a famous trading recipe merely because it exists.
-
-You may use established quantitative concepts as primitives, but the logic must be justified from
-the project evidence and market mechanism.
-
-## Important observed clue
-
-The fixed 24h breakout baseline:
-
-- positive zero-cost expectancy (~+0.072R);
-- negative default-cost expectancy (~-0.048R);
-- worse at double costs;
-- inconsistent across calendar years.
-
-This suggests that blindly trading every breakout is not sufficient.
-
-A serious next hypothesis should likely address some combination of:
-
-- selectivity;
-- gross edge per trade;
-- regime dependence;
-- volatility state;
-- trend persistence;
-- false breakouts;
-- volume/participation;
-- turnover;
-- exit efficiency.
-
-But this list is guidance, not a requirement to combine everything.
-
-Complexity is penalized.
-
-## Your design task
-
-Propose no more than THREE genuinely distinct candidate hypotheses.
-
-For each candidate explain:
-
-- causal/economic intuition;
-- why it is not a duplicate of WP-003;
-- why it could survive costs;
-- expected failure mode;
-- minimal feature set;
-- exact information availability;
-- why 4h context is or is not needed;
-- why the exit logic fits <=24h;
-- complexity cost;
-- overfitting risk;
-- what observation would falsify it.
-
-Then rank the three BEFORE running any new result.
-
-Choose ONE primary family for execution in WP-004.
-
-The other two remain design alternatives only and must not be secretly tested.
-
-This ranking and selection must be committed BEFORE implementation results are observed.
-
----
-
-# 12. ALGORITHM SEARCH BUDGET FOR WP-004
-
-This is intentionally bounded.
-
-For the selected primary family:
-
-Maximum:
-- 1 core hypothesis;
-- up to 3 preregistered structural variants/ablations total;
-- no parameter grid;
-- no Bayesian optimization;
-- no evolutionary search;
-- no random search;
-- no try-until-positive behavior;
-- no result-dependent new fourth variant.
-
-The variants must answer distinct scientific questions, not just change a number.
-
-Legitimate structural examples:
-- mechanism alone;
-- mechanism + regime gate;
-- mechanism + orthogonal confirmation;
-- fixed exit vs one predeclared dynamic-exit ablation.
-
-Not legitimate:
-- window 20 vs 21 vs 22 vs 23 vs 24;
-- threshold 1.0 vs 1.1 vs 1.2;
-- dozens of stop/target combinations.
-
-If numeric parameters are required, choose a small number from natural time scales or economic
-interpretation and freeze them before results.
-
-Astra must explicitly count every variant against the research family budget.
-
----
-
-# 13. PREFERRED SCIENTIFIC DIRECTION — NOT A FORCED STRATEGY
-
-The Research Director considers the following family plausible enough to investigate:
-
-**selective regime-aware continuation / breakout**
-
-Possible mechanism:
-
-- 1h continuation or breakout provides the event;
-- 4h context identifies broader trend/regime;
-- a volatility/participation condition attempts to avoid weak false breakouts;
-- sparse entries reduce cost drag;
-- risk/exit may be volatility-aware rather than a single arbitrary fixed barrier.
-
-However Astra is NOT required to use this exact construction.
-
-If Astra identifies a stronger ex-ante family from first principles, it may choose it.
-
-But Astra must justify why it is structurally superior BEFORE observing new results.
-
-No more than three candidates may be designed.
-
----
-
-# 14. STAGE F — FEATURE / STRATEGY INFRASTRUCTURE
-
-Implement only the reusable infrastructure required by the selected family.
-
-Keep strategy code deterministic and inspectable.
-
-Requirements:
-
-- 1h signal features calculated only from completed contiguous 1h bars;
-- 4h context only from completed contiguous 4h bars available as-of signal time;
-- no future access;
-- no post-cutoff data;
-- no forward fill across missing bars;
-- versioned feature definitions;
-- exact feature/config hashes;
-- reproducible output.
-
-If adding indicators such as returns/momentum, moving averages, ATR/range, realized volatility,
-rolling highs/lows, volume normalization, or trend slope, implement them transparently.
-
-Do not add a generic TA library just to generate hundreds of unused indicators.
-
-No feature zoo.
-
----
-
-# 15. STAGE G — FREEZE WP-004 EXPERIMENTS BEFORE RESULTS
-
-After selecting the primary family and exact max-3 variant set:
-
-1. implement strategy + feature code;
-2. synthetic/unit test it;
-3. commit implementation;
-4. create all preregistrations;
-5. update search-memory fingerprints and family budgets;
-6. commit all preregistrations + memory records;
-7. only then run real development results.
-
-Every preregistration must contain:
-
-- exact hypothesis;
-- classification;
-- parent/lineage;
-- novelty classification;
-- mechanism;
-- exact strategy/config hash;
-- exact dataset hash;
-- exact feature definitions;
-- exact cost model;
-- exact walk-forward schedule;
-- exact metric hierarchy;
-- exact trial budget;
-- exact robustness checks;
-- falsification criterion.
-
-Do not amend a preregistration after seeing result.
-
----
-
-# 16. STAGE H — EVALUATION OF THE SELECTED FAMILY
-
-For each preregistered structural variant, compute at minimum:
-
-## Primary evidence
-
-Purged chronological walk-forward validation:
-
-- net expectancy R after default costs;
-- fold-by-fold expectancy;
-- total valid resolved trades;
-- unresolved rate;
-- cumulative net R;
-- profit factor;
-- max drawdown R;
-- cost drag;
-- calendar/year distribution as descriptive only.
-
-## Robustness
-
-Predeclare and run:
-
-- default cost;
-- 2x cost stress;
-- zero-cost diagnostic;
-- one timing perturbation appropriate to the strategy;
-- one feature-ablation or regime-ablation if not already a structural variant.
-
-Do not select the best robustness profile.
-
-## Stability
-
-Report:
-
-- fraction of validation folds positive;
-- worst fold;
-- best fold;
-- concentration of P&L;
-- trade-count concentration;
-- whether one year dominates;
-- whether one regime dominates;
-- sensitivity to cost;
-- invalid/unresolved counts.
-
-No Champion promotion in WP-004.
-
-No sealed evaluation in WP-004.
-
----
-
-# 17. STAGE I — COMPARISON AGAINST WP-003 CONTROLS
-
-Compare new variants to:
-
-- random-entry control;
-- trend baseline;
-- breakout baseline;
-- delayed timing control;
-- no-trade control.
-
-Do NOT compare Buy & Hold as though it were a <=24h strategy.
-
-Important question:
-
-Does the selected family improve economically meaningful NET behavior, or merely move around the
-same weak gross signal?
-
-Possible outcomes include:
-
-- genuinely stronger net expectancy;
-- fewer trades but better edge/trade;
-- same gross edge with reduced turnover;
-- still cost-dominated;
-- regime-specific;
-- unstable;
-- no improvement.
-
-All are valid findings.
-
----
-
-# 18. STAGE J — ANTI-CIRCULARITY VALIDATION ON THE NEW FAMILY
-
-Before finalizing WP-004, test the new search-memory system against deliberate examples.
-
-At minimum:
-
-1. exact duplicate of WP-003 breakout -> rejected as DUPLICATE;
-2. breakout with only window 24 -> 25 -> PARAMETER_VARIANT / near duplicate;
-3. renamed breakout with identical logic -> rejected;
-4. same mechanism with materially new 4h regime gate -> classified appropriately;
-5. previously failed family revisited without new evidence -> rejected;
-6. failed family revisited with explicit new evidence basis -> allowed only if budget/policy permits;
-7. different name but same fingerprint -> same family;
-8. exact current algorithm variant replay -> rejected.
-
-Add deterministic tests.
-
----
-
-# 19. STAGE K — RESEARCH KNOWLEDGE MAP
-
-Create a compact durable research map:
-
-`research/memory/RESEARCH_MAP.md`
-
-Show:
-
-- tested families;
-- lineage;
-- experiment IDs;
-- current status;
-- consumed budget;
-- key result;
-- key lesson;
-- legitimate future directions;
-- blocked duplicate directions.
-
-Do not make it a giant append-only diary.
-
-Machine-readable files are authoritative; Markdown is the human view.
-
----
-
-# 20. STAGE L — ASTRA'S SCIENTIFIC INTERPRETATION
-
-Create:
-
-`reports/research/WP-004-ASTRA-ULTRA.md`
-
-Discuss:
-
-- what WP-003 taught;
-- whether cost drag is the dominant current bottleneck;
-- whether breakout gross behavior appears sufficiently non-random to justify continuation research;
-- why the selected algorithm family was chosen;
-- which alternatives were rejected without testing and why;
-- what the new results say;
-- where performance comes from;
-- whether it is broad or concentrated;
-- whether the hypothesis was falsified, weakened, or remains plausible;
-- whether any result deserves another bounded development allocation;
-- what NOT to test next;
-- which families should be temporarily retired;
-- current multiple-testing/adaptive-search burden.
-
-Be skeptical.
-
-Do not write "we found the strategy" based on development data.
-
----
-
-# 21. DECISION RULE AFTER WP-004
-
-Astra must NOT promote Champion.
-
-Assign each tested primary-family variant one terminal research classification:
-
-- `REJECT`
-- `REJECT_COST_DOMINATED`
-- `REJECT_UNSTABLE`
-- `REJECT_DUPLICATE_MECHANISM`
-- `INCONCLUSIVE`
-- `PROMISING_DEVELOPMENT_ONLY`
-
-`PROMISING_DEVELOPMENT_ONLY` is allowed only if:
-
-- default-cost aggregate expectancy > 0;
-- not driven by one fold/year;
-- majority of validation folds are non-negative or a stronger stability argument is documented;
-- trade count is not obviously trivial;
-- 2x cost stress is not catastrophically inconsistent with the claimed mechanism;
-- no structural validation failure;
-- no undeclared search occurred.
-
-This classification does NOT make it Champion.
-It only determines whether another bounded development allocation is justified.
-
-If every variant fails, that is a successful scientific outcome.
-
----
-
-# 22. UI / API
-
-Only add small research inspection changes if needed.
-
-Do not turn development experiments into product advice.
-
-Dashboard remains:
-
-- PAPER ONLY
-- no approved strategy
-- Analyze Market unavailable
-- no LONG/NO_TRADE product action
-
-Research Lab may show:
-
-- experiments completed;
-- family budgets;
-- search-memory status;
-- tested families;
-- candidate status;
-- Champion NONE.
-
-Any metric must say:
-
-`DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE`
-
----
-
-# 23. STATE UPDATES
-
-At the end, update `state/current_state.json` truthfully.
-
-Preserve:
-
+- material strategy experiments = 9
 - sealed evaluations = 0
 - paper trades = 0
 - Champion = NONE
 - forward evidence = NONE
 - real money = false
-- Owner decision required = false
 
-Update:
+WP-005 MUST NOT increase material strategy experiment count.
 
-- experiment count;
-- latest executor checkpoint = WP-004;
-- search-memory version/status;
-- adaptive-search accounting;
-- selected family name;
-- selected family terminal classification;
-- next recommended checkpoint.
-
-Do not dump every metric into current state.
+Introduce explicit diagnostic/replay accounting. A diagnostic must not disappear merely because it is not called an experiment.
 
 ---
 
-# 24. VALIDATION
-
-Strengthen `python scripts/check.py`.
-
-It must validate:
-
-- current branch main;
-- starting ancestry;
-- Constitution;
-- development cutoff;
-- dataset hash;
-- no post-cutoff data;
-- no non-BTC data;
-- no SHORT/leverage;
-- no real-money code;
-- search-memory schemas;
-- fingerprint determinism;
-- duplicate rejection;
-- family budget accounting;
-- preregistration chronology;
-- exact max-3 WP-004 variant budget;
-- no undeclared strategy trial;
-- walk-forward schedule frozen before results;
-- result linkage;
-- updated experiment count;
-- Champion NONE;
-- sealed 0;
-- paper 0;
-- backend/frontend tests;
-- clean checkout no-data validation.
-
-CI must remain green after Owner push.
-
-Profitability must NEVER determine validator PASS.
-
----
-
-# 25. DEFAULT BRANCH HOUSEKEEPING
-
-The remote GitHub repository currently has historical default branch configuration pointing to
-the old WP-001 work branch even though research now proceeds on main.
-
-If repository permissions/tooling available to Astra safely support changing the remote default
-branch to `main`, do so and record it.
-
-If not, do NOT block WP-004.
-Record a concise external housekeeping item for the Research Director/Owner.
-
-Do not alter old historical work branches.
-
----
-
-# 26. AGENT POLICY — ASTRA ULTRA
-
-Add a concise durable policy to an appropriate repository governance/agent file:
-
-- Codex = primary high-throughput engineering executor;
-- Astra Ultra = high-leverage scientific/architecture/red-team/algorithm-design executor;
-- Astra Ultra should be used when reasoning quality materially matters;
-- do not avoid Ultra solely to preserve usage;
-- scientific truth lives in the repository, not an agent chat;
-- no agent is allowed to authorize real capital.
-
-Do not turn this into vendor-specific project architecture.
-It is an executor policy only.
-
----
-
-# 27. FORBIDDEN WORK
+# 4. FORBIDDEN WORK
 
 Do NOT:
 
-- access BTCUSDT after 2024-12-31 23:59 UTC;
+- create a new strategy family;
+- test contraction-to-expansion;
+- test pullback recovery;
+- modify ALIGNED thresholds;
+- modify breakout lookback;
+- modify persistence threshold;
+- modify participation threshold;
+- modify stop/target/horizon;
+- add another indicator/filter;
+- optimize any numeric value;
+- use grid/Bayesian/random/evolutionary optimization;
+- test new timing shifts;
+- access BTCUSDT after `2024-12-31T23:59:00Z`;
 - access another asset;
-- run a sealed test;
+- add SHORT/leverage/perpetuals;
+- sealed test;
 - paper trade;
-- create Champion;
 - enable Analyze Market;
-- produce current product LONG/NO_TRADE advice;
-- test more than the predeclared WP-004 budget;
-- tune parameters after seeing results;
-- create a parameter grid;
-- run an optimizer;
-- rename duplicates to bypass budgets;
-- delete negative results;
-- overwrite finalized results;
+- produce current LONG/NO_TRADE advice;
+- create Champion;
+- add real-money/exchange execution;
+- reset family budget;
+- rename prior ideas for a fresh budget;
+- delete/overwrite prior results;
 - create a branch;
-- push;
-- enable real-money functionality.
+- push.
+
+Profitability is never a structural PASS criterion.
 
 ---
 
-# 28. COMMIT CHRONOLOGY
+# 5. STAGE A — EXECUTOR POLICY NORMALIZATION
 
-Preserve scientific ordering with meaningful commits.
+Update `governance/EXECUTOR_POLICY.md` concisely.
 
-Suggested sequence:
+Canonical policy:
 
-1. `docs: record WP-003 review and Astra Ultra research charter`
-2. `feat: add scientific search memory and anti-circularity governance`
-3. `feat: add adaptive research budget and walk-forward protocol`
-4. `research: freeze Astra algorithm family design and ranking`
-5. `feat: implement selected algorithm family and deterministic tests`
-6. `research: preregister WP-004 bounded algorithm variants`
-7. `research: finalize WP-004 development results`
-8. `feat: expose research memory status`
-9. `chore: complete WP-004 state and checkpoint`
+- ChatGPT / GPT-5.6 Sol = Research Director and scientific/product authority;
+- Codex = primary high-throughput engineering/research executor;
+- Claude Code = overflow executor when Codex usage is unavailable;
+- tasks/repository records must be portable between Codex and Claude Code;
+- Astra Ultra = explicitly allocated only for selected high-leverage reasoning checkpoints;
+- do not use Ultra by default for ordinary implementation;
+- scientific truth lives in repository artifacts;
+- no agent can authorize real capital.
 
-Do not squash away preregistration-before-results chronology.
+Executors are not runtime dependencies.
 
 ---
 
-# 29. CHECKPOINT RECORD
+# 6. STAGE B — SOURCE-GRID PROVENANCE AUDIT
+
+WP-004 discovered:
+
+- 21,602 off-grid canonical source timestamps;
+- interval 1:
+  `2017-12-04T06:00:20.799000Z` to `2017-12-18T10:00:20.799000Z`, 20,401 rows;
+- interval 2:
+  `2018-02-09T09:59:14.789000Z` to `2018-02-10T05:59:14.789000Z`, 1,201 rows;
+- 363 affected 1h feature buckets;
+- 92 affected 4h feature buckets;
+- zero repairs/fills.
 
 Create:
 
-`reports/checkpoints/WP-004.md`
+`reports/validation/WP-005-SOURCE-PROVENANCE.json`
+
+and:
+
+`reports/research/WP-005-SOURCE-INTEGRITY.md`
+
+Independently verify:
+
+1. raw archive files for 2017-12 and 2018-02 match accepted manifest SHA-256;
+2. exact raw CSV first-column timestamp values for anomaly intervals;
+3. canonical normalized timestamps map exactly to source values;
+4. parser column mapping is correct;
+5. no unit-conversion error created offsets;
+6. OHLCV payload remains source payload for those rows;
+7. off-grid rows remain strictly ordered;
+8. spacing pattern inside each anomaly interval;
+9. timestamp modulo-minute distribution;
+10. exact transitions into/out of anomaly intervals;
+11. 1h/4h quarantine masks reproduce WP-004 hashes/counts;
+12. no anomaly interval intersects any WP-004 2019–2024 validation signal window or required 43x4h / 26x1h warm-up;
+13. no post-cutoff bytes are read.
+
+Prefer local immutable raw archives.
+
+If either required archive is missing locally, downloading ONLY that exact official Binance Spot monthly archive <= cutoff is allowed, with URL/hash recorded.
+
+No third-party market data.
+
+If raw archive timestamps are minute-aligned but canonical data is off-grid:
+
+- classify `DATA_PIPELINE_DEFECT`;
+- do not silently fix and continue;
+- stop all market-derived WP-005 comparability diagnostics;
+- preserve evidence;
+- mark WP-005 PARTIAL;
+- create a prospective data-correction recommendation.
+
+If accepted official raw archive itself contains the same off-grid timestamps and canonical mapping is exact:
+
+classify `SOURCE_ARCHIVE_OFF_GRID_CONFIRMED`.
+
+Do not claim live-exchange cause unless separately supported.
+
+Keep conservative quarantine.
+Do not modify dataset content merely to align timestamps.
+
+---
+
+# 7. STAGE C — INDEPENDENT FEATURE / RESULT RECONCILIATION
+
+Create an intentionally independent oracle for WP-004 feature reconciliation.
+
+It must NOT call production `FeatureSource.at()` / `decision()` to calculate expected values.
+
+Independently recompute:
+
+- previous-24h breakout condition;
+- previous-24h mean volume;
+- relative-volume gate;
+- 43 completed 4h closes;
+- 42 4h close increments;
+- U;
+- D;
+- directional persistence gate;
+- ALIGNED conjunction;
+- signal reference close;
+- common eligibility;
+- source-grid quarantine eligibility.
+
+Reconcile at minimum:
+
+- every ALIGNED emitted candidate timestamp;
+- every ALIGNED executed default-cost trade;
+- every default-profile fold candidate count;
+- every REGIME_ONLY candidate count;
+- every PARTICIPATION_ONLY candidate count.
+
+Exact mismatches fail.
+
+Create deterministic reconciliation artifact/hash.
+
+Also independently recompute from immutable WP-004 trade records:
+
+- resolved count;
+- cumulative net R;
+- net expectancy R;
+- profit factor;
+- max drawdown R;
+- cost drag;
+- fold metrics.
+
+This summary recomputation must not rerun selection logic.
+
+---
+
+# 8. STAGE D — EXACT WP-004 REPRODUCIBILITY REPLAY
+
+Before any matched-control diagnostic, perform an isolated deterministic replay of effective version-2 WP-004 declarations.
+
+Requirements:
+
+- exact same code/config identities;
+- exact same dataset;
+- exact same 12 profiles;
+- exact same six folds;
+- temporary/staging output only;
+- never overwrite finalized WP-004 results;
+- no new experiment result IDs;
+- compare deterministic trade/result hashes or canonicalized content hashes to finalized artifacts;
+- delete temporary outputs after evidence hashes recorded.
+
+Track separately as `INTEGRITY_REPLAY`.
+
+Do not increment `experiments_completed`.
+
+Increment a machine-readable integrity replay burden.
+
+If exact replay fails, no matched-control diagnostic may run.
+
+---
+
+# 9. STAGE E — SEARCH MEMORY V2: EXECUTABLE SPEC BINDING
+
+WP-004 search memory still allows a conceptual risk: a declared fingerprint can drift from executable behavior.
+
+Create:
+
+`docs/contracts/RESEARCH_SEARCH_MEMORY_V2.md`
+
+Upgrade to:
+
+`SEARCH_MEMORY_V2`
+
+For all future material strategy research, the machine fingerprint must be generated from or cryptographically bound to the same canonical executable strategy specification used by the runner.
+
+A caller must not submit one governance fingerprint and execute different behavior.
+
+Implement a transparent strongly typed executable strategy spec that represents, where applicable:
+
+- root/family;
+- entry event;
+- feature primitives;
+- lookbacks/time scales;
+- transformations;
+- comparisons/thresholds;
+- regime gates;
+- confirmation gates;
+- signal/context timeframe;
+- direction;
+- reference-price rule;
+- stop;
+- target/exit;
+- holding horizon;
+- timing perturbation;
+- position policy;
+- execution/cost references.
+
+Generate:
+
+- exact behavior hash;
+- numeric-masked structural hash;
+- executable spec hash;
+- implementation/config dependency hash.
+
+Reject admission if:
+
+`declared fingerprint != fingerprint derived from executable spec`.
+
+Do not rewrite historical WP-003/WP-004 evidence.
+
+Create V2 executable signatures for frozen legacy strategies only for duplicate/reference purposes. This is governance metadata, not a market evaluation.
+
+Anti-loop tests must prove at minimum:
+
+1. renamed identical executable spec -> DUPLICATE;
+2. false new-family label + identical executable spec -> duplicate/conflict;
+3. 24->25 lookback only -> PARAMETER_VARIANT;
+4. same executable config but falsified fingerprint text -> rejected;
+5. unchanged declared fingerprint with changed executable threshold -> rejected;
+6. changing only data/cost does not create a new behavioral family;
+7. adding a true orthogonal gate stays a descendant/mechanism change rather than unrelated fresh root;
+8. family budget cannot reset via alias;
+9. caller cannot manually inject a different behavior hash;
+10. admission fails if executable spec identity is missing.
+
+Do not claim universal semantic equivalence of arbitrary Python. The goal is governed executable specs for future research.
+
+---
+
+# 10. STAGE F — DIAGNOSTIC GOVERNANCE / BUDGET
+
+Existing FAM-BREAKOUT strategy budget remains exhausted.
+
+Create separate allocation:
+
+`WP005-INTEGRITY-COMPARABILITY-ALLOCATION`
+
+Authorize exactly:
+
+## New economic hypotheses
+0
+
+## New strategy variants
+0
+
+## Numeric parameter variants
+0
+
+## Integrity replay
+12 WP-004 profile replays.
+
+## Matched parent-control diagnostic
+One frozen original 24h breakout rule, under SAME WP-004 common universe/execution semantics.
+
+Profiles:
+- DEFAULT
+- ZERO
+- DOUBLE
+
+Exactly 3 diagnostic evaluations.
+
+## Matched random-gate diagnostic
+32 deterministic seeds.
+DEFAULT costs only.
+This is one control diagnostic with 32 fixed evaluations, not 32 hypotheses.
+
+## Coverage diagnostic
+Descriptive counts only.
+
+Record all diagnostic/replay burden separately from independent hypothesis confirmations.
+
+Increment adaptive/result-dependent accounting truthfully because WP-005 is motivated by observed WP-004 results.
+
+---
+
+# 11. STAGE G — FREEZE MATCHED-CONTROL PROTOCOL BEFORE RESULTS
+
+Create:
+
+`research/protocols/WP-005-MATCHED-CONTROLS-V1.json`
+
+plus concise human-readable contract.
+
+Commit before any matched-control result.
+
+## Shared universe
+
+Exactly WP-004 V2 universe:
+
+- BTCUSDT Spot;
+- six 2019–2024 validation windows;
+- same last-signal/full-horizon containment;
+- 26 complete contiguous 1h bars;
+- 43 complete contiguous 4h bars available at t and t-1h;
+- source-grid quarantine V1;
+- same hourly boundary semantics;
+- canonical 1m execution;
+- one position;
+- identical occupancy/release;
+- 2% stop;
+- 4% target;
+- 1,440m hold;
+- no fill;
+- same unresolved policy.
+
+## Matched parent breakout
+
+Exact rule:
+
+`current completed 1h close > max(previous 24 completed 1h highs)`
+
+No persistence gate.
+No participation gate.
+
+This is the old parent mechanism under the new common universe, not a new strategy hypothesis.
+
+Run only DEFAULT/ZERO/DOUBLE.
+
+## Matched random-gate control
+
+Purpose: estimate how much apparent performance can arise from selecting a similarly sparse deterministic subset of the SAME parent breakout opportunity set without ALIGNED's regime/participation information.
+
+For each fold:
+
+1. identify raw parent breakout candidate timestamps in shared universe BEFORE position occupancy;
+2. K = raw ALIGNED gate-positive candidate count in that fold BEFORE occupancy;
+3. for each seed rank parent timestamps using SHA-256 of:
+   `WP005_MATCHED_RANDOM_GATE_V1:<seed>:<timestamp>`;
+4. choose exactly K lowest hashes;
+5. pass selected signals through SAME execution/occupancy engine;
+6. DEFAULT costs only.
+
+Seeds:
+
+exactly 32, generated deterministically from SHA-256 of:
+
+`WP005_MATCHED_RANDOM_GATE_SEED:<index>`
+
+for index 0..31 with documented integer conversion.
+
+Do not select/discard/add seeds.
+
+Predeclare deterministic quantile convention.
+
+Report:
+
+- median expectancy;
+- mean;
+- min/max;
+- q10/q90;
+- trade-count distribution;
+- positive-fold distribution;
+- cumulative R distribution.
+
+Do not present this as a formal independent p-value.
+
+---
+
+# 12. STAGE H — REGIME / COVERAGE DIAGNOSTIC
+
+Without changing any rule, produce a per-fold causal-selection funnel:
+
+- total hourly boundaries;
+- common-quality eligible boundaries;
+- raw parent breakout candidates;
+- persistent-up gate pass among breakouts;
+- participation gate pass among breakouts;
+- ALIGNED gate pass among breakouts;
+- emitted signals while flat;
+- suppressed by active position;
+- invalid attempts;
+- unresolved trades;
+- resolved trades.
+
+Also report:
+
+- persistent-up coverage among eligible hours;
+- persistent-up coverage among breakout candidates;
+- participation coverage among breakout candidates;
+- aligned coverage among breakout candidates;
+- monthly ALIGNED raw candidate distribution;
+- active-position suppression rate.
+
+No threshold changes.
+No alternate regime definition.
+No outcome-conditioned regime search.
+
+The purpose is to explain sparsity, not rescue it.
+
+---
+
+# 13. STAGE I — PREDECLARED COMPARABILITY DECISION RULE
+
+WP-005 diagnostic classifications:
+
+- `ALIGNED_DIAGNOSTIC_WEAKENED`
+- `ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE`
+- `ALIGNED_DIAGNOSTIC_UNRESOLVED`
+
+Underlying WP-004 classification remains `INCONCLUSIVE`.
+
+## Hard prerequisites
+
+Support requires:
+
+- source provenance PASS;
+- independent feature reconciliation PASS;
+- exact WP-004 replay PASS;
+- no strategy/config change;
+- matched-control protocol committed before result;
+- all 32 random seeds preserved;
+- no undeclared evaluation.
+
+Otherwise:
+
+`ALIGNED_DIAGNOSTIC_UNRESOLVED`
+
+## Matched-parent hurdle
+
+Let:
+
+`delta_parent = ALIGNED default expectancy - matched-parent default expectancy`
+
+For support require:
+
+`delta_parent >= 0.12 R`
+
+Rationale: with frozen 2% risk denominator, nominal 24 bps round-trip friction is approximately 0.12R. Before another family allocation, the gate should improve opportunity quality by at least one full nominal friction burden versus its exactly matched parent.
+
+This is a diagnostic allocation rule, not a significance threshold.
+
+## Sparse-selection hurdle
+
+Also require:
+
+`ALIGNED default expectancy > matched-random-gate q90 expectancy`
+
+using frozen 32-seed distribution.
+
+Do not call this an alpha-level test.
+
+If both hurdles pass:
+
+`ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE`
+
+If either fails:
+
+`ALIGNED_DIAGNOSTIC_WEAKENED`
+
+Regardless:
+
+- no Champion;
+- no sealed;
+- no paper;
+- no parameter rescue;
+- fold sparsity/concentration remain unresolved.
+
+---
+
+# 14. STAGE J — DIAGNOSTIC ARTIFACTS
+
+Store outside `research/experiments/`, for example:
+
+`research/diagnostics/WP-005/`
+
+Create immutable artifacts for:
+
+- source provenance;
+- independent feature reconciliation;
+- exact replay reconciliation;
+- matched parent breakout;
+- 32 random-gate controls;
+- coverage funnel;
+- diagnostic protocol/preregistration;
+- final diagnostic classification.
+
+Every material artifact gets stable hashes.
+Finalized diagnostic artifacts are immutable.
+
+---
+
+# 15. STAGE K — SEARCH / FAILURE MEMORY UPDATE
+
+Update memory truthfully:
+
+- strategy experiments remain 9;
+- FAM-BREAKOUT strategy budget remains exhausted;
+- no new strategy variant;
+- add diagnostic burden separately;
+- record WP-005 as post-result adaptive diagnostic decision;
+- record parent replay as same-mechanism diagnostic;
+- record random-gate controls as control diagnostics;
+- record final conclusion and legitimate revisit rules.
+
+If weakened, future revisit requires genuinely new evidence, not parameter drift.
+
+If supported, family remains parked INCONCLUSIVE and future Research Director allocation is still required.
+
+---
+
+# 16. STAGE L — UI / API
+
+No major product work.
+
+Research Lab may expose:
+
+- WP-005 integrity status;
+- source provenance status;
+- SEARCH_MEMORY_V2 status;
+- matched-control diagnostic classification;
+- Champion NONE.
+
+Must retain:
+
+`DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE`
+
+Dashboard stays PAPER ONLY with Analyze Market disabled.
+
+---
+
+# 17. STAGE M — STATE
+
+If structurally PASS:
+
+Preserve:
+
+- `experiments_completed = 9`
+- `sealed_evaluations_completed = 0`
+- `paper_trades_completed = 0`
+- `champion_status = NONE`
+- `forward_evidence = NONE`
+- `real_money_authorized = false`
+- `owner_decision_required = false`
+
+Update:
+
+- latest reviewed checkpoint = `WP-004`
+- latest executor checkpoint = `WP-005`
+- search memory = `SEARCH_MEMORY_V2`
+- integrity replay burden
+- diagnostic evaluation burden
+- post-result adaptive decision/fork count
+- source provenance classification
+- matched-control diagnostic classification
+- next recommended checkpoint.
+
+Do not dump full metrics into state.
+
+---
+
+# 18. STAGE N — VALIDATION
+
+Strengthen `python scripts/check.py`.
+
+Validate:
+
+- main branch;
+- required ancestry;
+- Constitution unchanged;
+- cutoff unchanged;
+- dataset content hash unchanged;
+- source provenance;
+- raw archive hashes;
+- no post-cutoff data;
+- independent feature reconciliation;
+- exact replay reconciliation;
+- SEARCH_MEMORY_V2 schemas;
+- executable spec/fingerprint binding;
+- duplicate/parameter-variant tests;
+- FAM-BREAKOUT strategy budget still exhausted;
+- zero new economic hypotheses;
+- zero new strategy variants;
+- exact diagnostic allocation;
+- matched-control protocol predates matched-control results;
+- parent breakout unchanged;
+- random-gate exactly 32 fixed seeds;
+- every seed retained;
+- deterministic quantiles;
+- no parameter search;
+- experiments remain 9;
+- Champion NONE;
+- sealed=0;
+- paper=0;
+- real money=false;
+- backend/frontend tests/build;
+- clean-checkout no-data validation;
+- working tree clean.
+
+Remote CI must be reported `PENDING_PUSH`.
+
+Research Director will verify real GitHub Actions after Owner push.
+
+---
+
+# 19. DEFAULT BRANCH HOUSEKEEPING
+
+Remote default branch is still historically configured as:
+
+`work/wp-001-foundation-data`
+
+Research proceeds on `main`.
+
+Do not block WP-005.
+
+If safe authenticated repo-administration tooling is already available locally without new credentials, it may set default branch to `main`.
+
+Otherwise record:
+
+`EXTERNAL_HOUSEKEEPING_PENDING`
+
+Do not delete old branches.
+
+---
+
+# 20. COMMIT CHRONOLOGY
+
+Recommended:
+
+1. `docs: record WP-004 Research Director review and executor policy`
+2. `audit: verify source provenance and independent feature reconciliation`
+3. `feat: bind search memory V2 to executable strategy specs`
+4. `research: preregister WP-005 matched-control diagnostics`
+5. `research: verify WP-004 deterministic replay`
+6. `research: finalize matched parent and random-gate diagnostics`
+7. `research: record coverage and comparability conclusion`
+8. `chore: complete WP-005 state validation and checkpoint`
+
+Do not squash preregistration-before-result chronology.
+
+---
+
+# 21. CHECKPOINT
+
+Create:
+
+`reports/checkpoints/WP-005.md`
 
 Archive:
 
-`tasks/archive/WP-004.md`
+`tasks/archive/WP-005.md`
 
 Mark `tasks/CURRENT_TASK.md` COMPLETED only on structural success.
 
 ---
 
-# 30. REQUIRED FINAL RESPONSE
+# 22. ACCEPTANCE CRITERIA
+
+WP-005 PASS requires:
+
+1. exact start HEAD;
+2. main only;
+3. no new branch;
+4. no history rewrite;
+5. no push;
+6. clean tree;
+7. raw archive hashes match;
+8. anomaly raw->canonical provenance verified;
+9. parser/unit mapping validated;
+10. no silent repair/fill;
+11. quarantine reproduced;
+12. no validation-window anomaly intersection;
+13. no post-cutoff data;
+14. independent feature oracle;
+15. ALIGNED candidate reconciliation;
+16. trade/metric reconciliation;
+17. exact WP-004 V2 replay;
+18. old results untouched;
+19. SEARCH_MEMORY_V2;
+20. executable-spec binding;
+21. false fingerprint rejected;
+22. renamed duplicate rejected;
+23. numeric drift classified;
+24. changed behavior with stale fingerprint rejected;
+25. family budget cannot reset;
+26. legacy evidence preserved;
+27. zero new economic hypotheses;
+28. zero new strategy variants;
+29. breakout strategy budget still exhausted;
+30. diagnostic allocation committed before results;
+31. parent uses same universe;
+32. parent logic unchanged;
+33. parent runs exactly DEFAULT/ZERO/DOUBLE;
+34. random-gate runs exactly 32 fixed seeds;
+35. random selection does not use outcomes;
+36. K matched per fold to raw ALIGNED gate-positive count;
+37. every seed preserved;
+38. coverage funnel has no threshold search;
+39. adaptive diagnostic burden recorded;
+40. experiments=9;
+41. sealed=0;
+42. paper=0;
+43. Champion NONE;
+44. forward evidence NONE;
+45. real money=false;
+46. no product advice;
+47. no optimizer;
+48. full local check passes;
+49. clean-checkout no-data check passes;
+50. remote CI reported PENDING_PUSH;
+51. profitability does not control structural PASS.
+
+---
+
+# 23. REQUIRED EXECUTOR RESPONSE
 
 Return only:
 
 ```text
-WP-004 ASTRA ULTRA: PASS | PARTIAL | FAIL
+WP-005: PASS | PARTIAL | FAIL
 
 Branch:
 HEAD:
@@ -1157,72 +876,77 @@ Base reviewed HEAD:
 Remote CI:
 - PENDING_PUSH
 
-WP-003 review:
-- ACCEPTED | OTHER
+WP-004 review:
+- structural verdict:
+- ALIGNED scientific classification:
 
-Scientific memory:
+Source provenance:
+- classification:
+- raw archive hashes:
+- raw -> canonical timestamp mapping:
+- off-grid rows:
+- anomaly intervals:
+- quarantine reproduction:
+- validation-window intersection:
+
+Reproducibility:
+- independent feature oracle:
+- ALIGNED candidate reconciliation:
+- trade/metric reconciliation:
+- exact WP-004 replay:
+
+Search memory:
 - version:
-- search ledger:
-- hypothesis families tracked:
-- duplicate/near-duplicate validator:
-- adaptive-search accounting:
-- family budget enforcement:
+- executable-spec binding:
+- duplicate protection:
+- parameter-variant protection:
+- breakout strategy budget:
 
-Algorithm design:
-- candidate 1:
-- candidate 2:
-- candidate 3:
-- selected primary family:
-- why selected: <one concise sentence>
-- structural variants executed: <0-3>
+Matched diagnostics:
+- matched parent DEFAULT expectancy:
+- matched parent ZERO expectancy:
+- matched parent DOUBLE expectancy:
+- delta ALIGNED vs matched parent:
+- matched random-gate median:
+- matched random-gate q90:
+- ALIGNED vs q90:
+- seeds preserved:
+- coverage summary:
 
-Evaluation:
-- walk-forward schedule:
-- <variant 1>: <classification, net expectancy, trades, fold stability>
-- <variant 2 if any>: <classification, net expectancy, trades, fold stability>
-- <variant 3 if any>: <classification, net expectancy, trades, fold stability>
+Diagnostic conclusion:
+- ALIGNED_DIAGNOSTIC_WEAKENED | ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE | ALIGNED_DIAGNOSTIC_UNRESOLVED
+- reason: <one concise sentence>
 
-Comparison:
-- vs random:
-- vs trend baseline:
-- vs breakout baseline:
-- cost sensitivity:
-- concentration/stability:
-
-Research conclusion:
-- selected family terminal classification:
-- strongest evidence:
-- strongest uncertainty:
-- family/ideas retired:
-- legitimate next research direction:
-
-Scientific state:
-- experiments=<count>
+Scientific accounting:
+- strategy experiments=9
+- new economic hypotheses=0
+- new strategy variants=0
+- diagnostic evaluations=<count>
+- integrity replay profiles=<count>
+- adaptive decisions=<cumulative count>
+- result-dependent forks=<cumulative count>
 - sealed_evaluations=0
 - paper_trades=0
 - champion=NONE
 - forward_evidence=NONE
 - real_money=false
 
-Anti-loop checks:
-- renamed duplicate rejected: PASS | FAIL
-- parameter-only near duplicate classified: PASS | FAIL
-- failed-family revisit without new evidence rejected: PASS | FAIL
-- family budgets cannot be reset by rename: PASS | FAIL
-
 Validation:
 - <one concise line>
 
 Forbidden-work check:
+- parameter optimization: absent
+- new strategy family: absent
 - post-cutoff access: absent
 - non-BTC assets: absent
 - SHORT/leverage: absent
-- adaptive optimizer/search: absent
-- undeclared trials: absent
 - sealed evaluation: absent
 - paper trading: absent
 - real-money functionality: absent
-- new branches: absent
+- new branch: absent
+
+External housekeeping:
+- default branch main: DONE | PENDING
 
 Material deviations:
 - none
