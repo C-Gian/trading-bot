@@ -13,11 +13,11 @@ from typing import Any
 
 from .checkpoint_views import LABEL, build_comparison, read_json
 from .evaluation_protocol import load_protocol, protocol_hash
+from .registry import budget_view as registry_budget_view
+from .registry import cumulative_accounting as registry_accounting
 from .runner import sha256
-from .search_memory import accounting as v1_accounting
 from .search_memory import load_memory
 from .wp006 import ROOT, SPEC
-from .wp006 import accounting as v2_accounting
 
 DIAGNOSTIC_DIR = "research/diagnostics/WP-005"
 ALIGNED_ID = "EXP-ALG-009-ALIGNED"
@@ -241,46 +241,14 @@ def build_wp006_comparison(root: Path = ROOT) -> dict[str, Any]:
 
 
 def cumulative_accounting(root: Path = ROOT) -> dict[str, int]:
-    """One total search burden across the frozen V1 layer and the additive V2 layer."""
-    memory = load_memory(root)
-    first = v1_accounting(memory)
-    second = v2_accounting(root)
-    allocation = read_json(root / "research/memory/WP006-PULLBACK-RECOVERY-ALLOCATION.json")
-    return {
-        "material_economic_hypotheses": first["material_economic_hypotheses"]
-        + second["material_economic_hypotheses"],
-        "configuration_variants": first["global"]["strategy_variants"]
-        + second["strategy_variants"],
-        "profile_trials": first["global"]["trials"] + second["trials"],
-        "numeric_parameter_variants": first["global"]["numeric_parameter_variants"]
-        + second["numeric_parameter_variants"],
-        "adaptive_decisions": allocation["cumulative_adaptive_decisions"],
-        "result_dependent_forks": allocation["cumulative_result_dependent_forks"],
-        "strategy_descendants": first["strategy_descendants"] + second["strategy_descendants"],
-        "wp004_variants_reserved": 3,
-        "wp004_profiles_reserved": 12,
-        "wp006_variants_reserved": second["strategy_variants"],
-        "wp006_profiles_reserved": second["trials"],
-        "integrity_replay_profiles": 12,
-        "diagnostic_evaluations": 35,
-        "diagnostic_execution_attempts": 2,
-        "sealed_queries": 0,
-    }
+    """One total search burden; the append-only registry is the single source of truth."""
+    return registry_accounting(root)
 
 
 def v2_budget_view(root: Path = ROOT) -> list[dict[str, Any]]:
-    budget = read_json(root / "research/memory/SEARCH_BUDGET_V2.json")
-    counts = v2_accounting(root)
-    return [
-        {
-            "family_id": family,
-            "experiments_consumed": counts["experiments"],
-            "experiments_limit": limit["experiments"],
-            "trials_consumed": counts["trials"],
-            "trials_limit": limit["trials"],
-        }
-        for family, limit in budget["family_limits"].items()
-    ]
+    """Every root family admitted after the frozen V1 layer, consumed against its limit."""
+    v1_families = {family["family_id"] for family in load_memory(root)["families"]["families"]}
+    return [item for item in registry_budget_view(root) if item["family_id"] not in v1_families]
 
 
 def wp006_experiment_rows(root: Path = ROOT) -> list[dict[str, Any]]:
