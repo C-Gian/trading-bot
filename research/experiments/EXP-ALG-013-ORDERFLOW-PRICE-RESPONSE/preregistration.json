@@ -1,0 +1,706 @@
+{
+  "code_config_reference": "f087ccf8fe5345c777130d37bc4b02c0c3b453066817c7de681ccc7508512b25",
+  "cost_execution_reference": "BACKTEST_ENGINE_V2 / EXECUTION_MODEL_V2 / BTCUSDT_SPOT_COST_V1",
+  "created_at_utc": "2026-09-09T15:32:45.650033Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "evaluation_design": "DEVELOPMENT_EVALUATION_V1 / DEVELOPMENT_WALK_FORWARD_V1, unchanged; no fitting or fold-wise selection; FLOW_CORE is the preselected family primary; every profile and fold is retained.",
+  "experiment_id": "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE",
+  "experiment_version": 1,
+  "hypothesis": "A sufficiently sampled fixed order-flow transition rule has positive default-cost expectancy distributed across the six annual development folds, with robustness to doubled costs. Configuration: FLOW_PRICE_RESPONSE.",
+  "leakage_controls": [
+    "only completed, unquarantined, traded order-flow buckets at signal time",
+    "the 4h context closes at or before the current signal hour opens",
+    "inherited source-grid quarantine; no forward fill or manufactured bucket",
+    "position availability blocks overlapping entries",
+    "216h purge / 24h embargo",
+    "full 24h outcome containment",
+    "cutoff enforced before any data inspection"
+  ],
+  "metrics": {
+    "primary": "Pooled valid resolved default-cost net expectancy R over six fixed chronological folds",
+    "secondary": [
+      "profiles",
+      "terminal_classification",
+      "execution_provenance"
+    ]
+  },
+  "parameter_space": {
+    "allocation_id": "WP007-AGGRESSIVE-BUY-FLOW-ALLOCATION",
+    "balance_threshold": 0.5,
+    "behavior_hash": "7ca68594aa078b3ee953c5a42b57ab831af741b89f733eb01f11be36d53b50b2",
+    "classification": "BOUNDED_NEW_FAMILY_EXPLORATION",
+    "context_rule": "MOST_RECENT_COMPLETED_NON_OVERLAPPING_4H_BUCKET_CLOSING_AT_OR_BEFORE_SIGNAL_MINUS_1H",
+    "cost_profiles": {
+      "DEFAULT": {
+        "entry_fee_bps": "10",
+        "entry_friction_bps": "2",
+        "exit_fee_bps": "10",
+        "exit_friction_bps": "2"
+      },
+      "DELAY_1H": {
+        "entry_fee_bps": "10",
+        "entry_friction_bps": "2",
+        "exit_fee_bps": "10",
+        "exit_friction_bps": "2"
+      },
+      "DOUBLE": {
+        "entry_fee_bps": "20",
+        "entry_friction_bps": "4",
+        "exit_fee_bps": "20",
+        "exit_friction_bps": "4"
+      },
+      "ZERO": {
+        "entry_fee_bps": "0",
+        "entry_friction_bps": "0",
+        "exit_fee_bps": "0",
+        "exit_friction_bps": "0"
+      }
+    },
+    "dependencies": [
+      {
+        "path": "backend/app/data/policy.py",
+        "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+      },
+      {
+        "path": "backend/app/backtest/models.py",
+        "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+      },
+      {
+        "path": "backend/app/backtest/engine.py",
+        "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+      },
+      {
+        "path": "backend/app/research/evaluation_protocol.py",
+        "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+      },
+      {
+        "path": "backend/app/research/source_grid.py",
+        "sha256": "d73b43e386b49d6dc1dd9643e1327a9ffb37c1a4e3e8b2c1d5ad326de898891a"
+      },
+      {
+        "path": "backend/app/research/continuation_lab.py",
+        "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+      },
+      {
+        "path": "backend/app/research/order_flow.py",
+        "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+      },
+      {
+        "path": "backend/app/research/flow.py",
+        "sha256": "7be4d92cdc91fbd1ae9cdb6ca797c3588ebaf96dad0ee3dad4824bf7d2f477d3"
+      },
+      {
+        "path": "backend/app/research/flow_lab.py",
+        "sha256": "c220b8803f36b80abee91ae244d895ffb3bc332f4fb7b8e9346c2a0e09da8254"
+      },
+      {
+        "path": "backend/app/backtest/__init__.py",
+        "sha256": "ca82d603250bb0218128822c3f226c90408d719b7a95b23bf3728b4c6b3c2445"
+      },
+      {
+        "path": "backend/app/research/order_flow_audit.py",
+        "sha256": "9c8c86e84a23db79577e823fde0a13bb4394775f0b5df74af661e7ebc42954dd"
+      },
+      {
+        "path": "backend/app/research/order_flow_oracle.py",
+        "sha256": "fb8066693d29a8150030fe5a957ded3cb1b8b3d5af99f26a2aaa5e0d83681da1"
+      },
+      {
+        "path": "backend/app/research/records.py",
+        "sha256": "eae12d88aa2341700453370b1aa2f099c8d7891d9932597b319361a3b5391b69"
+      },
+      {
+        "path": "backend/app/research/registry.py",
+        "sha256": "653e5e38e481f15070c4fda5f752eed70cde921fb4b0262f862b1c99e45d932f"
+      },
+      {
+        "path": "backend/app/research/runner.py",
+        "sha256": "00acad4fd01c21e69f7eac4c36987e53c7cb27016f83a07cf4d2c0eac985740a"
+      },
+      {
+        "path": "backend/app/research/search_memory.py",
+        "sha256": "4e468cd195ec735425e41a73178841bb397844ca49383b26458df19702a7233c"
+      },
+      {
+        "path": "backend/app/research/search_memory_v2.py",
+        "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+      },
+      {
+        "path": "backend/app/research/wp007.py",
+        "sha256": "048fd71392dde54dc38fde6eba6dccf0a8a41fb0c5755fd9be05723e4a0bcdc0"
+      },
+      {
+        "path": "backend/tests/test_flow.py",
+        "sha256": "079172f567c7514cf741b7a44f32766e8652c2b1eb04c2581f80d8740fcba310"
+      },
+      {
+        "path": "backend/tests/test_order_flow.py",
+        "sha256": "b06dddc06eeacaae4f51c19910bce15c7c8aedad425e32aac1917870e9d10068"
+      },
+      {
+        "path": "scripts/run_wp007.py",
+        "sha256": "76c81171a4e8b12d9a2efb1b9267f3fa6699c69f7585c284e70bd6510bb5c02b"
+      },
+      {
+        "path": "research/design/AGGRESSIVE_BUY_FLOW_V1_DESIGN.md",
+        "sha256": "568a99fea3d842903bc18ae4dc7a5ed67465f52008ef130e537b839b84136d86"
+      },
+      {
+        "path": "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json",
+        "sha256": "41d274c31262328b1813f2e4387fd12904e111f91e60462ecb42b9cba4e503c0"
+      },
+      {
+        "path": "research/memory/registry/allocations/WP007-AGGRESSIVE-BUY-FLOW-ALLOCATION.json",
+        "sha256": "5dc4ebc97219a7cc4a89e1c0532dd50199dd8290d039323b72912b469e2339c0"
+      },
+      {
+        "path": "research/memory/registry/admissions/WP007-NOVELTY-ADMISSION.json",
+        "sha256": "11120b1137df4c3c34ea29a6c3f8c663860e9485b72e2a8d6b407a6e12ea3a0a"
+      },
+      {
+        "path": "research/memory/registry/families/FAM-ORDER-FLOW.json",
+        "sha256": "7c9ac8bab4a494e7608752d57cd059429b50ccf3054bddbe043016d9f729e6e2"
+      },
+      {
+        "path": "docs/contracts/ORDER_FLOW_FEATURES_V1.md",
+        "sha256": "d46f509ae1b56cbb55627f6554b61aeb954cc0b50e8a44c8346b6e26edc6629d"
+      },
+      {
+        "path": "docs/contracts/DEVELOPMENT_EVALUATION_V1.md",
+        "sha256": "2687c4a7bec4e3e10dd394f78e9609d10063a14719285a2e3bcecfc0f28dc7fa"
+      },
+      {
+        "path": "docs/contracts/EXECUTION_MODEL_V2.md",
+        "sha256": "5bc7c6a034e2c0f82b70764be494968692f2ba24f1eaa90612a81412fd649500"
+      },
+      {
+        "path": "docs/contracts/COST_MODEL_V1.md",
+        "sha256": "01f776da15ce0fada20f1cfa178b90869155248c650712c1168482a44d4a481e"
+      },
+      {
+        "path": "docs/contracts/RESEARCH_SEARCH_MEMORY_V2.md",
+        "sha256": "0800b356f6d4540a81f2d8b509d5827f1ee4a8a6cdff911706e0188005debf9c"
+      },
+      {
+        "path": "reports/validation/WP-007-ORDER-FLOW-INTEGRITY.json",
+        "sha256": "ef09a0fadd16968e7d68b07421cca2ba16b60c57d0ea6bc99ed766cc657314ac"
+      },
+      {
+        "path": "reports/validation/WP-007-ORDER-FLOW-RECONCILIATION.json",
+        "sha256": "4f6bc22db6087b8eccc9a7247067c63739271b16bb9570b8c6275d9ead09bbfb"
+      },
+      {
+        "path": "uv.lock",
+        "sha256": "9c24b3581bffc75c52ce0c5076d867a553d5b7ac4f97b2b4788e37f11c74904a"
+      },
+      {
+        "path": "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json",
+        "sha256": "50279396df26965188214cb39199a775f2683e70dbfe66240dc03d1fa7bc6806"
+      },
+      {
+        "path": "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json",
+        "sha256": "be037acd5568f847077fe7131353b042a4a10cd4ffcf78bbaaca9e0f456f71e9"
+      }
+    ],
+    "dependency_hash": "50c786ff5aaab947dff4b03d5e22069b3eb219074757246f83c0909b6c11cf9b",
+    "executable_spec": {
+      "comparisons": [
+        {
+          "left": "previous_completed_1h_taker_buy_base_share",
+          "operator": "<=",
+          "right": "balance_threshold",
+          "threshold": {
+            "name": "balance_threshold",
+            "unit": "share",
+            "value": 0.5
+          }
+        },
+        {
+          "left": "current_completed_1h_taker_buy_base_share",
+          "operator": ">",
+          "right": "balance_threshold",
+          "threshold": {
+            "name": "balance_threshold",
+            "unit": "share",
+            "value": 0.5
+          }
+        },
+        {
+          "left": "context_4h_taker_buy_base_share",
+          "operator": ">",
+          "right": "balance_threshold",
+          "threshold": {
+            "name": "balance_threshold",
+            "unit": "share",
+            "value": 0.5
+          }
+        },
+        {
+          "left": "current_completed_1h_close",
+          "operator": ">",
+          "right": "current_completed_1h_open",
+          "threshold": null
+        }
+      ],
+      "config_dependencies": [
+        {
+          "path": "research/configs/wp007/flow_price_response.json",
+          "sha256": "60e63f1a7551ae6eb76bd952b881bf120733e8dc13e00061b41e5548cf8601b2"
+        }
+      ],
+      "confirmation_gates": [
+        "SAME_HOUR_PRICE_RESPONSE_GATE"
+      ],
+      "context_timeframe_minutes": 240,
+      "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+      "dataset": {
+        "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+        "context_rule": "MOST_RECENT_COMPLETED_NON_OVERLAPPING_4H_BUCKET_CLOSING_AT_OR_BEFORE_SIGNAL_MINUS_1H",
+        "feature_manifest_id": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1",
+        "feature_version": "ORDER_FLOW_FEATURES_V1",
+        "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+        "maximum_timestamp": "2024-12-31T23:59:00Z"
+      },
+      "direction": "LONG",
+      "entry_event": "TAKER_BUY_SHARE_CROSSES_BALANCE_IN_BUY_DOMINANT_CONTEXT",
+      "execution_model_reference": "EXECUTION_MODEL_V2",
+      "exit": {
+        "detail": "",
+        "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+        "value": {
+          "name": "target_fraction",
+          "unit": "fraction",
+          "value": 0.04
+        }
+      },
+      "family": "FAM-ORDER-FLOW",
+      "feature_primitives": [
+        {
+          "lookback": {
+            "name": "bucket_minutes",
+            "unit": "minutes",
+            "value": 60
+          },
+          "name": "HOURLY_TAKER_BUY_BASE_SHARE",
+          "timeframe_minutes": 60,
+          "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME"
+        },
+        {
+          "lookback": {
+            "name": "bucket_minutes",
+            "unit": "minutes",
+            "value": 60
+          },
+          "name": "LAGGED_HOURLY_TAKER_BUY_BASE_SHARE",
+          "timeframe_minutes": 60,
+          "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME_ENDING_ONE_HOUR_EARLIER"
+        },
+        {
+          "lookback": {
+            "name": "context_minutes",
+            "unit": "minutes",
+            "value": 240
+          },
+          "name": "NON_OVERLAPPING_CONTEXT_TAKER_BUY_BASE_SHARE",
+          "timeframe_minutes": 240,
+          "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME_LAST_COMPLETED_CONTEXT"
+        },
+        {
+          "lookback": {
+            "name": "bars",
+            "unit": "bars",
+            "value": 1
+          },
+          "name": "CURRENT_HOUR_PRICE_DIRECTION",
+          "timeframe_minutes": 60,
+          "transformation": "COMPLETED_CLOSE_MINUS_COMPLETED_OPEN"
+        }
+      ],
+      "holding_horizon_minutes": 1440,
+      "implementation_dependencies": [
+        {
+          "path": "backend/app/data/policy.py",
+          "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+        },
+        {
+          "path": "backend/app/backtest/models.py",
+          "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+        },
+        {
+          "path": "backend/app/backtest/engine.py",
+          "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+        },
+        {
+          "path": "backend/app/research/evaluation_protocol.py",
+          "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+        },
+        {
+          "path": "backend/app/research/source_grid.py",
+          "sha256": "d73b43e386b49d6dc1dd9643e1327a9ffb37c1a4e3e8b2c1d5ad326de898891a"
+        },
+        {
+          "path": "backend/app/research/continuation_lab.py",
+          "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+        },
+        {
+          "path": "backend/app/research/order_flow.py",
+          "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+        },
+        {
+          "path": "backend/app/research/flow.py",
+          "sha256": "7be4d92cdc91fbd1ae9cdb6ca797c3588ebaf96dad0ee3dad4824bf7d2f477d3"
+        },
+        {
+          "path": "backend/app/research/flow_lab.py",
+          "sha256": "c220b8803f36b80abee91ae244d895ffb3bc332f4fb7b8e9346c2a0e09da8254"
+        }
+      ],
+      "numeric_parameters": [
+        {
+          "name": "balance_threshold",
+          "unit": "share",
+          "value": 0.5
+        },
+        {
+          "name": "context_minutes",
+          "unit": "minutes",
+          "value": 240
+        },
+        {
+          "name": "stop_fraction",
+          "unit": "fraction",
+          "value": 0.02
+        },
+        {
+          "name": "target_fraction",
+          "unit": "fraction",
+          "value": 0.04
+        }
+      ],
+      "position_policy": "SINGLE_LONG_NO_OVERLAP",
+      "reference_price_rule": "LATEST_COMPLETED_1H_CLOSE",
+      "regime_gates": [
+        "BUY_DOMINANT_NON_OVERLAPPING_4H_CONTEXT_GATE"
+      ],
+      "root_family": "FAM-ORDER-FLOW",
+      "schema_version": 2,
+      "signal_timeframe_minutes": 60,
+      "stop": {
+        "detail": "",
+        "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+        "value": {
+          "name": "stop_fraction",
+          "unit": "fraction",
+          "value": 0.02
+        }
+      },
+      "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+    },
+    "executable_spec_fingerprint": {
+      "comparisons": [
+        {
+          "left": "previous_completed_1h_taker_buy_base_share",
+          "operator": "<=",
+          "right": "balance_threshold",
+          "threshold": {
+            "name": "balance_threshold",
+            "unit": "share",
+            "value": 0.5
+          }
+        },
+        {
+          "left": "current_completed_1h_taker_buy_base_share",
+          "operator": ">",
+          "right": "balance_threshold",
+          "threshold": {
+            "name": "balance_threshold",
+            "unit": "share",
+            "value": 0.5
+          }
+        },
+        {
+          "left": "context_4h_taker_buy_base_share",
+          "operator": ">",
+          "right": "balance_threshold",
+          "threshold": {
+            "name": "balance_threshold",
+            "unit": "share",
+            "value": 0.5
+          }
+        },
+        {
+          "left": "current_completed_1h_close",
+          "operator": ">",
+          "right": "current_completed_1h_open",
+          "threshold": null
+        }
+      ],
+      "confirmation_gates": [
+        "SAME_HOUR_PRICE_RESPONSE_GATE"
+      ],
+      "context_timeframe_minutes": 240,
+      "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+      "dataset": {
+        "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+        "context_rule": "MOST_RECENT_COMPLETED_NON_OVERLAPPING_4H_BUCKET_CLOSING_AT_OR_BEFORE_SIGNAL_MINUS_1H",
+        "feature_manifest_id": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1",
+        "feature_version": "ORDER_FLOW_FEATURES_V1",
+        "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+        "maximum_timestamp": "2024-12-31T23:59:00Z"
+      },
+      "direction": "LONG",
+      "entry_event": "TAKER_BUY_SHARE_CROSSES_BALANCE_IN_BUY_DOMINANT_CONTEXT",
+      "execution_model_reference": "EXECUTION_MODEL_V2",
+      "exit": {
+        "detail": "",
+        "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+        "value": {
+          "name": "target_fraction",
+          "unit": "fraction",
+          "value": 0.04
+        }
+      },
+      "feature_primitives": [
+        {
+          "lookback": {
+            "name": "bucket_minutes",
+            "unit": "minutes",
+            "value": 60
+          },
+          "name": "HOURLY_TAKER_BUY_BASE_SHARE",
+          "timeframe_minutes": 60,
+          "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME"
+        },
+        {
+          "lookback": {
+            "name": "bucket_minutes",
+            "unit": "minutes",
+            "value": 60
+          },
+          "name": "LAGGED_HOURLY_TAKER_BUY_BASE_SHARE",
+          "timeframe_minutes": 60,
+          "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME_ENDING_ONE_HOUR_EARLIER"
+        },
+        {
+          "lookback": {
+            "name": "context_minutes",
+            "unit": "minutes",
+            "value": 240
+          },
+          "name": "NON_OVERLAPPING_CONTEXT_TAKER_BUY_BASE_SHARE",
+          "timeframe_minutes": 240,
+          "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME_LAST_COMPLETED_CONTEXT"
+        },
+        {
+          "lookback": {
+            "name": "bars",
+            "unit": "bars",
+            "value": 1
+          },
+          "name": "CURRENT_HOUR_PRICE_DIRECTION",
+          "timeframe_minutes": 60,
+          "transformation": "COMPLETED_CLOSE_MINUS_COMPLETED_OPEN"
+        }
+      ],
+      "holding_horizon_minutes": 1440,
+      "numeric_parameters": [
+        {
+          "name": "balance_threshold",
+          "unit": "share",
+          "value": 0.5
+        },
+        {
+          "name": "context_minutes",
+          "unit": "minutes",
+          "value": 240
+        },
+        {
+          "name": "stop_fraction",
+          "unit": "fraction",
+          "value": 0.02
+        },
+        {
+          "name": "target_fraction",
+          "unit": "fraction",
+          "value": 0.04
+        }
+      ],
+      "position_policy": "SINGLE_LONG_NO_OVERLAP",
+      "reference_price_rule": "LATEST_COMPLETED_1H_CLOSE",
+      "regime_gates": [
+        "BUY_DOMINANT_NON_OVERLAPPING_4H_CONTEXT_GATE"
+      ],
+      "signal_timeframe_minutes": 60,
+      "stop": {
+        "detail": "",
+        "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+        "value": {
+          "name": "stop_fraction",
+          "unit": "fraction",
+          "value": 0.02
+        }
+      },
+      "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+    },
+    "executable_spec_hash": "743036a47494d555d91a6af45e91b24ba01d1a03c90cc8ee58982d59a2eafd26",
+    "falsification": "DEVELOPMENT_EVALUATION_V1 deterministic terminal rule; an adequately sampled nonpositive default net expectancy rejects economic sufficiency, sparse evidence is inconclusive. Profitability is not a structural PASS gate.",
+    "feature_substrate": {
+      "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
+      "eligible_1h_buckets": 64135,
+      "eligible_4h_buckets": 16008,
+      "integrity_artifact_sha256": "50dc532d4ef5d5768d84809ca58283c76303e1661f43c0d77118a5316a2b834b",
+      "manifest_id": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1"
+    },
+    "feature_version": "ORDER_FLOW_FEATURES_V1",
+    "hypothesis_id": "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
+    "hypothesis_role": "STRUCTURAL_CONFIRMATION_VARIANT",
+    "implementation_commit": "09bb353ab5f6d4c1fe7ce75a73e5490d35368221",
+    "metric_hierarchy": [
+      "default pooled net expectancy",
+      "count/ESS/data-quality sufficiency",
+      "fold/year stability",
+      "doubled costs",
+      "timing and confirmation diagnostics"
+    ],
+    "novelty": "DESCENDANT_MECHANISM_CHANGE",
+    "novelty_admission_record": "research/memory/registry/admissions/WP007-NOVELTY-ADMISSION.json",
+    "numeric_parameter_searches": 0,
+    "parent_experiment_ids": [
+      "EXP-ALG-012-ORDERFLOW-CORE"
+    ],
+    "primary_family_variant": "FLOW_CORE",
+    "protocol_sha256": "8701587ddda8789d09e8a3087dccab7b4c6a01fb47a16a2baae77a62d2d5448c",
+    "robustness": {
+      "cost": [
+        "DEFAULT",
+        "ZERO",
+        "DOUBLE"
+      ],
+      "selection": "NO_BEST_PROFILE_OR_VARIANT_SELECTION",
+      "structural_variants": [
+        "EXP-ALG-012-ORDERFLOW-CORE",
+        "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE"
+      ],
+      "timing": "SIGNAL_DELAY_1H_CONDITION_ONLY_REFERENCE_UNCHANGED"
+    },
+    "root_family": "FAM-ORDER-FLOW",
+    "strategy_path": "backend/app/research/flow.py",
+    "strategy_sha256": "7be4d92cdc91fbd1ae9cdb6ca797c3588ebaf96dad0ee3dad4824bf7d2f477d3",
+    "structural_hash": "0c0a6c44910888d7dad15e61b4719be56e22bb9bfd5809912df4b7a3076f8295",
+    "threshold_searches": 0,
+    "trial_plan": [
+      {
+        "config_path": "research/configs/wp007/flow_price_response.json",
+        "config_sha256": "60e63f1a7551ae6eb76bd952b881bf120733e8dc13e00061b41e5548cf8601b2",
+        "trial_id": "FLOW_PRICE_RESPONSE:DEFAULT"
+      },
+      {
+        "config_path": "research/configs/wp007/flow_price_response.json",
+        "config_sha256": "60e63f1a7551ae6eb76bd952b881bf120733e8dc13e00061b41e5548cf8601b2",
+        "trial_id": "FLOW_PRICE_RESPONSE:ZERO"
+      },
+      {
+        "config_path": "research/configs/wp007/flow_price_response.json",
+        "config_sha256": "60e63f1a7551ae6eb76bd952b881bf120733e8dc13e00061b41e5548cf8601b2",
+        "trial_id": "FLOW_PRICE_RESPONSE:DOUBLE"
+      },
+      {
+        "config_path": "research/configs/wp007/flow_price_response.json",
+        "config_sha256": "60e63f1a7551ae6eb76bd952b881bf120733e8dc13e00061b41e5548cf8601b2",
+        "trial_id": "FLOW_PRICE_RESPONSE:DELAY_1H"
+      }
+    ],
+    "trial_units": {
+      "core_hypotheses_shared": 1,
+      "family_structural_variant_cap": 2,
+      "fold_executions": 24,
+      "parameter_searches": 0,
+      "profile_trials": 4,
+      "this_structural_variant": 1
+    },
+    "walk_forward": {
+      "development_cutoff": "2024-12-31T23:59:00Z",
+      "diagnostics": {
+        "ess_lags": 5,
+        "maximum_positive_fold_profit_share": 0.5,
+        "maximum_unresolved_rate": 0.01,
+        "minimum_double_cost_expectancy": 0,
+        "minimum_fold_trades": 15,
+        "minimum_nonnegative_folds": 4,
+        "minimum_total_trades": 120,
+        "minimum_trade_ess": 60
+      },
+      "embargo_hours": 24,
+      "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+      "fit_policy": "NO_FITTING_NO_FOLD_SELECTION",
+      "folds": [
+        {
+          "fold_id": "DEV-2019",
+          "last_signal_inclusive": "2019-12-31T00:00:00Z",
+          "train_end_exclusive": "2018-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2020-01-01T00:00:00Z",
+          "validation_start": "2019-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2020",
+          "last_signal_inclusive": "2020-12-31T00:00:00Z",
+          "train_end_exclusive": "2019-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2021-01-01T00:00:00Z",
+          "validation_start": "2020-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2021",
+          "last_signal_inclusive": "2021-12-31T00:00:00Z",
+          "train_end_exclusive": "2020-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2022-01-01T00:00:00Z",
+          "validation_start": "2021-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2022",
+          "last_signal_inclusive": "2022-12-31T00:00:00Z",
+          "train_end_exclusive": "2021-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2023-01-01T00:00:00Z",
+          "validation_start": "2022-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2023",
+          "last_signal_inclusive": "2023-12-31T00:00:00Z",
+          "train_end_exclusive": "2022-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2024-01-01T00:00:00Z",
+          "validation_start": "2023-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2024",
+          "last_signal_inclusive": "2024-12-31T00:00:00Z",
+          "train_end_exclusive": "2023-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2025-01-01T00:00:00Z",
+          "validation_start": "2024-01-02T00:00:00Z"
+        }
+      ],
+      "max_hold_minutes": 1440,
+      "primary_aggregation": "POOLED_VALID_RESOLVED_NET_R",
+      "protocol_id": "DEVELOPMENT_WALK_FORWARD_V1",
+      "purge_hours": 216,
+      "schema_version": 1
+    }
+  },
+  "rationale": "The same flow transition, additionally requiring the completed hour to close above its open, to test whether the transition is more informative when price responded positively during the same hour or whether confirmation only reduces coverage.",
+  "research_scope": "BTCUSDT Spot LONG/no-entry; exposed development only; no optimization, threshold search, sealed query, paper action or Champion.",
+  "schema_version": 2,
+  "seeds": [
+    0
+  ],
+  "status": "PREREGISTERED",
+  "stopping_rule": "Run every declared profile exactly once; preserve failures and negatives; no post-result edits, added variants, added profiles or threshold changes.",
+  "trial_budget": 4
+}
