@@ -1,92 +1,63 @@
-# CURRENT TASK — WP-008
-# Leakage-Safe Linear Supervised Challenger + Research Artifact Scaling
+# CURRENT TASK — WP-009
+# Point-in-Time Exogenous Context Foundation: News, Politics, Geopolitics, Society, and Macro
 
 ## STATUS
-COMPLETED
+ACTIVE
 
 ## EXECUTOR
 Primary: Codex.
 Fallback/overflow: Claude Code if Codex usage is unavailable.
 This task is executor-neutral. Scientific truth lives in repository artifacts.
 ChatGPT / GPT-5.6 Sol remains Research Director and final scientific authority.
-Astra Ultra is NOT allocated to WP-008.
+Astra Ultra is NOT allocated to WP-009.
+
+## PURPOSE
+
+WP-008 correctly tested the first fixed multivariate supervised challenger and it failed:
+`FAM-SUPERVISED-LINEAR = REJECT_COST_DOMINATED`.
+
+Primary LINEAR_FULL:
+- DEFAULT `-0.1142218454 R`
+- ZERO `+0.0058246386 R`
+- DOUBLE `-0.2342683271 R`
+- DELAY_1H `-0.1098336131 R`
+- 1,003 trades
+- 1/6 nonnegative folds
+- min fold trades 82
+- mean validation prediction/label correlation about +0.02186
+
+This does NOT falsify the Owner's broader multi-signal thesis.
+It falsifies only a fixed linear combination of eight internal market/order-flow features.
+
+The intended long-term system is broader:
+- price/pattern/trend
+- volatility/liquidity/order flow
+- macro/monetary conditions
+- politics/regulation
+- global news/geopolitics
+- social conditions/sentiment
+- eventually signal importance that can vary over time
+
+Before testing a dynamic multi-source model, build point-in-time historical exogenous information
+without revision leakage or future-news leakage.
+
+WP-009 is a DATA/INFORMATION FOUNDATION checkpoint.
+
+It executes ZERO new trading strategy experiments.
+It must NOT inspect post-2024 BTC data.
+It must NOT use BTC returns/outcomes to choose exogenous sources, queries, features, or thresholds.
 
 ---
 
-# 0. RESEARCH DIRECTOR DECISION
-
-WP-007 is independently accepted.
-
-Verified remote facts:
-- final HEAD: `762b3b77f686305b1c73f19956d0b9b16b7a9b1c`
-- true base / merge base: `d92088d5ef0426bf64f34326a3224dd9aba93603`
-- WP-007 is 16 commits ahead / 0 behind;
-- GitHub Actions `check`, run `34375244463`, completed SUCCESS;
-- effective preregistration-v2 commit: `e541da5db097d322a10d9f7666973a2f4829a0c2`
-- result commit: `d5fd0bcbc5fc0f6aaae42ebba721ba55c9447ac3`
-- result commit has the effective preregistration commit as direct parent;
-- order-flow canonical/source integrity PASS;
-- SEARCH_MEMORY_V2 admitted FLOW_CORE as NEW_FAMILY before results;
-- SEALED_EVALUATION_V1_1 remains locked at 0 authorized / 0 consumed BTC queries;
-- no post-cutoff BTC data acquired or inspected.
-
-Scientific result:
-`FAM-ORDER-FLOW = REJECT_COST_DOMINATED`
-
-FLOW_CORE:
-- default expectancy `-0.0667167056 R`
-- zero-cost `+0.0533577522 R`
-- double-cost `-0.1867911419 R`
-- delay `-0.0619009982 R`
-- resolved trades `1,828`
-- nonnegative folds `1/6`
-- minimum-fold trades `241`
-
-This is adequately sampled and economically negative under realistic friction.
-Do NOT rescue FAM-ORDER-FLOW by moving the 0.5 threshold or adding filters.
-
----
-
-# 1. WHY WP-008 CHANGES THE RESEARCH METHOD
-
-The lab has now tested five material economic hypotheses and thirteen configurations:
-- trend;
-- breakout;
-- selective aligned continuation;
-- pullback recovery;
-- taker-flow transition.
-
-Repeated observation: several simple mechanisms are positive gross / zero-cost but fail or weaken
-materially after realistic costs.
-
-ALIGNED remains the strongest exposed-development clue, but is INCONCLUSIVE and its family budget
-is exhausted.
-
-Continuing to hand-invent deterministic patterns risks the exact circular search the Owner forbade.
-
-The Scientific Constitution says:
-- prefer simple deterministic baselines before complex models;
-- machine learning is a challenger family, not a prerequisite;
-- record adaptive search/trial burden;
-- do not win by trying strategies until one looks good.
-
-WP-008 therefore authorizes ONE simple interpretable supervised challenger:
-a low-dimensional deterministic linear model trained only on historical data before each validation
-fold, with a frozen feature set and zero tuning.
-
-No model zoo.
-
----
-
-# 2. REQUIRED START
+## REQUIRED START
 
 Repository: `C-Gian/trading-bot`
 Branch: `main`
 Required starting HEAD:
-`762b3b77f686305b1c73f19956d0b9b16b7a9b1c`
+`ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2`
 
 Reviewed predecessor:
-`d92088d5ef0426bf64f34326a3224dd9aba93603`
+`762b3b77f686305b1c73f19956d0b9b16b7a9b1c`
 
 Do not create a branch.
 Do not rewrite history.
@@ -94,663 +65,50 @@ Do not push.
 
 ---
 
-# 3. RECORD WP-007 RESEARCH DIRECTOR REVIEW
+## STAGE A — RECORD WP-008 RESEARCH DIRECTOR REVIEW
 
 Create:
-`reports/reviews/WP-007-RESEARCH-DIRECTOR-REVIEW.md`
+`reports/reviews/WP-008-RESEARCH-DIRECTOR-REVIEW.md`
 
 Verdict:
 `ACCEPTED`
 
 Record:
-- exact base/head ancestry;
-- real remote CI SUCCESS run 34375244463;
-- effective preregistration/result chronology;
-- two zero-result pre-execution tooling corrections;
-- order-flow integrity PASS;
-- canonical dataset unchanged;
-- SEARCH_MEMORY chronology;
-- SEALED_EVALUATION_V1_1 locked at zero;
-- FAM-ORDER-FLOW = REJECT_COST_DOMINATED;
-- FLOW_PRICE_RESPONSE does not replace FLOW_CORE;
-- no threshold rescue;
-- Champion NONE;
-- sealed=0;
-- paper=0;
-- real money=false.
+- exact required base `762b3b77...`
+- final HEAD `ffeb73d6...`
+- 13 commits ahead / 0 behind
+- real GitHub Actions run `34392236263` = SUCCESS
+- preregistration commit `2d8bc11b2bbc76db387652804f7ad8c492e3d493`
+- result commit `88e9c6e941be54b2fe65b802e15312eadc01c7ec`
+- result commit has preregistration commit as direct parent
+- SUPERVISED_FEATURES_V1 leakage audit PASS
+- closest training-label outcome at least 193h before validation
+- independent reconciliation PASS
+- RESEARCH_ARTIFACT_STORAGE_V1 PASS
+- no hyperparameter/threshold/feature search
+- FAM-SUPERVISED-LINEAR = REJECT_COST_DOMINATED
+- LINEAR_NO_FLOW does not replace primary
+- Champion NONE
+- sealed=0
+- paper=0
+- real money=false
 
-Update authoritative current remote CI truth:
-- WP-005 SUCCESS
-- WP-006 SUCCESS
-- WP-007 SUCCESS
-
+Update authoritative current remote-CI truth with WP-008 SUCCESS.
 Do not rewrite historical executor reports.
 
 ---
 
-# 4. SCIENTIFIC START STATE
+## STARTING SCIENTIFIC STATE
 
 Expected:
-- experiments_completed = 13
-- material_economic_hypotheses = 5
-- configuration_variants = 13
-- profile_trials = 69
-- numeric_parameter_variants = 0
-- adaptive_decisions = 4
-- result_dependent_forks = 4
-- sealed_queries = 0
-- sealed_evaluations = 0
-- paper_trades = 0
-- Champion = NONE
-- forward evidence = NONE
-- real money = false
-
----
-
-# 5. FORBIDDEN WORK
-
-Do NOT:
-- modify/reopen ALIGNED or FAM-BREAKOUT;
-- rescue pullback recovery;
-- rescue order-flow thresholds;
-- test contraction-to-expansion;
-- invent a second model family;
-- compare many algorithms;
-- use neural nets, trees, random forest, XGBoost, boosting, SVM or k-NN;
-- feature-select based on observed results;
-- search regularization;
-- search signal thresholds;
-- search feature subsets;
-- add interactions after results;
-- PCA;
-- automated feature generation;
-- grid/random/Bayesian/evolutionary optimization;
-- random K-fold;
-- change fold boundaries;
-- change stop/target/horizon;
-- access BTCUSDT after `2024-12-31T23:59:00Z`;
-- acquire/query sealed BTC data;
-- use other assets;
-- SHORT;
-- leverage/perpetuals;
-- paper trade;
-- enable Analyze Market;
-- product LONG/NO_TRADE output;
-- Champion promotion;
-- real-money/exchange execution;
-- create a branch;
-- push.
-
----
-
-# 6. STAGE A — RESEARCH ARTIFACT STORAGE V1
-
-Do NOT delete/rewrite/migrate historical experiment evidence.
-
-Prospectively create:
-`docs/contracts/RESEARCH_ARTIFACT_STORAGE_V1.md`
-
-For WP-008 onward:
-
-## Keep as compact tracked text
-- preregistrations;
-- configs/specs;
-- allocations/admissions;
-- result summaries;
-- fold summaries;
-- reports;
-- artifact manifests/hashes;
-- state/checkpoints.
-
-## High-volume row artifacts
-Do NOT emit enormous pretty-printed JSON.
-
-Executed trial/trade rows:
-- deterministic ZSTD-compressed Parquet;
-- explicit fixed schema;
-- deterministically sorted;
-- file SHA-256;
-- logical row-content SHA-256;
-- result summary references exact path/hash.
-
-Training matrices / training labels:
-- do NOT commit row-by-row matrices to Git;
-- commit only deterministic manifests containing:
-  - fold;
-  - schema/features;
-  - row count;
-  - min/max signal timestamp;
-  - exclusions;
-  - logical hash;
-  - feature/label code hash;
-  - regeneration command.
-
-Historical JSON remains untouched.
-
-Add validation.
-
----
-
-# 7. STAGE B — SUPERVISED CHALLENGER CONTRACT
-
-Create:
-`docs/contracts/SUPERVISED_CHALLENGER_V1.md`
-
-Create frozen protocol:
-`research/protocols/WP-008-LINEAR-NET-R-V1.json`
-
-At each eligible hourly signal timestamp:
-- compute features using completed information available by signal time;
-- for TRAINING ONLY compute an isolated fixed-plan DEFAULT-cost net-R label;
-- fit one deterministic linear model using only historical training rows;
-- predict default net R on future validation rows;
-- LONG iff `predicted_default_net_R > 0.0`.
-
-No threshold search.
-
----
-
-# 8. STAGE C — EXACT TRAINING LABEL
-
-Target:
-`ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1`
-
-At eligible signal boundary t:
-- reference = just-completed 1h close;
-- entry = next canonical 1m open;
-- stop = reference * 0.98;
-- target = reference * 1.04;
-- horizon = 1,440 minutes;
-- execution = BACKTEST_ENGINE_V2 / EXECUTION_MODEL_V2;
-- cost = BTCUSDT_SPOT_COST_V1;
-- do NOT apply position occupancy to label generation.
-
-Label = isolated hypothetical plan's realized DEFAULT-cost `net_r`.
-
-Invalid/unresolved/missing future path labels:
-- exclude from fitting;
-- count explicitly;
-- never impute.
-
-No clipping/winsorization.
-
-The production strategy later applies normal single-position occupancy.
-
----
-
-# 9. STAGE D — EXPANDING CHRONOLOGICAL TRAINING
-
-Use the fixed six annual validation folds:
-2019, 2020, 2021, 2022, 2023, 2024.
-
-For validation year Y:
-training signals may only occur up to:
-
-`validation_start - 216 hours`
-
-Use an expanding window from earliest eligible development history.
-
-Because labels use at most 24h of future path, this leaves at least 192h between the latest possible
-training outcome and validation start.
-
-No validation-year information may enter:
-- scaling;
-- fitting;
-- label creation;
-- feature selection;
-- threshold;
-- model specification.
-
-Persist exact per fold:
-- training start/end;
-- max training label outcome timestamp;
-- validation start/end;
-- fit rows;
-- exclusions;
-- hashes.
-
-Hard-fail if any training label outcome overlaps validation.
-
----
-
-# 10. STAGE E — EXACT FROZEN FEATURE SET
-
-No feature may be added/removed after seeing WP-008 market results.
-
-## F1 LOG_RETURN_1H
-`ln(current_1h_close / current_1h_open)`
-
-## F2 LOG_RETURN_24H
-`ln(current_1h_close / close_24_hours_earlier)`
-
-## F3 LOG_DISTANCE_TO_PRIOR_24H_HIGH
-`ln(current_1h_close / max(high of previous 24 completed 1h bars excluding current))`
-
-## F4 REALIZED_VOL_24H
-Exactly 24 contiguous completed close-to-close hourly log returns ending at current close:
-`sqrt(mean(r_i^2))`
-No annualization.
-
-## F5 LOG_RELATIVE_VOLUME_1H
-`ln(current completed 1h base volume / arithmetic mean(previous 24 completed 1h base volumes excluding current))`
-Require numerator and denominator >0; otherwise ineligible.
-
-## F6 DIRECTIONAL_EFFICIENCY_4H
-Use 42 close-to-close changes from 43 completed 4h closes on the latest completed NON-OVERLAPPING
-4h context whose close <= t-1h.
-
-Let U=sum positive changes; D=absolute sum negative changes.
-`(U-D)/(U+D)`.
-If U+D=0, ineligible.
-Do NOT apply the old 2:1 gate.
-
-## F7 TAKER_BUY_SHARE_1H_CENTERED
-`current_1h_taker_buy_base_share - 0.5`
-
-## F8 TAKER_BUY_SHARE_4H_CENTERED
-`nonoverlapping_context_4h_taker_buy_base_share - 0.5`
-
-Use ORDER_FLOW_FEATURES_V1 for F7/F8.
-
-All windows must be complete/contiguous and respect quarantine.
-
----
-
-# 11. STAGE F — FEATURE / LABEL LEAKAGE AUDIT
-
-Create version:
-`SUPERVISED_FEATURES_V1`
-
-Create:
-`reports/validation/WP-008-SUPERVISED-LEAKAGE-AUDIT.json`
-
-Prove:
-- every feature is available by signal time;
-- current-hour features use a completed bar;
-- 4h context is completed and non-overlapping;
-- no forward fill;
-- source-grid quarantine preserved;
-- no post-cutoff;
-- scaling is training-only;
-- labels are training-only;
-- latest training outcome precedes validation;
-- validation outcomes never fit model;
-- no full-history normalization;
-- no result-conditioned feature selection.
-
-Add synthetic future-feature injections that must be rejected.
-
-Persist training/validation manifests and logical hashes.
-
----
-
-# 12. STAGE G — MODEL FAMILY
-
-Proposed root:
-`FAM-SUPERVISED-LINEAR`
-
-Hypothesis:
-`LINEAR_NET_R_SELECTION_V1`
-
-Claim:
-
-A fixed low-dimensional linear combination of already-governed price, volatility, volume, regime
-and taker-flow descriptors can estimate default-cost LONG opportunity quality well enough that
-observations with predicted net R >0 produce robust positive realized net expectancy after realistic
-execution costs.
-
-This is predictive, not a causal claim.
-
----
-
-# 13. STAGE H — EXACT MODEL
-
-Use deterministic ordinary least squares with intercept.
-
-No regularization/hyperparameter.
-
-For each fold/configuration:
-
-1. build training X/y;
-2. calculate training-only mean/std (`ddof=0`);
-3. hard-fail if any std <= 1e-12;
-4. standardize X;
-5. fit `y = intercept + beta^T z` using deterministic float64 least squares;
-6. require full column rank;
-7. record condition number;
-8. save intercept, coefficients, train means/stds, feature order, matrix/label hashes and dependency hash;
-9. apply model only to that fold's validation rows.
-
-Use the already-pinned NumPy dependency.
-Do not add scikit-learn.
-
-No coefficient thresholding.
-No feature dropping.
-No validation refit.
-
----
-
-# 14. STAGE I — EXACT TWO CONFIGURATIONS
-
-## LINEAR_FULL — PRIMARY
-Features F1-F8 exactly.
-
-Preselected family primary.
-
-## LINEAR_NO_FLOW — STRUCTURAL ABLATION
-Features F1-F6 exactly.
-
-Purpose:
-measure the incremental contribution of taker-flow descriptors within the identical supervised
-architecture.
-
-No other feature subset.
-
-Family conclusion always follows LINEAR_FULL.
-
----
-
-# 15. STAGE J — SEARCH_MEMORY_V2 ADMISSION
-
-Before market results create executable/model specifications binding:
-
-- model family/algorithm;
-- feature order;
-- feature transformations;
-- label;
-- expanding training rule;
-- scaling;
-- signal threshold;
-- execution geometry;
-- data/cost versions;
-- code dependencies.
-
-Submit to SEARCH_MEMORY_V2.
-
-Expected:
-- LINEAR_FULL = NEW_FAMILY;
-- LINEAR_NO_FLOW = structural ablation/descendant.
-
-If primary is duplicate / near-duplicate / parameter variant / conflicting root:
-- preserve rejection;
-- do not weaken/rename;
-- do not run validation market results;
-- WP-008 research stage PARTIAL.
-
----
-
-# 16. STAGE K — RESEARCH ALLOCATION
-
-Create:
-`WP008-LINEAR-SUPERVISED-ALLOCATION`
-
-This is one adaptive/result-dependent research decision.
-
-Authorize exactly:
-
-- economic hypotheses = 1
-- model configurations = 2
-- numeric hyperparameter variants = 0
-- signal-threshold variants = 0
-- algorithm variants = 0
-- profiles/configuration = 4
-
-Profiles:
-- DEFAULT
-- ZERO
-- DOUBLE
-- DELAY_1H
-
-Total strategy profile evaluations: 8.
-
-Track separately:
-`supervised_model_fits = 12` (6 folds x 2 configs).
-
-Learned coefficients are model outputs, not searched numeric variants.
-
----
-
-# 17. STAGE L — SIGNAL / EXECUTION
-
-For each validation row t:
-
-Use only the fold's historical model.
-
-Signal iff:
-`predicted_default_net_R > 0.0`
-
-If signal and flat:
-- reference = current completed 1h close;
-- enter next canonical 1m open;
-- stop = reference*0.98;
-- target = reference*1.04;
-- max hold 1440m;
-- normal occupancy;
-- normal invalid/unresolved/gap policy.
-
-Training labels do not bypass the production execution engine.
-
----
-
-# 18. STAGE M — ROBUSTNESS PROFILES
-
-Train ONCE per fold/configuration using DEFAULT-cost labels.
-
-Do NOT retrain for stress profiles.
-
-DEFAULT:
-normal cost V1.
-
-ZERO:
-same model + same undelayed prediction timestamps; zero cost.
-
-DOUBLE:
-same model + same undelayed prediction timestamps; doubled cost.
-
-DELAY_1H:
-at t use the prediction generated from the exact feature vector available at t-1h with the same
-fold model; if lagged prediction >0 signal at t; reference is current completed 1h close at t.
-
-No other delays.
-
----
-
-# 19. STAGE N — PREDECLARED SECONDARY DIAGNOSTICS
-
-For each fold/configuration report only as secondary diagnostics:
-
-- fit row count;
-- invalid/unresolved label exclusions;
-- validation eligible count;
-- prediction-positive count;
-- emitted trade count;
-- validation isolated-label Pearson correlation with prediction;
-- mean prediction;
-- mean isolated realized R for prediction-positive rows;
-- coefficient vector;
-- coefficient sign consistency across folds;
-- condition number.
-
-Do NOT use these to:
-- change features;
-- change threshold;
-- select NO_FLOW as primary;
-- create post-hoc bins/deciles for a new strategy.
-
----
-
-# 20. STAGE O — TERMINAL CLASSIFICATION
-
-Use unchanged:
-`DEVELOPMENT_EVALUATION_V1`
-
-Possible:
-- INCONCLUSIVE
-- REJECT_COST_DOMINATED
-- REJECT
-- REJECT_UNSTABLE
-- PROMISING_DEVELOPMENT_ONLY
-
-Classification is based on actual executed validation trades.
-
-Family result follows LINEAR_FULL.
-
-No special favorable ML threshold.
-
-Even if PROMISING:
-- no Champion;
-- no sealed query;
-- no paper trade.
-
----
-
-# 21. STAGE P — PREREGISTRATION CHRONOLOGY
-
-Before any validation market result:
-
-1. storage contract implemented;
-2. feature/label code implemented;
-3. leakage tests PASS;
-4. model implementation complete;
-5. executable specs frozen;
-6. commit implementation;
-7. SEARCH_MEMORY admission committed;
-8. allocation committed;
-9. both preregistrations created;
-10. preregistrations committed;
-11. only then fit final fold models and execute validation results.
-
-Suggested experiment IDs:
-- `EXP-ML-014-LINEAR-NET-R-FULL`
-- `EXP-ML-015-LINEAR-NET-R-NO-FLOW`
-
-A true pre-result tooling bug may be corrected prospectively only with originals preserved and zero
-results observed.
-
-If any validation result has been observed:
-no material feature/model/threshold correction in the same allocation.
-
----
-
-# 22. STAGE Q — INDEPENDENT RECONCILIATION
-
-Create:
-`reports/validation/WP-008-MODEL-RECONCILIATION.json`
-
-Independent of the main high-level orchestration path, verify:
-
-- fold train boundaries;
-- label horizon containment;
-- feature order;
-- training-only scaling;
-- model coefficient reproduction;
-- prediction hashes;
-- emitted signal timestamps;
-- DEFAULT trade metrics from compact trial artifact.
-
-Do not let the primary runner be its only validator.
-
----
-
-# 23. STAGE R — RESEARCH REPORT
-
-Create:
-`reports/research/WP-008-LINEAR-CHALLENGER.md`
-
-Compare descriptively with:
-- random;
-- SMA trend;
-- breakout;
-- ALIGNED;
-- pullback recovery;
-- order-flow;
-- no-trade.
-
-Questions:
-- does the learned combination survive costs?
-- doubled costs?
-- fold stability?
-- coefficient stability?
-- does NO_FLOW differ materially?
-- does the model merely learn broad BTC long drift?
-- does delay materially change behavior?
-- is one year dominant?
-- does this improve on the strongest manual clue or merely rearrange exposed-development noise?
-
-No post-result feature change.
-
----
-
-# 24. STAGE S — ANTI-LOOP ML GOVERNANCE
-
-Extend SEARCH_MEMORY so future model proposals fingerprint:
-
-- algorithm;
-- label;
-- features;
-- transformations;
-- train-window rule;
-- scaling;
-- regularization/hyperparameters;
-- signal threshold;
-- execution geometry;
-- data/cost versions.
-
-Future logistic regression, feature changes, threshold changes, regularization, labels, etc. must be
-classified relative to this family and consume explicit budget.
-
-Annual fitted coefficient vectors are not separate hypotheses.
-
-Add duplicate/parameter-drift tests.
-
----
-
-# 25. STAGE T — SEALED ELIGIBILITY
-
-SEALED_EVALUATION_V1_1 remains:
-- authorized=0
-- consumed=0
-- dataset RESERVED_NOT_ACQUIRED
-
-No query in WP-008.
-
-If LINEAR_FULL becomes PROMISING_DEVELOPMENT_ONLY:
-mark only:
-`DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_SEALED_ALLOCATION`
-
-No automatic query.
-
----
-
-# 26. STAGE U — UI/API
-
-Only modest research inspection.
-
-Research Lab may show:
-- supervised challenger status;
-- fold model count;
-- terminal classification;
-- artifact-storage version;
-- SEALED locked 0/0;
-- Champion NONE.
-
-Dashboard remains PAPER ONLY / Analyze Market disabled / no product signal.
-
----
-
-# 27. STAGE V — STATE
-
-If both experiments execute:
-
-Expected cumulative:
 - experiments_completed = 15
 - material_economic_hypotheses = 6
 - configuration_variants = 15
 - profile_trials = 77
+- supervised_model_fits = 12
 - numeric_parameter_variants = 0
 - adaptive_decisions = 5
 - result_dependent_forks = 5
-- supervised_model_fits = 12
 - sealed_queries = 0
 - sealed_evaluations = 0
 - paper_trades = 0
@@ -758,147 +116,691 @@ Expected cumulative:
 - forward evidence = NONE
 - real money = false
 
-Add:
-- artifact storage version;
-- supervised challenger version;
-- latest family/model classification;
-- WP-007 remote CI SUCCESS;
-- next recommended checkpoint.
+WP-009 must not increase strategy experiment/configuration/profile/model-fit counters.
 
-If blocked, keep truthful counters.
+Because this direction is motivated by prior results, record one additional non-trial adaptive
+research direction:
+- adaptive_decisions +1
+- result_dependent_forks +1
+
+Do not pretend this infrastructure direction is independent of prior results.
 
 ---
 
-# 28. STAGE W — VALIDATION
+## FORBIDDEN WORK
+
+Do NOT:
+- execute a new trading backtest
+- calculate BTC strategy expectancy
+- correlate candidate exogenous features with BTC returns
+- rank exogenous features by BTC outcome
+- inspect BTCUSDT after `2024-12-31T23:59:00Z`
+- acquire/query sealed BTC data
+- unlock sealed queries
+- modify ALIGNED
+- reopen parked/rejected families
+- tune any strategy
+- fit a dynamic model
+- choose a signal threshold
+- use revised-today macro values as historical truth
+- use future news at prior timestamps
+- use article text/headlines to hand-pick historical events after seeing BTC moves
+- scrape paywalled article bodies
+- introduce paid APIs, credentials, cloud billing, or new external accounts
+- ask Owner for API keys
+- expand strategy asset universe
+- SHORT
+- leverage/perpetuals
+- paper trading
+- enable Analyze Market
+- product LONG/NO_TRADE advice
+- Champion promotion
+- real-money/exchange execution
+- create branch
+- push
+
+---
+
+## STAGE B — POINT-IN-TIME EXOGENOUS DATA CONTRACT V1
+
+Create:
+`docs/contracts/POINT_IN_TIME_EXOGENOUS_DATA_V1.md`
+
+Define separately:
+- observation_time
+- event_time
+- publication_time
+- availability_time
+- retrieval_time
+- vintage_start
+- vintage_end
+- source/version/retrieval hashes
+
+Core rule:
+At signal time t, exogenous information is usable only if:
+`availability_time <= t`
+
+Historical observation time alone is never sufficient.
+
+For revised macro data:
+- current values are not automatically valid historically
+- use historical vintage/real-time metadata
+- no post-hoc revised data replaces what was knowable then
+
+If source metadata is date-level only:
+default availability:
+`00:00:00 UTC on the NEXT calendar day`
+unless an exact historical publication timestamp is independently sourced and frozen before use.
+
+Document timezone/DST rules.
+
+---
+
+## STAGE C — SOURCE CATALOG V1
+
+Create:
+`research/exogenous/SOURCE_CATALOG_V1.json`
+and:
+`reports/research/WP-009-EXOGENOUS-SOURCE-SELECTION.md`
+
+Selection is based on information semantics and point-in-time quality, not BTC outcomes.
+
+Authorize exactly two source families.
+
+### 1. GDELT DOC 2.0
+
+Purpose:
+global news attention/tone proxies for crypto, policy, monetary-policy, geopolitical and social
+information environments.
+
+Requirements:
+- public credential-free HTTPS only
+- official GDELT DOC 2.0 API
+- exact STARTDATETIME/ENDDATETIME
+- no smoothing
+- machine-readable JSON/CSV
+- raw response hash + request identity
+- development data only through `2024-12-31T23:59:59Z`
+- never request 2025+
+- document changing monitoring universe
+- use returned normalization when available
+- no article body scraping
+
+### 2. ALFRED
+
+Purpose:
+macro/financial context with historical vintage information.
+
+Requirements:
+- St. Louis Fed ALFRED historical vintage/real-time data
+- credential-free public download interface only
+- no Owner key/account request
+- no current-revised-only FRED substitution
+- retain only vintage/real-time history through `2024-12-31`
+- raw request/file hashes
+
+If credential-free machine-readable ALFRED acquisition cannot be made deterministic:
+- do not silently substitute a weaker source
+- complete adapter/tests with public examples/synthetic fixtures
+- classify acquisition `BLOCKED_CREDENTIAL_FREE_AUTOMATION_UNAVAILABLE`
+- continue GDELT foundation
+- WP-009 may return PARTIAL, but do not weaken point-in-time rules
+
+---
+
+## STAGE D — FREEZE GDELT QUERY TAXONOMY BEFORE VALUES
+
+Create:
+`research/exogenous/GDELT_QUERY_CATALOG_V1.json`
+
+Commit before historical news acquisition.
+Do not inspect BTC outcomes or GDELT time-series values before freezing.
+
+Exactly five semantic channels:
+
+### Q1 CRYPTO_CORE
+Transparent OR query for:
+- bitcoin
+- cryptocurrency
+
+### Q2 CRYPTO_POLICY
+Crypto core concept AND one fixed policy vocabulary:
+- regulation
+- regulator
+- regulatory
+- law
+- ban
+
+### Q3 CENTRAL_BANK_POLICY
+Fixed institutions:
+- Federal Reserve
+- European Central Bank
+- Bank of England
+- Bank of Japan
+
+### Q4 GEOPOLITICAL_STRESS
+Fixed vocabulary:
+- war
+- conflict
+- sanctions
+- invasion
+- missile
+
+### Q5 SOCIAL_STRESS
+Fixed vocabulary:
+- protest
+- riot
+- unrest
+- strike
+
+Validate query syntax against official GDELT semantics before historical values are fetched.
+
+Document taxonomy limitations.
+No vocabulary expansion after values are observed.
+
+---
+
+## STAGE E — GDELT HOURLY ACQUISITION V1
+
+Create version:
+`GDELT_NEWS_CONTEXT_V1`
+
+Coverage:
+`2017-08-17T00:00:00Z` through `2024-12-31T23:59:59Z`
+
+For every frozen query acquire:
+1. TimelineVolRaw
+2. TimelineTone
+
+Requirements:
+- `TIMELINESMOOTH=0`
+- exact UTC STARTDATETIME/ENDDATETIME
+- chunks short enough to force hourly, never daily, timeline resolution
+- validate actual response resolution
+- deduplicate chunk boundaries
+- never fetch 2025+
+
+Canonical hourly columns per channel:
+- matched_articles
+- monitored_articles_norm when supplied
+- coverage_share = matched_articles / norm if norm>0
+- average_tone
+- data_available
+- source_request_id
+
+Do not create rolling means, z-scores or trading transforms in WP-009.
+
+Missing hour is not automatically zero unless source semantics prove monitored coverage existed and
+the query had zero matches.
+
+Use RESEARCH_ARTIFACT_STORAGE_V1 for high-volume raw responses.
+
+Create:
+`data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json`
+`reports/validation/WP-009-GDELT-INTEGRITY.json`
+
+Validate:
+- no 2025 rows
+- no duplicate hour/channel
+- strictly increasing hours
+- no smoothing
+- hourly resolution
+- explicit gaps
+- request/response hashes
+- deterministic raw->derived rebuild
+
+---
+
+## STAGE F — FREEZE ALFRED SERIES CATALOG
+
+Before values:
+create:
+`research/exogenous/ALFRED_SERIES_CATALOG_V1.json`
+
+Use exactly these eight series if historical real-time data is available:
+
+1. DFF — Effective Federal Funds Rate
+2. DGS10 — 10-Year Treasury Constant Maturity Rate
+3. T10Y2Y — 10-Year minus 2-Year Treasury spread
+4. VIXCLS — CBOE Volatility Index
+5. NFCI — Chicago Fed National Financial Conditions Index
+6. WALCL — Federal Reserve total assets
+7. CPIAUCSL — CPI all urban consumers
+8. UNRATE — unemployment rate
+
+Do not add/remove series based on values or BTC outcomes.
+
+Record units, frequency, seasonal adjustment, source/release, revision semantics and raw identity.
+
+---
+
+## STAGE G — ALFRED POINT-IN-TIME NORMALIZATION
+
+Create version:
+`ALFRED_MACRO_CONTEXT_V1`
+
+For every value/revision retain:
+- observation date
+- value
+- vintage/real-time start
+- vintage/real-time end when supplied
+- conservative availability_time
+
+Default:
+`availability_time = 00:00 UTC on the day AFTER vintage_start`
+
+unless exact historical timestamp support is independently verified and frozen.
+
+No future revision may leak backward.
+No interpolation between releases.
+Missing stays missing.
+
+At signal time t:
+`asof_value(series,t)` uses only information whose conservative availability_time <= t.
+
+Create:
+`data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json`
+`reports/validation/WP-009-ALFRED-INTEGRITY.json`
+
+Tests must prove:
+- later revision cannot leak backward
+- next-day availability
+- current known value cannot appear before historical vintage start
+
+---
+
+## STAGE H — EXOGENOUS CONTEXT V1
+
+Create:
+`EXOGENOUS_CONTEXT_V1`
+
+Generate an hourly UTC grid from:
+`2017-08-17T00:00:00Z`
+to:
+`2024-12-31T23:00:00Z`
+
+The grid is timestamp-generated only.
+
+Do NOT load BTC price/return/outcome columns to build WP-009 context.
+
+Attach only exogenous data satisfying:
+`availability_time <= t`
+
+News:
+completed GDELT hours only.
+
+Macro:
+latest conservatively available ALFRED value.
+
+Retain:
+- source availability flags
+- age since macro observation
+- age since last vintage/revision
+- source/query IDs
+- raw levels/news measures
+
+Do NOT full-history standardize.
+Do NOT calculate BTC correlations.
+Do NOT create trading score.
+
+Create:
+`data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json`
+
+High-volume dataset may remain local under existing data policy; tracked manifest required.
+
+---
+
+## STAGE I — INDEPENDENT POINT-IN-TIME ORACLE
+
+Implement an independent as-of audit path not calling production join.
+
+Use a frozen hash-based timestamp sample across every calendar quarter.
+
+Reconstruct from raw source/vintage records exactly what information was available at each sampled t.
+
+Stress:
+- macro revision dates
+- month/year boundaries
+- GDELT chunk boundaries
+- missing hours
+- 2020 high-news periods
+- DST transitions
+- cutoff boundary
+
+No BTC outcomes.
+
+Create:
+`reports/validation/WP-009-EXOGENOUS-ASOF-RECONCILIATION.json`
+
+Exact mismatch fails.
+
+---
+
+## STAGE J — SOURCE DRIFT / COVERAGE REPORT
+
+Create:
+`reports/research/WP-009-EXOGENOUS-COVERAGE.md`
+
+Without BTC correlation report:
+
+GDELT per channel:
+- start/end
+- missing hours
+- matched-hour fraction
+- norm availability
+- source availability by year
+- obvious source/API outages
+- retrieval completeness
+
+ALFRED per series:
+- first usable availability
+- last usable <= cutoff
+- observations
+- revisions/vintage states
+- missingness on hourly grid
+
+Document GDELT monitoring-universe drift as a limitation.
+
+Do not select/exclude sources based on noisy values.
+
+---
+
+## STAGE K — FUTURE ADAPTIVE MULTI-SIGNAL ARCHITECTURE DESIGN ONLY
+
+Create:
+`research/design/ADAPTIVE_MULTISIGNAL_ARCHITECTURE_OPTIONS_V1.md`
+
+NO MARKET RESULTS.
+
+Translate the Owner requirement:
+signal importance may change through time and regime.
+
+Analyze exactly three future candidate architectures.
+
+### Candidate A — exponentially weighted dynamic linear model
+Discuss:
+- interpretability
+- decay/regularization degrees of freedom
+- leakage protection
+- coefficient stability
+- half-life tuning risk
+
+### Candidate B — regime-conditioned mixture of linear experts
+Discuss:
+- regime-definition risk
+- min samples per regime
+- transitions
+- avoiding outcome-defined regimes
+
+### Candidate C — online Bayesian/state-space dynamic regression
+Discuss:
+- uncertainty estimates
+- process-noise hyperparameters
+- complexity
+- hidden-tuning risk
+
+For each include:
+- required data
+- free hyperparameters
+- deterministic controls
+- failure modes
+- integration of internal + exogenous features
+- how time-varying importance is audited
+
+Do NOT select based on BTC result.
+Do NOT execute any architecture.
+
+Research Director chooses after WP-009 review.
+
+---
+
+## STAGE L — DYNAMIC SIGNAL IMPORTANCE GOVERNANCE
+
+Create:
+`docs/contracts/DYNAMIC_SIGNAL_IMPORTANCE_GOVERNANCE_V1.md`
+
+Future adaptive models must expose signal influence.
+
+Where model class permits, retain/reconstruct at prediction time:
+- active feature values
+- model coefficients/weights
+- standardized contribution per feature
+- grouped contribution:
+  - MARKET_PRICE
+  - VOLATILITY_LIQUIDITY
+  - ORDER_FLOW
+  - MACRO_FINANCIAL
+  - CRYPTO_NEWS_POLICY
+  - GEOPOLITICAL
+  - SOCIAL
+- prediction before execution filter
+- model version
+- training cutoff
+
+Historical influence analysis must never use future-fitted weights.
+
+For nonlinear interactions, future protocol must freeze deterministic attribution method before results.
+
+No post-hoc attribution shopping.
+
+---
+
+## STAGE M — SEARCH / ADAPTIVE MEMORY
+
+WP-009 creates no strategy family and no experiment.
+
+Record one result-dependent direction:
+`EXOGENOUS_AND_DYNAMIC_MULTISIGNAL_FOUNDATION`
+
+No new:
+- economic hypothesis
+- configuration
+- profile
+- model fit
+- numeric variant
+
+Update failure memory:
+- fixed internal-feature linear combination was cost-dominated
+- this does NOT falsify dynamic weighting or exogenous information
+- linear-family rescue remains blocked
+
+Add exogenous assets to research map as infrastructure, not edge evidence.
+
+---
+
+## STAGE N — SEALED STATE
+
+No sealed data acquisition/query.
+
+Remain:
+- SEALED_EVALUATION_V1_1
+- BTC authorized queries = 0
+- consumed = 0
+- dataset = RESERVED_NOT_ACQUIRED
+
+Do not acquire post-2024 exogenous development rows either.
+
+---
+
+## STAGE O — UI/API
+
+Research Lab may show:
+- exogenous foundation status
+- GDELT version/coverage
+- ALFRED version/coverage or blocked status
+- as-of reconciliation
+- adaptive multi-signal design status
+- sealed locked 0/0
+- Champion NONE
+
+Do not display news as live trading advice.
+Do not enable Analyze Market.
+
+---
+
+## STAGE P — STATE
+
+If both sources complete, preserve:
+- experiments_completed = 15
+- material_economic_hypotheses = 6
+- configuration_variants = 15
+- profile_trials = 77
+- supervised_model_fits = 12
+- numeric_parameter_variants = 0
+
+Update:
+- adaptive_decisions = 6
+- result_dependent_forks = 6
+- latest reviewed checkpoint = WP-008
+- latest executor checkpoint = WP-009
+- WP-008 remote CI SUCCESS
+- exogenous data contract/version/status/hashes
+- GDELT status
+- ALFRED status
+- combined context status
+- as-of reconciliation
+- next recommended work:
+  `RESEARCH_DIRECTOR_SELECT_ADAPTIVE_MULTISIGNAL_ARCHITECTURE_AFTER_WP009_REVIEW`
+
+Preserve:
+- sealed=0
+- paper=0
+- Champion NONE
+- forward evidence NONE
+- real money=false
+
+If ALFRED is blocked, report state truthfully.
+
+---
+
+## STAGE Q — VALIDATION
 
 Strengthen `python scripts/check.py`.
 
 Validate:
 
-Repository/review:
-- exact starting HEAD;
-- main only;
-- WP-007 CI SUCCESS evidence;
-- review recorded;
-- historical evidence unchanged.
+WP-008:
+- exact base/head
+- real CI SUCCESS
+- prereg before result
+- old evidence unchanged
 
-Artifact scaling:
-- historical JSON untouched;
-- WP-008 detailed trials use deterministic compressed Parquet;
-- file/logical hashes;
-- no training matrices committed row-by-row.
+Exogenous governance:
+- contract exists
+- source catalogs frozen before values
+- no BTC outcome-based source selection
+- no strategy experiment
+- no BTC correlation output
 
-Feature/label:
-- exact F1-F8;
-- NO_FLOW removes exactly F7/F8;
-- no future access;
-- 4h non-overlap;
-- quarantine/gaps;
-- no post-cutoff;
-- training-only scaling;
-- exact isolated label;
-- invalid/unresolved labels counted;
-- train label outcomes before validation;
-- no random K-fold.
+GDELT:
+- exactly five channels
+- query catalog predates historical acquisition
+- no query tuning
+- no smoothing
+- hourly resolution
+- <= cutoff
+- hashes
+- boundary dedupe
+- no article body scraping
+- deterministic rebuild
 
-Model:
-- OLS+intercept only;
-- no regularization search;
-- exact two configs;
-- FULL primary;
-- threshold exactly >0;
-- no threshold variants;
-- 12 fits exactly;
-- full-rank/condition audit;
-- no validation refit.
+ALFRED:
+- exactly eight series
+- credential-free
+- vintage/real-time data
+- no current revised substitution
+- conservative availability
+- no revision leakage
+- <= cutoff
 
-Chronology:
-- implementation before prereg;
-- admission before results;
-- prereg before results;
-- no material post-result change.
+Combined:
+- timestamp-only grid
+- BTC prices/outcomes unused
+- as-of only
+- no full-history normalization
+- independent oracle PASS
+- no post-cutoff
 
-Evaluation:
-- four profiles/config only;
-- no stress-profile retrain;
-- fixed geometry;
-- DEVELOPMENT_EVALUATION_V1 unchanged;
-- deterministic classification.
+Adaptive design:
+- exactly three options
+- zero market tests
+- dynamic importance governance exists
 
-Governance:
-- counters truthful;
-- BTC only;
-- LONG only;
-- no leverage;
-- no sealed;
-- no paper;
-- Champion NONE;
-- real money false;
-- no optimizer/model zoo.
+Counters:
+- experiments 15
+- hypotheses 6
+- configurations 15
+- profiles 77
+- model fits 12
+- adaptive counts truthful
+- numeric variants 0
+
+Safety:
+- sealed 0
+- paper 0
+- Champion NONE
+- real money false
+- no credentials introduced
 
 Software:
-- backend tests;
-- frontend tests/build;
-- lint;
-- format;
-- typing;
-- installed-data validation;
-- clean-checkout no-data;
-- clean tree.
+- backend tests
+- frontend tests/build
+- lint
+- format
+- typing
+- clean-checkout no-data validation
+- clean tree
 
-Remote CI executor status:
+Remote CI executor report:
 `PENDING_PUSH`
 
 ---
 
-# 29. DEFAULT BRANCH HOUSEKEEPING
+## DEFAULT BRANCH HOUSEKEEPING
 
-Remote default branch may still be historical WP-001.
-
-Do not block WP-008.
-
-If safe already-authenticated repo administration exists without new credentials, set default to
-main. Otherwise report PENDING.
-
+Remote default branch may still be the historical WP-001 branch.
+Do not block WP-009.
+If safe already-authenticated administration exists without new credentials, set default to main.
+Otherwise report PENDING.
 Do not delete historical branches.
 
 ---
 
-# 30. COMMIT CHRONOLOGY
+## COMMIT CHRONOLOGY
 
 Recommended:
 
-1. `docs: record WP-007 Research Director acceptance`
-2. `feat: add scalable research artifact storage`
-3. `feat: add leakage-safe supervised feature and label substrate`
-4. `research: allocate and admit linear supervised challenger`
-5. `feat: implement deterministic foldwise linear model`
-6. `research: preregister WP-008 linear challengers`
-7. `research: finalize WP-008 walk-forward results`
-8. `feat: expose supervised research status`
-9. `chore: complete WP-008 state validation and checkpoint`
+1. `docs: record WP-008 Research Director acceptance`
+2. `docs: define point-in-time exogenous data governance`
+3. `research: freeze external source and query catalogs`
+4. `feat: build and audit GDELT news context`
+5. `feat: build and audit ALFRED macro context`
+6. `feat: build point-in-time exogenous context and oracle`
+7. `docs: design adaptive multi-signal architecture options`
+8. `feat: expose exogenous research status`
+9. `chore: complete WP-009 state validation and checkpoint`
 
-Do not squash scientific chronology.
+No market-result commit exists in WP-009.
 
 ---
 
-# 31. CHECKPOINT
+## CHECKPOINT
 
 Create:
-- `reports/checkpoints/WP-008.md`
-- `reports/research/WP-008-LINEAR-CHALLENGER.md`
-- `tasks/archive/WP-008.md`
+- `reports/checkpoints/WP-009.md`
+- `reports/research/WP-009-EXOGENOUS-FOUNDATION.md`
+- `tasks/archive/WP-009.md`
 
-Mark CURRENT_TASK completed only on structural completion.
+Mark CURRENT_TASK completed only on structural success.
 
 ---
 
-# 32. REQUIRED EXECUTOR RESPONSE
+## REQUIRED EXECUTOR RESPONSE
 
 Return only:
 
 ```text
-WP-008: PASS | PARTIAL | FAIL
+WP-009: PASS | PARTIAL | FAIL
 
 Branch:
 HEAD:
@@ -906,77 +808,61 @@ Base reviewed HEAD:
 Remote CI:
 - PENDING_PUSH
 
-WP-007 review:
+WP-008 review:
 - verdict:
 - real CI evidence:
-- chronology:
-- order-flow family disposition:
+- prereg/result chronology:
+- linear family disposition:
 
-Artifact storage:
+Point-in-time governance:
 - version:
-- historical evidence rewritten:
-- new trial artifact format:
-- training matrices committed:
-- deterministic artifact validation:
+- date-only availability rule:
+- post-cutoff protection:
 
-Supervised substrate:
+GDELT:
 - version:
-- target:
-- features FULL:
-- features NO_FLOW:
-- training fold rule:
-- leakage audit:
-- training-label exclusions:
-- feature/label manifest hashes:
+- query catalog frozen before acquisition:
+- channels:
+- coverage:
+- hourly rows:
+- missing hours:
+- smoothing:
+- raw/request hashes:
+- integrity:
+- limitations:
 
-Search-memory admission:
-- proposed family:
-- FULL classification:
-- NO_FLOW classification:
-- admitted:
-- prior budgets unchanged:
+ALFRED:
+- version:
+- acquisition status:
+- series:
+- credential-free:
+- coverage:
+- vintage/revision handling:
+- next-day conservative availability:
+- integrity:
+- limitations:
 
-Model:
-- algorithm:
-- primary:
-- secondary:
-- hyperparameters searched:
-- thresholds searched:
-- model fits:
-- full-rank/conditioning:
+Combined exogenous context:
+- version:
+- BTC prices/outcomes used to build: NO
+- rows:
+- coverage:
+- manifest/hash:
+- independent as-of oracle:
 
-Evaluation:
-- LINEAR_FULL: <classification, default R, trades, nonnegative folds, min-fold trades>
-- LINEAR_NO_FLOW: <classification, default R, trades, nonnegative folds, min-fold trades>
-- FULL ZERO:
-- FULL DOUBLE:
-- FULL DELAY:
-- prediction/label OOS diagnostics:
-- concentration/stability:
-
-Comparison:
-- vs random:
-- vs trend:
-- vs breakout:
-- vs ALIGNED:
-- vs pullback:
-- vs order-flow:
-- interpretation: <one concise sentence>
-
-Sealed eligibility:
-- ALIGNED:
-- LINEAR_FULL:
-- LINEAR_NO_FLOW:
-- authorized BTC queries: 0
-- consumed BTC queries: 0
-- sealed query executed: NO
+Adaptive multi-signal design:
+- candidate A:
+- candidate B:
+- candidate C:
+- market tests executed: 0
+- dynamic signal importance governance:
 
 Scientific accounting:
-- strategy experiments=<truth>
-- material economic hypotheses=<truth>
-- configurations=<truth>
-- profile/seed trials=<truth>
-- supervised model fits=<truth>
+- strategy experiments=15
+- material economic hypotheses=6
+- configurations=15
+- profile/seed trials=77
+- supervised model fits=12
 - numeric parameter variants=0
 - adaptive decisions=<truth>
 - result-dependent forks=<truth>
@@ -991,14 +877,14 @@ Validation:
 - <one concise line>
 
 Forbidden-work check:
-- hand-strategy rescue: absent
-- feature search: absent
-- model zoo: absent
-- hyperparameter optimization: absent
-- threshold optimization: absent
-- post-cutoff access: absent
+- BTC outcome-based source selection: absent
+- strategy backtest: absent
+- feature/keyword tuning: absent
+- post-cutoff BTC access: absent
+- post-2024 exogenous development data: absent
 - sealed BTC access: absent
-- non-BTC assets: absent
+- paid API/credentials: absent
+- non-BTC strategy expansion: absent
 - SHORT/leverage: absent
 - paper trading: absent
 - real-money functionality: absent
@@ -1013,7 +899,7 @@ Material deviations:
 - <only material deviations>
 
 Next recommendation:
-- <one sentence; no automatic sealed query or Champion promotion>
+- Research Director chooses one adaptive multi-signal architecture for a separate preregistered WP; no automatic sealed query.
 ```
 
-Do not paste raw logs unless PARTIAL/FAIL and essential for diagnosis.
+Do not paste raw logs unless PARTIAL/FAIL and essential.
