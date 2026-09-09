@@ -74,3 +74,39 @@ Not falsified: Any active trading mechanism.
 Recorded failure modes: none claimed.
 
 Legitimate revisit: Control changes only when testing changed eligibility or accounting semantics.
+
+## EXP-ALG-007-REGIME - INCONCLUSIVE
+
+[Immutable result](../../research/experiments/EXP-ALG-007-REGIME/result.json). Frozen annual development evaluation: INCONCLUSIVE; no strategy approval.
+
+Falsified/tested: Evidence sufficiency not met; no economic falsification claimed.
+
+Not falsified: All continuation mechanisms, other exits, and prospective behavior remain untested by this declaration.
+
+Recorded failure modes: INCONCLUSIVE.
+
+Legitimate revisit: Retain WP-003 and WP-004 evidence. No exact replay, threshold drift or recycled WP-003 clue alone; require a new diagnostic/structural prediction and explicit cumulative allocation.
+
+## EXP-ALG-008-PARTICIPATION - REJECT_COST_DOMINATED
+
+[Immutable result](../../research/experiments/EXP-ALG-008-PARTICIPATION/result.json). Frozen annual development evaluation: REJECT_COST_DOMINATED; no strategy approval.
+
+Falsified/tested: The frozen net-profitability/stability claim failed its predeclared hurdles.
+
+Not falsified: All continuation mechanisms, other exits, and prospective behavior remain untested by this declaration.
+
+Recorded failure modes: REJECT_COST_DOMINATED.
+
+Legitimate revisit: Retain WP-003 and WP-004 evidence. No exact replay, threshold drift or recycled WP-003 clue alone; require a new diagnostic/structural prediction and explicit cumulative allocation.
+
+## EXP-ALG-009-ALIGNED - INCONCLUSIVE
+
+[Immutable result](../../research/experiments/EXP-ALG-009-ALIGNED/result.json). Frozen annual development evaluation: INCONCLUSIVE; no strategy approval.
+
+Falsified/tested: Evidence sufficiency not met; no economic falsification claimed.
+
+Not falsified: All continuation mechanisms, other exits, and prospective behavior remain untested by this declaration.
+
+Recorded failure modes: INCONCLUSIVE.
+
+Legitimate revisit: Retain WP-003 and WP-004 evidence. No exact replay, threshold drift or recycled WP-003 clue alone; require a new diagnostic/structural prediction and explicit cumulative allocation.

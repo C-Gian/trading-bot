@@ -1,0 +1,37 @@
+{
+  "adaptive_accounting": {
+    "adaptive_decisions": 1,
+    "configuration_variants": 9,
+    "material_economic_hypotheses": 3,
+    "profile_trials": 53,
+    "result_dependent_forks": 1,
+    "sealed_queries": 0,
+    "strategy_descendants": 4,
+    "wp004_profiles_reserved": 12,
+    "wp004_variants_reserved": 3
+  },
+  "dependency_manifest_sha256": "385692d1ba1f6861bfe9d9658f10200eb045095f443e8c014fac9d489728b4fb",
+  "execution_commit": "8b6e983726888365fdb349a06e90b3c0b4d7b2f6",
+  "preregistration_commit": "8b6e983726888365fdb349a06e90b3c0b4d7b2f6",
+  "preregistration_hashes": {
+    "EXP-ALG-007-REGIME": "425e478cae85f2c751a007bf99770d212d471645d5534b956cec8da5dbd0b9d1",
+    "EXP-ALG-008-PARTICIPATION": "db0eba8c10b4f15140cb79b29aecefdfbab2ab74ff639082b75554319e46f659",
+    "EXP-ALG-009-ALIGNED": "b6abbd6b0a1d3f5049af40fc4f0a1ed7dc42620e5f5b0f8de3d55ca535e1dfaa"
+  },
+  "started_at_utc": "2026-09-09T07:42:41.025285Z",
+  "status": "PASS",
+  "trial_ids": [
+    "REGIME_ONLY:DEFAULT",
+    "REGIME_ONLY:ZERO",
+    "REGIME_ONLY:DOUBLE",
+    "REGIME_ONLY:DELAY_1H",
+    "PARTICIPATION_ONLY:DEFAULT",
+    "PARTICIPATION_ONLY:ZERO",
+    "PARTICIPATION_ONLY:DOUBLE",
+    "PARTICIPATION_ONLY:DELAY_1H",
+    "ALIGNED:DEFAULT",
+    "ALIGNED:ZERO",
+    "ALIGNED:DOUBLE",
+    "ALIGNED:DELAY_1H"
+  ]
+}
