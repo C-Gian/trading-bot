@@ -1,7 +1,7 @@
 {
-  "schema_version":2,
+  "schema_version":3,
   "project_name":"Trading Bot",
-  "project_phase":"BASELINE_RESEARCH",
+  "project_phase":"STRATEGY_RESEARCH",
   "status":"EXECUTOR_COMPLETE_PENDING_REVIEW",
   "product_surface":"LOCAL_WEB_APP",
   "research_market":"crypto_spot",
@@ -30,16 +30,38 @@
       "end":"2024-12-31T23:59:00Z"
     }
   },
-  "experiments_completed":6,
+  "experiments_completed":9,
   "sealed_evaluations_completed":0,
   "paper_trades_completed":0,
   "champion_status":"NONE",
   "forward_evidence":"NONE",
   "real_money_authorized":false,
   "owner_decision_required":false,
-  "latest_reviewed_checkpoint":"WP-002",
-  "latest_executor_checkpoint":"WP-003",
-  "next_recommended_work_package":"RESEARCH_DIRECTOR_REVIEW_THEN_BOUNDED_STRATEGY_RESEARCH",
+  "latest_reviewed_checkpoint":"WP-003",
+  "latest_executor_checkpoint":"WP-004",
+  "next_recommended_work_package":"RESEARCH_DIRECTOR_REVIEW_THEN_INTEGRITY_CONTROL_COMPARABILITY",
+  "search_memory":{
+    "version":"SEARCH_MEMORY_V1",
+    "status":"VALIDATED",
+    "families_tracked":5
+  },
+  "adaptive_search":{
+    "material_economic_hypotheses":3,
+    "configuration_variants":9,
+    "profile_trials":53,
+    "numeric_parameter_variants":0,
+    "adaptive_decisions":1,
+    "result_dependent_forks":1,
+    "strategy_descendants":4,
+    "wp004_variants_reserved":3,
+    "wp004_profiles_reserved":12,
+    "sealed_queries":0
+  },
+  "selected_family":{
+    "name":"ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "primary_experiment_id":"EXP-ALG-009-ALIGNED",
+    "terminal_classification":"INCONCLUSIVE"
+  },
   "backtest_substrate":{
     "status":"VALIDATED",
     "engine_version":"BACKTEST_ENGINE_V2",
