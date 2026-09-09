@@ -1,0 +1,272 @@
+{
+  "checks": {
+    "coefficient_reproduction": "PASS",
+    "default_trade_metrics_from_compact_artifact": "PASS",
+    "emitted_signal_timestamps": "PASS",
+    "feature_order": "PASS",
+    "fold_train_boundaries": "PASS",
+    "label_horizon_containment": "PASS",
+    "prediction_hashes": "PASS",
+    "training_only_scaling": "PASS"
+  },
+  "experiments": {
+    "EXP-ML-014-LINEAR-NET-R-FULL": {
+      "artifact_file_sha256": "b0ff2c44588a20204e516fe3a2177bd2bb035f569b7a98178b8810502cfeceec",
+      "artifact_logical_sha256": "ab4f83c12d41ceb43e054e0ff374affc58c54159df4213412c6e5d402b5f0d64",
+      "default_metrics": {
+        "attempted_setups": 1012,
+        "average_loss_r": -0.9370800784,
+        "average_win_r": 1.1683454515,
+        "cost_drag_r": 120.406623437,
+        "cumulative_net_r": -114.5645109311,
+        "hit_rate": 0.3908275174,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 134.4933488146,
+        "net_expectancy_r": -0.1142218454,
+        "profit_factor": 0.7999068644,
+        "trade_count": 1003,
+        "unresolved_rate": 0.0088932806,
+        "unresolved_trades": 9,
+        "yearly": {
+          "2019": {
+            "cumulative_net_r": -15.9110127511,
+            "expectancy_r": -0.0611962029,
+            "trades": 260
+          },
+          "2020": {
+            "cumulative_net_r": -12.3550569648,
+            "expectancy_r": -0.0510539544,
+            "trades": 242
+          },
+          "2021": {
+            "cumulative_net_r": -52.272499113,
+            "expectancy_r": -0.2224361664,
+            "trades": 235
+          },
+          "2022": {
+            "cumulative_net_r": -21.9248142127,
+            "expectancy_r": -0.2463462271,
+            "trades": 89
+          },
+          "2023": {
+            "cumulative_net_r": 4.7718349464,
+            "expectancy_r": 0.0581931091,
+            "trades": 82
+          },
+          "2024": {
+            "cumulative_net_r": -16.8729628358,
+            "expectancy_r": -0.1776101351,
+            "trades": 95
+          }
+        }
+      },
+      "default_trade_metrics_match": true,
+      "folds": [
+        {
+          "coefficient_match": true,
+          "condition_number": 5.272119513483047,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 9736,
+          "fold_id": "DEV-2019",
+          "label_outcome_separation_hours": 215,
+          "prediction_hash_match": true,
+          "rank": 9,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.139110657547908,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 17364,
+          "fold_id": "DEV-2020",
+          "label_outcome_separation_hours": 193,
+          "prediction_hash_match": true,
+          "rank": 9,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.282662220465725,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 24915,
+          "fold_id": "DEV-2021",
+          "label_outcome_separation_hours": 275,
+          "prediction_hash_match": true,
+          "rank": 9,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.167416861182455,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 32416,
+          "fold_id": "DEV-2022",
+          "label_outcome_separation_hours": 193,
+          "prediction_hash_match": true,
+          "rank": 9,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.157383710201824,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 41176,
+          "fold_id": "DEV-2023",
+          "label_outcome_separation_hours": 193,
+          "prediction_hash_match": true,
+          "rank": 9,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.104280315573544,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 49740,
+          "fold_id": "DEV-2024",
+          "label_outcome_separation_hours": 193,
+          "prediction_hash_match": true,
+          "rank": 9,
+          "training_only_scaling_match": true
+        }
+      ],
+      "variant": "LINEAR_FULL"
+    },
+    "EXP-ML-015-LINEAR-NET-R-NO-FLOW": {
+      "artifact_file_sha256": "9c20495415395886af7705fa93a78222f55515207b7f3ccb4246d7c2d9bbae1f",
+      "artifact_logical_sha256": "7ed34cca31b83619bfd4855f689c1a2d2e93ee40939ecaf7d1e6bc8820c930a8",
+      "default_metrics": {
+        "attempted_setups": 977,
+        "average_loss_r": -0.9546090203,
+        "average_win_r": 1.1695521902,
+        "cost_drag_r": 116.3457711283,
+        "cumulative_net_r": -113.5865582645,
+        "hit_rate": 0.3942208462,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 137.1970245807,
+        "net_expectancy_r": -0.1172203904,
+        "profit_factor": 0.7972955395,
+        "trade_count": 969,
+        "unresolved_rate": 0.0081883316,
+        "unresolved_trades": 8,
+        "yearly": {
+          "2019": {
+            "cumulative_net_r": -9.9001160764,
+            "expectancy_r": -0.0362641615,
+            "trades": 273
+          },
+          "2020": {
+            "cumulative_net_r": -13.8050991713,
+            "expectancy_r": -0.0580046184,
+            "trades": 238
+          },
+          "2021": {
+            "cumulative_net_r": -53.3947988987,
+            "expectancy_r": -0.2321512996,
+            "trades": 230
+          },
+          "2022": {
+            "cumulative_net_r": -29.4515801007,
+            "expectancy_r": -0.3681447513,
+            "trades": 80
+          },
+          "2023": {
+            "cumulative_net_r": 1.137827662,
+            "expectancy_r": 0.015803162,
+            "trades": 72
+          },
+          "2024": {
+            "cumulative_net_r": -8.1727916794,
+            "expectancy_r": -0.1075367326,
+            "trades": 76
+          }
+        }
+      },
+      "default_trade_metrics_match": true,
+      "folds": [
+        {
+          "coefficient_match": true,
+          "condition_number": 5.209654590327978,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 9736,
+          "fold_id": "DEV-2019",
+          "label_outcome_separation_hours": 215,
+          "prediction_hash_match": true,
+          "rank": 7,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.020764820241169,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 17364,
+          "fold_id": "DEV-2020",
+          "label_outcome_separation_hours": 193,
+          "prediction_hash_match": true,
+          "rank": 7,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.203710881823488,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 24915,
+          "fold_id": "DEV-2021",
+          "label_outcome_separation_hours": 275,
+          "prediction_hash_match": true,
+          "rank": 7,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.0737412570896,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 32416,
+          "fold_id": "DEV-2022",
+          "label_outcome_separation_hours": 193,
+          "prediction_hash_match": true,
+          "rank": 7,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.059064254006156,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 41176,
+          "fold_id": "DEV-2023",
+          "label_outcome_separation_hours": 193,
+          "prediction_hash_match": true,
+          "rank": 7,
+          "training_only_scaling_match": true
+        },
+        {
+          "coefficient_match": true,
+          "condition_number": 5.025865105868041,
+          "emitted_signal_timestamps_match": true,
+          "feature_order_match": true,
+          "fit_rows": 49740,
+          "fold_id": "DEV-2024",
+          "label_outcome_separation_hours": 193,
+          "prediction_hash_match": true,
+          "rank": 7,
+          "training_only_scaling_match": true
+        }
+      ],
+      "variant": "LINEAR_NO_FLOW"
+    }
+  },
+  "independence": "DIRECT_FOLD_REBUILD_AND_NUMPY_LSTSQ_REPRODUCTION_WITHOUT_LINEAR_CHALLENGER_LAB",
+  "schema_version": 1,
+  "status": "PASS",
+  "work_package": "WP-008"
+}
