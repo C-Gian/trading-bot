@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "catalog_id": "GDELT_QUERY_CATALOG_V1",
+  "source_family": "GDELT_DOC_2_0",
+  "selection_authority": "tasks/CURRENT_TASK.md",
+  "selection_uses_btc_outcomes": false,
+  "endpoint": "https://api.gdeltproject.org/api/v2/doc/doc",
+  "format": "json",
+  "modes": ["TimelineVolRaw", "TimelineTone"],
+  "timeline_smooth": 0,
+  "query_language": "GDELT_DOC_2_0_BOOLEAN",
+  "coverage_start_utc": "2017-08-17T00:00:00Z",
+  "coverage_end_utc": "2024-12-31T23:59:59Z",
+  "chunk_hours": 240,
+  "channels": [
+    {
+      "channel_id": "Q1_CRYPTO_CORE",
+      "semantic_channel": "CRYPTO_CORE",
+      "query": "(bitcoin OR cryptocurrency)",
+      "terms": ["bitcoin", "cryptocurrency"]
+    },
+    {
+      "channel_id": "Q2_CRYPTO_POLICY",
+      "semantic_channel": "CRYPTO_POLICY",
+      "query": "(bitcoin OR cryptocurrency) (regulation OR regulator OR regulatory OR law OR ban)",
+      "core_terms": ["bitcoin", "cryptocurrency"],
+      "policy_terms": ["regulation", "regulator", "regulatory", "law", "ban"]
+    },
+    {
+      "channel_id": "Q3_CENTRAL_BANK_POLICY",
+      "semantic_channel": "CENTRAL_BANK_POLICY",
+      "query": "(\"Federal Reserve\" OR \"European Central Bank\" OR \"Bank of England\" OR \"Bank of Japan\")",
+      "institutions": [
+        "Federal Reserve",
+        "European Central Bank",
+        "Bank of England",
+        "Bank of Japan"
+      ]
+    },
+    {
+      "channel_id": "Q4_GEOPOLITICAL_STRESS",
+      "semantic_channel": "GEOPOLITICAL_STRESS",
+      "query": "(war OR conflict OR sanctions OR invasion OR missile)",
+      "terms": ["war", "conflict", "sanctions", "invasion", "missile"]
+    },
+    {
+      "channel_id": "Q5_SOCIAL_STRESS",
+      "semantic_channel": "SOCIAL_STRESS",
+      "query": "(protest OR riot OR unrest OR strike)",
+      "terms": ["protest", "riot", "unrest", "strike"]
+    }
+  ],
+  "canonicalization": {
+    "target_resolution": "1h",
+    "subhour_response_policy": "AGGREGATE_EXACTLY_WITHIN_UTC_HOUR",
+    "daily_response_policy": "REJECT",
+    "chunk_boundary_policy": "HALF_OPEN_CANONICAL_HOURS_DEDUPLICATE_EXACT_DUPLICATES_REJECT_CONFLICTS",
+    "missing_policy": "MISSING_UNLESS_MONITORED_COVERAGE_PROVES_ZERO_MATCHES",
+    "rolling_transforms": false,
+    "normalization_transforms": false
+  },
+  "limitations": [
+    "GDELT's monitored source universe changes through time.",
+    "Boolean terms are semantic proxies and do not establish causal relevance.",
+    "Timeline tone is source-computed and may change with document coverage.",
+    "Vocabulary is fixed before bulk acquisition and cannot be expanded after values are observed."
+  ]
+}
