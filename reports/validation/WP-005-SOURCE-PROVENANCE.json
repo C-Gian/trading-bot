@@ -1,0 +1,123 @@
+{
+  "archives": [
+    {
+      "accepted_sha256": "3d41da2da488a69a21e9223221863c3a8ed6ccb9263d30cf1d3a012a48cfffc1",
+      "member": "BTCUSDT-1m-2017-12.csv",
+      "observed_sha256": "3d41da2da488a69a21e9223221863c3a8ed6ccb9263d30cf1d3a012a48cfffc1",
+      "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2017-12.zip",
+      "rows": 44564,
+      "status": "MATCH",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m/BTCUSDT-1m-2017-12.zip"
+    },
+    {
+      "accepted_sha256": "131667f0d4ff73685852d84a406e07f8a3fdf7037798b1bdb0519e7e987e19ad",
+      "member": "BTCUSDT-1m-2018-02.csv",
+      "observed_sha256": "131667f0d4ff73685852d84a406e07f8a3fdf7037798b1bdb0519e7e987e19ad",
+      "path": "data/raw/binance/BTCUSDT/1m/BTCUSDT-1m-2018-02.zip",
+      "rows": 38261,
+      "status": "MATCH",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m/BTCUSDT-1m-2018-02.zip"
+    }
+  ],
+  "audit_id": "WP-005-SOURCE-PROVENANCE",
+  "canonical_off_grid_timestamps_sha256": "cae48504c02956dd74c4a12c30f7e7731702246460e93b83992db5b6cd4e586f",
+  "classification": "SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
+  "dataset_content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "intervals": [
+    {
+      "end": "2017-12-18T10:00:20.799000Z",
+      "internal_spacing_ms": {
+        "60000": 20400
+      },
+      "raw_first_column_sha256": "05d97afeae448fced6d4bfcfbcd4d5a0d185784b69ee205456e5ee754fd5129a",
+      "rows": 20401,
+      "start": "2017-12-04T06:00:20.799000Z",
+      "timestamp_modulo_minute_ms": {
+        "20799": 20401
+      },
+      "transition_in": {
+        "delta_ms": 20799,
+        "first_anomaly": "2017-12-04T06:00:20.799000Z",
+        "first_anomaly_raw_ms": 1512367220799,
+        "previous": "2017-12-04T06:00:00Z",
+        "previous_raw_ms": 1512367200000
+      },
+      "transition_out": {
+        "delta_ms": 819201,
+        "last_anomaly": "2017-12-18T10:00:20.799000Z",
+        "last_anomaly_raw_ms": 1513591220799,
+        "next": "2017-12-18T10:14:00Z",
+        "next_raw_ms": 1513592040000
+      }
+    },
+    {
+      "end": "2018-02-10T05:59:14.789000Z",
+      "internal_spacing_ms": {
+        "60000": 1200
+      },
+      "raw_first_column_sha256": "ad824c308ae190906f76341ffb7ad1c559c932055b87b0045cede367d9b093c6",
+      "rows": 1201,
+      "start": "2018-02-09T09:59:14.789000Z",
+      "timestamp_modulo_minute_ms": {
+        "14789": 1201
+      },
+      "transition_in": {
+        "delta_ms": 120674789,
+        "first_anomaly": "2018-02-09T09:59:14.789000Z",
+        "first_anomaly_raw_ms": 1518170354789,
+        "previous": "2018-02-08T00:28:00Z",
+        "previous_raw_ms": 1518049680000
+      },
+      "transition_out": {
+        "delta_ms": 945211,
+        "last_anomaly": "2018-02-10T05:59:14.789000Z",
+        "last_anomaly_raw_ms": 1518242354789,
+        "next": "2018-02-10T06:15:00Z",
+        "next_raw_ms": 1518243300000
+      }
+    }
+  ],
+  "manifest_sha256": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+  "maximum_canonical_timestamp_read": "2024-12-31T23:59:00Z",
+  "maximum_raw_timestamp_read": "2018-02-28T23:59:00Z",
+  "off_grid_rows": 21602,
+  "off_grid_rows_strictly_ordered": true,
+  "ohlcv_payload_status": "EXACT_MATCH_ALL_ANOMALY_ROWS",
+  "parser_column_mapping": {
+    "close": 4,
+    "close_time": 6,
+    "high": 2,
+    "low": 3,
+    "open": 1,
+    "open_time": 0,
+    "quote_volume": 7,
+    "taker_base": 9,
+    "taker_quote": 10,
+    "trades": 8,
+    "volume": 5
+  },
+  "parser_mapping_status": "PASS",
+  "post_cutoff_bytes_read": false,
+  "quarantine": {
+    "policy": "QUARANTINE_SOURCE_OFF_GRID_INTERVALS_V1",
+    "quarantine_masks_sha256": "27f629a5e0edde9fada51c9cd373e591e4ba4a8a53c9d1e68327e10b3c4c5bd5",
+    "quarantined_1h_buckets": 363,
+    "quarantined_4h_buckets": 92,
+    "repairs_or_fills": 0,
+    "wp004_exact_reproduction": true
+  },
+  "raw_anomaly_rows": 21602,
+  "raw_to_canonical_payload_mismatches": {},
+  "raw_to_canonical_timestamp_mismatches": 0,
+  "schema_version": 1,
+  "scope": "accepted official Binance Spot monthly archives 2017-12 and 2018-02 only",
+  "status": "PASS",
+  "timestamp_unit_conversion": "raw open_time integer milliseconds * 1000 -> canonical UTC microseconds",
+  "unit_conversion_status": "PASS",
+  "validation_required_bucket_intersections": {
+    "1h": 0,
+    "4h": 0
+  },
+  "validation_window_or_warmup_intersection": false
+}

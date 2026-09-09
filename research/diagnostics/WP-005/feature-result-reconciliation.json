@@ -1,0 +1,309 @@
+{
+  "artifact_id": "WP-005-INDEPENDENT-FEATURE-RESULT-RECONCILIATION",
+  "candidate_reconciliation": {
+    "ALIGNED": {
+      "all_candidate_timestamps_sha256": "4499842b0b98b7b963949ecafe4761f10fef5928ad0f3cd1aeff9fe70bb525a4",
+      "per_fold": {
+        "DEV-2019": 45,
+        "DEV-2020": 40,
+        "DEV-2021": 15,
+        "DEV-2022": 7,
+        "DEV-2023": 45,
+        "DEV-2024": 43
+      },
+      "status": "EXACT_MATCH"
+    },
+    "PARTICIPATION_ONLY": {
+      "all_candidate_timestamps_sha256": "78886a59cd95e7a6bd12289f053213458d20ac133474d7795192483bdf57d12c",
+      "per_fold": {
+        "DEV-2019": 156,
+        "DEV-2020": 181,
+        "DEV-2021": 128,
+        "DEV-2022": 113,
+        "DEV-2023": 195,
+        "DEV-2024": 208
+      },
+      "status": "EXACT_MATCH"
+    },
+    "REGIME_ONLY": {
+      "all_candidate_timestamps_sha256": "bab04662beef9d73b53c7fe06b089380df88b5f9b5ad5134c7675aa0a1655622",
+      "per_fold": {
+        "DEV-2019": 79,
+        "DEV-2020": 73,
+        "DEV-2021": 53,
+        "DEV-2022": 17,
+        "DEV-2023": 78,
+        "DEV-2024": 71
+      },
+      "status": "EXACT_MATCH"
+    }
+  },
+  "eligible_clocks": {
+    "DEV-2019": {
+      "eligible": 7641,
+      "ineligible": 1072
+    },
+    "DEV-2020": {
+      "eligible": 7451,
+      "ineligible": 1286
+    },
+    "DEV-2021": {
+      "eligible": 7705,
+      "ineligible": 1008
+    },
+    "DEV-2022": {
+      "eligible": 8713,
+      "ineligible": 0
+    },
+    "DEV-2023": {
+      "eligible": 8537,
+      "ineligible": 176
+    },
+    "DEV-2024": {
+      "eligible": 8737,
+      "ineligible": 0
+    }
+  },
+  "executed_default_reconciliation": {
+    "ALIGNED": {
+      "candidate_membership": "EXACT_MATCH",
+      "executed_default_attempts": 125,
+      "executed_timestamps_sha256": "571ef7aaf268ae3e4daf14c62e79d996e03b63370c43687453fd3b33fb6b8a60",
+      "reference_close": "EXACT_MATCH"
+    },
+    "PARTICIPATION_ONLY": {
+      "candidate_membership": "EXACT_MATCH",
+      "executed_default_attempts": 624,
+      "executed_timestamps_sha256": "acea4142213894b6b507675fa54cc342b6dcaf1bacf6bf830490258a8443c862",
+      "reference_close": "EXACT_MATCH"
+    },
+    "REGIME_ONLY": {
+      "candidate_membership": "EXACT_MATCH",
+      "executed_default_attempts": 186,
+      "executed_timestamps_sha256": "eeb2e25a3dd0e20ec93ad700f8cb3e9e5e33492134902a1fcab4e42dbd282786",
+      "reference_close": "EXACT_MATCH"
+    }
+  },
+  "feature_definition": {
+    "breakout": "completed 1h close > max preceding 24 completed 1h highs",
+    "common_eligibility": "current and t-1h each have contiguous complete 25x1h and 43x4h suffixes after quarantine",
+    "persistence": "43 completed 4h closes; U/D over 42 increments; U+D>0 and U>=2D",
+    "quarantine": "independently derived from canonical off-grid [open, open+1m) intersections",
+    "reference": "current completed 1h close",
+    "volume": "current completed 1h volume >= 2 * mean preceding 24 completed 1h volumes"
+  },
+  "feature_mismatches": 0,
+  "fold_metrics": "EXACT_MATCH",
+  "metric_method": "Decimal recomputation from immutable TradeRecord fields; no signal selection rerun",
+  "metric_reconciliation": [
+    {
+      "folds_sha256": "c79a220aef6d8832da659aefbca5d4f29e3134071a6a985b26f179c7e4568d34",
+      "overall": {
+        "attempted_setups": 186,
+        "cost_drag_r": 22.3707399453,
+        "cumulative_net_r": 13.8695168268,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 15.9005086561,
+        "net_expectancy_r": 0.0745672948,
+        "profit_factor": 1.1342852086,
+        "trade_count": 186,
+        "unresolved_trades": 0
+      },
+      "profile": "DEFAULT",
+      "status": "EXACT_MATCH",
+      "variant": "REGIME_ONLY"
+    },
+    {
+      "folds_sha256": "519ff76ede29265a2c0e9f2e6eee0d6348978c98b573457566cc21d9f1512cad",
+      "overall": {
+        "attempted_setups": 186,
+        "cost_drag_r": 0.0,
+        "cumulative_net_r": 36.2402567721,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 12.1947216207,
+        "net_expectancy_r": 0.1948400902,
+        "profit_factor": 1.3986480695,
+        "trade_count": 186,
+        "unresolved_trades": 0
+      },
+      "profile": "ZERO",
+      "status": "EXACT_MATCH",
+      "variant": "REGIME_ONLY"
+    },
+    {
+      "folds_sha256": "a54c490a766c4b3ab2df311717569e380169d8ac9482dec8477d30d129bb486f",
+      "overall": {
+        "attempted_setups": 186,
+        "cost_drag_r": 44.7414653944,
+        "cumulative_net_r": -8.5012086223,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 22.781124306,
+        "net_expectancy_r": -0.0457054227,
+        "profit_factor": 0.9268051706,
+        "trade_count": 186,
+        "unresolved_trades": 0
+      },
+      "profile": "DOUBLE",
+      "status": "EXACT_MATCH",
+      "variant": "REGIME_ONLY"
+    },
+    {
+      "folds_sha256": "4b2db6b02f4f8a540be2b0cb7b7739d2218585d73ef11ecaa5347f6fd62d0c82",
+      "overall": {
+        "attempted_setups": 188,
+        "cost_drag_r": 22.6041502845,
+        "cumulative_net_r": 5.538968269,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 24.1933144104,
+        "net_expectancy_r": 0.0294625972,
+        "profit_factor": 1.0512602169,
+        "trade_count": 188,
+        "unresolved_trades": 0
+      },
+      "profile": "DELAY_1H",
+      "status": "EXACT_MATCH",
+      "variant": "REGIME_ONLY"
+    },
+    {
+      "folds_sha256": "9a54613a94df43f774da58ca1004bdd9bc0fed43a507654ed655e3d98789b1a6",
+      "overall": {
+        "attempted_setups": 624,
+        "cost_drag_r": 74.8608846399,
+        "cumulative_net_r": 14.4148339805,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 19.6961866016,
+        "net_expectancy_r": 0.0231377752,
+        "profit_factor": 1.0453892729,
+        "trade_count": 623,
+        "unresolved_trades": 1
+      },
+      "profile": "DEFAULT",
+      "status": "EXACT_MATCH",
+      "variant": "PARTICIPATION_ONLY"
+    },
+    {
+      "folds_sha256": "8784f1ec1b03d7323685830d7674da294af99dd5ebfd5a4798be7d27b63a1393",
+      "overall": {
+        "attempted_setups": 624,
+        "cost_drag_r": 0.0,
+        "cumulative_net_r": 89.2757186204,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 13.241754947,
+        "net_expectancy_r": 0.1432997089,
+        "profit_factor": 1.3230298478,
+        "trade_count": 623,
+        "unresolved_trades": 1
+      },
+      "profile": "ZERO",
+      "status": "EXACT_MATCH",
+      "variant": "PARTICIPATION_ONLY"
+    },
+    {
+      "folds_sha256": "49cc21ded5d32030d4fdaf47324aea4ea1c149f2bd0a58e0cee9c187be5b143f",
+      "overall": {
+        "attempted_setups": 624,
+        "cost_drag_r": 149.7217335694,
+        "cumulative_net_r": -60.446014949,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 66.2732032451,
+        "net_expectancy_r": -0.097024101,
+        "profit_factor": 0.8322906798,
+        "trade_count": 623,
+        "unresolved_trades": 1
+      },
+      "profile": "DOUBLE",
+      "status": "EXACT_MATCH",
+      "variant": "PARTICIPATION_ONLY"
+    },
+    {
+      "folds_sha256": "0dc3462bf5937de82c2525bb8f165944725da65b2b53b48abefd4cf45da6e8e9",
+      "overall": {
+        "attempted_setups": 617,
+        "cost_drag_r": 73.836919184,
+        "cumulative_net_r": -34.2987989796,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 48.4480110132,
+        "net_expectancy_r": -0.0557704048,
+        "profit_factor": 0.8947599048,
+        "trade_count": 615,
+        "unresolved_trades": 2
+      },
+      "profile": "DELAY_1H",
+      "status": "EXACT_MATCH",
+      "variant": "PARTICIPATION_ONLY"
+    },
+    {
+      "folds_sha256": "51f5cbf9636c17c1735e655fff9243e41ec233894d2bfcfe1edcae42c7f85ec3",
+      "overall": {
+        "attempted_setups": 125,
+        "cost_drag_r": 15.0470945348,
+        "cumulative_net_r": 17.1741834524,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 11.5806334232,
+        "net_expectancy_r": 0.1373934676,
+        "profit_factor": 1.2657936152,
+        "trade_count": 125,
+        "unresolved_trades": 0
+      },
+      "profile": "DEFAULT",
+      "status": "EXACT_MATCH",
+      "variant": "ALIGNED"
+    },
+    {
+      "folds_sha256": "417fea3339530f59ae57d3a18d254346b640a1f38002f2107377276c7291cd6d",
+      "overall": {
+        "attempted_setups": 125,
+        "cost_drag_r": 0.0,
+        "cumulative_net_r": 32.2212779872,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 8.0693325617,
+        "net_expectancy_r": 0.2577702239,
+        "profit_factor": 1.5688020844,
+        "trade_count": 125,
+        "unresolved_trades": 0
+      },
+      "profile": "ZERO",
+      "status": "EXACT_MATCH",
+      "variant": "ALIGNED"
+    },
+    {
+      "folds_sha256": "ac67baf6bc58c106d2d1c50c840a7397d57b8dd2c2b3a49e7218a21ed1c6a697",
+      "overall": {
+        "attempted_setups": 125,
+        "cost_drag_r": 30.0941761811,
+        "cumulative_net_r": 2.1271018061,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 19.1333682894,
+        "net_expectancy_r": 0.0170168144,
+        "profit_factor": 1.0292536645,
+        "trade_count": 125,
+        "unresolved_trades": 0
+      },
+      "profile": "DOUBLE",
+      "status": "EXACT_MATCH",
+      "variant": "ALIGNED"
+    },
+    {
+      "folds_sha256": "b9537341975e40aa829fc44b54bedb1c00eeb3e3992691aaece8253186778a97",
+      "overall": {
+        "attempted_setups": 124,
+        "cost_drag_r": 14.901004655,
+        "cumulative_net_r": 1.8761187726,
+        "invalid_attempts": 0,
+        "maximum_drawdown_r": 20.2032587546,
+        "net_expectancy_r": 0.0151299901,
+        "profit_factor": 1.0269084272,
+        "trade_count": 124,
+        "unresolved_trades": 0
+      },
+      "profile": "DELAY_1H",
+      "status": "EXACT_MATCH",
+      "variant": "ALIGNED"
+    }
+  ],
+  "oracle_independence": "Does not call FeatureSource.at()/decision() for expected values; production calls are observed-side comparisons only.",
+  "post_cutoff_bytes_read": false,
+  "resolved_count_cumulative_net_expectancy_profit_factor_drawdown_cost_drag": "EXACT_MATCH",
+  "schema_version": 1,
+  "status": "PASS"
+}
