@@ -8,7 +8,7 @@ from math import fsum, isfinite
 
 from .evaluation_protocol import HOUR_US, utc_us
 
-FEATURE_VERSION = "CONTINUATION_FEATURES_V1"
+FEATURE_VERSION = "CONTINUATION_FEATURES_V2"
 VARIANTS = ("REGIME_ONLY", "PARTICIPATION_ONLY", "ALIGNED")
 CUTOFF_US = utc_us("2024-12-31T23:59:00Z")
 

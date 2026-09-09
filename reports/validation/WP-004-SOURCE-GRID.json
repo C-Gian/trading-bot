@@ -1,0 +1,21 @@
+{
+  "policy": "QUARANTINE_SOURCE_OFF_GRID_INTERVALS_V1",
+  "off_grid_rows": 21602,
+  "intervals": [
+    {
+      "start": "2017-12-04T06:00:20.799000Z",
+      "end": "2017-12-18T10:00:20.799000Z",
+      "rows": 20401
+    },
+    {
+      "start": "2018-02-09T09:59:14.789000Z",
+      "end": "2018-02-10T05:59:14.789000Z",
+      "rows": 1201
+    }
+  ],
+  "quarantined_1h_buckets": 363,
+  "quarantined_4h_buckets": 92,
+  "repairs_or_fills": 0,
+  "off_grid_timestamps_sha256": "cae48504c02956dd74c4a12c30f7e7731702246460e93b83992db5b6cd4e586f",
+  "quarantine_masks_sha256": "27f629a5e0edde9fada51c9cd373e591e4ba4a8a53c9d1e68327e10b3c4c5bd5"
+}

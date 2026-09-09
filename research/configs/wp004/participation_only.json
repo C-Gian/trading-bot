@@ -1,7 +1,7 @@
 {
   "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
   "variant": "PARTICIPATION_ONLY",
-  "feature_version": "CONTINUATION_FEATURES_V1",
+  "feature_version": "CONTINUATION_FEATURES_V2",
   "breakout_hours": 24,
   "volume_baseline_hours": 24,
   "volume_multiplier": 2,

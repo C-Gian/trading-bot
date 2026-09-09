@@ -37,15 +37,21 @@ IMPLEMENTATION_PATHS = (
     "backend/app/research/evaluation_protocol.py",
     "backend/app/research/continuation.py",
     "backend/app/research/continuation_lab.py",
+    "backend/app/research/source_grid.py",
     "backend/app/research/wp004.py",
     "backend/tests/test_continuation.py",
     "backend/tests/test_evaluation_protocol.py",
     "backend/tests/test_search_memory.py",
     "backend/tests/test_wp004.py",
+    "backend/tests/test_source_grid.py",
     "scripts/run_wp004.py",
     "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
     "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json",
     "research/protocols/CONTINUATION_FEATURES_V1.json",
+    "research/protocols/CONTINUATION_FEATURES_V2.json",
+    "reports/validation/WP-004-SOURCE-GRID.json",
+    "reports/validation/WP-004-PREEXECUTION-ABORT.json",
+    "decisions/ADR-0005-PREEXECUTION-SOURCE-GRID-QUARANTINE.md",
     "research/memory/SEARCH_BUDGET.json",
     "research/memory/ADAPTIVE_DECISIONS.json",
     "docs/contracts/DEVELOPMENT_EVALUATION_V1.md",
@@ -89,6 +95,51 @@ def immutable_from_first_commit(path: str, root: Path = ROOT) -> str:
 
 def dependency_manifest(root: Path = ROOT) -> list[dict[str, str]]:
     return [{"path": path, "sha256": sha256(root / path)} for path in IMPLEMENTATION_PATHS]
+
+
+def effective_preregistration(experiment_id: str, root: Path = ROOT) -> Path:
+    registry_path = root / "research/protocols/WP-004-PREEXECUTION-AMENDMENTS.json"
+    registry = json.loads(registry_path.read_text())
+    if (
+        registry["kind"] != "PRE_EXECUTION_DATA_INTEGRITY_CORRECTION"
+        or registry["strategy_trials_before_amendment"] != 0
+        or set(registry["amendments"]) != set(SPEC)
+    ):
+        raise ValueError("invalid pre-execution supersession registry")
+    item = registry["amendments"][experiment_id]
+    expected = f"research/experiments/{experiment_id}/preregistration.v2.json"
+    old = root / f"research/experiments/{experiment_id}/preregistration.json"
+    if item["effective_path"] != expected or item["superseded_sha256"] != sha256(old):
+        raise ValueError("superseded preregistration identity changed")
+    path = root / expected
+    if sha256(path) != item["effective_sha256"]:
+        raise ValueError("effective preregistration identity changed")
+    return path
+
+
+def validate_historical_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
+    space = prereg["parameter_space"]
+    commit = space["implementation_commit"]
+
+    def blob(path):
+        return subprocess.check_output(["git", "show", f"{commit}:{path}"], cwd=root).replace(
+            b"\r\n", b"\n"
+        )
+
+    for item in space["dependencies"]:
+        if hashlib.sha256(blob(item["path"])).hexdigest() != item["sha256"]:
+            raise ValueError("historical preregistration dependency identity mismatch")
+    strategy = blob(space["strategy_path"])
+    digest = hashlib.sha256(strategy)
+    if hashlib.sha256(strategy).hexdigest() != space["strategy_sha256"]:
+        raise ValueError("historical strategy identity mismatch")
+    for item in space["trial_plan"]:
+        content = blob(item["config_path"])
+        if hashlib.sha256(content).hexdigest() != item["config_sha256"]:
+            raise ValueError("historical configuration identity mismatch")
+        digest.update(item["trial_id"].encode() + b"\0" + content + b"\0")
+    if digest.hexdigest() != prereg["code_config_reference"]:
+        raise ValueError("historical combined identity mismatch")
 
 
 def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
@@ -160,7 +211,10 @@ def preflight(root: Path = ROOT) -> dict[str, Any]:
         directory = root / "research/experiments" / experiment_id
         if any((directory / name).exists() for name in ("result.json", "trials.json")):
             raise ValueError("WP-004 execution cannot overwrite or repeat an observed trial")
-        pre_path = f"research/experiments/{experiment_id}/preregistration.json"
+        original_path = f"research/experiments/{experiment_id}/preregistration.json"
+        immutable_from_first_commit(original_path, root)
+        validate_historical_identity(json.loads((root / original_path).read_text()), root)
+        pre_path = effective_preregistration(experiment_id, root).relative_to(root).as_posix()
         prereg = validate_preregistration(root / pre_path)
         validate_identity(prereg, root)
         commit = immutable_from_first_commit(pre_path, root)

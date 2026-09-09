@@ -22,7 +22,7 @@ from app.research.runner import (
     sha256,
 )
 from app.research.search_memory import load_memory, render_failure_memory, render_research_map
-from app.research.wp004 import SPEC, preflight
+from app.research.wp004 import SPEC, effective_preregistration, preflight
 
 
 def atomic_json(path: Path, payload: Any) -> None:
@@ -90,7 +90,7 @@ def main() -> None:
     )
     for experiment_id in SPEC:
         directory = ROOT / "research/experiments" / experiment_id
-        prereg_path = directory / "preregistration.json"
+        prereg_path = effective_preregistration(experiment_id)
         prereg = json.loads(prereg_path.read_text())
 
         def adapter(config, trial_id, eid=experiment_id):
@@ -113,7 +113,7 @@ def main() -> None:
             "execution_provenance": {
                 **gate,
                 "trial_artifact_sha256": sha256(directory / "trials.json"),
-                "feature_version": "CONTINUATION_FEATURES_V1",
+                "feature_version": "CONTINUATION_FEATURES_V2",
                 "fold_executions": 24,
                 "trial_count": 4,
                 "structural_variants": 1,
@@ -122,7 +122,7 @@ def main() -> None:
         result = {
             "schema_version": 2,
             "experiment_id": experiment_id,
-            "experiment_version": 1,
+            "experiment_version": prereg["experiment_version"],
             "preregistration_reference": experiment_id,
             "preregistration_created_at_utc": prereg["created_at_utc"],
             "completed_at_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),

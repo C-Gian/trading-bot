@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event": "PRE_EXECUTION_DATA_ADMISSION_ABORT",
+  "preregistration_commit": "4023928752b74cec2054a9c0cdcb4fddec0cbcd7",
+  "implementation_commit": "9044228",
+  "error": "ValueError: invalid canonical timestamps",
+  "source_manifest_verified": true,
+  "strategy_conditions_computed": 0,
+  "profile_trials_attempted": 0,
+  "strategy_results_observed": 0,
+  "attempt_marker_created": false,
+  "off_grid_rows": 21602,
+  "timestamp_only_intervals": [
+    {"start": "2017-12-04T06:00:20.799000Z", "end": "2017-12-18T10:00:20.799000Z", "rows": 20401},
+    {"start": "2018-02-09T09:59:14.789000Z", "end": "2018-02-10T05:59:14.789000Z", "rows": 1201}
+  ],
+  "disposition": "Preserve dataset; quarantine malformed feature buckets; preregister version 2 before any strategy evaluation"
+}

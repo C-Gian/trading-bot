@@ -26,6 +26,7 @@ from .evaluation_protocol import (
     utc_us,
     validate_protocol,
 )
+from .source_grid import grid_audit, unsafe_buckets
 
 MINUTE_US = 60_000_000
 DATASET_HASH = "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2"
@@ -51,7 +52,7 @@ def validate_config(config: dict[str, Any]) -> None:
     expected = {
         "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
         "variant": config.get("variant"),
-        "feature_version": "CONTINUATION_FEATURES_V1",
+        "feature_version": "CONTINUATION_FEATURES_V2",
         "breakout_hours": 24,
         "volume_baseline_hours": 24,
         "volume_multiplier": 2,
@@ -74,6 +75,7 @@ class ResearchInputs:
     minute_high: np.ndarray
     minute_low: np.ndarray
     minute_close: np.ndarray
+    source_grid_audit: dict | None = None
 
     @classmethod
     def load(cls, root: Path) -> ResearchInputs:
@@ -110,13 +112,22 @@ class ResearchInputs:
             tables[key] = pq.read_table(path)
         minute = tables["canonical"]
         times = minute["open_time"].cast(pa.int64()).to_numpy()
-        if np.any(times > CUTOFF_US) or np.any(np.diff(times) <= 0) or np.any(times % MINUTE_US):
+        if np.any(times > CUTOFF_US) or np.any(np.diff(times) <= 0):
             raise ValueError("invalid canonical timestamps")
+        audit = grid_audit(times)
+        expected_audit = json.loads(
+            (root / "reports/validation/WP-004-SOURCE-GRID.json").read_text()
+        )
+        if audit != expected_audit:
+            raise ValueError("source-grid anomaly or quarantine identity changed")
 
         def feature_bars(key: str) -> tuple[FeatureBar, ...]:
             table = tables[key]
+            unsafe = unsafe_buckets(times, HOUR_US if key == "1h" else 4 * HOUR_US)
             return tuple(
-                FeatureBar(int(t), float(h), float(c), float(v), bool(complete))
+                FeatureBar(
+                    int(t), float(h), float(c), float(v), bool(complete) and int(t) not in unsafe
+                )
                 for t, h, c, v, complete in zip(
                     table["open_time"].cast(pa.int64()).to_numpy(),
                     table["high"].to_numpy(),
@@ -130,7 +141,11 @@ class ResearchInputs:
         return cls(
             FeatureSource(feature_bars("1h"), feature_bars("4h")),
             times,
-            *(minute[key].to_numpy() for key in ("open", "high", "low", "close")),
+            minute["open"].to_numpy(),
+            minute["high"].to_numpy(),
+            minute["low"].to_numpy(),
+            minute["close"].to_numpy(),
+            source_grid_audit=audit,
         )
 
     def path(self, signal_us: int) -> tuple[Bar, ...]:
