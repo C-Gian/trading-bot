@@ -8,3 +8,4 @@
 - [ADR-0006](ADR-0006-SEALED-EVALUATION-ARCHITECTURE.md) — sealed evaluation architecture V1, built locked
 - [ADR-0007](ADR-0007-PULLBACK-RECOVERY-ROOT-AND-V2-MEMORY-LAYER.md) — new pullback-recovery root and additive V2 record layer
 - [ADR-0008](ADR-0008-SEALED-SCIENTIFIC-ALLOCATION-AUTHORITY.md) — sealed scientific allocation is a Research Director decision
+- [ADR-0009](ADR-0009-APPEND-ONLY-RESEARCH-REGISTRY.md) — append-only research registry instead of a layer per work package

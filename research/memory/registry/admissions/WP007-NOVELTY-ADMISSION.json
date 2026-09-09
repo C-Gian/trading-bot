@@ -1,0 +1,418 @@
+{
+  "admitted": true,
+  "classifier_modified": false,
+  "conditions_added_to_force_novelty": false,
+  "conflicting_root_check": {
+    "collisions": [],
+    "prior_family_budgets": "UNCHANGED_AND_NOT_REOPENED",
+    "registered_aliases_and_anchors": 24
+  },
+  "entry_event": "TAKER_BUY_SHARE_CROSSES_BALANCE_IN_BUY_DOMINANT_CONTEXT",
+  "family_classification": "NEW_FAMILY",
+  "gate": "GOVERNED_NOVELTY_ADMISSION_BEFORE_ANY_MARKET_RESULT",
+  "market_results_observed_at_admission": 0,
+  "proposed_hypothesis_id": "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
+  "proposed_root_family": "FAM-ORDER-FLOW",
+  "reference_signatures": {
+    "v1_reference_translations": 9,
+    "v2_admitted_behaviours": 2
+  },
+  "renamed_to_force_novelty": false,
+  "schema_version": 1,
+  "variants": [
+    {
+      "behavior_hash": "7acda0643eaab782b8ff30fc0cb2628966036fc097dbb8d4c2016a10bef61833",
+      "classification": "NEW_FAMILY",
+      "dependency_hash": "170e2cbcea1f9652134517b29811b110632f3493d1848e338ec06a9afd738fb5",
+      "executable_spec_hash": "98e6311c2703d6539f3948354cbafabcf119afc85273230a6dabaf257ae8f4ae",
+      "experiment_id": "EXP-ALG-012-ORDERFLOW-CORE",
+      "hypothesis_role": "ECONOMIC_CORE",
+      "matched_experiment_ids": [],
+      "spec": {
+        "comparisons": [
+          {
+            "left": "previous_completed_1h_taker_buy_base_share",
+            "operator": "<=",
+            "right": "balance_threshold",
+            "threshold": {
+              "name": "balance_threshold",
+              "unit": "share",
+              "value": 0.5
+            }
+          },
+          {
+            "left": "current_completed_1h_taker_buy_base_share",
+            "operator": ">",
+            "right": "balance_threshold",
+            "threshold": {
+              "name": "balance_threshold",
+              "unit": "share",
+              "value": 0.5
+            }
+          },
+          {
+            "left": "context_4h_taker_buy_base_share",
+            "operator": ">",
+            "right": "balance_threshold",
+            "threshold": {
+              "name": "balance_threshold",
+              "unit": "share",
+              "value": 0.5
+            }
+          }
+        ],
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp007/flow_core.json",
+            "sha256": "13c11128890e495447a62f9f1d27af341015a6031ea38c908a6787bf6a6d97fa"
+          }
+        ],
+        "confirmation_gates": [],
+        "context_timeframe_minutes": 240,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "context_rule": "MOST_RECENT_COMPLETED_NON_OVERLAPPING_4H_BUCKET_CLOSING_AT_OR_BEFORE_SIGNAL_MINUS_1H",
+          "feature_manifest_id": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1",
+          "feature_version": "ORDER_FLOW_FEATURES_V1",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "TAKER_BUY_SHARE_CROSSES_BALANCE_IN_BUY_DOMINANT_CONTEXT",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": {
+            "name": "target_fraction",
+            "unit": "fraction",
+            "value": 0.04
+          }
+        },
+        "family": "FAM-ORDER-FLOW",
+        "feature_primitives": [
+          {
+            "lookback": {
+              "name": "bucket_minutes",
+              "unit": "minutes",
+              "value": 60
+            },
+            "name": "HOURLY_TAKER_BUY_BASE_SHARE",
+            "timeframe_minutes": 60,
+            "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME"
+          },
+          {
+            "lookback": {
+              "name": "bucket_minutes",
+              "unit": "minutes",
+              "value": 60
+            },
+            "name": "LAGGED_HOURLY_TAKER_BUY_BASE_SHARE",
+            "timeframe_minutes": 60,
+            "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME_ENDING_ONE_HOUR_EARLIER"
+          },
+          {
+            "lookback": {
+              "name": "context_minutes",
+              "unit": "minutes",
+              "value": 240
+            },
+            "name": "NON_OVERLAPPING_CONTEXT_TAKER_BUY_BASE_SHARE",
+            "timeframe_minutes": 240,
+            "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME_LAST_COMPLETED_CONTEXT"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+          },
+          {
+            "path": "backend/app/research/source_grid.py",
+            "sha256": "d73b43e386b49d6dc1dd9643e1327a9ffb37c1a4e3e8b2c1d5ad326de898891a"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/order_flow.py",
+            "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+          },
+          {
+            "path": "backend/app/research/flow.py",
+            "sha256": "7be4d92cdc91fbd1ae9cdb6ca797c3588ebaf96dad0ee3dad4824bf7d2f477d3"
+          },
+          {
+            "path": "backend/app/research/flow_lab.py",
+            "sha256": "c220b8803f36b80abee91ae244d895ffb3bc332f4fb7b8e9346c2a0e09da8254"
+          }
+        ],
+        "numeric_parameters": [
+          {
+            "name": "balance_threshold",
+            "unit": "share",
+            "value": 0.5
+          },
+          {
+            "name": "context_minutes",
+            "unit": "minutes",
+            "value": 240
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "fraction",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "fraction",
+            "value": 0.04
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "LATEST_COMPLETED_1H_CLOSE",
+        "regime_gates": [
+          "BUY_DOMINANT_NON_OVERLAPPING_4H_CONTEXT_GATE"
+        ],
+        "root_family": "FAM-ORDER-FLOW",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": {
+            "name": "stop_fraction",
+            "unit": "fraction",
+            "value": 0.02
+          }
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "27d23cacbd34e46612e957c06c1c63483dcb14c2b594dc9f751a8cf4b91f9fce",
+      "variant": "FLOW_CORE"
+    },
+    {
+      "behavior_hash": "7ca68594aa078b3ee953c5a42b57ab831af741b89f733eb01f11be36d53b50b2",
+      "classification": "DESCENDANT_MECHANISM_CHANGE",
+      "dependency_hash": "50c786ff5aaab947dff4b03d5e22069b3eb219074757246f83c0909b6c11cf9b",
+      "executable_spec_hash": "743036a47494d555d91a6af45e91b24ba01d1a03c90cc8ee58982d59a2eafd26",
+      "experiment_id": "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE",
+      "hypothesis_role": "STRUCTURAL_CONFIRMATION_VARIANT",
+      "matched_experiment_ids": [
+        "EXP-ALG-012-ORDERFLOW-CORE"
+      ],
+      "spec": {
+        "comparisons": [
+          {
+            "left": "previous_completed_1h_taker_buy_base_share",
+            "operator": "<=",
+            "right": "balance_threshold",
+            "threshold": {
+              "name": "balance_threshold",
+              "unit": "share",
+              "value": 0.5
+            }
+          },
+          {
+            "left": "current_completed_1h_taker_buy_base_share",
+            "operator": ">",
+            "right": "balance_threshold",
+            "threshold": {
+              "name": "balance_threshold",
+              "unit": "share",
+              "value": 0.5
+            }
+          },
+          {
+            "left": "context_4h_taker_buy_base_share",
+            "operator": ">",
+            "right": "balance_threshold",
+            "threshold": {
+              "name": "balance_threshold",
+              "unit": "share",
+              "value": 0.5
+            }
+          },
+          {
+            "left": "current_completed_1h_close",
+            "operator": ">",
+            "right": "current_completed_1h_open",
+            "threshold": null
+          }
+        ],
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp007/flow_price_response.json",
+            "sha256": "60e63f1a7551ae6eb76bd952b881bf120733e8dc13e00061b41e5548cf8601b2"
+          }
+        ],
+        "confirmation_gates": [
+          "SAME_HOUR_PRICE_RESPONSE_GATE"
+        ],
+        "context_timeframe_minutes": 240,
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "context_rule": "MOST_RECENT_COMPLETED_NON_OVERLAPPING_4H_BUCKET_CLOSING_AT_OR_BEFORE_SIGNAL_MINUS_1H",
+          "feature_manifest_id": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1",
+          "feature_version": "ORDER_FLOW_FEATURES_V1",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z"
+        },
+        "direction": "LONG",
+        "entry_event": "TAKER_BUY_SHARE_CROSSES_BALANCE_IN_BUY_DOMINANT_CONTEXT",
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "exit": {
+          "detail": "",
+          "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+          "value": {
+            "name": "target_fraction",
+            "unit": "fraction",
+            "value": 0.04
+          }
+        },
+        "family": "FAM-ORDER-FLOW",
+        "feature_primitives": [
+          {
+            "lookback": {
+              "name": "bucket_minutes",
+              "unit": "minutes",
+              "value": 60
+            },
+            "name": "HOURLY_TAKER_BUY_BASE_SHARE",
+            "timeframe_minutes": 60,
+            "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME"
+          },
+          {
+            "lookback": {
+              "name": "bucket_minutes",
+              "unit": "minutes",
+              "value": 60
+            },
+            "name": "LAGGED_HOURLY_TAKER_BUY_BASE_SHARE",
+            "timeframe_minutes": 60,
+            "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME_ENDING_ONE_HOUR_EARLIER"
+          },
+          {
+            "lookback": {
+              "name": "context_minutes",
+              "unit": "minutes",
+              "value": 240
+            },
+            "name": "NON_OVERLAPPING_CONTEXT_TAKER_BUY_BASE_SHARE",
+            "timeframe_minutes": 240,
+            "transformation": "RATIO_OF_SUMMED_TAKER_BASE_TO_SUMMED_BASE_VOLUME_LAST_COMPLETED_CONTEXT"
+          },
+          {
+            "lookback": {
+              "name": "bars",
+              "unit": "bars",
+              "value": 1
+            },
+            "name": "CURRENT_HOUR_PRICE_DIRECTION",
+            "timeframe_minutes": 60,
+            "transformation": "COMPLETED_CLOSE_MINUS_COMPLETED_OPEN"
+          }
+        ],
+        "holding_horizon_minutes": 1440,
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+          },
+          {
+            "path": "backend/app/research/source_grid.py",
+            "sha256": "d73b43e386b49d6dc1dd9643e1327a9ffb37c1a4e3e8b2c1d5ad326de898891a"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/order_flow.py",
+            "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+          },
+          {
+            "path": "backend/app/research/flow.py",
+            "sha256": "7be4d92cdc91fbd1ae9cdb6ca797c3588ebaf96dad0ee3dad4824bf7d2f477d3"
+          },
+          {
+            "path": "backend/app/research/flow_lab.py",
+            "sha256": "c220b8803f36b80abee91ae244d895ffb3bc332f4fb7b8e9346c2a0e09da8254"
+          }
+        ],
+        "numeric_parameters": [
+          {
+            "name": "balance_threshold",
+            "unit": "share",
+            "value": 0.5
+          },
+          {
+            "name": "context_minutes",
+            "unit": "minutes",
+            "value": 240
+          },
+          {
+            "name": "stop_fraction",
+            "unit": "fraction",
+            "value": 0.02
+          },
+          {
+            "name": "target_fraction",
+            "unit": "fraction",
+            "value": 0.04
+          }
+        ],
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "reference_price_rule": "LATEST_COMPLETED_1H_CLOSE",
+        "regime_gates": [
+          "BUY_DOMINANT_NON_OVERLAPPING_4H_CONTEXT_GATE"
+        ],
+        "root_family": "FAM-ORDER-FLOW",
+        "schema_version": 2,
+        "signal_timeframe_minutes": 60,
+        "stop": {
+          "detail": "",
+          "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+          "value": {
+            "name": "stop_fraction",
+            "unit": "fraction",
+            "value": 0.02
+          }
+        },
+        "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+      },
+      "structural_hash": "0c0a6c44910888d7dad15e61b4719be56e22bb9bfd5809912df4b7a3076f8295",
+      "variant": "FLOW_PRICE_RESPONSE"
+    }
+  ],
+  "version": "SEARCH_MEMORY_V2",
+  "work_package": "WP-007"
+}

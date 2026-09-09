@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "allocation_id": "WP007-AGGRESSIVE-BUY-FLOW-ALLOCATION",
+  "work_package": "WP-007",
+  "kind": "RESULT_DEPENDENT_NEW_FAMILY_ALLOCATION",
+  "authority": "tasks/CURRENT_TASK.md",
+  "review_authority": "reports/reviews/WP-006-RESEARCH-DIRECTOR-REVIEW.md",
+  "motivation": "Three price-shape families in a row produced a real gross margin that default BTCUSDT Spot friction consumed, on sparse and concentrated samples. Accumulated development evidence therefore motivates moving to a closer-to-mechanism information source already present in the accepted canonical data rather than enumerating another price pattern.",
+  "root_family": "FAM-ORDER-FLOW",
+  "hypothesis_id": "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
+  "primary_variant": "FLOW_CORE",
+  "experiment_ids": [
+    "EXP-ALG-012-ORDERFLOW-CORE",
+    "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE"
+  ],
+  "feature_substrate": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1",
+  "new_economic_hypotheses": 1,
+  "strategy_variants": 2,
+  "numeric_parameter_variants": 0,
+  "profiles_per_variant": 4,
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "profile_evaluations": 8,
+  "fold_executions": 48,
+  "family_limits": {
+    "experiments": 2,
+    "strategy_variants": 2,
+    "trials": 8,
+    "numeric_parameter_variants": 0
+  },
+  "adaptive_decision_increment": 1,
+  "result_dependent_fork_increment": 1,
+  "prior_adaptive_decisions": 3,
+  "prior_result_dependent_forks": 3,
+  "cumulative_adaptive_decisions": 4,
+  "cumulative_result_dependent_forks": 4,
+  "parameter_searches": 0,
+  "threshold_searches": 0,
+  "sealed_queries": 0,
+  "paper_observations": 0,
+  "additional_controls_or_seeds": 0,
+  "prior_family_budget_policy": "FAM-BREAKOUT stays exhausted, FAM-PULLBACK-RECOVERY stays consumed and parked, and ALIGNED stays parked at INCONCLUSIVE. This allocation creates a new root and resets nothing.",
+  "conditionality": "This allocation authorizes execution only if the canonical taker-field integrity audit passes, the independent oracle reconciles the derived substrate, and the governed SEARCH_MEMORY_V2 gate admits the primary variant as an explicit new root before any market result exists.",
+  "counting_policy": "Cost profiles and the timing perturbation are evaluation trials, not independent economic mechanisms. The 0.5 balance point comes from the field's accounting meaning and is never searched. No additional control, seed, family, variant, profile or numeric parameter is authorized; matched controls would require another explicit allocation."
+}

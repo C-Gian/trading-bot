@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "family_id": "FAM-ORDER-FLOW",
+  "aliases": [
+    "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
+    "FLOW_CORE",
+    "FLOW_PRICE_RESPONSE"
+  ],
+  "entry_event_anchors": [
+    "TAKER_BUY_SHARE_CROSSES_BALANCE_IN_BUY_DOMINANT_CONTEXT"
+  ],
+  "parent_family_id": null,
+  "admitted_by": "research/memory/registry/admissions/WP007-NOVELTY-ADMISSION.json",
+  "allocation_id": "WP007-AGGRESSIVE-BUY-FLOW-ALLOCATION",
+  "work_package": "WP-007",
+  "information_source": "EXCHANGE_REPORTED_TAKER_BUY_VOLUME_SHARE_BINANCE_SPOT",
+  "mechanism": "A transition from non-dominant to dominant exchange-reported taker buying in the just-completed hour, inside an already buy-dominant non-overlapping 4h context, may mark renewed aggressive demand.",
+  "status": "ADMITTED_PENDING_RESULTS",
+  "failure_experiment_ids": [],
+  "legitimate_revisit": "A distinct causal structural response to the immutable WP-007 evidence. Moving the balance point away from 0.5, changing the context duration, changing the barriers or the horizon, or adding a gate chosen after seeing the results is numeric drift and is not a revisit."
+}
