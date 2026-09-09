@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "work_package": "WP-007",
+  "status": "CORRECTED_BEFORE_PREREGISTRATION",
+  "observed_market_results": 0,
+  "strategy_trials_started": 0,
+  "preregistrations_written": 0,
+  "admission_ledger_written": false,
+  "reason": "The preregistration tool placed the in-memory executable-spec dataclass representation into the candidate record. That representation contains tuples, while the identity validator deliberately compares the persisted JSON representation, whose arrays are lists. The validator rejected the candidate before any experiment directory, preregistration, admission-ledger entry, execution attempt, trial, or result was written.",
+  "correction": "Canonicalize the executable spec through one JSON serialization round trip before validation and persistence.",
+  "scientific_scope_changed": false,
+  "executable_behavior_changed": false,
+  "admission_changed": false,
+  "allocation_changed": false,
+  "threshold_or_parameter_changed": false,
+  "original_artifacts_preserved": "NOT_APPLICABLE_NONE_WERE_WRITTEN",
+  "authorized_profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "numeric_parameter_searches": 0,
+  "sealed_queries": 0
+}

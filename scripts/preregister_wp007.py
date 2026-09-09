@@ -167,7 +167,9 @@ def main() -> None:
                     "eligible_4h_buckets": flow_manifest["eligible_counts"]["4h"],
                     "integrity_artifact_sha256": substrate["integrity_artifact_sha256"],
                 },
-                "executable_spec": spec.to_dict(),
+                # Validate the exact JSON representation that will be persisted. The
+                # dataclass form contains tuples, while JSON arrays load back as lists.
+                "executable_spec": json.loads(json.dumps(spec.to_dict())),
                 "executable_spec_fingerprint": derived_fingerprint(spec),
                 "executable_spec_hash": binding.executable_spec_hash,
                 "behavior_hash": binding.behavior_hash,
