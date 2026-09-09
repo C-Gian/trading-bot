@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "catalog_id": "SOURCE_CATALOG_V1",
+  "selection_basis": "INFORMATION_SEMANTICS_AND_POINT_IN_TIME_QUALITY_ONLY",
+  "btc_outcomes_consulted": false,
+  "authorized_source_family_count": 2,
+  "development_request_cutoff_utc": "2024-12-31T23:59:59Z",
+  "source_families": [
+    {
+      "source_family": "GDELT_DOC_2_0",
+      "owner": "GDELT Project",
+      "purpose": "Global news attention and tone context",
+      "transport": "PUBLIC_CREDENTIAL_FREE_HTTPS",
+      "official_endpoint": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "machine_formats": ["json"],
+      "allowed_modes": ["TimelineVolRaw", "TimelineTone"],
+      "article_body_scraping": false,
+      "smoothing": 0,
+      "raw_identity": "CANONICAL_REQUEST_ID_PLUS_RESPONSE_SHA256_PER_REQUEST",
+      "monitoring_universe": "SOURCE_DEFINED_AND_TIME_VARYING",
+      "point_in_time_rule": "COMPLETED_SOURCE_BUCKET_AVAILABLE_ONLY_AFTER_BUCKET_END"
+    },
+    {
+      "source_family": "ALFRED",
+      "owner": "Federal Reserve Bank of St. Louis",
+      "purpose": "Macro and financial context with historical real-time vintages",
+      "transport": "PUBLIC_CREDENTIAL_FREE_HTTPS",
+      "official_endpoint": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "machine_formats": ["csv"],
+      "api_key_required": false,
+      "current_revised_fred_substitution": false,
+      "raw_identity": "CANONICAL_REQUEST_ID_PLUS_FILE_SHA256_PER_VINTAGE_SNAPSHOT",
+      "point_in_time_rule": "DATE_LEVEL_VINTAGE_AVAILABLE_AT_NEXT_UTC_CALENDAR_DAY"
+    }
+  ]
+}
