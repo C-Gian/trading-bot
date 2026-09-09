@@ -1,0 +1,32 @@
+{
+  "admission_commit": "07a6a62ca6e153866249e156ecb88ca21cc847bc",
+  "dependency_manifest_sha256": "218d90c01078f123630d264255158a5e74b850e938d241c58ca23ee25b111753",
+  "execution_commit": "2c857acd5bbb72f2ff4978b59deedf17d7689714",
+  "family_classification": "NEW_FAMILY",
+  "preregistration_commit": "2c857acd5bbb72f2ff4978b59deedf17d7689714",
+  "preregistration_hashes": {
+    "EXP-ALG-010-PULLBACK-RECOVERY-CORE": "9ddf43765643727e5662483520608fff183c7f88fea44898ba65a6d221e276ba",
+    "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": "cdeec5fa4b85dd064d299b02e6f9ffb5f9ee07bf8c5987bb874f5f19a7545bdd"
+  },
+  "root_family": "FAM-PULLBACK-RECOVERY",
+  "started_at_utc": "2026-09-09T13:48:31.614138Z",
+  "status": "PASS",
+  "trial_ids": [
+    "RECOVERY_CORE:DEFAULT",
+    "RECOVERY_CORE:ZERO",
+    "RECOVERY_CORE:DOUBLE",
+    "RECOVERY_CORE:DELAY_1H",
+    "RECOVERY_CONFIRM:DEFAULT",
+    "RECOVERY_CONFIRM:ZERO",
+    "RECOVERY_CONFIRM:DOUBLE",
+    "RECOVERY_CONFIRM:DELAY_1H"
+  ],
+  "v2_accounting": {
+    "experiments": 2,
+    "material_economic_hypotheses": 1,
+    "numeric_parameter_variants": 0,
+    "strategy_descendants": 1,
+    "strategy_variants": 2,
+    "trials": 8
+  }
+}
