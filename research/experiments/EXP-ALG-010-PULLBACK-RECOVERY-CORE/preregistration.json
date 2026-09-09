@@ -1,0 +1,597 @@
+{
+  "code_config_reference": "15a2aacd9c02f53e89c9356a640363b959d8a2cffea8f5cf3698371160c7c600",
+  "cost_execution_reference": "BACKTEST_ENGINE_V2 / EXECUTION_MODEL_V2 / BTCUSDT_SPOT_COST_V1",
+  "created_at_utc": "2026-09-09T13:46:26.682297Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "evaluation_design": "DEVELOPMENT_EVALUATION_V1 / DEVELOPMENT_WALK_FORWARD_V1, unchanged; no fitting or fold-wise selection; RECOVERY_CORE is the preselected family primary; every profile and fold is retained.",
+  "experiment_id": "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+  "experiment_version": 1,
+  "hypothesis": "A sufficiently sampled fixed recovery rule has positive default-cost expectancy distributed across the six annual development folds, with robustness to doubled costs. Configuration: RECOVERY_CORE.",
+  "leakage_controls": [
+    "only completed contiguous 1h and 4h observations at signal time",
+    "inherited source-grid quarantine; no forward fill or manufactured bar",
+    "position availability blocks overlapping entries",
+    "216h purge / 24h embargo",
+    "full 24h outcome containment",
+    "cutoff enforced before any data inspection"
+  ],
+  "metrics": {
+    "primary": "Pooled valid resolved default-cost net expectancy R over six fixed chronological folds",
+    "secondary": [
+      "profiles",
+      "terminal_classification",
+      "execution_provenance"
+    ]
+  },
+  "parameter_space": {
+    "allocation_id": "WP006-PULLBACK-RECOVERY-ALLOCATION",
+    "behavior_hash": "78b2c3fc1b9b5ae64a85925764cb5e01ee1f07d922768ec6787b99b40ccc078b",
+    "classification": "BOUNDED_NEW_FAMILY_EXPLORATION",
+    "cost_profiles": {
+      "DEFAULT": {
+        "entry_fee_bps": "10",
+        "entry_friction_bps": "2",
+        "exit_fee_bps": "10",
+        "exit_friction_bps": "2"
+      },
+      "DELAY_1H": {
+        "entry_fee_bps": "10",
+        "entry_friction_bps": "2",
+        "exit_fee_bps": "10",
+        "exit_friction_bps": "2"
+      },
+      "DOUBLE": {
+        "entry_fee_bps": "20",
+        "entry_friction_bps": "4",
+        "exit_fee_bps": "20",
+        "exit_friction_bps": "4"
+      },
+      "ZERO": {
+        "entry_fee_bps": "0",
+        "entry_friction_bps": "0",
+        "exit_fee_bps": "0",
+        "exit_friction_bps": "0"
+      }
+    },
+    "dependencies": [
+      {
+        "path": "backend/app/data/policy.py",
+        "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+      },
+      {
+        "path": "backend/app/backtest/models.py",
+        "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+      },
+      {
+        "path": "backend/app/backtest/engine.py",
+        "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+      },
+      {
+        "path": "backend/app/research/evaluation_protocol.py",
+        "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+      },
+      {
+        "path": "backend/app/research/source_grid.py",
+        "sha256": "d73b43e386b49d6dc1dd9643e1327a9ffb37c1a4e3e8b2c1d5ad326de898891a"
+      },
+      {
+        "path": "backend/app/research/continuation.py",
+        "sha256": "2cc0a307ba5f12f521980090642e68d5ead365e14a6d79258680972c2e58fb2d"
+      },
+      {
+        "path": "backend/app/research/continuation_lab.py",
+        "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+      },
+      {
+        "path": "backend/app/research/pullback.py",
+        "sha256": "46cd7543a61eea8bfe6717b5f703327c19860eb1947c83f70383e35ba711decf"
+      },
+      {
+        "path": "backend/app/research/pullback_lab.py",
+        "sha256": "92bda298a67bf1800c42a801a57622a4f1ee6e0ce6d22a08995a5fb147f7fc08"
+      },
+      {
+        "path": "backend/app/backtest/__init__.py",
+        "sha256": "ca82d603250bb0218128822c3f226c90408d719b7a95b23bf3728b4c6b3c2445"
+      },
+      {
+        "path": "backend/app/research/records.py",
+        "sha256": "eae12d88aa2341700453370b1aa2f099c8d7891d9932597b319361a3b5391b69"
+      },
+      {
+        "path": "backend/app/research/runner.py",
+        "sha256": "00acad4fd01c21e69f7eac4c36987e53c7cb27016f83a07cf4d2c0eac985740a"
+      },
+      {
+        "path": "backend/app/research/search_memory.py",
+        "sha256": "4e468cd195ec735425e41a73178841bb397844ca49383b26458df19702a7233c"
+      },
+      {
+        "path": "backend/app/research/search_memory_v2.py",
+        "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+      },
+      {
+        "path": "backend/app/research/wp006.py",
+        "sha256": "499876aba0c93d15772c9df125a6fe76e77eff01db2842e3c6ed90093cab30c4"
+      },
+      {
+        "path": "backend/tests/test_pullback.py",
+        "sha256": "8c9358bede91ca4c6c96d2eff26f21d1a0d1a91674fd496119d163848aa22e54"
+      },
+      {
+        "path": "scripts/run_wp006.py",
+        "sha256": "24a114368840967d24eafae22de9f01b6b24ecaf0a4400548457066cea16cd79"
+      },
+      {
+        "path": "research/design/PULLBACK_RECOVERY_V1_DESIGN.md",
+        "sha256": "878a38afc095b439047d3de331e4ec9d8cc1ff587070b4bf37a895a4158219bc"
+      },
+      {
+        "path": "research/protocols/DEVELOPMENT_WALK_FORWARD_V1.json",
+        "sha256": "41d274c31262328b1813f2e4387fd12904e111f91e60462ecb42b9cba4e503c0"
+      },
+      {
+        "path": "research/memory/SEARCH_BUDGET_V2.json",
+        "sha256": "275209d17638fda837b1ce9b04f399931b8de9fa9b61f913ad835a4475cd777c"
+      },
+      {
+        "path": "research/memory/FAMILY_REGISTRY_V2.json",
+        "sha256": "eff2ccc6ae965858e43566ecbe852f47f5d05c4246c7fe0c4663700be15c37a1"
+      },
+      {
+        "path": "research/memory/WP006-PULLBACK-RECOVERY-ALLOCATION.json",
+        "sha256": "8f849a0cc067dc586480d2cef587a581af936548668e0f0a8655b5f4d91071b8"
+      },
+      {
+        "path": "research/memory/WP006-NOVELTY-ADMISSION.json",
+        "sha256": "05217ba78cbf02c6dc82685186f6b6a7ab3775249c11071fa9544826a85fcf91"
+      },
+      {
+        "path": "docs/contracts/DEVELOPMENT_EVALUATION_V1.md",
+        "sha256": "2687c4a7bec4e3e10dd394f78e9609d10063a14719285a2e3bcecfc0f28dc7fa"
+      },
+      {
+        "path": "docs/contracts/EXECUTION_MODEL_V2.md",
+        "sha256": "5bc7c6a034e2c0f82b70764be494968692f2ba24f1eaa90612a81412fd649500"
+      },
+      {
+        "path": "docs/contracts/COST_MODEL_V1.md",
+        "sha256": "01f776da15ce0fada20f1cfa178b90869155248c650712c1168482a44d4a481e"
+      },
+      {
+        "path": "docs/contracts/RESEARCH_SEARCH_MEMORY_V2.md",
+        "sha256": "0800b356f6d4540a81f2d8b509d5827f1ee4a8a6cdff911706e0188005debf9c"
+      },
+      {
+        "path": "uv.lock",
+        "sha256": "9c24b3581bffc75c52ce0c5076d867a553d5b7ac4f97b2b4788e37f11c74904a"
+      },
+      {
+        "path": "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json",
+        "sha256": "50279396df26965188214cb39199a775f2683e70dbfe66240dc03d1fa7bc6806"
+      }
+    ],
+    "dependency_hash": "4c9e85b3e3ef37d484289f764a6ef012c18fa9653bcee14630e00e2ebe217b78",
+    "executable_spec": {
+      "comparisons": [
+        {
+          "left": "previous_completed_1h_close",
+          "operator": "<=",
+          "right": "sma24_previous",
+          "threshold": null
+        },
+        {
+          "left": "current_completed_1h_close",
+          "operator": ">",
+          "right": "sma24",
+          "threshold": null
+        }
+      ],
+      "config_dependencies": [
+        {
+          "path": "research/configs/wp006/recovery_core.json",
+          "sha256": "1ee5938003a9bfaf1e01f35ca45d0785213e16ea6bdfa5e7da5308ab2872c4dc"
+        }
+      ],
+      "confirmation_gates": [],
+      "context_timeframe_minutes": 240,
+      "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+      "dataset": {
+        "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+        "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+        "maximum_timestamp": "2024-12-31T23:59:00Z"
+      },
+      "direction": "LONG",
+      "entry_event": "CLOSE_RECOVERS_ABOVE_DAILY_MEAN_AFTER_PULLBACK",
+      "execution_model_reference": "EXECUTION_MODEL_V2",
+      "exit": {
+        "detail": "",
+        "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+        "value": {
+          "name": "target_fraction",
+          "unit": "fraction",
+          "value": 0.04
+        }
+      },
+      "family": "FAM-PULLBACK-RECOVERY",
+      "feature_primitives": [
+        {
+          "lookback": {
+            "name": "sma_hours",
+            "unit": "hours",
+            "value": 24
+          },
+          "name": "HOURLY_MEAN_LEVEL",
+          "timeframe_minutes": 60,
+          "transformation": "ARITHMETIC_MEAN_OF_COMPLETED_CLOSES"
+        },
+        {
+          "lookback": {
+            "name": "sma_hours",
+            "unit": "hours",
+            "value": 24
+          },
+          "name": "LAGGED_HOURLY_MEAN_LEVEL",
+          "timeframe_minutes": 60,
+          "transformation": "ARITHMETIC_MEAN_OF_COMPLETED_CLOSES_ENDING_ONE_HOUR_EARLIER"
+        },
+        {
+          "lookback": {
+            "name": "context_increments",
+            "unit": "increments",
+            "value": 42
+          },
+          "name": "DIRECTIONAL_PERSISTENCE",
+          "timeframe_minutes": 240,
+          "transformation": "SIGNED_PRICE_EFFICIENCY"
+        }
+      ],
+      "holding_horizon_minutes": 1440,
+      "implementation_dependencies": [
+        {
+          "path": "backend/app/data/policy.py",
+          "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+        },
+        {
+          "path": "backend/app/backtest/models.py",
+          "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+        },
+        {
+          "path": "backend/app/backtest/engine.py",
+          "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+        },
+        {
+          "path": "backend/app/research/evaluation_protocol.py",
+          "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+        },
+        {
+          "path": "backend/app/research/source_grid.py",
+          "sha256": "d73b43e386b49d6dc1dd9643e1327a9ffb37c1a4e3e8b2c1d5ad326de898891a"
+        },
+        {
+          "path": "backend/app/research/continuation.py",
+          "sha256": "2cc0a307ba5f12f521980090642e68d5ead365e14a6d79258680972c2e58fb2d"
+        },
+        {
+          "path": "backend/app/research/continuation_lab.py",
+          "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+        },
+        {
+          "path": "backend/app/research/pullback.py",
+          "sha256": "46cd7543a61eea8bfe6717b5f703327c19860eb1947c83f70383e35ba711decf"
+        },
+        {
+          "path": "backend/app/research/pullback_lab.py",
+          "sha256": "92bda298a67bf1800c42a801a57622a4f1ee6e0ce6d22a08995a5fb147f7fc08"
+        }
+      ],
+      "numeric_parameters": [
+        {
+          "name": "sma_hours",
+          "unit": "hours",
+          "value": 24
+        },
+        {
+          "name": "context_increments",
+          "unit": "increments",
+          "value": 42
+        },
+        {
+          "name": "up_to_down_ratio",
+          "unit": "ratio",
+          "value": 2
+        },
+        {
+          "name": "stop_fraction",
+          "unit": "fraction",
+          "value": 0.02
+        },
+        {
+          "name": "target_fraction",
+          "unit": "fraction",
+          "value": 0.04
+        }
+      ],
+      "position_policy": "SINGLE_LONG_NO_OVERLAP",
+      "reference_price_rule": "LATEST_COMPLETED_1H_CLOSE",
+      "regime_gates": [
+        "PERSISTENT_UP_4H_GATE"
+      ],
+      "root_family": "FAM-PULLBACK-RECOVERY",
+      "schema_version": 2,
+      "signal_timeframe_minutes": 60,
+      "stop": {
+        "detail": "",
+        "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+        "value": {
+          "name": "stop_fraction",
+          "unit": "fraction",
+          "value": 0.02
+        }
+      },
+      "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+    },
+    "executable_spec_fingerprint": {
+      "comparisons": [
+        {
+          "left": "previous_completed_1h_close",
+          "operator": "<=",
+          "right": "sma24_previous",
+          "threshold": null
+        },
+        {
+          "left": "current_completed_1h_close",
+          "operator": ">",
+          "right": "sma24",
+          "threshold": null
+        }
+      ],
+      "confirmation_gates": [],
+      "context_timeframe_minutes": 240,
+      "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+      "dataset": {
+        "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+        "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+        "maximum_timestamp": "2024-12-31T23:59:00Z"
+      },
+      "direction": "LONG",
+      "entry_event": "CLOSE_RECOVERS_ABOVE_DAILY_MEAN_AFTER_PULLBACK",
+      "execution_model_reference": "EXECUTION_MODEL_V2",
+      "exit": {
+        "detail": "",
+        "family": "FIXED_TARGET_OR_STOP_OR_HORIZON",
+        "value": {
+          "name": "target_fraction",
+          "unit": "fraction",
+          "value": 0.04
+        }
+      },
+      "feature_primitives": [
+        {
+          "lookback": {
+            "name": "sma_hours",
+            "unit": "hours",
+            "value": 24
+          },
+          "name": "HOURLY_MEAN_LEVEL",
+          "timeframe_minutes": 60,
+          "transformation": "ARITHMETIC_MEAN_OF_COMPLETED_CLOSES"
+        },
+        {
+          "lookback": {
+            "name": "sma_hours",
+            "unit": "hours",
+            "value": 24
+          },
+          "name": "LAGGED_HOURLY_MEAN_LEVEL",
+          "timeframe_minutes": 60,
+          "transformation": "ARITHMETIC_MEAN_OF_COMPLETED_CLOSES_ENDING_ONE_HOUR_EARLIER"
+        },
+        {
+          "lookback": {
+            "name": "context_increments",
+            "unit": "increments",
+            "value": 42
+          },
+          "name": "DIRECTIONAL_PERSISTENCE",
+          "timeframe_minutes": 240,
+          "transformation": "SIGNED_PRICE_EFFICIENCY"
+        }
+      ],
+      "holding_horizon_minutes": 1440,
+      "numeric_parameters": [
+        {
+          "name": "sma_hours",
+          "unit": "hours",
+          "value": 24
+        },
+        {
+          "name": "context_increments",
+          "unit": "increments",
+          "value": 42
+        },
+        {
+          "name": "up_to_down_ratio",
+          "unit": "ratio",
+          "value": 2
+        },
+        {
+          "name": "stop_fraction",
+          "unit": "fraction",
+          "value": 0.02
+        },
+        {
+          "name": "target_fraction",
+          "unit": "fraction",
+          "value": 0.04
+        }
+      ],
+      "position_policy": "SINGLE_LONG_NO_OVERLAP",
+      "reference_price_rule": "LATEST_COMPLETED_1H_CLOSE",
+      "regime_gates": [
+        "PERSISTENT_UP_4H_GATE"
+      ],
+      "signal_timeframe_minutes": 60,
+      "stop": {
+        "detail": "",
+        "family": "FIXED_PERCENT_OF_SIGNAL_CLOSE",
+        "value": {
+          "name": "stop_fraction",
+          "unit": "fraction",
+          "value": 0.02
+        }
+      },
+      "timing_perturbation": "SIGNAL_DELAY_HOURS_0"
+    },
+    "executable_spec_hash": "a11badc6b318883948df7a40d3ca81c72fe51774e039ce8f267a4a744b91ed18",
+    "falsification": "DEVELOPMENT_EVALUATION_V1 deterministic terminal rule; an adequately sampled nonpositive default net expectancy rejects economic sufficiency, sparse evidence is inconclusive. Profitability is not a structural PASS gate.",
+    "feature_version": "PULLBACK_RECOVERY_FEATURES_V1",
+    "hypothesis_id": "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
+    "hypothesis_role": "ECONOMIC_CORE",
+    "implementation_commit": "5ffafafd6cedb7d3febea8cd75613746312abeb3",
+    "metric_hierarchy": [
+      "default pooled net expectancy",
+      "count/ESS/data-quality sufficiency",
+      "fold/year/regime stability",
+      "doubled costs",
+      "timing and confirmation diagnostics"
+    ],
+    "novelty": "NEW_FAMILY",
+    "novelty_admission_record": "research/memory/WP006-NOVELTY-ADMISSION.json",
+    "numeric_parameter_searches": 0,
+    "parent_experiment_ids": [],
+    "primary_family_variant": "RECOVERY_CORE",
+    "protocol_sha256": "8701587ddda8789d09e8a3087dccab7b4c6a01fb47a16a2baae77a62d2d5448c",
+    "robustness": {
+      "cost": [
+        "DEFAULT",
+        "ZERO",
+        "DOUBLE"
+      ],
+      "selection": "NO_BEST_PROFILE_OR_VARIANT_SELECTION",
+      "structural_variants": [
+        "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+        "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM"
+      ],
+      "timing": "SIGNAL_DELAY_1H_CONDITION_ONLY_REFERENCE_UNCHANGED"
+    },
+    "root_family": "FAM-PULLBACK-RECOVERY",
+    "strategy_path": "backend/app/research/pullback.py",
+    "strategy_sha256": "46cd7543a61eea8bfe6717b5f703327c19860eb1947c83f70383e35ba711decf",
+    "structural_hash": "ea3551f60109dc403a9f75865bdd74f68f4050bd2ad7c39b96ebbf78299a9112",
+    "trial_plan": [
+      {
+        "config_path": "research/configs/wp006/recovery_core.json",
+        "config_sha256": "1ee5938003a9bfaf1e01f35ca45d0785213e16ea6bdfa5e7da5308ab2872c4dc",
+        "trial_id": "RECOVERY_CORE:DEFAULT"
+      },
+      {
+        "config_path": "research/configs/wp006/recovery_core.json",
+        "config_sha256": "1ee5938003a9bfaf1e01f35ca45d0785213e16ea6bdfa5e7da5308ab2872c4dc",
+        "trial_id": "RECOVERY_CORE:ZERO"
+      },
+      {
+        "config_path": "research/configs/wp006/recovery_core.json",
+        "config_sha256": "1ee5938003a9bfaf1e01f35ca45d0785213e16ea6bdfa5e7da5308ab2872c4dc",
+        "trial_id": "RECOVERY_CORE:DOUBLE"
+      },
+      {
+        "config_path": "research/configs/wp006/recovery_core.json",
+        "config_sha256": "1ee5938003a9bfaf1e01f35ca45d0785213e16ea6bdfa5e7da5308ab2872c4dc",
+        "trial_id": "RECOVERY_CORE:DELAY_1H"
+      }
+    ],
+    "trial_units": {
+      "core_hypotheses_shared": 1,
+      "family_structural_variant_cap": 2,
+      "fold_executions": 24,
+      "parameter_searches": 0,
+      "profile_trials": 4,
+      "this_structural_variant": 1
+    },
+    "walk_forward": {
+      "development_cutoff": "2024-12-31T23:59:00Z",
+      "diagnostics": {
+        "ess_lags": 5,
+        "maximum_positive_fold_profit_share": 0.5,
+        "maximum_unresolved_rate": 0.01,
+        "minimum_double_cost_expectancy": 0,
+        "minimum_fold_trades": 15,
+        "minimum_nonnegative_folds": 4,
+        "minimum_total_trades": 120,
+        "minimum_trade_ess": 60
+      },
+      "embargo_hours": 24,
+      "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+      "fit_policy": "NO_FITTING_NO_FOLD_SELECTION",
+      "folds": [
+        {
+          "fold_id": "DEV-2019",
+          "last_signal_inclusive": "2019-12-31T00:00:00Z",
+          "train_end_exclusive": "2018-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2020-01-01T00:00:00Z",
+          "validation_start": "2019-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2020",
+          "last_signal_inclusive": "2020-12-31T00:00:00Z",
+          "train_end_exclusive": "2019-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2021-01-01T00:00:00Z",
+          "validation_start": "2020-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2021",
+          "last_signal_inclusive": "2021-12-31T00:00:00Z",
+          "train_end_exclusive": "2020-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2022-01-01T00:00:00Z",
+          "validation_start": "2021-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2022",
+          "last_signal_inclusive": "2022-12-31T00:00:00Z",
+          "train_end_exclusive": "2021-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2023-01-01T00:00:00Z",
+          "validation_start": "2022-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2023",
+          "last_signal_inclusive": "2023-12-31T00:00:00Z",
+          "train_end_exclusive": "2022-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2024-01-01T00:00:00Z",
+          "validation_start": "2023-01-02T00:00:00Z"
+        },
+        {
+          "fold_id": "DEV-2024",
+          "last_signal_inclusive": "2024-12-31T00:00:00Z",
+          "train_end_exclusive": "2023-12-24T00:00:00Z",
+          "train_start": "2017-08-17T04:00:00Z",
+          "validation_end_exclusive": "2025-01-01T00:00:00Z",
+          "validation_start": "2024-01-02T00:00:00Z"
+        }
+      ],
+      "max_hold_minutes": 1440,
+      "primary_aggregation": "POOLED_VALID_RESOLVED_NET_R",
+      "protocol_id": "DEVELOPMENT_WALK_FORWARD_V1",
+      "purge_hours": 216,
+      "schema_version": 1
+    }
+  },
+  "rationale": "An hourly close recovering above its one-day mean after the previous hour sat at or below it may mark the end of a temporary countertrend pullback inside an already persistent uptrend, giving a better continuation entry than buying a fresh high.",
+  "research_scope": "BTCUSDT Spot LONG/no-entry; exposed development only; no optimization, sealed query, paper action or Champion.",
+  "schema_version": 2,
+  "seeds": [
+    0
+  ],
+  "status": "PREREGISTERED",
+  "stopping_rule": "Run every declared profile exactly once; preserve failures and negatives; no post-result edits, added variants or added profiles.",
+  "trial_budget": 4
+}
