@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "protocol_id": "WP-008-LINEAR-NET-R-V1",
+  "family": "LINEAR_NET_R_SELECTION_V1",
+  "root_family": "FAM-SUPERVISED-LINEAR",
+  "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "base_protocol": "DEVELOPMENT_WALK_FORWARD_V1",
+  "training": {
+    "window": "EXPANDING_FROM_EARLIEST_ELIGIBLE",
+    "purge_boundary_hours": 216,
+    "boundary_semantics": "TRAIN_SIGNAL_STRICTLY_BEFORE_VALIDATION_START_MINUS_216H",
+    "minimum_outcome_separation_hours": 193,
+    "scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0_PER_FOLD_CONFIGURATION",
+    "label": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+    "label_profile": "DEFAULT",
+    "invalid_unresolved_policy": "EXCLUDE_COUNT_NEVER_IMPUTE",
+    "clipping": "NONE"
+  },
+  "features": {
+    "LINEAR_FULL": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H",
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED"
+    ],
+    "LINEAR_NO_FLOW": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H"
+    ]
+  },
+  "model": {
+    "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+    "regularization": "NONE",
+    "hyperparameter_searches": 0,
+    "full_rank_required": true,
+    "minimum_feature_std_exclusive": 1e-12,
+    "signal_rule": "predicted_default_net_R > 0.0",
+    "signal_threshold": 0.0,
+    "threshold_searches": 0
+  },
+  "execution": {
+    "direction": "LONG",
+    "reference": "JUST_COMPLETED_1H_CLOSE",
+    "entry": "NEXT_CANONICAL_1M_OPEN",
+    "stop_fraction": 0.02,
+    "target_fraction": 0.04,
+    "max_hold_minutes": 1440,
+    "position_policy": "IGNORE_WHILE_POSITION_OPEN_V1",
+    "engine": "BACKTEST_ENGINE_V2",
+    "execution_model": "EXECUTION_MODEL_V2",
+    "cost_model": "BTCUSDT_SPOT_COST_V1"
+  },
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "model_fits": 12,
+  "profile_evaluations": 8
+}
