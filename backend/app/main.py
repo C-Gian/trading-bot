@@ -74,6 +74,8 @@ def create_app(
             "remote_ci": state.get("remote_ci"),
             "latest_family": state.get("latest_family"),
             "order_flow_substrate": state.get("order_flow_substrate"),
+            "artifact_storage": state.get("artifact_storage"),
+            "supervised_challenger": state.get("supervised_challenger"),
             "sealed_evaluation": state.get("sealed_evaluation"),
             "sealed_system": public_status(),
             "family_budgets": budget_view() + v2_budget_view(),
