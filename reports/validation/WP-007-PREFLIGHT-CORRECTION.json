@@ -1,0 +1,13 @@
+{
+  "detected_before_any_market_result": true,
+  "reason": "After the original preregistrations and append-only admission ledger were committed, the clean-tree preflight novelty reproducer compared each WP-007 behaviour against that same WP-007 ledger and therefore rejected its own already-governed admission as a duplicate. The reproducer now excludes the exact WP-007 experiment IDs so it evaluates the same prior corpus used by the committed admission gate. No scientific declaration or executable strategy behaviour changed.",
+  "recorded_at_utc": "2026-09-09T15:36:25.739269Z",
+  "registry": "research/protocols/WP-007-PREEXECUTION-AMENDMENTS.json",
+  "result_artifacts_finalized": 0,
+  "schema_version": 1,
+  "scientific_scope_changed": false,
+  "status": "PRE_EXECUTION_CORRECTION",
+  "strategy_trials_executed": 0,
+  "superseded_documents_preserved": true,
+  "work_package": "WP-007"
+}

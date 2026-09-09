@@ -1,0 +1,31 @@
+{
+  "additional_numeric_parameter_variants": 0,
+  "additional_profile_trials": 0,
+  "additional_strategy_variants": 0,
+  "amendments": {
+    "EXP-ALG-012-ORDERFLOW-CORE": {
+      "effective_path": "research/experiments/EXP-ALG-012-ORDERFLOW-CORE/preregistration.v2.json",
+      "effective_sha256": "fae775ac9144757be957b1657cdcbe738d2c34d5f0cc000a1ca0547fd3ede539",
+      "superseded_path": "research/experiments/EXP-ALG-012-ORDERFLOW-CORE/preregistration.json",
+      "superseded_sha256": "bf4c1b1a6464232d82b0e6725e41513727fa1efec017be25138c0b5addaf784b"
+    },
+    "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE": {
+      "effective_path": "research/experiments/EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE/preregistration.v2.json",
+      "effective_sha256": "56d05e673445fa7fd22b1a0da0d45139c04224f243a2d793d6c8a9ba72f74a23",
+      "superseded_path": "research/experiments/EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE/preregistration.json",
+      "superseded_sha256": "53dd81d9c352e4d117db7edf2ac26d4973a71d9a92d814905e15089d128a302d"
+    }
+  },
+  "correction_record": "reports/validation/WP-007-PREFLIGHT-CORRECTION.json",
+  "evaluation_protocol_changed": false,
+  "hypothesis_changed": false,
+  "kind": "PRE_EXECUTION_NOVELTY_SELF_REFERENCE_CORRECTION",
+  "novelty_admission_changed": false,
+  "primary_metric_changed": false,
+  "primary_variant_changed": false,
+  "reason": "After the original preregistrations and append-only admission ledger were committed, the clean-tree preflight novelty reproducer compared each WP-007 behaviour against that same WP-007 ledger and therefore rejected its own already-governed admission as a duplicate. The reproducer now excludes the exact WP-007 experiment IDs so it evaluates the same prior corpus used by the committed admission gate. No scientific declaration or executable strategy behaviour changed.",
+  "results_observed_before_amendment": 0,
+  "schema_version": 1,
+  "strategy_trials_before_amendment": 0,
+  "work_package": "WP-007"
+}
