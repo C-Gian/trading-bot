@@ -3,14 +3,14 @@
 Generated from SEARCH_LEDGER.jsonl, HYPOTHESIS_FAMILIES.json, SEARCH_BUDGET.json and OUTCOMES.jsonl.
 DEVELOPMENT RESEARCH - NOT APPROVED STRATEGY PERFORMANCE. Champion NONE.
 
-Reserved: 6 experiments/configurations; 41 evaluation trials; 2 economic core hypotheses. Completed: 6. Sealed queries: 0.
+Reserved: 9 experiments/configurations; 53 evaluation trials; 3 economic core hypotheses. Completed: 6. Sealed queries: 0.
 
 | Root family | Experiments (parent lineage) | Budget consumed / limit | Status and lesson |
 |---|---|---|---|
 | FAM-REFERENCE | EXP-BASE-001-BUYHOLD | 1/1 experiments; 1/1 trials | REFERENCE_ONLY |
 | FAM-RANDOM | EXP-CTRL-002-RANDOM | 1/1 experiments; 32/32 trials | CONTROL_BEHAVES_AS_EXPECTED |
 | FAM-TREND | EXP-BASE-003-TREND; EXP-CTRL-005-TREND-DELAY-1H <- EXP-BASE-003-TREND | 2/2 experiments; 4/4 trials | REJECT_COST_DOMINATED; REJECT |
-| FAM-BREAKOUT | EXP-BASE-004-BREAKOUT | 1/4 experiments; 3/15 trials | REJECT_COST_DOMINATED |
+| FAM-BREAKOUT | EXP-BASE-004-BREAKOUT; EXP-ALG-009-ALIGNED <- EXP-BASE-004-BREAKOUT; EXP-ALG-007-REGIME <- EXP-ALG-009-ALIGNED, EXP-BASE-004-BREAKOUT; EXP-ALG-008-PARTICIPATION <- EXP-ALG-009-ALIGNED, EXP-BASE-004-BREAKOUT | 4/4 experiments; 15/15 trials | REJECT_COST_DOMINATED; PREREGISTERED; PREREGISTERED; PREREGISTERED |
 | FAM-NO-TRADE | EXP-CTRL-006-NO-TRADE | 1/1 experiments; 1/1 trials | CONTROL_BEHAVES_AS_EXPECTED |
 
 ## Legitimate directions and blocked repeats
