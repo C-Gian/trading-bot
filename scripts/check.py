@@ -257,9 +257,9 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert "## STATUS\nCOMPLETED" in (ROOT / "tasks/CURRENT_TASK.md").read_text(
         encoding="utf-8"
     ).replace("\r\n", "\n")
-    assert (ROOT / "tasks/archive/WP-005.md").read_bytes().replace(
-        b"\r\n", b"\n"
-    ) == (ROOT / "tasks/CURRENT_TASK.md").read_bytes().replace(b"\r\n", b"\n")
+    assert (ROOT / "tasks/archive/WP-005.md").read_bytes().replace(b"\r\n", b"\n") == (
+        ROOT / "tasks/CURRENT_TASK.md"
+    ).read_bytes().replace(b"\r\n", b"\n")
     baseline = subprocess.check_output(
         ["git", "show", f"{SEED}:SCIENTIFIC_CONSTITUTION.md"],
         cwd=ROOT,
