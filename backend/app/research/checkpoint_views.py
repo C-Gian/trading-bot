@@ -450,6 +450,35 @@ def memory_views(root: Path = ROOT) -> dict[str, str]:
                 "",
             ]
         )
+    wp009_direction = (
+        root
+        / "research/memory/registry/directions/WP009-EXOGENOUS-AND-DYNAMIC-MULTISIGNAL-FOUNDATION.json"
+    )
+    if wp009_direction.is_file():
+        rows.extend(
+            [
+                "",
+                "## WP-009 exogenous information foundation",
+                "",
+                LABEL,
+                "",
+                "EXOGENOUS_AND_DYNAMIC_MULTISIGNAL_FOUNDATION is recorded as one result-dependent, non-trial research direction.",
+                "It adds no strategy family, hypothesis, configuration, profile, model fit, numeric variant, market result, or edge evidence.",
+                "GDELT news and ALFRED macro assets are point-in-time infrastructure only; source and taxonomy choices were frozen without BTC outcomes.",
+                "Exactly three future adaptive architecture options are documented but none is selected or executed.",
+                "",
+            ]
+        )
+        failures.extend(
+            [
+                "",
+                "## WP-009 retained boundary on the WP-008 failure",
+                "",
+                "The fixed internal-feature OLS combination was cost-dominated. This does not falsify dynamic weighting or exogenous information.",
+                "Linear-family rescue remains blocked: exogenous infrastructure is not permission to retune, rename, or reopen FAM-SUPERVISED-LINEAR.",
+                "",
+            ]
+        )
     return {
         "RESEARCH_MAP.md": render_research_map(memory) + "\n".join(rows),
         "FAILURE_MEMORY.md": render_failure_memory(memory) + "\n".join(failures),

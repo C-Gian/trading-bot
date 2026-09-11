@@ -144,3 +144,13 @@ Foldwise isolated-label correlations range from -0.0330652157 to +0.1090860500 a
 Current family disposition: Park FAM-SUPERVISED-LINEAR. Do not tune its features, threshold, regularization, algorithm, interactions, label, stop, target, or horizon.
 
 Blocked repeats: LINEAR_NET_R_SELECTION_V1 threshold or feature rescue; LINEAR_NO_FLOW promotion over the preselected primary; model zoo or regularization search; automatic sealed query, Champion promotion, or paper trading
+
+
+## WP-009 exogenous information foundation
+
+DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE
+
+EXOGENOUS_AND_DYNAMIC_MULTISIGNAL_FOUNDATION is recorded as one result-dependent, non-trial research direction.
+It adds no strategy family, hypothesis, configuration, profile, model fit, numeric variant, market result, or edge evidence.
+GDELT news and ALFRED macro assets are point-in-time infrastructure only; source and taxonomy choices were frozen without BTC outcomes.
+Exactly three future adaptive architecture options are documented but none is selected or executed.

@@ -25,6 +25,7 @@ ALLOCATIONS = REGISTRY / "allocations"
 ADMISSIONS = REGISTRY / "admissions"
 LEDGER = REGISTRY / "ledger"
 OUTCOMES = REGISTRY / "outcomes"
+DIRECTIONS = REGISTRY / "directions"
 V2_FAMILIES = "research/memory/FAMILY_REGISTRY_V2.json"
 V2_BUDGET = "research/memory/SEARCH_BUDGET_V2.json"
 V2_LEDGER = "research/memory/ADMISSION_LEDGER_V2.jsonl"
@@ -146,6 +147,11 @@ def allocations(root: Path = ROOT) -> list[dict[str, Any]]:
     return [read_json(root / WP006_ALLOCATION), *_directory(root, ALLOCATIONS)]
 
 
+def directions(root: Path = ROOT) -> list[dict[str, Any]]:
+    """Non-trial result-dependent research directions, kept outside family budgets."""
+    return _directory(root, DIRECTIONS)
+
+
 def v2_accounting(root: Path = ROOT) -> dict[str, int]:
     entries = admission_ledger(root)
     return {
@@ -205,6 +211,9 @@ def cumulative_accounting(root: Path = ROOT) -> dict[str, int]:
             ),
             "profiles": allocation["profile_evaluations"],
         }
+    for direction in directions(root):
+        decisions += direction["adaptive_decision_increment"]
+        forks += direction["result_dependent_fork_increment"]
     totals = {
         "material_economic_hypotheses": first["material_economic_hypotheses"]
         + later["material_economic_hypotheses"],

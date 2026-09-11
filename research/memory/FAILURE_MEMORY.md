@@ -172,3 +172,9 @@ FULL is nonnegative in only 1/6 folds; 2023 is the sole positive year and positi
 Foldwise isolated-label correlations range from -0.0330652157 to +0.1090860500 and change sign, consistent with weak unstable ranking rather than robust OOS prediction.
 
 Park FAM-SUPERVISED-LINEAR. Do not tune its features, threshold, regularization, algorithm, interactions, label, stop, target, or horizon.
+
+
+## WP-009 retained boundary on the WP-008 failure
+
+The fixed internal-feature OLS combination was cost-dominated. This does not falsify dynamic weighting or exogenous information.
+Linear-family rescue remains blocked: exogenous infrastructure is not permission to retune, rename, or reopen FAM-SUPERVISED-LINEAR.

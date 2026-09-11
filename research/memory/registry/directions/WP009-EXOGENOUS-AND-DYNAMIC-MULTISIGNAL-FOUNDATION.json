@@ -1,0 +1,22 @@
+{
+  "adaptive_decision_increment": 1,
+  "btc_outcomes_used_for_source_or_feature_selection": false,
+  "configuration_variants": 0,
+  "decision_id": "WP009-EXOGENOUS-AND-DYNAMIC-MULTISIGNAL-FOUNDATION",
+  "direction": "EXOGENOUS_AND_DYNAMIC_MULTISIGNAL_FOUNDATION",
+  "kind": "RESULT_DEPENDENT_NON_TRIAL_RESEARCH_DIRECTION",
+  "material_economic_hypotheses": 0,
+  "model_fits": 0,
+  "numeric_parameter_variants": 0,
+  "profile_evaluations": 0,
+  "result_dependent_fork_increment": 1,
+  "sealed_queries": 0,
+  "source_result": {
+    "family": "FAM-SUPERVISED-LINEAR",
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "work_package": "WP-008"
+  },
+  "status": "INFRASTRUCTURE_DIRECTION_ONLY",
+  "strategy_experiments": 0,
+  "work_package": "WP-009"
+}

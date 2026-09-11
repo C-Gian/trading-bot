@@ -44,7 +44,7 @@ def test_cumulative_search_accounting_is_exact():
     assert totals["profile_trials"] == 77
     assert totals["supervised_model_fits"] == 12
     assert totals["numeric_parameter_variants"] == 0
-    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 5
+    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 6
 
 
 def test_both_order_flow_candidates_are_sealed_ineligible():
