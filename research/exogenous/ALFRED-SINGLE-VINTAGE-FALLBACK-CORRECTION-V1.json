@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "work_package": "WP-009",
+  "status": "PRE_FALLBACK_VALUE_ACQUISITION_FORM_CORRECTION",
+  "supersedes_transport_parameters_in": "research/exogenous/ALFRED-SINGLE-VINTAGE-FALLBACK-V1.json",
+  "catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+  "catalog_series_changed": false,
+  "btc_prices_returns_or_outcomes_used": false,
+  "accepted_fallback_rows_before_correction": 0,
+  "primary_request_id": "f2706372e45ba9585bad7b22ae032da008f90155452ecacbe7548fdcb265eb3e",
+  "series_id": "VIXCLS",
+  "vintage_date": "2018-01-23",
+  "finding": "The initial frozen form encoding did not activate the download action. The effective official form requires the explicit submit value and accepts the listed vintage through selected_vintage_dates.",
+  "fallback_endpoint": "https://alfred.stlouisfed.org/series/downloaddata?seid=VIXCLS",
+  "fallback_method": "POST_OFFICIAL_ALFRED_DOWNLOAD_FORM",
+  "fallback_parameters": {
+    "form[download_data]": "Download data",
+    "form[entered_vintage_dates]": "",
+    "form[file_format]": "csv",
+    "form[file_type]": "2",
+    "form[obs_end_date]": "2024-12-31",
+    "form[obs_start_date]": "2017-08-17",
+    "form[selected_vintage_dates][]": "2018-01-23",
+    "form[units]": "lin"
+  },
+  "acceptance_rule": "Accept no data payload unless it parses to exactly VIXCLS vintage 2018-01-23. An official no-observations response is retained as an explicit source gap and never filled from a current revision.",
+  "scope": "ONE_FROZEN_SERIES_VINTAGE_ONLY",
+  "availability_rule_changed": false,
+  "current_revised_substitution_allowed": false,
+  "scientific_scope_change": false
+}
