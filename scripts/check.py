@@ -21,6 +21,7 @@ WP005_BASE_SUCCESSOR = "444172a359e2663887624da82254cc2185ff85e1"
 WP006_HEAD = "d92088d5ef0426bf64f34326a3224dd9aba93603"
 WP007_BASE = "d92088d5ef0426bf64f34326a3224dd9aba93603"
 WP007_HEAD = "762b3b77f686305b1c73f19956d0b9b16b7a9b1c"
+WP008_HEAD = "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -183,8 +184,8 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
-        state["latest_reviewed_checkpoint"] == "WP-007"
-        and state["latest_executor_checkpoint"] == "WP-008"
+        state["latest_reviewed_checkpoint"] == "WP-008"
+        and state["latest_executor_checkpoint"] == "WP-009"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -245,6 +246,11 @@ def validate_research_views(state: dict) -> None:
     }
     assert wp008["model_fits"] == 12 and wp008["profile_trials"] == 8
 
+    from app.research.wp009_validation import validate_wp009
+
+    wp009 = validate_wp009(data_available=False)
+    assert wp009["status"] == "PASS" and not wp009["data_replayed"]
+
     from app.research.wp005_validation import validate_wp005
 
     wp005 = validate_wp005(data_available=False)
@@ -257,11 +263,12 @@ def validate_research_views(state: dict) -> None:
     }
     assert "remote_ci" not in state["wp005_integrity"], "stale pending CI state was reintroduced"
     remote = state["remote_ci"]["work_packages"]
-    assert set(remote) == {"WP-005", "WP-006", "WP-007"}
+    assert set(remote) == {"WP-005", "WP-006", "WP-007", "WP-008"}
     for work_package, expected_head in (
         ("WP-005", WP005_BASE_SUCCESSOR),
         ("WP-006", WP006_HEAD),
         ("WP-007", WP007_HEAD),
+        ("WP-008", WP008_HEAD),
     ):
         record = remote[work_package]
         evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
@@ -278,7 +285,16 @@ def dataset_scope_checks() -> None:
 
     approved = ROOT / "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json"
     order_flow = ROOT / "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json"
-    assert set((ROOT / "data/manifests").glob("*.json")) == {approved, order_flow}
+    gdelt = ROOT / "data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json"
+    alfred = ROOT / "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json"
+    exogenous = ROOT / "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json"
+    assert set((ROOT / "data/manifests").glob("*.json")) == {
+        approved,
+        order_flow,
+        gdelt,
+        alfred,
+        exogenous,
+    }
     manifest = validate_json(approved, ROOT / "contracts/dataset_manifest.schema.json")
     flow_manifest = json.loads(order_flow.read_text(encoding="utf-8"))
     assert text_sha(approved) == MANIFEST_SHA256 and manifest["symbol"] == "BTCUSDT"
@@ -290,6 +306,10 @@ def dataset_scope_checks() -> None:
     approved_parquet = {
         *(ROOT / item["path"] for item in manifest["files"].values()),
         *(ROOT / item["path"] for item in flow_manifest["files"].values()),
+        ROOT / json.loads(gdelt.read_text(encoding="utf-8"))["file"]["path"],
+        ROOT / json.loads(alfred.read_text(encoding="utf-8"))["file"]["path"],
+        ROOT / json.loads(alfred.read_text(encoding="utf-8"))["request_index"]["path"],
+        ROOT / json.loads(exogenous.read_text(encoding="utf-8"))["file"]["path"],
     }
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
@@ -366,12 +386,34 @@ def governance_checks(pre_experiment: bool) -> dict:
         "research/memory/WP-008-LESSONS.json",
         "reports/checkpoints/WP-008.md",
         "tasks/archive/WP-008.md",
+        "reports/reviews/WP-008-RESEARCH-DIRECTOR-REVIEW.md",
+        "reports/reviews/WP-008-CI-EVIDENCE.json",
+        "docs/contracts/POINT_IN_TIME_EXOGENOUS_DATA_V1.md",
+        "docs/contracts/DYNAMIC_SIGNAL_IMPORTANCE_GOVERNANCE_V1.md",
+        "research/exogenous/SOURCE_CATALOG_V1.json",
+        "research/exogenous/GDELT_QUERY_CATALOG_V1.json",
+        "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+        "research/exogenous/GDELT-ACQUISITION-AMENDMENT-V1.json",
+        "research/exogenous/ALFRED-ACQUISITION-AMENDMENT-V1.json",
+        "research/exogenous/ALFRED-SINGLE-VINTAGE-FALLBACK-V1.json",
+        "research/exogenous/ALFRED-SINGLE-VINTAGE-FALLBACK-CORRECTION-V1.json",
+        "research/design/ADAPTIVE_MULTISIGNAL_ARCHITECTURE_OPTIONS_V1.md",
+        "data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json",
+        "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+        "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json",
+        "reports/validation/WP-009-GDELT-INTEGRITY.json",
+        "reports/validation/WP-009-ALFRED-INTEGRITY.json",
+        "reports/validation/WP-009-EXOGENOUS-ASOF-RECONCILIATION.json",
+        "reports/research/WP-009-EXOGENOUS-COVERAGE.md",
+        "reports/research/WP-009-EXOGENOUS-FOUNDATION.md",
+        "reports/checkpoints/WP-009.md",
+        "tasks/archive/WP-009.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     assert "## STATUS\nCOMPLETED" in (ROOT / "tasks/CURRENT_TASK.md").read_text(
         encoding="utf-8"
     ).replace("\r\n", "\n")
-    assert (ROOT / "tasks/archive/WP-008.md").read_bytes().replace(b"\r\n", b"\n") == (
+    assert (ROOT / "tasks/archive/WP-009.md").read_bytes().replace(b"\r\n", b"\n") == (
         ROOT / "tasks/CURRENT_TASK.md"
     ).read_bytes().replace(b"\r\n", b"\n")
     wp005_ci = json.loads(
@@ -403,6 +445,7 @@ def governance_checks(pre_experiment: bool) -> dict:
         WP006_BASE,
         WP007_BASE,
         WP007_HEAD,
+        WP008_HEAD,
     ):
         run(["git", "merge-base", "--is-ancestor", ancestor, "HEAD"])
     state = validate_json(
@@ -481,7 +524,16 @@ def data_checks(state: dict) -> None:
     schema = ROOT / "contracts/dataset_manifest.schema.json"
     path = ROOT / "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json"
     flow_path = ROOT / "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json"
-    assert set((ROOT / "data/manifests").glob("*.json")) == {path, flow_path}
+    gdelt_path = ROOT / "data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json"
+    alfred_path = ROOT / "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json"
+    context_path = ROOT / "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json"
+    assert set((ROOT / "data/manifests").glob("*.json")) == {
+        path,
+        flow_path,
+        gdelt_path,
+        alfred_path,
+        context_path,
+    }
     manifest = validate_json(path, schema)
     flow_manifest = json.loads(flow_path.read_text(encoding="utf-8"))
     assert manifest["symbol"] == "BTCUSDT"
@@ -499,6 +551,10 @@ def data_checks(state: dict) -> None:
     parquet = {
         *(ROOT / x["path"] for x in manifest["files"].values()),
         *(ROOT / x["path"] for x in flow_manifest["files"].values()),
+        ROOT / json.loads(gdelt_path.read_text(encoding="utf-8"))["file"]["path"],
+        ROOT / json.loads(alfred_path.read_text(encoding="utf-8"))["file"]["path"],
+        ROOT / json.loads(alfred_path.read_text(encoding="utf-8"))["request_index"]["path"],
+        ROOT / json.loads(context_path.read_text(encoding="utf-8"))["file"]["path"],
     }
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
@@ -540,6 +596,9 @@ def data_checks(state: dict) -> None:
     from app.research.wp008_validation import validate_installed_data_reconciliation
 
     assert validate_installed_data_reconciliation()["status"] == "PASS"
+    from app.research.wp009_validation import validate_wp009
+
+    assert validate_wp009(data_available=True)["status"] == "PASS"
 
 
 def main() -> None:
@@ -565,7 +624,7 @@ def main() -> None:
     if not options.no_data:
         data_checks(state)
     assert not git("status", "--porcelain"), "working tree must be clean at checkpoint validation"
-    print("WP-008 deterministic validation: PASS (profitability is not a validation gate)")
+    print("WP-009 deterministic validation: PASS (information integrity, not profitability)")
 
 
 if __name__ == "__main__":

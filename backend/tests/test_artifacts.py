@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 import pyarrow as pa
@@ -60,3 +61,21 @@ def test_artifacts_reject_nonfinite_and_duplicate_keys(tmp_path: Path) -> None:
             sort_key=("fold", "timestamp"),
             root=tmp_path,
         )
+
+
+def test_logical_hash_canonicalizes_arrow_date_and_timestamp_scalars(tmp_path: Path) -> None:
+    schema = pa.schema(
+        [
+            pa.field("day", pa.date32(), nullable=False),
+            pa.field("timestamp", pa.timestamp("us", tz="UTC"), nullable=False),
+        ]
+    )
+    manifest = write_parquet(
+        tmp_path / "temporal.parquet",
+        [{"day": date(2020, 1, 2), "timestamp": datetime(2020, 1, 2, 3, tzinfo=UTC)}],
+        schema=schema,
+        sort_key=("timestamp",),
+        root=tmp_path,
+    )
+    assert len(manifest["logical_sha256"]) == 64
+    assert validate_parquet(manifest, schema=schema, root=tmp_path).num_rows == 1

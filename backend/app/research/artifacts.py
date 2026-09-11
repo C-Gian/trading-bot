@@ -6,6 +6,7 @@ import hashlib
 import json
 import math
 from collections.abc import Iterable, Mapping, Sequence
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
@@ -37,6 +38,8 @@ def file_sha256(path: Path) -> str:
 
 
 def _canonical_scalar(value: Any) -> Any:
+    if isinstance(value, (date, datetime)):
+        return value.isoformat()
     if isinstance(value, float):
         if not math.isfinite(value):
             raise ArtifactError("non-finite values are forbidden in research artifacts")
