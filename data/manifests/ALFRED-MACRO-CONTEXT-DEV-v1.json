@@ -1,0 +1,235 @@
+{
+  "availability_rule": "NEXT_CALENDAR_DAY_00_00_UTC_AFTER_VINTAGE_START",
+  "contract": "docs/contracts/POINT_IN_TIME_EXOGENOUS_DATA_V1.md",
+  "coverage": {
+    "observation_end": "2024-12-31",
+    "observation_start": "2017-08-17",
+    "vintage_end": "2024-12-31",
+    "vintage_start": "2017-08-17"
+  },
+  "credential_free": true,
+  "current_revised_substitution": false,
+  "effective_acquisition_amendment": "research/exogenous/ALFRED-ACQUISITION-AMENDMENT-V1.json",
+  "file": {
+    "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+    "columns": [
+      {
+        "name": "series_id",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "observation_date",
+        "nullable": false,
+        "type": "date32[day]"
+      },
+      {
+        "name": "value",
+        "nullable": false,
+        "type": "double"
+      },
+      {
+        "name": "vintage_start",
+        "nullable": false,
+        "type": "date32[day]"
+      },
+      {
+        "name": "vintage_end",
+        "nullable": true,
+        "type": "date32[day]"
+      },
+      {
+        "name": "availability_time",
+        "nullable": false,
+        "type": "timestamp[us, tz=UTC]"
+      },
+      {
+        "name": "source_request_id",
+        "nullable": false,
+        "type": "string"
+      }
+    ],
+    "file_sha256": "448f1ea80252ce5fbc7f1982c41540dc71852c3a4e2fbf1a1357fd1ed9c877dd",
+    "format": "PARQUET_ZSTD",
+    "logical_sha256": "98257605fc61c68bf4e32992c2c7dbb7c7440f65d0d25cabbdb5e5ded794745d",
+    "path": "data/derived/ALFRED-macro-context-v1.parquet",
+    "rows": 70882,
+    "schema_version": 1,
+    "sort_key": [
+      "series_id",
+      "observation_date",
+      "vintage_start"
+    ],
+    "writer": {
+      "compression": "zstd",
+      "compression_level": 9,
+      "data_page_version": "1.0",
+      "pyarrow_version": "21.0.0",
+      "use_dictionary": false,
+      "version": "2.6",
+      "write_statistics": true
+    }
+  },
+  "manifest_id": "ALFRED-MACRO-CONTEXT-DEV-v1",
+  "post_2024_vintages": 0,
+  "request_count": 21552,
+  "request_index": {
+    "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+    "columns": [
+      {
+        "name": "series_id",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "vintage_date",
+        "nullable": false,
+        "type": "date32[day]"
+      },
+      {
+        "name": "request_id",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "request_status",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "http_status",
+        "nullable": false,
+        "type": "int32"
+      },
+      {
+        "name": "retrieval_time",
+        "nullable": false,
+        "type": "timestamp[us, tz=UTC]"
+      },
+      {
+        "name": "raw_path",
+        "nullable": true,
+        "type": "string"
+      },
+      {
+        "name": "response_sha256",
+        "nullable": true,
+        "type": "string"
+      },
+      {
+        "name": "file_sha256",
+        "nullable": true,
+        "type": "string"
+      }
+    ],
+    "file_sha256": "a6d1d624aafe8e5480d946cb89d564e5aa4d0747154e29fd7cdd1258a845984e",
+    "format": "PARQUET_ZSTD",
+    "logical_sha256": "07edfd9eff9f72e746be9ebdb0a33f085c4ee0f8de08fd16646f419dccf5752a",
+    "path": "data/derived/ALFRED-request-index-v1.parquet",
+    "rows": 21552,
+    "schema_version": 1,
+    "sort_key": [
+      "series_id",
+      "vintage_date"
+    ],
+    "writer": {
+      "compression": "zstd",
+      "compression_level": 9,
+      "data_page_version": "1.0",
+      "pyarrow_version": "21.0.0",
+      "use_dictionary": false,
+      "version": "2.6",
+      "write_statistics": true
+    }
+  },
+  "schema_version": 1,
+  "series": [
+    "DFF",
+    "DGS10",
+    "T10Y2Y",
+    "VIXCLS",
+    "NFCI",
+    "WALCL",
+    "CPIAUCSL",
+    "UNRATE"
+  ],
+  "series_catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+  "series_catalog_sha256": "cfc08c40c669770a144210026b81326379e50e7d61e770d3d4b40baf5e94b8b1",
+  "series_statistics": {
+    "CPIAUCSL": {
+      "first_usable_availability": "2017-10-14T00:00:00Z",
+      "last_usable_availability_at_or_before_cutoff": "2024-12-12T00:00:00Z",
+      "observation_dates": 87,
+      "revisions": 260,
+      "vintage_states": 347
+    },
+    "DFF": {
+      "first_usable_availability": "2017-08-19T00:00:00Z",
+      "last_usable_availability_at_or_before_cutoff": "2024-12-31T00:00:00Z",
+      "observation_dates": 2693,
+      "revisions": 0,
+      "vintage_states": 2693
+    },
+    "DGS10": {
+      "first_usable_availability": "2017-08-19T00:00:00Z",
+      "last_usable_availability_at_or_before_cutoff": "2024-12-31T00:00:00Z",
+      "observation_dates": 1842,
+      "revisions": 2,
+      "vintage_states": 1844
+    },
+    "NFCI": {
+      "first_usable_availability": "2017-08-24T00:00:00Z",
+      "last_usable_availability_at_or_before_cutoff": "2024-12-27T00:00:00Z",
+      "observation_dates": 384,
+      "revisions": 61260,
+      "vintage_states": 61644
+    },
+    "T10Y2Y": {
+      "first_usable_availability": "2017-08-19T00:00:00Z",
+      "last_usable_availability_at_or_before_cutoff": "2024-12-31T00:00:00Z",
+      "observation_dates": 1843,
+      "revisions": 2,
+      "vintage_states": 1845
+    },
+    "UNRATE": {
+      "first_usable_availability": "2017-10-07T00:00:00Z",
+      "last_usable_availability_at_or_before_cutoff": "2024-12-07T00:00:00Z",
+      "observation_dates": 87,
+      "revisions": 54,
+      "vintage_states": 141
+    },
+    "VIXCLS": {
+      "first_usable_availability": "2017-08-18T00:00:00Z",
+      "last_usable_availability_at_or_before_cutoff": "2024-12-31T00:00:00Z",
+      "observation_dates": 1874,
+      "revisions": 110,
+      "vintage_states": 1984
+    },
+    "WALCL": {
+      "first_usable_availability": "2017-08-25T00:00:00Z",
+      "last_usable_availability_at_or_before_cutoff": "2024-12-27T00:00:00Z",
+      "observation_dates": 384,
+      "revisions": 0,
+      "vintage_states": 384
+    }
+  },
+  "source_availability_exception": {
+    "path": "research/exogenous/ALFRED-SINGLE-VINTAGE-FALLBACK-CORRECTION-V1.json",
+    "sha256": "061420c5477a88fb10725d9ed11878df48c1e0b9e63e10220da7e737c409ff1d"
+  },
+  "source_unavailable_request_count": 1,
+  "source_unavailable_requests": [
+    {
+      "classification": "SOURCE_VINTAGE_UNAVAILABLE_NO_OBSERVATIONS",
+      "fallback_file_sha256": "35c89667d368cbe834e52373b449329a956ab61d91b1fb0ac408666d5e270746",
+      "fallback_response_sha256": "46f5744227592831aab0f56a213a48bff2e30b8e8788cee43636b5bb32c6cd2a",
+      "primary_http_status": 404,
+      "primary_response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "request_id": "f2706372e45ba9585bad7b22ae032da008f90155452ecacbe7548fdcb265eb3e",
+      "series_id": "VIXCLS",
+      "vintage_date": "2018-01-23"
+    }
+  ],
+  "successful_request_count": 21551,
+  "version": "ALFRED_MACRO_CONTEXT_V1"
+}
