@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import subprocess
@@ -197,10 +198,19 @@ def validate_wp008(root: Path = ROOT) -> dict[str, Any]:
         immutable_from_first_commit(ATTEMPT_PATH, root) == result_commit,
         "attempt and results were not frozen together",
     )
+    recorded_dependency_sets = [
+        {item["path"]: item["sha256"] for item in variant["spec"]["implementation_dependencies"]}
+        for variant in admission["variants"]
+    ]
     for dependency in SPEC_DEPENDENCY_PATHS:
+        recorded_hashes = {items[dependency] for items in recorded_dependency_sets}
+        require(len(recorded_hashes) == 1, f"recorded dependency identity split: {dependency}")
+        result_content = subprocess.check_output(
+            ["git", "show", f"{result_commit}:{dependency}"], cwd=root
+        )
         require(
-            not git("log", "--format=%H", f"{result_commit}..HEAD", "--", dependency, root=root),
-            f"result-affecting dependency changed after observed results: {dependency}",
+            hashlib.sha256(result_content).hexdigest() == recorded_hashes.pop(),
+            f"result-time dependency differs from admitted identity: {dependency}",
         )
     require(
         classifications[PRIMARY_VARIANT] == "REJECT_COST_DOMINATED",

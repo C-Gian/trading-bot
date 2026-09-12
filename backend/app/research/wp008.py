@@ -214,12 +214,39 @@ def novelty_decisions(root: Path = ROOT) -> list[dict[str, Any]]:
     return decisions
 
 
+def _recorded_spec(payload: dict[str, Any]) -> ExecutableModelSpec:
+    """Reconstruct an immutable admitted spec without consulting current source files."""
+    values = dict(payload)
+    values["features"] = tuple(values["features"])
+    values["implementation_dependencies"] = tuple(
+        DependencyIdentity(**item) for item in values["implementation_dependencies"]
+    )
+    values["config_dependencies"] = tuple(
+        DependencyIdentity(**item) for item in values["config_dependencies"]
+    )
+    return ExecutableModelSpec(**values)
+
+
 def validate_admission(root: Path = ROOT) -> dict[str, Any]:
     admission = read_json(root / ADMISSION_PATH)
-    expected = novelty_decisions(root)
     if not admission["admitted"] or admission["market_results_observed_at_admission"] != 0:
         raise NoveltyRejected("WP-008 admission did not precede all market results")
-    for actual, decision in zip(admission["variants"], expected, strict=True):
+    prior_signatures = signatures(root, exclude_experiment_ids=set(SPEC))
+    aliases = alias_map(root)
+    for actual in admission["variants"]:
+        spec = _recorded_spec(actual["spec"])
+        decision = admit_model_spec(
+            spec,
+            declared_family=ROOT_FAMILY,
+            signatures=prior_signatures,
+            aliases=aliases,
+            declared_fingerprint=model_fingerprint(spec),
+        )
+        decision.update(
+            experiment_id=actual["experiment_id"],
+            variant=actual["variant"],
+            spec=json.loads(json.dumps(spec.to_dict())),
+        )
         for key in (
             "experiment_id",
             "variant",
@@ -233,6 +260,14 @@ def validate_admission(root: Path = ROOT) -> dict[str, Any]:
         ):
             if actual[key] != decision[key]:
                 raise NoveltyRejected(f"admission drift: {key}")
+        prior_signatures.append(
+            {
+                "experiment_id": actual["experiment_id"],
+                "root_family": ROOT_FAMILY,
+                "behavior_hash": decision["behavior_hash"],
+                "structural_hash": decision["structural_hash"],
+            }
+        )
     return admission
 
 
