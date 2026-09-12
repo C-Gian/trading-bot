@@ -8,6 +8,8 @@ result is transient. ALIGNED is a paper-research candidate, never a Champion.
 
 from __future__ import annotations
 
+import hashlib
+import json
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from typing import Any
@@ -61,6 +63,24 @@ def _bars(klines: tuple[Kline, ...], shift_us: int) -> tuple[FeatureBar, ...]:
         FeatureBar(kline.open_ms * 1000 - shift_us, kline.high, kline.close, kline.volume, True)
         for kline in klines
     )
+
+
+def analysis_identity(result: dict[str, Any]) -> str:
+    """Stable identity of one evaluated signal, so a trade cannot be created twice."""
+    plan = result.get("plan") or {}
+    payload = {
+        "strategy_version": result["strategy_version"],
+        "variant": result["variant"],
+        "feature_version": result["feature_version"],
+        "signal_time": result["signal_time"],
+        "decision": result["decision"],
+        "reference_price": plan.get("reference_price"),
+        "stop_price": plan.get("stop_price"),
+        "target_price": plan.get("target_price"),
+        "max_hold_minutes": plan.get("max_hold_minutes"),
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
 
 
 def _instant(micros: int) -> str:
@@ -131,6 +151,7 @@ def analyse(
         "relative_volume": feature.relative_volume,
     }
     if not emits:
+        result["analysis_id"] = analysis_identity(result)
         return result
     price = Decimal(str(reference))
     result["decision"] = DIRECTION
@@ -154,4 +175,5 @@ def analyse(
         "short": False,
         "order_placed": False,
     }
+    result["analysis_id"] = analysis_identity(result)
     return result

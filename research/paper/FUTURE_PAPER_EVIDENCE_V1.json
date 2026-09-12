@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "record_id": "FUTURE_PAPER_EVIDENCE_V1",
+  "work_package": "WP-010B1",
+  "status": "PROSPECTIVE_CONTRACT_ACCEPTED_NO_TRADES_RECORDED",
+  "contract": "docs/contracts/FUTURE_PAPER_EVIDENCE_V1.md",
+  "evidence_stage": "PROSPECTIVE_PAPER_RESEARCH_NOT_DEVELOPMENT_EVIDENCE",
+  "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+  "variant": "ALIGNED",
+  "research_status": "PAPER_RESEARCH_CANDIDATE",
+  "champion_status": "NONE",
+  "strategy_logic_changed": false,
+  "store": {
+    "path": "data/paper/PAPER_TRADES_V1.json",
+    "format": "LOCAL_JSON",
+    "test_storage": "ISOLATED_INJECTED_PATH",
+    "trades_recorded_at_acceptance": 0
+  },
+  "separation_from_development_research": {
+    "development_experiments_root": "research/experiments",
+    "development_cutoff": "2024-12-31T23:59:00Z",
+    "paper_records_feed_development_experiments": false,
+    "paper_records_feed_model_fitting": false,
+    "paper_records_feed_parameter_or_threshold_selection": false,
+    "paper_records_feed_historical_reports": false,
+    "paper_records_feed_sealed_evaluation": false
+  },
+  "counter_discipline": {
+    "counter": "state.paper_trades_completed",
+    "value_at_acceptance": 0,
+    "incremented_by_this_work_package": false,
+    "incremented_by_tests_or_fixtures": false,
+    "increment_authority": "OWNER_REVIEWED_GENUINE_FORWARD_EVIDENCE_ONLY"
+  },
+  "lifecycle": {
+    "statuses": [
+      "PENDING_ENTRY",
+      "OPEN",
+      "CLOSED_TARGET",
+      "CLOSED_STOP",
+      "CLOSED_EXPIRY",
+      "INVALIDATED"
+    ],
+    "terminal_statuses_immutable": true,
+    "max_active_trades": 1,
+    "duplicate_creation_key": "analysis_id",
+    "trigger": "EXPLICIT_API_CALL_ONLY",
+    "background_or_startup_execution": false,
+    "deterministic": true,
+    "idempotent": true
+  },
+  "execution": {
+    "engine_version": "BACKTEST_ENGINE_V2",
+    "execution_model_version": "EXECUTION_MODEL_V2",
+    "cost_model_version": "BTCUSDT_SPOT_COST_V1",
+    "engine_modified": false,
+    "entry_execution": "NEXT_1M_OPEN_EXECUTION",
+    "ambiguous_fill_policy": "STOP_FIRST_V1",
+    "stop_fraction": 0.02,
+    "target_fraction": 0.04,
+    "max_hold_minutes": 1440,
+    "missing_or_gapped_minutes_manufacture_outcome": false
+  },
+  "market_data": {
+    "source": "PUBLIC_CREDENTIAL_FREE_BTCUSDT_SPOT",
+    "access": "READ_ONLY",
+    "written_to_development_store": false
+  },
+  "safety": {
+    "real_money": false,
+    "credentials": false,
+    "account_or_balance_endpoints": false,
+    "exchange_orders": false,
+    "leverage": false,
+    "short": false,
+    "champion_promotion": false
+  }
+}

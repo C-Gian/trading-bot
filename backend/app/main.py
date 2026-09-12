@@ -12,6 +12,14 @@ from . import __version__
 from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
 from .data.store import available, candles
 from .product.analysis import RESEARCH_STATUS, STRATEGY_VERSION, VARIANT, analyse
+from .product.paper import (
+    STORE_PATH,
+    PaperTradeError,
+    PaperTradeStore,
+    create_from_analysis,
+    listing,
+    update_lifecycle,
+)
 from .research.checkpoint_views import budget_view, experiment_view
 from .research.wp006_views import v2_budget_view
 from .sealed import public_status
@@ -23,6 +31,8 @@ def create_app(
     data_probe: Callable[[], bool] = available,
     research_summary_path: Path | None = None,
     analyser: Callable[[], dict] = analyse,
+    paper_store: PaperTradeStore | None = None,
+    lifecycle: Callable[[PaperTradeStore], dict] = update_lifecycle,
 ) -> FastAPI:
     application = FastAPI(title="Trading Bot", version=__version__)
     application.add_middleware(
@@ -32,6 +42,7 @@ def create_app(
         allow_headers=["*"],
     )
     repository = StateRepository(state_path)
+    trades = paper_store or PaperTradeStore(Path(__file__).resolve().parents[2] / STORE_PATH)
 
     def state_repository() -> StateRepository:
         return repository
@@ -150,6 +161,34 @@ def create_app(
             "order_placement": False,
             "real_money_authorized": state["real_money_authorized"],
         }
+
+    @application.post("/api/v1/product/paper-trades")
+    def create_paper_trade(repo: StateRepository = Depends(state_repository)):
+        """Create one paper trade from a freshly evaluated LONG analysis.
+
+        The plan is never supplied by the caller, so no price or geometry can be forged.
+        """
+        state = repo.load()
+        if state["real_money_authorized"]:
+            raise HTTPException(409, "real-money authorization is not supported by this surface")
+        analysis = analyser()
+        try:
+            trade = create_from_analysis(analysis, trades)
+        except PaperTradeError as exc:
+            raise HTTPException(409, str(exc)) from exc
+        return {"analysis_id": analysis["analysis_id"], "trade": trade, "real_money": False}
+
+    @application.get("/api/v1/product/paper-trades")
+    def read_paper_trades(limit: int = 20):
+        return listing(trades, limit=max(1, min(limit, 100)))
+
+    @application.post("/api/v1/product/paper-trades/lifecycle")
+    def advance_paper_trades(repo: StateRepository = Depends(state_repository)):
+        """Explicit lifecycle update only; nothing advances in the background."""
+        state = repo.load()
+        if state["real_money_authorized"]:
+            raise HTTPException(409, "real-money authorization is not supported by this surface")
+        return lifecycle(trades)
 
     return application
 
