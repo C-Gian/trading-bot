@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import __version__
 from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
 from .data.store import available, candles
+from .product.analysis import RESEARCH_STATUS, STRATEGY_VERSION, VARIANT, analyse
 from .research.checkpoint_views import budget_view, experiment_view
 from .research.wp006_views import v2_budget_view
 from .sealed import public_status
@@ -21,12 +22,13 @@ def create_app(
     state_path: Path | None = None,
     data_probe: Callable[[], bool] = available,
     research_summary_path: Path | None = None,
+    analyser: Callable[[], dict] = analyse,
 ) -> FastAPI:
     application = FastAPI(title="Trading Bot", version=__version__)
     application.add_middleware(
         CORSMiddleware,
         allow_origins=["http://localhost:5173"],
-        allow_methods=["GET"],
+        allow_methods=["GET", "POST"],
         allow_headers=["*"],
     )
     repository = StateRepository(state_path)
@@ -115,6 +117,38 @@ def create_app(
             "coverage": state["development_dataset"]["coverage"],
             "cutoff": state["development_cutoff"],
             "candles": rows,
+        }
+
+    @application.post("/api/v1/product/analysis")
+    def product_analysis(repo: StateRepository = Depends(state_repository)):
+        """One on-demand paper-research analysis. Explicit user action only.
+
+        Never runs on startup, never persists a paper trade, and never places an order.
+        """
+        state = repo.load()
+        if state["real_money_authorized"]:
+            raise HTTPException(409, "real-money authorization is not supported by this surface")
+        result = analyser()
+        return {
+            **result,
+            "champion_status": state["champion_status"],
+            "paper_trades_completed": state["paper_trades_completed"],
+            "real_money_authorized": state["real_money_authorized"],
+        }
+
+    @application.get("/api/v1/product/analysis/capability")
+    def product_analysis_capability(repo: StateRepository = Depends(state_repository)):
+        state = repo.load()
+        return {
+            "surface": state.get("product_analysis", {}).get("surface", "UNAVAILABLE"),
+            "trigger": "EXPLICIT_USER_ACTION_ONLY",
+            "strategy_version": STRATEGY_VERSION,
+            "variant": VARIANT,
+            "research_status": RESEARCH_STATUS,
+            "champion_status": state["champion_status"],
+            "paper_trade_persistence": False,
+            "order_placement": False,
+            "real_money_authorized": state["real_money_authorized"],
         }
 
     return application
