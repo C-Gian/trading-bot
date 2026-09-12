@@ -123,6 +123,24 @@ def _validate_acquired_document(document: dict[str, Any], spec: dict[str, Any]) 
                 raise ExogenousDataError("GDELT response point escaped frozen request bounds")
 
 
+def _validated_cached_response(
+    spec: dict[str, Any], raw_path: Path, meta_path: Path
+) -> tuple[bytes, dict[str, Any], dict[str, Any]]:
+    raw = gzip.decompress(raw_path.read_bytes())
+    meta = read_json(meta_path)
+    document = _valid_payload(raw)
+    if (
+        meta["request_id"] != spec["request_id"]
+        or meta["url"] != request_url(spec)
+        or meta["response_sha256"] != sha256_bytes(raw)
+        or meta["compressed_file_sha256"] != file_sha256(raw_path)
+        or meta["date_resolution"] != document["query_details"]["date_resolution"]
+    ):
+        raise ExogenousDataError("GDELT cached request identity or hash mismatch")
+    _validate_acquired_document(document, spec)
+    return raw, meta, document
+
+
 class _RateLimiter:
     def __init__(self, interval: float) -> None:
         self.interval = interval
@@ -143,14 +161,8 @@ class _RateLimiter:
 def _fetch_one(spec: dict[str, Any], root: Path, limiter: _RateLimiter) -> str:
     raw_path, meta_path = root / spec["raw_path"], root / spec["meta_path"]
     if raw_path.is_file() and meta_path.is_file():
-        meta = read_json(meta_path)
-        raw = gzip.decompress(raw_path.read_bytes())
-        if meta["request_id"] == spec["request_id"] and meta["response_sha256"] == sha256_bytes(
-            raw
-        ):
-            document = _valid_payload(raw)
-            _validate_acquired_document(document, spec)
-            return "reused"
+        _validated_cached_response(spec, raw_path, meta_path)
+        return "reused"
     raw_path.parent.mkdir(parents=True, exist_ok=True)
     last_error = ""
     for attempt in range(1, 13):
@@ -275,12 +287,7 @@ def build(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
         raw_path, meta_path = root / spec["raw_path"], root / spec["meta_path"]
         if not raw_path.is_file() or not meta_path.is_file():
             raise ExogenousDataError(f"missing frozen GDELT response: {spec['request_id']}")
-        raw = gzip.decompress(raw_path.read_bytes())
-        meta = read_json(meta_path)
-        if sha256_bytes(raw) != meta["response_sha256"]:
-            raise ExogenousDataError("GDELT raw response hash mismatch")
-        document = _valid_payload(raw)
-        _validate_acquired_document(document, spec)
+        _, meta, document = _validated_cached_response(spec, raw_path, meta_path)
         grouped[(spec["channel_id"], spec["mode"], spec["start_utc"])] = {
             "spec": spec,
             "data": _aggregate(document, mode=spec["mode"]),

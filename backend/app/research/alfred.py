@@ -229,13 +229,14 @@ def _fetch_one(spec: dict[str, Any], root: Path, limiter: _RateLimiter) -> str:
     raw_path, meta_path = root / spec["raw_path"], root / spec["meta_path"]
     if raw_path.is_file() and meta_path.is_file():
         meta = read_json(meta_path)
+        body = raw_path.read_bytes()
         if (
             meta["request_id"] == spec["request_id"]
+            and meta["url"] == request_url(spec)
+            and meta["response_sha256"] == sha256_bytes(body)
             and file_sha256(raw_path) == meta["file_sha256"]
         ):
-            parse_snapshot(
-                raw_path.read_bytes(), spec["series_id"], date.fromisoformat(spec["vintage_date"])
-            )
+            parse_snapshot(body, spec["series_id"], date.fromisoformat(spec["vintage_date"]))
             return "reused"
     raw_path.parent.mkdir(parents=True, exist_ok=True)
     last_error = ""
@@ -334,9 +335,15 @@ def normalized_records(root: Path = ROOT) -> tuple[list[dict[str, Any]], list[di
             if not raw_path.is_file() or not meta_path.is_file():
                 raise ExogenousDataError(f"missing ALFRED vintage snapshot: {series_id} {vintage}")
             meta = read_json(meta_path)
-            if file_sha256(raw_path) != meta["file_sha256"]:
-                raise ExogenousDataError("ALFRED raw file hash mismatch")
-            snapshot = parse_snapshot(raw_path.read_bytes(), series_id, vintage)
+            body = raw_path.read_bytes()
+            if (
+                meta["request_id"] != spec["request_id"]
+                or meta["url"] != request_url(spec)
+                or sha256_bytes(body) != meta["response_sha256"]
+                or file_sha256(raw_path) != meta["file_sha256"]
+            ):
+                raise ExogenousDataError("ALFRED raw request identity or hash mismatch")
+            snapshot = parse_snapshot(body, series_id, vintage)
             changed = {
                 observation
                 for observation, value in snapshot.items()
