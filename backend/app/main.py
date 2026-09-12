@@ -20,6 +20,7 @@ from .product.paper import (
     listing,
     update_lifecycle,
 )
+from .product.statistics import statistics
 from .research.checkpoint_views import budget_view, experiment_view
 from .research.wp006_views import v2_budget_view
 from .sealed import public_status
@@ -181,6 +182,11 @@ def create_app(
     @application.get("/api/v1/product/paper-trades")
     def read_paper_trades(limit: int = 20):
         return listing(trades, limit=max(1, min(limit, 100)))
+
+    @application.get("/api/v1/product/paper-trades/statistics")
+    def paper_statistics():
+        """Counts over genuine persisted paper trades only; never backtest performance."""
+        return statistics(trades)
 
     @application.post("/api/v1/product/paper-trades/lifecycle")
     def advance_paper_trades(repo: StateRepository = Depends(state_repository)):
