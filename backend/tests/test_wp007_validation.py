@@ -15,7 +15,8 @@ def test_repository_checkpoint_validates():
         "FLOW_CORE": "REJECT_COST_DOMINATED",
         "FLOW_PRICE_RESPONSE": "REJECT_COST_DOMINATED",
     }
-    assert result["sealed"] == {"assessed": 15, "eligible": 0, "queries": 0}
+    # WP-011 added two further assessed candidates; none is eligible and none queried.
+    assert result["sealed"] == {"assessed": 17, "eligible": 0, "queries": 0}
 
 
 def test_results_answer_the_preregistered_cost_and_timing_questions():

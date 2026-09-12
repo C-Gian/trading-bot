@@ -100,7 +100,7 @@ def test_gdelt_rejects_daily_resolution() -> None:
 
 def test_gdelt_rate_limit_is_measured_after_response_completion(monkeypatch) -> None:
     instants = iter((100.0, 101.0))
-    sleeps = []
+    sleeps: list[float] = []
     monkeypatch.setattr(gdelt.time, "monotonic", lambda: next(instants))
     monkeypatch.setattr(gdelt.time, "sleep", sleeps.append)
     limiter = _RateLimiter(5.2)

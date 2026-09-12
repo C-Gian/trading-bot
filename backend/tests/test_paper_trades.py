@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from typing import Any
 
 import pytest
 from app.main import create_app
@@ -38,7 +39,7 @@ TARGET = REFERENCE * 1.04
 
 
 def _analysis(decision: str = "LONG", *, analysis_id: str = "a" * 64) -> dict:
-    result = {
+    result: dict[str, Any] = {
         "analysis_version": "PAPER_RESEARCH_ANALYSIS_V1",
         "classification": "EXPERIMENTAL PAPER RESEARCH — NOT AN APPROVED LIVE STRATEGY",
         "symbol": "BTCUSDT",
@@ -385,12 +386,15 @@ def test_endpoint_blocks_duplicate_and_concurrent_creation(tmp_path: Path) -> No
 def test_nothing_advances_without_an_explicit_lifecycle_call(tmp_path: Path) -> None:
     store = _store(tmp_path)
     calls: list[int] = []
+
+    def counting_lifecycle(store: PaperTradeStore) -> dict:
+        calls.append(1)
+        return update_lifecycle(store, now=NOW, feed=_feed(_flat(10)))
+
     app = create_app(
         analyser=lambda: _analysis(),
         paper_store=store,
-        lifecycle=lambda s: (calls.append(1), update_lifecycle(s, now=NOW, feed=_feed(_flat(10))))[
-            1
-        ],
+        lifecycle=counting_lifecycle,
     )
     with TestClient(app) as client:
         assert calls == []

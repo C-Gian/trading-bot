@@ -706,7 +706,18 @@
         "macro_incremental_effect": {"const": "NEGATIVE"},
         "model_reconciliation": {"const": "PASS"},
         "macro_asof_audit": {"const": "PASS"},
-        "sealed_eligibility": {"const": "DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW"}
+        "ablation_terminal_classification": {
+          "enum": ["REJECT", "REJECT_COST_DOMINATED", "REJECT_UNSTABLE", "INCONCLUSIVE"]
+        },
+        "research_director_verdict": {"const": "ACCEPTED"},
+        "family_status": {"const": "PARKED_REJECTED_NO_TUNING_AUTHORIZED"},
+        "sealed_eligibility": {
+          "enum": [
+            "DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+            "NOT_ELIGIBLE_REJECTED"
+          ]
+        },
+        "ablation_sealed_eligibility": {"const": "NOT_ELIGIBLE_INCONCLUSIVE"}
       }
     },
     "product_analysis": {

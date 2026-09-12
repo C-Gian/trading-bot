@@ -318,6 +318,65 @@ def dataset_scope_checks() -> None:
     )
 
 
+WP009_FINAL_ARTIFACTS = (
+    "data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json",
+    "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json",
+    "reports/validation/WP-009-GDELT-INTEGRITY.json",
+    "reports/validation/WP-009-EXOGENOUS-ASOF-RECONCILIATION.json",
+    "reports/research/WP-009-EXOGENOUS-COVERAGE.md",
+    "reports/research/WP-009-EXOGENOUS-FOUNDATION.md",
+    "reports/checkpoints/WP-009.md",
+    "tasks/archive/WP-009.md",
+)
+WP009_PAUSED_ARTIFACTS = (
+    "research/exogenous/GDELT-NEWS-CONTEXT-AMENDMENT-V1_1.json",
+    "research/exogenous/GDELT-NEWS-CONTEXT-V1_1-PAUSE-V1.json",
+    "reports/validation/WP-009-GDELT-DAILY-PILOT-ACQUISITION.json",
+    "reports/checkpoints/WP-009-GDELT-V1_1-PAUSE.md",
+)
+
+
+def wp009_governance_checks(root: Path = ROOT) -> str:
+    """Validate WP-009 against whatever state truthfully declares, and nothing else.
+
+    A paused WP-009 must not be asked for artifacts a completed WP-009 would have, and a
+    WP-009 that claims completion must still produce every one of them. Neither branch
+    relaxes any cutoff or sealed check.
+    """
+    state = json.loads((root / "state/current_state.json").read_text(encoding="utf-8"))
+    pause = state.get("exogenous_acquisition_pause")
+    finalized = bool(pause is None or pause.get("wp009_finalized"))
+    task = (root / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8").replace("\r\n", "\n")
+
+    if finalized:
+        missing = [x for x in WP009_FINAL_ARTIFACTS if not (root / x).is_file()]
+        assert not missing, f"WP-009 is declared finalized but these are missing: {missing}"
+        assert "## STATUS\nCOMPLETED" in task
+        assert (root / "tasks/archive/WP-009.md").read_bytes().replace(b"\r\n", b"\n") == (
+            root / "tasks/CURRENT_TASK.md"
+        ).read_bytes().replace(b"\r\n", b"\n")
+        return "COMPLETED"
+
+    missing = [x for x in WP009_PAUSED_ARTIFACTS if not (root / x).is_file()]
+    assert not missing, f"WP-009 is declared paused but its evidence is missing: {missing}"
+    assert pause["status"] == "PARTIAL"
+    assert pause["pause_reason"] == "PAUSED_FOR_PRODUCT_PRIORITY"
+    assert pause["wp009_finalized"] is False
+    assert pause["pilot_preserved_requests"] <= pause["pilot_expected_requests"]
+    record = json.loads(
+        (root / "research/exogenous/GDELT-NEWS-CONTEXT-V1_1-PAUSE-V1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert record["status"] == "PARTIAL" and record["wp009_finalized"] is False
+    assert record["btc_prices_returns_or_outcomes_used"] is False
+    # A paused WP-009 must not silently carry finalized artifacts either.
+    premature = [x for x in WP009_FINAL_ARTIFACTS if (root / x).is_file()]
+    assert not premature, f"WP-009 is declared paused but finalized artifacts exist: {premature}"
+    assert "## STATUS\nCOMPLETED" not in task
+    return "PAUSED"
+
+
 def governance_checks(pre_experiment: bool) -> dict:
     required = [
         "governance/SCIENTIFIC_CONSTITUTION.md",
@@ -398,24 +457,11 @@ def governance_checks(pre_experiment: bool) -> dict:
         "research/exogenous/ALFRED-SINGLE-VINTAGE-FALLBACK-V1.json",
         "research/exogenous/ALFRED-SINGLE-VINTAGE-FALLBACK-CORRECTION-V1.json",
         "research/design/ADAPTIVE_MULTISIGNAL_ARCHITECTURE_OPTIONS_V1.md",
-        "data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json",
         "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
-        "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json",
-        "reports/validation/WP-009-GDELT-INTEGRITY.json",
         "reports/validation/WP-009-ALFRED-INTEGRITY.json",
-        "reports/validation/WP-009-EXOGENOUS-ASOF-RECONCILIATION.json",
-        "reports/research/WP-009-EXOGENOUS-COVERAGE.md",
-        "reports/research/WP-009-EXOGENOUS-FOUNDATION.md",
-        "reports/checkpoints/WP-009.md",
-        "tasks/archive/WP-009.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
-    assert "## STATUS\nCOMPLETED" in (ROOT / "tasks/CURRENT_TASK.md").read_text(
-        encoding="utf-8"
-    ).replace("\r\n", "\n")
-    assert (ROOT / "tasks/archive/WP-009.md").read_bytes().replace(b"\r\n", b"\n") == (
-        ROOT / "tasks/CURRENT_TASK.md"
-    ).read_bytes().replace(b"\r\n", b"\n")
+    wp009_governance_checks()
     wp005_ci = json.loads(
         (ROOT / "reports/reviews/WP-005-CI-EVIDENCE.json").read_text(encoding="utf-8")
     )

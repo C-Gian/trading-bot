@@ -308,7 +308,7 @@ def test_capability_declares_no_persistence_order_or_real_money(client: TestClie
 
 
 def test_no_order_execution_or_credential_endpoint_exists(client: TestClient) -> None:
-    paths = {route.path for route in client.app.routes}
+    paths = {getattr(route, "path", "") for route in create_app().routes}
     assert not [
         path
         for path in paths

@@ -12,6 +12,7 @@ import ast
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from pathlib import Path
+from typing import Any
 
 import pytest
 from app.backtest.engine import simulate
@@ -32,7 +33,7 @@ POST_CUTOFF = datetime(2026, 3, 5, 12, tzinfo=UTC)
 REFERENCE = Decimal(50000)
 STOP = REFERENCE * Decimal("0.98")
 TARGET = REFERENCE * Decimal("1.04")
-IDENTITY = {
+IDENTITY: dict[str, Any] = {
     "run_id": "EQUIVALENCE",
     "strategy_reference": "ALIGNED_PARTICIPATION_CONTINUATION_V1:ALIGNED",
     "dataset_manifest_id": "FIXTURE",

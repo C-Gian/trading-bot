@@ -237,7 +237,9 @@ def validate_wp008(root: Path = ROOT) -> dict[str, Any]:
     eligibility = build_eligibility_table(root)
     require(
         read_json(root / "research/sealed/SEALED_CANDIDATE_ELIGIBILITY.json") == eligibility
-        and len(eligibility["candidates"]) == 15
+        # The table grows as later families are recorded; WP-008 owns only the invariant
+        # that every assessed candidate stays sealed-ineligible.
+        and len(eligibility["candidates"]) >= 15
         and not any(
             item["sealed_eligibility"].startswith("DEVELOPMENT_ELIGIBLE")
             for item in eligibility["candidates"]
@@ -246,9 +248,11 @@ def validate_wp008(root: Path = ROOT) -> dict[str, Any]:
     )
     state = read_json(root / "state/current_state.json")
     require(
-        state["experiments_completed"] == 15
+        # Later work packages legitimately add experiments and root families; what
+        # WP-008 guards is that state stays consistent with the append-only records.
+        state["experiments_completed"] >= 15
         and state["adaptive_search"] == cumulative_accounting(root)
-        and state["search_memory"]["families_tracked"] == len(all_families(root)) == 8,
+        and state["search_memory"]["families_tracked"] == len(all_families(root)) >= 8,
         "state/search accounting differs from append-only records",
     )
     require(
@@ -276,9 +280,11 @@ def validate_wp008(root: Path = ROOT) -> dict[str, Any]:
     ]
     require(not forbidden_training_rows, "row-by-row training matrix/labels were committed")
     require(
-        "## STATUS\nCOMPLETED"
-        in (root / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8").replace("\r\n", "\n")
-        and (root / "tasks/archive/WP-008.md").is_file()
+        # WP-008 owns its own archived task, not whichever work package currently
+        # occupies CURRENT_TASK.md.
+        (root / "tasks/archive/WP-008.md").is_file()
+        and "## STATUS\nCOMPLETED"
+        in (root / "tasks/archive/WP-008.md").read_text(encoding="utf-8").replace("\r\n", "\n")
         and (root / "reports/checkpoints/WP-008.md").is_file(),
         "WP-008 task/checkpoint archive is incomplete",
     )

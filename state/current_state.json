@@ -37,13 +37,13 @@
   "forward_evidence": "NONE",
   "real_money_authorized": false,
   "owner_decision_required": false,
-  "latest_reviewed_checkpoint": "WP-007",
+  "latest_reviewed_checkpoint": "WP-011",
   "latest_executor_checkpoint": "WP-011",
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP011_ADAPTIVE_REJECTION_THEN_EITHER_RESUME_WP009_GDELT_OR_SELECT_A_GENUINELY_DISTINCT_NON_LINEAR_OR_NON_MACRO_DIRECTION",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_SELECTED_REGIME_CONDITIONED_CHALLENGER",
   "search_memory": {
     "version": "SEARCH_MEMORY_V2",
     "status": "VALIDATED",
-    "families_tracked": 8
+    "families_tracked": 9
   },
   "adaptive_search": {
     "adaptive_decisions": 7,
@@ -166,7 +166,11 @@
     "macro_incremental_effect": "NEGATIVE",
     "model_reconciliation": "PASS",
     "macro_asof_audit": "PASS",
-    "sealed_eligibility": "DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW"
+    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+    "ablation_terminal_classification": "INCONCLUSIVE",
+    "research_director_verdict": "ACCEPTED",
+    "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
+    "ablation_sealed_eligibility": "NOT_ELIGIBLE_INCONCLUSIVE"
   },
   "product_analysis": {
     "version": "PAPER_RESEARCH_ANALYSIS_V1",
