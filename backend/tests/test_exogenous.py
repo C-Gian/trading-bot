@@ -15,7 +15,7 @@ from app.research.exogenous_oracle import (
     _alfred_oracle,
     _gdelt_chunk_boundary_samples,
 )
-from app.research.gdelt import _RateLimiter, _aggregate, _valid_payload, _validate_acquired_document
+from app.research.gdelt import _aggregate, _RateLimiter, _valid_payload, _validate_acquired_document
 
 
 def test_catalogs_have_exact_preselected_sources_queries_and_series() -> None:
