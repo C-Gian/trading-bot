@@ -95,13 +95,19 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.wp006 import SPEC as WP006_SPEC
     from app.research.wp007 import SPEC as WP007_SPEC
     from app.research.wp008 import SPEC as WP008_SPEC
+    from app.research.wp011 import EXPERIMENTS as WP011_EXPERIMENTS
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
     assert directories == (
-        set(EXPERIMENTS) | set(SPEC) | set(WP006_SPEC) | set(WP007_SPEC) | set(WP008_SPEC)
+        set(EXPERIMENTS)
+        | set(SPEC)
+        | set(WP006_SPEC)
+        | set(WP007_SPEC)
+        | set(WP008_SPEC)
+        | set(WP011_EXPERIMENTS.values())
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
-    assert len(results) == state["experiments_completed"] == 15
+    assert len(results) == state["experiments_completed"] == 17
     for experiment_id, budget in EXPERIMENTS.items():
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path, result_path = directory / "preregistration.json", directory / "result.json"
@@ -184,8 +190,8 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
-        state["latest_reviewed_checkpoint"] == "WP-008"
-        and state["latest_executor_checkpoint"] == "WP-009"
+        state["latest_reviewed_checkpoint"] == "WP-011"
+        and state["latest_executor_checkpoint"] == "WP-011"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -234,7 +240,7 @@ def validate_research_views(state: dict) -> None:
     wp007 = validate_wp007()
     assert wp007["status"] == "PASS"
     assert wp007["family_terminal_classification"] == "REJECT_COST_DOMINATED"
-    assert wp007["sealed"] == {"assessed": 15, "eligible": 0, "queries": 0}
+    assert wp007["sealed"] == {"assessed": 17, "eligible": 0, "queries": 0}
 
     from app.research.wp008_validation import validate_wp008
 
@@ -246,10 +252,16 @@ def validate_research_views(state: dict) -> None:
     }
     assert wp008["model_fits"] == 12 and wp008["profile_trials"] == 8
 
-    from app.research.wp009_validation import validate_wp009
+    # validate_wp009 is the completed-WP-009 validator; it may only run once state
+    # declares finalization. A paused WP-009 is validated by wp009_governance_checks.
+    pause = state.get("exogenous_acquisition_pause")
+    if pause is None or pause.get("wp009_finalized"):
+        from app.research.wp009_validation import validate_wp009
 
-    wp009 = validate_wp009(data_available=False)
-    assert wp009["status"] == "PASS" and not wp009["data_replayed"]
+        wp009 = validate_wp009(data_available=False)
+        assert wp009["status"] == "PASS" and not wp009["data_replayed"]
+    else:
+        assert pause["status"] == "PARTIAL" and pause["wp009_finalized"] is False
 
     from app.research.wp005_validation import validate_wp005
 
@@ -288,13 +300,13 @@ def dataset_scope_checks() -> None:
     gdelt = ROOT / "data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json"
     alfred = ROOT / "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json"
     exogenous = ROOT / "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json"
-    assert set((ROOT / "data/manifests").glob("*.json")) == {
-        approved,
-        order_flow,
-        gdelt,
-        alfred,
-        exogenous,
-    }
+    # The GDELT and combined-context manifests only exist once WP-009 is finalized; a
+    # paused WP-009 must not be asked for them, and must not carry them either.
+    wp009_final = gdelt.is_file() or exogenous.is_file()
+    expected = {approved, order_flow, alfred}
+    if wp009_final:
+        expected |= {gdelt, exogenous}
+    assert set((ROOT / "data/manifests").glob("*.json")) == expected
     manifest = validate_json(approved, ROOT / "contracts/dataset_manifest.schema.json")
     flow_manifest = json.loads(order_flow.read_text(encoding="utf-8"))
     assert text_sha(approved) == MANIFEST_SHA256 and manifest["symbol"] == "BTCUSDT"
@@ -303,14 +315,25 @@ def dataset_scope_checks() -> None:
     assert flow_manifest["coverage"]["end"] <= manifest["coverage"]["end"]
     raw = {ROOT / item["path"] for item in manifest["source"]["raw_objects"]}
     assert set((ROOT / "data/raw").rglob("*.zip")) <= raw
+    alfred_manifest = json.loads(alfred.read_text(encoding="utf-8"))
     approved_parquet = {
         *(ROOT / item["path"] for item in manifest["files"].values()),
         *(ROOT / item["path"] for item in flow_manifest["files"].values()),
-        ROOT / json.loads(gdelt.read_text(encoding="utf-8"))["file"]["path"],
-        ROOT / json.loads(alfred.read_text(encoding="utf-8"))["file"]["path"],
-        ROOT / json.loads(alfred.read_text(encoding="utf-8"))["request_index"]["path"],
-        ROOT / json.loads(exogenous.read_text(encoding="utf-8"))["file"]["path"],
+        ROOT / alfred_manifest["file"]["path"],
+        ROOT / alfred_manifest["request_index"]["path"],
     }
+    if wp009_final:
+        approved_parquet |= {
+            ROOT / json.loads(gdelt.read_text(encoding="utf-8"))["file"]["path"],
+            ROOT / json.loads(exogenous.read_text(encoding="utf-8"))["file"]["path"],
+        }
+    # Research trial artifacts are approved by the committed comparison that declares and
+    # hash-pins them, so every parquet under data/ still traces to a tracked manifest.
+    wp011_comparison = ROOT / "reports/research/WP-011-COMPARISON.json"
+    if wp011_comparison.is_file():
+        approved_parquet.add(
+            ROOT / json.loads(wp011_comparison.read_text(encoding="utf-8"))["artifact"]["path"]
+        )
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
         | set((ROOT / "data/derived").rglob("*.parquet"))
@@ -551,11 +574,24 @@ def governance_checks(pre_experiment: bool) -> dict:
             ), f"post-cutoff market file: {path.name}"
     from app.main import app
 
-    assert all(
-        set(route.methods or ()) <= {"GET", "HEAD"}
-        for route in app.routes
-        if hasattr(route, "methods")
-    )
+    # The WP-010A paper-research surface adds exactly three explicit-user-action POSTs.
+    # Everything else stays read-only, and no route may mutate by any other method.
+    paper_actions = {
+        "/api/v1/product/analysis",
+        "/api/v1/product/paper-trades",
+        "/api/v1/product/paper-trades/lifecycle",
+    }
+    for route in app.routes:
+        methods = set(getattr(route, "methods", None) or ())
+        if not methods:
+            continue
+        assert methods <= {"GET", "HEAD", "POST"}, f"unsafe method on {route.path}"
+        if "POST" in methods:
+            assert route.path in paper_actions, f"undeclared mutating route: {route.path}"
+        assert not any(
+            word in route.path.lower()
+            for word in ("order", "balance", "account", "credential", "withdraw", "live")
+        ), f"forbidden trading surface: {route.path}"
     return state
 
 

@@ -111,7 +111,7 @@ def test_memory_inspection_is_read_only_and_counters_come_from_state(tmp_path):
 def test_all_experiments_have_explicit_evidence_windows():
     payload = TestClient(app).get("/api/v1/research/experiments").json()
     assert payload["label"] == "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
-    assert len(payload["experiments"]) == 15
+    assert len(payload["experiments"]) == 17
     recovery = next(
         x for x in payload["experiments"] if x["experiment_id"].endswith("RECOVERY-CORE")
     )
@@ -121,5 +121,14 @@ def test_all_experiments_have_explicit_evidence_windows():
     flow = next(x for x in payload["experiments"] if x["experiment_id"].endswith("ORDERFLOW-CORE"))
     assert flow["classification"] == "REJECT_COST_DOMINATED"
     assert flow["evidence_window"].startswith("WP-007")
+    adaptive = next(
+        x for x in payload["experiments"] if x["experiment_id"] == "EXP-ML-016-EWLS-INTERNAL-MACRO"
+    )
+    assert adaptive["classification"] == "REJECT_COST_DOMINATED"
+    assert adaptive["evidence_window"].startswith("WP-011")
+    ablation = next(
+        x for x in payload["experiments"] if x["experiment_id"] == "EXP-ML-017-EWLS-INTERNAL-ONLY"
+    )
+    assert ablation["classification"] == "INCONCLUSIVE"
     aligned = next(x for x in payload["experiments"] if x["experiment_id"] == "EXP-ALG-009-ALIGNED")
     assert aligned["classification"] == "INCONCLUSIVE" and aligned["trade_count"] == 125

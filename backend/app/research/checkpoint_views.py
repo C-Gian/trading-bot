@@ -14,6 +14,7 @@ from .wp004 import ROOT, SPEC
 from .wp006 import SPEC as WP006_SPEC
 from .wp007 import SPEC as WP007_SPEC
 from .wp008 import SPEC as WP008_SPEC
+from .wp011 import EXPERIMENTS as WP011_EXPERIMENTS
 
 LABEL = "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
 CONTROL_IDS = (
@@ -118,21 +119,28 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
         **dict.fromkeys(WP006_SPEC, "WP-006 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP007_SPEC, "WP-007 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP008_SPEC, "WP-008 exposed annual validation (2019–2024)"),
+        **dict.fromkeys(WP011_EXPERIMENTS.values(), "WP-011 exposed annual validation (2019–2024)"),
     }
     for eid, window in windows.items():
         path = root / "research/experiments" / eid / "result.json"
         if not path.is_file():
             continue
         result = read_json(path)
-        default_profile = result["secondary_results"]["profiles"]["DEFAULT"]
-        default_summary = default_profile.get("summary", default_profile)
+        secondary = result["secondary_results"]
+        # WP-011 records the DEFAULT expectancy directly and its trade count alongside;
+        # earlier work packages nest a full profile summary.
+        if "trade_count" in secondary:
+            trade_count = secondary["trade_count"]
+        else:
+            default_profile = secondary["profiles"]["DEFAULT"]
+            trade_count = default_profile.get("summary", default_profile)["metrics"]["trade_count"]
         experiments.append(
             {
                 "experiment_id": eid,
-                "classification": result["secondary_results"]["terminal_classification"],
+                "classification": secondary["terminal_classification"],
                 "primary_metric": "Default-cost validation net expectancy R",
                 "primary_result": result["primary_result"],
-                "trade_count": default_summary["metrics"]["trade_count"],
+                "trade_count": trade_count,
                 "validation_status": result["validation_outcome"],
                 "evidence_window": window,
             }

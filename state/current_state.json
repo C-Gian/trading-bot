@@ -101,6 +101,12 @@
         "head": "762b3b77f686305b1c73f19956d0b9b16b7a9b1c",
         "run_id": 34375244463,
         "evidence": "reports/reviews/WP-007-CI-EVIDENCE.json"
+      },
+      "WP-008": {
+        "status": "SUCCESS",
+        "head": "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2",
+        "run_id": 34392236263,
+        "evidence": "reports/reviews/WP-008-CI-EVIDENCE.json"
       }
     }
   },
