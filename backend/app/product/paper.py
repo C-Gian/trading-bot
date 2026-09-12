@@ -4,12 +4,12 @@
 `PAPER_RESEARCH_CANDIDATE`, kept strictly apart from development experiment evidence.
 Nothing here changes strategy logic, places an order, or touches real money.
 
-Entry and exit are resolved by the frozen `BACKTEST_ENGINE_V2` / `EXECUTION_MODEL_V2`
-simulator, which is hash-frozen by the committed novelty admission and is therefore
-called unmodified. It refuses clocks after the development cutoff, so the whole minute
-path is translated by the same whole number of four-hour periods the analysis used; the
-engine reads bar values and relative minute ordering only, so the resolution is
-identical and every stored timestamp is translated back to the real instant.
+Entry and exit are resolved by `PROSPECTIVE_PAPER_EXECUTION_V1` on real timestamps.
+That adapter reproduces `EXECUTION_MODEL_V2` exactly - pinned field for field against
+the frozen engine over pre-cutoff fixtures in
+`backend/tests/test_prospective_execution.py` - so forward paper evidence no longer
+depends on translating post-cutoff instants onto a historical anchor. The frozen
+historical engine is untouched and stays cutoff-protected.
 """
 
 from __future__ import annotations
@@ -21,16 +21,20 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
-from ..backtest import COST_VERSION, ENGINE_VERSION, EVENT_SEQUENCE, EXECUTION_VERSION
-from ..backtest.engine import simulate
-from ..backtest.models import Bar, ExitReason, Intent
+from ..backtest import COST_VERSION, EVENT_SEQUENCE
+from ..backtest.models import Bar, ExitReason
 from .analysis import (
     CHAMPION_STATUS,
     MAX_HOLD_MINUTES,
     RESEARCH_STATUS,
     STRATEGY_VERSION,
     VARIANT,
-    clock_shift_us,
+)
+from .execution import (
+    PROSPECTIVE_ENGINE_VERSION,
+    PROSPECTIVE_EXECUTION_VERSION,
+    ProspectiveIntent,
+    simulate_prospective,
 )
 from .market_feed import Kline, MarketFeedError, fetch_minutes
 
@@ -41,6 +45,7 @@ STORE_PATH = "data/paper/PAPER_TRADES_V1.json"
 ENTRY_EXECUTION = EVENT_SEQUENCE[-1]  # NEXT_1M_OPEN_EXECUTION
 ENTRY_TIMING_RULE = "NEXT_1M_OPEN"
 AMBIGUOUS_FILL_POLICY = "STOP_FIRST_V1"
+PROSPECTIVE_EXECUTION = PROSPECTIVE_EXECUTION_VERSION
 DATASET_MANIFEST_ID = "PUBLIC_BTCUSDT_SPOT_LIVE_READ_ONLY"
 DATASET_CONTENT_HASH = "NOT_A_FROZEN_DEVELOPMENT_DATASET"
 
@@ -150,8 +155,8 @@ def create_from_analysis(analysis: dict[str, Any], store: PaperTradeStore) -> di
         "entry_timing_rule": ENTRY_TIMING_RULE,
         "entry_minute": _format(signal_time),
         "ambiguous_fill_policy": AMBIGUOUS_FILL_POLICY,
-        "engine_version": ENGINE_VERSION,
-        "execution_model_version": EXECUTION_VERSION,
+        "engine_version": PROSPECTIVE_ENGINE_VERSION,
+        "execution_model_version": PROSPECTIVE_EXECUTION_VERSION,
         "cost_model_version": COST_VERSION,
         "reference_price": plan["reference_price"],
         "stop_price": plan["stop_price"],
@@ -176,13 +181,13 @@ def create_from_analysis(analysis: dict[str, Any], store: PaperTradeStore) -> di
     return trade
 
 
-def _intent(trade: dict[str, Any], shift: timedelta) -> Intent:
-    return Intent(
+def _intent(trade: dict[str, Any]) -> ProspectiveIntent:
+    return ProspectiveIntent(
         run_id=trade["trade_id"],
         strategy_reference=f"{STRATEGY_VERSION}:{VARIANT}",
         dataset_manifest_id=DATASET_MANIFEST_ID,
         dataset_content_hash=DATASET_CONTENT_HASH,
-        signal_timestamp=_parse(trade["entry_minute"]) - shift,
+        signal_timestamp=_parse(trade["entry_minute"]),
         direction="LONG",
         entry_timing_rule=ENTRY_TIMING_RULE,
         stop=Decimal(str(trade["stop_price"])),
@@ -192,11 +197,11 @@ def _intent(trade: dict[str, Any], shift: timedelta) -> Intent:
     )
 
 
-def _path(klines: tuple[Kline, ...], entry_ms: int, shift: timedelta) -> tuple[Bar, ...]:
-    """Bars from the entry minute onward, translated into the frozen engine's window."""
+def _path(klines: tuple[Kline, ...], entry_ms: int) -> tuple[Bar, ...]:
+    """Bars from the entry minute onward, on their real UTC instants."""
     return tuple(
         Bar(
-            datetime.fromtimestamp(kline.open_ms / 1000, UTC) - shift,
+            datetime.fromtimestamp(kline.open_ms / 1000, UTC),
             Decimal(str(kline.open)),
             Decimal(str(kline.high)),
             Decimal(str(kline.low)),
@@ -213,11 +218,9 @@ def _resolve(trade: dict[str, Any], klines: tuple[Kline, ...], now: datetime) ->
     updated["last_update_time"] = _format(now)
     entry_minute = _parse(trade["entry_minute"])
     entry_ms = int(entry_minute.timestamp() * 1000)
-    signal_us = int(_parse(trade["signal_time"]).timestamp()) * 1_000_000
-    shift = timedelta(microseconds=clock_shift_us(signal_us))
-    path = _path(klines, entry_ms, shift)
+    path = _path(klines, entry_ms)
 
-    if not path or path[0].open_time != entry_minute - shift:
+    if not path or path[0].open_time != entry_minute:
         if now < entry_minute + MINUTE:
             updated["resolution_detail"] = "entry minute has not closed yet"
             return updated
@@ -226,16 +229,14 @@ def _resolve(trade: dict[str, Any], klines: tuple[Kline, ...], now: datetime) ->
         updated["resolution_detail"] = "the entry minute is missing from public market data"
         return updated
 
-    record = simulate(_intent(trade, shift), path)
-    updated["entry_time"] = (
-        _format(record.entry_timestamp + shift) if record.entry_timestamp else None
-    )
+    record = simulate_prospective(_intent(trade), path)
+    updated["entry_time"] = _format(record.entry_timestamp) if record.entry_timestamp else None
     updated["entry_price"] = float(record.entry_raw_price) if record.entry_raw_price else None
 
     if record.data_quality_status == "INVALID":
         updated["status"] = INVALIDATED
         updated["exit_reason"] = record.exit_reason.value
-        updated["resolution_detail"] = "the frozen engine rejected this intent as non-tradable"
+        updated["resolution_detail"] = "the execution adapter rejected this intent as non-tradable"
         return updated
     if record.data_quality_status == "UNRESOLVED":
         updated["status"] = OPEN
@@ -247,12 +248,12 @@ def _resolve(trade: dict[str, Any], klines: tuple[Kline, ...], now: datetime) ->
 
     assert record.exit_timestamp is not None and record.net_r is not None
     updated["status"] = _EXIT_STATUS[record.exit_reason]
-    updated["exit_time"] = _format(record.exit_timestamp + shift)
+    updated["exit_time"] = _format(record.exit_timestamp)
     updated["exit_price"] = float(record.exit_raw_price) if record.exit_raw_price else None
     updated["exit_reason"] = record.exit_reason.value
     updated["net_r"] = float(record.net_r)
     updated["holding_minutes"] = record.holding_minutes
-    updated["resolution_detail"] = "resolved by the frozen execution model"
+    updated["resolution_detail"] = "resolved by PROSPECTIVE_PAPER_EXECUTION_V1"
     return updated
 
 

@@ -57,8 +57,23 @@ Terminal statuses are immutable. A later update never reopens or rewrites them.
 
 ## Execution semantics
 
-Entry and exit are resolved by the frozen `BACKTEST_ENGINE_V2` under
-`EXECUTION_MODEL_V2` and `BTCUSDT_SPOT_COST_V1`, called unmodified:
+Entry and exit are resolved by `PROSPECTIVE_PAPER_EXECUTION_V1` under
+`BTCUSDT_SPOT_COST_V1`, on real current timestamps.
+
+The frozen historical simulator `BACKTEST_ENGINE_V2` correctly refuses clocks after the
+development cutoff, and it stays unmodified and cutoff-protected. Forward paper evidence
+therefore uses a separate prospective adapter rather than translating post-cutoff
+instants onto a historical anchor. The adapter reproduces `EXECUTION_MODEL_V2` exactly;
+`backend/tests/test_prospective_execution.py` runs both implementations over identical
+pre-cutoff fixtures covering entry, target, stop, adverse gap open, open above target,
+ambiguous fill, expiry, data gap, end of data and missing entry bar, under the DEFAULT
+and DOUBLE cost profiles, and requires every trade-record field to agree apart from the
+two version labels.
+
+The prospective adapter is never used to produce development evidence, and no research
+or backtest module may import it.
+
+Rules held identical:
 
 - Entry at `NEXT_1M_OPEN_EXECUTION` — the first 1m open at or after the signal hour,
   plus adverse entry friction.

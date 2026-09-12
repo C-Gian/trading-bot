@@ -450,7 +450,13 @@ def test_future_paper_evidence_contract_declares_the_separation() -> None:
     assert record["strategy_logic_changed"] is False
     assert record["counter_discipline"]["incremented_by_this_work_package"] is False
     assert record["counter_discipline"]["incremented_by_tests_or_fixtures"] is False
-    assert record["execution"]["engine_modified"] is False
+    execution = record["execution"]
+    assert execution["historical_engine_modified"] is False
+    assert execution["historical_cutoff_weakened"] is False
+    assert execution["real_timestamps"] is True
+    assert execution["timestamp_translation_used"] is False
+    assert execution["prospective_execution_version"] == "PROSPECTIVE_PAPER_EXECUTION_V1"
+    assert execution["equivalence_validation"]["status"] == "PASS"
     assert record["execution"]["entry_execution"] == "NEXT_1M_OPEN_EXECUTION"
     assert record["execution"]["ambiguous_fill_policy"] == "STOP_FIRST_V1"
     assert record["execution"]["missing_or_gapped_minutes_manufacture_outcome"] is False
@@ -461,11 +467,33 @@ def test_future_paper_evidence_contract_declares_the_separation() -> None:
     assert all(value is False for value in record["safety"].values())
 
 
+def test_paper_execution_uses_real_timestamps_without_translation() -> None:
+    source = (ROOT / "backend/app/product/paper.py").read_text(encoding="utf-8")
+    assert "clock_shift_us" not in source
+    assert "shift" not in source
+    assert "simulate_prospective" in source
+
+
+def test_stored_trades_carry_the_prospective_execution_version(tmp_path: Path) -> None:
+    store, trade = _created(tmp_path)
+    assert trade["execution_model_version"] == "PROSPECTIVE_PAPER_EXECUTION_V1"
+    assert trade["engine_version"] == "PROSPECTIVE_PAPER_ENGINE_V1"
+    klines = _flat(10)
+    klines[3] = _minute(3, high=TARGET + 500, low=49_900, close=TARGET, opened=50_000)
+    update_lifecycle(store, now=NOW, feed=_feed(klines))
+    closed = store.load()[0]
+    # Real post-cutoff instants, never an in-development anchor.
+    assert closed["entry_time"] == "2026-03-05T12:00:00Z"
+    assert closed["exit_time"] == "2026-03-05T12:03:00Z"
+    assert closed["signal_time"] == "2026-03-05T12:00:00Z"
+    assert "PROSPECTIVE_PAPER_EXECUTION_V1" in closed["resolution_detail"]
+
+
 def test_the_frozen_execution_engine_is_used_unmodified() -> None:
     import subprocess
 
     changed = subprocess.check_output(
-        ["git", "diff", "--name-only", "5e97ac91742ea77660c12bd6694e9b41da0be862", "HEAD"],
+        ["git", "diff", "--name-only", "2f963676b26dbbc2c33bdef8120fdb37221d121a", "HEAD"],
         cwd=ROOT,
         text=True,
     ).split()
