@@ -1,0 +1,441 @@
+{
+  "configurations": {
+    "GLOBAL_SINGLE_EXPERT_MATCHED": {
+      "experts": {
+        "GLOBAL": {
+          "coefficient_sign_stability": {
+            "DIRECTIONAL_EFFICIENCY_4H": {
+              "counts": {
+                "negative": 0,
+                "positive": 6,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": 0.1182160662554689,
+              "minimum": 0.05407455891107914
+            },
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+              "counts": {
+                "negative": 0,
+                "positive": 6,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": 0.11241339753118088,
+              "minimum": 0.05189860466673854
+            },
+            "LOG_RELATIVE_VOLUME_1H": {
+              "counts": {
+                "negative": 4,
+                "positive": 2,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 0.6666666666666666,
+              "fits": 6,
+              "maximum": 0.005333587999243477,
+              "minimum": -0.01980657068172045
+            },
+            "LOG_RETURN_1H": {
+              "counts": {
+                "negative": 6,
+                "positive": 0,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": -0.006096593178783506,
+              "minimum": -0.04629449513756178
+            },
+            "LOG_RETURN_24H": {
+              "counts": {
+                "negative": 6,
+                "positive": 0,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": -0.04055925608950202,
+              "minimum": -0.08495397618480977
+            },
+            "REALIZED_VOL_24H": {
+              "counts": {
+                "negative": 2,
+                "positive": 4,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 0.6666666666666666,
+              "fits": 6,
+              "maximum": 0.03725286778143298,
+              "minimum": -0.0038826662124407697
+            },
+            "TAKER_BUY_SHARE_1H_CENTERED": {
+              "counts": {
+                "negative": 6,
+                "positive": 0,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": -0.011121076904931672,
+              "minimum": -0.022151294323397287
+            },
+            "TAKER_BUY_SHARE_4H_CENTERED": {
+              "counts": {
+                "negative": 3,
+                "positive": 3,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 0.5,
+              "fits": 6,
+              "maximum": 0.007052378791956279,
+              "minimum": -0.017960907070196038
+            }
+          },
+          "condition_number": {
+            "maximum": 5.282662220465725,
+            "minimum": 5.104195450921065
+          },
+          "fit_rows": [
+            9725,
+            17359,
+            24915,
+            32410,
+            41152,
+            49716
+          ],
+          "fits": 6,
+          "unique_model_hashes": 6
+        }
+      },
+      "regime_contrast": {
+        "comparable_folds": 0,
+        "difference_sign_stability": {},
+        "mean_absolute_difference_range": null,
+        "sign_disagreement_count_by_fold": {}
+      }
+    },
+    "REGIME_TWO_EXPERTS": {
+      "experts": {
+        "NORMAL_OR_LOOSE": {
+          "coefficient_sign_stability": {
+            "DIRECTIONAL_EFFICIENCY_4H": {
+              "counts": {
+                "negative": 0,
+                "positive": 6,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": 0.1182160662554689,
+              "minimum": 0.054237141686787615
+            },
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+              "counts": {
+                "negative": 0,
+                "positive": 6,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": 0.11241339753118088,
+              "minimum": 0.05523176850593263
+            },
+            "LOG_RELATIVE_VOLUME_1H": {
+              "counts": {
+                "negative": 4,
+                "positive": 2,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 0.6666666666666666,
+              "fits": 6,
+              "maximum": 0.005348380305651018,
+              "minimum": -0.01980657068172045
+            },
+            "LOG_RETURN_1H": {
+              "counts": {
+                "negative": 6,
+                "positive": 0,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": -0.006486939691039313,
+              "minimum": -0.04629449513756178
+            },
+            "LOG_RETURN_24H": {
+              "counts": {
+                "negative": 6,
+                "positive": 0,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": -0.04275508790825834,
+              "minimum": -0.08495397618480977
+            },
+            "REALIZED_VOL_24H": {
+              "counts": {
+                "negative": 1,
+                "positive": 5,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 0.8333333333333334,
+              "fits": 6,
+              "maximum": 0.03725286778143298,
+              "minimum": -0.0011618370597437297
+            },
+            "TAKER_BUY_SHARE_1H_CENTERED": {
+              "counts": {
+                "negative": 6,
+                "positive": 0,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 6,
+              "maximum": -0.011032483206791125,
+              "minimum": -0.022151294323397287
+            },
+            "TAKER_BUY_SHARE_4H_CENTERED": {
+              "counts": {
+                "negative": 3,
+                "positive": 3,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 0.5,
+              "fits": 6,
+              "maximum": 0.006895225653996927,
+              "minimum": -0.017960907070196038
+            }
+          },
+          "condition_number": {
+            "maximum": 5.304601874208148,
+            "minimum": 5.115119097531421
+          },
+          "fit_rows": [
+            9725,
+            17359,
+            24579,
+            32074,
+            40816,
+            49380
+          ],
+          "fits": 6,
+          "unique_model_hashes": 6
+        },
+        "TIGHT": {
+          "coefficient_sign_stability": {
+            "DIRECTIONAL_EFFICIENCY_4H": {
+              "counts": {
+                "negative": 0,
+                "positive": 4,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 4,
+              "maximum": 0.0186306356871436,
+              "minimum": 0.0186306356871436
+            },
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+              "counts": {
+                "negative": 4,
+                "positive": 0,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 4,
+              "maximum": -0.4241829544565547,
+              "minimum": -0.4241829544565547
+            },
+            "LOG_RELATIVE_VOLUME_1H": {
+              "counts": {
+                "negative": 0,
+                "positive": 4,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 4,
+              "maximum": 0.03399191316627417,
+              "minimum": 0.03399191316627417
+            },
+            "LOG_RETURN_1H": {
+              "counts": {
+                "negative": 0,
+                "positive": 4,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 4,
+              "maximum": 0.041408962496063184,
+              "minimum": 0.041408962496063184
+            },
+            "LOG_RETURN_24H": {
+              "counts": {
+                "negative": 0,
+                "positive": 4,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 4,
+              "maximum": 0.2285639873963657,
+              "minimum": 0.2285639873963657
+            },
+            "REALIZED_VOL_24H": {
+              "counts": {
+                "negative": 4,
+                "positive": 0,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 4,
+              "maximum": -0.3352922850082445,
+              "minimum": -0.3352922850082445
+            },
+            "TAKER_BUY_SHARE_1H_CENTERED": {
+              "counts": {
+                "negative": 0,
+                "positive": 4,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 4,
+              "maximum": 0.04689546089515903,
+              "minimum": 0.04689546089515903
+            },
+            "TAKER_BUY_SHARE_4H_CENTERED": {
+              "counts": {
+                "negative": 0,
+                "positive": 4,
+                "zero": 0
+              },
+              "dominant_sign_fraction": 1.0,
+              "fits": 4,
+              "maximum": 0.1282331036871573,
+              "minimum": 0.1282331036871573
+            }
+          },
+          "condition_number": {
+            "maximum": 4.521578315931117,
+            "minimum": 4.521578315931117
+          },
+          "fit_rows": [
+            336,
+            336,
+            336,
+            336
+          ],
+          "fits": 4,
+          "unique_model_hashes": 1
+        }
+      },
+      "regime_contrast": {
+        "comparable_folds": 4,
+        "difference_sign_stability": {
+          "DIRECTIONAL_EFFICIENCY_4H": {
+            "counts": {
+              "negative": 4,
+              "positive": 0,
+              "zero": 0
+            },
+            "dominant_sign_fraction": 1.0,
+            "fits": 4,
+            "maximum": -0.03560650599964402,
+            "minimum": -0.07232969349265603
+          },
+          "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+            "counts": {
+              "negative": 4,
+              "positive": 0,
+              "zero": 0
+            },
+            "dominant_sign_fraction": 1.0,
+            "fits": 4,
+            "maximum": -0.4794147229624873,
+            "minimum": -0.5063242891416411
+          },
+          "LOG_RELATIVE_VOLUME_1H": {
+            "counts": {
+              "negative": 0,
+              "positive": 4,
+              "zero": 0
+            },
+            "dominant_sign_fraction": 1.0,
+            "fits": 4,
+            "maximum": 0.03633107433124225,
+            "minimum": 0.02864353286062315
+          },
+          "LOG_RETURN_1H": {
+            "counts": {
+              "negative": 0,
+              "positive": 4,
+              "zero": 0
+            },
+            "dominant_sign_fraction": 1.0,
+            "fits": 4,
+            "maximum": 0.05775946171096348,
+            "minimum": 0.0478959021871025
+          },
+          "LOG_RETURN_24H": {
+            "counts": {
+              "negative": 0,
+              "positive": 4,
+              "zero": 0
+            },
+            "dominant_sign_fraction": 1.0,
+            "fits": 4,
+            "maximum": 0.2865137842402381,
+            "minimum": 0.271319075304624
+          },
+          "REALIZED_VOL_24H": {
+            "counts": {
+              "negative": 4,
+              "positive": 0,
+              "zero": 0
+            },
+            "dominant_sign_fraction": 1.0,
+            "fits": 4,
+            "maximum": -0.3341304479485008,
+            "minimum": -0.34325977212360664
+          },
+          "TAKER_BUY_SHARE_1H_CENTERED": {
+            "counts": {
+              "negative": 0,
+              "positive": 4,
+              "zero": 0
+            },
+            "dominant_sign_fraction": 1.0,
+            "fits": 4,
+            "maximum": 0.06202726898628427,
+            "minimum": 0.05792794410195015
+          },
+          "TAKER_BUY_SHARE_4H_CENTERED": {
+            "counts": {
+              "negative": 0,
+              "positive": 4,
+              "zero": 0
+            },
+            "dominant_sign_fraction": 1.0,
+            "fits": 4,
+            "maximum": 0.1328637177096728,
+            "minimum": 0.12133787803316036
+          }
+        },
+        "mean_absolute_difference_range": {
+          "maximum": 0.18648260330445318,
+          "minimum": 0.17372876905848494
+        },
+        "sign_disagreement_count_by_fold": {
+          "DEV-2021": 7,
+          "DEV-2022": 5,
+          "DEV-2023": 5,
+          "DEV-2024": 5
+        }
+      }
+    }
+  },
+  "definition": "DOMINANT_EXACT_SIGN_FRACTION_ACROSS_RECORDED_FOLD_FITS",
+  "interpretation_guard": "The four recorded TIGHT fits are one identical 336-row model repeated because no later TIGHT rows exist. Its apparent sign stability and the corresponding contrast stability are therefore not four independent temporal confirmations. The TIGHT expert is never feasible and selected in the same validation fold.",
+  "schema_version": 1,
+  "work_package": "WP-012"
+}

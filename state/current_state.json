@@ -30,7 +30,7 @@
       "end": "2024-12-31T23:59:00Z"
     }
   },
-  "experiments_completed": 17,
+  "experiments_completed": 19,
   "sealed_evaluations_completed": 0,
   "paper_trades_completed": 0,
   "champion_status": "NONE",
@@ -38,8 +38,8 @@
   "real_money_authorized": false,
   "owner_decision_required": false,
   "latest_reviewed_checkpoint": "WP-011",
-  "latest_executor_checkpoint": "WP-011",
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_SELECTED_REGIME_CONDITIONED_CHALLENGER",
+  "latest_executor_checkpoint": "WP-012",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP_012",
   "search_memory": {
     "version": "SEARCH_MEMORY_V2",
     "status": "VALIDATED",
@@ -47,16 +47,16 @@
   },
   "adaptive_search": {
     "adaptive_decisions": 8,
-    "configuration_variants": 17,
+    "configuration_variants": 19,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
     "integrity_replay_profiles": 12,
-    "material_economic_hypotheses": 7,
+    "material_economic_hypotheses": 8,
     "numeric_parameter_variants": 0,
-    "profile_trials": 85,
+    "profile_trials": 93,
     "result_dependent_forks": 8,
     "sealed_queries": 0,
-    "strategy_descendants": 8,
+    "strategy_descendants": 9,
     "supervised_model_fits": 174,
     "wp004_profiles_reserved": 12,
     "wp004_variants_reserved": 3,
@@ -127,9 +127,9 @@
     }
   },
   "latest_family": {
-    "name": "ADAPTIVE_EWLS_MACRO_NET_R_V1",
-    "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
-    "primary_experiment_id": "EXP-ML-016-EWLS-INTERNAL-MACRO",
+    "name": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+    "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
+    "primary_experiment_id": "EXP-ML-018-REGIME-TWO-EXPERTS",
     "novelty_classification": "NEW_FAMILY",
     "terminal_classification": "REJECT_COST_DOMINATED"
   },
@@ -243,6 +243,6 @@
     "consumed_btc_queries": 0,
     "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
     "seal_eligible_candidates": 0,
-    "candidates_assessed": 17
+    "candidates_assessed": 19
   }
 }

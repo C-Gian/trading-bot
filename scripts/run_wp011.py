@@ -63,7 +63,7 @@ def coefficient_trajectory(protocol: dict[str, Any], result: dict[str, Any]) -> 
     """Monthly coefficient evolution, sign stability and grouped contribution drift."""
     models = result["monthly_models"]
     order = models[0]["model"]["feature_order"]
-    series = {name: [] for name in order}
+    series: dict[str, list[float]] = {name: [] for name in order}
     groups: dict[str, list[float]] = {group: [] for group in protocol["feature_groups"]}
     rows = []
     for item in models:

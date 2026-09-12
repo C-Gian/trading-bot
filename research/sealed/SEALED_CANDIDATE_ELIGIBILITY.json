@@ -254,6 +254,36 @@
       "structural_validator": "PASS",
       "terminal_classification": "INCONCLUSIVE",
       "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-018-REGIME-TWO-EXPERTS/result.json",
+      "development_result_sha256": "9d9760365312a4eb34c9dd0bf9499c8de731aa95157206e63b2e78fbbd285e77",
+      "executable_spec_hash": "e656a4347d613e6a2666fce9a5c16afc958cb34a685c90d695ed9828d0f3f0e6",
+      "experiment_id": "EXP-ML-018-REGIME-TWO-EXPERTS",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-019-GLOBAL-MATCHED-CONTROL/result.json",
+      "development_result_sha256": "c9d0eef4767e9820862ca88ce692ac3ca2ff7a62d0719961042afecc79ab0ef7",
+      "executable_spec_hash": "072af3561ed116598a023ae467f63f8f3361629b178b02ab696b32c68e66a066",
+      "experiment_id": "EXP-ML-019-GLOBAL-MATCHED-CONTROL",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
     }
   ],
   "generated_from": [

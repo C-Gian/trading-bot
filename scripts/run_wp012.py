@@ -162,6 +162,30 @@ def main() -> int:
             flush=True,
         )
 
+    for variant in VARIANTS:
+        result = results[variant]
+        write_json(
+            f"research/experiments/{EXPERIMENTS[variant]}/fold-experts.json",
+            {
+                "schema_version": 1,
+                "experiment_id": EXPERIMENTS[variant],
+                "variant": variant,
+                "architecture": protocol["architecture"],
+                "fold_experts": [
+                    {
+                        "fold_id": fold["fold_id"],
+                        "experts": fold["experts"],
+                        "training_manifests": fold["training_manifests"],
+                        "infeasible_experts": fold["infeasible_experts"],
+                    }
+                    for fold in result["folds"]
+                ],
+                "expert_fits": result["expert_fits"],
+                "infeasible_expert_count": result["infeasible_expert_count"],
+                "uncovered_hours": result["uncovered_hours"],
+            },
+        )
+
     manifest = write_parquet(
         ROOT / TRIALS_PATH,
         rows,

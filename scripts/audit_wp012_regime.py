@@ -11,6 +11,7 @@ import json
 import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
@@ -101,20 +102,26 @@ def main() -> int:
     leaked = 0
     checked = 0
     for observation, items in revisions.items():
-        items.sort(key=lambda item: item["availability_time"])
+        items.sort(key=lambda item: cast(datetime, item["availability_time"]))
         for previous, following in zip(items, items[1:], strict=False):
-            if classify(float(previous["value"])) == classify(float(following["value"])):
+            if classify(float(cast(float, previous["value"]))) == classify(
+                float(cast(float, following["value"]))
+            ):
                 continue
-            probe_dt = following["availability_time"].astimezone(UTC) - timedelta(hours=1)
+            probe_dt = cast(datetime, following["availability_time"]).astimezone(UTC) - timedelta(
+                hours=1
+            )
             probe = utc_us(probe_dt) // HOUR_US * HOUR_US
             checked += 1
             visible = [
-                item for item in items if utc_us(item["availability_time"].astimezone(UTC)) <= probe
+                item
+                for item in items
+                if utc_us(cast(datetime, item["availability_time"]).astimezone(UTC)) <= probe
             ]
             # Before the flipping revision is published, the regime must still read as the
             # classification that was actually current.
-            if visible and classify(float(visible[-1]["value"])) != classify(
-                float(previous["value"])
+            if visible and classify(float(cast(float, visible[-1]["value"]))) != classify(
+                float(cast(float, previous["value"]))
             ):
                 leaked += 1
                 mismatches.append(

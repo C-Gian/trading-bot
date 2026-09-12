@@ -12,6 +12,7 @@ import json
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 import pyarrow.parquet as pq
 
@@ -63,7 +64,7 @@ def main() -> None:
 
     summary = substrate_summary(buckets)
     hourly = buckets["1h"]
-    manifest = {
+    manifest: dict[str, Any] = {
         "manifest_id": DATASET_ID,
         "dataset_version": 1,
         "schema_version": 1,

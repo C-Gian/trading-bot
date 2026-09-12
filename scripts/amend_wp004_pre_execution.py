@@ -7,6 +7,7 @@ import sys
 from copy import deepcopy
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
@@ -34,7 +35,7 @@ def main() -> None:
     abort = json.loads((ROOT / abort_path).read_text())
     if abort["strategy_conditions_computed"] != 0 or abort["profile_trials_attempted"] != 0:
         raise ValueError("only a zero-trial data admission correction is authorized")
-    registry = {
+    registry: dict[str, Any] = {
         "schema_version": 1,
         "kind": "PRE_EXECUTION_DATA_INTEGRITY_CORRECTION",
         "authority": "decisions/ADR-0005-PREEXECUTION-SOURCE-GRID-QUARANTINE.md",

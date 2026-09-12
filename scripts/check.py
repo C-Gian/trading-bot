@@ -109,7 +109,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP012_EXPERIMENTS.values())
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
-    assert len(results) == state["experiments_completed"] == 17
+    assert len(results) == state["experiments_completed"] == 19
     for experiment_id, budget in EXPERIMENTS.items():
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path, result_path = directory / "preregistration.json", directory / "result.json"
@@ -193,7 +193,7 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
         state["latest_reviewed_checkpoint"] == "WP-011"
-        and state["latest_executor_checkpoint"] == "WP-011"
+        and state["latest_executor_checkpoint"] == "WP-012"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -242,7 +242,7 @@ def validate_research_views(state: dict) -> None:
     wp007 = validate_wp007()
     assert wp007["status"] == "PASS"
     assert wp007["family_terminal_classification"] == "REJECT_COST_DOMINATED"
-    assert wp007["sealed"] == {"assessed": 17, "eligible": 0, "queries": 0}
+    assert wp007["sealed"] == {"assessed": 19, "eligible": 0, "queries": 0}
 
     from app.research.wp008_validation import validate_wp008
 
@@ -253,6 +253,37 @@ def validate_research_views(state: dict) -> None:
         "LINEAR_NO_FLOW": "REJECT_COST_DOMINATED",
     }
     assert wp008["model_fits"] == 12 and wp008["profile_trials"] == 8
+
+    wp012_comparison = json.loads(
+        (ROOT / "reports/research/WP-012-COMPARISON.json").read_text(encoding="utf-8")
+    )
+    wp012_reconciliation = json.loads(
+        (ROOT / "reports/validation/WP-012-MODEL-RECONCILIATION.json").read_text(encoding="utf-8")
+    )
+    assert wp012_reconciliation["status"] == "PASS"
+    assert not wp012_reconciliation["mismatches"]
+    assert set(wp012_reconciliation["checks"].values()) == {"PASS"}
+    assert wp012_comparison["regime"] == {
+        "version": "FINANCIAL_CONDITIONS_REGIME_V1",
+        "series": "NFCI",
+        "threshold": 0.0,
+        "threshold_variants": 0,
+    }
+    assert wp012_comparison["conditioning_effect"]["paired"] is False
+    assert {
+        variant: record["terminal_classification"]
+        for variant, record in wp012_comparison["configurations"].items()
+    } == {
+        "REGIME_TWO_EXPERTS": "REJECT_COST_DOMINATED",
+        "GLOBAL_SINGLE_EXPERT_MATCHED": "REJECT_COST_DOMINATED",
+    }
+    assert state["latest_family"] == {
+        "name": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+        "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
+        "primary_experiment_id": "EXP-ML-018-REGIME-TWO-EXPERTS",
+        "novelty_classification": "NEW_FAMILY",
+        "terminal_classification": "REJECT_COST_DOMINATED",
+    }
 
     # validate_wp009 is the completed-WP-009 validator; it may only run once state
     # declares finalization. A paused WP-009 is validated by wp009_governance_checks.
@@ -335,6 +366,11 @@ def dataset_scope_checks() -> None:
     if wp011_comparison.is_file():
         approved_parquet.add(
             ROOT / json.loads(wp011_comparison.read_text(encoding="utf-8"))["artifact"]["path"]
+        )
+    wp012_comparison = ROOT / "reports/research/WP-012-COMPARISON.json"
+    if wp012_comparison.is_file():
+        approved_parquet.add(
+            ROOT / json.loads(wp012_comparison.read_text(encoding="utf-8"))["artifact"]["path"]
         )
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
@@ -584,16 +620,17 @@ def governance_checks(pre_experiment: bool) -> dict:
         "/api/v1/product/paper-trades/lifecycle",
     }
     for route in app.routes:
+        route_path = str(getattr(route, "path", ""))
         methods = set(getattr(route, "methods", None) or ())
         if not methods:
             continue
-        assert methods <= {"GET", "HEAD", "POST"}, f"unsafe method on {route.path}"
+        assert methods <= {"GET", "HEAD", "POST"}, f"unsafe method on {route_path}"
         if "POST" in methods:
-            assert route.path in paper_actions, f"undeclared mutating route: {route.path}"
+            assert route_path in paper_actions, f"undeclared mutating route: {route_path}"
         assert not any(
-            word in route.path.lower()
+            word in route_path.lower()
             for word in ("order", "balance", "account", "credential", "withdraw", "live")
-        ), f"forbidden trading surface: {route.path}"
+        ), f"forbidden trading surface: {route_path}"
     return state
 
 

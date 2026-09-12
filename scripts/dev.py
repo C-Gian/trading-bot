@@ -32,4 +32,6 @@ try:
     print("Trading Bot: http://127.0.0.1:5173")
     [p.wait() for p in procs]
 finally:
-    [p.terminate() for p in procs if p.poll() is None]
+    for process in procs:
+        if process.poll() is None:
+            process.terminate()

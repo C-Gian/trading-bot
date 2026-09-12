@@ -118,12 +118,12 @@ def main() -> int:
             )
         )["monthly_models"]
         # One monthly model inside every validation year.
-        sampled = {}
-        for item in monthly:
-            year = item["effective_utc"][:4]
-            sampled.setdefault(year, item)
-        for item in sampled.values():
-            effective_us = utc_us(item["effective_utc"])
+        sampled: dict[str, dict[str, Any]] = {}
+        for monthly_item in monthly:
+            year = monthly_item["effective_utc"][:4]
+            sampled.setdefault(year, monthly_item)
+        for monthly_item in sampled.values():
+            effective_us = utc_us(monthly_item["effective_utc"])
             boundary = effective_us - PURGE_US
             selected = [
                 (signal_us, values)
@@ -138,22 +138,26 @@ def main() -> int:
             target = np.array([labels[s].net_r for s, _ in selected], dtype=np.float64)
             rebuilt = independent_fit(matrix, target, times, effective_us)
             refits += 1
-            if len(selected) != item["fit_rows"]:
+            if len(selected) != monthly_item["fit_rows"]:
                 mismatches.append(
                     {
                         "variant": variant,
-                        "effective": item["effective_utc"],
+                        "effective": monthly_item["effective_utc"],
                         "field": "fit_rows",
-                        "recorded": item["fit_rows"],
+                        "recorded": monthly_item["fit_rows"],
                         "rebuilt": len(selected),
                     }
                 )
-            if rebuilt["rank"] != item["rank"]:
+            if rebuilt["rank"] != monthly_item["rank"]:
                 mismatches.append(
-                    {"variant": variant, "effective": item["effective_utc"], "field": "rank"}
+                    {
+                        "variant": variant,
+                        "effective": monthly_item["effective_utc"],
+                        "field": "rank",
+                    }
                 )
-            item["_rebuilt"] = rebuilt
-            item["_indices"] = indices
+            monthly_item["_rebuilt"] = rebuilt
+            monthly_item["_indices"] = indices
     checks["monthly_fit_rows_and_rank"] = "PASS" if not mismatches else "FAIL"
     print(f"independent refits: {refits}", flush=True)
 

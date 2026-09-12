@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "coefficients_and_condition_numbers": "PASS",
+    "default_signals": "PASS",
+    "independent_default_execution_and_metrics": "PASS",
+    "oos_predictions_and_expert_selection": "PASS",
+    "per_expert_training_only_scaling": "PASS",
+    "profile_prediction_reuse_and_timestamps": "PASS",
+    "regime_assignment_and_partition": "PASS",
+    "training_rows_and_purge_containment": "PASS"
+  },
+  "cost_profile": "BTCUSDT_SPOT_COST_V1",
+  "executed_rows_examined": 8053,
+  "independent_default_attempts": 2008,
+  "independent_expert_refits": 16,
+  "independent_gate_counts": {
+    "NORMAL_OR_LOOSE": 64152,
+    "TIGHT": 336
+  },
+  "independent_path": "RAW_VERIFIED_ALFRED_TIMELINE_LONGHAND_OLS_REBUILT_PREDICTIONS_AND_DIRECT_DEFAULT_SIMULATION_NOT_THE_PRODUCTION_LAB_OR_RUNNER",
+  "independent_regime_counts": {
+    "NORMAL_OR_LOOSE": 58689,
+    "TIGHT": 336
+  },
+  "independent_universe_rows": 59025,
+  "maximum_coefficient_gap": 4.996003610813204e-16,
+  "maximum_condition_number_gap": 9.769962616701378e-15,
+  "maximum_prediction_gap": 1.3322676295501878e-15,
+  "maximum_scaling_gap": 3.1086244689504383e-15,
+  "mismatches": [],
+  "reconciliation": "INDEPENDENT_REGIME_CONDITIONED_EXPERTS_V1",
+  "schema_version": 1,
+  "status": "PASS",
+  "tolerance": 1e-09,
+  "work_package": "WP-012"
+}

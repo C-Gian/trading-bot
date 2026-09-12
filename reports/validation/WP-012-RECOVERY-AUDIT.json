@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "work_package": "WP-012",
+  "status": "PASS",
+  "expected_reviewed_start": "a4dab6cc00c26fbaa108414c5a8d3977890ff8c7",
+  "head_at_recovery": "8633203f8fc054f13bd47bc1c03020fcd1f3e75e",
+  "claude_commits": [
+    {
+      "sha": "a78775ce80aab5533c84ae4ee44f86afa5dd2ef6",
+      "subject": "feat: admit WP-012 regime-conditioned linear experts"
+    },
+    {
+      "sha": "8633203f8fc054f13bd47bc1c03020fcd1f3e75e",
+      "subject": "refactor: fold the WP-012 pooled diagnostic into the per-regime pass"
+    }
+  ],
+  "phase_1": {
+    "status": "PASS_COMMITTED",
+    "safe_commit": "8633203f8fc054f13bd47bc1c03020fcd1f3e75e",
+    "admission_committed_before_results": true,
+    "preregistrations_committed_before_results": true,
+    "regime_asof_audit": "PASS",
+    "market_results_in_safe_commit": 0
+  },
+  "state_found_at_recovery": {
+    "market_results_already_observed": true,
+    "primary_runner_completed": true,
+    "result_artifacts_intact": true,
+    "parquet_rows": 8053,
+    "parquet_file_sha256": "1888e5f76b592c4fc38858db64dd57230e81f1ab5c60a6416f23fc00c6dac3df",
+    "incomplete_or_corrupt_files": [],
+    "partially_complete": [
+      "independent reconciliation script existed but had not been executed",
+      "result-recording script existed but had not been executed"
+    ],
+    "not_started": [
+      "experiment result records",
+      "SEARCH_MEMORY ledger and outcome records",
+      "historical comparison",
+      "checkpoint report",
+      "final state update",
+      "final deterministic validation",
+      "Phase-2 commit"
+    ],
+    "ignored_temporary_files_inspected": [
+      "data/derived/WP-012-regime-trials.parquet",
+      "WP-012 Python bytecode caches"
+    ]
+  },
+  "chronology": {
+    "valid": true,
+    "basis": "The final admission and both final preregistrations were committed in 8633203 before the preflight and the 18:21 local-time result artifacts. The post-commit runner edit only added fold-expert artifact serialization and was present before execution; it did not alter model, signal, label, regime, or execution semantics.",
+    "retroactive_repair_performed": false,
+    "results_rerun_during_recovery": false
+  },
+  "safety": {
+    "post_2024_btc_access": false,
+    "sealed_queries": 0,
+    "paper_trades": 0,
+    "champion": "NONE",
+    "real_money": false
+  }
+}

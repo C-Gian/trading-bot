@@ -15,8 +15,8 @@ def test_repository_checkpoint_validates():
         "FLOW_CORE": "REJECT_COST_DOMINATED",
         "FLOW_PRICE_RESPONSE": "REJECT_COST_DOMINATED",
     }
-    # WP-011 added two further assessed candidates; none is eligible and none queried.
-    assert result["sealed"] == {"assessed": 17, "eligible": 0, "queries": 0}
+    # WP-012 added two further assessed candidates; none is eligible and none queried.
+    assert result["sealed"] == {"assessed": 19, "eligible": 0, "queries": 0}
 
 
 def test_results_answer_the_preregistered_cost_and_timing_questions():
@@ -40,13 +40,12 @@ def test_admission_reproduces_after_its_own_ledger_exists():
 
 def test_cumulative_search_accounting_is_exact():
     totals = cumulative_accounting()
-    # WP-011 added one economic hypothesis, two configurations and eight profile trials.
-    assert totals["material_economic_hypotheses"] == 6 + 1
-    assert totals["configuration_variants"] == 15 + 2
-    assert totals["profile_trials"] == 77 + 8
+    # WP-011 and WP-012 each added one hypothesis, two configurations, and eight profiles.
+    assert totals["material_economic_hypotheses"] == 6 + 1 + 1
+    assert totals["configuration_variants"] == 15 + 2 + 2
+    assert totals["profile_trials"] == 77 + 8 + 8
     # WP-011 reserved a further 144 monthly fits and WP-012 a further 18 expert fits,
-    # each with one adaptive fork on top of WP-008. WP-012 has no ledger entry yet, so
-    # its two configurations and eight profile trials are reserved, not yet consumed.
+    # each with one adaptive fork on top of WP-008.
     assert totals["supervised_model_fits"] == 12 + 144 + 18
     assert totals["wp012_variants_reserved"] == 2
     assert totals["wp012_profiles_reserved"] == 8

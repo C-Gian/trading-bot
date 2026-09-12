@@ -1,0 +1,775 @@
+{
+  "architecture": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+  "experiment_id": "EXP-ML-018-REGIME-TWO-EXPERTS",
+  "expert_fits": 10,
+  "fold_experts": [
+    {
+      "experts": {
+        "NORMAL_OR_LOOSE": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            -0.04629449513756178,
+            -0.08495397618480977,
+            0.11241339753118088,
+            0.03725286778143298,
+            -0.01980657068172045,
+            0.0981657949976207,
+            -0.022151294323397287,
+            -0.017960907070196038
+          ],
+          "condition_number": 5.271690042328347,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": -0.07839001298753075,
+          "means": [
+            5.618535043235084e-06,
+            -0.0001585412152401361,
+            -0.032615228610632034,
+            0.009153371735958187,
+            -0.10387471139373916,
+            0.0015115972397593466,
+            0.0030828209348633005,
+            0.0006980894446488992
+          ],
+          "model_hash": "a28c62b11bd29fe2c38c8f3273628edb1615b02a7940dea2fd11af170e3ba7ae",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.011165894464088144,
+            0.048640519795720386,
+            0.03586857224610471,
+            0.006464562020806399,
+            0.4963891576661395,
+            0.23621282062638732,
+            0.10441515145675868,
+            0.07685457141384465
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "14307104915b5cc1861dbcc6313386e1fdde09a622f3587943de96152e354774",
+          "training_matrix_hash": "5321c7c680ffd14c6562ff242b839eedbe4efa2b1c4cf7b24742b8a75d78a587"
+        }
+      },
+      "fold_id": "DEV-2019",
+      "infeasible_experts": {
+        "TIGHT": "no eligible training rows for this regime"
+      },
+      "training_manifests": {
+        "NORMAL_OR_LOOSE": {
+          "condition_number": 5.271690042328347,
+          "expert": "NORMAL_OR_LOOSE",
+          "fit_rows": 9725,
+          "fold_id": "DEV-2019",
+          "max_training_label_outcome_us": 1545602400000000,
+          "purge_boundary_exclusive_us": 1545609600000000,
+          "rank": 9,
+          "training_label_logical_sha256": "14307104915b5cc1861dbcc6313386e1fdde09a622f3587943de96152e354774",
+          "training_matrix_logical_sha256": "5321c7c680ffd14c6562ff242b839eedbe4efa2b1c4cf7b24742b8a75d78a587",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1545573600000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1546387200000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        }
+      }
+    },
+    {
+      "experts": {
+        "NORMAL_OR_LOOSE": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            -0.020342262775898262,
+            -0.06431567720053924,
+            0.07981893182773914,
+            0.015398113364053174,
+            -0.014861071605471263,
+            0.1182160662554689,
+            -0.011857288593060757,
+            -0.0005092984884798799
+          ],
+          "condition_number": 5.139851920868442,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": -0.07747532913065769,
+          "means": [
+            3.4309470407240104e-05,
+            0.0008042076271663373,
+            -0.028324551924138103,
+            0.007729217828158105,
+            -0.12288315074416095,
+            0.017643460121089416,
+            0.009798997416963516,
+            0.007408318919849986
+          ],
+          "model_hash": "2361db935c088f81a90493962ee316e60b686797c224b1f7a2fe281280a709e3",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.009655653376619175,
+            0.043914713916392734,
+            0.03218069147696333,
+            0.0058163323437734945,
+            0.525285484179509,
+            0.23907459177893983,
+            0.08785120295282918,
+            0.06421644340599929
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "ea82509460f57ddeaba8d37d7ee8709abdbeac5416a5fa50fd9d7cfb873c4452",
+          "training_matrix_hash": "3925452da6e52fd5264d3dc09befffaea3e5a6ffc3c2695829f2640101761218"
+        }
+      },
+      "fold_id": "DEV-2020",
+      "infeasible_experts": {
+        "TIGHT": "no eligible training rows for this regime"
+      },
+      "training_manifests": {
+        "NORMAL_OR_LOOSE": {
+          "condition_number": 5.139851920868442,
+          "expert": "NORMAL_OR_LOOSE",
+          "fit_rows": 17359,
+          "fold_id": "DEV-2020",
+          "max_training_label_outcome_us": 1577142000000000,
+          "purge_boundary_exclusive_us": 1577145600000000,
+          "rank": 9,
+          "training_label_logical_sha256": "ea82509460f57ddeaba8d37d7ee8709abdbeac5416a5fa50fd9d7cfb873c4452",
+          "training_matrix_logical_sha256": "3925452da6e52fd5264d3dc09befffaea3e5a6ffc3c2695829f2640101761218",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1577131200000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1577923200000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        }
+      }
+    },
+    {
+      "experts": {
+        "NORMAL_OR_LOOSE": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            -0.016350499214900296,
+            -0.057949796843872386,
+            0.08214133468508643,
+            0.00241925181468311,
+            -0.0023391611649680837,
+            0.09096032917979963,
+            -0.015131808091125241,
+            -0.004630614022515531
+          ],
+          "condition_number": 5.304601874208148,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": -0.04953377058114225,
+          "means": [
+            6.767294355038921e-05,
+            0.0015194430871729705,
+            -0.02611059808545131,
+            0.0071966810198182745,
+            -0.12318457599326718,
+            0.0351931616603986,
+            0.002821590364434498,
+            0.0012924610614576354
+          ],
+          "model_hash": "d07751303154a8aabf6da5f747c1e1b1cbcf7ed0c6eeb1b674c675d547233296",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.009262605817509128,
+            0.04215774323485732,
+            0.031854649979580395,
+            0.005842164272062611,
+            0.5240691045854923,
+            0.2337715848994358,
+            0.07908950954235464,
+            0.057662426935074104
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "598daca8c737d73f7fcc4b1d5aea985e85908c87254ebc19c6cb2af7dd86261f",
+          "training_matrix_hash": "fa6beb4e0160063fd552c051d7bbec8cfcdac3148c551a6a8d4209ce31d1fab9"
+        },
+        "TIGHT": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            0.041408962496063184,
+            0.2285639873963657,
+            -0.4241829544565547,
+            -0.3352922850082445,
+            0.03399191316627417,
+            0.0186306356871436,
+            0.04689546089515903,
+            0.1282331036871573
+          ],
+          "condition_number": 4.521578315931117,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": 0.014524870172139956,
+          "means": [
+            8.262757699556528e-05,
+            0.005515607145659652,
+            -0.026483879050327716,
+            0.0067132092200524835,
+            -0.17489256616007687,
+            0.10463835973552477,
+            -0.017300992617759612,
+            -0.01748734959825233
+          ],
+          "model_hash": "526f5654dd41468f699a7a78cbbd6496392f48b10c580ac00f64307743a04748",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.006904327647432423,
+            0.03325054294791307,
+            0.020733417490861127,
+            0.0024496005985556106,
+            0.5814705248424329,
+            0.17478624716106844,
+            0.04176684146289499,
+            0.0280869532272243
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "711ae0274816ab3755dc0053913c9f8fc0708e3de4af0ddcf5e3d6f1c11dcfa4",
+          "training_matrix_hash": "3985bc81665cf8f96fff2ff42065390d74cd06d66715e993c41a3119d74433cf"
+        }
+      },
+      "fold_id": "DEV-2021",
+      "infeasible_experts": {},
+      "training_manifests": {
+        "NORMAL_OR_LOOSE": {
+          "condition_number": 5.304601874208148,
+          "expert": "NORMAL_OR_LOOSE",
+          "fit_rows": 24579,
+          "fold_id": "DEV-2021",
+          "max_training_label_outcome_us": 1608552720000000,
+          "purge_boundary_exclusive_us": 1608768000000000,
+          "rank": 9,
+          "training_label_logical_sha256": "598daca8c737d73f7fcc4b1d5aea985e85908c87254ebc19c6cb2af7dd86261f",
+          "training_matrix_logical_sha256": "fa6beb4e0160063fd552c051d7bbec8cfcdac3148c551a6a8d4209ce31d1fab9",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1608552000000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1609545600000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        },
+        "TIGHT": {
+          "condition_number": 4.521578315931117,
+          "expert": "TIGHT",
+          "fit_rows": 336,
+          "fold_id": "DEV-2021",
+          "max_training_label_outcome_us": 1586995200000000,
+          "purge_boundary_exclusive_us": 1608768000000000,
+          "rank": 9,
+          "training_label_logical_sha256": "711ae0274816ab3755dc0053913c9f8fc0708e3de4af0ddcf5e3d6f1c11dcfa4",
+          "training_matrix_logical_sha256": "3985bc81665cf8f96fff2ff42065390d74cd06d66715e993c41a3119d74433cf",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1586991600000000,
+          "training_signal_min_us": 1585785600000000,
+          "validation_start_us": 1609545600000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        }
+      }
+    },
+    {
+      "experts": {
+        "NORMAL_OR_LOOSE": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            -0.010606239311862525,
+            -0.05278082964484261,
+            0.06696517232651446,
+            -0.0011618370597437297,
+            -0.0021292813298319085,
+            0.0683141458484393,
+            -0.01494315974362567,
+            0.004863092031667497
+          ],
+          "condition_number": 5.182490894345881,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": -0.07948734653950029,
+          "means": [
+            4.9153387166797715e-05,
+            0.0011641839258801367,
+            -0.027452257748279016,
+            0.007491604875348018,
+            -0.11862351901240889,
+            0.032273158111664126,
+            0.0003073671384666109,
+            -0.0007764033658933046
+          ],
+          "model_hash": "9cc83d6fe77d45bb1a8545cf33cf20d03bc256b3a9f365dddf146a2124955c95",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.009312245519454988,
+            0.0428014391551234,
+            0.03173029448266052,
+            0.0055401475593494206,
+            0.5140190968998556,
+            0.2251127540811892,
+            0.071716894096136,
+            0.052071004326814094
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "688e8391df817265457c08be3ffbec22fe504f410c43a3775cb79f38954a1d4c",
+          "training_matrix_hash": "d8bff384995cbdf680f1fe9ddd1e286583ad9f4dfdae95f06dfdeaf7a08585ee"
+        },
+        "TIGHT": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            0.041408962496063184,
+            0.2285639873963657,
+            -0.4241829544565547,
+            -0.3352922850082445,
+            0.03399191316627417,
+            0.0186306356871436,
+            0.04689546089515903,
+            0.1282331036871573
+          ],
+          "condition_number": 4.521578315931117,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": 0.014524870172139956,
+          "means": [
+            8.262757699556528e-05,
+            0.005515607145659652,
+            -0.026483879050327716,
+            0.0067132092200524835,
+            -0.17489256616007687,
+            0.10463835973552477,
+            -0.017300992617759612,
+            -0.01748734959825233
+          ],
+          "model_hash": "526f5654dd41468f699a7a78cbbd6496392f48b10c580ac00f64307743a04748",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.006904327647432423,
+            0.03325054294791307,
+            0.020733417490861127,
+            0.0024496005985556106,
+            0.5814705248424329,
+            0.17478624716106844,
+            0.04176684146289499,
+            0.0280869532272243
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "711ae0274816ab3755dc0053913c9f8fc0708e3de4af0ddcf5e3d6f1c11dcfa4",
+          "training_matrix_hash": "3985bc81665cf8f96fff2ff42065390d74cd06d66715e993c41a3119d74433cf"
+        }
+      },
+      "fold_id": "DEV-2022",
+      "infeasible_experts": {},
+      "training_manifests": {
+        "NORMAL_OR_LOOSE": {
+          "condition_number": 5.182490894345881,
+          "expert": "NORMAL_OR_LOOSE",
+          "fit_rows": 32074,
+          "fold_id": "DEV-2022",
+          "max_training_label_outcome_us": 1640288400000000,
+          "purge_boundary_exclusive_us": 1640304000000000,
+          "rank": 9,
+          "training_label_logical_sha256": "688e8391df817265457c08be3ffbec22fe504f410c43a3775cb79f38954a1d4c",
+          "training_matrix_logical_sha256": "d8bff384995cbdf680f1fe9ddd1e286583ad9f4dfdae95f06dfdeaf7a08585ee",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1640278800000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1641081600000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        },
+        "TIGHT": {
+          "condition_number": 4.521578315931117,
+          "expert": "TIGHT",
+          "fit_rows": 336,
+          "fold_id": "DEV-2022",
+          "max_training_label_outcome_us": 1586995200000000,
+          "purge_boundary_exclusive_us": 1640304000000000,
+          "rank": 9,
+          "training_label_logical_sha256": "711ae0274816ab3755dc0053913c9f8fc0708e3de4af0ddcf5e3d6f1c11dcfa4",
+          "training_matrix_logical_sha256": "3985bc81665cf8f96fff2ff42065390d74cd06d66715e993c41a3119d74433cf",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1586991600000000,
+          "training_signal_min_us": 1585785600000000,
+          "validation_start_us": 1641081600000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        }
+      }
+    },
+    {
+      "experts": {
+        "NORMAL_OR_LOOSE": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            -0.007902588151391575,
+            -0.044918465503140964,
+            0.05868419139780188,
+            0.007967487115362156,
+            0.005348380305651018,
+            0.054823580234485976,
+            -0.013263720565443466,
+            0.006363917791705333
+          ],
+          "condition_number": 5.169950975690511,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": -0.10520395179933804,
+          "means": [
+            1.2338112018850006e-05,
+            0.0002896321433161251,
+            -0.0270552051164604,
+            0.0071733673731067754,
+            -0.11893870323445047,
+            0.01810542027772928,
+            -0.0006625226179846792,
+            -0.0015167707636115071
+          ],
+          "model_hash": "f2abca6870d9aa05bf00c984533a32cb961b7faad162943f1db2a7f345f9dfa7",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.008845668378387928,
+            0.04103477079467024,
+            0.03046523873203969,
+            0.005183262185664998,
+            0.5180460200237643,
+            0.22330263113238888,
+            0.06549469016422084,
+            0.04724158659399444
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "a4ecc35067cdf3fd9318a8b929486ea4c8c6f54b000dbfbefcd93743daf3b808",
+          "training_matrix_hash": "799bd2250ffb40d2824e273ad40948bd5ad50a10e67068c80fc16e4fe3093e53"
+        },
+        "TIGHT": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            0.041408962496063184,
+            0.2285639873963657,
+            -0.4241829544565547,
+            -0.3352922850082445,
+            0.03399191316627417,
+            0.0186306356871436,
+            0.04689546089515903,
+            0.1282331036871573
+          ],
+          "condition_number": 4.521578315931117,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": 0.014524870172139956,
+          "means": [
+            8.262757699556528e-05,
+            0.005515607145659652,
+            -0.026483879050327716,
+            0.0067132092200524835,
+            -0.17489256616007687,
+            0.10463835973552477,
+            -0.017300992617759612,
+            -0.01748734959825233
+          ],
+          "model_hash": "526f5654dd41468f699a7a78cbbd6496392f48b10c580ac00f64307743a04748",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.006904327647432423,
+            0.03325054294791307,
+            0.020733417490861127,
+            0.0024496005985556106,
+            0.5814705248424329,
+            0.17478624716106844,
+            0.04176684146289499,
+            0.0280869532272243
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "711ae0274816ab3755dc0053913c9f8fc0708e3de4af0ddcf5e3d6f1c11dcfa4",
+          "training_matrix_hash": "3985bc81665cf8f96fff2ff42065390d74cd06d66715e993c41a3119d74433cf"
+        }
+      },
+      "fold_id": "DEV-2023",
+      "infeasible_experts": {},
+      "training_manifests": {
+        "NORMAL_OR_LOOSE": {
+          "condition_number": 5.169950975690511,
+          "expert": "NORMAL_OR_LOOSE",
+          "fit_rows": 40816,
+          "fold_id": "DEV-2023",
+          "max_training_label_outcome_us": 1671836400000000,
+          "purge_boundary_exclusive_us": 1671840000000000,
+          "rank": 9,
+          "training_label_logical_sha256": "a4ecc35067cdf3fd9318a8b929486ea4c8c6f54b000dbfbefcd93743daf3b808",
+          "training_matrix_logical_sha256": "799bd2250ffb40d2824e273ad40948bd5ad50a10e67068c80fc16e4fe3093e53",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1671750000000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1672617600000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        },
+        "TIGHT": {
+          "condition_number": 4.521578315931117,
+          "expert": "TIGHT",
+          "fit_rows": 336,
+          "fold_id": "DEV-2023",
+          "max_training_label_outcome_us": 1586995200000000,
+          "purge_boundary_exclusive_us": 1671840000000000,
+          "rank": 9,
+          "training_label_logical_sha256": "711ae0274816ab3755dc0053913c9f8fc0708e3de4af0ddcf5e3d6f1c11dcfa4",
+          "training_matrix_logical_sha256": "3985bc81665cf8f96fff2ff42065390d74cd06d66715e993c41a3119d74433cf",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1586991600000000,
+          "training_signal_min_us": 1585785600000000,
+          "validation_start_us": 1672617600000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        }
+      }
+    },
+    {
+      "experts": {
+        "NORMAL_OR_LOOSE": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            -0.006486939691039313,
+            -0.04275508790825834,
+            0.05523176850593263,
+            0.007935844755449468,
+            0.0008919190510570957,
+            0.054237141686787615,
+            -0.011032483206791125,
+            0.006895225653996927
+          ],
+          "condition_number": 5.115119097531421,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": -0.0928540944955097,
+          "means": [
+            2.9130878270864866e-05,
+            0.0006960780203419165,
+            -0.024920942961532293,
+            0.006589695863642496,
+            -0.12566462829747954,
+            0.02317850888476015,
+            -0.0031355749212600872,
+            -0.0037011932861237685
+          ],
+          "model_hash": "eb97bc14b9ca4af34803ebf2f1653c98eb91def1b7f00c99b69d136d7d2ba535",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.008255884812621819,
+            0.038528013481555365,
+            0.028646697508004783,
+            0.004978655015619321,
+            0.5325852409296263,
+            0.22899214215771435,
+            0.0632169491229075,
+            0.04512638767100046
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "dab91928e17d9836c886d8b639dc3284c8403de0931577b00813570426c6895a",
+          "training_matrix_hash": "1b0e1e8a225fc8a376b88294e56fe5f3f0ad44ad440e646cd8921be3416e98a1"
+        },
+        "TIGHT": {
+          "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+          "coefficients": [
+            0.041408962496063184,
+            0.2285639873963657,
+            -0.4241829544565547,
+            -0.3352922850082445,
+            0.03399191316627417,
+            0.0186306356871436,
+            0.04689546089515903,
+            0.1282331036871573
+          ],
+          "condition_number": 4.521578315931117,
+          "dependency_hash": "85317b4b8cbbaf17d03bfe8905718a719d44b0c9564d46f147f6a6b152535f13",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "full_rank": true,
+          "hyperparameters_searched": 0,
+          "intercept": 0.014524870172139956,
+          "means": [
+            8.262757699556528e-05,
+            0.005515607145659652,
+            -0.026483879050327716,
+            0.0067132092200524835,
+            -0.17489256616007687,
+            0.10463835973552477,
+            -0.017300992617759612,
+            -0.01748734959825233
+          ],
+          "model_hash": "526f5654dd41468f699a7a78cbbd6496392f48b10c580ac00f64307743a04748",
+          "rank": 9,
+          "regularization": "NONE",
+          "signal_threshold": 0.0,
+          "stds_ddof_0": [
+            0.006904327647432423,
+            0.03325054294791307,
+            0.020733417490861127,
+            0.0024496005985556106,
+            0.5814705248424329,
+            0.17478624716106844,
+            0.04176684146289499,
+            0.0280869532272243
+          ],
+          "thresholds_searched": 0,
+          "training_label_hash": "711ae0274816ab3755dc0053913c9f8fc0708e3de4af0ddcf5e3d6f1c11dcfa4",
+          "training_matrix_hash": "3985bc81665cf8f96fff2ff42065390d74cd06d66715e993c41a3119d74433cf"
+        }
+      },
+      "fold_id": "DEV-2024",
+      "infeasible_experts": {},
+      "training_manifests": {
+        "NORMAL_OR_LOOSE": {
+          "condition_number": 5.115119097531421,
+          "expert": "NORMAL_OR_LOOSE",
+          "fit_rows": 49380,
+          "fold_id": "DEV-2024",
+          "max_training_label_outcome_us": 1703372400000000,
+          "purge_boundary_exclusive_us": 1703376000000000,
+          "rank": 9,
+          "training_label_logical_sha256": "dab91928e17d9836c886d8b639dc3284c8403de0931577b00813570426c6895a",
+          "training_matrix_logical_sha256": "1b0e1e8a225fc8a376b88294e56fe5f3f0ad44ad440e646cd8921be3416e98a1",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1703286000000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1704153600000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        },
+        "TIGHT": {
+          "condition_number": 4.521578315931117,
+          "expert": "TIGHT",
+          "fit_rows": 336,
+          "fold_id": "DEV-2024",
+          "max_training_label_outcome_us": 1586995200000000,
+          "purge_boundary_exclusive_us": 1703376000000000,
+          "rank": 9,
+          "training_label_logical_sha256": "711ae0274816ab3755dc0053913c9f8fc0708e3de4af0ddcf5e3d6f1c11dcfa4",
+          "training_matrix_logical_sha256": "3985bc81665cf8f96fff2ff42065390d74cd06d66715e993c41a3119d74433cf",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1586991600000000,
+          "training_signal_min_us": 1585785600000000,
+          "validation_start_us": 1704153600000000,
+          "variant": "REGIME_TWO_EXPERTS"
+        }
+      }
+    }
+  ],
+  "infeasible_expert_count": 2,
+  "schema_version": 1,
+  "uncovered_hours": {
+    "DEV-2020:TIGHT": 336
+  },
+  "variant": "REGIME_TWO_EXPERTS"
+}

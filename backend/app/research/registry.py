@@ -108,7 +108,12 @@ def alias_map(root: Path = ROOT, *, exclude: str | None = None) -> dict[str, str
 def signatures(
     root: Path = ROOT, *, exclude_experiment_ids: set[str] | None = None
 ) -> list[dict[str, Any]]:
-    """Frozen V1 reference translations plus every V2-era admitted behaviour."""
+    """Frozen V1 translations plus the V2 corpus visible before an excluded admission.
+
+    Reproducing a historical novelty decision must not compare it with families admitted
+    later. Registry ledgers are ordered by work package, so the first excluded entry is
+    the historical boundary; without exclusions the complete current corpus is returned.
+    """
     excluded = exclude_experiment_ids or set()
     document = read_json(root / LEGACY_SIGNATURES)
     entries = [
@@ -121,6 +126,12 @@ def signatures(
         for item in document["signatures"]
         if item["experiment_id"] not in excluded
     ]
+    registry_entries = admission_ledger(root)
+    boundaries = [
+        index for index, item in enumerate(registry_entries) if item["experiment_id"] in excluded
+    ]
+    if boundaries:
+        registry_entries = registry_entries[: min(boundaries)]
     entries.extend(
         {
             "experiment_id": item["experiment_id"],
@@ -128,7 +139,7 @@ def signatures(
             "behavior_hash": item["behavior_hash"],
             "structural_hash": item["structural_hash"],
         }
-        for item in admission_ledger(root)
+        for item in registry_entries
         if item["experiment_id"] not in excluded
     )
     return entries

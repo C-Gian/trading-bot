@@ -15,6 +15,7 @@ from .wp006 import SPEC as WP006_SPEC
 from .wp007 import SPEC as WP007_SPEC
 from .wp008 import SPEC as WP008_SPEC
 from .wp011 import EXPERIMENTS as WP011_EXPERIMENTS
+from .wp012 import EXPERIMENTS as WP012_EXPERIMENTS
 
 LABEL = "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
 CONTROL_IDS = (
@@ -120,6 +121,7 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
         **dict.fromkeys(WP007_SPEC, "WP-007 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP008_SPEC, "WP-008 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP011_EXPERIMENTS.values(), "WP-011 exposed annual validation (2019–2024)"),
+        **dict.fromkeys(WP012_EXPERIMENTS.values(), "WP-012 exposed annual validation (2019–2024)"),
     }
     for eid, window in windows.items():
         path = root / "research/experiments" / eid / "result.json"
@@ -127,7 +129,7 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
             continue
         result = read_json(path)
         secondary = result["secondary_results"]
-        # WP-011 records the DEFAULT expectancy directly and its trade count alongside;
+        # WP-011 and later records store DEFAULT expectancy and trade count directly;
         # earlier work packages nest a full profile summary.
         if "trade_count" in secondary:
             trade_count = secondary["trade_count"]

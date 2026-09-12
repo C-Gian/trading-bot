@@ -11,6 +11,7 @@ import json
 import sys
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
@@ -90,17 +91,19 @@ def main() -> int:
         if len(items) < 2:
             continue
         revised_pairs += 1
-        items.sort(key=lambda item: item["availability_time"])
+        items.sort(key=lambda item: cast(datetime, item["availability_time"]))
         first, last = items[0], items[-1]
         if first["value"] == last["value"]:
             continue
-        probe_dt = last["availability_time"].astimezone(UTC) - timedelta(hours=1)
+        probe_dt = cast(datetime, last["availability_time"]).astimezone(UTC) - timedelta(hours=1)
         probe = utc_us(probe_dt) // HOUR_US * HOUR_US
         if probe < utc_us("2019-01-01T00:00:00Z") or probe > CUTOFF_US:
             continue
         checked_revisions += 1
         visible = [
-            item for item in items if utc_us(item["availability_time"].astimezone(UTC)) <= probe
+            item
+            for item in items
+            if utc_us(cast(datetime, item["availability_time"]).astimezone(UTC)) <= probe
         ]
         point_in_time = visible[-1]["value"] if visible else None
         # Before the later revision is published, that observation must still read as the

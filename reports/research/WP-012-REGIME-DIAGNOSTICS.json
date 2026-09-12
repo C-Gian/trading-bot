@@ -1,0 +1,83 @@
+{
+  "configurations": {
+    "GLOBAL_SINGLE_EXPERT_MATCHED": {
+      "per_regime": {
+        "NORMAL_OR_LOOSE": {
+          "cumulative_net_r": -109.1261550701508,
+          "eligible_validation_hours": 48448,
+          "executed_trades": 988,
+          "fold_distribution": {
+            "DEV-2019": 255,
+            "DEV-2020": 230,
+            "DEV-2021": 235,
+            "DEV-2022": 89,
+            "DEV-2023": 82,
+            "DEV-2024": 97
+          },
+          "isolated_label_valid_count": 48202,
+          "mean_net_r": -0.11045157395764252,
+          "prediction_label_pearson": 0.030737603261004793,
+          "prediction_positive_hours": 9322
+        },
+        "TIGHT": {
+          "cumulative_net_r": -1.2885641657709612,
+          "eligible_validation_hours": 336,
+          "executed_trades": 13,
+          "fold_distribution": {
+            "DEV-2020": 13
+          },
+          "isolated_label_valid_count": 336,
+          "mean_net_r": -0.09912032044392009,
+          "prediction_label_pearson": -0.0209944190322395,
+          "prediction_positive_hours": 143
+        }
+      },
+      "pooled_paired_count": 48538,
+      "pooled_prediction_label_pearson": 0.030509574361504237,
+      "variant": "GLOBAL_SINGLE_EXPERT_MATCHED"
+    },
+    "REGIME_TWO_EXPERTS": {
+      "per_regime": {
+        "NORMAL_OR_LOOSE": {
+          "cumulative_net_r": -106.0070245173172,
+          "eligible_validation_hours": 48448,
+          "executed_trades": 989,
+          "fold_distribution": {
+            "DEV-2019": 255,
+            "DEV-2020": 230,
+            "DEV-2021": 238,
+            "DEV-2022": 88,
+            "DEV-2023": 84,
+            "DEV-2024": 94
+          },
+          "isolated_label_valid_count": 48202,
+          "mean_net_r": -0.1071860713016352,
+          "prediction_label_pearson": 0.030842827399394444,
+          "prediction_positive_hours": 9286
+        },
+        "TIGHT": {
+          "cumulative_net_r": null,
+          "eligible_validation_hours": 336,
+          "executed_trades": 0,
+          "fold_distribution": {},
+          "isolated_label_valid_count": 0,
+          "mean_net_r": null,
+          "prediction_label_pearson": null,
+          "prediction_positive_hours": 0
+        }
+      },
+      "pooled_paired_count": 48202,
+      "pooled_prediction_label_pearson": 0.030842827399394444,
+      "variant": "REGIME_TWO_EXPERTS"
+    }
+  },
+  "eligibility_exclusions": {
+    "internal_feature_ineligible": 5604,
+    "label_invalid": 166,
+    "label_unresolved": 2734,
+    "outcome_after_purge_boundary": 140
+  },
+  "regime_version": "FINANCIAL_CONDITIONS_REGIME_V1",
+  "schema_version": 1,
+  "work_package": "WP-012"
+}

@@ -13,6 +13,6 @@ def test_wp009_fixed_scope_and_non_trial_accounting() -> None:
     # cumulative totals; the WP-009 scope assertions above are what this test guards.
     totals = cumulative_accounting()
     assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 8
-    assert totals["configuration_variants"] == 17
-    assert totals["profile_trials"] == 85
+    assert totals["configuration_variants"] == 19
+    assert totals["profile_trials"] == 93
     assert totals["supervised_model_fits"] == 174

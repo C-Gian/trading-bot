@@ -25,8 +25,8 @@ def build_artifact(canonical: Path = CANONICAL) -> dict:
         pq.read_table(canonical, columns=["open_time"])["open_time"], pa.int64()
     ).to_pylist()
     intervals = []
-    affected_1h = set()
-    affected_4h = set()
+    affected_1h: set[int] = set()
+    affected_4h: set[int] = set()
     minute_us = 60_000_000
     for previous, current in zip(values, values[1:]):
         missing = (current - previous) // minute_us - 1

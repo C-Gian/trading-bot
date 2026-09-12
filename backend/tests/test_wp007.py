@@ -161,15 +161,20 @@ def test_the_gate_checks_both_v1_and_v2_historical_signatures():
     reference = recorded["reference_signatures"]
     assert reference["v1_reference_translations"] == 9
     assert reference["v2_admitted_behaviours"] == 2
-    future_wp008 = {
+    wp008 = {
         "EXP-ML-014-LINEAR-NET-R-FULL",
         "EXP-ML-015-LINEAR-NET-R-NO-FLOW",
     }
-    # WP-011 later admitted two further executable behaviours into the same corpus.
-    future_wp011 = {"EXP-ML-016-EWLS-INTERNAL-MACRO", "EXP-ML-017-EWLS-INTERNAL-ONLY"}
-    assert len(signatures(exclude_experiment_ids=set(SPEC) | future_wp008)) == 13
-    assert len(signatures(exclude_experiment_ids=set(SPEC) | future_wp008 | future_wp011)) == 11
-    assert len(signatures()) == 17
+    wp011 = {"EXP-ML-016-EWLS-INTERNAL-MACRO", "EXP-ML-017-EWLS-INTERNAL-ONLY"}
+    wp012 = {
+        "EXP-ML-018-REGIME-TWO-EXPERTS",
+        "EXP-ML-019-GLOBAL-MATCHED-CONTROL",
+    }
+    assert len(signatures(exclude_experiment_ids=set(SPEC))) == 11
+    assert len(signatures(exclude_experiment_ids=wp008)) == 13
+    assert len(signatures(exclude_experiment_ids=wp011)) == 15
+    assert len(signatures(exclude_experiment_ids=wp012)) == 17
+    assert len(signatures()) == 19
 
 
 def test_neither_variant_duplicates_any_prior_admitted_behaviour():

@@ -1,0 +1,35 @@
+{
+  "allocation_id": "WP012-REGIME-CONDITIONED-ALLOCATION",
+  "architecture": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+  "configurations": [
+    "REGIME_TWO_EXPERTS",
+    "GLOBAL_SINGLE_EXPERT_MATCHED"
+  ],
+  "family_classification": "NEW_FAMILY",
+  "feature_counts": {
+    "GLOBAL_SINGLE_EXPERT_MATCHED": 8,
+    "REGIME_TWO_EXPERTS": 8
+  },
+  "hypothesis_id": "FINANCIAL_REGIME_CONDITIONED_SIGNAL_WEIGHTS_V1",
+  "macro_features_in_expert_matrix": 0,
+  "market_results_observed": 0,
+  "maximum_expert_fits": 18,
+  "preregistration_sha256": {
+    "GLOBAL_SINGLE_EXPERT_MATCHED": "12566e601fbb3b8645434c865803a5a821c975f136bbfab189e4190618db3a1e",
+    "REGIME_TWO_EXPERTS": "a114716e007ae6f905eff3221e4a680c28d46bbcc583a75e59855438dd4f7a2d"
+  },
+  "primary_variant": "REGIME_TWO_EXPERTS",
+  "protocol_id": "WP-012-REGIME-CONDITIONED-V1",
+  "purge_boundary_hours": 216,
+  "regime_series": "NFCI",
+  "regime_source_version": "ALFRED_MACRO_CONTEXT_V1",
+  "regime_threshold": 0.0,
+  "regime_threshold_variants": 0,
+  "regime_version": "FINANCIAL_CONDITIONS_REGIME_V1",
+  "regime_vintage_end": "2024-12-31",
+  "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "status": "PASS",
+  "work_package": "WP-012"
+}

@@ -1,0 +1,70 @@
+{
+  "artifacts": [
+    "reports/research/WP-012-COMPARISON.json",
+    "reports/research/WP-012-REGIME-DIAGNOSTICS.json",
+    "reports/research/WP-012-EXPERT-COEFFICIENTS.json",
+    "reports/research/WP-012-EXPERT-STABILITY.json",
+    "research/experiments/EXP-ML-019-GLOBAL-MATCHED-CONTROL/fold-experts.json",
+    "reports/validation/WP-012-MODEL-RECONCILIATION.json",
+    "reports/validation/WP-012-REGIME-ASOF-AUDIT.json",
+    "reports/validation/WP-012-PREEXECUTION-STRUCTURAL-FINDING.json"
+  ],
+  "code_config_reference": "157e7d069ec39dd77412eb658499784b6bc199631553af1e669ca533b9d0d9e7",
+  "completed_at_utc": "2026-09-12T00:00:00Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "experiment_id": "EXP-ML-019-GLOBAL-MATCHED-CONTROL",
+  "experiment_version": 1,
+  "interpretation": "EXPOSED DEVELOPMENT RESEARCH \u2014 NOT APPROVED STRATEGY PERFORMANCE. Per-fold ordinary least squares with training-only per-expert scaling and labels, gated by point-in-time NFCI at a fixed zero threshold; no tuning, no threshold search and no validation refit. Hours with no feasible expert are counted, never merged into another regime.",
+  "preregistration_created_at_utc": "2026-09-12T00:00:00Z",
+  "preregistration_reference": "research/experiments/EXP-ML-019-GLOBAL-MATCHED-CONTROL/preregistration.json",
+  "primary_result": -0.1103044148,
+  "run_identity_hash": "6c52429b301f5d75a147d8b60766cb0fc4343c2ededffb0485dbb97c014f2cb8",
+  "schema_version": 2,
+  "secondary_results": {
+    "architecture": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+    "cumulative_net_r": -110.4147192359,
+    "expert_fits": 6,
+    "hours_without_a_feasible_expert": 0,
+    "independent_reconciliation": "PASS",
+    "infeasible_expert_count": 0,
+    "macro_features_in_expert_matrix": 0,
+    "minimum_fold_trade_count": 82,
+    "nonnegative_fold_count": 1,
+    "per_regime": {
+      "NORMAL_OR_LOOSE": {
+        "eligible_validation_hours": 48448,
+        "executed_trades": 988,
+        "mean_net_r": -0.11045157395764252
+      },
+      "TIGHT": {
+        "eligible_validation_hours": 336,
+        "executed_trades": 13,
+        "mean_net_r": -0.09912032044392009
+      }
+    },
+    "pooled_prediction_label_pearson": 0.030509574361504237,
+    "profiles": {
+      "DEFAULT": -0.1103044148,
+      "DELAY_1H": -0.1053203947,
+      "DOUBLE": -0.230357428,
+      "ZERO": 0.0097486022
+    },
+    "regime_threshold": 0.0,
+    "regime_threshold_variants": 0,
+    "regime_version": "FINANCIAL_CONDITIONS_REGIME_V1",
+    "sealed_queries": 0,
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "trade_count": 1001
+  },
+  "seed_reference": 0,
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 4,
+    "executed_trials": 4
+  },
+  "validation_outcome": "PASS"
+}
