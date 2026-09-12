@@ -39,9 +39,10 @@ def test_admission_reproduces_after_its_own_ledger_exists():
 
 def test_cumulative_search_accounting_is_exact():
     totals = cumulative_accounting()
-    assert totals["material_economic_hypotheses"] == 6
-    assert totals["configuration_variants"] == 15
-    assert totals["profile_trials"] == 77
+    # WP-011 added one economic hypothesis, two configurations and eight profile trials.
+    assert totals["material_economic_hypotheses"] == 6 + 1
+    assert totals["configuration_variants"] == 15 + 2
+    assert totals["profile_trials"] == 77 + 8
     # WP-011 reserved a further 144 monthly fits and one adaptive fork on top of WP-008.
     assert totals["supervised_model_fits"] == 12 + 144
     assert totals["numeric_parameter_variants"] == 0

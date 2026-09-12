@@ -1,0 +1,720 @@
+{
+  "admissible_model_fits": 143,
+  "artifact": {
+    "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+    "columns": [
+      {
+        "name": "variant",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "profile",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "fold_id",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "signal_us",
+        "nullable": false,
+        "type": "int64"
+      },
+      {
+        "name": "prediction_signal_us",
+        "nullable": false,
+        "type": "int64"
+      },
+      {
+        "name": "model_effective_us",
+        "nullable": false,
+        "type": "int64"
+      },
+      {
+        "name": "predicted_default_net_r",
+        "nullable": false,
+        "type": "double"
+      },
+      {
+        "name": "status",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "reason",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "net_r",
+        "nullable": true,
+        "type": "double"
+      },
+      {
+        "name": "gross_r",
+        "nullable": true,
+        "type": "double"
+      },
+      {
+        "name": "exit_us",
+        "nullable": true,
+        "type": "int64"
+      }
+    ],
+    "file_sha256": "a41efa25432fa5c1d3128c810a8c5bde08f810b93899faeabf2480a8b4eccb2e",
+    "format": "PARQUET_ZSTD",
+    "logical_sha256": "1bd518b58ea3f8948c92b29d85dd353a21e398f6b92496137758630a4df38c31",
+    "path": "data/derived/WP-011-adaptive-trials.parquet",
+    "rows": 9271,
+    "schema_version": 1,
+    "sort_key": [
+      "variant",
+      "profile",
+      "signal_us"
+    ],
+    "writer": {
+      "compression": "zstd",
+      "compression_level": 9,
+      "data_page_version": "1.0",
+      "pyarrow_version": "21.0.0",
+      "use_dictionary": false,
+      "version": "2.6",
+      "write_statistics": true
+    }
+  },
+  "configurations": {
+    "EWLS_INTERNAL_MACRO": {
+      "admissible_monthly_models": 71,
+      "experiment_id": "EXP-ML-016-EWLS-INTERNAL-MACRO",
+      "feature_count": 16,
+      "inadmissible_monthly_models": [
+        {
+          "effective_us": 1546300800000000,
+          "effective_utc": "2019-01-01T00:00:00Z",
+          "reason": "training feature weighted standard deviation is <= 1e-12",
+          "variant": "EWLS_INTERNAL_MACRO"
+        }
+      ],
+      "monthly_models": 71,
+      "profiles": {
+        "DEFAULT": {
+          "best_fold": {
+            "fold_id": "DEV-2020",
+            "net_expectancy_r": -0.0673160847
+          },
+          "cumulative_net_r": -146.8432209489,
+          "folds": [
+            {
+              "cumulative_net_r": -19.57729813,
+              "fold_id": "DEV-2019",
+              "net_expectancy_r": -0.0738765967,
+              "trade_count": 265
+            },
+            {
+              "cumulative_net_r": -13.7324812786,
+              "fold_id": "DEV-2020",
+              "net_expectancy_r": -0.0673160847,
+              "trade_count": 204
+            },
+            {
+              "cumulative_net_r": -57.623742928,
+              "fold_id": "DEV-2021",
+              "net_expectancy_r": -0.1746174028,
+              "trade_count": 330
+            },
+            {
+              "cumulative_net_r": -10.8007111616,
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.0771479369,
+              "trade_count": 140
+            },
+            {
+              "cumulative_net_r": -11.2301567521,
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": -0.0758794375,
+              "trade_count": 148
+            },
+            {
+              "cumulative_net_r": -33.8788306987,
+              "fold_id": "DEV-2024",
+              "net_expectancy_r": -0.0846970767,
+              "trade_count": 400
+            }
+          ],
+          "gross_expectancy_r": null,
+          "max_positive_fold_profit_share": null,
+          "minimum_fold_trade_count": 140,
+          "net_expectancy_r": -0.0987513255,
+          "nonnegative_fold_count": 0,
+          "profile": "DEFAULT",
+          "trade_count": 1487,
+          "trade_ess": 1353.9202510443,
+          "worst_fold": {
+            "fold_id": "DEV-2021",
+            "net_expectancy_r": -0.1746174028
+          }
+        },
+        "DELAY_1H": {
+          "best_fold": {
+            "fold_id": "DEV-2020",
+            "net_expectancy_r": -0.0600431356
+          },
+          "cumulative_net_r": -161.8150383983,
+          "folds": [
+            {
+              "cumulative_net_r": -20.7285644589,
+              "fold_id": "DEV-2019",
+              "net_expectancy_r": -0.0785172896,
+              "trade_count": 264
+            },
+            {
+              "cumulative_net_r": -12.4889722072,
+              "fold_id": "DEV-2020",
+              "net_expectancy_r": -0.0600431356,
+              "trade_count": 208
+            },
+            {
+              "cumulative_net_r": -56.5049234628,
+              "fold_id": "DEV-2021",
+              "net_expectancy_r": -0.1671743298,
+              "trade_count": 338
+            },
+            {
+              "cumulative_net_r": -18.7934976735,
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.1371788151,
+              "trade_count": 137
+            },
+            {
+              "cumulative_net_r": -12.5582221206,
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": -0.0837214808,
+              "trade_count": 150
+            },
+            {
+              "cumulative_net_r": -40.7408584754,
+              "fold_id": "DEV-2024",
+              "net_expectancy_r": -0.1021074147,
+              "trade_count": 399
+            }
+          ],
+          "gross_expectancy_r": null,
+          "max_positive_fold_profit_share": null,
+          "minimum_fold_trade_count": 137,
+          "net_expectancy_r": -0.1081651326,
+          "nonnegative_fold_count": 0,
+          "profile": "DELAY_1H",
+          "trade_count": 1496,
+          "trade_ess": 1411.9460680924,
+          "worst_fold": {
+            "fold_id": "DEV-2021",
+            "net_expectancy_r": -0.1671743298
+          }
+        },
+        "DOUBLE": {
+          "best_fold": {
+            "fold_id": "DEV-2020",
+            "net_expectancy_r": -0.1874012387
+          },
+          "cumulative_net_r": -325.3573527753,
+          "folds": [
+            {
+              "cumulative_net_r": -51.4019936282,
+              "fold_id": "DEV-2019",
+              "net_expectancy_r": -0.1939697873,
+              "trade_count": 265
+            },
+            {
+              "cumulative_net_r": -38.2298527026,
+              "fold_id": "DEV-2020",
+              "net_expectancy_r": -0.1874012387,
+              "trade_count": 204
+            },
+            {
+              "cumulative_net_r": -97.2208602928,
+              "fold_id": "DEV-2021",
+              "net_expectancy_r": -0.2946086676,
+              "trade_count": 330
+            },
+            {
+              "cumulative_net_r": -27.6061721088,
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.1971869436,
+              "trade_count": 140
+            },
+            {
+              "cumulative_net_r": -29.002637804,
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": -0.1959637689,
+              "trade_count": 148
+            },
+            {
+              "cumulative_net_r": -81.8958362389,
+              "fold_id": "DEV-2024",
+              "net_expectancy_r": -0.2047395906,
+              "trade_count": 400
+            }
+          ],
+          "gross_expectancy_r": null,
+          "max_positive_fold_profit_share": null,
+          "minimum_fold_trade_count": 140,
+          "net_expectancy_r": -0.2188011787,
+          "nonnegative_fold_count": 0,
+          "profile": "DOUBLE",
+          "trade_count": 1487,
+          "trade_ess": 1354.0258013253,
+          "worst_fold": {
+            "fold_id": "DEV-2021",
+            "net_expectancy_r": -0.2946086676
+          }
+        },
+        "ZERO": {
+          "best_fold": {
+            "fold_id": "DEV-2020",
+            "net_expectancy_r": 0.0527690904
+          },
+          "cumulative_net_r": 31.6709235458,
+          "folds": [
+            {
+              "cumulative_net_r": 12.2474022671,
+              "fold_id": "DEV-2019",
+              "net_expectancy_r": 0.0462166123,
+              "trade_count": 265
+            },
+            {
+              "cumulative_net_r": 10.7648944513,
+              "fold_id": "DEV-2020",
+              "net_expectancy_r": 0.0527690904,
+              "trade_count": 204
+            },
+            {
+              "cumulative_net_r": -18.0266327738,
+              "fold_id": "DEV-2021",
+              "net_expectancy_r": -0.0546261599,
+              "trade_count": 330
+            },
+            {
+              "cumulative_net_r": 6.0047521876,
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": 0.0428910871,
+              "trade_count": 140
+            },
+            {
+              "cumulative_net_r": 6.5423269167,
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": 0.0442049116,
+              "trade_count": 148
+            },
+            {
+              "cumulative_net_r": 14.1381804969,
+              "fold_id": "DEV-2024",
+              "net_expectancy_r": 0.0353454512,
+              "trade_count": 400
+            }
+          ],
+          "gross_expectancy_r": null,
+          "max_positive_fold_profit_share": 0.2844844202,
+          "minimum_fold_trade_count": 140,
+          "net_expectancy_r": 0.0212985363,
+          "nonnegative_fold_count": 5,
+          "profile": "ZERO",
+          "trade_count": 1487,
+          "trade_ess": 1353.8150736661,
+          "worst_fold": {
+            "fold_id": "DEV-2021",
+            "net_expectancy_r": -0.0546261599
+          }
+        }
+      },
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "validation_diagnostics": {
+        "per_fold": [
+          {
+            "fold_id": "DEV-2019",
+            "isolated_label_valid_count": 6861,
+            "mean_prediction": 0.060874059744284816,
+            "prediction_hash": "19e15e7db0b54ffd240e7546b70c38e6388e5cc02bf7feff4dc80107f448a987",
+            "prediction_label_pearson": 0.10567028218893677,
+            "prediction_positive_count": 2777,
+            "validation_eligible_count": 6921
+          },
+          {
+            "fold_id": "DEV-2020",
+            "isolated_label_valid_count": 7335,
+            "mean_prediction": -0.28735251566321246,
+            "prediction_hash": "af3c1d19fc40b5d79cc8b7000297fc48cf113e081f406b4706b2af34f7b38a31",
+            "prediction_label_pearson": 0.001751541615575876,
+            "prediction_positive_count": 2561,
+            "validation_eligible_count": 7451
+          },
+          {
+            "fold_id": "DEV-2021",
+            "isolated_label_valid_count": 7655,
+            "mean_prediction": -0.2212384338300136,
+            "prediction_hash": "5f5ad24274a131a1922b49f0192562ad257ef7c911d19679f2f250ceb05db107",
+            "prediction_label_pearson": 0.03206693693729572,
+            "prediction_positive_count": 2125,
+            "validation_eligible_count": 7705
+          },
+          {
+            "fold_id": "DEV-2022",
+            "isolated_label_valid_count": 8713,
+            "mean_prediction": -0.232730264204839,
+            "prediction_hash": "feb043c78b87306cbe211bcef92ff80a783bfa587c95550220ec2ddc5d58e4b3",
+            "prediction_label_pearson": -0.04142731496547429,
+            "prediction_positive_count": 916,
+            "validation_eligible_count": 8713
+          },
+          {
+            "fold_id": "DEV-2023",
+            "isolated_label_valid_count": 8517,
+            "mean_prediction": -0.10580001305711166,
+            "prediction_hash": "05c598d5423f671864cee2c52912a9934b1c5eb63bc35a5f07f1948bbf847788",
+            "prediction_label_pearson": -0.08998650199467711,
+            "prediction_positive_count": 1742,
+            "validation_eligible_count": 8537
+          },
+          {
+            "fold_id": "DEV-2024",
+            "isolated_label_valid_count": 8737,
+            "mean_prediction": 0.008583376046982363,
+            "prediction_hash": "d3b7a3fd9151fc61d133f093a51ac37c542484864b96dfcfc7e7e90571b1fe6d",
+            "prediction_label_pearson": -0.05036906973485539,
+            "prediction_positive_count": 4639,
+            "validation_eligible_count": 8737
+          }
+        ],
+        "pooled_paired_count": 47818,
+        "pooled_prediction_label_pearson": 0.027469704655214706,
+        "variant": "EWLS_INTERNAL_MACRO"
+      }
+    },
+    "EWLS_INTERNAL_ONLY": {
+      "admissible_monthly_models": 72,
+      "experiment_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
+      "feature_count": 8,
+      "inadmissible_monthly_models": [],
+      "monthly_models": 72,
+      "profiles": {
+        "DEFAULT": {
+          "best_fold": {
+            "fold_id": "DEV-2023",
+            "net_expectancy_r": 0.1425680768
+          },
+          "cumulative_net_r": -42.9102181101,
+          "folds": [
+            {
+              "cumulative_net_r": -3.3881832135,
+              "fold_id": "DEV-2019",
+              "net_expectancy_r": -0.0166905577,
+              "trade_count": 203
+            },
+            {
+              "cumulative_net_r": 0.9666381957,
+              "fold_id": "DEV-2020",
+              "net_expectancy_r": 0.0047153083,
+              "trade_count": 205
+            },
+            {
+              "cumulative_net_r": -16.9587090291,
+              "fold_id": "DEV-2021",
+              "net_expectancy_r": -0.1153653675,
+              "trade_count": 147
+            },
+            {
+              "cumulative_net_r": -11.464984083,
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.3953442787,
+              "trade_count": 29
+            },
+            {
+              "cumulative_net_r": 1.568248845,
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": 0.1425680768,
+              "trade_count": 11
+            },
+            {
+              "cumulative_net_r": -13.6332288253,
+              "fold_id": "DEV-2024",
+              "net_expectancy_r": -0.0622521864,
+              "trade_count": 219
+            }
+          ],
+          "gross_expectancy_r": null,
+          "max_positive_fold_profit_share": 0.6186661653,
+          "minimum_fold_trade_count": 11,
+          "net_expectancy_r": -0.0527152557,
+          "nonnegative_fold_count": 2,
+          "profile": "DEFAULT",
+          "trade_count": 814,
+          "trade_ess": 733.4510293418,
+          "worst_fold": {
+            "fold_id": "DEV-2022",
+            "net_expectancy_r": -0.3953442787
+          }
+        },
+        "DELAY_1H": {
+          "best_fold": {
+            "fold_id": "DEV-2023",
+            "net_expectancy_r": 0.0711720035
+          },
+          "cumulative_net_r": -35.0250565714,
+          "folds": [
+            {
+              "cumulative_net_r": -1.7931165758,
+              "fold_id": "DEV-2019",
+              "net_expectancy_r": -0.0086207528,
+              "trade_count": 208
+            },
+            {
+              "cumulative_net_r": -8.1771123661,
+              "fold_id": "DEV-2020",
+              "net_expectancy_r": -0.0393130402,
+              "trade_count": 208
+            },
+            {
+              "cumulative_net_r": -16.9290464596,
+              "fold_id": "DEV-2021",
+              "net_expectancy_r": -0.1217917011,
+              "trade_count": 139
+            },
+            {
+              "cumulative_net_r": -9.0528056,
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.3233144857,
+              "trade_count": 28
+            },
+            {
+              "cumulative_net_r": 0.7828920388,
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": 0.0711720035,
+              "trade_count": 11
+            },
+            {
+              "cumulative_net_r": 0.1441323913,
+              "fold_id": "DEV-2024",
+              "net_expectancy_r": 0.0006735158,
+              "trade_count": 214
+            }
+          ],
+          "gross_expectancy_r": null,
+          "max_positive_fold_profit_share": 0.8445214747,
+          "minimum_fold_trade_count": 11,
+          "net_expectancy_r": -0.0433478423,
+          "nonnegative_fold_count": 2,
+          "profile": "DELAY_1H",
+          "trade_count": 808,
+          "trade_ess": 711.6886648862,
+          "worst_fold": {
+            "fold_id": "DEV-2022",
+            "net_expectancy_r": -0.3233144857
+          }
+        },
+        "DOUBLE": {
+          "best_fold": {
+            "fold_id": "DEV-2023",
+            "net_expectancy_r": 0.0221937982
+          },
+          "cumulative_net_r": -140.6244122136,
+          "folds": [
+            {
+              "cumulative_net_r": -27.7417547162,
+              "fold_id": "DEV-2019",
+              "net_expectancy_r": -0.1366588902,
+              "trade_count": 203
+            },
+            {
+              "cumulative_net_r": -23.6667076842,
+              "fold_id": "DEV-2020",
+              "net_expectancy_r": -0.1154473546,
+              "trade_count": 205
+            },
+            {
+              "cumulative_net_r": -34.6015363101,
+              "fold_id": "DEV-2021",
+              "net_expectancy_r": -0.2353846007,
+              "trade_count": 147
+            },
+            {
+              "cumulative_net_r": -14.9300072802,
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.5148278372,
+              "trade_count": 29
+            },
+            {
+              "cumulative_net_r": 0.2441317802,
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": 0.0221937982,
+              "trade_count": 11
+            },
+            {
+              "cumulative_net_r": -39.928538003,
+              "fold_id": "DEV-2024",
+              "net_expectancy_r": -0.1823220913,
+              "trade_count": 219
+            }
+          ],
+          "gross_expectancy_r": null,
+          "max_positive_fold_profit_share": 1.0,
+          "minimum_fold_trade_count": 11,
+          "net_expectancy_r": -0.1727572632,
+          "nonnegative_fold_count": 1,
+          "profile": "DOUBLE",
+          "trade_count": 814,
+          "trade_ess": 733.4689141717,
+          "worst_fold": {
+            "fold_id": "DEV-2022",
+            "net_expectancy_r": -0.5148278372
+          }
+        },
+        "ZERO": {
+          "best_fold": {
+            "fold_id": "DEV-2023",
+            "net_expectancy_r": 0.2629424606
+          },
+          "cumulative_net_r": 54.803997915,
+          "folds": [
+            {
+              "cumulative_net_r": 20.9653966754,
+              "fold_id": "DEV-2019",
+              "net_expectancy_r": 0.1032778161,
+              "trade_count": 203
+            },
+            {
+              "cumulative_net_r": 25.5999943157,
+              "fold_id": "DEV-2020",
+              "net_expectancy_r": 0.1248780211,
+              "trade_count": 205
+            },
+            {
+              "cumulative_net_r": 0.6841185256,
+              "fold_id": "DEV-2021",
+              "net_expectancy_r": 0.0046538675,
+              "trade_count": 147
+            },
+            {
+              "cumulative_net_r": -7.9999640857,
+              "fold_id": "DEV-2022",
+              "net_expectancy_r": -0.2758608305,
+              "trade_count": 29
+            },
+            {
+              "cumulative_net_r": 2.8923670667,
+              "fold_id": "DEV-2023",
+              "net_expectancy_r": 0.2629424606,
+              "trade_count": 11
+            },
+            {
+              "cumulative_net_r": 12.6620854173,
+              "fold_id": "DEV-2024",
+              "net_expectancy_r": 0.0578177416,
+              "trade_count": 219
+            }
+          ],
+          "gross_expectancy_r": null,
+          "max_positive_fold_profit_share": 0.4076175053,
+          "minimum_fold_trade_count": 11,
+          "net_expectancy_r": 0.0673267788,
+          "nonnegative_fold_count": 5,
+          "profile": "ZERO",
+          "trade_count": 814,
+          "trade_ess": 733.4332488803,
+          "worst_fold": {
+            "fold_id": "DEV-2022",
+            "net_expectancy_r": -0.2758608305
+          }
+        }
+      },
+      "terminal_classification": "INCONCLUSIVE",
+      "validation_diagnostics": {
+        "per_fold": [
+          {
+            "fold_id": "DEV-2019",
+            "isolated_label_valid_count": 7581,
+            "mean_prediction": -0.10534984969882147,
+            "prediction_hash": "95b92c0c80bf6883d694017aea9e5e798b21809d710eb293cc4886c514f69894",
+            "prediction_label_pearson": 0.07819676107038624,
+            "prediction_positive_count": 1830,
+            "validation_eligible_count": 7641
+          },
+          {
+            "fold_id": "DEV-2020",
+            "isolated_label_valid_count": 7335,
+            "mean_prediction": -0.07102245557223072,
+            "prediction_hash": "d70e2a13335c3dd96d24b5719ae8c6a7c2fe9f5b9930944baa74403ab16c8217",
+            "prediction_label_pearson": 0.025245682980618512,
+            "prediction_positive_count": 1949,
+            "validation_eligible_count": 7451
+          },
+          {
+            "fold_id": "DEV-2021",
+            "isolated_label_valid_count": 7655,
+            "mean_prediction": -0.09361154036406415,
+            "prediction_hash": "fd4ca64c66124a5bca9ff556dcbe9f519b92f60ac2de9ce89fd8f40840fa0552",
+            "prediction_label_pearson": -0.028199365882437682,
+            "prediction_positive_count": 754,
+            "validation_eligible_count": 7705
+          },
+          {
+            "fold_id": "DEV-2022",
+            "isolated_label_valid_count": 8713,
+            "mean_prediction": -0.17304574050771807,
+            "prediction_hash": "51efc5b31368fe222826c08b8ec8bb636a56c0ec06084eef6bd2e139b129a2d2",
+            "prediction_label_pearson": -0.03111000065231234,
+            "prediction_positive_count": 51,
+            "validation_eligible_count": 8713
+          },
+          {
+            "fold_id": "DEV-2023",
+            "isolated_label_valid_count": 8517,
+            "mean_prediction": -0.13562673555079918,
+            "prediction_hash": "7e2222ce8fe9cf314e462a792d7740887c75d8891109bc2c237d9411ff80e358",
+            "prediction_label_pearson": -0.07515339737296739,
+            "prediction_positive_count": 23,
+            "validation_eligible_count": 8537
+          },
+          {
+            "fold_id": "DEV-2024",
+            "isolated_label_valid_count": 8737,
+            "mean_prediction": -0.0608510375462233,
+            "prediction_hash": "9e1c6ec61b10679adc280586ca0baab395b9f601ae924299ea8f6be7b4acc45a",
+            "prediction_label_pearson": -0.021954233817175647,
+            "prediction_positive_count": 1267,
+            "validation_eligible_count": 8737
+          }
+        ],
+        "pooled_paired_count": 48538,
+        "pooled_prediction_label_pearson": 0.024270592855291998,
+        "variant": "EWLS_INTERNAL_ONLY"
+      }
+    }
+  },
+  "family_disposition": "REJECT_COST_DOMINATED",
+  "half_life_days": 180,
+  "hypothesis_id": "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+  "macro_incremental": {
+    "ablation_default_expectancy_r": -0.0527152557,
+    "ablation_double_expectancy_r": -0.1727572632,
+    "ablation_nonnegative_folds": 2,
+    "ablation_pooled_correlation": 0.024270592855291998,
+    "default_expectancy_delta_r": -0.0460360698,
+    "primary_default_expectancy_r": -0.0987513255,
+    "primary_double_expectancy_r": -0.2188011787,
+    "primary_nonnegative_folds": 0,
+    "primary_pooled_correlation": 0.027469704655214706
+  },
+  "model_version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1",
+  "paper_evidence_used": false,
+  "preexecution_correction": "reports/validation/WP-011-PREEXECUTION-CORRECTION.json",
+  "primary_variant": "EWLS_INTERNAL_MACRO",
+  "protocol_id": "WP-011-ADAPTIVE-EWLS-MACRO-V1",
+  "reserved_model_fits": 144,
+  "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH",
+  "work_package": "WP-011"
+}

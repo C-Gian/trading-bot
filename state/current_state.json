@@ -30,7 +30,7 @@
       "end": "2024-12-31T23:59:00Z"
     }
   },
-  "experiments_completed": 15,
+  "experiments_completed": 17,
   "sealed_evaluations_completed": 0,
   "paper_trades_completed": 0,
   "champion_status": "NONE",
@@ -38,34 +38,36 @@
   "real_money_authorized": false,
   "owner_decision_required": false,
   "latest_reviewed_checkpoint": "WP-007",
-  "latest_executor_checkpoint": "WP-008",
-  "next_recommended_work_package": "OWNER_REVIEW_WP010A_PAPER_RESEARCH_ANALYSIS_SURFACE_THEN_RESUME_WP009_GDELT_NEWS_CONTEXT_V1_1_DAILY_ACQUISITION_FROM_PRESERVED_CACHE",
+  "latest_executor_checkpoint": "WP-011",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP011_ADAPTIVE_REJECTION_THEN_EITHER_RESUME_WP009_GDELT_OR_SELECT_A_GENUINELY_DISTINCT_NON_LINEAR_OR_NON_MACRO_DIRECTION",
   "search_memory": {
     "version": "SEARCH_MEMORY_V2",
     "status": "VALIDATED",
     "families_tracked": 8
   },
   "adaptive_search": {
-    "material_economic_hypotheses": 6,
-    "configuration_variants": 15,
-    "profile_trials": 77,
-    "numeric_parameter_variants": 0,
-    "adaptive_decisions": 5,
-    "result_dependent_forks": 5,
-    "strategy_descendants": 7,
-    "wp004_variants_reserved": 3,
-    "wp004_profiles_reserved": 12,
-    "wp006_variants_reserved": 2,
-    "wp006_profiles_reserved": 8,
-    "wp007_variants_reserved": 2,
-    "wp007_profiles_reserved": 8,
-    "wp008_variants_reserved": 2,
-    "wp008_profiles_reserved": 8,
-    "integrity_replay_profiles": 12,
+    "adaptive_decisions": 7,
+    "configuration_variants": 17,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
-    "supervised_model_fits": 12,
-    "sealed_queries": 0
+    "integrity_replay_profiles": 12,
+    "material_economic_hypotheses": 7,
+    "numeric_parameter_variants": 0,
+    "profile_trials": 85,
+    "result_dependent_forks": 7,
+    "sealed_queries": 0,
+    "strategy_descendants": 8,
+    "supervised_model_fits": 156,
+    "wp004_profiles_reserved": 12,
+    "wp004_variants_reserved": 3,
+    "wp006_profiles_reserved": 8,
+    "wp006_variants_reserved": 2,
+    "wp007_profiles_reserved": 8,
+    "wp007_variants_reserved": 2,
+    "wp008_profiles_reserved": 8,
+    "wp008_variants_reserved": 2,
+    "wp011_profiles_reserved": 8,
+    "wp011_variants_reserved": 2
   },
   "selected_family": {
     "name": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
@@ -117,9 +119,9 @@
     }
   },
   "latest_family": {
-    "name": "LINEAR_NET_R_SELECTION_V1",
-    "root_family": "FAM-SUPERVISED-LINEAR",
-    "primary_experiment_id": "EXP-ML-014-LINEAR-NET-R-FULL",
+    "name": "ADAPTIVE_EWLS_MACRO_NET_R_V1",
+    "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+    "primary_experiment_id": "EXP-ML-016-EWLS-INTERNAL-MACRO",
     "novelty_classification": "NEW_FAMILY",
     "terminal_classification": "REJECT_COST_DOMINATED"
   },
@@ -148,6 +150,23 @@
     "terminal_classification": "REJECT_COST_DOMINATED",
     "leakage_audit": "PASS",
     "model_reconciliation": "PASS"
+  },
+  "adaptive_challenger": {
+    "version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1",
+    "status": "VALIDATED",
+    "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+    "primary": "EWLS_INTERNAL_MACRO",
+    "secondary": "EWLS_INTERNAL_ONLY",
+    "reserved_model_fits": 144,
+    "admissible_model_fits": 143,
+    "inadmissible_model_fits": 1,
+    "half_life_days": 180,
+    "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH",
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "macro_incremental_effect": "NEGATIVE",
+    "model_reconciliation": "PASS",
+    "macro_asof_audit": "PASS",
+    "sealed_eligibility": "DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW"
   },
   "product_analysis": {
     "version": "PAPER_RESEARCH_ANALYSIS_V1",
@@ -212,6 +231,6 @@
     "consumed_btc_queries": 0,
     "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
     "seal_eligible_candidates": 0,
-    "candidates_assessed": 15
+    "candidates_assessed": 17
   }
 }

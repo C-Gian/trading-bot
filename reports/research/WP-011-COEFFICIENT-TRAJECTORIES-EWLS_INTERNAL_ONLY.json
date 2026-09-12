@@ -1,0 +1,1762 @@
+{
+  "coefficient_sign_stability": {
+    "DIRECTIONAL_EFFICIENCY_4H": {
+      "max": 0.16978154079218982,
+      "mean": 0.038103738026056336,
+      "min": -0.0818131182591814,
+      "negative_months": 15,
+      "positive_months": 57,
+      "sign_stability": 0.7916666666666666,
+      "std": 0.050339605479818
+    },
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+      "max": 0.12745786419259078,
+      "mean": 0.018229731785412748,
+      "min": -0.11302711583912108,
+      "negative_months": 23,
+      "positive_months": 49,
+      "sign_stability": 0.6805555555555556,
+      "std": 0.04497627091044392
+    },
+    "LOG_RELATIVE_VOLUME_1H": {
+      "max": 0.03951349270947529,
+      "mean": 0.005703694807605686,
+      "min": -0.03807055891552928,
+      "negative_months": 29,
+      "positive_months": 43,
+      "sign_stability": 0.5972222222222222,
+      "std": 0.015790456223732048
+    },
+    "LOG_RETURN_1H": {
+      "max": 0.03999409289955497,
+      "mean": 0.010257610173990175,
+      "min": -0.019374403231290686,
+      "negative_months": 11,
+      "positive_months": 61,
+      "sign_stability": 0.8472222222222222,
+      "std": 0.011023892771508403
+    },
+    "LOG_RETURN_24H": {
+      "max": 0.055291750008627905,
+      "mean": -0.029958392233082387,
+      "min": -0.15813061630862807,
+      "negative_months": 62,
+      "positive_months": 10,
+      "sign_stability": 0.8611111111111112,
+      "std": 0.03240706088719027
+    },
+    "REALIZED_VOL_24H": {
+      "max": 0.059883395530363016,
+      "mean": -0.02393037096643946,
+      "min": -0.2142210963388717,
+      "negative_months": 43,
+      "positive_months": 29,
+      "sign_stability": 0.5972222222222222,
+      "std": 0.056731694600060605
+    },
+    "TAKER_BUY_SHARE_1H_CENTERED": {
+      "max": 0.026922981765932635,
+      "mean": -0.0040745695481281975,
+      "min": -0.033749689485176815,
+      "negative_months": 49,
+      "positive_months": 23,
+      "sign_stability": 0.6805555555555556,
+      "std": 0.014629495296196738
+    },
+    "TAKER_BUY_SHARE_4H_CENTERED": {
+      "max": 0.09705643104171255,
+      "mean": 0.027768396028436025,
+      "min": -0.007451012188936077,
+      "negative_months": 4,
+      "positive_months": 68,
+      "sign_stability": 0.9444444444444444,
+      "std": 0.019973976052445743
+    }
+  },
+  "grouped_contribution": {
+    "MACRO_FINANCIAL": {
+      "max_share": 0.0,
+      "mean_share": 0.0,
+      "min_share": 0.0,
+      "std_share": 0.0
+    },
+    "MARKET_PRICE": {
+      "max_share": 0.8771889857673448,
+      "mean_share": 0.567896549602621,
+      "min_share": 0.2952633777778223,
+      "std_share": 0.13316895049083843
+    },
+    "ORDER_FLOW": {
+      "max_share": 0.5366652506924428,
+      "mean_share": 0.19231686700046915,
+      "min_share": 0.022478281228186542,
+      "std_share": 0.10339620760574718
+    },
+    "VOLATILITY_LIQUIDITY": {
+      "max_share": 0.44819472326137105,
+      "mean_share": 0.23978658339690975,
+      "min_share": 0.07751002513384142,
+      "std_share": 0.09277879670935077
+    }
+  },
+  "monthly": [
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.0818131182591814,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.037151180242780045,
+        "LOG_RELATIVE_VOLUME_1H": 0.01708974158729426,
+        "LOG_RETURN_1H": -0.009272111832241324,
+        "LOG_RETURN_24H": 0.0019794711060644576,
+        "REALIZED_VOL_24H": -0.1316953595689471,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.006674365940512379,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.09705643104171255
+      },
+      "condition_number": 5.323124034916912,
+      "effective_sample_size": 1305.5336146439886,
+      "effective_utc": "2019-01-01T00:00:00Z",
+      "fit_rows": 1314,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.3402275128122198,
+        "ORDER_FLOW": 0.2710273944233209,
+        "VOLATILITY_LIQUIDITY": 0.38874509276445934
+      },
+      "intercept": -0.21815811184552522
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.06318913476111614,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.12745786419259078,
+        "LOG_RELATIVE_VOLUME_1H": -0.00822294575731686,
+        "LOG_RETURN_1H": -0.019374403231290686,
+        "LOG_RETURN_24H": -0.15813061630862807,
+        "REALIZED_VOL_24H": -0.03500451369195201,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.008343978810035233,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.0421322275798653
+      },
+      "condition_number": 5.463999675611566,
+      "effective_sample_size": 2038.3824225785932,
+      "effective_utc": "2019-02-01T00:00:00Z",
+      "fit_rows": 2063,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.7971148369115877,
+        "ORDER_FLOW": 0.10928999707521053,
+        "VOLATILITY_LIQUIDITY": 0.09359516601320177
+      },
+      "intercept": -0.20449324359746657
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.05487765665207607,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.027541735952388693,
+        "LOG_RELATIVE_VOLUME_1H": 0.026028648074527483,
+        "LOG_RETURN_1H": -0.0038415170732022975,
+        "LOG_RETURN_24H": -0.056274459069631334,
+        "REALIZED_VOL_24H": -0.11024573932936681,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.0072316083046941185,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.02836389791828367
+      },
+      "condition_number": 5.599872769442148,
+      "effective_sample_size": 2673.7757097278495,
+      "effective_utc": "2019-03-01T00:00:00Z",
+      "fit_rows": 2724,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.4533491827425857,
+        "ORDER_FLOW": 0.1132153639992703,
+        "VOLATILITY_LIQUIDITY": 0.43343545325814414
+      },
+      "intercept": -0.1561096443371137
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.026840355588310535,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.023504107154351958,
+        "LOG_RELATIVE_VOLUME_1H": -0.0012494205921602386,
+        "LOG_RETURN_1H": 0.005576519666175124,
+        "LOG_RETURN_24H": -0.06255178491905648,
+        "REALIZED_VOL_24H": -0.11500014259962586,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.0006240546410055323,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.024026510499206982
+      },
+      "condition_number": 5.782656787454375,
+      "effective_sample_size": 3184.988903107118,
+      "effective_utc": "2019-04-01T00:00:00Z",
+      "fit_rows": 3268,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.45676618224304977,
+        "ORDER_FLOW": 0.09503909449557905,
+        "VOLATILITY_LIQUIDITY": 0.44819472326137105
+      },
+      "intercept": -0.14725797742372332
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.05210518201200309,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.055452298336071876,
+        "LOG_RELATIVE_VOLUME_1H": -0.03807055891552928,
+        "LOG_RETURN_1H": -0.0023264903822588848,
+        "LOG_RETURN_24H": -0.09170063281558372,
+        "REALIZED_VOL_24H": -0.04669379147436953,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.0020352209848463385,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.024223150437559838
+      },
+      "condition_number": 5.618233737167811,
+      "effective_sample_size": 3839.8880954111187,
+      "effective_utc": "2019-05-01T00:00:00Z",
+      "fit_rows": 3997,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6448492635766548,
+        "ORDER_FLOW": 0.08399794020282864,
+        "VOLATILITY_LIQUIDITY": 0.27115279622051647
+      },
+      "intercept": -0.07617874339552715
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.1050519788485573,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.01859184516824667,
+        "LOG_RELATIVE_VOLUME_1H": -0.011833578739773072,
+        "LOG_RETURN_1H": 0.0256499569320301,
+        "LOG_RETURN_24H": -0.051588056319753536,
+        "REALIZED_VOL_24H": -0.09160908765619759,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.015893064361848567,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.04712363524348325
+      },
+      "condition_number": 5.303858454397223,
+      "effective_sample_size": 4336.182307832464,
+      "effective_utc": "2019-06-01T00:00:00Z",
+      "fit_rows": 4565,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5468535396531525,
+        "ORDER_FLOW": 0.17154813847286465,
+        "VOLATILITY_LIQUIDITY": 0.28159832187398287
+      },
+      "intercept": 0.006256321304308276
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.13132734263059104,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.08185678269681788,
+        "LOG_RELATIVE_VOLUME_1H": -0.01412763154207615,
+        "LOG_RETURN_1H": 0.03999409289955497,
+        "LOG_RETURN_24H": -0.0017970568641712415,
+        "REALIZED_VOL_24H": -0.15676186971237055,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.006290600865153394,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.04219191749204805
+      },
+      "condition_number": 5.301995375060585,
+      "effective_sample_size": 4756.8664981693,
+      "effective_utc": "2019-07-01T00:00:00Z",
+      "fit_rows": 5085,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5375286798060009,
+        "ORDER_FLOW": 0.1022089066357586,
+        "VOLATILITY_LIQUIDITY": 0.3602624135582405
+      },
+      "intercept": 0.033722831492033235
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.1630741322397433,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.04302686415811781,
+        "LOG_RELATIVE_VOLUME_1H": -0.022666913601869943,
+        "LOG_RETURN_1H": 0.02985191007822019,
+        "LOG_RETURN_24H": -0.0037408342336081426,
+        "REALIZED_VOL_24H": -0.17087184786162515,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.020505466207613336,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.0697033180717424
+      },
+      "condition_number": 5.518556011164444,
+      "effective_sample_size": 5328.721223092083,
+      "effective_utc": "2019-08-01T00:00:00Z",
+      "fit_rows": 5832,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.4579190578071112,
+        "ORDER_FLOW": 0.1723379233050522,
+        "VOLATILITY_LIQUIDITY": 0.3697430188878366
+      },
+      "intercept": 0.007841138404107727
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.16978154079218982,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.11302711583912108,
+        "LOG_RELATIVE_VOLUME_1H": -0.010962622330189355,
+        "LOG_RETURN_1H": 0.03754648255290058,
+        "LOG_RETURN_24H": 0.05520783789934484,
+        "REALIZED_VOL_24H": -0.2142210963388717,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.014246832639919972,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.06010958572528172
+      },
+      "condition_number": 5.501472927807859,
+      "effective_sample_size": 5746.167917385597,
+      "effective_utc": "2019-09-01T00:00:00Z",
+      "fit_rows": 6392,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.556304613665303,
+        "ORDER_FLOW": 0.11014083154151323,
+        "VOLATILITY_LIQUIDITY": 0.3335545547931838
+      },
+      "intercept": 0.006638952247770762
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.11489681780005503,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.0963585119223575,
+        "LOG_RELATIVE_VOLUME_1H": -0.0003520817309939509,
+        "LOG_RETURN_1H": 0.02862116215906458,
+        "LOG_RETURN_24H": 0.055291750008627905,
+        "REALIZED_VOL_24H": -0.163455163118419,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.023695494530547364,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.06825678412277186
+      },
+      "condition_number": 5.379144665918814,
+      "effective_sample_size": 6227.055471978802,
+      "effective_utc": "2019-10-01T00:00:00Z",
+      "fit_rows": 7100,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5357657762622225,
+        "ORDER_FLOW": 0.166904419107926,
+        "VOLATILITY_LIQUIDITY": 0.2973298046298516
+      },
+      "intercept": -0.024302637288954078
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.13293529337440615,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.05802441859803175,
+        "LOG_RELATIVE_VOLUME_1H": 0.0012627552761141133,
+        "LOG_RETURN_1H": 0.024207050062851496,
+        "LOG_RETURN_24H": 0.01689021328833081,
+        "REALIZED_VOL_24H": -0.11248548134587032,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.02043339996000086,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.05048809397917185
+      },
+      "condition_number": 5.567061918386828,
+      "effective_sample_size": 6727.812010034758,
+      "effective_utc": "2019-11-01T00:00:00Z",
+      "fit_rows": 7860,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5568565010272768,
+        "ORDER_FLOW": 0.17018706249841858,
+        "VOLATILITY_LIQUIDITY": 0.2729564364743045
+      },
+      "intercept": -0.080986439353438
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.1089121697489382,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.03589151440835184,
+        "LOG_RELATIVE_VOLUME_1H": -0.002891625616954663,
+        "LOG_RETURN_1H": 0.03053249710466451,
+        "LOG_RETURN_24H": 0.00493027596201762,
+        "REALIZED_VOL_24H": -0.08224431084255719,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.02638533484569996,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.06257274948433317
+      },
+      "condition_number": 5.059257053860143,
+      "effective_sample_size": 7058.034152139495,
+      "effective_utc": "2019-12-01T00:00:00Z",
+      "fit_rows": 8382,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5087092619202751,
+        "ORDER_FLOW": 0.2510383912695812,
+        "VOLATILITY_LIQUIDITY": 0.24025234681014382
+      },
+      "intercept": -0.1018954607928964
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.1387031877719939,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.02424245941861701,
+        "LOG_RELATIVE_VOLUME_1H": 0.0028820158688263563,
+        "LOG_RETURN_1H": 0.03023388599524289,
+        "LOG_RETURN_24H": -0.002855086854872706,
+        "REALIZED_VOL_24H": -0.06454842619263121,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.026922981765932635,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.061723610208109285
+      },
+      "condition_number": 5.10321820785352,
+      "effective_sample_size": 7348.877466165619,
+      "effective_utc": "2020-01-01T00:00:00Z",
+      "fit_rows": 8953,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5567399368107494,
+        "ORDER_FLOW": 0.2517570519118674,
+        "VOLATILITY_LIQUIDITY": 0.19150301127738326
+      },
+      "intercept": -0.12484250110125086
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.1349155164057088,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.018966650552087107,
+        "LOG_RELATIVE_VOLUME_1H": 0.013964880705931978,
+        "LOG_RETURN_1H": 0.021618786132435883,
+        "LOG_RETURN_24H": -0.027891560952470196,
+        "REALIZED_VOL_24H": -0.04741151642762844,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.021526493902009433,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.041384408837180066
+      },
+      "condition_number": 5.061697129312016,
+      "effective_sample_size": 7714.680060125924,
+      "effective_utc": "2020-02-01T00:00:00Z",
+      "fit_rows": 9679,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6207050462229003,
+        "ORDER_FLOW": 0.19198894795338778,
+        "VOLATILITY_LIQUIDITY": 0.1873060058237117
+      },
+      "intercept": -0.09752624082179744
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.09287664745221098,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.011396751111724092,
+        "LOG_RELATIVE_VOLUME_1H": 0.015237293344897967,
+        "LOG_RETURN_1H": 0.022222503604956114,
+        "LOG_RETURN_24H": 0.01860521574591393,
+        "REALIZED_VOL_24H": -0.07377995157679654,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.019954380656095533,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.034488902626042754
+      },
+      "condition_number": 5.037822827052215,
+      "effective_sample_size": 7943.121237102161,
+      "effective_utc": "2020-03-01T00:00:00Z",
+      "fit_rows": 10146,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5028427023012925,
+        "ORDER_FLOW": 0.18867123893434795,
+        "VOLATILITY_LIQUIDITY": 0.30848605876435975
+      },
+      "intercept": -0.07726465171101456
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.09611856641756797,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.07707699403807561,
+        "LOG_RELATIVE_VOLUME_1H": 0.02713735840079826,
+        "LOG_RETURN_1H": 0.0002190674440754395,
+        "LOG_RETURN_24H": -0.06631526015274114,
+        "REALIZED_VOL_24H": 0.0029372149040232456,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.02304809257050353,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.03255609304291543
+      },
+      "condition_number": 5.849420629828842,
+      "effective_sample_size": 8055.457258027928,
+      "effective_utc": "2020-04-01T00:00:00Z",
+      "fit_rows": 10548,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.7367041112280127,
+        "ORDER_FLOW": 0.17087494794944857,
+        "VOLATILITY_LIQUIDITY": 0.0924209408225387
+      },
+      "intercept": -0.095602270478299
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.086285305421278,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.03927053813693568,
+        "LOG_RELATIVE_VOLUME_1H": 0.03432547507717819,
+        "LOG_RETURN_1H": 0.006236879495231613,
+        "LOG_RETURN_24H": -0.04571069032240718,
+        "REALIZED_VOL_24H": -0.011815585198067975,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.023469781734240497,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.037785563259633864
+      },
+      "condition_number": 5.697677905530232,
+      "effective_sample_size": 8266.967275647543,
+      "effective_utc": "2020-05-01T00:00:00Z",
+      "fit_rows": 11244,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6230380005859104,
+        "ORDER_FLOW": 0.21500661279889235,
+        "VOLATILITY_LIQUIDITY": 0.16195538661519718
+      },
+      "intercept": -0.0953377437349863
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.05876497360042455,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.09129967016282929,
+        "LOG_RELATIVE_VOLUME_1H": 0.01818501772551034,
+        "LOG_RETURN_1H": 0.006287908434013205,
+        "LOG_RETURN_24H": -0.05849279171288637,
+        "REALIZED_VOL_24H": 0.002724614763588695,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.002865533458722544,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.006304298132188739
+      },
+      "condition_number": 5.653589876398964,
+      "effective_sample_size": 8414.629195021675,
+      "effective_utc": "2020-06-01T00:00:00Z",
+      "fit_rows": 11790,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.8771889857673448,
+        "ORDER_FLOW": 0.037439374419268895,
+        "VOLATILITY_LIQUIDITY": 0.0853716398133862
+      },
+      "intercept": -0.07467367790538566
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.050487782221187764,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.0599249214590627,
+        "LOG_RELATIVE_VOLUME_1H": 0.011046900331184282,
+        "LOG_RETURN_1H": 0.008066633258563462,
+        "LOG_RETURN_24H": -0.05134193328831763,
+        "REALIZED_VOL_24H": -0.007854184945805118,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.008056589717281945,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.000254027904186588
+      },
+      "condition_number": 5.616061768829805,
+      "effective_sample_size": 8634.270633613498,
+      "effective_utc": "2020-07-01T00:00:00Z",
+      "fit_rows": 12510,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.8618926443285557,
+        "ORDER_FLOW": 0.04217881651804197,
+        "VOLATILITY_LIQUIDITY": 0.09592853915340245
+      },
+      "intercept": -0.07690064809857004
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.04517751907746121,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.04124317260305765,
+        "LOG_RELATIVE_VOLUME_1H": 0.018325026436911706,
+        "LOG_RETURN_1H": 0.008123275123333301,
+        "LOG_RETURN_24H": -0.04080323693295119,
+        "REALIZED_VOL_24H": -0.016888365910395955,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.0008113254184418731,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.0031107450293051224
+      },
+      "condition_number": 5.628510714710056,
+      "effective_sample_size": 8787.704725058058,
+      "effective_utc": "2020-08-01T00:00:00Z",
+      "fit_rows": 13069,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.7757057272625468,
+        "ORDER_FLOW": 0.022478281228186542,
+        "VOLATILITY_LIQUIDITY": 0.2018159915092667
+      },
+      "intercept": -0.08356591475853437
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.0900713865732588,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.03838746519146889,
+        "LOG_RELATIVE_VOLUME_1H": 0.01755398297584922,
+        "LOG_RETURN_1H": 0.016113612907589787,
+        "LOG_RETURN_24H": -0.05633920566190397,
+        "REALIZED_VOL_24H": -0.03067361908934961,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.012022843091979114,
+        "TAKER_BUY_SHARE_4H_CENTERED": -0.0011381707971717114
+      },
+      "condition_number": 5.553596805472495,
+      "effective_sample_size": 9000.891521553234,
+      "effective_utc": "2020-09-01T00:00:00Z",
+      "fit_rows": 13813,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.7659605453620717,
+        "ORDER_FLOW": 0.05017536989903115,
+        "VOLATILITY_LIQUIDITY": 0.18386408473889718
+      },
+      "intercept": -0.04841490602290981
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.08457133919241956,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.01983966315142257,
+        "LOG_RELATIVE_VOLUME_1H": 0.013637750566142182,
+        "LOG_RETURN_1H": 0.0137041413755363,
+        "LOG_RETURN_24H": -0.038882641636803016,
+        "REALIZED_VOL_24H": -0.04250540593484453,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.010810676588972081,
+        "TAKER_BUY_SHARE_4H_CENTERED": -0.003355199450790847
+      },
+      "condition_number": 5.568348064805827,
+      "effective_sample_size": 9228.781350291065,
+      "effective_utc": "2020-10-01T00:00:00Z",
+      "fit_rows": 14548,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.690686653434961,
+        "ORDER_FLOW": 0.06232050657708928,
+        "VOLATILITY_LIQUIDITY": 0.24699283998794966
+      },
+      "intercept": -0.06939871017174962
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.07357199740728516,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.0009246769976662822,
+        "LOG_RELATIVE_VOLUME_1H": 0.019503524880430136,
+        "LOG_RETURN_1H": 0.012593070448197519,
+        "LOG_RETURN_24H": -0.02075534252706216,
+        "REALIZED_VOL_24H": -0.06312548629393078,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.007129553480906514,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.007147477268301181
+      },
+      "condition_number": 5.593887348974267,
+      "effective_sample_size": 9460.460330979298,
+      "effective_utc": "2020-11-01T00:00:00Z",
+      "fit_rows": 15277,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5267130283819161,
+        "ORDER_FLOW": 0.06972870331779968,
+        "VOLATILITY_LIQUIDITY": 0.4035582683002842
+      },
+      "intercept": -0.03736134273052989
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.07548254733355858,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.004304198904494931,
+        "LOG_RELATIVE_VOLUME_1H": 0.021273627553089654,
+        "LOG_RETURN_1H": 0.010681294460526278,
+        "LOG_RETURN_24H": -0.03186466041259396,
+        "REALIZED_VOL_24H": -0.0661677159750806,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.01953720718683369,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.015000064004183227
+      },
+      "condition_number": 5.416635477419248,
+      "effective_sample_size": 9689.0464837892,
+      "effective_utc": "2020-12-01T00:00:00Z",
+      "fit_rows": 16001,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5007246622834132,
+        "ORDER_FLOW": 0.14136582693123428,
+        "VOLATILITY_LIQUIDITY": 0.35790951078535266
+      },
+      "intercept": -0.002960261456000305
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.045401305733222416,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.03616762562862286,
+        "LOG_RELATIVE_VOLUME_1H": 0.015195747857335462,
+        "LOG_RETURN_1H": 0.005996503423976118,
+        "LOG_RETURN_24H": -0.011593663462286425,
+        "REALIZED_VOL_24H": -0.043808100691416885,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.01595205208877456,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.021773689039293668
+      },
+      "condition_number": 5.262983603152775,
+      "effective_sample_size": 9822.699033274032,
+      "effective_utc": "2021-01-01T00:00:00Z",
+      "fit_rows": 16534,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5062012477520353,
+        "ORDER_FLOW": 0.19258764519636834,
+        "VOLATILITY_LIQUIDITY": 0.3012111070515963
+      },
+      "intercept": 0.00407839203237328
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.0482595733328156,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.06183203995121745,
+        "LOG_RELATIVE_VOLUME_1H": 0.007166874090774007,
+        "LOG_RETURN_1H": 0.016110383840510847,
+        "LOG_RETURN_24H": -0.02772166316080826,
+        "REALIZED_VOL_24H": -0.017688598081179455,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.018139531685369366,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.030715441572674064
+      },
+      "condition_number": 5.205977694575674,
+      "effective_sample_size": 9874.748249916423,
+      "effective_utc": "2021-02-01T00:00:00Z",
+      "fit_rows": 17052,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6761889208194047,
+        "ORDER_FLOW": 0.21462062156509795,
+        "VOLATILITY_LIQUIDITY": 0.10919045761549734
+      },
+      "intercept": -0.005550530964438673
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.05330181636182752,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.11847880576447309,
+        "LOG_RELATIVE_VOLUME_1H": 0.01255845104383467,
+        "LOG_RETURN_1H": -0.0022424550001308996,
+        "LOG_RETURN_24H": -0.06469445552489578,
+        "REALIZED_VOL_24H": 0.011876963854449668,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.023735848661438942,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.02836609960520253
+      },
+      "condition_number": 5.031718369120426,
+      "effective_sample_size": 9940.521858022192,
+      "effective_utc": "2021-03-01T00:00:00Z",
+      "fit_rows": 17534,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.7572206992479642,
+        "ORDER_FLOW": 0.16526927561819432,
+        "VOLATILITY_LIQUIDITY": 0.07751002513384142
+      },
+      "intercept": 0.0021696484307042125
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.03979151940711134,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.09453521796865479,
+        "LOG_RELATIVE_VOLUME_1H": 0.018079362397413618,
+        "LOG_RETURN_1H": 0.010190429762661518,
+        "LOG_RETURN_24H": -0.06869380787384392,
+        "REALIZED_VOL_24H": -0.019645880671495412,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.02676374224581235,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.020953135174747332
+      },
+      "condition_number": 5.036055986226477,
+      "effective_sample_size": 9962.77941184659,
+      "effective_utc": "2021-04-01T00:00:00Z",
+      "fit_rows": 18097,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.7139084718143468,
+        "ORDER_FLOW": 0.15977359062826665,
+        "VOLATILITY_LIQUIDITY": 0.12631793755738654
+      },
+      "intercept": -0.04515046755661021
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.0072728428052255024,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.08678643680940702,
+        "LOG_RELATIVE_VOLUME_1H": 0.019516290838551612,
+        "LOG_RETURN_1H": 0.010266567508733643,
+        "LOG_RETURN_24H": -0.044256963515233234,
+        "REALIZED_VOL_24H": -0.019128038821145915,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.033749689485176815,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.014988321239628958
+      },
+      "condition_number": 5.058399415297934,
+      "effective_sample_size": 10000.238749799122,
+      "effective_utc": "2021-05-01T00:00:00Z",
+      "fit_rows": 18771,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6296811626393597,
+        "ORDER_FLOW": 0.2065474944646973,
+        "VOLATILITY_LIQUIDITY": 0.16377134289594297
+      },
+      "intercept": -0.04996243880356347
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.024632332493070046,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.0911400162647972,
+        "LOG_RELATIVE_VOLUME_1H": 0.006048132175040438,
+        "LOG_RETURN_1H": 0.005008003778975298,
+        "LOG_RETURN_24H": -0.06806911961294321,
+        "REALIZED_VOL_24H": -0.026436763525614335,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.030036876277946562,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.024139151355600585
+      },
+      "condition_number": 5.2309936974219085,
+      "effective_sample_size": 9974.808249735028,
+      "effective_utc": "2021-06-01T00:00:00Z",
+      "fit_rows": 19254,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6854531634569899,
+        "ORDER_FLOW": 0.1966387785055312,
+        "VOLATILITY_LIQUIDITY": 0.11790805803747886
+      },
+      "intercept": -0.08621125016804548
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.0053221629241363665,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.06715820866678676,
+        "LOG_RELATIVE_VOLUME_1H": 0.013158513180302341,
+        "LOG_RETURN_1H": 0.01068502848803525,
+        "LOG_RETURN_24H": -0.028446076452758973,
+        "REALIZED_VOL_24H": -0.02829861383639738,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.02721560099651441,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.03020994705082708
+      },
+      "condition_number": 5.182623114555823,
+      "effective_sample_size": 10005.995033358387,
+      "effective_utc": "2021-07-01T00:00:00Z",
+      "fit_rows": 19976,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5302355228665,
+        "ORDER_FLOW": 0.2728130335783572,
+        "VOLATILITY_LIQUIDITY": 0.19695144355514285
+      },
+      "intercept": -0.11796581226086243
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.01774666005823526,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.055137064567934685,
+        "LOG_RELATIVE_VOLUME_1H": 0.006734204704947927,
+        "LOG_RETURN_1H": 0.011968476948779654,
+        "LOG_RETURN_24H": -0.04536937507662809,
+        "REALIZED_VOL_24H": -0.020599158333053345,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.019508516919823023,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.03500055637247081
+      },
+      "condition_number": 5.033600541999017,
+      "effective_sample_size": 10089.884856610044,
+      "effective_utc": "2021-08-01T00:00:00Z",
+      "fit_rows": 20698,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6140673036434003,
+        "ORDER_FLOW": 0.25704065732714987,
+        "VOLATILITY_LIQUIDITY": 0.12889203902944968
+      },
+      "intercept": -0.12257502088430089
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.012988382955432988,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.013161782460624279,
+        "LOG_RELATIVE_VOLUME_1H": 0.0007273592124253388,
+        "LOG_RETURN_1H": 0.02042246963117787,
+        "LOG_RETURN_24H": 0.00873460018424894,
+        "REALIZED_VOL_24H": -0.048011868767236565,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.017574834841252555,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.03379774443132919
+      },
+      "condition_number": 4.881341642430457,
+      "effective_sample_size": 10172.367073165502,
+      "effective_utc": "2021-09-01T00:00:00Z",
+      "fit_rows": 21257,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.35585880821054927,
+        "ORDER_FLOW": 0.33054237403348063,
+        "VOLATILITY_LIQUIDITY": 0.3135988177559701
+      },
+      "intercept": -0.10475202816865298
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.015571549355027381,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.005138676796018813,
+        "LOG_RELATIVE_VOLUME_1H": -0.003912618796430102,
+        "LOG_RETURN_1H": 0.014455950676033162,
+        "LOG_RETURN_24H": 0.016545657834328945,
+        "REALIZED_VOL_24H": -0.032461961252223163,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.02409721394430562,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.037399528130379875
+      },
+      "condition_number": 4.981726508488304,
+      "effective_sample_size": 10239.545740653994,
+      "effective_utc": "2021-10-01T00:00:00Z",
+      "fit_rows": 21993,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.3457062664870925,
+        "ORDER_FLOW": 0.41112076651237184,
+        "VOLATILITY_LIQUIDITY": 0.2431729670005358
+      },
+      "intercept": -0.11625069287363966
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.00904131639555434,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.015509130310318113,
+        "LOG_RELATIVE_VOLUME_1H": -0.0013609523095298426,
+        "LOG_RETURN_1H": 0.009315029392256521,
+        "LOG_RETURN_24H": -0.0018652834250228651,
+        "REALIZED_VOL_24H": -0.01897789839404135,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.020608688189562893,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.04433487901216669
+      },
+      "condition_number": 4.962915315485585,
+      "effective_sample_size": 10273.283206648355,
+      "effective_utc": "2021-11-01T00:00:00Z",
+      "fit_rows": 22539,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.2952633777778223,
+        "ORDER_FLOW": 0.5366652506924428,
+        "VOLATILITY_LIQUIDITY": 0.16807137152973492
+      },
+      "intercept": -0.1113223407547323
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.021685889875506566,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.008705291916413014,
+        "LOG_RELATIVE_VOLUME_1H": -0.0018636304958417177,
+        "LOG_RETURN_1H": 0.007407369370490271,
+        "LOG_RETURN_24H": 0.017247841558253523,
+        "REALIZED_VOL_24H": -0.03052975778250233,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.016546005233594063,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.0461929727284215
+      },
+      "condition_number": 4.9682128738418045,
+      "effective_sample_size": 10334.208246503289,
+      "effective_utc": "2021-12-01T00:00:00Z",
+      "fit_rows": 23245,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.3665391371022714,
+        "ORDER_FLOW": 0.4177619950788025,
+        "VOLATILITY_LIQUIDITY": 0.215698867818926
+      },
+      "intercept": -0.11961289291539243
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.0021555067114455905,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.017308274916063897,
+        "LOG_RELATIVE_VOLUME_1H": 0.0033817580010492166,
+        "LOG_RETURN_1H": 0.007302792924905646,
+        "LOG_RETURN_24H": -0.014925526596260895,
+        "REALIZED_VOL_24H": -0.02950957775167039,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.002673097260452291,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.055044892058400914
+      },
+      "condition_number": 5.036388353348632,
+      "effective_sample_size": 10431.405637134902,
+      "effective_utc": "2022-01-01T00:00:00Z",
+      "fit_rows": 23987,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.31512964251246317,
+        "ORDER_FLOW": 0.43626127826292044,
+        "VOLATILITY_LIQUIDITY": 0.2486090792246166
+      },
+      "intercept": -0.14244939406378931
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.01319514877986051,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.04612483645191898,
+        "LOG_RELATIVE_VOLUME_1H": 0.005511561849664195,
+        "LOG_RETURN_1H": -0.0012352068975406347,
+        "LOG_RETURN_24H": -0.029864560142806883,
+        "REALIZED_VOL_24H": 0.01920075887662185,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.009621426533862595,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.0330364052172876
+      },
+      "condition_number": 5.148323865791939,
+      "effective_sample_size": 10551.483252171618,
+      "effective_utc": "2022-02-01T00:00:00Z",
+      "fit_rows": 24748,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5730388925428215,
+        "ORDER_FLOW": 0.27034576019837714,
+        "VOLATILITY_LIQUIDITY": 0.15661534725880139
+      },
+      "intercept": -0.1860630274830195
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.005620633546991176,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.0762188205742598,
+        "LOG_RELATIVE_VOLUME_1H": 0.016141242152665335,
+        "LOG_RETURN_1H": -0.009608026690592762,
+        "LOG_RETURN_24H": -0.04019783127031703,
+        "REALIZED_VOL_24H": 0.045546400068198135,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.005382916392358347,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.035877610848219686
+      },
+      "condition_number": 5.110145379966261,
+      "effective_sample_size": 10663.546801274495,
+      "effective_utc": "2022-03-01T00:00:00Z",
+      "fit_rows": 25403,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5611635549971271,
+        "ORDER_FLOW": 0.17588096211833246,
+        "VOLATILITY_LIQUIDITY": 0.26295548288454046
+      },
+      "intercept": -0.1610849259102378
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.008021762947108468,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.04778448131160766,
+        "LOG_RELATIVE_VOLUME_1H": 0.02580877615755697,
+        "LOG_RETURN_1H": -0.015067333226392525,
+        "LOG_RETURN_24H": -0.020766568716544545,
+        "REALIZED_VOL_24H": 0.05982440040874774,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.004429312376958874,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.040133525204561045
+      },
+      "condition_number": 4.972833197186287,
+      "effective_sample_size": 10795.38103595918,
+      "effective_utc": "2022-04-01T00:00:00Z",
+      "fit_rows": 26151,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.41309832471534175,
+        "ORDER_FLOW": 0.2008817566591317,
+        "VOLATILITY_LIQUIDITY": 0.38601991862552665
+      },
+      "intercept": -0.15159481521257537
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.009998764188367175,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.036920108149700176,
+        "LOG_RELATIVE_VOLUME_1H": 0.017311450482133978,
+        "LOG_RETURN_1H": -0.006446839380678131,
+        "LOG_RETURN_24H": -0.0269695189137796,
+        "REALIZED_VOL_24H": 0.0576932873173704,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.001146136974967944,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.03574503893969354
+      },
+      "condition_number": 4.984148247116447,
+      "effective_sample_size": 10925.44126061784,
+      "effective_utc": "2022-05-01T00:00:00Z",
+      "fit_rows": 26890,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.4179095479327722,
+        "ORDER_FLOW": 0.19191050461692022,
+        "VOLATILITY_LIQUIDITY": 0.39017994745030765
+      },
+      "intercept": -0.15439855060481192
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.035365473681509274,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.02215196571545093,
+        "LOG_RELATIVE_VOLUME_1H": 0.023916062098372475,
+        "LOG_RETURN_1H": -0.006648552501394994,
+        "LOG_RETURN_24H": -0.05305908177016906,
+        "REALIZED_VOL_24H": 0.04454760244790694,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.004271921374624827,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.04631871862568501
+      },
+      "condition_number": 5.052965689501747,
+      "effective_sample_size": 11049.461077293248,
+      "effective_utc": "2022-06-01T00:00:00Z",
+      "fit_rows": 27612,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.49612909325417387,
+        "ORDER_FLOW": 0.21411364962307927,
+        "VOLATILITY_LIQUIDITY": 0.28975725712274697
+      },
+      "intercept": -0.17369587395276076
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.04237770274758808,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.006844603687939762,
+        "LOG_RELATIVE_VOLUME_1H": 0.02495949548923009,
+        "LOG_RETURN_1H": 0.009216482148665234,
+        "LOG_RETURN_24H": -0.037921703382915076,
+        "REALIZED_VOL_24H": 0.019856601447096518,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.010492314416051566,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.03482696336266148
+      },
+      "condition_number": 5.222738391461219,
+      "effective_sample_size": 11171.184132631413,
+      "effective_utc": "2022-07-01T00:00:00Z",
+      "fit_rows": 28350,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5166896922779479,
+        "ORDER_FLOW": 0.24300419406051751,
+        "VOLATILITY_LIQUIDITY": 0.24030611366153456
+      },
+      "intercept": -0.18311350831982465
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.006811047635527412,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.018641997049057293,
+        "LOG_RELATIVE_VOLUME_1H": 0.022329401026163362,
+        "LOG_RETURN_1H": 0.0037483764522756556,
+        "LOG_RETURN_24H": -0.032895385138895866,
+        "REALIZED_VOL_24H": 0.021171840784468265,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.01206992340603409,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.03198395685488478
+      },
+      "condition_number": 5.072083308585521,
+      "effective_sample_size": 11287.496520554576,
+      "effective_utc": "2022-08-01T00:00:00Z",
+      "fit_rows": 29094,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.41494157116134334,
+        "ORDER_FLOW": 0.29437562714648247,
+        "VOLATILITY_LIQUIDITY": 0.2906828016921742
+      },
+      "intercept": -0.18186195892850113
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.011988250690250956,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.019435932762160775,
+        "LOG_RELATIVE_VOLUME_1H": 0.020451550309316526,
+        "LOG_RETURN_1H": 0.00425106181396998,
+        "LOG_RETURN_24H": -0.02922591595281087,
+        "REALIZED_VOL_24H": 0.016823024804620314,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.011472470848629618,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.026496067425593278
+      },
+      "condition_number": 5.0840146168763,
+      "effective_sample_size": 11395.199234005782,
+      "effective_utc": "2022-09-01T00:00:00Z",
+      "fit_rows": 29828,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.4631024806473807,
+        "ORDER_FLOW": 0.27092464805002436,
+        "VOLATILITY_LIQUIDITY": 0.2659728713025949
+      },
+      "intercept": -0.1872729073039249
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.01865557412230415,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.002256227513564101,
+        "LOG_RELATIVE_VOLUME_1H": 0.021934869103868493,
+        "LOG_RETURN_1H": 0.009881631395646144,
+        "LOG_RETURN_24H": -0.006576539966193043,
+        "REALIZED_VOL_24H": 0.007467015925302585,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.016708930376971916,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.020278518790981196
+      },
+      "condition_number": 5.088973759926935,
+      "effective_sample_size": 11495.41434938567,
+      "effective_utc": "2022-10-01T00:00:00Z",
+      "fit_rows": 30561,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.3601602016052097,
+        "ORDER_FLOW": 0.3564735556541525,
+        "VOLATILITY_LIQUIDITY": 0.28336624274063793
+      },
+      "intercept": -0.18925166662728626
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.02157795923606679,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.004492279693880924,
+        "LOG_RELATIVE_VOLUME_1H": 0.03951349270947529,
+        "LOG_RETURN_1H": 0.012815538371728073,
+        "LOG_RETURN_24H": -0.02484516017379729,
+        "REALIZED_VOL_24H": 0.011759236955101745,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.017564673139219486,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.018641914792136973
+      },
+      "condition_number": 5.08516914439317,
+      "effective_sample_size": 11586.858935713004,
+      "effective_utc": "2022-11-01T00:00:00Z",
+      "fit_rows": 31283,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.42147232306021293,
+        "ORDER_FLOW": 0.2394453201223587,
+        "VOLATILITY_LIQUIDITY": 0.33908235681742827
+      },
+      "intercept": -0.1920608661384883
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.011824023090946175,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.01332541214739058,
+        "LOG_RELATIVE_VOLUME_1H": 0.024601713393361074,
+        "LOG_RETURN_1H": 0.016145689378442327,
+        "LOG_RETURN_24H": -0.010289421526232601,
+        "REALIZED_VOL_24H": -0.01204774766389408,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.018103395141297555,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.014725171009578295
+      },
+      "condition_number": 5.329328619837774,
+      "effective_sample_size": 11673.200246832577,
+      "effective_utc": "2022-12-01T00:00:00Z",
+      "fit_rows": 32023,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.42609821280925875,
+        "ORDER_FLOW": 0.27117023240251475,
+        "VOLATILITY_LIQUIDITY": 0.3027315547882266
+      },
+      "intercept": -0.19865748273306028
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": -0.028743094276542005,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.007101489265573013,
+        "LOG_RELATIVE_VOLUME_1H": 0.022622413454475073,
+        "LOG_RETURN_1H": 0.014422051384186712,
+        "LOG_RETURN_24H": -0.0077217730552113974,
+        "REALIZED_VOL_24H": -0.023000785321621392,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.015910444026335152,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.015715730538108385
+      },
+      "condition_number": 5.399021748076099,
+      "effective_sample_size": 11750.663696628537,
+      "effective_utc": "2023-01-01T00:00:00Z",
+      "fit_rows": 32747,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.4287885191152348,
+        "ORDER_FLOW": 0.23385605897459574,
+        "VOLATILITY_LIQUIDITY": 0.33735542191016943
+      },
+      "intercept": -0.17937035584415895
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.04607619058510134,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.026079471588090975,
+        "LOG_RELATIVE_VOLUME_1H": 0.024871495667069293,
+        "LOG_RETURN_1H": 0.014785527016995322,
+        "LOG_RETURN_24H": -0.03291062157816879,
+        "REALIZED_VOL_24H": -0.006152683446639816,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.01822075200672331,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.0070200418420291255
+      },
+      "condition_number": 5.454127941000263,
+      "effective_sample_size": 11825.123945688249,
+      "effective_utc": "2023-02-01T00:00:00Z",
+      "fit_rows": 33510,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6805246395570194,
+        "ORDER_FLOW": 0.1433185032911525,
+        "VOLATILITY_LIQUIDITY": 0.1761568571518281
+      },
+      "intercept": -0.13808921301372765
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.03752232125376333,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.05043710147843028,
+        "LOG_RELATIVE_VOLUME_1H": 0.017144455291835975,
+        "LOG_RETURN_1H": 0.0165338236903659,
+        "LOG_RETURN_24H": -0.06351614995070033,
+        "REALIZED_VOL_24H": 0.0015062937053822723,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.01784033896552245,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.008166933113018965
+      },
+      "condition_number": 5.38058738425278,
+      "effective_sample_size": 11883.993440636516,
+      "effective_utc": "2023-03-01T00:00:00Z",
+      "fit_rows": 34171,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.7900100466190828,
+        "ORDER_FLOW": 0.12229081629194966,
+        "VOLATILITY_LIQUIDITY": 0.08769913708896752
+      },
+      "intercept": -0.1259941464932442
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.032319734865674236,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.020056239926538044,
+        "LOG_RELATIVE_VOLUME_1H": 0.016786320472734578,
+        "LOG_RETURN_1H": 0.017082301640834165,
+        "LOG_RETURN_24H": -0.008819587893834527,
+        "REALIZED_VOL_24H": 0.011682586137994439,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.017159024725324247,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.00656227012142048
+      },
+      "condition_number": 5.286853466557509,
+      "effective_sample_size": 11945.371563133684,
+      "effective_utc": "2023-04-01T00:00:00Z",
+      "fit_rows": 34927,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5999771963835443,
+        "ORDER_FLOW": 0.18181686609773673,
+        "VOLATILITY_LIQUIDITY": 0.21820593751871895
+      },
+      "intercept": -0.12119170831836357
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.03731720175899581,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.008692730088765461,
+        "LOG_RELATIVE_VOLUME_1H": 0.01153964261323859,
+        "LOG_RETURN_1H": 0.01415828805612886,
+        "LOG_RETURN_24H": -0.00946118829658465,
+        "REALIZED_VOL_24H": 0.016430977643570474,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.001589574850492698,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.02544309636896753
+      },
+      "condition_number": 5.277309787436827,
+      "effective_sample_size": 11929.356433948906,
+      "effective_utc": "2023-05-01T00:00:00Z",
+      "fit_rows": 35451,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5586768832021644,
+        "ORDER_FLOW": 0.21689870547275325,
+        "VOLATILITY_LIQUIDITY": 0.22442441132508226
+      },
+      "intercept": -0.1254620972529151
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.016087358310581345,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.00986978028901637,
+        "LOG_RELATIVE_VOLUME_1H": 0.0040131145632159235,
+        "LOG_RETURN_1H": 0.009493797670283166,
+        "LOG_RETURN_24H": -0.007312303670927005,
+        "REALIZED_VOL_24H": 0.01950251306683687,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.0029284891728374616,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.02491155955252433
+      },
+      "condition_number": 5.109914959202579,
+      "effective_sample_size": 11921.837898655187,
+      "effective_utc": "2023-06-01T00:00:00Z",
+      "fit_rows": 36175,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.4543532971227402,
+        "ORDER_FLOW": 0.29579652869929157,
+        "VOLATILITY_LIQUIDITY": 0.24985017417796818
+      },
+      "intercept": -0.13185521161759373
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.006971694299855026,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.00613019066674278,
+        "LOG_RELATIVE_VOLUME_1H": 0.0034202606750522967,
+        "LOG_RETURN_1H": 0.014804135950395581,
+        "LOG_RETURN_24H": 0.009430334868162568,
+        "REALIZED_VOL_24H": 0.01027978568889765,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.006607236781637849,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.02215289382233437
+      },
+      "condition_number": 5.060419435450377,
+      "effective_sample_size": 11929.647389574626,
+      "effective_utc": "2023-07-01T00:00:00Z",
+      "fit_rows": 36911,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.4678944622906027,
+        "ORDER_FLOW": 0.36041829903772116,
+        "VOLATILITY_LIQUIDITY": 0.17168723867167615
+      },
+      "intercept": -0.10178156160513321
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.009604040956158673,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.02543084599648827,
+        "LOG_RELATIVE_VOLUME_1H": -0.0013824520877193892,
+        "LOG_RETURN_1H": 0.010954895057163131,
+        "LOG_RETURN_24H": -0.023119262930082415,
+        "REALIZED_VOL_24H": 0.03156480607338188,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.006999190156545607,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.0025851827360199022
+      },
+      "condition_number": 4.924366916149559,
+      "effective_sample_size": 11947.681800332517,
+      "effective_utc": "2023-08-01T00:00:00Z",
+      "fit_rows": 37639,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6190310505095785,
+        "ORDER_FLOW": 0.08585018683618903,
+        "VOLATILITY_LIQUIDITY": 0.2951187626542322
+      },
+      "intercept": -0.10730905198967196
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.03505231837623261,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.030632567605045534,
+        "LOG_RELATIVE_VOLUME_1H": -0.0026121702602444584,
+        "LOG_RETURN_1H": 0.009882615377732905,
+        "LOG_RETURN_24H": -0.030211195155454257,
+        "REALIZED_VOL_24H": 0.03789770474251915,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.0031787234113350524,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.007169684850884856
+      },
+      "condition_number": 5.040822480982625,
+      "effective_sample_size": 11973.737337694081,
+      "effective_utc": "2023-09-01T00:00:00Z",
+      "fit_rows": 38404,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6753111344677738,
+        "ORDER_FLOW": 0.06606618869178202,
+        "VOLATILITY_LIQUIDITY": 0.2586226768404444
+      },
+      "intercept": -0.12721627005361197
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.01781007289829921,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.03428703036601223,
+        "LOG_RELATIVE_VOLUME_1H": -0.0072231591671955385,
+        "LOG_RETURN_1H": 0.005109811722141304,
+        "LOG_RETURN_24H": -0.03056327382882417,
+        "REALIZED_VOL_24H": 0.02949034071653567,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.004841738200395686,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.006859863620781187
+      },
+      "condition_number": 5.008791576026151,
+      "effective_sample_size": 12001.811136716933,
+      "effective_utc": "2023-10-01T00:00:00Z",
+      "fit_rows": 39113,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6444909613954809,
+        "ORDER_FLOW": 0.08592412423162905,
+        "VOLATILITY_LIQUIDITY": 0.2695849143728899
+      },
+      "intercept": -0.1254749293458859
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.013747207983273436,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.0029011864838134303,
+        "LOG_RELATIVE_VOLUME_1H": -0.0038718833665209646,
+        "LOG_RETURN_1H": 0.008594312938215984,
+        "LOG_RETURN_24H": -0.0028098655944308174,
+        "REALIZED_VOL_24H": -0.00991295644872283,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.002852496646931914,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.020263990644872158
+      },
+      "condition_number": 4.638701439354325,
+      "effective_sample_size": 12032.961501055006,
+      "effective_utc": "2023-11-01T00:00:00Z",
+      "fit_rows": 39847,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.43188435111080925,
+        "ORDER_FLOW": 0.35589067405962566,
+        "VOLATILITY_LIQUIDITY": 0.21222497482956507
+      },
+      "intercept": -0.10164662898332667
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.02595774242044337,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.0033460329502053104,
+        "LOG_RELATIVE_VOLUME_1H": -0.0043098012175114,
+        "LOG_RETURN_1H": 0.007114106686560781,
+        "LOG_RETURN_24H": -0.0222299135353998,
+        "REALIZED_VOL_24H": -0.008513081281923603,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.0008147753496425619,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.023236848307928517
+      },
+      "condition_number": 4.516698405604529,
+      "effective_sample_size": 12065.269650046954,
+      "effective_utc": "2023-12-01T00:00:00Z",
+      "fit_rows": 40590,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6139696648677692,
+        "ORDER_FLOW": 0.25179066267284467,
+        "VOLATILITY_LIQUIDITY": 0.13423967245938603
+      },
+      "intercept": -0.08144381595091654
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.03715663144181305,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.018154712607109706,
+        "LOG_RELATIVE_VOLUME_1H": -0.012461395046615231,
+        "LOG_RETURN_1H": 0.006524920689464694,
+        "LOG_RETURN_24H": -0.040508394126499814,
+        "REALIZED_VOL_24H": 0.007835266622755516,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.0071953301464612995,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.022637610674746657
+      },
+      "condition_number": 4.463664086392682,
+      "effective_sample_size": 12096.415443531398,
+      "effective_utc": "2024-01-01T00:00:00Z",
+      "fit_rows": 41311,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6712258052937168,
+        "ORDER_FLOW": 0.1956588643617554,
+        "VOLATILITY_LIQUIDITY": 0.13311533034452797
+      },
+      "intercept": -0.06028450426592893
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.04494086002331386,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.030965599444043722,
+        "LOG_RELATIVE_VOLUME_1H": -0.009757414789465388,
+        "LOG_RETURN_1H": 0.007349828467359693,
+        "LOG_RETURN_24H": -0.06607912648653959,
+        "REALIZED_VOL_24H": 0.01840477108565656,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.0032933660095799348,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.0209364716073916
+      },
+      "condition_number": 4.573488336231657,
+      "effective_sample_size": 12128.481957664675,
+      "effective_utc": "2024-02-01T00:00:00Z",
+      "fit_rows": 42075,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.7402831065816745,
+        "ORDER_FLOW": 0.12011176004416006,
+        "VOLATILITY_LIQUIDITY": 0.1396051333741654
+      },
+      "intercept": -0.08908865022197521
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.051457164722487486,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.01677942355338197,
+        "LOG_RELATIVE_VOLUME_1H": -0.012771894769944885,
+        "LOG_RETURN_1H": 0.006448548843897865,
+        "LOG_RETURN_24H": -0.055891892069538776,
+        "REALIZED_VOL_24H": 0.0022890560420524685,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.007494625704902654,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.033679722706422825
+      },
+      "condition_number": 4.566600713706246,
+      "effective_sample_size": 12155.928784525171,
+      "effective_utc": "2024-03-01T00:00:00Z",
+      "fit_rows": 42759,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6989743680132772,
+        "ORDER_FLOW": 0.2204048777786231,
+        "VOLATILITY_LIQUIDITY": 0.08062075420809968
+      },
+      "intercept": -0.054781062678438956
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.07410073038425972,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.024720255162388783,
+        "LOG_RELATIVE_VOLUME_1H": -0.004703986653278063,
+        "LOG_RETURN_1H": 0.022146761924864634,
+        "LOG_RETURN_24H": -0.045576396953176536,
+        "REALIZED_VOL_24H": -0.046089237259695374,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.008405426735593764,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.051121511074123945
+      },
+      "condition_number": 4.522359490079735,
+      "effective_sample_size": 12184.624074144604,
+      "effective_utc": "2024-04-01T00:00:00Z",
+      "fit_rows": 43513,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6015370733128547,
+        "ORDER_FLOW": 0.2150040163647178,
+        "VOLATILITY_LIQUIDITY": 0.18345891032242745
+      },
+      "intercept": -0.05065339165940768
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.04588007943219426,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.05412676556361192,
+        "LOG_RELATIVE_VOLUME_1H": -0.0036822547410094043,
+        "LOG_RETURN_1H": 0.014958686283667961,
+        "LOG_RETURN_24H": -0.013931478482604074,
+        "REALIZED_VOL_24H": -0.07242942100707067,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.011419360500762135,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.04679181364919149
+      },
+      "condition_number": 4.5255524363201625,
+      "effective_sample_size": 12209.632268823085,
+      "effective_utc": "2024-05-01T00:00:00Z",
+      "fit_rows": 44215,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.4896933306191985,
+        "ORDER_FLOW": 0.22115038821584362,
+        "VOLATILITY_LIQUIDITY": 0.2891562811649579
+      },
+      "intercept": -0.057740844413270605
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.02673967459128923,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.01150286112909698,
+        "LOG_RELATIVE_VOLUME_1H": -0.0009047159821216082,
+        "LOG_RETURN_1H": 0.010481585004518922,
+        "LOG_RETURN_24H": -0.03937317394970765,
+        "REALIZED_VOL_24H": -0.03803387044674373,
+        "TAKER_BUY_SHARE_1H_CENTERED": 0.0009148331350644818,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.025365122167491243
+      },
+      "condition_number": 4.593858956868742,
+      "effective_sample_size": 12234.298791239524,
+      "effective_utc": "2024-06-01T00:00:00Z",
+      "fit_rows": 44960,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5746131432978677,
+        "ORDER_FLOW": 0.17141057257097192,
+        "VOLATILITY_LIQUIDITY": 0.25397628413116025
+      },
+      "intercept": -0.052742321312850275
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.03137885917644417,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.021242372529651093,
+        "LOG_RELATIVE_VOLUME_1H": -0.00838260188169895,
+        "LOG_RETURN_1H": 0.012120442085529927,
+        "LOG_RETURN_24H": -0.035398071385389,
+        "REALIZED_VOL_24H": -0.030505489884149438,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.0019146499321367316,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.021441870455551675
+      },
+      "condition_number": 4.607225195300825,
+      "effective_sample_size": 12256.41838890674,
+      "effective_utc": "2024-07-01T00:00:00Z",
+      "fit_rows": 45683,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6166834467507782,
+        "ORDER_FLOW": 0.14383479278206382,
+        "VOLATILITY_LIQUIDITY": 0.23948176046715788
+      },
+      "intercept": -0.07738760422861853
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.033309799177641486,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.006871261804008466,
+        "LOG_RELATIVE_VOLUME_1H": -0.014481089874987137,
+        "LOG_RETURN_1H": 0.01784513654318012,
+        "LOG_RETURN_24H": -0.031639034657189494,
+        "REALIZED_VOL_24H": 0.0026897270111552306,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.013790066583457553,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.000501306009122242
+      },
+      "condition_number": 4.611783278553887,
+      "effective_sample_size": 12277.313030206325,
+      "effective_utc": "2024-08-01T00:00:00Z",
+      "fit_rows": 46427,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.7402554347533077,
+        "ORDER_FLOW": 0.11798626930743736,
+        "VOLATILITY_LIQUIDITY": 0.14175829593925512
+      },
+      "intercept": -0.06922010817232538
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.03981395415259842,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.01903652512779901,
+        "LOG_RELATIVE_VOLUME_1H": -0.0281612116218911,
+        "LOG_RETURN_1H": 0.011385251492071563,
+        "LOG_RETURN_24H": -0.05521836260784727,
+        "REALIZED_VOL_24H": 0.033356842300340535,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.012488249923870789,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.001423995567730943
+      },
+      "condition_number": 4.7078030371793735,
+      "effective_sample_size": 12296.386433238995,
+      "effective_utc": "2024-09-01T00:00:00Z",
+      "fit_rows": 47171,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6245089109977381,
+        "ORDER_FLOW": 0.06925498441214342,
+        "VOLATILITY_LIQUIDITY": 0.30623610459011835
+      },
+      "intercept": -0.0866674359316325
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.040110831834309066,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.0530635989846599,
+        "LOG_RELATIVE_VOLUME_1H": -0.026482854596753147,
+        "LOG_RETURN_1H": 0.0022356313375174186,
+        "LOG_RETURN_24H": -0.07415200349598697,
+        "REALIZED_VOL_24H": 0.05599127308338199,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.0014754670576700233,
+        "TAKER_BUY_SHARE_4H_CENTERED": 0.00623007806977914
+      },
+      "condition_number": 4.676974524523479,
+      "effective_sample_size": 12313.136659210793,
+      "effective_utc": "2024-10-01T00:00:00Z",
+      "fit_rows": 47887,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6528102362668528,
+        "ORDER_FLOW": 0.02966617984900451,
+        "VOLATILITY_LIQUIDITY": 0.3175235838841425
+      },
+      "intercept": -0.08384914179547469
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.030256934992974154,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.06297143221108314,
+        "LOG_RELATIVE_VOLUME_1H": -0.025635818352605498,
+        "LOG_RETURN_1H": -0.004369801052613961,
+        "LOG_RETURN_24H": -0.06551619392418302,
+        "REALIZED_VOL_24H": 0.059883395530363016,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.004867987049303513,
+        "TAKER_BUY_SHARE_4H_CENTERED": -0.005932441766081895
+      },
+      "condition_number": 4.624244487280601,
+      "effective_sample_size": 12328.939852611438,
+      "effective_utc": "2024-11-01T00:00:00Z",
+      "fit_rows": 48631,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.6287316200387837,
+        "ORDER_FLOW": 0.04163073695915098,
+        "VOLATILITY_LIQUIDITY": 0.32963764300206533
+      },
+      "intercept": -0.07801400206411065
+    },
+    {
+      "coefficients": {
+        "DIRECTIONAL_EFFICIENCY_4H": 0.027192018838480388,
+        "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.05443695888749801,
+        "LOG_RELATIVE_VOLUME_1H": -0.007892698829953528,
+        "LOG_RETURN_1H": 0.0012796944901265483,
+        "LOG_RETURN_24H": -0.044624702968359464,
+        "REALIZED_VOL_24H": 0.053619140161180315,
+        "TAKER_BUY_SHARE_1H_CENTERED": -0.016799243754908138,
+        "TAKER_BUY_SHARE_4H_CENTERED": -0.007451012188936077
+      },
+      "condition_number": 4.507347661170823,
+      "effective_sample_size": 12342.930434426988,
+      "effective_utc": "2024-12-01T00:00:00Z",
+      "fit_rows": 49359,
+      "group_contribution_share": {
+        "MACRO_FINANCIAL": 0.0,
+        "MARKET_PRICE": 0.5979188170899623,
+        "ORDER_FLOW": 0.11369325344914459,
+        "VOLATILITY_LIQUIDITY": 0.2883879294608933
+      },
+      "intercept": -0.043716778907203005
+    }
+  ],
+  "monthly_models": 72,
+  "variant": "EWLS_INTERNAL_ONLY"
+}

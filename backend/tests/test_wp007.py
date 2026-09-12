@@ -165,8 +165,11 @@ def test_the_gate_checks_both_v1_and_v2_historical_signatures():
         "EXP-ML-014-LINEAR-NET-R-FULL",
         "EXP-ML-015-LINEAR-NET-R-NO-FLOW",
     }
-    assert len(signatures(exclude_experiment_ids=set(SPEC) | future_wp008)) == 11
-    assert len(signatures()) == 15
+    # WP-011 later admitted two further executable behaviours into the same corpus.
+    future_wp011 = {"EXP-ML-016-EWLS-INTERNAL-MACRO", "EXP-ML-017-EWLS-INTERNAL-ONLY"}
+    assert len(signatures(exclude_experiment_ids=set(SPEC) | future_wp008)) == 13
+    assert len(signatures(exclude_experiment_ids=set(SPEC) | future_wp008 | future_wp011)) == 11
+    assert len(signatures()) == 17
 
 
 def test_neither_variant_duplicates_any_prior_admitted_behaviour():

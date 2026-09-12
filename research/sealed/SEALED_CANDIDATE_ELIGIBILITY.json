@@ -224,6 +224,36 @@
       "structural_validator": "PASS",
       "terminal_classification": "REJECT_COST_DOMINATED",
       "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-016-EWLS-INTERNAL-MACRO/result.json",
+      "development_result_sha256": "9d21d285e045bfcce061a4ddc2258b56dfd6d023d546a44fbb53ff9726f29b23",
+      "executable_spec_hash": "93113ebda306c7397cc3f7cfeae57ed4bb9af7d66569f5d80b2d7babd4477790",
+      "experiment_id": "EXP-ML-016-EWLS-INTERNAL-MACRO",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-017-EWLS-INTERNAL-ONLY/result.json",
+      "development_result_sha256": "8e0393487642985ac96d7f0ebd0e417fed617118ee6708ef7ad6d46936d4f2ff",
+      "executable_spec_hash": "4b872b9d63c7224434b79cf8b6424811dfbe1088874a03ceeaa97ca1b1ed1f8d",
+      "experiment_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
+      "integrity_status": "PASS",
+      "rejection_reason": "Development evidence is insufficient under DEVELOPMENT_EVALUATION_V1; INCONCLUSIVE is never seal-eligible.",
+      "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_INCONCLUSIVE",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "INCONCLUSIVE",
+      "unresolved_material_integrity_issues": 0
     }
   ],
   "generated_from": [

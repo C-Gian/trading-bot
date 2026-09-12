@@ -1,0 +1,68 @@
+{
+  "caveat": "Eligibility universes, entry events and trade counts differ across families. These numbers are not a matched-control comparison and no significance claim is made.",
+  "comparison_basis": "DESCRIPTIVE_ONLY_TRADE_SETS_ARE_NOT_PAIRED",
+  "historical": [
+    {
+      "experiment_id": "EXP-CTRL-006-NO-TRADE",
+      "primary_result": null,
+      "terminal_classification": null,
+      "trade_count": 0
+    },
+    {
+      "experiment_id": "EXP-CTRL-002-RANDOM",
+      "primary_result": -0.0948689556,
+      "terminal_classification": null,
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-BASE-003-TREND",
+      "primary_result": -0.0908105341,
+      "terminal_classification": null,
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-BASE-004-BREAKOUT",
+      "primary_result": -0.0482093869,
+      "terminal_classification": null,
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-ALG-009-ALIGNED",
+      "primary_result": 0.1373934676,
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
+      "primary_result": 0.0003823075,
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-ALG-012-ORDERFLOW-CORE",
+      "primary_result": -0.0667167056,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-ML-014-LINEAR-NET-R-FULL",
+      "primary_result": -0.1142218454,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": null
+    }
+  ],
+  "schema_version": 1,
+  "work_package": "WP-011",
+  "wp011_ablation": {
+    "experiment_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
+    "primary_result": -0.0527152557,
+    "terminal_classification": "INCONCLUSIVE",
+    "trade_count": 814
+  },
+  "wp011_primary": {
+    "experiment_id": "EXP-ML-016-EWLS-INTERNAL-MACRO",
+    "primary_result": -0.0987513255,
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "trade_count": 1487
+  }
+}

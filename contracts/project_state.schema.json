@@ -254,6 +254,8 @@
         "wp007_profiles_reserved",
         "wp008_variants_reserved",
         "wp008_profiles_reserved",
+        "wp011_variants_reserved",
+        "wp011_profiles_reserved",
         "supervised_model_fits"
       ],
       "properties": {
@@ -330,6 +332,14 @@
           "minimum": 0
         },
         "wp008_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp011_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp011_profiles_reserved": {
           "type": "integer",
           "minimum": 0
         },
@@ -659,6 +669,44 @@
         },
         "asof_reconciliation": {"const": "PASS"},
         "adaptive_design": {"const": "THREE_OPTIONS_DOCUMENTED_NOT_EXECUTED"}
+      }
+    },
+    "adaptive_challenger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "root_family",
+        "primary",
+        "secondary",
+        "reserved_model_fits",
+        "admissible_model_fits",
+        "half_life_days",
+        "update_cadence",
+        "terminal_classification",
+        "macro_incremental_effect",
+        "model_reconciliation",
+        "macro_asof_audit"
+      ],
+      "properties": {
+        "version": {"const": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1"},
+        "status": {"const": "VALIDATED"},
+        "root_family": {"const": "FAM-ADAPTIVE-EWLS-MACRO"},
+        "primary": {"const": "EWLS_INTERNAL_MACRO"},
+        "secondary": {"const": "EWLS_INTERNAL_ONLY"},
+        "reserved_model_fits": {"type": "integer", "minimum": 0},
+        "admissible_model_fits": {"type": "integer", "minimum": 0},
+        "inadmissible_model_fits": {"type": "integer", "minimum": 0},
+        "half_life_days": {"const": 180},
+        "update_cadence": {"const": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH"},
+        "terminal_classification": {
+          "enum": ["REJECT", "REJECT_COST_DOMINATED", "REJECT_UNSTABLE", "INCONCLUSIVE"]
+        },
+        "macro_incremental_effect": {"const": "NEGATIVE"},
+        "model_reconciliation": {"const": "PASS"},
+        "macro_asof_audit": {"const": "PASS"},
+        "sealed_eligibility": {"const": "DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW"}
       }
     },
     "product_analysis": {

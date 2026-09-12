@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "default_executed_metrics": "PASS",
+    "monthly_fit_rows_and_rank": "PASS",
+    "signal_and_model_timestamps": "PASS",
+    "training_outcomes_precede_purge_boundary": "PASS",
+    "zero_double_reuse_default_signals": "PASS"
+  },
+  "cost_profile": "BTCUSDT_SPOT_COST_V1",
+  "executed_rows_examined": 9271,
+  "independent_monthly_refits": 12,
+  "independent_path": "LONGHAND_WEIGHTED_FIT_NOT_THE_PRODUCTION_LAB",
+  "independent_universe_rows": 50595,
+  "mismatches": [],
+  "reconciliation": "INDEPENDENT_ADAPTIVE_EWLS_V1",
+  "schema_version": 1,
+  "status": "PASS",
+  "work_package": "WP-011"
+}

@@ -1,0 +1,51 @@
+{
+  "artifacts": [
+    "reports/research/WP-011-COMPARISON.json",
+    "research/experiments/EXP-ML-017-EWLS-INTERNAL-ONLY/monthly-models.json",
+    "reports/research/WP-011-COEFFICIENT-TRAJECTORIES-EWLS_INTERNAL_ONLY.json",
+    "reports/validation/WP-011-MODEL-RECONCILIATION.json",
+    "reports/validation/WP-011-MACRO-ASOF-AUDIT.json"
+  ],
+  "code_config_reference": "bd11c44f84835336c0ee5095ae8d59e526aac76508e46ac8f2d8774e580600be",
+  "completed_at_utc": "2026-09-12T00:00:00Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "experiment_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
+  "experiment_version": 1,
+  "interpretation": "EXPOSED DEVELOPMENT RESEARCH \u2014 NOT APPROVED STRATEGY PERFORMANCE. Monthly recency-weighted least squares with training-only weighted scaling and labels; no tuning, no half-life search and no validation refit.",
+  "preregistration_created_at_utc": "2026-09-12T00:00:00Z",
+  "preregistration_reference": "research/experiments/EXP-ML-017-EWLS-INTERNAL-ONLY/preregistration.json",
+  "primary_result": -0.0527152557,
+  "run_identity_hash": "d173f8d996cbe836552c98c23c5ed8ca443d926ac106e3e52640f110371eec38",
+  "schema_version": 2,
+  "secondary_results": {
+    "cumulative_net_r": -42.9102181101,
+    "feature_count": 8,
+    "half_life_days": 180,
+    "independent_reconciliation": "PASS",
+    "minimum_fold_trade_count": 11,
+    "monthly_models": 72,
+    "nonnegative_fold_count": 2,
+    "pooled_prediction_label_pearson": 0.024270592855291998,
+    "profiles": {
+      "DEFAULT": -0.0527152557,
+      "DELAY_1H": -0.0433478423,
+      "DOUBLE": -0.1727572632,
+      "ZERO": 0.0673267788
+    },
+    "sealed_queries": 0,
+    "terminal_classification": "INCONCLUSIVE",
+    "trade_count": 814,
+    "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH"
+  },
+  "seed_reference": 0,
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 4,
+    "executed_trials": 4
+  },
+  "validation_outcome": "PASS"
+}

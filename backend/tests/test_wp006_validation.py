@@ -110,6 +110,8 @@ def _sealed_mirror(tmp_path: Path) -> Path:
         "research/memory/registry/outcomes/WP-007.jsonl",
         "research/memory/registry/ledger/WP-008.jsonl",
         "research/memory/registry/outcomes/WP-008.jsonl",
+        "research/memory/registry/ledger/WP-011.jsonl",
+        "research/memory/registry/outcomes/WP-011.jsonl",
     ):
         target = root / relative
         target.parent.mkdir(parents=True, exist_ok=True)

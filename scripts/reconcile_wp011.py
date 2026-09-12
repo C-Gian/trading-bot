@@ -166,9 +166,24 @@ def main() -> int:
     for variant in VARIANTS:
         recorded = comparison["configurations"][variant]["profiles"]["DEFAULT"]
         trades = executed[(variant, "DEFAULT")]
-        valid = [row["net_r"] for row in trades if row["status"] == "VALID"]
-        if len(trades) != recorded["trade_count"]:
-            metric_mismatch.append({"variant": variant, "field": "trade_count"})
+        resolved = [row for row in trades if row["status"] == "VALID"]
+        valid = [row["net_r"] for row in resolved]
+        # The governed trade_count is resolved trades only; unresolved rows are retained
+        # and counted separately, never imputed.
+        if len(resolved) != recorded["trade_count"]:
+            metric_mismatch.append(
+                {
+                    "variant": variant,
+                    "field": "trade_count",
+                    "recorded": recorded["trade_count"],
+                    "rebuilt": len(resolved),
+                }
+            )
+        unresolved = [row for row in trades if row["status"] != "VALID"]
+        if any(row["net_r"] is not None or row["gross_r"] is not None for row in unresolved):
+            metric_mismatch.append(
+                {"variant": variant, "field": "unresolved_rows_carry_invented_pnl"}
+            )
         if valid:
             expectancy = float(sum(valid) / len(valid))
             if abs(expectancy - (recorded["net_expectancy_r"] or 0.0)) > 1e-9:

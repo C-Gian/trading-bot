@@ -227,7 +227,7 @@ def test_statistics_read_only_the_paper_store(tmp_path: Path) -> None:
 def test_scientific_counters_are_untouched_by_statistics_fixtures() -> None:
     state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
     assert state["paper_trades_completed"] == 0
-    assert state["experiments_completed"] == 15
+    assert state["experiments_completed"] == 17
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluations_completed"] == 0
 
