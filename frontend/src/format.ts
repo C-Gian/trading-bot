@@ -120,3 +120,65 @@ export function dataStatusCopy(status: string): string | null {
     return 'Non è stato possibile leggere i dati di mercato. Riprova tra poco.';
   return 'I dati di mercato non sono completi, quindi il bot non si esprime.';
 }
+
+/** One plain sentence about what Bitcoin just did, from the candles the API returned. */
+export function marketSummary(ratio: number | null, candles: number): string | null {
+  if (ratio === null || candles < 2) return null;
+  const span = candles >= 48
+    ? `${Math.round(candles / 24)} giorni`
+    : candles === 1 ? 'un’ora' : `${candles} ore`;
+  const size = Math.abs(ratio * 100);
+  if (size < 0.1) return `Bitcoin è sostanzialmente stabile rispetto a ${span} fa.`;
+  const move = signedPercent.format(Math.abs(ratio * 100)).replace('+', '');
+  return ratio > 0
+    ? `Bitcoin è in rialzo del ${move}% rispetto a ${span} fa.`
+    : `Bitcoin è in calo del ${move}% rispetto a ${span} fa.`;
+}
+
+export type Check = { label: string; state: string; ok: boolean; body: string };
+
+/**
+ * The three frozen ALIGNED gates, said in human language. No feature name, formula or
+ * threshold appears here - those stay in the technical disclosure.
+ */
+export function gateChecks(features: {
+  breakout: boolean; persistent_up: boolean; participation: boolean;
+} | undefined): Check[] {
+  if (!features) return [];
+  return [
+    {
+      label: 'Direzione del mercato',
+      ok: features.persistent_up,
+      state: features.persistent_up ? 'Favorevole' : 'Non favorevole',
+      body: features.persistent_up
+        ? 'Nelle ultime settimane il prezzo ha spinto più in su che in giù.'
+        : 'Negli ultimi giorni il mercato non ha una direzione chiara verso l’alto.',
+    },
+    {
+      label: 'Forza del movimento',
+      ok: features.breakout,
+      state: features.breakout ? 'Favorevole' : 'Non abbastanza forte',
+      body: features.breakout
+        ? 'Il prezzo ha superato i massimi delle ultime ore.'
+        : 'Il prezzo non ha superato i massimi delle ultime ore.',
+    },
+    {
+      label: 'Conferma dai volumi',
+      ok: features.participation,
+      state: features.participation ? 'Confermato' : 'Non confermato',
+      body: features.participation
+        ? 'Il movimento è accompagnato da scambi superiori alla media.'
+        : 'Gli scambi sono nella media: poche persone stanno seguendo il movimento.',
+    },
+  ];
+}
+
+/** The bot enters only when all three agree. */
+export function checksSummary(checks: Check[]): string | null {
+  if (checks.length === 0) return null;
+  const missing = checks.filter(check => !check.ok).length;
+  if (missing === 0) return 'Tutti e tre i controlli sono favorevoli.';
+  return missing === 1
+    ? 'Un controllo su tre non è favorevole, e al bot servono tutti e tre.'
+    : `${missing} controlli su tre non sono favorevoli, e al bot servono tutti e tre.`;
+}

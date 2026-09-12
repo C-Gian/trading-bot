@@ -44,10 +44,15 @@ const analysisBase = {
   analysis_time: '2026-03-05T12:30:00Z', signal_time: '2026-03-05T12:00:00Z',
   data_status: 'OK', data_detail: 'completed contiguous lookback available',
   paper_trade_persisted: false, real_money: false,
+  features: {
+    breakout: false, persistent_up: true, participation: false,
+    signed_efficiency: 0.41, relative_volume: 0.8,
+  },
 };
 const noTrade = { ...analysisBase, decision: 'NO_TRADE', plan: null };
 const longAnalysis = {
   ...analysisBase, decision: 'LONG', reference_price: 50000,
+  features: { breakout: true, persistent_up: true, participation: true, signed_efficiency: 0.6, relative_volume: 2.4 },
   plan: {
     direction: 'LONG', entry_rule: 'NEXT_1M_OPEN', entry_semantics: 'next completed 1m open',
     execution_model: 'PROSPECTIVE_PAPER_EXECUTION_V1', exit_policy: 'FIXED_TARGET_OR_STOP_OR_24H',
@@ -204,8 +209,10 @@ describe('analisi', () => {
     expect(await within(card).findByText('Possibile long')).toBeInTheDocument();
     expect(card).toHaveTextContent('Solo simulazione — nessun denaro reale');
     expect(card).toHaveTextContent('Ingresso');
-    expect(card).toHaveTextContent('Prezzo a cui simuliamo l’acquisto');
-    expect(card).toHaveTextContent('Se il prezzo scende qui, chiudiamo la simulazione');
+    expect(card).toHaveTextContent('Prezzo a cui simuliamo l’ingresso');
+    expect(card).toHaveTextContent('Se scende qui, chiudiamo la simulazione');
+    expect(card).toHaveTextContent('Se sale qui, prendiamo profitto');
+    expect(card).toHaveTextContent('Il trade viene chiuso comunque entro questo momento');
     expect(card).toHaveTextContent('Obiettivo');
     expect(card).toHaveTextContent('Scadenza');
     expect(card).toHaveTextContent('50.000,00');
@@ -368,7 +375,7 @@ describe('linguaggio e sicurezza', () => {
     await dashboard();
     await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
     await screen.findByText('Possibile long');
-    const disclosures = screen.getAllByText('Dettagli avanzati');
+    const disclosures = screen.getAllByText('Dettagli tecnici');
     expect(disclosures.length).toBeGreaterThan(0);
     for (const summary of disclosures) {
       expect(summary.closest('details')).not.toHaveAttribute('open');
@@ -390,8 +397,9 @@ describe('linguaggio e sicurezza', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
     await screen.findByText('Possibile long');
     const card = screen.getByRole('region', { name: 'Decisione del bot' });
-    await userEvent.click(within(card).getByText('Dettagli avanzati'));
+    await userEvent.click(within(card).getByText('Dettagli tecnici'));
     expect(within(card).getByText(/ALIGNED_PARTICIPATION_CONTINUATION_V1/)).toBeInTheDocument();
+    expect(within(card).getByText('Debug')).toBeInTheDocument();
   });
 
   it('mostra un solo avviso paper persistente e nessun controllo di denaro reale', async () => {
@@ -415,6 +423,114 @@ describe('linguaggio e sicurezza', () => {
   });
 });
 
+// ── spiegazione in parole semplici ────────────────────────────────────────
+
+describe('spiegazione della decisione', () => {
+  it('riassume il mercato in una frase leggibile', async () => {
+    mockApi();
+    await dashboard();
+    const hero = await screen.findByRole('region', { name: 'Andamento Bitcoin' });
+    await waitFor(() => expect(hero).toHaveTextContent(
+      'Bitcoin è in rialzo del 5,83% rispetto a 3 ore fa.',
+    ));
+  });
+
+  it('dice che il mercato è in calo quando il prezzo è sceso', async () => {
+    const falling = {
+      ...market,
+      candles: [
+        { open_time: '2026-03-05T09:00:00Z', open: 50000, high: 50100, low: 47000, close: 49000 },
+        { open_time: '2026-03-05T10:00:00Z', open: 49000, high: 49100, low: 47500, close: 47850 },
+      ],
+    };
+    mockApi({ 'product/market/recent': falling });
+    await dashboard();
+    const hero = await screen.findByRole('region', { name: 'Andamento Bitcoin' });
+    await waitFor(() => expect(hero).toHaveTextContent(
+      'Bitcoin è in calo del 4,30% rispetto a 2 ore fa.',
+    ));
+  });
+
+  it('spiega il NO_TRADE con tre controlli in parole semplici', async () => {
+    mockApi();
+    await dashboard();
+    await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
+    const card = screen.getByRole('region', { name: 'Decisione del bot' });
+    await within(card).findByText('Nessun trade ora');
+    const checks = within(card).getByRole('list');
+    const items = within(checks).getAllByRole('listitem');
+    expect(items).toHaveLength(3);
+    expect(items[0]).toHaveTextContent('Direzione del mercato');
+    expect(items[0]).toHaveTextContent('Favorevole');
+    expect(items[1]).toHaveTextContent('Forza del movimento');
+    expect(items[1]).toHaveTextContent('Non abbastanza forte');
+    expect(items[2]).toHaveTextContent('Conferma dai volumi');
+    expect(items[2]).toHaveTextContent('Non confermato');
+    expect(card).toHaveTextContent('2 controlli su tre non sono favorevoli, e al bot servono tutti e tre.');
+  });
+
+  it('non espone nomi di feature, formule o soglie nella spiegazione', async () => {
+    mockApi();
+    await dashboard();
+    await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
+    const card = screen.getByRole('region', { name: 'Decisione del bot' });
+    const checks = within(card).getByRole('list');
+    for (const jargon of ['breakout', 'persistent_up', 'participation', 'signed_efficiency', 'relative_volume', '2x', '24h']) {
+      expect(checks.textContent?.toLowerCase()).not.toContain(jargon.toLowerCase());
+    }
+  });
+
+  it('conferma che per un LONG tutti e tre i controlli sono favorevoli', async () => {
+    mockApi({ 'product/analysis': longAnalysis });
+    await dashboard();
+    await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
+    const card = screen.getByRole('region', { name: 'Decisione del bot' });
+    await within(card).findByText('Possibile long');
+    const items = within(within(card).getByRole('list')).getAllByRole('listitem');
+    expect(items.every(item => item.className === 'ok')).toBe(true);
+    expect(card).toHaveTextContent('Tutti e tre i controlli sono favorevoli.');
+  });
+
+  it('rende Analizza l’azione primaria quando non c’è nulla da simulare', async () => {
+    mockApi();
+    await dashboard();
+    expect(screen.getByRole('button', { name: 'Analizza ora' })).toHaveClass('primary');
+    await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
+    await screen.findByText('Nessun trade ora');
+    expect(screen.getByRole('button', { name: 'Analizza di nuovo' })).toHaveClass('primary');
+  });
+
+  it('cede il primato a «Simula questo trade» quando un LONG è disponibile', async () => {
+    mockApi({ 'product/analysis': longAnalysis });
+    await dashboard();
+    await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
+    expect(await screen.findByRole('button', { name: 'Simula questo trade' })).toHaveClass('primary');
+    expect(screen.getByRole('button', { name: 'Analizza di nuovo' })).toHaveClass('ghost');
+  });
+
+  it('nasconde identificativi e hash dietro una seconda apertura Debug', async () => {
+    mockApi({ 'product/analysis': longAnalysis });
+    await dashboard();
+    await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
+    const card = screen.getByRole('region', { name: 'Decisione del bot' });
+    await within(card).findByText('Possibile long');
+    const id = within(card).getByText('a'.repeat(64));
+    expect(id.closest('details.advanced.nested')).not.toBeNull();
+    expect(within(card).getByText('Debug').closest('details')).not.toHaveAttribute('open');
+  });
+
+  it('mostra lo stato corrente sulla Dashboard senza navigare', async () => {
+    mockApi({
+      'paper-trades': { ...emptyPaper, active: [openTrade], recent: [openTrade, wonTrade], recorded: 2 },
+      'paper-trades/statistics': filledStats,
+    });
+    await dashboard();
+    expect(await screen.findByRole('region', { name: 'Simulazione in corso' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Andamento' })).toHaveTextContent('Trade completati');
+    expect(screen.getByRole('region', { name: 'Simulazioni recenti' })).toHaveTextContent('Chiuso in profitto');
+  });
+});
+
 // ── navigazione ───────────────────────────────────────────────────────────
 
 describe('navigazione', () => {
@@ -422,11 +538,12 @@ describe('navigazione', () => {
     mockApi();
     await dashboard();
     const nav = screen.getByRole('navigation', { name: 'Navigazione principale' });
-    for (const item of ['Dashboard', 'Trade', 'Andamento']) {
+    for (const item of ['Dashboard', 'Trade', 'Risultati']) {
       expect(within(nav).getByRole('button', { name: item })).toBeInTheDocument();
     }
-    expect(within(nav).getByRole('button', { name: 'Ricerca' })).toHaveClass('secondary');
-    expect(within(nav).getByRole('button', { name: 'Sistema' })).toHaveClass('secondary');
+    expect(within(nav).getByRole('button', { name: 'Altro' })).toHaveClass('secondary');
+    expect(within(nav).queryByRole('button', { name: 'Ricerca' })).not.toBeInTheDocument();
+    expect(within(nav).queryByRole('button', { name: 'Sistema' })).not.toBeInTheDocument();
     expect(within(nav).getByRole('button', { name: 'Dashboard' })).toHaveAttribute('aria-current', 'page');
   });
 
@@ -436,16 +553,16 @@ describe('navigazione', () => {
     const nav = screen.getByRole('navigation', { name: 'Navigazione principale' });
     await userEvent.click(within(nav).getByRole('button', { name: 'Trade' }));
     expect(await screen.findByText('Tutto fermo')).toBeInTheDocument();
-    await userEvent.click(within(nav).getByRole('button', { name: 'Andamento' }));
+    await userEvent.click(within(nav).getByRole('button', { name: 'Risultati' }));
     expect(await screen.findByText('Trade completati')).toBeInTheDocument();
     expect(calls.some(call => call.url.includes('product/analysis'))).toBe(false);
   });
 
-  it('tiene i contenuti scientifici nella sezione Ricerca', async () => {
+  it('tiene i contenuti scientifici nella sezione secondaria', async () => {
     mockApi();
     await dashboard();
     const nav = screen.getByRole('navigation', { name: 'Navigazione principale' });
-    await userEvent.click(within(nav).getByRole('button', { name: 'Ricerca' }));
+    await userEvent.click(within(nav).getByRole('button', { name: 'Altro' }));
     const panel = await screen.findByRole('region', { name: 'Stato scientifico' });
     expect(panel).toHaveTextContent('Champion');
     expect(panel).toHaveTextContent('NONE');

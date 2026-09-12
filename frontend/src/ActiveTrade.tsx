@@ -1,6 +1,6 @@
 import { PaperTrade } from './api';
 import { money, rMultiple, statusCopy, timeLeft, when } from './format';
-import { Advanced, Badge, KeyValues } from './ui';
+import { Advanced, Badge, Debug, KeyValues } from './ui';
 
 export function ActiveTrade({
   trade, busy, onUpdate,
@@ -71,22 +71,31 @@ export function ActiveTrade({
       <Advanced>
         <KeyValues
           rows={[
-            ['Identificativo', trade.trade_id],
-            ['Stato interno', trade.status],
             ['Strategia', `${trade.strategy_version} · ${trade.variant}`],
-            ['Stato scientifico', trade.research_status],
-            ['Champion', trade.champion_status],
-            ['Classe di evidenza', trade.evidence_version],
-            ['Esecuzione', trade.execution_model_version],
-            ['Regola di ingresso', trade.entry_execution],
-            ['Fill ambiguo', trade.ambiguous_fill_policy],
-            ['Momento del segnale', trade.signal_time],
-            ['Minuto di ingresso', trade.entry_minute],
-            ['Motivo di uscita', trade.exit_reason ?? '—'],
-            ['Dettaglio risoluzione', trade.resolution_detail],
-            ['Ultimo aggiornamento', trade.last_update_time],
+            ['Stato della strategia', 'Candidata sperimentale in modalità paper'],
+            ['Strategia approvata', trade.champion_status === 'NONE' ? 'Nessuna' : trade.champion_status],
+            ['Momento del segnale', when(trade.signal_time)],
+            ['Ingresso simulato', trade.entry_time ? when(trade.entry_time) : 'non ancora avvenuto'],
+            ['Scadenza', when(trade.expiry_time)],
+            ['Durata massima', `${trade.max_hold_minutes} minuti`],
+            ['Ultimo aggiornamento', when(trade.last_update_time)],
           ]}
         />
+        <Debug>
+          <KeyValues
+            rows={[
+              ['Identificativo', trade.trade_id],
+              ['Stato interno', trade.status],
+              ['Classe di evidenza', trade.evidence_version],
+              ['Esecuzione', trade.execution_model_version],
+              ['Regola di ingresso', trade.entry_execution],
+              ['Fill ambiguo', trade.ambiguous_fill_policy],
+              ['Minuto di ingresso', trade.entry_minute],
+              ['Motivo di uscita', trade.exit_reason ?? '—'],
+              ['Dettaglio risoluzione', trade.resolution_detail],
+            ]}
+          />
+        </Debug>
       </Advanced>
     </section>
   );

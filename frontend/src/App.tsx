@@ -11,8 +11,8 @@ import { Market } from './Market';
 import { Advanced, Badge, Empty, KeyValues, Section } from './ui';
 import { refusalCopy } from './format';
 
-const PRIMARY = ['Dashboard', 'Trade', 'Andamento'] as const;
-const SECONDARY = ['Ricerca', 'Sistema'] as const;
+const PRIMARY = ['Dashboard', 'Trade', 'Risultati'] as const;
+const SECONDARY = ['Altro'] as const;
 type Page = (typeof PRIMARY)[number] | (typeof SECONDARY)[number];
 
 export function App() {
@@ -158,11 +158,11 @@ export function App() {
           </>
         )}
 
-        {page === 'Andamento' && (
+        {page === 'Risultati' && (
           <>
             <div className="pagehead">
               <div>
-                <h1>Andamento</h1>
+                <h1>Risultati</h1>
                 <p className="lede">Come sono andate le simulazioni completate finora.</p>
               </div>
               <Badge tone="paper">Risultati simulati</Badge>
@@ -172,14 +172,14 @@ export function App() {
           </>
         )}
 
-        {page === 'Ricerca' && (
+        {page === 'Altro' && (
           <>
             <div className="pagehead">
               <div>
-                <h1>Ricerca</h1>
+                <h1>Altro</h1>
                 <p className="lede">
-                  Area tecnica. Sono studi storici di laboratorio, non risultati di questa strategia
-                  in tempo reale.
+                  Area tecnica: studi storici di laboratorio e stato dell’applicazione. Non serve
+                  per l’uso normale.
                 </p>
               </div>
             </div>
@@ -221,17 +221,6 @@ export function App() {
                 <Market available={health?.development_data_available === true} />
               </div>
             </Section>
-          </>
-        )}
-
-        {page === 'Sistema' && (
-          <>
-            <div className="pagehead">
-              <div>
-                <h1>Sistema</h1>
-                <p className="lede">Stato tecnico dell’applicazione locale.</p>
-              </div>
-            </div>
             <Section title="Stato" label="Stato">
               <div className="pad">
                 <KeyValues
@@ -247,6 +236,7 @@ export function App() {
             </Section>
           </>
         )}
+
       </main>
     </div>
   );

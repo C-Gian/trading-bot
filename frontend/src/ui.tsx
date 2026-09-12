@@ -59,12 +59,43 @@ export function Empty({ title, body }: { title: string; body: string }) {
 }
 
 /** Everything technical lives here, collapsed. The Owner never needs to open it. */
-export function Advanced({ children }: { children: ReactNode }) {
+export function Advanced({ children, title = 'Dettagli tecnici' }: {
+  children: ReactNode; title?: string;
+}) {
   return (
     <details className="advanced">
-      <summary>Dettagli avanzati</summary>
+      <summary>{title}</summary>
       {children}
     </details>
+  );
+}
+
+/** Identifiers and hashes: useful for support, meaningless to the Owner. */
+export function Debug({ children }: { children: ReactNode }) {
+  return (
+    <details className="advanced nested">
+      <summary>Debug</summary>
+      {children}
+    </details>
+  );
+}
+
+export function Checks({ items }: { items: { label: string; state: string; ok: boolean; body: string }[] }) {
+  return (
+    <ul className="checks">
+      {items.map(item => (
+        <li key={item.label} className={item.ok ? 'ok' : 'no'}>
+          <span className="mark" aria-hidden="true" />
+          <div>
+            <p className="name">
+              {item.label}
+              <span className="state">{item.state}</span>
+            </p>
+            <p className="why">{item.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }
 

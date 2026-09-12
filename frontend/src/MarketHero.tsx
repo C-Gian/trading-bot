@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { CandlestickSeries, createChart, UTCTimestamp } from 'lightweight-charts';
 import { LiveMarket, readLiveMarket } from './api';
-import { changePercent, money, when } from './format';
+import { changePercent, marketSummary, money, when } from './format';
 
 export type PlanLines = {
   reference: number | null;
@@ -79,6 +79,7 @@ export function MarketHero({ plan }: { plan: PlanLines }) {
   const last = candles.at(-1);
   const first = candles[0];
   const change = last && first && first.open ? (last.close - first.open) / first.open : null;
+  const summary = marketSummary(change, candles.length);
 
   return (
     <section className="surface chartcard" aria-label="Andamento Bitcoin">
@@ -100,6 +101,7 @@ export function MarketHero({ plan }: { plan: PlanLines }) {
               </span>
             )}
           </div>
+          {summary && <p className="marketsummary">{summary}</p>}
         </div>
         <div className="meta">
           {last ? <span>Candele orarie · ultimo dato {when(last.open_time)} UTC</span> : <span>Dati di mercato</span>}
