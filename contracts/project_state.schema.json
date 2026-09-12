@@ -661,6 +661,48 @@
         "adaptive_design": {"const": "THREE_OPTIONS_DOCUMENTED_NOT_EXECUTED"}
       }
     },
+    "product_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "surface",
+        "trigger",
+        "strategy_version",
+        "variant",
+        "research_status",
+        "champion_status",
+        "possible_outputs",
+        "paper_trade_persistence",
+        "trade_history_statistics",
+        "order_placement",
+        "credentials",
+        "leverage_or_short",
+        "current_data_reenters_development_evidence"
+      ],
+      "properties": {
+        "version": {"const": "PAPER_RESEARCH_ANALYSIS_V1"},
+        "surface": {"const": "AVAILABLE"},
+        "trigger": {"const": "EXPLICIT_USER_ACTION_ONLY"},
+        "strategy_version": {"const": "ALIGNED_PARTICIPATION_CONTINUATION_V1"},
+        "variant": {"const": "ALIGNED"},
+        "research_status": {"const": "PAPER_RESEARCH_CANDIDATE"},
+        "champion_status": {"const": "NONE"},
+        "possible_outputs": {
+          "type": "array",
+          "items": {"enum": ["NO_TRADE", "LONG"]},
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "paper_trade_persistence": {"const": false},
+        "trade_history_statistics": {"const": false},
+        "order_placement": {"const": false},
+        "credentials": {"const": false},
+        "leverage_or_short": {"const": false},
+        "current_data_reenters_development_evidence": {"const": false}
+      }
+    },
     "exogenous_acquisition_pause": {
       "type": "object",
       "additionalProperties": false,

@@ -39,7 +39,7 @@
   "owner_decision_required": false,
   "latest_reviewed_checkpoint": "WP-007",
   "latest_executor_checkpoint": "WP-008",
-  "next_recommended_work_package": "RESUME_WP009_GDELT_NEWS_CONTEXT_V1_1_DAILY_ACQUISITION_FROM_PRESERVED_CACHE_BEFORE_ANY_EXOGENOUS_CONTEXT_BUILD_OR_STRATEGY_DIRECTION",
+  "next_recommended_work_package": "OWNER_REVIEW_WP010A_PAPER_RESEARCH_ANALYSIS_SURFACE_THEN_RESUME_WP009_GDELT_NEWS_CONTEXT_V1_1_DAILY_ACQUISITION_FROM_PRESERVED_CACHE",
   "search_memory": {
     "version": "SEARCH_MEMORY_V2",
     "status": "VALIDATED",
@@ -148,6 +148,25 @@
     "terminal_classification": "REJECT_COST_DOMINATED",
     "leakage_audit": "PASS",
     "model_reconciliation": "PASS"
+  },
+  "product_analysis": {
+    "version": "PAPER_RESEARCH_ANALYSIS_V1",
+    "surface": "AVAILABLE",
+    "trigger": "EXPLICIT_USER_ACTION_ONLY",
+    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "variant": "ALIGNED",
+    "research_status": "PAPER_RESEARCH_CANDIDATE",
+    "champion_status": "NONE",
+    "possible_outputs": [
+      "NO_TRADE",
+      "LONG"
+    ],
+    "paper_trade_persistence": false,
+    "trade_history_statistics": false,
+    "order_placement": false,
+    "credentials": false,
+    "leverage_or_short": false,
+    "current_data_reenters_development_evidence": false
   },
   "exogenous_acquisition_pause": {
     "version": "GDELT_NEWS_CONTEXT_V1_1",
