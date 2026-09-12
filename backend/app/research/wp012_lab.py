@@ -128,6 +128,9 @@ def trade_at(
         "prediction_signal_us": prediction_signal_us,
         "predicted_default_net_r": prediction,
         "reference": row.reference,
+        # `regime_label` is the NFCI gate. The separate `regime` field belongs to the
+        # frozen evaluation protocol's PERSISTENT_UP/OTHER market classification, which
+        # this work package never observes, so it stays honestly unclassified.
         "regime_label": row.regime,
         "expert": expert,
         "regime": "UNCLASSIFIED",
@@ -441,6 +444,7 @@ class RegimeExpertLab:
     ) -> dict[str, Any]:
         """Per-regime eligibility, prediction and realised outcome, plus OOS correlation."""
         per_regime: dict[str, dict[str, Any]] = {}
+        paired_by_regime: dict[str, list[tuple[float, float]]] = {}
         default_trades = profiles["DEFAULT"]["trades"]
         for regime in REGIMES:
             eligible = 0
@@ -462,6 +466,7 @@ class RegimeExpertLab:
                     label = self.label(row)
                     if label.status == "VALID" and label.net_r is not None:
                         paired.append((source[0], label.net_r))
+            paired_by_regime[regime] = paired
             selected = [
                 trade
                 for trade in default_trades
@@ -483,17 +488,7 @@ class RegimeExpertLab:
                 ),
                 "isolated_label_valid_count": len(paired),
             }
-        pooled = [
-            (predictions[signal_us][0], self.label(row).net_r)
-            for fold in self.folds
-            for signal_us in range(
-                utc_us(fold["validation_start"]), utc_us(fold["last_signal_inclusive"]) + 1, HOUR_US
-            )
-            if (row := self.row(signal_us)) is not None
-            and signal_us in predictions
-            and self.label(row).status == "VALID"
-            and self.label(row).net_r is not None
-        ]
+        pooled = [pair for pairs in paired_by_regime.values() for pair in pairs]
         return {
             "variant": variant,
             "per_regime": per_regime,

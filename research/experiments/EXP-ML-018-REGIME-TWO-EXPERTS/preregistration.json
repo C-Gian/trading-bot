@@ -91,7 +91,7 @@
       },
       {
         "path": "backend/app/research/wp012_lab.py",
-        "sha256": "a2335e96590fc76ffbd46c7b75ac2d6a89ea5ce5dfca8f6f6e7de555eeadbbc8"
+        "sha256": "0f0b8abbcf327333d59890be5c20eaad07c2874bccf29975c809a5d122919e01"
       },
       {
         "path": "backend/app/research/artifacts.py",
@@ -106,7 +106,7 @@
         "sha256": "57e936d8fc8a80459ef6a3892f4ce90c832778a05602f46a83f57a1a6ade8f80"
       }
     ],
-    "executable_spec_hash": "c7d4e11fba3ec42c222126cfa33100924ad5b8399d03901361ee1e9ad299510c",
+    "executable_spec_hash": "e656a4347d613e6a2666fce9a5c16afc958cb34a685c90d695ed9828d0f3f0e6",
     "experts_per_fold": 2,
     "feature_count": 8,
     "feature_subset_searches": 0,
