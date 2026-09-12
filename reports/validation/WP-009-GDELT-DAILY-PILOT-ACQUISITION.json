@@ -1,0 +1,41 @@
+{
+  "completed": 3,
+  "errors": [
+    {
+      "error": "status=429 credential-free GDELT throttle",
+      "request_id": "c2e3bb1bd0086d639581b2de0b1396ec28e3815de1491c8a730167d558dfcf96"
+    },
+    {
+      "error": "status=429 credential-free GDELT throttle",
+      "request_id": "3bc96f0fec129f9c5872a2ceec5e77ac105b5c3c972dacd8d404a3b4aa4ee3d1"
+    },
+    {
+      "error": "SKIPPED_AFTER_THROTTLE_STOP",
+      "request_id": "fa67090d382f519e53da192d0610c04756e70afdaf41dbef827406e9e11e9e0a"
+    },
+    {
+      "error": "SKIPPED_AFTER_THROTTLE_STOP",
+      "request_id": "3dd938d6594433be95ea03d5f9397fe52a9e3325251b2e8e813f78b9ba7acf48"
+    },
+    {
+      "error": "SKIPPED_AFTER_THROTTLE_STOP",
+      "request_id": "6aafb636bab2501d3a7734969e2d7d964d6beee897261ab025f8de99958d0729"
+    },
+    {
+      "error": "SKIPPED_AFTER_THROTTLE_STOP",
+      "request_id": "563c741c31ec50973908c1c7b472337a6c7ccf745ccd516468c8954649ce310e"
+    },
+    {
+      "error": "SKIPPED_AFTER_THROTTLE_STOP",
+      "request_id": "df331417911bbf8e3f9295332b640b291cf2748393862df17a30ada39f057296"
+    }
+  ],
+  "expected": 10,
+  "failed": 7,
+  "fetched": 3,
+  "reused": 0,
+  "status": "PARTIAL_SOURCE_THROTTLED",
+  "stopped_on_persistent_throttle": true,
+  "throttle_429_responses": 12,
+  "version": "GDELT_NEWS_CONTEXT_V1_1"
+}
