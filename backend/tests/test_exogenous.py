@@ -2,6 +2,7 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 import pytest
+from app.research import gdelt
 from app.research.alfred import asof_values, parse_snapshot
 from app.research.exogenous import (
     ALFRED_SERIES,
@@ -14,7 +15,7 @@ from app.research.exogenous_oracle import (
     _alfred_oracle,
     _gdelt_chunk_boundary_samples,
 )
-from app.research.gdelt import _aggregate, _valid_payload, _validate_acquired_document
+from app.research.gdelt import _RateLimiter, _aggregate, _valid_payload, _validate_acquired_document
 
 
 def test_catalogs_have_exact_preselected_sources_queries_and_series() -> None:
@@ -95,6 +96,17 @@ def test_gdelt_rejects_daily_resolution() -> None:
     payload = b'{"query_details":{"date_resolution":"day"},"timeline":[]}'
     with pytest.raises(ExogenousDataError, match="not subdaily/hourly"):
         _valid_payload(payload)
+
+
+def test_gdelt_rate_limit_is_measured_after_response_completion(monkeypatch) -> None:
+    instants = iter((100.0, 101.0))
+    sleeps = []
+    monkeypatch.setattr(gdelt.time, "monotonic", lambda: next(instants))
+    monkeypatch.setattr(gdelt.time, "sleep", sleeps.append)
+    limiter = _RateLimiter(5.2)
+    limiter.complete()
+    limiter.wait()
+    assert sleeps == [pytest.approx(4.2)]
 
 
 def test_frozen_gdelt_acquisition_requires_hourly_points_within_request() -> None:
