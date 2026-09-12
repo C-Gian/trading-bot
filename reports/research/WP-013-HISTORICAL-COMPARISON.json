@@ -1,0 +1,78 @@
+{
+  "caveat": "Historical families and executed trade sets differ; no paired claim is made. WP-013 configurations share eligible hours but not signals or occupancy.",
+  "comparison_basis": "DESCRIPTIVE_ONLY_UNLESS_EXPLICITLY_MATCHED_WITHIN_WP013",
+  "historical": [
+    {
+      "experiment_id": "EXP-CTRL-006-NO-TRADE",
+      "primary_result": null,
+      "terminal_classification": null,
+      "trade_count": 0
+    },
+    {
+      "experiment_id": "EXP-BASE-004-BREAKOUT",
+      "primary_result": -0.0482093869,
+      "terminal_classification": null,
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-ALG-009-ALIGNED",
+      "primary_result": 0.1373934676,
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-ML-014-LINEAR-NET-R-FULL",
+      "primary_result": -0.1142218454,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-ML-016-EWLS-INTERNAL-MACRO",
+      "primary_result": -0.0987513255,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1487
+    },
+    {
+      "experiment_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
+      "primary_result": -0.0527152557,
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": 814
+    },
+    {
+      "experiment_id": "EXP-ML-018-REGIME-TWO-EXPERTS",
+      "primary_result": -0.1071860713,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 989
+    },
+    {
+      "experiment_id": "EXP-ML-019-GLOBAL-MATCHED-CONTROL",
+      "primary_result": -0.1103044148,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1001
+    }
+  ],
+  "interaction_effect": {
+    "control_default_trade_count": 1001,
+    "eligible_universe_matched": true,
+    "executed_trade_sets_paired": false,
+    "interpretation_guard": "Same eligible hours do not imply paired executed trades because predictions and occupancy differ.",
+    "primary_default_trade_count": 1060,
+    "primary_minus_control_default_net_expectancy_r": 0.0016271209000000009
+  },
+  "schema_version": 1,
+  "work_package": "WP-013",
+  "wp013": {
+    "INTERNAL_ONLY_MATCHED_NFCI": {
+      "experiment_id": "EXP-ML-021-INTERNAL-NFCI-MATCHED",
+      "primary_result": -0.1103044148,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1001
+    },
+    "NFCI_CONTEXT_INTERACTIONS": {
+      "experiment_id": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
+      "primary_result": -0.1086772939,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1060
+    }
+  }
+}

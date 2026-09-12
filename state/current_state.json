@@ -30,34 +30,34 @@
       "end": "2024-12-31T23:59:00Z"
     }
   },
-  "experiments_completed": 19,
+  "experiments_completed": 21,
   "sealed_evaluations_completed": 0,
   "paper_trades_completed": 0,
   "champion_status": "NONE",
   "forward_evidence": "NONE",
   "real_money_authorized": false,
   "owner_decision_required": false,
-  "latest_reviewed_checkpoint": "WP-011",
-  "latest_executor_checkpoint": "WP-012",
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP_012",
+  "latest_reviewed_checkpoint": "WP-012",
+  "latest_executor_checkpoint": "WP-013",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP_013",
   "search_memory": {
     "version": "SEARCH_MEMORY_V2",
     "status": "VALIDATED",
-    "families_tracked": 10
+    "families_tracked": 11
   },
   "adaptive_search": {
-    "adaptive_decisions": 8,
-    "configuration_variants": 19,
+    "adaptive_decisions": 9,
+    "configuration_variants": 21,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
     "integrity_replay_profiles": 12,
-    "material_economic_hypotheses": 8,
+    "material_economic_hypotheses": 9,
     "numeric_parameter_variants": 0,
-    "profile_trials": 93,
-    "result_dependent_forks": 8,
+    "profile_trials": 101,
+    "result_dependent_forks": 9,
     "sealed_queries": 0,
-    "strategy_descendants": 9,
-    "supervised_model_fits": 174,
+    "strategy_descendants": 10,
+    "supervised_model_fits": 186,
     "wp004_profiles_reserved": 12,
     "wp004_variants_reserved": 3,
     "wp006_profiles_reserved": 8,
@@ -69,7 +69,9 @@
     "wp011_profiles_reserved": 8,
     "wp011_variants_reserved": 2,
     "wp012_profiles_reserved": 8,
-    "wp012_variants_reserved": 2
+    "wp012_variants_reserved": 2,
+    "wp013_profiles_reserved": 8,
+    "wp013_variants_reserved": 2
   },
   "selected_family": {
     "name": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
@@ -109,6 +111,12 @@
         "head": "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2",
         "run_id": 34392236263,
         "evidence": "reports/reviews/WP-008-CI-EVIDENCE.json"
+      },
+      "WP-012": {
+        "status": "SUCCESS",
+        "head": "d88a1465560ecfe02d2eae6a924da27238fa898e",
+        "run_id": 34709907850,
+        "evidence": "reports/reviews/WP-012-CI-EVIDENCE.json"
       }
     }
   },
@@ -127,9 +135,9 @@
     }
   },
   "latest_family": {
-    "name": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
-    "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
-    "primary_experiment_id": "EXP-ML-018-REGIME-TWO-EXPERTS",
+    "name": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+    "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+    "primary_experiment_id": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
     "novelty_classification": "NEW_FAMILY",
     "terminal_classification": "REJECT_COST_DOMINATED"
   },
@@ -179,6 +187,33 @@
     "research_director_verdict": "ACCEPTED",
     "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
     "ablation_sealed_eligibility": "NOT_ELIGIBLE_INCONCLUSIVE"
+  },
+  "regime_conditioned_challenger": {
+    "version": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+    "status": "VALIDATED",
+    "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
+    "primary": "REGIME_TWO_EXPERTS",
+    "control": "GLOBAL_SINGLE_EXPERT_MATCHED",
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "research_director_verdict": "ACCEPTED",
+    "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
+    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+    "model_reconciliation": "PASS",
+    "safe_phase_1_commit": "8633203f8fc054f13bd47bc1c03020fcd1f3e75e"
+  },
+  "contextual_interaction_challenger": {
+    "version": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+    "status": "VALIDATED",
+    "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+    "context_version": "NFCI_CONTEXT_V1",
+    "primary": "NFCI_CONTEXT_INTERACTIONS",
+    "control": "INTERNAL_ONLY_MATCHED_NFCI",
+    "reserved_model_fits": 12,
+    "actual_model_fits": 12,
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "model_reconciliation": "PASS",
+    "macro_asof_audit": "PASS",
+    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED"
   },
   "product_analysis": {
     "version": "PAPER_RESEARCH_ANALYSIS_V1",
@@ -243,6 +278,6 @@
     "consumed_btc_queries": 0,
     "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
     "seal_eligible_candidates": 0,
-    "candidates_assessed": 19
+    "candidates_assessed": 21
   }
 }

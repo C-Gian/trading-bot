@@ -22,6 +22,7 @@ WP006_HEAD = "d92088d5ef0426bf64f34326a3224dd9aba93603"
 WP007_BASE = "d92088d5ef0426bf64f34326a3224dd9aba93603"
 WP007_HEAD = "762b3b77f686305b1c73f19956d0b9b16b7a9b1c"
 WP008_HEAD = "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2"
+WP012_HEAD = "d88a1465560ecfe02d2eae6a924da27238fa898e"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -97,6 +98,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.wp008 import SPEC as WP008_SPEC
     from app.research.wp011 import EXPERIMENTS as WP011_EXPERIMENTS
     from app.research.wp012 import EXPERIMENTS as WP012_EXPERIMENTS
+    from app.research.wp013 import EXPERIMENTS as WP013_EXPERIMENTS
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
     assert directories == (
@@ -107,9 +109,10 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP008_SPEC)
         | set(WP011_EXPERIMENTS.values())
         | set(WP012_EXPERIMENTS.values())
+        | set(WP013_EXPERIMENTS.values())
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
-    assert len(results) == state["experiments_completed"] == 19
+    assert len(results) == state["experiments_completed"] == 21
     for experiment_id, budget in EXPERIMENTS.items():
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path, result_path = directory / "preregistration.json", directory / "result.json"
@@ -192,8 +195,8 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
-        state["latest_reviewed_checkpoint"] == "WP-011"
-        and state["latest_executor_checkpoint"] == "WP-012"
+        state["latest_reviewed_checkpoint"] == "WP-012"
+        and state["latest_executor_checkpoint"] == "WP-013"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -242,7 +245,7 @@ def validate_research_views(state: dict) -> None:
     wp007 = validate_wp007()
     assert wp007["status"] == "PASS"
     assert wp007["family_terminal_classification"] == "REJECT_COST_DOMINATED"
-    assert wp007["sealed"] == {"assessed": 19, "eligible": 0, "queries": 0}
+    assert wp007["sealed"] == {"assessed": 21, "eligible": 0, "queries": 0}
 
     from app.research.wp008_validation import validate_wp008
 
@@ -277,13 +280,36 @@ def validate_research_views(state: dict) -> None:
         "REGIME_TWO_EXPERTS": "REJECT_COST_DOMINATED",
         "GLOBAL_SINGLE_EXPERT_MATCHED": "REJECT_COST_DOMINATED",
     }
+    wp013_comparison = json.loads(
+        (ROOT / "reports/research/WP-013-COMPARISON.json").read_text(encoding="utf-8")
+    )
+    wp013_reconciliation = json.loads(
+        (ROOT / "reports/validation/WP-013-MODEL-RECONCILIATION.json").read_text(encoding="utf-8")
+    )
+    assert wp013_reconciliation["status"] == "PASS"
+    assert not wp013_reconciliation["mismatches"]
+    assert set(wp013_reconciliation["checks"].values()) == {"PASS"}
+    assert wp013_comparison["context_version"] == "NFCI_CONTEXT_V1"
+    assert wp013_comparison["interaction_effect"]["eligible_universe_matched"] is True
+    assert wp013_comparison["interaction_effect"]["executed_trade_sets_paired"] is False
+    assert {
+        variant: record["terminal_classification"]
+        for variant, record in wp013_comparison["configurations"].items()
+    } == {
+        "NFCI_CONTEXT_INTERACTIONS": "REJECT_COST_DOMINATED",
+        "INTERNAL_ONLY_MATCHED_NFCI": "REJECT_COST_DOMINATED",
+    }
     assert state["latest_family"] == {
-        "name": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
-        "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
-        "primary_experiment_id": "EXP-ML-018-REGIME-TWO-EXPERTS",
+        "name": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+        "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+        "primary_experiment_id": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
         "novelty_classification": "NEW_FAMILY",
         "terminal_classification": "REJECT_COST_DOMINATED",
     }
+    assert state["regime_conditioned_challenger"]["research_director_verdict"] == "ACCEPTED"
+    assert state["regime_conditioned_challenger"]["family_status"] == (
+        "PARKED_REJECTED_NO_TUNING_AUTHORIZED"
+    )
 
     # validate_wp009 is the completed-WP-009 validator; it may only run once state
     # declares finalization. A paused WP-009 is validated by wp009_governance_checks.
@@ -308,12 +334,13 @@ def validate_research_views(state: dict) -> None:
     }
     assert "remote_ci" not in state["wp005_integrity"], "stale pending CI state was reintroduced"
     remote = state["remote_ci"]["work_packages"]
-    assert set(remote) == {"WP-005", "WP-006", "WP-007", "WP-008"}
+    assert set(remote) == {"WP-005", "WP-006", "WP-007", "WP-008", "WP-012"}
     for work_package, expected_head in (
         ("WP-005", WP005_BASE_SUCCESSOR),
         ("WP-006", WP006_HEAD),
         ("WP-007", WP007_HEAD),
         ("WP-008", WP008_HEAD),
+        ("WP-012", WP012_HEAD),
     ):
         record = remote[work_package]
         evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
@@ -371,6 +398,11 @@ def dataset_scope_checks() -> None:
     if wp012_comparison.is_file():
         approved_parquet.add(
             ROOT / json.loads(wp012_comparison.read_text(encoding="utf-8"))["artifact"]["path"]
+        )
+    wp013_comparison = ROOT / "reports/research/WP-013-COMPARISON.json"
+    if wp013_comparison.is_file():
+        approved_parquet.add(
+            ROOT / json.loads(wp013_comparison.read_text(encoding="utf-8"))["artifact"]["path"]
         )
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
@@ -520,6 +552,13 @@ def governance_checks(pre_experiment: bool) -> dict:
         "research/design/ADAPTIVE_MULTISIGNAL_ARCHITECTURE_OPTIONS_V1.md",
         "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
         "reports/validation/WP-009-ALFRED-INTEGRITY.json",
+        "reports/reviews/WP-012-RESEARCH-DIRECTOR-REVIEW.md",
+        "reports/reviews/WP-012-CI-EVIDENCE.json",
+        "reports/validation/WP-013-NFCI-ASOF-AUDIT.json",
+        "reports/validation/WP-013-MODEL-RECONCILIATION.json",
+        "reports/research/WP-013-COMPARISON.json",
+        "reports/research/WP-013-INTERACTION-STABILITY.json",
+        "reports/checkpoints/WP-013.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -676,6 +715,10 @@ def data_checks(state: dict) -> None:
         ROOT / json.loads(alfred_path.read_text(encoding="utf-8"))["file"]["path"],
         ROOT / json.loads(alfred_path.read_text(encoding="utf-8"))["request_index"]["path"],
         ROOT / json.loads(context_path.read_text(encoding="utf-8"))["file"]["path"],
+        ROOT
+        / json.loads(
+            (ROOT / "reports/research/WP-013-COMPARISON.json").read_text(encoding="utf-8")
+        )["artifact"]["path"],
     }
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))

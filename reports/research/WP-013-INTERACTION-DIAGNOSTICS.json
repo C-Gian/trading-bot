@@ -1,0 +1,655 @@
+{
+  "configurations": {
+    "INTERNAL_ONLY_MATCHED_NFCI": {
+      "folds": [
+        {
+          "condition_number": 5.271690042328347,
+          "fit_rows": 9725,
+          "fold_id": "DEV-2019",
+          "model_hash": "e2be53c634cf3068186362e0be100e423f9a4485ed58f3a6c1516ad30c8e133f",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": 0.0981657949976207,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.11241339753118088,
+            "LOG_RELATIVE_VOLUME_1H": -0.01980657068172045,
+            "LOG_RETURN_1H": -0.04629449513756178,
+            "LOG_RETURN_24H": -0.08495397618480977,
+            "REALIZED_VOL_24H": 0.03725286778143298,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.022151294323397287,
+            "TAKER_BUY_SHARE_4H_CENTERED": -0.017960907070196038
+          }
+        },
+        {
+          "condition_number": 5.139851920868442,
+          "fit_rows": 17359,
+          "fold_id": "DEV-2020",
+          "model_hash": "a35479bd290a13be7ba06a8232a032b035ed8fd8db90249de3ae1427c190cfc9",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": 0.1182160662554689,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.07981893182773914,
+            "LOG_RELATIVE_VOLUME_1H": -0.014861071605471263,
+            "LOG_RETURN_1H": -0.020342262775898262,
+            "LOG_RETURN_24H": -0.06431567720053924,
+            "REALIZED_VOL_24H": 0.015398113364053174,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.011857288593060757,
+            "TAKER_BUY_SHARE_4H_CENTERED": -0.0005092984884798799
+          }
+        },
+        {
+          "condition_number": 5.282662220465725,
+          "fit_rows": 24915,
+          "fold_id": "DEV-2021",
+          "model_hash": "c3f8e8b597765bd6b5cc2a545e54c53495c8fdd0f67b22f5d85d2c3010ec6d3a",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": 0.08996197217878472,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.07556857987464805,
+            "LOG_RELATIVE_VOLUME_1H": -0.0021575167233428795,
+            "LOG_RETURN_1H": -0.015544221785793406,
+            "LOG_RETURN_24H": -0.05369551002412121,
+            "REALIZED_VOL_24H": -0.0013486102260762602,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.01524479384818487,
+            "TAKER_BUY_SHARE_4H_CENTERED": -0.004222040318067869
+          }
+        },
+        {
+          "condition_number": 5.167171141774901,
+          "fit_rows": 32410,
+          "fold_id": "DEV-2022",
+          "model_hash": "98490327126d822dc0db9014aec1fe8f350a735485e423eee3cdee0a111991b7",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": 0.0678276076441077,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.062175852938031045,
+            "LOG_RELATIVE_VOLUME_1H": -0.0020446880568239668,
+            "LOG_RETURN_1H": -0.010024775527405848,
+            "LOG_RETURN_24H": -0.04957660895351487,
+            "REALIZED_VOL_24H": -0.0038826662124407697,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.01504464524787552,
+            "TAKER_BUY_SHARE_4H_CENTERED": 0.005091796894441912
+          }
+        },
+        {
+          "condition_number": 5.157252168286723,
+          "fit_rows": 41152,
+          "fold_id": "DEV-2023",
+          "model_hash": "eed2304eda5d4bf28a5776d656bca4240f64b6096d4fb16c8ee7cad470a9aeb2",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": 0.054676311834035055,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.05481262988635244,
+            "LOG_RELATIVE_VOLUME_1H": 0.005333587999243477,
+            "LOG_RETURN_1H": -0.007432978842551414,
+            "LOG_RETURN_24H": -0.04233489492939555,
+            "REALIZED_VOL_24H": 0.0057458537065342465,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.013388939730632425,
+            "TAKER_BUY_SHARE_4H_CENTERED": 0.006495661296422171
+          }
+        },
+        {
+          "condition_number": 5.104195450921065,
+          "fit_rows": 49716,
+          "fold_id": "DEV-2024",
+          "model_hash": "d8ca97391353a5ec3ae95607546ccafbf811e2fc6c1f9619d75161cf44f0eb4a",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": 0.05407455891107914,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.05189860466673854,
+            "LOG_RELATIVE_VOLUME_1H": 0.0009447762798612345,
+            "LOG_RETURN_1H": -0.006096593178783506,
+            "LOG_RETURN_24H": -0.04055925608950202,
+            "REALIZED_VOL_24H": 0.006023987542692273,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.011121076904931672,
+            "TAKER_BUY_SHARE_4H_CENTERED": 0.007052378791956279
+          }
+        }
+      ],
+      "prediction": {
+        "eligible_validation_hours": 48784,
+        "paired_label_count": 48538,
+        "per_fold": {
+          "DEV-2019": {
+            "eligible_hours": 7641,
+            "paired_labels": 7581,
+            "pearson": 0.10827980367042814,
+            "prediction_positive_hours": 2210
+          },
+          "DEV-2020": {
+            "eligible_hours": 7451,
+            "paired_labels": 7335,
+            "pearson": 0.02977756945465624,
+            "prediction_positive_hours": 2872
+          },
+          "DEV-2021": {
+            "eligible_hours": 7705,
+            "paired_labels": 7655,
+            "pearson": -0.03306521573987846,
+            "prediction_positive_hours": 1901
+          },
+          "DEV-2022": {
+            "eligible_hours": 8713,
+            "paired_labels": 8713,
+            "pearson": -0.017805113496828947,
+            "prediction_positive_hours": 812
+          },
+          "DEV-2023": {
+            "eligible_hours": 8537,
+            "paired_labels": 8517,
+            "pearson": 0.029921117480589433,
+            "prediction_positive_hours": 873
+          },
+          "DEV-2024": {
+            "eligible_hours": 8737,
+            "paired_labels": 8737,
+            "pearson": 0.013184859727534852,
+            "prediction_positive_hours": 797
+          }
+        },
+        "pooled_prediction_label_pearson": 0.030509574361504192,
+        "prediction_positive_hours": 9465
+      }
+    },
+    "NFCI_CONTEXT_INTERACTIONS": {
+      "folds": [
+        {
+          "condition_number": 156.12595920487348,
+          "effective_raw_feature_slopes": {
+            "DIRECTIONAL_EFFICIENCY_4H": {
+              "NFCI_+1": -3.080607001456747,
+              "NFCI_-1": 0.7131447723067854,
+              "NFCI_0": -1.1837311145749807,
+              "raw_interaction_slope": -1.8968758868817661
+            },
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+              "NFCI_+1": -13.249535589346323,
+              "NFCI_-1": 4.2907512136721175,
+              "NFCI_0": -4.479392187837102,
+              "raw_interaction_slope": -8.77014340150922
+            },
+            "LOG_RELATIVE_VOLUME_1H": {
+              "NFCI_+1": 0.184891433869883,
+              "NFCI_-1": -0.06151183192672509,
+              "NFCI_0": 0.061689800971578945,
+              "raw_interaction_slope": 0.12320163289830403
+            },
+            "LOG_RETURN_1H": {
+              "NFCI_+1": 36.96923940129864,
+              "NFCI_-1": -7.0453362811293605,
+              "NFCI_0": 14.961951560084637,
+              "raw_interaction_slope": 22.007287841213998
+            },
+            "LOG_RETURN_24H": {
+              "NFCI_+1": -9.58683988027353,
+              "NFCI_-1": -1.154571947469817,
+              "NFCI_0": -5.3707059138716735,
+              "raw_interaction_slope": -4.2161339664018564
+            },
+            "REALIZED_VOL_24H": {
+              "NFCI_+1": -175.6897954974564,
+              "NFCI_-1": 17.33873366383318,
+              "NFCI_0": -79.17553091681161,
+              "raw_interaction_slope": -96.51426458064479
+            },
+            "TAKER_BUY_SHARE_1H_CENTERED": {
+              "NFCI_+1": -4.789698060209404,
+              "NFCI_-1": 0.1272618692796348,
+              "NFCI_0": -2.3312180954648847,
+              "raw_interaction_slope": -2.4584799647445195
+            },
+            "TAKER_BUY_SHARE_4H_CENTERED": {
+              "NFCI_+1": 2.501850381878679,
+              "NFCI_-1": -0.35331061291447674,
+              "NFCI_0": 1.074269884482101,
+              "raw_interaction_slope": 1.4275804973965778
+            }
+          },
+          "fit_rows": 9725,
+          "fold_id": "DEV-2019",
+          "model_hash": "7375fde428a34f91c2d2f933358be8e7a2fda9a449ed88066ba93331892e0e2a",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": -0.27961246543697343,
+            "DIRECTIONAL_EFFICIENCY_4H_X_NFCI": -0.3763087277162365,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.1606694023080721,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI": -0.27560448328441123,
+            "LOG_RELATIVE_VOLUME_1H": 0.030622148340873866,
+            "LOG_RELATIVE_VOLUME_1H_X_NFCI": 0.05173229358923052,
+            "LOG_RETURN_1H": 0.16706357209670403,
+            "LOG_RETURN_1H_X_NFCI": 0.21315601671978088,
+            "LOG_RETURN_24H": -0.2612339273206677,
+            "LOG_RETURN_24H_X_NFCI": -0.17704784840433688,
+            "REALIZED_VOL_24H": -0.5118351301420032,
+            "REALIZED_VOL_24H_X_NFCI": -0.5614602714045562,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.24341449051670244,
+            "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI": -0.22267508286009002,
+            "TAKER_BUY_SHARE_4H_CENTERED": 0.08256255155467228,
+            "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI": 0.0951917361110242
+          }
+        },
+        {
+          "condition_number": 137.11737245856162,
+          "effective_raw_feature_slopes": {
+            "DIRECTIONAL_EFFICIENCY_4H": {
+              "NFCI_+1": -7.744002196567085,
+              "NFCI_-1": 1.2649866775421659,
+              "NFCI_0": -3.2395077595124597,
+              "raw_interaction_slope": -4.504494437054626
+            },
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+              "NFCI_+1": 5.983291630052592,
+              "NFCI_-1": 1.293266615550853,
+              "NFCI_0": 3.6382791228017224,
+              "raw_interaction_slope": 2.3450125072508694
+            },
+            "LOG_RELATIVE_VOLUME_1H": {
+              "NFCI_+1": 1.1696254456507373,
+              "NFCI_-1": -0.14915842396665124,
+              "NFCI_0": 0.510233510842043,
+              "raw_interaction_slope": 0.6593919348086943
+            },
+            "LOG_RETURN_1H": {
+              "NFCI_+1": 41.91367572153279,
+              "NFCI_-1": -5.429923437574814,
+              "NFCI_0": 18.241876141978988,
+              "raw_interaction_slope": 23.671799579553802
+            },
+            "LOG_RETURN_24H": {
+              "NFCI_+1": -12.841537517445673,
+              "NFCI_-1": -0.18181801924400975,
+              "NFCI_0": -6.511677768344842,
+              "raw_interaction_slope": -6.329859749100832
+            },
+            "REALIZED_VOL_24H": {
+              "NFCI_+1": -172.479845576927,
+              "NFCI_-1": 12.217341161453064,
+              "NFCI_0": -80.13125220773696,
+              "raw_interaction_slope": -92.34859336919003
+            },
+            "TAKER_BUY_SHARE_1H_CENTERED": {
+              "NFCI_+1": -1.2182438889840441,
+              "NFCI_-1": -0.0018009494629358525,
+              "NFCI_0": -0.61002241922349,
+              "raw_interaction_slope": -0.6082214697605541
+            },
+            "TAKER_BUY_SHARE_4H_CENTERED": {
+              "NFCI_+1": 1.6638187563596123,
+              "NFCI_-1": 0.002586995929839131,
+              "NFCI_0": 0.8332028761447258,
+              "raw_interaction_slope": 0.8306158802148866
+            }
+          },
+          "fit_rows": 17359,
+          "fold_id": "DEV-2020",
+          "model_hash": "b4f1add79c97bc5e887c97872286848520803279b213fc6fae2218ee18b6f682",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": -0.7744839951701493,
+            "DIRECTIONAL_EFFICIENCY_4H_X_NFCI": -0.889033028202008,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": 0.117082337957959,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI": 0.06474476090490464,
+            "LOG_RELATIVE_VOLUME_1H": 0.26801825678727337,
+            "LOG_RELATIVE_VOLUME_1H_X_NFCI": 0.2848903413572014,
+            "LOG_RETURN_1H": 0.17613723296616818,
+            "LOG_RETURN_1H_X_NFCI": 0.19483308873048547,
+            "LOG_RETURN_24H": -0.2859584663125984,
+            "LOG_RETURN_24H_X_NFCI": -0.2349958847811578,
+            "REALIZED_VOL_24H": -0.46606999396293175,
+            "REALIZED_VOL_24H_X_NFCI": -0.47494161949170854,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.053591203356978666,
+            "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI": -0.045662717009239864,
+            "TAKER_BUY_SHARE_4H_CENTERED": 0.053505325341663613,
+            "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI": 0.045617407454220014
+          }
+        },
+        {
+          "condition_number": 50.950227362580414,
+          "effective_raw_feature_slopes": {
+            "DIRECTIONAL_EFFICIENCY_4H": {
+              "NFCI_+1": -1.6622697306093834,
+              "NFCI_-1": 0.6798404870049657,
+              "NFCI_0": -0.49121462180220893,
+              "raw_interaction_slope": -1.1710551088071746
+            },
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+              "NFCI_+1": -7.3181086001968385,
+              "NFCI_-1": 3.590180172027208,
+              "NFCI_0": -1.8639642140848154,
+              "raw_interaction_slope": -5.454144386112024
+            },
+            "LOG_RELATIVE_VOLUME_1H": {
+              "NFCI_+1": 0.1665086757721082,
+              "NFCI_-1": -0.029405033555088653,
+              "NFCI_0": 0.06855182110850978,
+              "raw_interaction_slope": 0.09795685466359844
+            },
+            "LOG_RETURN_1H": {
+              "NFCI_+1": 21.87644431599812,
+              "NFCI_-1": -4.3145855683882814,
+              "NFCI_0": 8.78092937380492,
+              "raw_interaction_slope": 13.095514942193201
+            },
+            "LOG_RETURN_24H": {
+              "NFCI_+1": 3.9903808394828904,
+              "NFCI_-1": -1.9847443967474663,
+              "NFCI_0": 1.002818221367712,
+              "raw_interaction_slope": 2.987562618115178
+            },
+            "REALIZED_VOL_24H": {
+              "NFCI_+1": -44.478004513082375,
+              "NFCI_-1": 5.077268018372536,
+              "NFCI_0": -19.70036824735492,
+              "raw_interaction_slope": -24.777636265727455
+            },
+            "TAKER_BUY_SHARE_1H_CENTERED": {
+              "NFCI_+1": -3.8221454618400426,
+              "NFCI_-1": 0.15103207724886425,
+              "NFCI_0": -1.8355566922955893,
+              "raw_interaction_slope": -1.9865887695444535
+            },
+            "TAKER_BUY_SHARE_4H_CENTERED": {
+              "NFCI_+1": -2.8169714454215953,
+              "NFCI_-1": 0.18755351166691492,
+              "NFCI_0": -1.3147089668773402,
+              "raw_interaction_slope": -1.502262478544255
+            }
+          },
+          "fit_rows": 24915,
+          "fold_id": "DEV-2021",
+          "model_hash": "0279d9935e5834cfb4f826f8abb46186b46f3a06b2621378d84fb4dbbe715a0d",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": -0.11455765277420643,
+            "DIRECTIONAL_EFFICIENCY_4H_X_NFCI": -0.2092911764975785,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.059144775776596936,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI": -0.14155703205065337,
+            "LOG_RELATIVE_VOLUME_1H": 0.03598414338878057,
+            "LOG_RELATIVE_VOLUME_1H_X_NFCI": 0.0386743204853677,
+            "LOG_RETURN_1H": 0.08109020986328787,
+            "LOG_RETURN_1H_X_NFCI": 0.09634278605032545,
+            "LOG_RETURN_24H": 0.04217121453816493,
+            "LOG_RETURN_24H_X_NFCI": 0.09910486834957113,
+            "REALIZED_VOL_24H": -0.11445664984880373,
+            "REALIZED_VOL_24H_X_NFCI": -0.12405705639025288,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.14452846521094725,
+            "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI": -0.12860162440009854,
+            "TAKER_BUY_SHARE_4H_CENTERED": -0.07547215467536525,
+            "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI": -0.07098735738201098
+          }
+        },
+        {
+          "condition_number": 51.26815623741822,
+          "effective_raw_feature_slopes": {
+            "DIRECTIONAL_EFFICIENCY_4H": {
+              "NFCI_+1": -1.9794390898006444,
+              "NFCI_-1": 0.6531144142577036,
+              "NFCI_0": -0.6631623377714705,
+              "raw_interaction_slope": -1.316276752029174
+            },
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+              "NFCI_+1": -7.38527312414975,
+              "NFCI_-1": 3.3110357363710663,
+              "NFCI_0": -2.0371186938893415,
+              "raw_interaction_slope": -5.348154430260408
+            },
+            "LOG_RELATIVE_VOLUME_1H": {
+              "NFCI_+1": 0.1659857900736786,
+              "NFCI_-1": -0.03059001976916803,
+              "NFCI_0": 0.06769788515225529,
+              "raw_interaction_slope": 0.09828790492142332
+            },
+            "LOG_RETURN_1H": {
+              "NFCI_+1": 24.41865093109903,
+              "NFCI_-1": -4.404875423348665,
+              "NFCI_0": 10.006887753875182,
+              "raw_interaction_slope": 14.411763177223847
+            },
+            "LOG_RETURN_24H": {
+              "NFCI_+1": 2.5746134512640158,
+              "NFCI_-1": -1.708060431771627,
+              "NFCI_0": 0.4332765097461943,
+              "raw_interaction_slope": 2.1413369415178214
+            },
+            "REALIZED_VOL_24H": {
+              "NFCI_+1": -43.45341274413417,
+              "NFCI_-1": 5.275590661106019,
+              "NFCI_0": -19.088911041514077,
+              "raw_interaction_slope": -24.364501702620096
+            },
+            "TAKER_BUY_SHARE_1H_CENTERED": {
+              "NFCI_+1": -4.153276071055884,
+              "NFCI_-1": 0.19766330733152238,
+              "NFCI_0": -1.9778063818621807,
+              "raw_interaction_slope": -2.175469689193703
+            },
+            "TAKER_BUY_SHARE_4H_CENTERED": {
+              "NFCI_+1": -1.5270477732299155,
+              "NFCI_-1": 0.24799248221924008,
+              "NFCI_0": -0.6395276455053377,
+              "raw_interaction_slope": -0.8875201277245778
+            }
+          },
+          "fit_rows": 32410,
+          "fold_id": "DEV-2022",
+          "model_hash": "3fd667add678b94430360da6bb68198d9dafabede78211fdfeb0547d16d98456",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": -0.14905793889087507,
+            "DIRECTIONAL_EFFICIENCY_4H_X_NFCI": -0.2218211293102021,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.06444639997216446,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI": -0.1326465001789852,
+            "LOG_RELATIVE_VOLUME_1H": 0.03485055111462709,
+            "LOG_RELATIVE_VOLUME_1H_X_NFCI": 0.037227414907211084,
+            "LOG_RETURN_1H": 0.09296883921081708,
+            "LOG_RETURN_1H_X_NFCI": 0.1026170109345836,
+            "LOG_RETURN_24H": 0.01850768956577068,
+            "LOG_RETURN_24H_X_NFCI": 0.06932829075978633,
+            "REALIZED_VOL_24H": -0.10532419405277166,
+            "REALIZED_VOL_24H_X_NFCI": -0.11196504894274337,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.1413994294770521,
+            "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI": -0.12644938043675397,
+            "TAKER_BUY_SHARE_4H_CENTERED": -0.03319588082446929,
+            "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI": -0.037555186566911224
+          }
+        },
+        {
+          "condition_number": 34.64768281258275,
+          "effective_raw_feature_slopes": {
+            "DIRECTIONAL_EFFICIENCY_4H": {
+              "NFCI_+1": -1.5557001925026674,
+              "NFCI_-1": 0.6115771011254653,
+              "NFCI_0": -0.47206154568860115,
+              "raw_interaction_slope": -1.0836386468140664
+            },
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+              "NFCI_+1": -5.1476686938216085,
+              "NFCI_-1": 3.0624434913779703,
+              "NFCI_0": -1.042612601221819,
+              "raw_interaction_slope": -4.105056092599789
+            },
+            "LOG_RELATIVE_VOLUME_1H": {
+              "NFCI_+1": 0.20288710379903516,
+              "NFCI_-1": -0.034190865731061004,
+              "NFCI_0": 0.08434811903398708,
+              "raw_interaction_slope": 0.11853898476504808
+            },
+            "LOG_RETURN_1H": {
+              "NFCI_+1": 18.548117580859508,
+              "NFCI_-1": -3.9445660573543835,
+              "NFCI_0": 7.301775761752562,
+              "raw_interaction_slope": 11.246341819106945
+            },
+            "LOG_RETURN_24H": {
+              "NFCI_+1": 1.1830425531517401,
+              "NFCI_-1": -1.4346046435220405,
+              "NFCI_0": -0.1257810451851503,
+              "raw_interaction_slope": 1.3088235983368903
+            },
+            "REALIZED_VOL_24H": {
+              "NFCI_+1": -55.778999481346986,
+              "NFCI_-1": 9.564478502323308,
+              "NFCI_0": -23.10726048951184,
+              "raw_interaction_slope": -32.67173899183515
+            },
+            "TAKER_BUY_SHARE_1H_CENTERED": {
+              "NFCI_+1": -3.7766748352543016,
+              "NFCI_-1": 0.20337925937131285,
+              "NFCI_0": -1.7866477879414944,
+              "raw_interaction_slope": -1.9900270473128072
+            },
+            "TAKER_BUY_SHARE_4H_CENTERED": {
+              "NFCI_+1": -1.9363405399963955,
+              "NFCI_-1": 0.333377342782636,
+              "NFCI_0": -0.8014815986068798,
+              "raw_interaction_slope": -1.1348589413895158
+            }
+          },
+          "fit_rows": 41152,
+          "fold_id": "DEV-2023",
+          "model_hash": "2c7159e6910262163cea4ceb2fa123e709cda2f077cec5be8c1508a9e2894750",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": -0.10530994733623643,
+            "DIRECTIONAL_EFFICIENCY_4H_X_NFCI": -0.1668042320834534,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.031693797834671765,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI": -0.09442775600066897,
+            "LOG_RELATIVE_VOLUME_1H": 0.04374459832324898,
+            "LOG_RELATIVE_VOLUME_1H_X_NFCI": 0.04127219654128981,
+            "LOG_RETURN_1H": 0.06448598295286145,
+            "LOG_RETURN_1H_X_NFCI": 0.07214220660955878,
+            "LOG_RETURN_24H": -0.0051544946863496845,
+            "LOG_RETURN_24H_X_NFCI": 0.03831123261710099,
+            "REALIZED_VOL_24H": -0.11939447163787593,
+            "REALIZED_VOL_24H_X_NFCI": -0.14350891056614817,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.1167628130616841,
+            "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI": -0.10345330053963629,
+            "TAKER_BUY_SHARE_4H_CENTERED": -0.037780758097627175,
+            "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI": -0.04287657928567435
+          }
+        },
+        {
+          "condition_number": 32.49103634293188,
+          "effective_raw_feature_slopes": {
+            "DIRECTIONAL_EFFICIENCY_4H": {
+              "NFCI_+1": -0.9055636949086848,
+              "NFCI_-1": 0.5391826235088547,
+              "NFCI_0": -0.18319053569991506,
+              "raw_interaction_slope": -0.7223731592087698
+            },
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+              "NFCI_+1": -4.453470629495898,
+              "NFCI_-1": 2.989852451498658,
+              "NFCI_0": -0.7318090889986204,
+              "raw_interaction_slope": -3.721661540497278
+            },
+            "LOG_RELATIVE_VOLUME_1H": {
+              "NFCI_+1": 0.10409119222536589,
+              "NFCI_-1": -0.025936603997947054,
+              "NFCI_0": 0.03907729411370942,
+              "raw_interaction_slope": 0.06501389811165648
+            },
+            "LOG_RETURN_1H": {
+              "NFCI_+1": 16.028446158804407,
+              "NFCI_-1": -3.773795605319111,
+              "NFCI_0": 6.127325276742648,
+              "raw_interaction_slope": 9.90112088206176
+            },
+            "LOG_RETURN_24H": {
+              "NFCI_+1": 0.20678268711672887,
+              "NFCI_-1": -1.3551897141343354,
+              "NFCI_0": -0.5742035135088033,
+              "raw_interaction_slope": 0.7809862006255321
+            },
+            "REALIZED_VOL_24H": {
+              "NFCI_+1": -34.961291634087,
+              "NFCI_-1": 7.258953772793973,
+              "NFCI_0": -13.851168930646512,
+              "raw_interaction_slope": -21.110122703440485
+            },
+            "TAKER_BUY_SHARE_1H_CENTERED": {
+              "NFCI_+1": -1.396239489939366,
+              "NFCI_-1": 0.001886872656351124,
+              "NFCI_0": -0.6971763086415074,
+              "raw_interaction_slope": -0.6990631812978585
+            },
+            "TAKER_BUY_SHARE_4H_CENTERED": {
+              "NFCI_+1": 0.23461991831113072,
+              "NFCI_-1": 0.13571764226888572,
+              "NFCI_0": 0.18516878029000822,
+              "raw_interaction_slope": 0.049451138021122505
+            }
+          },
+          "fit_rows": 49716,
+          "fold_id": "DEV-2024",
+          "model_hash": "4e790c7ff622950b0df0c7c8a61e4d4374ed0b570ce7a4d59be0aec4061a273a",
+          "standardized_coefficients": {
+            "DIRECTIONAL_EFFICIENCY_4H": -0.0419078221573384,
+            "DIRECTIONAL_EFFICIENCY_4H_X_NFCI": -0.10467014951162755,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH": -0.020930363983771287,
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI": -0.08015347200881148,
+            "LOG_RELATIVE_VOLUME_1H": 0.020826085225901465,
+            "LOG_RELATIVE_VOLUME_1H_X_NFCI": 0.021379821353628488,
+            "LOG_RETURN_1H": 0.050535084891797866,
+            "LOG_RETURN_1H_X_NFCI": 0.05815542476001696,
+            "LOG_RETURN_24H": -0.022104997781593562,
+            "LOG_RETURN_24H_X_NFCI": 0.020973714600712772,
+            "REALIZED_VOL_24H": -0.06878349073352093,
+            "REALIZED_VOL_24H_X_NFCI": -0.08887512556129938,
+            "TAKER_BUY_SHARE_1H_CENTERED": -0.04399679848821587,
+            "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI": -0.03350396970084939,
+            "TAKER_BUY_SHARE_4H_CENTERED": 0.008341304782640672,
+            "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI": 0.0017183938609242298
+          }
+        }
+      ],
+      "prediction": {
+        "eligible_validation_hours": 48784,
+        "paired_label_count": 48538,
+        "per_fold": {
+          "DEV-2019": {
+            "eligible_hours": 7641,
+            "paired_labels": 7581,
+            "pearson": 0.14175096055887926,
+            "prediction_positive_hours": 1920
+          },
+          "DEV-2020": {
+            "eligible_hours": 7451,
+            "paired_labels": 7335,
+            "pearson": 0.04075354658913571,
+            "prediction_positive_hours": 630
+          },
+          "DEV-2021": {
+            "eligible_hours": 7705,
+            "paired_labels": 7655,
+            "pearson": -0.03356725733911196,
+            "prediction_positive_hours": 1429
+          },
+          "DEV-2022": {
+            "eligible_hours": 8713,
+            "paired_labels": 8713,
+            "pearson": 0.052395889405045894,
+            "prediction_positive_hours": 1461
+          },
+          "DEV-2023": {
+            "eligible_hours": 8537,
+            "paired_labels": 8517,
+            "pearson": -0.06729765875806601,
+            "prediction_positive_hours": 840
+          },
+          "DEV-2024": {
+            "eligible_hours": 8737,
+            "paired_labels": 8737,
+            "pearson": 0.006474498676687007,
+            "prediction_positive_hours": 498
+          }
+        },
+        "pooled_prediction_label_pearson": -0.005893822278858278,
+        "prediction_positive_hours": 6778
+      }
+    }
+  },
+  "context_version": "NFCI_CONTEXT_V1",
+  "diagnostic_context_values": [
+    -1.0,
+    0.0,
+    1.0
+  ],
+  "eligibility_exclusions": {
+    "internal_feature_ineligible": 5604,
+    "label_invalid": 166,
+    "label_unresolved": 2734,
+    "outcome_after_purge_boundary": 140
+  },
+  "predictive_not_causal": true,
+  "schema_version": 1,
+  "work_package": "WP-013"
+}

@@ -170,11 +170,16 @@ def test_the_gate_checks_both_v1_and_v2_historical_signatures():
         "EXP-ML-018-REGIME-TWO-EXPERTS",
         "EXP-ML-019-GLOBAL-MATCHED-CONTROL",
     }
+    wp013 = {
+        "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
+        "EXP-ML-021-INTERNAL-NFCI-MATCHED",
+    }
     assert len(signatures(exclude_experiment_ids=set(SPEC))) == 11
     assert len(signatures(exclude_experiment_ids=wp008)) == 13
     assert len(signatures(exclude_experiment_ids=wp011)) == 15
     assert len(signatures(exclude_experiment_ids=wp012)) == 17
-    assert len(signatures()) == 19
+    assert len(signatures(exclude_experiment_ids=wp013)) == 19
+    assert len(signatures()) == 21
 
 
 def test_neither_variant_duplicates_any_prior_admitted_behaviour():

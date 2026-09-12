@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "default_metrics": "PASS",
+    "default_signals_and_direct_execution": "PASS",
+    "oos_predictions": "PASS",
+    "raw_interactions_training_rows_and_purge": "PASS",
+    "raw_nfci_and_matched_eligible_universe": "PASS",
+    "training_only_scaling_rank_coefficients": "PASS"
+  },
+  "executed_rows_examined": 8336,
+  "independent_default_attempts": 2077,
+  "independent_model_refits": 12,
+  "independent_path": "RAW_VERIFIED_ALFRED_TIMELINE_LONGHAND_INTERACTIONS_OLS_PREDICTIONS_AND_DIRECT_DEFAULT_SIMULATION_NOT_PRIMARY_LAB_OR_RUNNER",
+  "independent_universe_rows": 59025,
+  "interaction_features": [
+    "LOG_RETURN_1H_X_NFCI",
+    "LOG_RETURN_24H_X_NFCI",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI",
+    "REALIZED_VOL_24H_X_NFCI",
+    "LOG_RELATIVE_VOLUME_1H_X_NFCI",
+    "DIRECTIONAL_EFFICIENCY_4H_X_NFCI",
+    "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI",
+    "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI"
+  ],
+  "maximum_coefficient_gap": 3.108624468950438e-14,
+  "maximum_condition_number_gap": 7.105427357601002e-13,
+  "maximum_prediction_gap": 8.215650382226158e-15,
+  "maximum_scaling_gap": 4.6629367034256575e-15,
+  "mismatches": [],
+  "reconciliation": "INDEPENDENT_CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+  "schema_version": 1,
+  "status": "PASS",
+  "tolerance": 1e-09,
+  "validation_eligible_counts": [
+    7641,
+    7451,
+    7705,
+    8713,
+    8537,
+    8737
+  ],
+  "work_package": "WP-013"
+}

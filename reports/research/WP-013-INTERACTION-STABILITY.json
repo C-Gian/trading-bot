@@ -1,0 +1,180 @@
+{
+  "condition_numbers": [
+    156.12595920487348,
+    137.11737245856162,
+    50.950227362580414,
+    51.26815623741822,
+    34.64768281258275,
+    32.49103634293188
+  ],
+  "definition": "EXACT_STANDARDIZED_INTERACTION_COEFFICIENT_SIGN_ACROSS_ALL_SIX_EXPANDING_FOLDS",
+  "effective_raw_feature_slopes": {
+    "DIRECTIONAL_EFFICIENCY_4H": {
+      "context_endpoint_sign_reversals": 6,
+      "folds": 6,
+      "mean_absolute_minus1_to_plus1_change": 3.5649046635985253,
+      "mean_raw_slope_at_nfci_minus1": 0.7436410126243235,
+      "mean_raw_slope_at_nfci_plus1": -2.821263650974202,
+      "mean_raw_slope_at_nfci_zero": -1.0388113191749393
+    },
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+      "context_endpoint_sign_reversals": 5,
+      "folds": 6,
+      "mean_absolute_minus1_to_plus1_change": 9.914724119409863,
+      "mean_raw_slope_at_nfci_minus1": 3.0895882800829795,
+      "mean_raw_slope_at_nfci_plus1": -5.261794167826303,
+      "mean_raw_slope_at_nfci_zero": -1.0861029438716627
+    },
+    "LOG_RELATIVE_VOLUME_1H": {
+      "context_endpoint_sign_reversals": 6,
+      "folds": 6,
+      "mean_absolute_minus1_to_plus1_change": 0.3874637367229082,
+      "mean_raw_slope_at_nfci_minus1": -0.055132129824440185,
+      "mean_raw_slope_at_nfci_plus1": 0.332331606898468,
+      "mean_raw_slope_at_nfci_zero": 0.13859973853701393
+    },
+    "LOG_RETURN_1H": {
+      "context_endpoint_sign_reversals": 6,
+      "folds": 6,
+      "mean_absolute_minus1_to_plus1_change": 31.44460941378452,
+      "mean_raw_slope_at_nfci_minus1": -4.818847062185768,
+      "mean_raw_slope_at_nfci_plus1": 26.62576235159875,
+      "mean_raw_slope_at_nfci_zero": 10.90345764470649
+    },
+    "LOG_RETURN_24H": {
+      "context_endpoint_sign_reversals": 4,
+      "folds": 6,
+      "mean_absolute_minus1_to_plus1_change": 5.921567691366036,
+      "mean_raw_slope_at_nfci_minus1": -1.3031648588148828,
+      "mean_raw_slope_at_nfci_plus1": -2.4122596444506383,
+      "mean_raw_slope_at_nfci_zero": -1.8577122516327602
+    },
+    "REALIZED_VOL_24H": {
+      "context_endpoint_sign_reversals": 6,
+      "folds": 6,
+      "mean_absolute_minus1_to_plus1_change": 97.26228587115268,
+      "mean_raw_slope_at_nfci_minus1": 9.455394296647015,
+      "mean_raw_slope_at_nfci_plus1": -87.80689157450568,
+      "mean_raw_slope_at_nfci_zero": -39.17574863892933
+    },
+    "TAKER_BUY_SHARE_1H_CENTERED": {
+      "context_endpoint_sign_reversals": 5,
+      "folds": 6,
+      "mean_absolute_minus1_to_plus1_change": 3.3059500406179656,
+      "mean_raw_slope_at_nfci_minus1": 0.11323707273745826,
+      "mean_raw_slope_at_nfci_plus1": -3.1927129678805066,
+      "mean_raw_slope_at_nfci_zero": -1.5397379475715243
+    },
+    "TAKER_BUY_SHARE_4H_CENTERED": {
+      "context_endpoint_sign_reversals": 4,
+      "folds": 6,
+      "mean_absolute_minus1_to_plus1_change": 1.944096354430312,
+      "mean_raw_slope_at_nfci_minus1": 0.09231956032550652,
+      "mean_raw_slope_at_nfci_plus1": -0.31334511701641404,
+      "mean_raw_slope_at_nfci_zero": -0.11051277834545381
+    }
+  },
+  "interaction_count": 8,
+  "interaction_sign_stability": {
+    "DIRECTIONAL_EFFICIENCY_4H_X_NFCI": {
+      "counts": {
+        "negative": 6,
+        "positive": 0,
+        "zero": 0
+      },
+      "dominant_sign_fraction": 1.0,
+      "exact_sign_stable": true,
+      "fits": 6,
+      "maximum": -0.10467014951162755,
+      "minimum": -0.889033028202008
+    },
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI": {
+      "counts": {
+        "negative": 5,
+        "positive": 1,
+        "zero": 0
+      },
+      "dominant_sign_fraction": 0.8333333333333334,
+      "exact_sign_stable": false,
+      "fits": 6,
+      "maximum": 0.06474476090490464,
+      "minimum": -0.27560448328441123
+    },
+    "LOG_RELATIVE_VOLUME_1H_X_NFCI": {
+      "counts": {
+        "negative": 0,
+        "positive": 6,
+        "zero": 0
+      },
+      "dominant_sign_fraction": 1.0,
+      "exact_sign_stable": true,
+      "fits": 6,
+      "maximum": 0.2848903413572014,
+      "minimum": 0.021379821353628488
+    },
+    "LOG_RETURN_1H_X_NFCI": {
+      "counts": {
+        "negative": 0,
+        "positive": 6,
+        "zero": 0
+      },
+      "dominant_sign_fraction": 1.0,
+      "exact_sign_stable": true,
+      "fits": 6,
+      "maximum": 0.21315601671978088,
+      "minimum": 0.05815542476001696
+    },
+    "LOG_RETURN_24H_X_NFCI": {
+      "counts": {
+        "negative": 2,
+        "positive": 4,
+        "zero": 0
+      },
+      "dominant_sign_fraction": 0.6666666666666666,
+      "exact_sign_stable": false,
+      "fits": 6,
+      "maximum": 0.09910486834957113,
+      "minimum": -0.2349958847811578
+    },
+    "REALIZED_VOL_24H_X_NFCI": {
+      "counts": {
+        "negative": 6,
+        "positive": 0,
+        "zero": 0
+      },
+      "dominant_sign_fraction": 1.0,
+      "exact_sign_stable": true,
+      "fits": 6,
+      "maximum": -0.08887512556129938,
+      "minimum": -0.5614602714045562
+    },
+    "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI": {
+      "counts": {
+        "negative": 6,
+        "positive": 0,
+        "zero": 0
+      },
+      "dominant_sign_fraction": 1.0,
+      "exact_sign_stable": true,
+      "fits": 6,
+      "maximum": -0.03350396970084939,
+      "minimum": -0.22267508286009002
+    },
+    "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI": {
+      "counts": {
+        "negative": 3,
+        "positive": 3,
+        "zero": 0
+      },
+      "dominant_sign_fraction": 0.5,
+      "exact_sign_stable": false,
+      "fits": 6,
+      "maximum": 0.0951917361110242,
+      "minimum": -0.07098735738201098
+    }
+  },
+  "interpretation_guard": "NFCI -1/0/+1 slopes are fixed diagnostics of a predictive model, not causal effects or tuning points.",
+  "schema_version": 1,
+  "stable_interaction_signs": 5,
+  "work_package": "WP-013"
+}

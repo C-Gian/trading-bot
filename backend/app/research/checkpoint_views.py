@@ -16,6 +16,7 @@ from .wp007 import SPEC as WP007_SPEC
 from .wp008 import SPEC as WP008_SPEC
 from .wp011 import EXPERIMENTS as WP011_EXPERIMENTS
 from .wp012 import EXPERIMENTS as WP012_EXPERIMENTS
+from .wp013 import EXPERIMENTS as WP013_EXPERIMENTS
 
 LABEL = "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
 CONTROL_IDS = (
@@ -122,6 +123,7 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
         **dict.fromkeys(WP008_SPEC, "WP-008 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP011_EXPERIMENTS.values(), "WP-011 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP012_EXPERIMENTS.values(), "WP-012 exposed annual validation (2019–2024)"),
+        **dict.fromkeys(WP013_EXPERIMENTS.values(), "WP-013 exposed annual validation (2019–2024)"),
     }
     for eid, window in windows.items():
         path = root / "research/experiments" / eid / "result.json"
@@ -135,7 +137,12 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
             trade_count = secondary["trade_count"]
         else:
             default_profile = secondary["profiles"]["DEFAULT"]
-            trade_count = default_profile.get("summary", default_profile)["metrics"]["trade_count"]
+            profile_record = default_profile.get("summary", default_profile)
+            trade_count = (
+                profile_record["metrics"]["trade_count"]
+                if "metrics" in profile_record
+                else profile_record["trade_count"]
+            )
         experiments.append(
             {
                 "experiment_id": eid,

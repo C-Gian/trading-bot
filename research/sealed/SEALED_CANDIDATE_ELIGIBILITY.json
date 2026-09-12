@@ -284,6 +284,36 @@
       "structural_validator": "PASS",
       "terminal_classification": "REJECT_COST_DOMINATED",
       "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-020-NFCI-CONTEXT-INTERACTIONS/result.json",
+      "development_result_sha256": "068bdce4e0e6c4173fda9f8f2bf5d5e92db1bb9195c7728919ce7fae94705753",
+      "executable_spec_hash": "989deee0aa353ff7ab4f65bf4316a5271e087da063514eecb105e2c1eea96fa6",
+      "experiment_id": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-021-INTERNAL-NFCI-MATCHED/result.json",
+      "development_result_sha256": "76bc852d3c6d25e686a465401988a1d225ceda9d1041a5834e13a2b618ab1b5c",
+      "executable_spec_hash": "db62fb0a65b7e72743d88185b12e580fc45026ef8f5908137893af9d756feafa",
+      "experiment_id": "EXP-ML-021-INTERNAL-NFCI-MATCHED",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
     }
   ],
   "generated_from": [

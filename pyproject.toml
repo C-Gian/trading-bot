@@ -19,6 +19,16 @@ pythonpath = ["backend"]
 line-length = 100
 [tool.ruff.lint]
 ignore = ["B008", "BLE001", "RUF007"]
+[tool.ruff.format]
+# These files are byte-frozen by the WP-013 safe commit and preregistration. They passed
+# lint and typing before execution; do not rewrite their post-result dependency identity.
+exclude = [
+  "backend/app/research/wp013.py",
+  "backend/app/research/wp013_lab.py",
+  "scripts/audit_wp013_context.py",
+  "scripts/build_wp013_admission.py",
+  "scripts/run_wp013.py",
+]
 [tool.mypy]
 python_version = "3.11"
 ignore_missing_imports = true

@@ -1,0 +1,459 @@
+{
+  "artifacts": [
+    "reports/research/WP-013-COMPARISON.json",
+    "reports/research/WP-013-INTERACTION-DIAGNOSTICS.json",
+    "reports/research/WP-013-INTERACTION-STABILITY.json",
+    "reports/research/WP-013-HISTORICAL-COMPARISON.json",
+    "research/experiments/EXP-ML-020-NFCI-CONTEXT-INTERACTIONS/fold-models.json",
+    "reports/validation/WP-013-MODEL-RECONCILIATION.json",
+    "reports/validation/WP-013-NFCI-ASOF-AUDIT.json"
+  ],
+  "code_config_reference": "b638503d00df71eed11864ab4f52a632b6c690d32f619406a81f4d0edb235b52",
+  "completed_at_utc": "2026-09-12T21:00:00Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1"
+  },
+  "experiment_id": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
+  "experiment_version": 1,
+  "interpretation": "EXPOSED DEVELOPMENT RESEARCH, PREDICTIVE NOT CAUSAL. Raw point-in-time NFCI enters only through eight fixed interactions; no tuning or sealed access.",
+  "preregistration_created_at_utc": "2026-09-12T20:00:00Z",
+  "preregistration_reference": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
+  "primary_result": -0.1086772939,
+  "run_identity_hash": "6896e1a86047cd065cde7bca4f527b4b1dc26fba82f08e21db8591c908e2f112",
+  "schema_version": 2,
+  "secondary_results": {
+    "annual_folds": {
+      "cumulative_net_r": -115.1979315049,
+      "folds": [
+        {
+          "fold_id": "DEV-2019",
+          "metrics": {
+            "attempted_setups": 217,
+            "average_loss_r": -0.9216104128,
+            "average_win_r": 1.2237944789,
+            "cost_drag_r": 25.7288516989,
+            "cumulative_net_bps": 1765.2596141136,
+            "cumulative_net_r": 8.7342412656,
+            "hit_rate": 0.4485981308,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 16.6920139173,
+            "net_expectancy_bps": 8.2488767015,
+            "net_expectancy_r": 0.0408142115,
+            "net_return_bps_observation_count": 214,
+            "profit_factor": 1.080314841,
+            "trade_count": 214,
+            "unresolved_rate": 0.0138248848,
+            "unresolved_trades": 3,
+            "yearly": {
+              "2019": {
+                "cumulative_net_r": 8.7342412656,
+                "expectancy_r": 0.0408142115,
+                "trades": 214
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2020",
+          "metrics": {
+            "attempted_setups": 106,
+            "average_loss_r": -0.8227520878,
+            "average_win_r": 0.894763836,
+            "cost_drag_r": 12.4931430597,
+            "cumulative_net_bps": -621.7228840672,
+            "cumulative_net_r": -3.1254527913,
+            "hit_rate": 0.4615384615,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 11.3561930477,
+            "net_expectancy_bps": -5.9781046545,
+            "net_expectancy_r": -0.0300524307,
+            "net_return_bps_observation_count": 104,
+            "profit_factor": 0.9321646729,
+            "trade_count": 104,
+            "unresolved_rate": 0.0188679245,
+            "unresolved_trades": 2,
+            "yearly": {
+              "2020": {
+                "cumulative_net_r": -3.1254527913,
+                "expectancy_r": -0.0300524307,
+                "trades": 104
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2021",
+          "metrics": {
+            "attempted_setups": 199,
+            "average_loss_r": -1.0492462528,
+            "average_win_r": 1.302242237,
+            "cost_drag_r": 23.6141929872,
+            "cumulative_net_bps": -9365.7033262345,
+            "cumulative_net_r": -46.8002944914,
+            "hit_rate": 0.345177665,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 55.0726885618,
+            "net_expectancy_bps": -47.5416412499,
+            "net_expectancy_r": -0.2375649467,
+            "net_return_bps_observation_count": 197,
+            "profit_factor": 0.6542346665,
+            "trade_count": 197,
+            "unresolved_rate": 0.0100502513,
+            "unresolved_trades": 2,
+            "yearly": {
+              "2021": {
+                "cumulative_net_r": -46.8002944914,
+                "expectancy_r": -0.2375649467,
+                "trades": 197
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2022",
+          "metrics": {
+            "attempted_setups": 305,
+            "average_loss_r": -0.9700266592,
+            "average_win_r": 1.3719347859,
+            "cost_drag_r": 36.5678379919,
+            "cumulative_net_bps": -12330.5111092348,
+            "cumulative_net_r": -61.6619865403,
+            "hit_rate": 0.3278688525,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 64.8654892667,
+            "net_expectancy_bps": -40.4279052762,
+            "net_expectancy_r": -0.2021704477,
+            "net_return_bps_observation_count": 305,
+            "profit_factor": 0.689915555,
+            "trade_count": 305,
+            "unresolved_rate": 0.0,
+            "unresolved_trades": 0,
+            "yearly": {
+              "2022": {
+                "cumulative_net_r": -61.6619865403,
+                "expectancy_r": -0.2021704477,
+                "trades": 305
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2023",
+          "metrics": {
+            "attempted_setups": 165,
+            "average_loss_r": -0.5834599716,
+            "average_win_r": 0.6804227906,
+            "cost_drag_r": 19.8166217521,
+            "cumulative_net_bps": -1054.5031436907,
+            "cumulative_net_r": -5.2713364353,
+            "hit_rate": 0.4363636364,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 11.5652159875,
+            "net_expectancy_bps": -6.3909281436,
+            "net_expectancy_r": -0.0319474935,
+            "net_return_bps_observation_count": 165,
+            "profit_factor": 0.902853598,
+            "trade_count": 165,
+            "unresolved_rate": 0.0,
+            "unresolved_trades": 0,
+            "yearly": {
+              "2023": {
+                "cumulative_net_r": -5.2713364353,
+                "expectancy_r": -0.0319474935,
+                "trades": 165
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2024",
+          "metrics": {
+            "attempted_setups": 75,
+            "average_loss_r": -0.7065819607,
+            "average_win_r": 1.0595928293,
+            "cost_drag_r": 9.0021687249,
+            "cumulative_net_bps": -1414.489057791,
+            "cumulative_net_r": -7.0731025123,
+            "hit_rate": 0.3466666667,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 11.9172153608,
+            "net_expectancy_bps": -18.8598541039,
+            "net_expectancy_r": -0.0943080335,
+            "net_return_bps_observation_count": 75,
+            "profit_factor": 0.7957080156,
+            "trade_count": 75,
+            "unresolved_rate": 0.0,
+            "unresolved_trades": 0,
+            "yearly": {
+              "2024": {
+                "cumulative_net_r": -7.0731025123,
+                "expectancy_r": -0.0943080335,
+                "trades": 75
+              }
+            }
+          }
+        }
+      ],
+      "minimum_fold_trade_count": 75,
+      "model_fits": 6,
+      "nonnegative_fold_count": 1,
+      "trade_count": 1060
+    },
+    "coefficient_sign_stability": {
+      "DIRECTIONAL_EFFICIENCY_4H_X_NFCI": {
+        "counts": {
+          "negative": 6,
+          "positive": 0,
+          "zero": 0
+        },
+        "dominant_sign_fraction": 1.0,
+        "exact_sign_stable": true,
+        "fits": 6,
+        "maximum": -0.10467014951162755,
+        "minimum": -0.889033028202008
+      },
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI": {
+        "counts": {
+          "negative": 5,
+          "positive": 1,
+          "zero": 0
+        },
+        "dominant_sign_fraction": 0.8333333333333334,
+        "exact_sign_stable": false,
+        "fits": 6,
+        "maximum": 0.06474476090490464,
+        "minimum": -0.27560448328441123
+      },
+      "LOG_RELATIVE_VOLUME_1H_X_NFCI": {
+        "counts": {
+          "negative": 0,
+          "positive": 6,
+          "zero": 0
+        },
+        "dominant_sign_fraction": 1.0,
+        "exact_sign_stable": true,
+        "fits": 6,
+        "maximum": 0.2848903413572014,
+        "minimum": 0.021379821353628488
+      },
+      "LOG_RETURN_1H_X_NFCI": {
+        "counts": {
+          "negative": 0,
+          "positive": 6,
+          "zero": 0
+        },
+        "dominant_sign_fraction": 1.0,
+        "exact_sign_stable": true,
+        "fits": 6,
+        "maximum": 0.21315601671978088,
+        "minimum": 0.05815542476001696
+      },
+      "LOG_RETURN_24H_X_NFCI": {
+        "counts": {
+          "negative": 2,
+          "positive": 4,
+          "zero": 0
+        },
+        "dominant_sign_fraction": 0.6666666666666666,
+        "exact_sign_stable": false,
+        "fits": 6,
+        "maximum": 0.09910486834957113,
+        "minimum": -0.2349958847811578
+      },
+      "REALIZED_VOL_24H_X_NFCI": {
+        "counts": {
+          "negative": 6,
+          "positive": 0,
+          "zero": 0
+        },
+        "dominant_sign_fraction": 1.0,
+        "exact_sign_stable": true,
+        "fits": 6,
+        "maximum": -0.08887512556129938,
+        "minimum": -0.5614602714045562
+      },
+      "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI": {
+        "counts": {
+          "negative": 6,
+          "positive": 0,
+          "zero": 0
+        },
+        "dominant_sign_fraction": 1.0,
+        "exact_sign_stable": true,
+        "fits": 6,
+        "maximum": -0.03350396970084939,
+        "minimum": -0.22267508286009002
+      },
+      "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI": {
+        "counts": {
+          "negative": 3,
+          "positive": 3,
+          "zero": 0
+        },
+        "dominant_sign_fraction": 0.5,
+        "exact_sign_stable": false,
+        "fits": 6,
+        "maximum": 0.0951917361110242,
+        "minimum": -0.07098735738201098
+      }
+    },
+    "condition_numbers": [
+      156.12595920487348,
+      137.11737245856162,
+      50.950227362580414,
+      51.26815623741822,
+      34.64768281258275,
+      32.49103634293188
+    ],
+    "effective_slopes_at_nfci_minus1_zero_plus1": {
+      "DIRECTIONAL_EFFICIENCY_4H": {
+        "context_endpoint_sign_reversals": 6,
+        "folds": 6,
+        "mean_absolute_minus1_to_plus1_change": 3.5649046635985253,
+        "mean_raw_slope_at_nfci_minus1": 0.7436410126243235,
+        "mean_raw_slope_at_nfci_plus1": -2.821263650974202,
+        "mean_raw_slope_at_nfci_zero": -1.0388113191749393
+      },
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH": {
+        "context_endpoint_sign_reversals": 5,
+        "folds": 6,
+        "mean_absolute_minus1_to_plus1_change": 9.914724119409863,
+        "mean_raw_slope_at_nfci_minus1": 3.0895882800829795,
+        "mean_raw_slope_at_nfci_plus1": -5.261794167826303,
+        "mean_raw_slope_at_nfci_zero": -1.0861029438716627
+      },
+      "LOG_RELATIVE_VOLUME_1H": {
+        "context_endpoint_sign_reversals": 6,
+        "folds": 6,
+        "mean_absolute_minus1_to_plus1_change": 0.3874637367229082,
+        "mean_raw_slope_at_nfci_minus1": -0.055132129824440185,
+        "mean_raw_slope_at_nfci_plus1": 0.332331606898468,
+        "mean_raw_slope_at_nfci_zero": 0.13859973853701393
+      },
+      "LOG_RETURN_1H": {
+        "context_endpoint_sign_reversals": 6,
+        "folds": 6,
+        "mean_absolute_minus1_to_plus1_change": 31.44460941378452,
+        "mean_raw_slope_at_nfci_minus1": -4.818847062185768,
+        "mean_raw_slope_at_nfci_plus1": 26.62576235159875,
+        "mean_raw_slope_at_nfci_zero": 10.90345764470649
+      },
+      "LOG_RETURN_24H": {
+        "context_endpoint_sign_reversals": 4,
+        "folds": 6,
+        "mean_absolute_minus1_to_plus1_change": 5.921567691366036,
+        "mean_raw_slope_at_nfci_minus1": -1.3031648588148828,
+        "mean_raw_slope_at_nfci_plus1": -2.4122596444506383,
+        "mean_raw_slope_at_nfci_zero": -1.8577122516327602
+      },
+      "REALIZED_VOL_24H": {
+        "context_endpoint_sign_reversals": 6,
+        "folds": 6,
+        "mean_absolute_minus1_to_plus1_change": 97.26228587115268,
+        "mean_raw_slope_at_nfci_minus1": 9.455394296647015,
+        "mean_raw_slope_at_nfci_plus1": -87.80689157450568,
+        "mean_raw_slope_at_nfci_zero": -39.17574863892933
+      },
+      "TAKER_BUY_SHARE_1H_CENTERED": {
+        "context_endpoint_sign_reversals": 5,
+        "folds": 6,
+        "mean_absolute_minus1_to_plus1_change": 3.3059500406179656,
+        "mean_raw_slope_at_nfci_minus1": 0.11323707273745826,
+        "mean_raw_slope_at_nfci_plus1": -3.1927129678805066,
+        "mean_raw_slope_at_nfci_zero": -1.5397379475715243
+      },
+      "TAKER_BUY_SHARE_4H_CENTERED": {
+        "context_endpoint_sign_reversals": 4,
+        "folds": 6,
+        "mean_absolute_minus1_to_plus1_change": 1.944096354430312,
+        "mean_raw_slope_at_nfci_minus1": 0.09231956032550652,
+        "mean_raw_slope_at_nfci_plus1": -0.31334511701641404,
+        "mean_raw_slope_at_nfci_zero": -0.11051277834545381
+      }
+    },
+    "independent_reconciliation": "PASS",
+    "prediction_diagnostics": {
+      "eligible_validation_hours": 48784,
+      "paired_label_count": 48538,
+      "per_fold": {
+        "DEV-2019": {
+          "eligible_hours": 7641,
+          "paired_labels": 7581,
+          "pearson": 0.14175096055887926,
+          "prediction_positive_hours": 1920
+        },
+        "DEV-2020": {
+          "eligible_hours": 7451,
+          "paired_labels": 7335,
+          "pearson": 0.04075354658913571,
+          "prediction_positive_hours": 630
+        },
+        "DEV-2021": {
+          "eligible_hours": 7705,
+          "paired_labels": 7655,
+          "pearson": -0.03356725733911196,
+          "prediction_positive_hours": 1429
+        },
+        "DEV-2022": {
+          "eligible_hours": 8713,
+          "paired_labels": 8713,
+          "pearson": 0.052395889405045894,
+          "prediction_positive_hours": 1461
+        },
+        "DEV-2023": {
+          "eligible_hours": 8537,
+          "paired_labels": 8517,
+          "pearson": -0.06729765875806601,
+          "prediction_positive_hours": 840
+        },
+        "DEV-2024": {
+          "eligible_hours": 8737,
+          "paired_labels": 8737,
+          "pearson": 0.006474498676687007,
+          "prediction_positive_hours": 498
+        }
+      },
+      "pooled_prediction_label_pearson": -0.005893822278858278,
+      "prediction_positive_hours": 6778
+    },
+    "profiles": {
+      "DEFAULT": {
+        "cumulative_net_r": -115.1979315049,
+        "net_expectancy_r": -0.1086772939,
+        "trade_count": 1060
+      },
+      "DELAY_1H": {
+        "cumulative_net_r": -89.339646308,
+        "net_expectancy_r": -0.0829523178,
+        "trade_count": 1077
+      },
+      "DOUBLE": {
+        "cumulative_net_r": -242.4207429096,
+        "net_expectancy_r": -0.2286988141,
+        "trade_count": 1060
+      },
+      "ZERO": {
+        "cumulative_net_r": 12.0248847097,
+        "net_expectancy_r": 0.0113442309,
+        "trade_count": 1060
+      }
+    },
+    "terminal_classification": "REJECT_COST_DOMINATED"
+  },
+  "seed_reference": [
+    0
+  ],
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 4,
+    "executed_trials": 4
+  },
+  "validation_outcome": "PASS"
+}

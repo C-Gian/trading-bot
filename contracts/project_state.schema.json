@@ -258,6 +258,8 @@
         "wp011_profiles_reserved",
         "wp012_variants_reserved",
         "wp012_profiles_reserved",
+        "wp013_variants_reserved",
+        "wp013_profiles_reserved",
         "supervised_model_fits"
       ],
       "properties": {
@@ -350,6 +352,14 @@
           "minimum": 0
         },
         "wp012_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp013_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp013_profiles_reserved": {
           "type": "integer",
           "minimum": 0
         },
@@ -728,6 +738,51 @@
           ]
         },
         "ablation_sealed_eligibility": {"const": "NOT_ELIGIBLE_INCONCLUSIVE"}
+      }
+    },
+    "regime_conditioned_challenger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "root_family", "primary", "control",
+        "terminal_classification", "research_director_verdict", "family_status",
+        "sealed_eligibility", "model_reconciliation", "safe_phase_1_commit"
+      ],
+      "properties": {
+        "version": {"const": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1"},
+        "status": {"const": "VALIDATED"},
+        "root_family": {"const": "FAM-REGIME-CONDITIONED-LINEAR"},
+        "primary": {"const": "REGIME_TWO_EXPERTS"},
+        "control": {"const": "GLOBAL_SINGLE_EXPERT_MATCHED"},
+        "terminal_classification": {"const": "REJECT_COST_DOMINATED"},
+        "research_director_verdict": {"const": "ACCEPTED"},
+        "family_status": {"const": "PARKED_REJECTED_NO_TUNING_AUTHORIZED"},
+        "sealed_eligibility": {"const": "NOT_ELIGIBLE_REJECTED"},
+        "model_reconciliation": {"const": "PASS"},
+        "safe_phase_1_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "contextual_interaction_challenger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "root_family", "context_version", "primary", "control",
+        "reserved_model_fits", "actual_model_fits", "terminal_classification",
+        "model_reconciliation", "macro_asof_audit", "sealed_eligibility"
+      ],
+      "properties": {
+        "version": {"const": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1"},
+        "status": {"const": "VALIDATED"},
+        "root_family": {"const": "FAM-CONTEXTUAL-MACRO-INTERACTIONS"},
+        "context_version": {"const": "NFCI_CONTEXT_V1"},
+        "primary": {"const": "NFCI_CONTEXT_INTERACTIONS"},
+        "control": {"const": "INTERNAL_ONLY_MATCHED_NFCI"},
+        "reserved_model_fits": {"const": 12},
+        "actual_model_fits": {"const": 12},
+        "terminal_classification": {"enum": ["REJECT_COST_DOMINATED", "INCONCLUSIVE", "PROMISING_DEVELOPMENT_ONLY"]},
+        "model_reconciliation": {"const": "PASS"},
+        "macro_asof_audit": {"const": "PASS"},
+        "sealed_eligibility": {"enum": ["NOT_ELIGIBLE_REJECTED", "NOT_ELIGIBLE_INCONCLUSIVE", "DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW"]}
       }
     },
     "product_analysis": {
