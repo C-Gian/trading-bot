@@ -213,6 +213,8 @@ def main() -> int:
             "terminal_classification": classification,
             "profiles": summaries,
             "validation_diagnostics": result["validation_diagnostics"],
+            "admissible_monthly_models": len(result["monthly_models"]),
+            "inadmissible_monthly_models": result["inadmissible_monthly_models"],
         }
         write_json(
             COEFFICIENTS_PATH.replace(".json", f"-{variant}.json"),
@@ -222,6 +224,11 @@ def main() -> int:
     primary = comparison["configurations"][PRIMARY_VARIANT]
     ablation = comparison["configurations"][ABLATION_VARIANT]
     comparison["family_disposition"] = primary["terminal_classification"]
+    comparison["preexecution_correction"] = "reports/validation/WP-011-PREEXECUTION-CORRECTION.json"
+    comparison["reserved_model_fits"] = 144
+    comparison["admissible_model_fits"] = sum(
+        comparison["configurations"][v]["admissible_monthly_models"] for v in VARIANTS
+    )
     comparison["macro_incremental"] = {
         "default_expectancy_delta_r": (
             primary["profiles"]["DEFAULT"]["net_expectancy_r"]

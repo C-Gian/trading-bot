@@ -31,6 +31,7 @@ from .ewls import (
     HALF_LIFE_DAYS,
     MODEL_VERSION,
     SIGNAL_THRESHOLD,
+    EwlsModelError,
     FittedEwlsModel,
     fit_ewls,
     model_hash,
@@ -171,6 +172,7 @@ class AdaptiveEwlsLab:
         self._rows: dict[int, CombinedRow] = {}
         self._labels: dict[int, IsolatedLabel] = {}
         self.exclusions: Counter[str] = Counter()
+        self.inadmissible: list[dict[str, Any]] = []
 
     # -- universe -----------------------------------------------------------------
 
@@ -290,6 +292,7 @@ class AdaptiveEwlsLab:
         return MonthlyModel(effective_us, model, manifest)
 
     def fit_configuration(self, variant: str) -> tuple[MonthlyModel, ...]:
+        """Every monthly model the frozen rules admit; a refused fit is recorded, not rescued."""
         if variant not in VARIANTS:
             raise WP011LabError("undeclared WP-011 configuration")
         folds = self.folds
@@ -301,9 +304,26 @@ class AdaptiveEwlsLab:
         dependency_hash = hashlib.sha256(
             json.dumps(dependencies, sort_keys=True, separators=(",", ":")).encode()
         ).hexdigest()
-        return tuple(
-            self.fit_month(variant, instant, universe, dependency_hash) for instant in effective
-        )
+        models: list[MonthlyModel] = []
+        for instant in effective:
+            try:
+                models.append(self.fit_month(variant, instant, universe, dependency_hash))
+            except (EwlsModelError, WP011LabError) as exc:
+                # The hard-fail rule stands: refuse the model and record why. Hours it would
+                # have covered simply emit no prediction, exactly like an ineligible row.
+                self.inadmissible.append(
+                    {
+                        "variant": variant,
+                        "effective_us": instant,
+                        "effective_utc": (EPOCH + timedelta(microseconds=instant))
+                        .isoformat()
+                        .replace("+00:00", "Z"),
+                        "reason": str(exc),
+                    }
+                )
+        if not models:
+            raise WP011LabError("no admissible monthly model for this configuration")
+        return tuple(models)
 
     # -- predictions --------------------------------------------------------------
 
@@ -324,6 +344,8 @@ class AdaptiveEwlsLab:
                 row = self.row(signal_us)
                 if row is None:
                     continue
+                if signal_us < effective[0]:
+                    continue  # no admissible monthly model covers this hour yet
                 position = effective_model_index(effective, signal_us)
                 model = models[position]
                 vector = np.asarray([[row.values[index] for index in indices]], dtype=np.float64)
@@ -418,6 +440,9 @@ class AdaptiveEwlsLab:
                 for item in models
             ],
             "validation_diagnostics": self.validation_diagnostics(variant, predictions),
+            "inadmissible_monthly_models": [
+                item for item in self.inadmissible if item["variant"] == variant
+            ],
             "profiles": profiles,
         }
 

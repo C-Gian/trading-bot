@@ -1,0 +1,59 @@
+{
+  "affected_configurations": [
+    "EWLS_INTERNAL_MACRO"
+  ],
+  "budget_effect": {
+    "admissible_model_fits_expected": 143,
+    "inadmissible_monthly_models_expected": 1,
+    "note": "The allocation reserved 144 monthly fits. A refused fit consumes its reserved budget unit but produces no model and no prediction; the executed count is recorded separately from the reserved count.",
+    "reserved_model_fits": 144
+  },
+  "comparability_caveat": "EWLS_INTERNAL_ONLY is unaffected because its eight internal features are never degenerate. The two configurations therefore differ slightly in covered validation hours during January 2019, and the macro-incremental comparison must be read with that asymmetry in mind rather than as a paired difference.",
+  "detected_before_any_market_result": true,
+  "finding": "The first monthly model of EWLS_INTERNAL_MACRO, effective 2019-01-01, is inadmissible under the frozen hard-fail rule: UNRATE_LEVEL has a weighted population standard deviation of 4.440892098500626e-16 over its training universe. MACRO_FEATURES_V1 first becomes eligible on 2018-10-12 because CPI_YOY requires twelve observation months of CPIAUCSL history, so that model trains on only 1314 rows spanning 2018-10-12 to the 2018-12-23 purge boundary, a window in which the conservatively available unemployment rate never changed.",
+  "not_observed": [
+    "any realized return",
+    "any expectancy",
+    "any trade",
+    "any classification"
+  ],
+  "observed_only": [
+    "training row counts",
+    "per-feature weighted standard deviation"
+  ],
+  "recorded_at_utc": "2026-09-12T00:00:00Z",
+  "rejected_alternatives": [
+    "lowering or removing the 1e-12 weighted-standard-deviation hard fail",
+    "dropping UNRATE_LEVEL from the frozen sixteen-feature set",
+    "shortening or lengthening the frozen 180-day half-life",
+    "changing the monthly update cadence",
+    "starting the validation window later than the frozen folds",
+    "back-filling or interpolating unemployment history"
+  ],
+  "resolution": "An inadmissible monthly model is refused and recorded as inadmissible, exactly as the frozen rule requires. Validation hours it would have covered emit no prediction and therefore no trade, in the same fail-closed discipline already used for ineligible feature rows and excluded labels. Nothing is imputed.",
+  "result_artifacts_finalized": 0,
+  "schema_version": 1,
+  "scientific_scope_changed": false,
+  "status": "PRE_EXECUTION_CORRECTION",
+  "strategy_trials_executed": 0,
+  "unaffected_configurations": [
+    "EWLS_INTERNAL_ONLY"
+  ],
+  "unchanged": {
+    "execution_geometry": "2_PERCENT_STOP_4_PERCENT_TARGET_1440_MINUTES",
+    "features": "EXACTLY_16_AND_8_AS_FROZEN",
+    "folds": "SIX_FROZEN_ANNUAL_FOLDS_2019_2024",
+    "half_life_days": 180,
+    "half_life_variants": 0,
+    "profiles": [
+      "DEFAULT",
+      "ZERO",
+      "DOUBLE",
+      "DELAY_1H"
+    ],
+    "purge_boundary_hours": 216,
+    "signal_threshold": 0.0,
+    "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH"
+  },
+  "work_package": "WP-011"
+}

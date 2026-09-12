@@ -1,0 +1,30 @@
+{
+  "allocation_id": "WP011-ADAPTIVE-EWLS-ALLOCATION",
+  "configurations": [
+    "EWLS_INTERNAL_MACRO",
+    "EWLS_INTERNAL_ONLY"
+  ],
+  "family_classification": "NEW_FAMILY",
+  "feature_counts": {
+    "EWLS_INTERNAL_MACRO": 16,
+    "EWLS_INTERNAL_ONLY": 8
+  },
+  "half_life_days": 180,
+  "hypothesis_id": "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+  "macro_source_version": "ALFRED_MACRO_CONTEXT_V1",
+  "macro_vintage_end": "2024-12-31",
+  "market_results_observed": 0,
+  "preregistration_sha256": {
+    "EWLS_INTERNAL_MACRO": "0eae6afe0853dee2a85ed2c74dc0a273e7c834224266f245a5b2080f441ec952",
+    "EWLS_INTERNAL_ONLY": "e1ac3eef65668f056514e1b509e30539e35da466322639ea5d9a33641a71b69a"
+  },
+  "primary_variant": "EWLS_INTERNAL_MACRO",
+  "protocol_id": "WP-011-ADAPTIVE-EWLS-MACRO-V1",
+  "purge_boundary_hours": 216,
+  "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "status": "PASS",
+  "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH",
+  "work_package": "WP-011"
+}
