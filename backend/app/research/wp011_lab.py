@@ -159,11 +159,14 @@ class AdaptiveEwlsLab:
         internal: SupervisedFeatureSource,
         macro: MacroFeatureSource,
         protocol: dict[str, Any],
+        walk_forward: dict[str, Any],
     ):
         self.inputs = inputs
         self.internal = internal
         self.macro = macro
         self.protocol = protocol
+        self.walk_forward = walk_forward
+        self.folds = walk_forward["folds"]
         self.feature_order: tuple[str, ...] = tuple(protocol["features"][PRIMARY_VARIANT])
         self._rows: dict[int, CombinedRow] = {}
         self._labels: dict[int, IsolatedLabel] = {}
@@ -289,7 +292,7 @@ class AdaptiveEwlsLab:
     def fit_configuration(self, variant: str) -> tuple[MonthlyModel, ...]:
         if variant not in VARIANTS:
             raise WP011LabError("undeclared WP-011 configuration")
-        folds = self.protocol["folds"]
+        folds = self.folds
         first_validation = utc_us(folds[0]["validation_start"])
         last_signal = utc_us(folds[-1]["last_signal_inclusive"])
         universe = self.build_universe(utc_us(HISTORY_START), last_signal)
@@ -311,7 +314,7 @@ class AdaptiveEwlsLab:
         indices = self._indices(variant)
         effective = tuple(model.effective_us for model in models)
         predictions: dict[int, tuple[float, int]] = {}
-        for fold in self.protocol["folds"]:
+        for fold in self.folds:
             start = utc_us(fold["validation_start"])
             end = utc_us(fold["last_signal_inclusive"])
             # One hour earlier so DELAY_1H can reuse an already generated prediction.
@@ -343,7 +346,7 @@ class AdaptiveEwlsLab:
             raise WP011LabError("undeclared robustness profile")
         trades: list[dict[str, Any]] = []
         fold_diagnostics = []
-        for fold in self.protocol["folds"]:
+        for fold in self.folds:
             start = utc_us(fold["validation_start"])
             end = utc_us(fold["last_signal_inclusive"])
             blocked_until = -1
@@ -393,7 +396,7 @@ class AdaptiveEwlsLab:
             "variant": variant,
             "trades": trades,
             "fold_diagnostics": fold_diagnostics,
-            "summary": summarize_trades(trades, self.protocol, allow_unclassified_regime=True),
+            "summary": summarize_trades(trades, self.walk_forward, allow_unclassified_regime=True),
             "monthly_models": len(models),
         }
 
@@ -427,7 +430,7 @@ class AdaptiveEwlsLab:
         per_fold = []
         pooled_pred: list[float] = []
         pooled_label: list[float] = []
-        for fold in self.protocol["folds"]:
+        for fold in self.folds:
             start = utc_us(fold["validation_start"])
             end = utc_us(fold["last_signal_inclusive"])
             values: list[float] = []

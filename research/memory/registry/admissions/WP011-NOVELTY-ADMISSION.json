@@ -31,8 +31,8 @@
       "admitted": true,
       "behavior_hash": "2865b6709f69329feca4dbca38d7c542b3cc84d1281f46b3de6a0a701e6ae798",
       "classification": "NEW_FAMILY",
-      "dependency_hash": "1039962092eff4cacaafc938686879e1b4f887de34ba3f7b761c296513a16c42",
-      "executable_spec_hash": "0ac9108123302cefc68df2e556a7456014da3cb1678095b6134f9d113eb428b6",
+      "dependency_hash": "9268bf4ec2a130a62b80949c5c28ca439149f3b404d1ec6b0d68a3f219c44d33",
+      "executable_spec_hash": "2fdf1eebedb1aa545b1393193eb000903a33fbcb7359bdad28ede1e4f3a3f82d",
       "experiment_id": "EXP-ML-016-EWLS-INTERNAL-MACRO",
       "hypothesis_role": "ECONOMIC_CORE",
       "matched_experiment_ids": [],
@@ -199,7 +199,7 @@
           },
           {
             "path": "backend/app/research/wp011_lab.py",
-            "sha256": "a0bca2503dfb261127e6ac20eaf2e98fc14ab79c6a6b130b0a8e1151e81feb86"
+            "sha256": "0138a7512463de2a25b4198d4d085ae750bf791582c1a547bfb6bdcef26bb080"
           },
           {
             "path": "backend/app/research/artifacts.py",
@@ -263,8 +263,8 @@
       "admitted": true,
       "behavior_hash": "4e260ce73581b0d0370ddb4f61dd8f2295cffb03393de7b0d79103f59648b2fd",
       "classification": "DESCENDANT_MECHANISM_CHANGE",
-      "dependency_hash": "38012b74195fbcd8aae36f961a395fcb3e3aaa20454dea830a8ef1c5b97f2011",
-      "executable_spec_hash": "16bbd77f074f3be3768437f699c019331a4b53104a6ab7a4eab6fca5ff8a1f2a",
+      "dependency_hash": "b85ef0a10b6d8adb0a82cc03ae3637afa9cf49ed644b6f716bfd14db5c3d201f",
+      "executable_spec_hash": "de3048f80f4a279e6622cd12a21a5cd5f67cb26d4781a37eeeba0d9f9a1721fa",
       "experiment_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
       "hypothesis_role": "STRUCTURAL_ABLATION_VARIANT",
       "matched_experiment_ids": [
@@ -393,7 +393,7 @@
           },
           {
             "path": "backend/app/research/wp011_lab.py",
-            "sha256": "a0bca2503dfb261127e6ac20eaf2e98fc14ab79c6a6b130b0a8e1151e81feb86"
+            "sha256": "0138a7512463de2a25b4198d4d085ae750bf791582c1a547bfb6bdcef26bb080"
           },
           {
             "path": "backend/app/research/artifacts.py",
