@@ -152,6 +152,7 @@ def _fetch_one(spec: dict[str, Any], root: Path, limiter: _RateLimiter) -> str:
     last_error = ""
     for attempt in range(1, 13):
         limiter.wait()
+        started = time.monotonic()
         try:
             response = httpx.get(
                 request_url(spec),
@@ -183,10 +184,20 @@ def _fetch_one(spec: dict[str, Any], root: Path, limiter: _RateLimiter) -> str:
                     encoding="utf-8",
                     newline="\n",
                 )
+                print(
+                    f"GDELT fetched {spec['request_id']} attempt={attempt} "
+                    f"elapsed={time.monotonic() - started:.1f}s",
+                    flush=True,
+                )
                 return "fetched"
             last_error = f"status={response.status_code} body={body[:160]!r}"
         except (httpx.HTTPError, ExogenousDataError) as exc:
             last_error = str(exc)
+        print(
+            f"GDELT retry {spec['request_id']} attempt={attempt} "
+            f"elapsed={time.monotonic() - started:.1f}s error={last_error}",
+            flush=True,
+        )
         time.sleep(min(120.0, 5.0 * (2 ** min(attempt, 5))))
     raise ExogenousDataError(f"GDELT request failed: {spec['request_id']} {last_error}")
 
