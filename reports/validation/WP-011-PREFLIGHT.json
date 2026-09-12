@@ -15,8 +15,8 @@
   "macro_vintage_end": "2024-12-31",
   "market_results_observed": 0,
   "preregistration_sha256": {
-    "EWLS_INTERNAL_MACRO": "0eae6afe0853dee2a85ed2c74dc0a273e7c834224266f245a5b2080f441ec952",
-    "EWLS_INTERNAL_ONLY": "e1ac3eef65668f056514e1b509e30539e35da466322639ea5d9a33641a71b69a"
+    "EWLS_INTERNAL_MACRO": "e504b611d07432d4ff581901bde3e46b9629a80df8d375b17217321e03495bac",
+    "EWLS_INTERNAL_ONLY": "dc744670501dfbbae7dcd65eb10807f2eb664140b1359c1c40ad93d2df53703d"
   },
   "primary_variant": "EWLS_INTERNAL_MACRO",
   "protocol_id": "WP-011-ADAPTIVE-EWLS-MACRO-V1",

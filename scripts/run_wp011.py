@@ -120,15 +120,20 @@ def coefficient_trajectory(protocol: dict[str, Any], result: dict[str, Any]) -> 
 def profile_summary(result: dict[str, Any], profile: str) -> dict[str, Any]:
     summary = result["profiles"][profile]["summary"]
     metrics = summary["metrics"]
+    stability = summary["stability"]
+    diagnostics = summary["diagnostics"]
     return {
         "profile": profile,
         "trade_count": metrics["trade_count"],
         "net_expectancy_r": metrics["net_expectancy_r"],
         "cumulative_net_r": metrics["cumulative_net_r"],
         "gross_expectancy_r": metrics.get("gross_expectancy_r"),
-        "nonnegative_fold_count": summary["nonnegative_fold_count"],
-        "minimum_fold_trade_count": summary["minimum_fold_trade_count"],
-        "trade_ess": summary.get("trade_ess"),
+        "nonnegative_fold_count": stability["nonnegative_fold_count"],
+        "minimum_fold_trade_count": diagnostics["minimum_fold_trades"],
+        "worst_fold": stability["worst_fold"],
+        "best_fold": stability["best_fold"],
+        "max_positive_fold_profit_share": stability["max_positive_fold_profit_share"],
+        "trade_ess": diagnostics.get("trade_ess"),
         "folds": [
             {
                 "fold_id": fold["fold_id"],
