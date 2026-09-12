@@ -14,14 +14,15 @@ from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from typing import Any
 
-from ..research.continuation import FeatureBar, FeatureSource, IneligibleSignal
-from ..research.evaluation_protocol import HOUR_US, utc_us
+from ..research.continuation import FeatureBar, IneligibleSignal
 from . import PRODUCT_ANALYSIS_VERSION
+from .features import HOUR_US, PROSPECTIVE_FEATURES_VERSION, ProspectiveFeatureSource
 from .market_feed import Kline, MarketFeedError, fetch_klines
 
 STRATEGY_VERSION = "ALIGNED_PARTICIPATION_CONTINUATION_V1"
 VARIANT = "ALIGNED"
 FEATURE_VERSION = "CONTINUATION_FEATURES_V2"
+PROSPECTIVE_FEATURES = PROSPECTIVE_FEATURES_VERSION
 RESEARCH_STATUS = "PAPER_RESEARCH_CANDIDATE"
 CHAMPION_STATUS = "NONE"
 CLASSIFICATION = "EXPERIMENTAL PAPER RESEARCH — NOT AN APPROVED LIVE STRATEGY"
@@ -41,26 +42,11 @@ REQUIRED_CONTEXT = 44
 HOURLY_LIMIT = 48
 CONTEXT_LIMIT = 64
 EPOCH = datetime(1970, 1, 1, tzinfo=UTC)
-FOUR_HOUR_US = 4 * HOUR_US
-# The frozen ALIGNED implementation is hash-frozen by the committed novelty admission and
-# is used here byte for byte, so it still refuses clocks after the development cutoff. Its
-# gates read bar values only; timestamps merely establish alignment and contiguity, so
-# translating the whole lookback by a whole number of four-hour periods onto an
-# in-development anchor yields bit-identical features and an identical decision. The real
-# signal instant is what gets reported, and no current bar reaches development storage.
-ANCHOR_US = utc_us("2024-12-01T00:00:00Z")
 
 
-def clock_shift_us(signal_us: int) -> int:
-    """Whole four-hour periods to subtract so the frozen development guard accepts."""
-    if signal_us <= ANCHOR_US:
-        return 0
-    return -(-(signal_us - ANCHOR_US) // FOUR_HOUR_US) * FOUR_HOUR_US
-
-
-def _bars(klines: tuple[Kline, ...], shift_us: int) -> tuple[FeatureBar, ...]:
+def _bars(klines: tuple[Kline, ...]) -> tuple[FeatureBar, ...]:
     return tuple(
-        FeatureBar(kline.open_ms * 1000 - shift_us, kline.high, kline.close, kline.volume, True)
+        FeatureBar(kline.open_ms * 1000, kline.high, kline.close, kline.volume, True)
         for kline in klines
     )
 
@@ -96,6 +82,7 @@ def _incomplete(status: str, detail: str, now: datetime) -> dict[str, Any]:
         "strategy_version": STRATEGY_VERSION,
         "variant": VARIANT,
         "feature_version": FEATURE_VERSION,
+        "prospective_features_version": PROSPECTIVE_FEATURES,
         "research_status": RESEARCH_STATUS,
         "champion_status": CHAMPION_STATUS,
         "analysis_time": now.astimezone(UTC).isoformat().replace("+00:00", "Z"),
@@ -131,10 +118,9 @@ def analyse(
         )
 
     signal_us = (hourly[-1].open_ms * 1000 // HOUR_US + 1) * HOUR_US
-    shift_us = clock_shift_us(signal_us)
     try:
-        source = FeatureSource(_bars(hourly, shift_us), _bars(context, shift_us))
-        emits, feature, reference = source.decision(signal_us - shift_us, VARIANT)
+        source = ProspectiveFeatureSource(_bars(hourly), _bars(context))
+        emits, feature, reference = source.decision(signal_us, VARIANT)
     except IneligibleSignal as exc:
         return _incomplete("INCOMPLETE_MARKET_DATA", str(exc), now)
     except ValueError as exc:

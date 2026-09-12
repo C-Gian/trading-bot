@@ -13,7 +13,6 @@ from pathlib import Path
 import pytest
 from app.main import create_app
 from app.product.analysis import (
-    ANCHOR_US,
     CHAMPION_STATUS,
     CLASSIFICATION,
     MAX_HOLD_MINUTES,
@@ -21,8 +20,8 @@ from app.product.analysis import (
     STRATEGY_VERSION,
     VARIANT,
     analyse,
-    clock_shift_us,
 )
+from app.product.features import ProspectiveFeatureSource
 from app.product.market_feed import Kline, MarketFeedError, _parse, fetch_klines
 from app.research.continuation import CUTOFF_US, FeatureBar, FeatureSource
 from fastapi.testclient import TestClient
@@ -198,41 +197,34 @@ def test_the_frozen_aligned_implementation_is_used_unmodified() -> None:
         FeatureSource((bar,), ())
 
 
-def test_clock_translation_is_whole_four_hour_periods_into_development() -> None:
-    four_hours = 4 * 3_600_000_000
-    for signal in (ANCHOR_US, ANCHOR_US + 1 * four_hours, int(NOW.timestamp()) * 1_000_000):
-        shift = clock_shift_us(signal)
-        assert shift % four_hours == 0
-        assert signal - shift <= ANCHOR_US
-    assert clock_shift_us(ANCHOR_US - four_hours) == 0
+def test_no_timestamp_translation_remains_in_the_product_path() -> None:
+    for name in ("analysis.py", "paper.py", "features.py", "execution.py"):
+        source = (ROOT / "backend/app/product" / name).read_text(encoding="utf-8")
+        assert "clock_shift_us" not in source
+        assert "ANCHOR_US" not in source
+        if name in {"analysis.py", "paper.py"}:
+            assert "FeatureSource(" not in source or "ProspectiveFeatureSource(" in source
 
 
-def test_translated_and_untranslated_evaluations_agree_exactly() -> None:
-    """Translating the whole lookback cannot change a value-only gate."""
-    hourly = _hourly(breakout=True, participation=True)
-    context = _context(persistent_up=True)
+def test_analysis_evaluates_real_post_cutoff_instants_end_to_end() -> None:
+    result = analyse(now=NOW, feed=_long_feed())
+    assert result["signal_time"] == "2026-03-05T12:00:00Z"
+    assert result["prospective_features_version"] == "PROSPECTIVE_PAPER_FEATURES_V1"
+    assert result["feature_version"] == "CONTINUATION_FEATURES_V2"
     signal_us = int(SIGNAL.timestamp()) * 1_000_000
-    shift = clock_shift_us(signal_us)
-    assert shift > 0
-    translated = FeatureSource(
-        tuple(FeatureBar(k.open_ms * 1000 - shift, k.high, k.close, k.volume) for k in hourly),
-        tuple(FeatureBar(k.open_ms * 1000 - shift, k.high, k.close, k.volume) for k in context),
-    ).decision(signal_us - shift, VARIANT)
-    extra = 4 * 3_600_000_000
-    again = FeatureSource(
+    assert signal_us > CUTOFF_US
+    direct = ProspectiveFeatureSource(
         tuple(
-            FeatureBar(k.open_ms * 1000 - shift - extra, k.high, k.close, k.volume) for k in hourly
+            FeatureBar(k.open_ms * 1000, k.high, k.close, k.volume)
+            for k in _hourly(breakout=True, participation=True)
         ),
         tuple(
-            FeatureBar(k.open_ms * 1000 - shift - extra, k.high, k.close, k.volume) for k in context
+            FeatureBar(k.open_ms * 1000, k.high, k.close, k.volume)
+            for k in _context(persistent_up=True)
         ),
-    ).decision(signal_us - shift - extra, VARIANT)
-    assert translated[0] == again[0] and translated[2] == again[2]
-    assert translated[1].breakout == again[1].breakout
-    assert translated[1].persistent_up == again[1].persistent_up
-    assert translated[1].participation == again[1].participation
-    assert translated[1].signed_efficiency == again[1].signed_efficiency
-    assert translated[1].relative_volume == again[1].relative_volume
+    ).decision(signal_us, VARIANT)
+    assert direct[0] is True
+    assert result["reference_price"] == direct[2]
 
 
 def test_the_product_path_never_writes_or_reads_development_storage() -> None:
