@@ -319,7 +319,11 @@ def validate_identity(
         or prereg["code_config_reference"] != declared_content_identity(strategy_path, plan)
     ):
         raise SearchMemoryError("WP-008 code/config identity mismatch")
-    spec = executable_spec(variant, root)
+    spec = (
+        executable_spec(variant, root)
+        if validate_current_dependencies
+        else _recorded_spec(space["executable_model_spec"])
+    )
     binding = bind_model_spec(spec, declared_fingerprint=space["model_fingerprint"])
     if (
         space["executable_model_spec"] != json.loads(json.dumps(spec.to_dict()))
