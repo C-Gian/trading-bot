@@ -241,9 +241,20 @@ def validate_wp009(root: Path = ROOT, *, data_available: bool = False) -> dict[s
         ),
         "ALFRED catalog/amendments did not precede results",
     )
+    protected_wp008 = (
+        "research/experiments",
+        "research/protocols/WP-008-LINEAR-NET-R-V1.json",
+        "reports/validation/WP-008-SUPERVISED-LEAKAGE-AUDIT.json",
+        "reports/validation/WP-008-MODEL-RECONCILIATION.json",
+        "reports/research/WP-008-LINEAR-CHALLENGER.md",
+        "reports/research/WP-008-COMPARISON.json",
+        "research/memory/WP-008-LESSONS.json",
+        "reports/checkpoints/WP-008.md",
+        "tasks/archive/WP-008.md",
+    )
     _require(
-        not _git(root, "diff", "--name-only", WP008_HEAD, "HEAD", "--", "research/experiments"),
-        "WP-009 altered strategy experiments",
+        not _git(root, "diff", "--name-only", WP008_HEAD, "HEAD", "--", *protected_wp008),
+        "WP-009 altered WP-008 or earlier experiment evidence",
     )
 
     direction = directions(root)

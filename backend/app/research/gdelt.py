@@ -192,7 +192,7 @@ def _fetch_one(spec: dict[str, Any], root: Path, limiter: _RateLimiter) -> str:
 
 
 def acquire(
-    root: Path = ROOT, *, minimum_interval_seconds: float = 5.2, workers: int = 64
+    root: Path = ROOT, *, minimum_interval_seconds: float = 5.2, workers: int = 1
 ) -> dict[str, int]:
     """Acquire all frozen requests, resuming exact already-hashed local responses."""
     specs = _request_specs(root)
