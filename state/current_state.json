@@ -39,7 +39,7 @@
   "owner_decision_required": false,
   "latest_reviewed_checkpoint": "WP-007",
   "latest_executor_checkpoint": "WP-008",
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP008_THEN_SELECT_GENUINELY_DISTINCT_PREREGISTERED_DIRECTION_NO_AUTOMATIC_SEALED_QUERY",
+  "next_recommended_work_package": "RESUME_WP009_GDELT_NEWS_CONTEXT_V1_1_DAILY_ACQUISITION_FROM_PRESERVED_CACHE_BEFORE_ANY_EXOGENOUS_CONTEXT_BUILD_OR_STRATEGY_DIRECTION",
   "search_memory": {
     "version": "SEARCH_MEMORY_V2",
     "status": "VALIDATED",
@@ -148,6 +148,15 @@
     "terminal_classification": "REJECT_COST_DOMINATED",
     "leakage_audit": "PASS",
     "model_reconciliation": "PASS"
+  },
+  "exogenous_acquisition_pause": {
+    "version": "GDELT_NEWS_CONTEXT_V1_1",
+    "status": "PARTIAL",
+    "pause_reason": "PAUSED_FOR_PRODUCT_PRIORITY",
+    "record": "research/exogenous/GDELT-NEWS-CONTEXT-V1_1-PAUSE-V1.json",
+    "pilot_expected_requests": 10,
+    "pilot_preserved_requests": 3,
+    "wp009_finalized": false
   },
   "sealed_evaluation": {
     "version": "SEALED_EVALUATION_V1_1",

@@ -661,6 +661,28 @@
         "adaptive_design": {"const": "THREE_OPTIONS_DOCUMENTED_NOT_EXECUTED"}
       }
     },
+    "exogenous_acquisition_pause": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "pause_reason",
+        "record",
+        "pilot_expected_requests",
+        "pilot_preserved_requests",
+        "wp009_finalized"
+      ],
+      "properties": {
+        "version": {"const": "GDELT_NEWS_CONTEXT_V1_1"},
+        "status": {"const": "PARTIAL"},
+        "pause_reason": {"const": "PAUSED_FOR_PRODUCT_PRIORITY"},
+        "record": {"const": "research/exogenous/GDELT-NEWS-CONTEXT-V1_1-PAUSE-V1.json"},
+        "pilot_expected_requests": {"type": "integer", "minimum": 1},
+        "pilot_preserved_requests": {"type": "integer", "minimum": 0},
+        "wp009_finalized": {"const": false}
+      }
+    },
     "sealed_evaluation": {
       "type": "object",
       "additionalProperties": false,
