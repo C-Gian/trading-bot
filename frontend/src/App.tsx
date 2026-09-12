@@ -1,47 +1,253 @@
-import { useEffect, useState } from 'react';
-import { Analysis, ExperimentPayload, Health, PaperListing, Research, request } from './api';
+import { useCallback, useEffect, useState } from 'react';
+import {
+  Analysis, ExperimentPayload, Health, PaperListing, PaperStatistics, Research,
+  advancePaperTrades, analyseMarket, createPaperTrade, readPaperStatistics, readPaperTrades, request,
+} from './api';
+import { MarketHero, PlanLines } from './MarketHero';
+import { Decision } from './Decision';
+import { ActiveTrade } from './ActiveTrade';
+import { Performance, TradeHistory } from './Performance';
 import { Market } from './Market';
-import { AnalyzeMarket } from './Analysis';
-import { PaperTrades } from './PaperTrades';
-import { PaperStatistics } from './PaperStatistics';
-import { LiveChart, PlanLines } from './LiveChart';
+import { Advanced, Badge, Empty, KeyValues, Section } from './ui';
+import { refusalCopy } from './format';
 
-const pages = ['Dashboard', 'Market', 'Paper Trades', 'Statistics', 'Research Lab', 'System'] as const;
-type Page = typeof pages[number];
+const PRIMARY = ['Dashboard', 'Trade', 'Andamento'] as const;
+const SECONDARY = ['Ricerca', 'Sistema'] as const;
+type Page = (typeof PRIMARY)[number] | (typeof SECONDARY)[number];
 
 export function App() {
+  const [page, setPage] = useState<Page>('Dashboard');
   const [health, setHealth] = useState<Health | null>();
   const [research, setResearch] = useState<Research | null>(null);
   const [experiments, setExperiments] = useState<ExperimentPayload | null>(null);
-  const [page, setPage] = useState<Page>('Dashboard');
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [paper, setPaper] = useState<PaperListing | null>(null);
+  const [stats, setStats] = useState<PaperStatistics | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  // Read-only status only. Never analyses and never creates or advances a paper trade.
   useEffect(() => {
     request<Health>('/api/v1/system/health').then(setHealth).catch(() => setHealth(null));
     request<Research>('/api/v1/research/status').then(setResearch).catch(() => setResearch(null));
     request<ExperimentPayload>('/api/v1/research/experiments').then(setExperiments).catch(() => setExperiments(null));
+    readPaperTrades().then(setPaper).catch(() => setPaper(null));
+    readPaperStatistics().then(setStats).catch(() => setStats(null));
   }, []);
+
+  const refreshPaper = useCallback(async () => {
+    setPaper(await readPaperTrades().catch(() => null));
+    setStats(await readPaperStatistics().catch(() => null));
+  }, []);
+
+  const act = useCallback(async (action: () => Promise<unknown>, done: string | null) => {
+    setBusy(true);
+    setNotice(null);
+    try {
+      await action();
+      if (done) setNotice(done);
+    } catch (error) {
+      setNotice(refusalCopy(error instanceof Error ? error.message : ''));
+    } finally {
+      setBusy(false);
+    }
+  }, []);
+
+  const analyze = () => act(async () => setAnalysis(await analyseMarket()), null);
+  const simulate = () => act(async () => { await createPaperTrade(); await refreshPaper(); }, 'Simulazione creata.');
+  const update = () => act(async () => { await advancePaperTrades(); await refreshPaper(); }, 'Simulazione aggiornata.');
+
   const active = paper?.active?.[0] ?? null;
+  const history = paper?.recent ?? [];
+  const canSimulate = !active && analysis?.decision === 'LONG' && analysis.data_status === 'OK';
+  const blockedReason = active
+    ? 'C’è già una simulazione in corso. Aggiornala o aspetta che si chiuda prima di aprirne un’altra.'
+    : null;
+
   const plan: PlanLines = active
-    ? { reference: active.reference_price, stop: active.stop_price, target: active.target_price, source: `active paper trade ${active.status}` }
+    ? {
+      reference: active.entry_price ?? active.reference_price,
+      stop: active.stop_price, target: active.target_price, origin: 'trade',
+    }
     : analysis?.plan
-      ? { reference: analysis.plan.reference_price, stop: analysis.plan.stop_price, target: analysis.plan.target_price, source: 'current ALIGNED analysis' }
+      ? {
+        reference: analysis.plan.reference_price,
+        stop: analysis.plan.stop_price, target: analysis.plan.target_price, origin: 'analysis',
+      }
       : null;
-  return <><header><b>TRADING BOT</b><span>PAPER ONLY</span></header><nav>{pages.map(item => <button key={item} onClick={() => setPage(item)}>{item}</button>)}</nav><main><h1>{page}</h1>
-    {page === 'Dashboard' && <><div className="card">Backend: {health === undefined ? 'checking' : health?.health ?? 'unavailable'} · {health?.status ?? 'unknown'}</div><LiveChart plan={plan} /><AnalyzeMarket onResult={setAnalysis} /><PaperTrades onListing={setPaper} /><PaperStatistics /><h2>No approved strategy</h2><p>ALIGNED is a paper-research candidate only. No strategy is approved for live trading.</p></>}
-    {page === 'Market' && <Market available={health?.development_data_available === true} />}
-    {page === 'Paper Trades' && <PaperTrades onListing={setPaper} />}
-    {page === 'Statistics' && <><PaperStatistics /><div className="card">No approved strategy performance statistics exist. Paper statistics above are future paper evidence, not backtest performance.</div></>}
-    {page === 'Research Lab' && <><div className="card">Champion: {research?.champion ?? 'NONE'}<br />Experiments completed: {research?.experiments_completed ?? 0}<br />Evidence stage: {experiments?.evidence_stage ?? 'NONE'}<br />Backtest substrate: {research?.backtest_substrate ?? 'unavailable'}<br />Models: {research?.engine_version ?? 'unavailable'} / {research?.execution_model_version ?? 'unavailable'} / {research?.cost_model_version ?? 'unavailable'}<br />Synthetic validation: {research?.synthetic_validation ?? 'unavailable'} — infrastructure check only, not trading evidence.</div><p className="banner">DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE</p>
-      <section className="card" aria-label="Scientific search memory"><h2>Scientific search memory</h2>Memory: {research?.search_memory?.version ?? 'unavailable'} / {research?.search_memory?.status ?? 'unavailable'}<br />Root families: {research?.search_memory?.families_tracked ?? 'unavailable'}<br />Cumulative hypotheses: {research?.adaptive_search?.material_economic_hypotheses ?? 'unavailable'} · Configurations: {research?.adaptive_search?.configuration_variants ?? 'unavailable'} · Profile/seed trials: {research?.adaptive_search?.profile_trials ?? 'unavailable'}<br />Adaptive decisions: {research?.adaptive_search?.adaptive_decisions ?? 'unavailable'} · Result-dependent forks: {research?.adaptive_search?.result_dependent_forks ?? 'unavailable'}<br />Selected family: {research?.selected_family?.name ?? 'unavailable'} · {research?.selected_family?.terminal_classification ?? 'unavailable'}<p>No strategy approval follows from a positive development result. Consumed budgets are not reset by renaming.</p>{research?.family_budgets?.map(item => <p key={item.family_id}>{item.family_id}: {item.experiments_consumed}/{item.experiments_limit} configurations · {item.trials_consumed}/{item.trials_limit} trials</p>)}</section>
-      <section className="card" aria-label="WP-005 integrity"><h2>WP-005 integrity</h2>Status: {research?.wp005_integrity?.status ?? 'unavailable'}<br />Source provenance: {research?.wp005_integrity?.source_provenance_classification ?? 'unavailable'}<br />Independent reconciliation: {research?.wp005_integrity?.independent_reconciliation ?? 'unavailable'}<br />Search memory: {research?.search_memory?.version ?? 'unavailable'}<br />Matched controls: {research?.wp005_integrity?.matched_control_classification ?? 'unavailable'}<p>Underlying ALIGNED evidence remains INCONCLUSIVE. Champion NONE.</p></section>
-      <section className="card" aria-label="New algorithm family"><h2>New algorithm family</h2>Family: {research?.latest_family?.name ?? 'unavailable'}<br />Root: {research?.latest_family?.root_family ?? 'unavailable'}<br />Novelty gate: {research?.latest_family?.novelty_classification ?? 'unavailable'}<br />Primary variant: {research?.latest_family?.primary_experiment_id ?? 'unavailable'}<br />Development classification: {research?.latest_family?.terminal_classification ?? 'unavailable'}<p>Admitted before any market result. FAM-BREAKOUT remains exhausted and no prior budget was reset. Champion NONE.</p></section>
-      <section className="card" aria-label="Order-flow substrate"><h2>Order-flow substrate</h2>Version: {research?.order_flow_substrate?.version ?? 'unavailable'}<br />Status: {research?.order_flow_substrate?.status ?? 'unavailable'}<br />Eligible buckets: {research?.order_flow_substrate?.eligible_1h_buckets ?? 'unavailable'} hourly / {research?.order_flow_substrate?.eligible_4h_buckets ?? 'unavailable'} four-hour<br />Independent oracle: {research?.order_flow_substrate?.oracle_reconciliation ?? 'unavailable'}<p>Exchange-reported Binance taker-buy share is a venue-level proxy, not market-wide order flow.</p></section>
-      <section className="card" aria-label="Supervised challenger"><h2>Supervised challenger</h2>Version: {research?.supervised_challenger?.version ?? 'unavailable'}<br />Status: {research?.supervised_challenger?.status ?? 'unavailable'}<br />Primary: {research?.supervised_challenger?.primary ?? 'unavailable'}<br />Ablation: {research?.supervised_challenger?.secondary ?? 'unavailable'}<br />Fold models: {research?.supervised_challenger?.model_fits ?? 'unavailable'}<br />Development classification: {research?.supervised_challenger?.terminal_classification ?? 'unavailable'}<br />Leakage audit: {research?.supervised_challenger?.leakage_audit ?? 'unavailable'} · model reconciliation: {research?.supervised_challenger?.model_reconciliation ?? 'unavailable'}<p>Fixed OLS, training-only scaling, no tuning. Negative evidence is retained; Champion NONE.</p></section>
-      <section className="card" aria-label="Exogenous context foundation"><h2>Exogenous context foundation</h2>Contract: {research?.exogenous_foundation?.contract_version ?? 'unavailable'}<br />Status: {research?.exogenous_foundation?.status ?? 'unavailable'}<br />GDELT: {research?.exogenous_foundation?.gdelt.version ?? 'unavailable'} / {research?.exogenous_foundation?.gdelt.status ?? 'unavailable'}<br />ALFRED: {research?.exogenous_foundation?.alfred.version ?? 'unavailable'} / {research?.exogenous_foundation?.alfred.status ?? 'unavailable'}<br />Combined: {research?.exogenous_foundation?.combined_context.version ?? 'unavailable'} / {research?.exogenous_foundation?.combined_context.rows ?? 'unavailable'} hourly rows<br />Independent as-of oracle: {research?.exogenous_foundation?.asof_reconciliation ?? 'unavailable'}<br />Adaptive design: {research?.exogenous_foundation?.adaptive_design ?? 'unavailable'}<p>Point-in-time research infrastructure only. No live news advice, market result, or strategy approval.</p></section>
-      <section className="card" aria-label="Research artifact storage"><h2>Research artifact storage</h2>Version: {research?.artifact_storage?.version ?? 'unavailable'}<br />Status: {research?.artifact_storage?.status ?? 'unavailable'}<br />Detailed trial format: {research?.artifact_storage?.trial_artifact_format ?? 'unavailable'}<br />Historical evidence rewritten: {research?.artifact_storage?.historical_evidence_rewritten ? 'yes' : 'no'}<p>Training matrices remain regeneration artifacts and are not committed row by row.</p></section>
-      <section className="card" aria-label="Sealed evaluation"><h2>Sealed evaluation</h2>System: {research?.sealed_evaluation?.version ?? 'unavailable'} — {research?.sealed_evaluation?.status === 'LOCKED_NO_AUTHORIZED_QUERY' ? `LOCKED — ${research.sealed_evaluation.authorized_btc_queries} AUTHORIZED / ${research.sealed_evaluation.consumed_btc_queries} CONSUMED` : research?.sealed_evaluation?.status ?? 'unavailable'}<br />Reserved BTC data: {research?.sealed_evaluation?.dataset_state ?? 'unavailable'}<br />Authorized BTC queries: {research?.sealed_evaluation?.authorized_btc_queries ?? 'unavailable'}<br />Sealed queries consumed: {research?.sealed_evaluation?.consumed_btc_queries ?? 'unavailable'}<br />Seal-eligible candidates: {research?.sealed_evaluation?.seal_eligible_candidates ?? 'unavailable'} of {research?.sealed_evaluation?.candidates_assessed ?? 'unavailable'}<br />Isolation: {research?.sealed_evaluation?.isolation ?? 'unavailable'}<p>No sealed data browser exists. Rejected and INCONCLUSIVE candidates cannot be queried. Champion NONE.</p></section>
-      <div className="grid">{experiments?.experiments.map(item => <article className="card" key={item.experiment_id}><b>{item.experiment_id}</b><br />{item.classification}<br />{item.evidence_window}<br />{item.primary_metric}: {item.primary_result ?? 'N/A'}<br />Trades: {item.trade_count ?? 'N/A'} · {item.validation_status}</article>)}</div><p>Latest: {experiments?.latest_checkpoint ?? 'unavailable'} · Next: {experiments?.next_checkpoint ?? 'unavailable'}</p></>}
-    {page === 'System' && <div className="card">Backend health: {health?.health ?? 'unavailable'}<br />Project: {health?.project_phase ?? 'unavailable'} / {health?.status ?? 'unavailable'}<br />Development data: {health?.development_data_available ? 'installed' : 'not installed'}<br />Real money authorized: {health?.real_money_authorized ? 'yes' : 'no'}</div>}
-  </main></>;
+
+  return (
+    <div className="shell">
+      <header className="topbar">
+        <div className="brand">
+          <b>Trading Bot</b>
+          <span className="pair">BTCUSDT</span>
+        </div>
+        <Badge tone="paper">Paper — nessun denaro reale</Badge>
+        <nav aria-label="Navigazione principale">
+          {PRIMARY.map(item => (
+            <button
+              key={item}
+              className="navlink"
+              aria-current={page === item ? 'page' : undefined}
+              onClick={() => setPage(item)}
+            >
+              {item}
+            </button>
+          ))}
+          <span className="navsplit" aria-hidden="true" />
+          {SECONDARY.map(item => (
+            <button
+              key={item}
+              className="navlink secondary"
+              aria-current={page === item ? 'page' : undefined}
+              onClick={() => setPage(item)}
+            >
+              {item}
+            </button>
+          ))}
+        </nav>
+      </header>
+
+      <main className="page">
+        {notice && <p className="notice" role="status">{notice}</p>}
+
+        {page === 'Dashboard' && (
+          <>
+            <div className="hero">
+              <MarketHero plan={plan} />
+              <Decision
+                analysis={analysis}
+                busy={busy}
+                canSimulate={Boolean(canSimulate)}
+                blockedReason={blockedReason}
+                onAnalyze={analyze}
+                onSimulate={simulate}
+              />
+            </div>
+            {active && <ActiveTrade trade={active} busy={busy} onUpdate={update} />}
+            <Performance stats={stats} />
+            <TradeHistory trades={history} />
+            <p className="footnote">
+              Strategia sperimentale in modalità paper. Nessun ordine viene inviato a una borsa e
+              nessun denaro reale è coinvolto.
+            </p>
+          </>
+        )}
+
+        {page === 'Trade' && (
+          <>
+            <div className="pagehead">
+              <div>
+                <h1>Trade</h1>
+                <p className="lede">Le tue simulazioni, dalla più recente.</p>
+              </div>
+              <Badge tone="paper">Risultati simulati</Badge>
+            </div>
+            {active ? (
+              <ActiveTrade trade={active} busy={busy} onUpdate={update} />
+            ) : (
+              <Section title="Nessuna simulazione in corso" label="Nessuna simulazione in corso">
+                <Empty
+                  title="Tutto fermo"
+                  body="Vai alla Dashboard e premi «Analizza ora» per vedere se il bot propone un ingresso."
+                />
+              </Section>
+            )}
+            <TradeHistory trades={history} />
+          </>
+        )}
+
+        {page === 'Andamento' && (
+          <>
+            <div className="pagehead">
+              <div>
+                <h1>Andamento</h1>
+                <p className="lede">Come sono andate le simulazioni completate finora.</p>
+              </div>
+              <Badge tone="paper">Risultati simulati</Badge>
+            </div>
+            <Performance stats={stats} />
+            <TradeHistory trades={history} />
+          </>
+        )}
+
+        {page === 'Ricerca' && (
+          <>
+            <div className="pagehead">
+              <div>
+                <h1>Ricerca</h1>
+                <p className="lede">
+                  Area tecnica. Sono studi storici di laboratorio, non risultati di questa strategia
+                  in tempo reale.
+                </p>
+              </div>
+            </div>
+            <Section title="Stato scientifico" label="Stato scientifico">
+              <div className="pad">
+                <KeyValues
+                  rows={[
+                    ['Champion', research?.champion ?? 'NONE'],
+                    ['Esperimenti completati', research?.experiments_completed ?? 0],
+                    ['Evidenza prospettica', research?.evidence ?? 'NONE'],
+                    ['Stadio evidenza', experiments?.evidence_stage ?? 'NONE'],
+                    ['Famiglia selezionata', research?.selected_family?.name ?? '—'],
+                    ['Classificazione', research?.selected_family?.terminal_classification ?? '—'],
+                  ]}
+                />
+                <Advanced>
+                  <KeyValues
+                    rows={[
+                      ['Motore backtest', research?.engine_version ?? '—'],
+                      ['Modello esecuzione', research?.execution_model_version ?? '—'],
+                      ['Modello costi', research?.cost_model_version ?? '—'],
+                      ['Validazione sintetica', research?.synthetic_validation ?? '—'],
+                      ['Memoria di ricerca', research?.search_memory?.version ?? '—'],
+                      ['Famiglie tracciate', research?.search_memory?.families_tracked ?? '—'],
+                      ['Ipotesi economiche', research?.adaptive_search?.material_economic_hypotheses ?? '—'],
+                      ['Configurazioni', research?.adaptive_search?.configuration_variants ?? '—'],
+                      ['Prove di profilo', research?.adaptive_search?.profile_trials ?? '—'],
+                      ['Challenger supervisionato', research?.supervised_challenger?.version ?? '—'],
+                      ['Esito challenger', research?.supervised_challenger?.terminal_classification ?? '—'],
+                      ['Valutazione sigillata', research?.sealed_evaluation?.status ?? '—'],
+                      ['Query sigillate consumate', research?.sealed_evaluation?.consumed_btc_queries ?? '—'],
+                    ]}
+                  />
+                </Advanced>
+              </div>
+            </Section>
+            <Section title="Dati storici di sviluppo" label="Dati storici di sviluppo">
+              <div className="pad">
+                <Market available={health?.development_data_available === true} />
+              </div>
+            </Section>
+          </>
+        )}
+
+        {page === 'Sistema' && (
+          <>
+            <div className="pagehead">
+              <div>
+                <h1>Sistema</h1>
+                <p className="lede">Stato tecnico dell’applicazione locale.</p>
+              </div>
+            </div>
+            <Section title="Stato" label="Stato">
+              <div className="pad">
+                <KeyValues
+                  rows={[
+                    ['Servizio', health === undefined ? 'verifica…' : (health?.health ?? 'non raggiungibile')],
+                    ['Fase progetto', health?.project_phase ?? '—'],
+                    ['Stato', health?.status ?? '—'],
+                    ['Dati storici installati', health?.development_data_available ? 'sì' : 'no'],
+                    ['Denaro reale autorizzato', health?.real_money_authorized ? 'sì' : 'no'],
+                  ]}
+                />
+              </div>
+            </Section>
+          </>
+        )}
+      </main>
+    </div>
+  );
 }
