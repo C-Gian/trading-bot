@@ -42,9 +42,10 @@ def test_cumulative_search_accounting_is_exact():
     assert totals["material_economic_hypotheses"] == 6
     assert totals["configuration_variants"] == 15
     assert totals["profile_trials"] == 77
-    assert totals["supervised_model_fits"] == 12
+    # WP-011 reserved a further 144 monthly fits and one adaptive fork on top of WP-008.
+    assert totals["supervised_model_fits"] == 12 + 144
     assert totals["numeric_parameter_variants"] == 0
-    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 6
+    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 7
 
 
 def test_both_order_flow_candidates_are_sealed_ineligible():

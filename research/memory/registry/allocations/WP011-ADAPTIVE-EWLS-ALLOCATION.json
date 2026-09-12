@@ -1,0 +1,49 @@
+{
+  "adaptive_decision_increment": 1,
+  "algorithm_variants": 0,
+  "allocation_id": "WP011-ADAPTIVE-EWLS-ALLOCATION",
+  "authority": "tasks/CURRENT_TASK.md",
+  "conditionality": "Execution requires committed admission and preregistrations, verified ALFRED point-in-time integrity, full-rank weighted fits, purge containment, and zero sealed access.",
+  "cumulative_adaptive_decisions": 7,
+  "cumulative_result_dependent_forks": 7,
+  "experiment_ids": [
+    "EXP-ML-016-EWLS-INTERNAL-MACRO",
+    "EXP-ML-017-EWLS-INTERNAL-ONLY"
+  ],
+  "family_limits": {
+    "experiments": 2,
+    "numeric_parameter_variants": 0,
+    "strategy_variants": 2,
+    "trials": 8
+  },
+  "feature_subset_searches": 0,
+  "half_life_variants": 0,
+  "hyperparameter_searches": 0,
+  "hypothesis_id": "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+  "kind": "RESULT_DEPENDENT_NEW_ADAPTIVE_MODEL_FAMILY_ALLOCATION",
+  "model_configurations": 2,
+  "monthly_models_per_configuration": 72,
+  "new_economic_hypotheses": 1,
+  "numeric_parameter_variants": 0,
+  "paper_observations": 0,
+  "primary_variant": "EWLS_INTERNAL_MACRO",
+  "prior_adaptive_decisions": 6,
+  "prior_family_budget_policy": "All prior family budgets and dispositions remain unchanged; this adaptive root resets nothing and does not reopen FAM-SUPERVISED-LINEAR.",
+  "prior_result_dependent_forks": 6,
+  "profile_evaluations": 8,
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "profiles_per_configuration": 4,
+  "result_dependent_fork_increment": 1,
+  "review_authority": "reports/reviews/WP-008-RESEARCH-DIRECTOR-REVIEW.md",
+  "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "supervised_model_fits": 144,
+  "threshold_searches": 0,
+  "work_package": "WP-011"
+}

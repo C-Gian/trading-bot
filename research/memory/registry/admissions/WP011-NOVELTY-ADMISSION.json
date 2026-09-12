@@ -1,0 +1,459 @@
+{
+  "admitted": true,
+  "classifier_modified": false,
+  "conditions_added_to_force_novelty": false,
+  "entry_event": "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO",
+  "family_classification": "NEW_FAMILY",
+  "gate": "GOVERNED_MODEL_NOVELTY_ADMISSION_BEFORE_ANY_VALIDATION_RESULT",
+  "market_results_observed_at_admission": 0,
+  "mechanism_distinction": "Time-varying recency-weighted coefficients refitted monthly over internal market features plus point-in-time macro context. WP-008 falsified fixed global linear weights over eight internal features only; neither time-varying weights, macro information, nor recency weighting were tested there.",
+  "model_fingerprint_fields": [
+    "algorithm",
+    "label",
+    "features",
+    "train_window_rule",
+    "scaling",
+    "regularization",
+    "hyperparameters",
+    "signal_rule",
+    "execution_geometry",
+    "dataset",
+    "cost_model_reference",
+    "execution_model_reference"
+  ],
+  "proposed_hypothesis_id": "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+  "proposed_root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+  "reference_signatures": 15,
+  "renamed_to_force_novelty": false,
+  "schema_version": 1,
+  "variants": [
+    {
+      "admitted": true,
+      "behavior_hash": "2865b6709f69329feca4dbca38d7c542b3cc84d1281f46b3de6a0a701e6ae798",
+      "classification": "NEW_FAMILY",
+      "dependency_hash": "1039962092eff4cacaafc938686879e1b4f887de34ba3f7b761c296513a16c42",
+      "executable_spec_hash": "0ac9108123302cefc68df2e556a7456014da3cb1678095b6134f9d113eb428b6",
+      "experiment_id": "EXP-ML-016-EWLS-INTERNAL-MACRO",
+      "hypothesis_role": "ECONOMIC_CORE",
+      "matched_experiment_ids": [],
+      "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+      "spec": {
+        "algorithm": "NUMPY_FLOAT64_EXPONENTIALLY_WEIGHTED_LEAST_SQUARES_WITH_INTERCEPT",
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp011/ewls_internal_macro.json",
+            "sha256": "aacfcbd3d496d9556f49dca7805226042208f9eafb25f6175856ccee8c70ecdb"
+          }
+        ],
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "feature_version": "SUPERVISED_FEATURES_V1",
+          "macro_feature_version": "MACRO_FEATURES_V1",
+          "macro_source_version": "ALFRED_MACRO_CONTEXT_V1",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z",
+          "order_flow_version": "ORDER_FLOW_FEATURES_V1"
+        },
+        "execution_geometry": {
+          "direction": "LONG",
+          "entry": "NEXT_CANONICAL_1M_OPEN",
+          "max_hold_minutes": 1440,
+          "position_policy": "SINGLE_LONG_NO_OVERLAP",
+          "profiles": [
+            "DEFAULT",
+            "ZERO",
+            "DOUBLE",
+            "DELAY_1H"
+          ],
+          "reference": "JUST_COMPLETED_1H_CLOSE",
+          "stop_fraction": 0.02,
+          "stress_retrain": false,
+          "target_fraction": 0.04
+        },
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "family": "FAM-ADAPTIVE-EWLS-MACRO",
+        "features": [
+          {
+            "name": "LOG_RETURN_1H",
+            "order": 1,
+            "transformation": "LN(CURRENT_1H_CLOSE/CURRENT_1H_OPEN)"
+          },
+          {
+            "name": "LOG_RETURN_24H",
+            "order": 2,
+            "transformation": "LN(CURRENT_1H_CLOSE/CLOSE_24H_EARLIER)"
+          },
+          {
+            "name": "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "order": 3,
+            "transformation": "LN(CURRENT_CLOSE/MAX_PREVIOUS_24_HIGH_EXCLUDING_CURRENT)"
+          },
+          {
+            "name": "REALIZED_VOL_24H",
+            "order": 4,
+            "transformation": "SQRT(MEAN(EXACT_24_CLOSE_TO_CLOSE_LOG_RETURN_SQUARED))"
+          },
+          {
+            "name": "LOG_RELATIVE_VOLUME_1H",
+            "order": 5,
+            "transformation": "LN(CURRENT_BASE_VOLUME/MEAN_PREVIOUS_24_BASE_VOLUME)"
+          },
+          {
+            "name": "DIRECTIONAL_EFFICIENCY_4H",
+            "order": 6,
+            "transformation": "(SUM_POSITIVE_42_CHANGES-ABS_SUM_NEGATIVE)/(SUM_POSITIVE+ABS_SUM_NEGATIVE)"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_1H_CENTERED",
+            "order": 7,
+            "transformation": "ORDER_FLOW_FEATURES_V1_CURRENT_1H_SHARE_MINUS_0.5"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_4H_CENTERED",
+            "order": 8,
+            "transformation": "ORDER_FLOW_FEATURES_V1_NONOVERLAPPING_4H_SHARE_MINUS_0.5"
+          },
+          {
+            "name": "DFF_LEVEL",
+            "order": 9,
+            "transformation": "ALFRED_POINT_IN_TIME_LATEST_AVAILABLE_DFF"
+          },
+          {
+            "name": "DGS10_LEVEL",
+            "order": 10,
+            "transformation": "ALFRED_POINT_IN_TIME_LATEST_AVAILABLE_DGS10"
+          },
+          {
+            "name": "T10Y2Y_LEVEL",
+            "order": 11,
+            "transformation": "ALFRED_POINT_IN_TIME_LATEST_AVAILABLE_T10Y2Y"
+          },
+          {
+            "name": "VIX_LEVEL",
+            "order": 12,
+            "transformation": "ALFRED_POINT_IN_TIME_LATEST_AVAILABLE_VIXCLS"
+          },
+          {
+            "name": "NFCI_LEVEL",
+            "order": 13,
+            "transformation": "ALFRED_POINT_IN_TIME_LATEST_AVAILABLE_NFCI"
+          },
+          {
+            "name": "WALCL_LOG_CHANGE_28D",
+            "order": 14,
+            "transformation": "LN(LATEST_AVAILABLE_WALCL/POINT_IN_TIME_WALCL_AT_OR_BEFORE_MINUS_28D)"
+          },
+          {
+            "name": "CPI_YOY",
+            "order": 15,
+            "transformation": "100*(LATEST_AVAILABLE_CPIAUCSL/POINT_IN_TIME_CPIAUCSL_12_OBSERVATION_MONTHS_EARLIER-1)"
+          },
+          {
+            "name": "UNRATE_LEVEL",
+            "order": 16,
+            "transformation": "ALFRED_POINT_IN_TIME_LATEST_AVAILABLE_UNRATE"
+          }
+        ],
+        "hyperparameters": {
+          "feature_selection": "NONE",
+          "interactions": "NONE",
+          "searched": 0
+        },
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/order_flow.py",
+            "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+          },
+          {
+            "path": "backend/app/research/supervised.py",
+            "sha256": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318"
+          },
+          {
+            "path": "backend/app/research/macro.py",
+            "sha256": "77fdbc20a22b77eafe837d50302c6395e71d84feb0b00a94fa0ebb330344fc56"
+          },
+          {
+            "path": "backend/app/research/ewls.py",
+            "sha256": "c16e06eabf37303c2377371eaa8a71ed0d918a07ea928db704b4f6c77c57ba5a"
+          },
+          {
+            "path": "backend/app/research/wp011_lab.py",
+            "sha256": "a0bca2503dfb261127e6ac20eaf2e98fc14ab79c6a6b130b0a8e1151e81feb86"
+          },
+          {
+            "path": "backend/app/research/artifacts.py",
+            "sha256": "0f4b8c7b4dcc9b8f26fc7a3d5b5c086e817cb2358184ab6b0b84af923c5987cb"
+          },
+          {
+            "path": "backend/app/research/search_memory_v2.py",
+            "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+          },
+          {
+            "path": "research/protocols/WP-011-ADAPTIVE-EWLS-MACRO-V1.json",
+            "sha256": "9e3249418124e2a5f42ea47444c21db95f2cf3aa4cf94d793384a31cfa4cb7ae"
+          }
+        ],
+        "label": {
+          "invalid_unresolved": "EXCLUDE_COUNT_NEVER_IMPUTE",
+          "isolated": true,
+          "profile": "DEFAULT",
+          "version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1"
+        },
+        "regularization": {
+          "kind": "NONE",
+          "searched": false
+        },
+        "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+        "scaling": {
+          "mean": true,
+          "scope": "TRAINING_ONLY_PER_MONTHLY_MODEL",
+          "std_ddof": 0,
+          "weighted": true
+        },
+        "schema_version": 2,
+        "signal_rule": {
+          "field": "predicted_default_net_R",
+          "operator": ">",
+          "threshold": 0.0
+        },
+        "train_window_rule": {
+          "folds": [
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024
+          ],
+          "half_life_days": 180.0,
+          "half_life_variants": 0,
+          "kind": "EXPANDING_CHRONOLOGICAL_MONTHLY_RECENCY_WEIGHTED",
+          "label_outcome_before_purge_boundary": true,
+          "purge_hours": 216,
+          "recency_weight": "EXP(-LN(2)*AGE_DAYS/180)",
+          "training_signal_boundary": "STRICTLY_BEFORE_EFFECTIVE_MINUS_PURGE",
+          "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH"
+        }
+      },
+      "structural_hash": "88783a9a7bfaa1a5dad11e83f342e750690869e3c85e9af54a6ac7bf93786231",
+      "variant": "EWLS_INTERNAL_MACRO"
+    },
+    {
+      "admitted": true,
+      "behavior_hash": "4e260ce73581b0d0370ddb4f61dd8f2295cffb03393de7b0d79103f59648b2fd",
+      "classification": "DESCENDANT_MECHANISM_CHANGE",
+      "dependency_hash": "38012b74195fbcd8aae36f961a395fcb3e3aaa20454dea830a8ef1c5b97f2011",
+      "executable_spec_hash": "16bbd77f074f3be3768437f699c019331a4b53104a6ab7a4eab6fca5ff8a1f2a",
+      "experiment_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
+      "hypothesis_role": "STRUCTURAL_ABLATION_VARIANT",
+      "matched_experiment_ids": [
+        "EXP-ML-016-EWLS-INTERNAL-MACRO"
+      ],
+      "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+      "spec": {
+        "algorithm": "NUMPY_FLOAT64_EXPONENTIALLY_WEIGHTED_LEAST_SQUARES_WITH_INTERCEPT",
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp011/ewls_internal_only.json",
+            "sha256": "bd11c44f84835336c0ee5095ae8d59e526aac76508e46ac8f2d8774e580600be"
+          }
+        ],
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "feature_version": "SUPERVISED_FEATURES_V1",
+          "macro_feature_version": "MACRO_FEATURES_V1",
+          "macro_source_version": "ALFRED_MACRO_CONTEXT_V1",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z",
+          "order_flow_version": "ORDER_FLOW_FEATURES_V1"
+        },
+        "execution_geometry": {
+          "direction": "LONG",
+          "entry": "NEXT_CANONICAL_1M_OPEN",
+          "max_hold_minutes": 1440,
+          "position_policy": "SINGLE_LONG_NO_OVERLAP",
+          "profiles": [
+            "DEFAULT",
+            "ZERO",
+            "DOUBLE",
+            "DELAY_1H"
+          ],
+          "reference": "JUST_COMPLETED_1H_CLOSE",
+          "stop_fraction": 0.02,
+          "stress_retrain": false,
+          "target_fraction": 0.04
+        },
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "family": "FAM-ADAPTIVE-EWLS-MACRO",
+        "features": [
+          {
+            "name": "LOG_RETURN_1H",
+            "order": 1,
+            "transformation": "LN(CURRENT_1H_CLOSE/CURRENT_1H_OPEN)"
+          },
+          {
+            "name": "LOG_RETURN_24H",
+            "order": 2,
+            "transformation": "LN(CURRENT_1H_CLOSE/CLOSE_24H_EARLIER)"
+          },
+          {
+            "name": "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "order": 3,
+            "transformation": "LN(CURRENT_CLOSE/MAX_PREVIOUS_24_HIGH_EXCLUDING_CURRENT)"
+          },
+          {
+            "name": "REALIZED_VOL_24H",
+            "order": 4,
+            "transformation": "SQRT(MEAN(EXACT_24_CLOSE_TO_CLOSE_LOG_RETURN_SQUARED))"
+          },
+          {
+            "name": "LOG_RELATIVE_VOLUME_1H",
+            "order": 5,
+            "transformation": "LN(CURRENT_BASE_VOLUME/MEAN_PREVIOUS_24_BASE_VOLUME)"
+          },
+          {
+            "name": "DIRECTIONAL_EFFICIENCY_4H",
+            "order": 6,
+            "transformation": "(SUM_POSITIVE_42_CHANGES-ABS_SUM_NEGATIVE)/(SUM_POSITIVE+ABS_SUM_NEGATIVE)"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_1H_CENTERED",
+            "order": 7,
+            "transformation": "ORDER_FLOW_FEATURES_V1_CURRENT_1H_SHARE_MINUS_0.5"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_4H_CENTERED",
+            "order": 8,
+            "transformation": "ORDER_FLOW_FEATURES_V1_NONOVERLAPPING_4H_SHARE_MINUS_0.5"
+          }
+        ],
+        "hyperparameters": {
+          "feature_selection": "NONE",
+          "interactions": "NONE",
+          "searched": 0
+        },
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/order_flow.py",
+            "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+          },
+          {
+            "path": "backend/app/research/supervised.py",
+            "sha256": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318"
+          },
+          {
+            "path": "backend/app/research/macro.py",
+            "sha256": "77fdbc20a22b77eafe837d50302c6395e71d84feb0b00a94fa0ebb330344fc56"
+          },
+          {
+            "path": "backend/app/research/ewls.py",
+            "sha256": "c16e06eabf37303c2377371eaa8a71ed0d918a07ea928db704b4f6c77c57ba5a"
+          },
+          {
+            "path": "backend/app/research/wp011_lab.py",
+            "sha256": "a0bca2503dfb261127e6ac20eaf2e98fc14ab79c6a6b130b0a8e1151e81feb86"
+          },
+          {
+            "path": "backend/app/research/artifacts.py",
+            "sha256": "0f4b8c7b4dcc9b8f26fc7a3d5b5c086e817cb2358184ab6b0b84af923c5987cb"
+          },
+          {
+            "path": "backend/app/research/search_memory_v2.py",
+            "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+          },
+          {
+            "path": "research/protocols/WP-011-ADAPTIVE-EWLS-MACRO-V1.json",
+            "sha256": "9e3249418124e2a5f42ea47444c21db95f2cf3aa4cf94d793384a31cfa4cb7ae"
+          }
+        ],
+        "label": {
+          "invalid_unresolved": "EXCLUDE_COUNT_NEVER_IMPUTE",
+          "isolated": true,
+          "profile": "DEFAULT",
+          "version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1"
+        },
+        "regularization": {
+          "kind": "NONE",
+          "searched": false
+        },
+        "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+        "scaling": {
+          "mean": true,
+          "scope": "TRAINING_ONLY_PER_MONTHLY_MODEL",
+          "std_ddof": 0,
+          "weighted": true
+        },
+        "schema_version": 2,
+        "signal_rule": {
+          "field": "predicted_default_net_R",
+          "operator": ">",
+          "threshold": 0.0
+        },
+        "train_window_rule": {
+          "folds": [
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024
+          ],
+          "half_life_days": 180.0,
+          "half_life_variants": 0,
+          "kind": "EXPANDING_CHRONOLOGICAL_MONTHLY_RECENCY_WEIGHTED",
+          "label_outcome_before_purge_boundary": true,
+          "purge_hours": 216,
+          "recency_weight": "EXP(-LN(2)*AGE_DAYS/180)",
+          "training_signal_boundary": "STRICTLY_BEFORE_EFFECTIVE_MINUS_PURGE",
+          "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH"
+        }
+      },
+      "structural_hash": "7499a2848a587ba2f7bc79ba3745becf27153c114639de58bea348f3e25056b8",
+      "variant": "EWLS_INTERNAL_ONLY"
+    }
+  ],
+  "version": "SEARCH_MEMORY_V2",
+  "work_package": "WP-011"
+}

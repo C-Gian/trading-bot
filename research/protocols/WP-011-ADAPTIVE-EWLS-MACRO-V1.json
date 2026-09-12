@@ -1,0 +1,166 @@
+{
+  "configurations": 2,
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+  "execution": {
+    "direction": "LONG",
+    "entry": "NEXT_CANONICAL_1M_OPEN",
+    "max_hold_minutes": 1440,
+    "position_policy": "SINGLE_LONG_NO_OVERLAP",
+    "stop_fraction": 0.02,
+    "target_fraction": 0.04
+  },
+  "feature_groups": {
+    "MACRO_FINANCIAL": [
+      "DFF_LEVEL",
+      "DGS10_LEVEL",
+      "T10Y2Y_LEVEL",
+      "VIX_LEVEL",
+      "NFCI_LEVEL",
+      "WALCL_LOG_CHANGE_28D",
+      "CPI_YOY",
+      "UNRATE_LEVEL"
+    ],
+    "MARKET_PRICE": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "DIRECTIONAL_EFFICIENCY_4H"
+    ],
+    "ORDER_FLOW": [
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED"
+    ],
+    "VOLATILITY_LIQUIDITY": [
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H"
+    ]
+  },
+  "features": {
+    "EWLS_INTERNAL_MACRO": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H",
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED",
+      "DFF_LEVEL",
+      "DGS10_LEVEL",
+      "T10Y2Y_LEVEL",
+      "VIX_LEVEL",
+      "NFCI_LEVEL",
+      "WALCL_LOG_CHANGE_28D",
+      "CPI_YOY",
+      "UNRATE_LEVEL"
+    ],
+    "EWLS_INTERNAL_ONLY": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H",
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED"
+    ]
+  },
+  "folds": [
+    {
+      "fold_id": "DEV-2019",
+      "last_signal_inclusive": "2019-12-31T00:00:00Z",
+      "validation_end_exclusive": "2020-01-01T00:00:00Z",
+      "validation_start": "2019-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2020",
+      "last_signal_inclusive": "2020-12-31T00:00:00Z",
+      "validation_end_exclusive": "2021-01-01T00:00:00Z",
+      "validation_start": "2020-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2021",
+      "last_signal_inclusive": "2021-12-31T00:00:00Z",
+      "validation_end_exclusive": "2022-01-01T00:00:00Z",
+      "validation_start": "2021-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2022",
+      "last_signal_inclusive": "2022-12-31T00:00:00Z",
+      "validation_end_exclusive": "2023-01-01T00:00:00Z",
+      "validation_start": "2022-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2023",
+      "last_signal_inclusive": "2023-12-31T00:00:00Z",
+      "validation_end_exclusive": "2024-01-01T00:00:00Z",
+      "validation_start": "2023-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2024",
+      "last_signal_inclusive": "2024-12-31T00:00:00Z",
+      "validation_end_exclusive": "2025-01-01T00:00:00Z",
+      "validation_start": "2024-01-02T00:00:00Z"
+    }
+  ],
+  "hypothesis_id": "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+  "internal_feature_version": "SUPERVISED_FEATURES_V1",
+  "macro_feature_version": "MACRO_FEATURES_V1",
+  "macro_series": [
+    "DFF",
+    "DGS10",
+    "T10Y2Y",
+    "VIXCLS",
+    "NFCI",
+    "WALCL",
+    "CPIAUCSL",
+    "UNRATE"
+  ],
+  "macro_source_version": "ALFRED_MACRO_CONTEXT_V1",
+  "model": {
+    "algorithm": "NUMPY_FLOAT64_EXPONENTIALLY_WEIGHTED_LEAST_SQUARES_WITH_INTERCEPT",
+    "coefficient_thresholding": false,
+    "coefficients_held_fixed_between_updates": true,
+    "feature_dropping": false,
+    "hyperparameter_searches": 0,
+    "minimum_weighted_std_exclusive": 1e-12,
+    "regularization": "NONE",
+    "require_full_column_rank": true,
+    "signal_threshold": 0.0,
+    "threshold_searches": 0,
+    "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH",
+    "validation_refit": false,
+    "version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1"
+  },
+  "model_fits": 144,
+  "monthly_models_per_configuration": 72,
+  "numeric_parameter_variants": 0,
+  "profile_evaluations": 8,
+  "profile_policy": {
+    "DELAY_1H": "PREVIOUS_HOUR_PREDICTION_NO_RETRAIN",
+    "DOUBLE": "REUSE_DEFAULT_PREDICTIONS_COST_ONLY_CHANGE",
+    "ZERO": "REUSE_DEFAULT_PREDICTIONS_COST_ONLY_CHANGE",
+    "fit_target_profile": "DEFAULT"
+  },
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "protocol_id": "WP-011-ADAPTIVE-EWLS-MACRO-V1",
+  "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+  "schema_version": 1,
+  "training": {
+    "half_life_days": 180,
+    "half_life_variants": 0,
+    "label": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+    "label_outcome_boundary": "STRICTLY_BEFORE_EFFECTIVE_MINUS_216H",
+    "purge_boundary_hours": 216,
+    "recency_weight": "EXP(-LN(2)*AGE_DAYS/180)",
+    "scaling": "TRAINING_ONLY_WEIGHTED_MEAN_AND_POPULATION_VARIANCE_SAME_WEIGHTS",
+    "signal_boundary": "STRICTLY_BEFORE_EFFECTIVE_MINUS_216H",
+    "universe": "EXPANDING_CHRONOLOGICAL"
+  }
+}

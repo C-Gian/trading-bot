@@ -1,0 +1,31 @@
+{
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED"
+  ],
+  "half_life_days": 180,
+  "hypothesis_role": "STRUCTURAL_ABLATION_VARIANT",
+  "internal_feature_version": "SUPERVISED_FEATURES_V1",
+  "macro_feature_version": "MACRO_FEATURES_V1",
+  "max_hold_minutes": 1440,
+  "model_version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1",
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "purge_boundary_hours": 216,
+  "schema_version": 1,
+  "signal_threshold": 0.0,
+  "stop_fraction": 0.02,
+  "target_fraction": 0.04,
+  "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH",
+  "variant": "EWLS_INTERNAL_ONLY"
+}

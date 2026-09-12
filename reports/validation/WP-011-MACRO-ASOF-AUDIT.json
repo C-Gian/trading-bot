@@ -1,0 +1,36 @@
+{
+  "audit": "MACRO_POINT_IN_TIME_ASOF_V1",
+  "backward_leaks": 0,
+  "checks": {
+    "independent_asof_agreement": "PASS",
+    "later_revision_cannot_leak_backward": "PASS",
+    "missing_history_is_ineligible_not_imputed": "PASS",
+    "no_post_cutoff_observation": "PASS",
+    "no_value_visible_before_availability": "PASS"
+  },
+  "feature_version": "MACRO_FEATURES_V1",
+  "first_eligible_signal_us": 1539302400000000,
+  "first_eligible_signal_utc": "2018-10-12T00:00:00Z",
+  "independent_path": "NAIVE_FULL_RESCAN_NOT_THE_PRODUCTION_INDEX",
+  "level_comparisons": 216,
+  "mismatches": [],
+  "pre_history_ineligible_hours": 10100,
+  "revised_observation_pairs": 607,
+  "revision_boundaries_checked": 494,
+  "sampled_instants": 36,
+  "schema_version": 1,
+  "series": [
+    "DFF",
+    "DGS10",
+    "T10Y2Y",
+    "VIXCLS",
+    "NFCI",
+    "WALCL",
+    "CPIAUCSL",
+    "UNRATE"
+  ],
+  "source_version": "ALFRED_MACRO_CONTEXT_V1",
+  "status": "PASS",
+  "values_visible_before_availability": 0,
+  "work_package": "WP-011"
+}

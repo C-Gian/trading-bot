@@ -1,0 +1,147 @@
+{
+  "code_config_reference": "aacfcbd3d496d9556f49dca7805226042208f9eafb25f6175856ccee8c70ecdb",
+  "cost_execution_reference": "BACKTEST_ENGINE_V2 / EXECUTION_MODEL_V2 / BTCUSDT_SPOT_COST_V1",
+  "created_at_utc": "2026-09-12T00:00:00Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "evaluation_design": "Six frozen annual folds 2019-2024. One exponentially weighted least squares model becomes effective at the first UTC hour of each calendar month and is held fixed until the next. Training uses every eligible historical row whose signal instant and complete label outcome both precede effective-216h, weighted by a frozen 180-day half-life. Four fixed execution profiles.",
+  "experiment_id": "EXP-ML-016-EWLS-INTERNAL-MACRO",
+  "experiment_version": 1,
+  "hypothesis": "A prospectively fixed recency-weighted linear combination of internal market features and point-in-time macro context, refitted monthly, can adapt feature importance through time sufficiently to select BTCUSDT LONG opportunities with robust positive net expectancy after realistic costs.",
+  "leakage_controls": [
+    "FEATURES_AVAILABLE_BY_SIGNAL_TIME",
+    "MACRO_CONSERVATIVE_NEXT_CALENDAR_DAY_AVAILABILITY",
+    "MACRO_POINT_IN_TIME_VINTAGE_NO_FUTURE_REVISION",
+    "COMPLETED_CONTIGUOUS_UNQUARANTINED_WINDOWS",
+    "TRAINING_ONLY_DEFAULT_LABELS",
+    "TRAINING_ONLY_WEIGHTED_SCALING",
+    "TRAINING_SIGNAL_AND_OUTCOME_STRICTLY_BEFORE_EFFECTIVE_MINUS_216H",
+    "NO_VALIDATION_REFIT_OR_FEATURE_SELECTION",
+    "POST_CUTOFF_HARD_FAIL"
+  ],
+  "metrics": {
+    "primary": "POOLED_VALID_RESOLVED_DEFAULT_NET_R",
+    "secondary": [
+      "profiles",
+      "terminal_classification",
+      "monthly_models",
+      "coefficient_trajectories",
+      "grouped_contribution_stability",
+      "prediction_diagnostics",
+      "macro_incremental_comparison",
+      "artifact_manifest"
+    ]
+  },
+  "parameter_space": {
+    "algorithm_variants": 0,
+    "allocation_id": "WP011-ADAPTIVE-EWLS-ALLOCATION",
+    "behavior_hash": "2865b6709f69329feca4dbca38d7c542b3cc84d1281f46b3de6a0a701e6ae798",
+    "declared_trial_budget": {
+      "configurations": 1,
+      "model_fits": 72,
+      "profiles": 4,
+      "seeds": 0,
+      "total_trials": 4
+    },
+    "dependencies": [
+      {
+        "path": "backend/app/data/policy.py",
+        "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+      },
+      {
+        "path": "backend/app/backtest/models.py",
+        "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+      },
+      {
+        "path": "backend/app/backtest/engine.py",
+        "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+      },
+      {
+        "path": "backend/app/research/evaluation_protocol.py",
+        "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+      },
+      {
+        "path": "backend/app/research/continuation_lab.py",
+        "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+      },
+      {
+        "path": "backend/app/research/order_flow.py",
+        "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+      },
+      {
+        "path": "backend/app/research/supervised.py",
+        "sha256": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318"
+      },
+      {
+        "path": "backend/app/research/macro.py",
+        "sha256": "77fdbc20a22b77eafe837d50302c6395e71d84feb0b00a94fa0ebb330344fc56"
+      },
+      {
+        "path": "backend/app/research/ewls.py",
+        "sha256": "c16e06eabf37303c2377371eaa8a71ed0d918a07ea928db704b4f6c77c57ba5a"
+      },
+      {
+        "path": "backend/app/research/wp011_lab.py",
+        "sha256": "a0bca2503dfb261127e6ac20eaf2e98fc14ab79c6a6b130b0a8e1151e81feb86"
+      },
+      {
+        "path": "backend/app/research/artifacts.py",
+        "sha256": "0f4b8c7b4dcc9b8f26fc7a3d5b5c086e817cb2358184ab6b0b84af923c5987cb"
+      },
+      {
+        "path": "backend/app/research/search_memory_v2.py",
+        "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+      },
+      {
+        "path": "research/protocols/WP-011-ADAPTIVE-EWLS-MACRO-V1.json",
+        "sha256": "9e3249418124e2a5f42ea47444c21db95f2cf3aa4cf94d793384a31cfa4cb7ae"
+      }
+    ],
+    "executable_spec_hash": "0ac9108123302cefc68df2e556a7456014da3cb1678095b6134f9d113eb428b6",
+    "feature_count": 16,
+    "feature_subset_searches": 0,
+    "features": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H",
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED",
+      "DFF_LEVEL",
+      "DGS10_LEVEL",
+      "T10Y2Y_LEVEL",
+      "VIX_LEVEL",
+      "NFCI_LEVEL",
+      "WALCL_LOG_CHANGE_28D",
+      "CPI_YOY",
+      "UNRATE_LEVEL"
+    ],
+    "half_life_days": 180,
+    "half_life_variants": 0,
+    "hyperparameter_searches": 0,
+    "hypothesis_id": "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+    "macro_manifest_id": "ALFRED-MACRO-CONTEXT-DEV-v1",
+    "macro_source_version": "ALFRED_MACRO_CONTEXT_V1",
+    "numeric_parameter_variants": 0,
+    "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+    "signal_threshold": 0.0,
+    "structural_hash": "88783a9a7bfaa1a5dad11e83f342e750690869e3c85e9af54a6ac7bf93786231",
+    "threshold_searches": 0,
+    "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH",
+    "variant": "EWLS_INTERNAL_MACRO"
+  },
+  "rationale": "WP-008 falsified only fixed global linear weights over eight internal features. Time-varying weights, macro information and recency weighting were never tested. This is predictive, not causal.",
+  "research_scope": "DEVELOPMENT_WALK_FORWARD_NO_SEALED_ACCESS_NO_PAPER_EVIDENCE",
+  "schema_version": 2,
+  "seeds": [
+    0
+  ],
+  "status": "PREREGISTERED",
+  "stopping_rule": "Exactly four frozen profiles for this configuration. No additional experiment, half-life, feature subset, threshold or refit after observing any result.",
+  "trial_budget": 4
+}

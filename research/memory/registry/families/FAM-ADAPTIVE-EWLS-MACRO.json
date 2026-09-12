@@ -1,0 +1,21 @@
+{
+  "admitted_by": "research/memory/registry/admissions/WP011-NOVELTY-ADMISSION.json",
+  "aliases": [
+    "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+    "EWLS_INTERNAL_MACRO",
+    "EWLS_INTERNAL_ONLY"
+  ],
+  "allocation_id": "WP011-ADAPTIVE-EWLS-ALLOCATION",
+  "entry_event_anchors": [
+    "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO"
+  ],
+  "failure_experiment_ids": [],
+  "family_id": "FAM-ADAPTIVE-EWLS-MACRO",
+  "information_source": "INTERNAL_PRICE_VOLATILITY_VOLUME_AND_TAKER_FLOW_DESCRIPTORS_PLUS_POINT_IN_TIME_ALFRED_MACRO_FINANCIAL_CONTEXT",
+  "legitimate_revisit": "A new Research Director allocation with explicit accounting. Half-life, feature set, label, threshold, regularization, cadence, barrier or horizon drift is not this experiment.",
+  "mechanism": "A recency-weighted linear combination refitted at the first UTC hour of each calendar month may let feature importance drift through time and may rank default-cost long opportunity quality; predictive, not causal.",
+  "parent_family_id": null,
+  "schema_version": 1,
+  "status": "ADMITTED_PENDING_RESULTS",
+  "work_package": "WP-011"
+}
