@@ -14,12 +14,15 @@ from .wp004 import ROOT
 
 CONTRACT_VERSION = "POINT_IN_TIME_EXOGENOUS_DATA_V1"
 GDELT_VERSION = "GDELT_NEWS_CONTEXT_V1"
+GDELT_DAILY_VERSION = "GDELT_NEWS_CONTEXT_V1_1"
 ALFRED_VERSION = "ALFRED_MACRO_CONTEXT_V1"
 CONTEXT_VERSION = "EXOGENOUS_CONTEXT_V1"
 START = datetime(2017, 8, 17, tzinfo=UTC)
 END = datetime(2024, 12, 31, 23, tzinfo=UTC)
 REQUEST_END = datetime(2024, 12, 31, 23, 59, 59, tzinfo=UTC)
 HOUR = timedelta(hours=1)
+DAY = timedelta(days=1)
+GDELT_DAILY_PILOT_END = datetime(2017, 12, 31, 23, 59, 59, tzinfo=UTC)
 
 GDELT_CHANNELS = (
     "Q1_CRYPTO_CORE",
@@ -34,6 +37,20 @@ GDELT_SCHEMA = pa.schema(
     [
         ("channel_id", pa.string(), False),
         ("hour", pa.timestamp("us", tz="UTC"), False),
+        ("availability_time", pa.timestamp("us", tz="UTC"), False),
+        ("matched_articles", pa.int64()),
+        ("monitored_articles_norm", pa.int64()),
+        ("coverage_share", pa.float64()),
+        ("average_tone", pa.float64()),
+        ("data_available", pa.bool_(), False),
+        ("source_request_id", pa.string(), False),
+    ]
+)
+
+GDELT_DAILY_SCHEMA = pa.schema(
+    [
+        ("channel_id", pa.string(), False),
+        ("day", pa.date32(), False),
         ("availability_time", pa.timestamp("us", tz="UTC"), False),
         ("matched_articles", pa.int64()),
         ("monitored_articles_norm", pa.int64()),
@@ -113,6 +130,17 @@ def hours() -> tuple[datetime, ...]:
 def calendar_dates() -> tuple[date, ...]:
     count = (END.date() - START.date()).days + 1
     return tuple(START.date() + timedelta(days=index) for index in range(count))
+
+
+def calendar_days(start: datetime, end: datetime) -> tuple[date, ...]:
+    """Every UTC calendar day fully inside ``[start, end]``."""
+    count = (end.date() - start.date()).days + 1
+    return tuple(start.date() + timedelta(days=index) for index in range(count))
+
+
+def daily_availability(day: date) -> datetime:
+    """A complete UTC day becomes available only at ``D+1 00:00:00 UTC``."""
+    return datetime.combine(day + timedelta(days=1), datetime.min.time(), UTC)
 
 
 def next_day_availability(vintage_start: date) -> datetime:
