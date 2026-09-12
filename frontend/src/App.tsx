@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ExperimentPayload, Health, Research, request } from './api';
 import { Market } from './Market';
+import { AnalyzeMarket } from './Analysis';
 
 const pages = ['Dashboard', 'Market', 'Paper Trades', 'Statistics', 'Research Lab', 'System'] as const;
 type Page = typeof pages[number];
@@ -16,7 +17,7 @@ export function App() {
     request<ExperimentPayload>('/api/v1/research/experiments').then(setExperiments).catch(() => setExperiments(null));
   }, []);
   return <><header><b>TRADING BOT</b><span>PAPER ONLY</span></header><nav>{pages.map(item => <button key={item} onClick={() => setPage(item)}>{item}</button>)}</nav><main><h1>{page}</h1>
-    {page === 'Dashboard' && <><div className="card">Backend: {health === undefined ? 'checking' : health?.health ?? 'unavailable'} · {health?.status ?? 'unknown'}</div><button disabled>ANALYZE MARKET</button><h2>No approved strategy</h2><p>No market analysis available yet.</p></>}
+    {page === 'Dashboard' && <><div className="card">Backend: {health === undefined ? 'checking' : health?.health ?? 'unavailable'} · {health?.status ?? 'unknown'}</div><AnalyzeMarket /><h2>No approved strategy</h2><p>ALIGNED is a paper-research candidate only. No strategy is approved for live trading.</p></>}
     {page === 'Market' && <Market available={health?.development_data_available === true} />}
     {page === 'Paper Trades' && <div className="card">No paper trades exist.</div>}
     {page === 'Statistics' && <div className="card">No approved strategy performance statistics exist.</div>}
