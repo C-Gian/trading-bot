@@ -256,6 +256,8 @@
         "wp008_profiles_reserved",
         "wp011_variants_reserved",
         "wp011_profiles_reserved",
+        "wp012_variants_reserved",
+        "wp012_profiles_reserved",
         "supervised_model_fits"
       ],
       "properties": {
@@ -340,6 +342,14 @@
           "minimum": 0
         },
         "wp011_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp012_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp012_profiles_reserved": {
           "type": "integer",
           "minimum": 0
         },

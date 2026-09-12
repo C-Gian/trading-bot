@@ -96,6 +96,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.wp007 import SPEC as WP007_SPEC
     from app.research.wp008 import SPEC as WP008_SPEC
     from app.research.wp011 import EXPERIMENTS as WP011_EXPERIMENTS
+    from app.research.wp012 import EXPERIMENTS as WP012_EXPERIMENTS
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
     assert directories == (
@@ -105,6 +106,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP007_SPEC)
         | set(WP008_SPEC)
         | set(WP011_EXPERIMENTS.values())
+        | set(WP012_EXPERIMENTS.values())
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
     assert len(results) == state["experiments_completed"] == 17

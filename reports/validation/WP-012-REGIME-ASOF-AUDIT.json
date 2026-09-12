@@ -1,0 +1,31 @@
+{
+  "audit": "REGIME_POINT_IN_TIME_ASOF_V1",
+  "checks": {
+    "exactly_two_regimes": "PASS",
+    "independent_regime_agreement": "PASS",
+    "later_revision_cannot_change_earlier_regime": "PASS",
+    "missing_nfci_is_ineligible_not_imputed": "PASS",
+    "no_post_cutoff_regime": "PASS",
+    "threshold_is_exactly_zero": "PASS",
+    "zero_is_normal_or_loose": "PASS"
+  },
+  "comparisons": 88,
+  "independent_path": "NAIVE_FULL_RESCAN_NOT_THE_PRODUCTION_GATE",
+  "mismatches": [],
+  "pre_history_ineligible_hours": 164,
+  "regime_changing_leaks": 0,
+  "regime_version": "FINANCIAL_CONDITIONS_REGIME_V1",
+  "revision_boundaries_checked": 21,
+  "sampled_instants": 88,
+  "schema_version": 1,
+  "series": "NFCI",
+  "status": "PASS",
+  "threshold": 0.0,
+  "threshold_variants": 0,
+  "validation_hour_counts": {
+    "INELIGIBLE": 0,
+    "NORMAL_OR_LOOSE": 52272,
+    "TIGHT": 336
+  },
+  "work_package": "WP-012"
+}

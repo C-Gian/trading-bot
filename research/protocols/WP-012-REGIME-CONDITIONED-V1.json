@@ -1,0 +1,146 @@
+{
+  "architecture": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+  "configurations": 2,
+  "control_variant": "GLOBAL_SINGLE_EXPERT_MATCHED",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+  "execution": {
+    "direction": "LONG",
+    "entry": "NEXT_CANONICAL_1M_OPEN",
+    "max_hold_minutes": 1440,
+    "position_policy": "SINGLE_LONG_NO_OVERLAP",
+    "stop_fraction": 0.02,
+    "target_fraction": 0.04
+  },
+  "experts_per_fold": {
+    "GLOBAL_SINGLE_EXPERT_MATCHED": 1,
+    "REGIME_TWO_EXPERTS": 2
+  },
+  "features": {
+    "GLOBAL_SINGLE_EXPERT_MATCHED": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H",
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED"
+    ],
+    "REGIME_TWO_EXPERTS": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H",
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED"
+    ]
+  },
+  "folds": [
+    {
+      "fold_id": "DEV-2019",
+      "last_signal_inclusive": "2019-12-31T00:00:00Z",
+      "validation_end_exclusive": "2020-01-01T00:00:00Z",
+      "validation_start": "2019-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2020",
+      "last_signal_inclusive": "2020-12-31T00:00:00Z",
+      "validation_end_exclusive": "2021-01-01T00:00:00Z",
+      "validation_start": "2020-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2021",
+      "last_signal_inclusive": "2021-12-31T00:00:00Z",
+      "validation_end_exclusive": "2022-01-01T00:00:00Z",
+      "validation_start": "2021-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2022",
+      "last_signal_inclusive": "2022-12-31T00:00:00Z",
+      "validation_end_exclusive": "2023-01-01T00:00:00Z",
+      "validation_start": "2022-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2023",
+      "last_signal_inclusive": "2023-12-31T00:00:00Z",
+      "validation_end_exclusive": "2024-01-01T00:00:00Z",
+      "validation_start": "2023-01-02T00:00:00Z"
+    },
+    {
+      "fold_id": "DEV-2024",
+      "last_signal_inclusive": "2024-12-31T00:00:00Z",
+      "validation_end_exclusive": "2025-01-01T00:00:00Z",
+      "validation_start": "2024-01-02T00:00:00Z"
+    }
+  ],
+  "hypothesis_id": "FINANCIAL_REGIME_CONDITIONED_SIGNAL_WEIGHTS_V1",
+  "internal_feature_version": "SUPERVISED_FEATURES_V1",
+  "maximum_expert_fits": 18,
+  "model": {
+    "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+    "coefficient_thresholding": false,
+    "feature_dropping": false,
+    "hyperparameter_searches": 0,
+    "minimum_std_exclusive": 1e-12,
+    "regularization": "NONE",
+    "require_full_column_rank": true,
+    "signal_threshold": 0.0,
+    "threshold_searches": 0,
+    "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT",
+    "validation_refit": false
+  },
+  "numeric_parameter_variants": 0,
+  "primary_variant": "REGIME_TWO_EXPERTS",
+  "profile_evaluations": 8,
+  "profile_policy": {
+    "DELAY_1H": "PREVIOUS_HOUR_PREDICTION_NO_RETRAIN",
+    "DOUBLE": "REUSE_DEFAULT_PREDICTIONS_COST_ONLY_CHANGE",
+    "ZERO": "REUSE_DEFAULT_PREDICTIONS_COST_ONLY_CHANGE",
+    "fit_target_profile": "DEFAULT"
+  },
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "protocol_id": "WP-012-REGIME-CONDITIONED-V1",
+  "regime": {
+    "availability": "ALFRED_VINTAGE_CONSERVATIVE_NEXT_CALENDAR_DAY",
+    "boundary_value_regime": "NORMAL_OR_LOOSE",
+    "hysteresis": "NONE",
+    "infeasible_expert_policy": "EMIT_NO_MODEL_COUNT_AFFECTED_HOURS_NEVER_MERGE_REGIMES",
+    "lag_variants": 0,
+    "macro_features_in_expert_matrix": 0,
+    "macro_variable_variants": 0,
+    "missing_regime_policy": "INELIGIBLE_COUNTED_NEVER_IMPUTED",
+    "regime_count_variants": 0,
+    "regimes": [
+      "NORMAL_OR_LOOSE",
+      "TIGHT"
+    ],
+    "rule": "TIGHT_IF_POINT_IN_TIME_NFCI_STRICTLY_ABOVE_ZERO",
+    "series": "NFCI",
+    "threshold": 0.0,
+    "threshold_variants": 0,
+    "transition_smoothing": "NONE",
+    "version": "FINANCIAL_CONDITIONS_REGIME_V1"
+  },
+  "regime_source_version": "ALFRED_MACRO_CONTEXT_V1",
+  "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
+  "schema_version": 1,
+  "training": {
+    "eligibility": "INTERNAL_FEATURES_AND_POINT_IN_TIME_REGIME_BOTH_AVAILABLE",
+    "expert_partition": "DISJOINT_BY_POINT_IN_TIME_REGIME_OF_THE_SIGNAL_HOUR",
+    "label": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+    "label_outcome_boundary": "STRICTLY_BEFORE_EFFECTIVE_MINUS_216H",
+    "purge_boundary_hours": 216,
+    "scaling": "TRAINING_ONLY_PER_EXPERT_MEAN_AND_POPULATION_VARIANCE",
+    "shared_coefficients_between_experts": false,
+    "signal_boundary": "STRICTLY_BEFORE_EFFECTIVE_MINUS_216H",
+    "universe": "EXPANDING_CHRONOLOGICAL"
+  }
+}

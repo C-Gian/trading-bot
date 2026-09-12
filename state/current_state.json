@@ -43,10 +43,10 @@
   "search_memory": {
     "version": "SEARCH_MEMORY_V2",
     "status": "VALIDATED",
-    "families_tracked": 9
+    "families_tracked": 10
   },
   "adaptive_search": {
-    "adaptive_decisions": 7,
+    "adaptive_decisions": 8,
     "configuration_variants": 17,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
@@ -54,10 +54,10 @@
     "material_economic_hypotheses": 7,
     "numeric_parameter_variants": 0,
     "profile_trials": 85,
-    "result_dependent_forks": 7,
+    "result_dependent_forks": 8,
     "sealed_queries": 0,
     "strategy_descendants": 8,
-    "supervised_model_fits": 156,
+    "supervised_model_fits": 174,
     "wp004_profiles_reserved": 12,
     "wp004_variants_reserved": 3,
     "wp006_profiles_reserved": 8,
@@ -67,7 +67,9 @@
     "wp008_profiles_reserved": 8,
     "wp008_variants_reserved": 2,
     "wp011_profiles_reserved": 8,
-    "wp011_variants_reserved": 2
+    "wp011_variants_reserved": 2,
+    "wp012_profiles_reserved": 8,
+    "wp012_variants_reserved": 2
   },
   "selected_family": {
     "name": "ALIGNED_PARTICIPATION_CONTINUATION_V1",

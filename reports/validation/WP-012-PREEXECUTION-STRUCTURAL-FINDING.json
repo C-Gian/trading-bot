@@ -1,0 +1,82 @@
+{
+  "consequence": "The TIGHT expert can never be both feasible and used on this history. DEV-2020 is the only fold containing TIGHT validation hours (336), and it has zero TIGHT training rows because the TIGHT block falls after its 2019-12-24 purge boundary. DEV-2021 through DEV-2024 each carry 336 TIGHT training rows but contain zero TIGHT validation hours. DEV-2019 has neither.",
+  "detected_before_any_market_result": true,
+  "expected_effect_on_primary": "REGIME_TWO_EXPERTS is expected to behave as a NORMAL_OR_LOOSE-only model that additionally emits nothing for the 336 TIGHT hours of DEV-2020. The comparison against GLOBAL_SINGLE_EXPERT_MATCHED therefore measures almost entirely the cost of withholding those hours, not a genuine regime effect.",
+  "finding": "Under FINANCIAL_CONDITIONS_REGIME_V1 the conservatively available NFCI exceeds 0.0 in exactly one contiguous block across the entire development history: 2020-04-02T00:00:00Z through 2020-04-15T23:00:00Z, 336 hours out of 64,488 eligible hours (0.52%). Every other eligible hour is NORMAL_OR_LOOSE.",
+  "not_observed": [
+    "any BTC return",
+    "any expectancy",
+    "any trade",
+    "any classification"
+  ],
+  "observed_only": [
+    "point-in-time NFCI values and their availability instants",
+    "counts of eligible, TIGHT and NORMAL_OR_LOOSE hours per fold"
+  ],
+  "recorded_at_utc": "2026-09-12T00:00:00Z",
+  "regime_hours": {
+    "eligible_total": 64488,
+    "per_fold": {
+      "DEV-2019": {
+        "train_tight": 0,
+        "validation_tight": 0
+      },
+      "DEV-2020": {
+        "train_tight": 0,
+        "validation_tight": 336
+      },
+      "DEV-2021": {
+        "train_tight": 336,
+        "validation_tight": 0
+      },
+      "DEV-2022": {
+        "train_tight": 336,
+        "validation_tight": 0
+      },
+      "DEV-2023": {
+        "train_tight": 336,
+        "validation_tight": 0
+      },
+      "DEV-2024": {
+        "train_tight": 336,
+        "validation_tight": 0
+      }
+    },
+    "tight_block_end_utc": "2020-04-15T23:00:00Z",
+    "tight_block_start_utc": "2020-04-02T00:00:00Z",
+    "tight_share": 0.0052,
+    "tight_total": 336
+  },
+  "rejected_alternatives": [
+    "moving the NFCI threshold away from exactly 0.0",
+    "using a different macro series or more regimes",
+    "adding hysteresis, smoothing or a lag variant",
+    "merging the regimes when one expert is infeasible",
+    "relaxing the 216h purge so DEV-2020 could see its own TIGHT block",
+    "extending the validation window to manufacture TIGHT coverage"
+  ],
+  "resolution": "Nothing is changed. The frozen threshold of exactly 0.0, the two-regime definition and the deterministic feasibility requirements all stand. A fold whose regime expert is infeasible emits no model and therefore no prediction for that regime's hours, and every affected hour is counted. The experiment proceeds and will report that regime conditioning is inert on this history rather than manufacturing a testable split.",
+  "result_artifacts_finalized": 0,
+  "schema_version": 1,
+  "scientific_scope_changed": false,
+  "status": "PRE_EXECUTION_STRUCTURAL_FINDING",
+  "strategy_trials_executed": 0,
+  "unchanged": {
+    "execution_geometry": "2_PERCENT_STOP_4_PERCENT_TARGET_1440_MINUTES",
+    "features": "EXACTLY_THE_EIGHT_FROZEN_WP008_INTERNAL_FEATURES",
+    "folds": "SIX_FROZEN_ANNUAL_FOLDS_2019_2024",
+    "macro_in_expert_features": false,
+    "profiles": [
+      "DEFAULT",
+      "ZERO",
+      "DOUBLE",
+      "DELAY_1H"
+    ],
+    "purge_boundary_hours": 216,
+    "regime_count": 2,
+    "regime_threshold": 0.0,
+    "regime_threshold_variants": 0,
+    "signal_threshold": 0.0
+  },
+  "work_package": "WP-012"
+}

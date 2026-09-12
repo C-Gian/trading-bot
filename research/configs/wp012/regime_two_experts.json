@@ -1,0 +1,41 @@
+{
+  "architecture": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+  "expert_selection": "EXACTLY_ONE_EXPERT_PER_HOUR_NO_BLENDING",
+  "experts": [
+    "NORMAL_OR_LOOSE",
+    "TIGHT"
+  ],
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED"
+  ],
+  "hypothesis_role": "ECONOMIC_CORE",
+  "internal_feature_version": "SUPERVISED_FEATURES_V1",
+  "macro_features_in_expert_matrix": 0,
+  "max_hold_minutes": 1440,
+  "model_algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "purge_boundary_hours": 216,
+  "regime_series": "NFCI",
+  "regime_threshold": 0.0,
+  "regime_threshold_variants": 0,
+  "regime_version": "FINANCIAL_CONDITIONS_REGIME_V1",
+  "schema_version": 1,
+  "shared_coefficients": false,
+  "signal_threshold": 0.0,
+  "stop_fraction": 0.02,
+  "target_fraction": 0.04,
+  "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT",
+  "variant": "REGIME_TWO_EXPERTS"
+}

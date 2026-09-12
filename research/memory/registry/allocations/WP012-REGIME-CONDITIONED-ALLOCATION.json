@@ -1,0 +1,56 @@
+{
+  "adaptive_decision_increment": 1,
+  "algorithm_variants": 0,
+  "allocation_id": "WP012-REGIME-CONDITIONED-ALLOCATION",
+  "architecture": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+  "authority": "tasks/CURRENT_TASK.md",
+  "conditionality": "Execution requires committed admission and preregistrations, a passing point-in-time regime as-of audit, full-rank per-expert fits, purge containment, truthful abstention wherever a regime expert is infeasible, and zero sealed access.",
+  "cumulative_adaptive_decisions": 8,
+  "cumulative_result_dependent_forks": 8,
+  "experiment_ids": [
+    "EXP-ML-018-REGIME-TWO-EXPERTS",
+    "EXP-ML-019-GLOBAL-MATCHED-CONTROL"
+  ],
+  "experts_per_fold": {
+    "GLOBAL_SINGLE_EXPERT_MATCHED": 1,
+    "REGIME_TWO_EXPERTS": 2
+  },
+  "family_limits": {
+    "experiments": 2,
+    "numeric_parameter_variants": 0,
+    "strategy_variants": 2,
+    "trials": 8
+  },
+  "feature_subset_searches": 0,
+  "hyperparameter_searches": 0,
+  "hypothesis_id": "FINANCIAL_REGIME_CONDITIONED_SIGNAL_WEIGHTS_V1",
+  "kind": "RESULT_DEPENDENT_NEW_CONDITIONED_MODEL_FAMILY_ALLOCATION",
+  "macro_variable_variants": 0,
+  "maximum_expert_fits": 18,
+  "model_configurations": 2,
+  "new_economic_hypotheses": 1,
+  "numeric_parameter_variants": 0,
+  "paper_observations": 0,
+  "primary_variant": "REGIME_TWO_EXPERTS",
+  "prior_adaptive_decisions": 7,
+  "prior_family_budget_policy": "All prior family budgets and dispositions remain unchanged; this root resets nothing and reopens neither FAM-SUPERVISED-LINEAR nor FAM-ADAPTIVE-EWLS-MACRO.",
+  "prior_result_dependent_forks": 7,
+  "profile_evaluations": 8,
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "profiles_per_configuration": 4,
+  "regime_count_variants": 0,
+  "regime_threshold_variants": 0,
+  "result_dependent_fork_increment": 1,
+  "review_authority": "reports/reviews/WP-011-RESEARCH-DIRECTOR-REVIEW.md",
+  "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "supervised_model_fits": 18,
+  "threshold_searches": 0,
+  "work_package": "WP-012"
+}

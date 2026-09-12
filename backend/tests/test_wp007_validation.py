@@ -44,10 +44,14 @@ def test_cumulative_search_accounting_is_exact():
     assert totals["material_economic_hypotheses"] == 6 + 1
     assert totals["configuration_variants"] == 15 + 2
     assert totals["profile_trials"] == 77 + 8
-    # WP-011 reserved a further 144 monthly fits and one adaptive fork on top of WP-008.
-    assert totals["supervised_model_fits"] == 12 + 144
+    # WP-011 reserved a further 144 monthly fits and WP-012 a further 18 expert fits,
+    # each with one adaptive fork on top of WP-008. WP-012 has no ledger entry yet, so
+    # its two configurations and eight profile trials are reserved, not yet consumed.
+    assert totals["supervised_model_fits"] == 12 + 144 + 18
+    assert totals["wp012_variants_reserved"] == 2
+    assert totals["wp012_profiles_reserved"] == 8
     assert totals["numeric_parameter_variants"] == 0
-    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 7
+    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 8
 
 
 def test_both_order_flow_candidates_are_sealed_ineligible():

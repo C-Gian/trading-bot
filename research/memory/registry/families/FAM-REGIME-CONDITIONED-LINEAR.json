@@ -1,0 +1,22 @@
+{
+  "admitted_by": "research/memory/registry/admissions/WP012-NOVELTY-ADMISSION.json",
+  "aliases": [
+    "FINANCIAL_REGIME_CONDITIONED_SIGNAL_WEIGHTS_V1",
+    "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
+    "REGIME_TWO_EXPERTS",
+    "GLOBAL_SINGLE_EXPERT_MATCHED"
+  ],
+  "allocation_id": "WP012-REGIME-CONDITIONED-ALLOCATION",
+  "entry_event_anchors": [
+    "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO"
+  ],
+  "failure_experiment_ids": [],
+  "family_id": "FAM-REGIME-CONDITIONED-LINEAR",
+  "information_source": "INTERNAL_PRICE_VOLATILITY_VOLUME_AND_TAKER_FLOW_DESCRIPTORS_CONDITIONED_BY_POINT_IN_TIME_ALFRED_NFCI_FINANCIAL_CONDITIONS_REGIME",
+  "legitimate_revisit": "A new Research Director allocation with explicit accounting. A different threshold, macro variable, regime count, smoothing, hysteresis, lag variant, feature set, label, barrier or horizon is not this experiment.",
+  "mechanism": "Financial conditions may change how internal market descriptors map to forward net R. Two disjoint experts, selected hour by hour by a fixed zero-threshold point-in-time NFCI gate, may rank default-cost long opportunity quality better than one global weight vector; predictive, not causal. No macro value enters an expert feature matrix.",
+  "parent_family_id": null,
+  "schema_version": 1,
+  "status": "ADMITTED_PENDING_RESULTS",
+  "work_package": "WP-012"
+}
