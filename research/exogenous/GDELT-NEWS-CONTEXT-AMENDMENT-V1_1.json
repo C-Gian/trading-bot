@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "amendment_id": "GDELT_NEWS_CONTEXT_V1_1",
+  "work_package": "WP-009",
+  "supersedes_acquisition_design_of": "GDELT_NEWS_CONTEXT_V1",
+  "status": "PROSPECTIVE_ACQUISITION_DESIGN_AMENDMENT",
+  "prospective": true,
+  "catalog": "research/exogenous/GDELT_QUERY_CATALOG_V1.json",
+  "catalog_channels_or_vocabulary_changed": false,
+  "keywords_added": 0,
+  "keywords_removed": 0,
+  "semantic_channel_count": 5,
+  "modes_changed": false,
+  "smoothing_changed": false,
+  "btc_prices_returns_or_outcomes_used": false,
+  "btc_outcomes_consulted_for_this_decision": false,
+  "strategy_results_consulted_for_this_decision": false,
+  "accepted_v1_1_rows_before_amendment": 0,
+  "motivation": {
+    "finding": "GDELT_NEWS_CONTEXT_V1 required hourly timeline resolution, which the official DOC 2.0 semantics only return for request spans of 72 hours through one week. Covering 2017-08-17 through 2024-12-31 for five channels and two modes therefore required 3850 credential-free requests.",
+    "operational_blocker": "The credential-free GDELT DOC 2.0 endpoint persistently returned HTTP 429 throttling responses during the required high-volume request schedule, so the V1 hourly acquisition schedule became operationally impractical.",
+    "decision_basis": "INFRASTRUCTURE_FEASIBILITY_ONLY",
+    "decision_inputs_excluded": [
+      "BTC prices",
+      "BTC returns",
+      "BTC trade outcomes",
+      "strategy expectancy",
+      "any exogenous time-series values"
+    ]
+  },
+  "preserved_v1_evidence": {
+    "policy": "PRESERVE_UNCHANGED_AS_HISTORICAL_ACQUISITION_EVIDENCE",
+    "raw_cache_root": "data/raw/exogenous/gdelt-doc-v2",
+    "cached_response_pairs": 175,
+    "deleted": 0,
+    "rewritten": 0,
+    "hourly_module": "backend/app/research/gdelt.py",
+    "note": "V1 hourly raw responses, their meta hashes and the V1 acquisition module remain in place. The partial/failed high-volume hourly acquisition evidence is not deleted or rewritten."
+  },
+  "v1_1_news_semantics": {
+    "aggregation_unit": "UTC_CALENDAR_DAY",
+    "queries": "IDENTICAL_TO_GDELT_QUERY_CATALOG_V1",
+    "modes": ["TimelineVolRaw", "TimelineTone"],
+    "timeline_smooth": 0,
+    "request_window_policy": "CALENDAR_YEAR_OR_LONGER_SPAN_SO_GDELT_RETURNS_DAILY_RESOLUTION",
+    "resolution_policy": "VALIDATE_RETURNED_date_resolution_EQUALS_day_REJECT_OTHERWISE",
+    "retained_measures": [
+      "matched_articles",
+      "monitored_articles_norm",
+      "coverage_share",
+      "average_tone"
+    ],
+    "coverage_share_definition": "matched_articles / monitored_articles_norm when monitored_articles_norm > 0",
+    "availability_rule": "AVAILABILITY_TIME_OF_UTC_DAY_D_IS_D_PLUS_1_AT_00_00_00_UTC",
+    "same_day_availability_forbidden": true,
+    "coverage_start_utc": "2017-08-17T00:00:00Z",
+    "coverage_end_utc": "2024-12-31T23:59:59Z",
+    "post_2024_requests_forbidden": true,
+    "rolling_transforms": false,
+    "normalization_transforms": false,
+    "trading_score": false,
+    "missing_policy": "MISSING_UNLESS_MONITORED_COVERAGE_PROVES_ZERO_MATCHES"
+  },
+  "acquisition_properties": {
+    "resumable_from_cache": true,
+    "deterministic": true,
+    "hash_verified": true,
+    "idempotent": true,
+    "bounded_http_error_retries": true,
+    "infinite_retry_loops": false
+  },
+  "checkpoint_scope": {
+    "pilot_interval_start_utc": "2017-08-17T00:00:00Z",
+    "pilot_interval_end_utc": "2017-12-31T23:59:59Z",
+    "pilot_channels": 5,
+    "pilot_modes": 2,
+    "pilot_expected_requests": 10,
+    "remaining_years_acquired": false,
+    "combined_exogenous_context_built": false,
+    "final_wp009_validation_run": false
+  },
+  "limitations": [
+    "Daily aggregation loses intraday news timing that the V1 hourly design intended to retain.",
+    "GDELT's monitored source universe changes through time; coverage_share is a source-relative proxy only.",
+    "Timeline tone is source-computed and may change with document coverage.",
+    "Vocabulary is frozen by GDELT_QUERY_CATALOG_V1 and cannot be expanded after values are observed."
+  ]
+}
