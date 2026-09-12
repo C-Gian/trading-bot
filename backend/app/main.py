@@ -12,6 +12,7 @@ from . import __version__
 from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
 from .data.store import available, candles
 from .product.analysis import RESEARCH_STATUS, STRATEGY_VERSION, VARIANT, analyse
+from .product.market_feed import recent_candles
 from .product.paper import (
     STORE_PATH,
     PaperTradeError,
@@ -34,6 +35,7 @@ def create_app(
     analyser: Callable[[], dict] = analyse,
     paper_store: PaperTradeStore | None = None,
     lifecycle: Callable[[PaperTradeStore], dict] = update_lifecycle,
+    market_view: Callable[[], dict] = recent_candles,
 ) -> FastAPI:
     application = FastAPI(title="Trading Bot", version=__version__)
     application.add_middleware(
@@ -182,6 +184,11 @@ def create_app(
     @application.get("/api/v1/product/paper-trades")
     def read_paper_trades(limit: int = 20):
         return listing(trades, limit=max(1, min(limit, 100)))
+
+    @application.get("/api/v1/product/market/recent")
+    def recent_market():
+        """Current public read-only candles for the local chart. Nothing is persisted."""
+        return market_view()
 
     @application.get("/api/v1/product/paper-trades/statistics")
     def paper_statistics():

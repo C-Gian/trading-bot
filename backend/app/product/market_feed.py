@@ -112,3 +112,49 @@ def fetch_minutes(
             collected[kline.open_ms] = kline
         cursor = max(kline.open_ms for kline in fresh) + 60_000
     return tuple(sorted(collected.values(), key=lambda kline: kline.open_ms))
+
+
+CURRENT_MARKET_CLASSIFICATION = "CURRENT PUBLIC MARKET DATA — READ ONLY"
+
+
+def recent_candles(
+    limit: int = 200,
+    *,
+    interval: str = "1h",
+    now: datetime | None = None,
+    client: Any = httpx,
+    feed: Any = None,
+) -> dict[str, Any]:
+    """Completed current candles for the local chart. Read-only, never persisted."""
+    moment = (now or datetime.now(UTC)).astimezone(UTC)
+    fetch = feed or fetch_klines
+    try:
+        klines = fetch(interval, max(1, min(limit, MAX_LIMIT)), now=moment, client=client)
+    except MarketFeedError as exc:
+        return {
+            "classification": CURRENT_MARKET_CLASSIFICATION,
+            "symbol": SYMBOL,
+            "interval": interval,
+            "status": "MARKET_DATA_UNAVAILABLE",
+            "detail": str(exc),
+            "candles": [],
+        }
+    return {
+        "classification": CURRENT_MARKET_CLASSIFICATION,
+        "symbol": SYMBOL,
+        "interval": interval,
+        "status": "OK",
+        "detail": f"{len(klines)} completed {interval} candles",
+        "candles": [
+            {
+                "open_time": datetime.fromtimestamp(kline.open_ms / 1000, UTC)
+                .isoformat()
+                .replace("+00:00", "Z"),
+                "open": kline.open,
+                "high": kline.high,
+                "low": kline.low,
+                "close": kline.close,
+            }
+            for kline in klines
+        ],
+    }

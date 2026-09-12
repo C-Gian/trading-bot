@@ -20,7 +20,7 @@ function Trade({ trade }: { trade: PaperTrade }) {
   </article>;
 }
 
-export function PaperTrades() {
+export function PaperTrades({ onListing }: { onListing?: (listing: PaperListing | null) => void } = {}) {
   const [listing, setListing] = useState<PaperListing | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -30,7 +30,9 @@ export function PaperTrades() {
     setNotice(null);
     try {
       await action();
-      setListing(await readPaperTrades());
+      const next = await readPaperTrades();
+      setListing(next);
+      onListing?.(next);
       setNotice(done);
     } catch (error) {
       setNotice(error instanceof Error ? error.message : 'Request failed.');

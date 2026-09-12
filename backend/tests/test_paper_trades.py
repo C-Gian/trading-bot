@@ -451,6 +451,13 @@ def test_state_declares_the_paper_surface_truthfully() -> None:
     assert paper["surface"] == "AVAILABLE"
     assert paper["persistence_version"] == "FUTURE_PAPER_EVIDENCE_V1"
     assert paper["prospective_execution_version"] == "PROSPECTIVE_PAPER_EXECUTION_V1"
+    assert paper["prospective_features_version"] == "PROSPECTIVE_PAPER_FEATURES_V1"
+    assert paper["feature_equivalence"] == paper["execution_equivalence"] == "PASS"
+    assert paper["historical_research_code_modified"] is False
+    assert paper["statistics_surface"] == paper["chart_dashboard_surface"] == "AVAILABLE"
+    assert paper["statistics_version"] == "PAPER_STATISTICS_V1"
+    assert paper["product_stage"] == "V1_PAPER_ALPHA"
+    assert paper["scientifically_approved"] is False
     assert paper["lifecycle_trigger"] == "EXPLICIT_USER_ACTION_ONLY"
     assert paper["strategy_version"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert paper["research_status"] == "PAPER_RESEARCH_CANDIDATE"

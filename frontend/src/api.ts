@@ -17,3 +17,8 @@ async function send<T>(url:string):Promise<T>{const response=await fetch(url,{me
 export function createPaperTrade(){return send<{analysis_id:string;trade:PaperTrade;real_money:boolean}>('/api/v1/product/paper-trades')}
 export function advancePaperTrades(){return send<PaperLifecycle>('/api/v1/product/paper-trades/lifecycle')}
 export function readPaperTrades(){return request<PaperListing>('/api/v1/product/paper-trades')}
+export type LiveCandle={open_time:string;open:number;high:number;low:number;close:number};
+export type LiveMarket={classification:string;symbol:string;interval:string;status:string;detail:string;candles:LiveCandle[]};
+export type PaperStatistics={statistics_version:string;evidence_version:string;evidence_stage:string;label:string;development_backtest_metrics_included:boolean;total_paper_trades:number;pending_entry:number;open:number;active:number;closed:number;invalidated:number;closed_target:number;closed_stop:number;expiries:number;realized_trades:number;wins:number;losses:number;breakeven:number;win_rate:number|null;mean_realized_r:number|null;cumulative_realized_r:number|null;expectancy_r_per_trade:number|null;max_drawdown_r:number|null;best_realized_r:number|null;worst_realized_r:number|null;empty:boolean;empty_detail:string|null;champion_status:string;real_money:boolean};
+export function readLiveMarket(){return request<LiveMarket>('/api/v1/product/market/recent')}
+export function readPaperStatistics(){return request<PaperStatistics>('/api/v1/product/paper-trades/statistics')}

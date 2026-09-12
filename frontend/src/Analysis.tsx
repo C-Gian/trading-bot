@@ -3,7 +3,7 @@ import { Analysis, analyseMarket } from './api';
 
 const price = (value: number) => value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-export function AnalyzeMarket() {
+export function AnalyzeMarket({ onResult }: { onResult?: (result: Analysis | null) => void } = {}) {
   const [result, setResult] = useState<Analysis | null>(null);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -11,9 +11,12 @@ export function AnalyzeMarket() {
     setBusy(true);
     setFailed(false);
     try {
-      setResult(await analyseMarket());
+      const next = await analyseMarket();
+      setResult(next);
+      onResult?.(next);
     } catch {
       setResult(null);
+      onResult?.(null);
       setFailed(true);
     } finally {
       setBusy(false);
