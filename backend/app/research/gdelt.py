@@ -126,15 +126,18 @@ def _validate_acquired_document(document: dict[str, Any], spec: dict[str, Any]) 
 class _RateLimiter:
     def __init__(self, interval: float) -> None:
         self.interval = interval
-        self.last_start = 0.0
+        self.last_completion = 0.0
         self.lock = Lock()
 
     def wait(self) -> None:
         with self.lock:
-            delay = self.interval - (time.monotonic() - self.last_start)
+            delay = self.interval - (time.monotonic() - self.last_completion)
             if delay > 0:
                 time.sleep(delay)
-            self.last_start = time.monotonic()
+
+    def complete(self) -> None:
+        with self.lock:
+            self.last_completion = time.monotonic()
 
 
 def _fetch_one(spec: dict[str, Any], root: Path, limiter: _RateLimiter) -> str:
@@ -193,6 +196,8 @@ def _fetch_one(spec: dict[str, Any], root: Path, limiter: _RateLimiter) -> str:
             last_error = f"status={response.status_code} body={body[:160]!r}"
         except (httpx.HTTPError, ExogenousDataError) as exc:
             last_error = str(exc)
+        finally:
+            limiter.complete()
         print(
             f"GDELT retry {spec['request_id']} attempt={attempt} "
             f"elapsed={time.monotonic() - started:.1f}s error={last_error}",
