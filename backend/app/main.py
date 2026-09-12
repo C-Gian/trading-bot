@@ -76,6 +76,7 @@ def create_app(
             "order_flow_substrate": state.get("order_flow_substrate"),
             "artifact_storage": state.get("artifact_storage"),
             "supervised_challenger": state.get("supervised_challenger"),
+            "exogenous_foundation": state.get("exogenous_foundation"),
             "sealed_evaluation": state.get("sealed_evaluation"),
             "sealed_system": public_status(),
             "family_budgets": budget_view() + v2_budget_view(),

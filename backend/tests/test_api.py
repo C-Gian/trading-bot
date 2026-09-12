@@ -86,6 +86,7 @@ def test_repository_state_and_default_api_are_consistent():
         research["experiments_completed"] == state["experiments_completed"]
         and research["champion"] == state["champion_status"]
         and research["wp005_integrity"] == state.get("wp005_integrity")
+        and research["exogenous_foundation"] == state.get("exogenous_foundation")
     )
 
 

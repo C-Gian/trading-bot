@@ -614,6 +614,53 @@
         "model_reconciliation": {"const": "PASS"}
       }
     },
+    "exogenous_foundation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "status", "gdelt", "alfred", "combined_context", "asof_reconciliation", "adaptive_design"],
+      "properties": {
+        "contract_version": {"const": "POINT_IN_TIME_EXOGENOUS_DATA_V1"},
+        "status": {"const": "VALIDATED"},
+        "gdelt": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["version", "status", "manifest_sha256", "logical_sha256", "hourly_rows"],
+          "properties": {
+            "version": {"const": "GDELT_NEWS_CONTEXT_V1"},
+            "status": {"const": "VALIDATED"},
+            "manifest_sha256": {"$ref": "#/$defs/sha256"},
+            "logical_sha256": {"$ref": "#/$defs/sha256"},
+            "hourly_rows": {"type": "integer", "minimum": 1}
+          }
+        },
+        "alfred": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["version", "status", "manifest_sha256", "logical_sha256", "series"],
+          "properties": {
+            "version": {"const": "ALFRED_MACRO_CONTEXT_V1"},
+            "status": {"const": "VALIDATED"},
+            "manifest_sha256": {"$ref": "#/$defs/sha256"},
+            "logical_sha256": {"$ref": "#/$defs/sha256"},
+            "series": {"const": 8}
+          }
+        },
+        "combined_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["version", "status", "manifest_sha256", "logical_sha256", "rows"],
+          "properties": {
+            "version": {"const": "EXOGENOUS_CONTEXT_V1"},
+            "status": {"const": "VALIDATED"},
+            "manifest_sha256": {"$ref": "#/$defs/sha256"},
+            "logical_sha256": {"$ref": "#/$defs/sha256"},
+            "rows": {"const": 64656}
+          }
+        },
+        "asof_reconciliation": {"const": "PASS"},
+        "adaptive_design": {"const": "THREE_OPTIONS_DOCUMENTED_NOT_EXECUTED"}
+      }
+    },
     "sealed_evaluation": {
       "type": "object",
       "additionalProperties": false,
