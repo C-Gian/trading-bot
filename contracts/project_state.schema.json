@@ -703,6 +703,43 @@
         "current_data_reenters_development_evidence": {"const": false}
       }
     },
+    "paper_trading": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "surface",
+        "persistence_contract",
+        "persistence_version",
+        "prospective_execution_version",
+        "lifecycle_trigger",
+        "strategy_version",
+        "research_status",
+        "champion_status",
+        "genuine_paper_trades_completed",
+        "order_placement",
+        "credentials",
+        "leverage_or_short",
+        "real_money"
+      ],
+      "properties": {
+        "surface": {"const": "AVAILABLE"},
+        "persistence_contract": {"const": "docs/contracts/FUTURE_PAPER_EVIDENCE_V1.md"},
+        "persistence_version": {"const": "FUTURE_PAPER_EVIDENCE_V1"},
+        "prospective_execution_version": {"const": "PROSPECTIVE_PAPER_EXECUTION_V1"},
+        "historical_engine_modified": {"const": false},
+        "timestamp_translation_used": {"const": false},
+        "equivalence_validation": {"const": "PASS"},
+        "lifecycle_trigger": {"const": "EXPLICIT_USER_ACTION_ONLY"},
+        "strategy_version": {"const": "ALIGNED_PARTICIPATION_CONTINUATION_V1"},
+        "research_status": {"const": "PAPER_RESEARCH_CANDIDATE"},
+        "champion_status": {"const": "NONE"},
+        "genuine_paper_trades_completed": {"type": "integer", "minimum": 0},
+        "order_placement": {"const": false},
+        "credentials": {"const": false},
+        "leverage_or_short": {"const": false},
+        "real_money": {"const": false}
+      }
+    },
     "exogenous_acquisition_pause": {
       "type": "object",
       "additionalProperties": false,

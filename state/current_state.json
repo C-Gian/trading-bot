@@ -168,6 +168,24 @@
     "leverage_or_short": false,
     "current_data_reenters_development_evidence": false
   },
+  "paper_trading": {
+    "surface": "AVAILABLE",
+    "persistence_contract": "docs/contracts/FUTURE_PAPER_EVIDENCE_V1.md",
+    "persistence_version": "FUTURE_PAPER_EVIDENCE_V1",
+    "prospective_execution_version": "PROSPECTIVE_PAPER_EXECUTION_V1",
+    "historical_engine_modified": false,
+    "timestamp_translation_used": false,
+    "equivalence_validation": "PASS",
+    "lifecycle_trigger": "EXPLICIT_USER_ACTION_ONLY",
+    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "research_status": "PAPER_RESEARCH_CANDIDATE",
+    "champion_status": "NONE",
+    "genuine_paper_trades_completed": 0,
+    "order_placement": false,
+    "credentials": false,
+    "leverage_or_short": false,
+    "real_money": false
+  },
   "exogenous_acquisition_pause": {
     "version": "GDELT_NEWS_CONTEXT_V1_1",
     "status": "PARTIAL",

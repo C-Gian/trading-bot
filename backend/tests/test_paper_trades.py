@@ -438,6 +438,39 @@ def test_scientific_paper_trade_counter_is_untouched() -> None:
     assert state["champion_status"] == "NONE"
     assert state["forward_evidence"] == "NONE"
     assert state["real_money_authorized"] is False
+    assert state["experiments_completed"] == 15
+    assert state["sealed_evaluations_completed"] == 0
+    assert state["adaptive_search"]["adaptive_decisions"] == 5
+    assert state["adaptive_search"]["profile_trials"] == 77
+    assert state["adaptive_search"]["configuration_variants"] == 15
+
+
+def test_state_declares_the_paper_surface_truthfully() -> None:
+    state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
+    paper = state["paper_trading"]
+    assert paper["surface"] == "AVAILABLE"
+    assert paper["persistence_version"] == "FUTURE_PAPER_EVIDENCE_V1"
+    assert paper["prospective_execution_version"] == "PROSPECTIVE_PAPER_EXECUTION_V1"
+    assert paper["lifecycle_trigger"] == "EXPLICIT_USER_ACTION_ONLY"
+    assert paper["strategy_version"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    assert paper["research_status"] == "PAPER_RESEARCH_CANDIDATE"
+    assert paper["champion_status"] == "NONE"
+    assert paper["genuine_paper_trades_completed"] == 0
+    assert paper["historical_engine_modified"] is False
+    assert paper["timestamp_translation_used"] is False
+    assert paper["equivalence_validation"] == "PASS"
+    assert paper["order_placement"] is False
+    assert paper["credentials"] is False
+    assert paper["leverage_or_short"] is False
+    assert paper["real_money"] is False
+
+
+def test_state_still_records_wp009_as_paused() -> None:
+    state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
+    pause = state["exogenous_acquisition_pause"]
+    assert pause["status"] == "PARTIAL"
+    assert pause["pause_reason"] == "PAUSED_FOR_PRODUCT_PRIORITY"
+    assert pause["wp009_finalized"] is False
 
 
 def test_future_paper_evidence_contract_declares_the_separation() -> None:

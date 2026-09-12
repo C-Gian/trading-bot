@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ExperimentPayload, Health, Research, request } from './api';
 import { Market } from './Market';
 import { AnalyzeMarket } from './Analysis';
+import { PaperTrades } from './PaperTrades';
 
 const pages = ['Dashboard', 'Market', 'Paper Trades', 'Statistics', 'Research Lab', 'System'] as const;
 type Page = typeof pages[number];
@@ -17,9 +18,9 @@ export function App() {
     request<ExperimentPayload>('/api/v1/research/experiments').then(setExperiments).catch(() => setExperiments(null));
   }, []);
   return <><header><b>TRADING BOT</b><span>PAPER ONLY</span></header><nav>{pages.map(item => <button key={item} onClick={() => setPage(item)}>{item}</button>)}</nav><main><h1>{page}</h1>
-    {page === 'Dashboard' && <><div className="card">Backend: {health === undefined ? 'checking' : health?.health ?? 'unavailable'} · {health?.status ?? 'unknown'}</div><AnalyzeMarket /><h2>No approved strategy</h2><p>ALIGNED is a paper-research candidate only. No strategy is approved for live trading.</p></>}
+    {page === 'Dashboard' && <><div className="card">Backend: {health === undefined ? 'checking' : health?.health ?? 'unavailable'} · {health?.status ?? 'unknown'}</div><AnalyzeMarket /><PaperTrades /><h2>No approved strategy</h2><p>ALIGNED is a paper-research candidate only. No strategy is approved for live trading.</p></>}
     {page === 'Market' && <Market available={health?.development_data_available === true} />}
-    {page === 'Paper Trades' && <div className="card">No paper trades exist.</div>}
+    {page === 'Paper Trades' && <PaperTrades />}
     {page === 'Statistics' && <div className="card">No approved strategy performance statistics exist.</div>}
     {page === 'Research Lab' && <><div className="card">Champion: {research?.champion ?? 'NONE'}<br />Experiments completed: {research?.experiments_completed ?? 0}<br />Evidence stage: {experiments?.evidence_stage ?? 'NONE'}<br />Backtest substrate: {research?.backtest_substrate ?? 'unavailable'}<br />Models: {research?.engine_version ?? 'unavailable'} / {research?.execution_model_version ?? 'unavailable'} / {research?.cost_model_version ?? 'unavailable'}<br />Synthetic validation: {research?.synthetic_validation ?? 'unavailable'} — infrastructure check only, not trading evidence.</div><p className="banner">DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE</p>
       <section className="card" aria-label="Scientific search memory"><h2>Scientific search memory</h2>Memory: {research?.search_memory?.version ?? 'unavailable'} / {research?.search_memory?.status ?? 'unavailable'}<br />Root families: {research?.search_memory?.families_tracked ?? 'unavailable'}<br />Cumulative hypotheses: {research?.adaptive_search?.material_economic_hypotheses ?? 'unavailable'} · Configurations: {research?.adaptive_search?.configuration_variants ?? 'unavailable'} · Profile/seed trials: {research?.adaptive_search?.profile_trials ?? 'unavailable'}<br />Adaptive decisions: {research?.adaptive_search?.adaptive_decisions ?? 'unavailable'} · Result-dependent forks: {research?.adaptive_search?.result_dependent_forks ?? 'unavailable'}<br />Selected family: {research?.selected_family?.name ?? 'unavailable'} · {research?.selected_family?.terminal_classification ?? 'unavailable'}<p>No strategy approval follows from a positive development result. Consumed budgets are not reset by renaming.</p>{research?.family_budgets?.map(item => <p key={item.family_id}>{item.family_id}: {item.experiments_consumed}/{item.experiments_limit} configurations · {item.trials_consumed}/{item.trials_limit} trials</p>)}</section>
