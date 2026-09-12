@@ -1,0 +1,24 @@
+{
+  "checks": {
+    "all_label_outcomes_known_before_training_boundary": "PASS",
+    "base_feature_order_exact": "PASS",
+    "full_rank_rule_frozen": "PASS",
+    "interaction_columns_exactly_eight": "PASS",
+    "interactions_formed_from_raw_values_before_scaling": "PASS",
+    "matched_nfci_available_universe": "PASS",
+    "nfci_asof_audit": "PASS",
+    "nfci_direct_feature_absent": "PASS",
+    "nfci_raw_untransformed": "PASS",
+    "no_post_cutoff_or_sealed_access": "PASS",
+    "preregistration_before_results": "PASS",
+    "purge_216_hours": "PASS",
+    "search_memory_admission_before_results": "PASS",
+    "training_only_scaling": "PASS"
+  },
+  "market_results_observed": 0,
+  "note": "This finding is committed with the frozen runner, admission, allocation, configurations, preregistrations, as-of audit, and structural tests before any WP-013 validation result.",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "status": "PASS",
+  "work_package": "WP-013"
+}

@@ -1,0 +1,22 @@
+{
+  "audit": "NFCI_CONTEXT_POINT_IN_TIME_ASOF_V1",
+  "available_validation_hours": 52608,
+  "checks": {
+    "independent_raw_nfci_agreement": "PASS",
+    "nfci_changes_only_interactions": "PASS",
+    "no_future_revision_leakage": "PASS",
+    "no_post_cutoff_access": "PASS",
+    "no_threshold_smoothing_clipping_or_transform": "PASS",
+    "raw_nfci_no_direct_feature": "PASS"
+  },
+  "context_version": "NFCI_CONTEXT_V1",
+  "mismatches": [],
+  "nfci_vintage_records": 61644,
+  "revision_leaks": 0,
+  "revision_visibility_probes": 129,
+  "sampled_instants": 72,
+  "schema_version": 1,
+  "series": "NFCI",
+  "status": "PASS",
+  "work_package": "WP-013"
+}

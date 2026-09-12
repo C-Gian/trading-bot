@@ -1,0 +1,38 @@
+{
+  "allocation_id": "WP013-CONTEXTUAL-NFCI-ALLOCATION",
+  "architecture": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+  "configurations": [
+    "NFCI_CONTEXT_INTERACTIONS",
+    "INTERNAL_ONLY_MATCHED_NFCI"
+  ],
+  "context_series": "NFCI",
+  "context_version": "NFCI_CONTEXT_V1",
+  "family_classification": "NEW_FAMILY",
+  "feature_counts": {
+    "INTERNAL_ONLY_MATCHED_NFCI": 8,
+    "NFCI_CONTEXT_INTERACTIONS": 16
+  },
+  "full_rank_required": true,
+  "hypothesis_id": "NFCI_MODULATES_INTERNAL_SIGNAL_VALUE_V1",
+  "interaction_count": 8,
+  "interactions_before_standardization": true,
+  "macro_source_version": "ALFRED_MACRO_CONTEXT_V1",
+  "macro_vintage_end": "2024-12-31",
+  "market_results_observed": 0,
+  "matched_eligible_universe": true,
+  "maximum_model_fits": 12,
+  "nfci_direct_feature": false,
+  "preregistration_sha256": {
+    "INTERNAL_ONLY_MATCHED_NFCI": "8c20112cb8a0a033697d8ce1267c3f6e9d1a71bb322b0160144c340fb8359cbc",
+    "NFCI_CONTEXT_INTERACTIONS": "894f817a7bac5abd729ce6f04fabac4ac753d705c6cad9c16d0b5d8c1ea9e900"
+  },
+  "primary_variant": "NFCI_CONTEXT_INTERACTIONS",
+  "protocol_id": "WP-013-CONTEXTUAL-NFCI-INTERACTIONS-V1",
+  "purge_boundary_hours": 216,
+  "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "status": "PASS",
+  "training_only_scaling": true,
+  "work_package": "WP-013"
+}

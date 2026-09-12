@@ -1,0 +1,22 @@
+{
+  "admitted_by": "research/memory/registry/admissions/WP013-NOVELTY-ADMISSION.json",
+  "aliases": [
+    "NFCI_MODULATES_INTERNAL_SIGNAL_VALUE_V1",
+    "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+    "NFCI_CONTEXT_INTERACTIONS",
+    "INTERNAL_ONLY_MATCHED_NFCI"
+  ],
+  "allocation_id": "WP013-CONTEXTUAL-NFCI-ALLOCATION",
+  "entry_event_anchors": [
+    "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO"
+  ],
+  "failure_experiment_ids": [],
+  "family_id": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+  "information_source": "FROZEN_INTERNAL_MARKET_AND_ORDER_FLOW_FEATURES_CONTEXTUALIZED_BY_RAW_POINT_IN_TIME_ALFRED_NFCI",
+  "legitimate_revisit": "Only a new explicit Research Director allocation; no exposed-result tuning.",
+  "mechanism": "Financial conditions may continuously modify internal BTC signal slopes. Raw NFCI appears only in eight fixed feature products, never as a direct predictor.",
+  "parent_family_id": null,
+  "schema_version": 1,
+  "status": "ADMITTED_PENDING_RESULTS",
+  "work_package": "WP-013"
+}

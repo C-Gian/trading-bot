@@ -1,0 +1,27 @@
+{
+  "architecture": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+  "context_transformations_searched": 0,
+  "context_version": "NFCI_CONTEXT_V1",
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED"
+  ],
+  "hypothesis_role": "MATCHED_INTERNAL_ONLY_CONTROL",
+  "interaction_subsets_searched": 0,
+  "macro_direct_features": 0,
+  "model_algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+  "profiles": ["DEFAULT", "ZERO", "DOUBLE", "DELAY_1H"],
+  "purge_boundary_hours": 216,
+  "schema_version": 1,
+  "signal_threshold": 0.0,
+  "stop_fraction": 0.02,
+  "target_fraction": 0.04,
+  "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT",
+  "variant": "INTERNAL_ONLY_MATCHED_NFCI"
+}

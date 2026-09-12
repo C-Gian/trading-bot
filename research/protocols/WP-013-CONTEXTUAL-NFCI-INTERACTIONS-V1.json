@@ -1,0 +1,99 @@
+{
+  "architecture": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+  "configurations": 2,
+  "context": {
+    "availability": "ALFRED_VINTAGE_CONSERVATIVE_NEXT_CALENDAR_DAY",
+    "centering": "RAW_ECONOMIC_ZERO_REFERENCE_ONLY_NOT_FITTED",
+    "clipping": "NONE",
+    "context_transformations_searched": 0,
+    "direct_feature_count": 0,
+    "interpolation": "NONE",
+    "lag_searches": 0,
+    "missing_policy": "INELIGIBLE_COUNTED_NEVER_IMPUTED",
+    "series": "NFCI",
+    "smoothing": "NONE",
+    "thresholds": 0,
+    "version": "NFCI_CONTEXT_V1"
+  },
+  "control_variant": "INTERNAL_ONLY_MATCHED_NFCI",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+  "execution": {
+    "direction": "LONG",
+    "entry": "NEXT_CANONICAL_1M_OPEN",
+    "max_hold_minutes": 1440,
+    "position_policy": "SINGLE_LONG_NO_OVERLAP",
+    "stop_fraction": 0.02,
+    "target_fraction": 0.04
+  },
+  "features": {
+    "base": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H",
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED"
+    ],
+    "control": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H",
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED"
+    ],
+    "interaction_formula": "Ii=RAW_Fi*RAW_POINT_IN_TIME_NFCI_BEFORE_STANDARDIZATION",
+    "interactions": [
+      "LOG_RETURN_1H_X_NFCI",
+      "LOG_RETURN_24H_X_NFCI",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI",
+      "REALIZED_VOL_24H_X_NFCI",
+      "LOG_RELATIVE_VOLUME_1H_X_NFCI",
+      "DIRECTIONAL_EFFICIENCY_4H_X_NFCI",
+      "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI",
+      "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI"
+    ]
+  },
+  "folds": [2019, 2020, 2021, 2022, 2023, 2024],
+  "hypothesis_id": "NFCI_MODULATES_INTERNAL_SIGNAL_VALUE_V1",
+  "interaction_subsets_searched": 0,
+  "model": {
+    "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+    "coefficient_thresholding": false,
+    "feature_dropping": false,
+    "hyperparameter_searches": 0,
+    "minimum_std_exclusive": 1e-12,
+    "pca": false,
+    "regularization": "NONE",
+    "require_full_column_rank": true,
+    "signal_threshold": 0.0,
+    "threshold_searches": 0,
+    "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT"
+  },
+  "numeric_parameter_variants": 0,
+  "primary_variant": "NFCI_CONTEXT_INTERACTIONS",
+  "profile_evaluations": 8,
+  "profile_policy": {
+    "DELAY_1H": "PREVIOUS_HOUR_PREDICTION_NO_RETRAIN",
+    "DOUBLE": "REUSE_DEFAULT_PREDICTIONS_COST_ONLY_CHANGE",
+    "ZERO": "REUSE_DEFAULT_PREDICTIONS_COST_ONLY_CHANGE",
+    "fit_target_profile": "DEFAULT"
+  },
+  "profiles": ["DEFAULT", "ZERO", "DOUBLE", "DELAY_1H"],
+  "protocol_id": "WP-013-CONTEXTUAL-NFCI-INTERACTIONS-V1",
+  "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+  "schema_version": 1,
+  "training": {
+    "eligibility": "INTERNAL_FEATURES_AND_POINT_IN_TIME_NFCI_BOTH_AVAILABLE_MATCHED_ACROSS_CONFIGS",
+    "label": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+    "label_outcome_boundary": "STRICTLY_BEFORE_VALIDATION_START_MINUS_216H",
+    "purge_boundary_hours": 216,
+    "scaling": "TRAINING_ONLY_MEAN_AND_POPULATION_STD_DDOF_0",
+    "universe": "EXPANDING_CHRONOLOGICAL"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "adaptive_decision_increment": 1,
+  "algorithm_variants": 0,
+  "allocation_id": "WP013-CONTEXTUAL-NFCI-ALLOCATION",
+  "architecture": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+  "authority": "Owner WP-013 instruction",
+  "conditionality": "Committed admission/preregistration and passing structural/as-of audit before results.",
+  "context_transforms_searched": 0,
+  "cumulative_adaptive_decisions": 10,
+  "cumulative_result_dependent_forks": 10,
+  "experiment_ids": [
+    "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
+    "EXP-ML-021-INTERNAL-NFCI-MATCHED"
+  ],
+  "family_limits": {
+    "experiments": 2,
+    "numeric_parameter_variants": 0,
+    "strategy_variants": 2,
+    "trials": 8
+  },
+  "feature_subset_searches": 0,
+  "hypothesis_id": "NFCI_MODULATES_INTERNAL_SIGNAL_VALUE_V1",
+  "interaction_subsets_searched": 0,
+  "kind": "RESULT_DEPENDENT_NEW_CONTEXTUAL_INTERACTION_FAMILY_ALLOCATION",
+  "model_configurations": 2,
+  "new_economic_hypotheses": 1,
+  "numeric_parameter_variants": 0,
+  "paper_observations": 0,
+  "primary_variant": "NFCI_CONTEXT_INTERACTIONS",
+  "prior_adaptive_decisions": 9,
+  "prior_result_dependent_forks": 9,
+  "profile_evaluations": 8,
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "profiles_per_configuration": 4,
+  "result_dependent_fork_increment": 1,
+  "review_authority": "reports/reviews/WP-012-RESEARCH-DIRECTOR-REVIEW.md",
+  "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "supervised_model_fits": 12,
+  "threshold_searches": 0,
+  "work_package": "WP-013"
+}

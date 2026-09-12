@@ -1,0 +1,471 @@
+{
+  "admitted": true,
+  "classifier_modified": false,
+  "conditions_added_to_force_novelty": false,
+  "entry_event": "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO",
+  "family_classification": "NEW_FAMILY",
+  "gate": "GOVERNED_MODEL_NOVELTY_ADMISSION_BEFORE_ANY_VALIDATION_RESULT",
+  "market_results_observed_at_admission": 0,
+  "mechanism_distinction": "Raw point-in-time NFCI enters only through eight fixed products with the frozen internal features, permitting continuous context-dependent slopes. It is neither an additive macro predictor nor a threshold regime gate.",
+  "proposed_hypothesis_id": "NFCI_MODULATES_INTERNAL_SIGNAL_VALUE_V1",
+  "proposed_root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+  "reference_signatures": 19,
+  "renamed_to_force_novelty": false,
+  "schema_version": 1,
+  "variants": [
+    {
+      "admitted": true,
+      "behavior_hash": "d2508eb5ee6783134e3a886f6ddf5241a1453c49ea71cfcf40e1d2610ffc4cb6",
+      "classification": "NEW_FAMILY",
+      "dependency_hash": "8ff9114b8fc7fe5e5bd2f9114ae80c2e80d01cac670ca645b1175363e1328f7d",
+      "executable_spec_hash": "989deee0aa353ff7ab4f65bf4316a5271e087da063514eecb105e2c1eea96fa6",
+      "experiment_id": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
+      "hypothesis_role": "ECONOMIC_CORE",
+      "matched_experiment_ids": [],
+      "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+      "spec": {
+        "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp013/nfci_context_interactions.json",
+            "sha256": "b638503d00df71eed11864ab4f52a632b6c690d32f619406a81f4d0edb235b52"
+          }
+        ],
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "context_source_version": "ALFRED_MACRO_CONTEXT_V1",
+          "context_version": "NFCI_CONTEXT_V1",
+          "feature_version": "SUPERVISED_FEATURES_V1",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z",
+          "order_flow_version": "ORDER_FLOW_FEATURES_V1"
+        },
+        "execution_geometry": {
+          "direction": "LONG",
+          "entry": "NEXT_CANONICAL_1M_OPEN",
+          "max_hold_minutes": 1440,
+          "position_policy": "SINGLE_LONG_NO_OVERLAP",
+          "profiles": [
+            "DEFAULT",
+            "ZERO",
+            "DOUBLE",
+            "DELAY_1H"
+          ],
+          "reference": "JUST_COMPLETED_1H_CLOSE",
+          "stop_fraction": 0.02,
+          "stress_retrain": false,
+          "target_fraction": 0.04
+        },
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+        "features": [
+          {
+            "name": "LOG_RETURN_1H",
+            "order": 1,
+            "transformation": "LN(CURRENT_1H_CLOSE/CURRENT_1H_OPEN)"
+          },
+          {
+            "name": "LOG_RETURN_24H",
+            "order": 2,
+            "transformation": "LN(CURRENT_1H_CLOSE/CLOSE_24H_EARLIER)"
+          },
+          {
+            "name": "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "order": 3,
+            "transformation": "LN(CURRENT_CLOSE/MAX_PREVIOUS_24_HIGH_EXCLUDING_CURRENT)"
+          },
+          {
+            "name": "REALIZED_VOL_24H",
+            "order": 4,
+            "transformation": "SQRT(MEAN(EXACT_24_CLOSE_TO_CLOSE_LOG_RETURN_SQUARED))"
+          },
+          {
+            "name": "LOG_RELATIVE_VOLUME_1H",
+            "order": 5,
+            "transformation": "LN(CURRENT_BASE_VOLUME/MEAN_PREVIOUS_24_BASE_VOLUME)"
+          },
+          {
+            "name": "DIRECTIONAL_EFFICIENCY_4H",
+            "order": 6,
+            "transformation": "(SUM_POSITIVE_42_CHANGES-ABS_SUM_NEGATIVE)/(SUM_POSITIVE+ABS_SUM_NEGATIVE)"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_1H_CENTERED",
+            "order": 7,
+            "transformation": "ORDER_FLOW_FEATURES_V1_CURRENT_1H_SHARE_MINUS_0.5"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_4H_CENTERED",
+            "order": 8,
+            "transformation": "ORDER_FLOW_FEATURES_V1_NONOVERLAPPING_4H_SHARE_MINUS_0.5"
+          },
+          {
+            "name": "LOG_RETURN_1H_X_NFCI",
+            "order": 9,
+            "transformation": "RAW_LOG_RETURN_1H*RAW_POINT_IN_TIME_NFCI"
+          },
+          {
+            "name": "LOG_RETURN_24H_X_NFCI",
+            "order": 10,
+            "transformation": "RAW_LOG_RETURN_24H*RAW_POINT_IN_TIME_NFCI"
+          },
+          {
+            "name": "LOG_DISTANCE_TO_PRIOR_24H_HIGH_X_NFCI",
+            "order": 11,
+            "transformation": "RAW_LOG_DISTANCE_TO_PRIOR_24H_HIGH*RAW_POINT_IN_TIME_NFCI"
+          },
+          {
+            "name": "REALIZED_VOL_24H_X_NFCI",
+            "order": 12,
+            "transformation": "RAW_REALIZED_VOL_24H*RAW_POINT_IN_TIME_NFCI"
+          },
+          {
+            "name": "LOG_RELATIVE_VOLUME_1H_X_NFCI",
+            "order": 13,
+            "transformation": "RAW_LOG_RELATIVE_VOLUME_1H*RAW_POINT_IN_TIME_NFCI"
+          },
+          {
+            "name": "DIRECTIONAL_EFFICIENCY_4H_X_NFCI",
+            "order": 14,
+            "transformation": "RAW_DIRECTIONAL_EFFICIENCY_4H*RAW_POINT_IN_TIME_NFCI"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_1H_CENTERED_X_NFCI",
+            "order": 15,
+            "transformation": "RAW_TAKER_BUY_SHARE_1H_CENTERED*RAW_POINT_IN_TIME_NFCI"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_4H_CENTERED_X_NFCI",
+            "order": 16,
+            "transformation": "RAW_TAKER_BUY_SHARE_4H_CENTERED*RAW_POINT_IN_TIME_NFCI"
+          }
+        ],
+        "hyperparameters": {
+          "context_transforms_searched": 0,
+          "feature_selection": "NONE",
+          "interaction_subsets_searched": 0,
+          "searched": 0
+        },
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/order_flow.py",
+            "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+          },
+          {
+            "path": "backend/app/research/supervised.py",
+            "sha256": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318"
+          },
+          {
+            "path": "backend/app/research/linear_model.py",
+            "sha256": "9f6099452211072c8a459ca3ee257d4416caf3c56643a9c4ec7a698dbad19545"
+          },
+          {
+            "path": "backend/app/research/macro.py",
+            "sha256": "77fdbc20a22b77eafe837d50302c6395e71d84feb0b00a94fa0ebb330344fc56"
+          },
+          {
+            "path": "backend/app/research/nfci_context.py",
+            "sha256": "8361a765ec7b5e5fba351a2ea085cc47e2f74bb2b882301a3505b97a4703f9c5"
+          },
+          {
+            "path": "backend/app/research/wp013_lab.py",
+            "sha256": "a9cc4c40c73aaaa3e8a2733488b2f2c3159d13ecc50e9019497e8d393ec2ebbc"
+          },
+          {
+            "path": "backend/app/research/artifacts.py",
+            "sha256": "0f4b8c7b4dcc9b8f26fc7a3d5b5c086e817cb2358184ab6b0b84af923c5987cb"
+          },
+          {
+            "path": "backend/app/research/search_memory_v2.py",
+            "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+          },
+          {
+            "path": "research/protocols/WP-013-CONTEXTUAL-NFCI-INTERACTIONS-V1.json",
+            "sha256": "c06f221eac504d32012abf3afa4c6820c74e04f409f6e06b77b8d0c9ad553726"
+          }
+        ],
+        "label": {
+          "invalid_unresolved": "EXCLUDE_COUNT_NEVER_IMPUTE",
+          "isolated": true,
+          "profile": "DEFAULT",
+          "version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1"
+        },
+        "regularization": {
+          "kind": "NONE",
+          "searched": false
+        },
+        "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+        "scaling": {
+          "interactions_formed_before_scaling": true,
+          "mean": true,
+          "scope": "TRAINING_ONLY_ALL_COLUMNS",
+          "std_ddof": 0,
+          "weighted": false
+        },
+        "schema_version": 2,
+        "signal_rule": {
+          "field": "predicted_default_net_R",
+          "operator": ">",
+          "threshold": 0.0
+        },
+        "train_window_rule": {
+          "architecture": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+          "context": {
+            "direct_predictor": false,
+            "role": "RAW_INTERACTION_ONLY",
+            "series": "NFCI",
+            "thresholds": 0,
+            "transformations_searched": 0,
+            "version": "NFCI_CONTEXT_V1"
+          },
+          "eligibility": "INTERNAL_FEATURES_AND_POINT_IN_TIME_NFCI_BOTH_AVAILABLE_MATCHED_ACROSS_CONFIGS",
+          "folds": [
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024
+          ],
+          "kind": "EXPANDING_CHRONOLOGICAL_PER_ANNUAL_FOLD",
+          "label_outcome_before_purge_boundary": true,
+          "purge_hours": 216,
+          "training_signal_boundary": "STRICTLY_BEFORE_VALIDATION_START_MINUS_PURGE",
+          "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT"
+        }
+      },
+      "structural_hash": "95fd9d65db62111a173181f782c43d40141ab4122bc5b9d4b542d5e3fc66fba4",
+      "variant": "NFCI_CONTEXT_INTERACTIONS"
+    },
+    {
+      "admitted": true,
+      "behavior_hash": "d639787e5aecb325e39274517d0bbb154454c8eb5f2c7533521ae6cfacc7f538",
+      "classification": "DESCENDANT_MECHANISM_CHANGE",
+      "dependency_hash": "70344bd2028a1425ab82a652ba2acb70a61cf22bd279343270db359c793b966e",
+      "executable_spec_hash": "db62fb0a65b7e72743d88185b12e580fc45026ef8f5908137893af9d756feafa",
+      "experiment_id": "EXP-ML-021-INTERNAL-NFCI-MATCHED",
+      "hypothesis_role": "MATCHED_INTERNAL_ONLY_CONTROL",
+      "matched_experiment_ids": [
+        "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS"
+      ],
+      "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+      "spec": {
+        "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp013/internal_only_matched_nfci.json",
+            "sha256": "5d3cf2f28b115c8d4a15a15efe94c2bf40524b98945cfc3b49ec9bc360f75de1"
+          }
+        ],
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "context_source_version": "ALFRED_MACRO_CONTEXT_V1",
+          "context_version": "NFCI_CONTEXT_V1",
+          "feature_version": "SUPERVISED_FEATURES_V1",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "maximum_timestamp": "2024-12-31T23:59:00Z",
+          "order_flow_version": "ORDER_FLOW_FEATURES_V1"
+        },
+        "execution_geometry": {
+          "direction": "LONG",
+          "entry": "NEXT_CANONICAL_1M_OPEN",
+          "max_hold_minutes": 1440,
+          "position_policy": "SINGLE_LONG_NO_OVERLAP",
+          "profiles": [
+            "DEFAULT",
+            "ZERO",
+            "DOUBLE",
+            "DELAY_1H"
+          ],
+          "reference": "JUST_COMPLETED_1H_CLOSE",
+          "stop_fraction": 0.02,
+          "stress_retrain": false,
+          "target_fraction": 0.04
+        },
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+        "features": [
+          {
+            "name": "LOG_RETURN_1H",
+            "order": 1,
+            "transformation": "LN(CURRENT_1H_CLOSE/CURRENT_1H_OPEN)"
+          },
+          {
+            "name": "LOG_RETURN_24H",
+            "order": 2,
+            "transformation": "LN(CURRENT_1H_CLOSE/CLOSE_24H_EARLIER)"
+          },
+          {
+            "name": "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "order": 3,
+            "transformation": "LN(CURRENT_CLOSE/MAX_PREVIOUS_24_HIGH_EXCLUDING_CURRENT)"
+          },
+          {
+            "name": "REALIZED_VOL_24H",
+            "order": 4,
+            "transformation": "SQRT(MEAN(EXACT_24_CLOSE_TO_CLOSE_LOG_RETURN_SQUARED))"
+          },
+          {
+            "name": "LOG_RELATIVE_VOLUME_1H",
+            "order": 5,
+            "transformation": "LN(CURRENT_BASE_VOLUME/MEAN_PREVIOUS_24_BASE_VOLUME)"
+          },
+          {
+            "name": "DIRECTIONAL_EFFICIENCY_4H",
+            "order": 6,
+            "transformation": "(SUM_POSITIVE_42_CHANGES-ABS_SUM_NEGATIVE)/(SUM_POSITIVE+ABS_SUM_NEGATIVE)"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_1H_CENTERED",
+            "order": 7,
+            "transformation": "ORDER_FLOW_FEATURES_V1_CURRENT_1H_SHARE_MINUS_0.5"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_4H_CENTERED",
+            "order": 8,
+            "transformation": "ORDER_FLOW_FEATURES_V1_NONOVERLAPPING_4H_SHARE_MINUS_0.5"
+          }
+        ],
+        "hyperparameters": {
+          "context_transforms_searched": 0,
+          "feature_selection": "NONE",
+          "interaction_subsets_searched": 0,
+          "searched": 0
+        },
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/order_flow.py",
+            "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+          },
+          {
+            "path": "backend/app/research/supervised.py",
+            "sha256": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318"
+          },
+          {
+            "path": "backend/app/research/linear_model.py",
+            "sha256": "9f6099452211072c8a459ca3ee257d4416caf3c56643a9c4ec7a698dbad19545"
+          },
+          {
+            "path": "backend/app/research/macro.py",
+            "sha256": "77fdbc20a22b77eafe837d50302c6395e71d84feb0b00a94fa0ebb330344fc56"
+          },
+          {
+            "path": "backend/app/research/nfci_context.py",
+            "sha256": "8361a765ec7b5e5fba351a2ea085cc47e2f74bb2b882301a3505b97a4703f9c5"
+          },
+          {
+            "path": "backend/app/research/wp013_lab.py",
+            "sha256": "a9cc4c40c73aaaa3e8a2733488b2f2c3159d13ecc50e9019497e8d393ec2ebbc"
+          },
+          {
+            "path": "backend/app/research/artifacts.py",
+            "sha256": "0f4b8c7b4dcc9b8f26fc7a3d5b5c086e817cb2358184ab6b0b84af923c5987cb"
+          },
+          {
+            "path": "backend/app/research/search_memory_v2.py",
+            "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+          },
+          {
+            "path": "research/protocols/WP-013-CONTEXTUAL-NFCI-INTERACTIONS-V1.json",
+            "sha256": "c06f221eac504d32012abf3afa4c6820c74e04f409f6e06b77b8d0c9ad553726"
+          }
+        ],
+        "label": {
+          "invalid_unresolved": "EXCLUDE_COUNT_NEVER_IMPUTE",
+          "isolated": true,
+          "profile": "DEFAULT",
+          "version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1"
+        },
+        "regularization": {
+          "kind": "NONE",
+          "searched": false
+        },
+        "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+        "scaling": {
+          "interactions_formed_before_scaling": true,
+          "mean": true,
+          "scope": "TRAINING_ONLY_ALL_COLUMNS",
+          "std_ddof": 0,
+          "weighted": false
+        },
+        "schema_version": 2,
+        "signal_rule": {
+          "field": "predicted_default_net_R",
+          "operator": ">",
+          "threshold": 0.0
+        },
+        "train_window_rule": {
+          "architecture": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
+          "context": {
+            "direct_predictor": false,
+            "role": "MATCHED_ELIGIBILITY_ONLY",
+            "series": "NFCI",
+            "thresholds": 0,
+            "transformations_searched": 0,
+            "version": "NFCI_CONTEXT_V1"
+          },
+          "eligibility": "INTERNAL_FEATURES_AND_POINT_IN_TIME_NFCI_BOTH_AVAILABLE_MATCHED_ACROSS_CONFIGS",
+          "folds": [
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024
+          ],
+          "kind": "EXPANDING_CHRONOLOGICAL_PER_ANNUAL_FOLD",
+          "label_outcome_before_purge_boundary": true,
+          "purge_hours": 216,
+          "training_signal_boundary": "STRICTLY_BEFORE_VALIDATION_START_MINUS_PURGE",
+          "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT"
+        }
+      },
+      "structural_hash": "312741ddb51c76361a2bbc98dca974405aebc13cc9136a2677bd889eefce0b84",
+      "variant": "INTERNAL_ONLY_MATCHED_NFCI"
+    }
+  ],
+  "version": "SEARCH_MEMORY_V2",
+  "work_package": "WP-013"
+}
