@@ -1,0 +1,13 @@
+{
+  "correction": "OOS_CORRELATION_MATERIALITY_NOT_ESTABLISHED",
+  "control_oos_prediction_label_pearson": 0.030509574361504192,
+  "difference": 0.00198375479689053,
+  "experiment_results_changed": false,
+  "explanation": "The original scientific-questions projection mechanically treated any positive correlation difference as material. WP-014 preregistered the Pearson diagnostic but no materiality threshold, so the defensible answer is NOT_ESTABLISHED. Numerical results, classification, configuration, and artifacts are unchanged.",
+  "hgbr_oos_prediction_label_pearson": 0.03249332915839472,
+  "original_artifact": "reports/research/WP-014-SCIENTIFIC-QUESTIONS.json",
+  "original_artifact_preserved": true,
+  "schema_version": 1,
+  "status": "PASS",
+  "work_package": "WP-014"
+}

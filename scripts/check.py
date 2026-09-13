@@ -312,6 +312,14 @@ def validate_research_views(state: dict) -> None:
     assert not wp014_reconciliation["mismatches"]
     assert set(wp014_reconciliation["checks"].values()) == {"PASS"}
     assert wp014_reconciliation["prediction_tolerance"] == 1e-10
+    wp014_reporting_correction = json.loads(
+        (ROOT / "reports/validation/WP-014-REPORTING-CORRECTION.json").read_text(encoding="utf-8")
+    )
+    assert wp014_reporting_correction["status"] == "PASS"
+    assert wp014_reporting_correction["correction"] == (
+        "OOS_CORRELATION_MATERIALITY_NOT_ESTABLISHED"
+    )
+    assert wp014_reporting_correction["experiment_results_changed"] is False
     assert wp014_comparison["model_version"] == "SHALLOW_INTERNAL_HGBR_V1"
     assert wp014_comparison["primary_vs_control"]["eligible_universe_matched"] is True
     assert wp014_comparison["primary_vs_control"]["executed_trade_sets_paired"] is False
@@ -609,6 +617,7 @@ def governance_checks(pre_experiment: bool) -> dict:
         "research/protocols/WP-014-SHALLOW-INTERNAL-HGBR-V1.json",
         "reports/validation/WP-014-PREFLIGHT.json",
         "reports/validation/WP-014-MODEL-RECONCILIATION.json",
+        "reports/validation/WP-014-REPORTING-CORRECTION.json",
         "reports/research/WP-014-COMPARISON.json",
         "reports/research/WP-014-NONLINEAR-DIAGNOSTICS.json",
         "reports/research/WP-014-HISTORICAL-COMPARISON.json",

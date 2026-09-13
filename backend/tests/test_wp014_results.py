@@ -83,6 +83,15 @@ def test_wp014_independent_reconciliation_passed_at_frozen_tolerance() -> None:
     assert report["maximum_prediction_gap"] <= report["prediction_tolerance"]
 
 
+def test_wp014_correlation_materiality_is_not_retroactively_invented() -> None:
+    correction = read_json("reports/validation/WP-014-REPORTING-CORRECTION.json")
+    assert correction["status"] == "PASS"
+    assert correction["correction"] == "OOS_CORRELATION_MATERIALITY_NOT_ESTABLISHED"
+    assert correction["difference"] == 0.00198375479689053
+    assert correction["original_artifact_preserved"] is True
+    assert correction["experiment_results_changed"] is False
+
+
 def test_wp014_fold_models_pin_exact_hgbr_identity() -> None:
     document = read_json("research/experiments/EXP-ML-022-SHALLOW-INTERNAL-HGBR/fold-models.json")
     assert document["model_fits"] == 6
