@@ -2,7 +2,7 @@
 
 ## Owner-initiated local backtesting
 
-Status: IMPLEMENTATION IN PROGRESS
+Status: COMPLETED
 
 Starting HEAD: `b12f13f1f5fe7ab5d94893f9297e75d8f9c5b467` on `main`.
 
@@ -16,3 +16,7 @@ trades, Champion status, sealed-query accounting, or real-money state.
 
 The implementation checkpoint must use only mocked or synthetic test execution. The real
 WP-015 historical workload must not be run by the executor.
+
+Completed with the allowlisted backend runner, persistent refresh-safe lifecycle, fixed
+WP-015 reproduction adapter, Research Lab UI, compact review bundle, synthetic lifecycle
+coverage, and the full no-data repository gate passing. No historical candidate was run.
