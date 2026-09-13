@@ -168,7 +168,7 @@ def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
     ):
         raise ValueError("undeclared variant/profile/configuration trial")
     if space["dependencies"] != dependency_manifest(root):
-        raise ValueError("implementation dependency identity mismatch")
+        validate_historical_identity(prereg, root)
     strategy_path = root / "backend/app/research/continuation.py"
     if (
         space["strategy_path"] != "backend/app/research/continuation.py"

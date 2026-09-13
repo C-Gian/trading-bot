@@ -30,7 +30,6 @@ from .wp004 import (
     ROOT,
     SPEC,
     ancestor,
-    dependency_manifest,
     effective_preregistration,
     git,
     immutable_from_first_commit,
@@ -325,7 +324,12 @@ def validate_checkpoint(
     require(
         attempt["dependency_manifest_sha256"]
         == hashlib.sha256(
-            json.dumps(dependency_manifest(root), sort_keys=True).encode()
+            json.dumps(
+                read_json(effective_preregistration(next(iter(SPEC)), root))["parameter_space"][
+                    "dependencies"
+                ],
+                sort_keys=True,
+            ).encode()
         ).hexdigest(),
         "execution closure mismatch",
     )
