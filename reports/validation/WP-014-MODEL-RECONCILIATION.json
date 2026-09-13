@@ -1,0 +1,31 @@
+{
+  "checks": {
+    "default_metrics": "PASS",
+    "default_signal_timestamps_and_direct_execution": "PASS",
+    "eligible_f1_f8_universe": "PASS",
+    "fold_predictions_and_profile_reuse": "PASS",
+    "frozen_hgbr_identity_and_matched_ols": "PASS",
+    "training_boundaries_complete_outcomes_and_hashes": "PASS"
+  },
+  "executed_rows_examined": 9195,
+  "independent_default_attempts": 2290,
+  "independent_model_refits": 12,
+  "independent_path": "COMMON_FROZEN_F1_F8_AND_LABEL_SUBSTRATE_THEN_SEPARATE_SKLEARN_HGBR_MANUAL_OLS_PREDICTIONS_AND_DIRECT_DEFAULT_SIMULATION_NOT_PRIMARY_WP014_LAB_OR_RUNNER",
+  "independent_universe_rows": 59025,
+  "maximum_ols_parameter_gap": 1.942890293094024e-15,
+  "maximum_prediction_gap": 1.3322676295501878e-15,
+  "mismatches": [],
+  "prediction_tolerance": 1e-10,
+  "reconciliation": "INDEPENDENT_SHALLOW_INTERNAL_HGBR_V1",
+  "schema_version": 1,
+  "status": "PASS",
+  "validation_eligible_counts": [
+    7641,
+    7451,
+    7705,
+    8713,
+    8537,
+    8737
+  ],
+  "work_package": "WP-014"
+}

@@ -1,0 +1,769 @@
+{
+  "artifacts": [
+    "reports/research/WP-014-COMPARISON.json",
+    "reports/research/WP-014-NONLINEAR-DIAGNOSTICS.json",
+    "reports/research/WP-014-HISTORICAL-COMPARISON.json",
+    "reports/research/WP-014-SCIENTIFIC-QUESTIONS.json",
+    "research/experiments/EXP-ML-022-SHALLOW-INTERNAL-HGBR/fold-models.json",
+    "reports/validation/WP-014-MODEL-RECONCILIATION.json",
+    "reports/validation/WP-014-PREFLIGHT.json"
+  ],
+  "code_config_reference": "0b8dda007aed97cf58a3208888b5baa3a9254e8d64373220a310cde1ce087af0",
+  "completed_at_utc": "2026-09-13T10:00:00Z",
+  "dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1"
+  },
+  "experiment_id": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+  "experiment_version": 1,
+  "interpretation": "EXPOSED DEVELOPMENT RESEARCH, PREDICTIVE NOT CAUSAL. One fixed shallow HGBR and one disclosed duplicate matched OLS control; no tuning or sealed access.",
+  "preregistration_created_at_utc": "2026-09-13T08:00:00Z",
+  "preregistration_reference": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+  "primary_result": -0.0998928666,
+  "run_identity_hash": "9b7c6cabdcaa109a584252e8d7a80fcd9a2bb39f93d503cbf978be2141345812",
+  "schema_version": 2,
+  "secondary_results": {
+    "annual_folds": {
+      "cumulative_net_r": -126.7640476522,
+      "folds": [
+        {
+          "fold_id": "DEV-2019",
+          "metrics": {
+            "attempted_setups": 337,
+            "average_loss_r": -0.9176980504,
+            "average_win_r": 1.1473654776,
+            "cost_drag_r": 39.9793156141,
+            "cumulative_net_bps": -3325.1419388159,
+            "cumulative_net_r": -16.4845568561,
+            "hit_rate": 0.4204204204,
+            "invalid_attempts": 1,
+            "invalid_rate": 0.0029673591,
+            "maximum_drawdown_r": 39.8662862745,
+            "net_expectancy_bps": -9.9854112277,
+            "net_expectancy_r": -0.0495031737,
+            "net_return_bps_observation_count": 333,
+            "profit_factor": 0.9069277616,
+            "trade_count": 333,
+            "unresolved_rate": 0.0089020772,
+            "unresolved_trades": 3,
+            "yearly": {
+              "2019": {
+                "cumulative_net_r": -16.4845568561,
+                "expectancy_r": -0.0495031737,
+                "trades": 333
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2020",
+          "metrics": {
+            "attempted_setups": 244,
+            "average_loss_r": -0.9103197258,
+            "average_win_r": 1.1036742237,
+            "cost_drag_r": 28.7292509061,
+            "cumulative_net_bps": 375.5340582992,
+            "cumulative_net_r": 1.9589260251,
+            "hit_rate": 0.4560669456,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 17.8405679068,
+            "net_expectancy_bps": 1.5712722105,
+            "net_expectancy_r": 0.0081963432,
+            "net_return_bps_observation_count": 239,
+            "profit_factor": 1.016553153,
+            "trade_count": 239,
+            "unresolved_rate": 0.0204918033,
+            "unresolved_trades": 5,
+            "yearly": {
+              "2020": {
+                "cumulative_net_r": 1.9589260251,
+                "expectancy_r": 0.0081963432,
+                "trades": 239
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2021",
+          "metrics": {
+            "attempted_setups": 229,
+            "average_loss_r": -1.0521799316,
+            "average_win_r": 1.2976505597,
+            "cost_drag_r": 27.2036511639,
+            "cumulative_net_bps": -12048.9114350472,
+            "cumulative_net_r": -60.257727142,
+            "hit_rate": 0.3348017621,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 65.880614895,
+            "net_expectancy_bps": -53.0789050002,
+            "net_expectancy_r": -0.2654525425,
+            "net_return_bps_observation_count": 227,
+            "profit_factor": 0.6207323637,
+            "trade_count": 227,
+            "unresolved_rate": 0.0087336245,
+            "unresolved_trades": 2,
+            "yearly": {
+              "2021": {
+                "cumulative_net_r": -60.257727142,
+                "expectancy_r": -0.2654525425,
+                "trades": 227
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2022",
+          "metrics": {
+            "attempted_setups": 129,
+            "average_loss_r": -0.8912327383,
+            "average_win_r": 0.8934010237,
+            "cost_drag_r": 15.4697694334,
+            "cumulative_net_bps": -4793.5383756469,
+            "cumulative_net_r": -23.9527013791,
+            "hit_rate": 0.3953488372,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 26.1278215091,
+            "net_expectancy_bps": -37.1592122143,
+            "net_expectancy_r": -0.1856798557,
+            "net_return_bps_observation_count": 129,
+            "profit_factor": 0.6554369,
+            "trade_count": 129,
+            "unresolved_rate": 0.0,
+            "unresolved_trades": 0,
+            "yearly": {
+              "2022": {
+                "cumulative_net_r": -23.9527013791,
+                "expectancy_r": -0.1856798557,
+                "trades": 129
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2023",
+          "metrics": {
+            "attempted_setups": 148,
+            "average_loss_r": -0.6735013497,
+            "average_win_r": 0.8836339636,
+            "cost_drag_r": 17.7728986121,
+            "cumulative_net_bps": -1559.2123160048,
+            "cumulative_net_r": -7.8072162711,
+            "hit_rate": 0.3986486486,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 18.4187667983,
+            "net_expectancy_bps": -10.5352183514,
+            "net_expectancy_r": -0.0527514613,
+            "net_return_bps_observation_count": 148,
+            "profit_factor": 0.8697529987,
+            "trade_count": 148,
+            "unresolved_rate": 0.0,
+            "unresolved_trades": 0,
+            "yearly": {
+              "2023": {
+                "cumulative_net_r": -7.8072162711,
+                "expectancy_r": -0.0527514613,
+                "trades": 148
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2024",
+          "metrics": {
+            "attempted_setups": 193,
+            "average_loss_r": -0.8179693036,
+            "average_win_r": 0.9931794275,
+            "cost_drag_r": 23.1632340897,
+            "cumulative_net_bps": -4044.0430865097,
+            "cumulative_net_r": -20.2207720289,
+            "hit_rate": 0.3937823834,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 35.4734747964,
+            "net_expectancy_bps": -20.9535911218,
+            "net_expectancy_r": -0.1047708395,
+            "net_return_bps_observation_count": 193,
+            "profit_factor": 0.7887119839,
+            "trade_count": 193,
+            "unresolved_rate": 0.0,
+            "unresolved_trades": 0,
+            "yearly": {
+              "2024": {
+                "cumulative_net_r": -20.2207720289,
+                "expectancy_r": -0.1047708395,
+                "trades": 193
+              }
+            }
+          }
+        }
+      ],
+      "minimum_fold_trade_count": 129,
+      "model_fits": 6,
+      "nonnegative_fold_count": 1,
+      "trade_count": 1269,
+      "trade_ess": 1031.6604697476
+    },
+    "independent_reconciliation": "PASS",
+    "matched_control_duplicate_of": null,
+    "nonlinear_fold_diagnostics": [
+      {
+        "fold_id": "DEV-2019",
+        "model": {
+          "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+          "boosting_iterations": 64,
+          "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "feature_variants": 0,
+          "hyperparameters_searched": 0,
+          "identity_sha256": "5f40f76b1ac4de57005228eeeee6a565a0d4836558a18cf0a5a496929f142042",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+          "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+          "parameters": {
+            "early_stopping": false,
+            "l2_regularization": 1.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_bins": 63,
+            "max_depth": 3,
+            "max_iter": 64,
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 128,
+            "random_state": 0
+          },
+          "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+          "serialization_sha256": "13cd45a04fb0ae99e5b5fb2648d16134a590f4f34b7f0ba2bfbb66a046bb6660",
+          "sklearn_version": "1.7.2",
+          "thresholds_searched": 0,
+          "training_label_hash": "14307104915b5cc1861dbcc6313386e1fdde09a622f3587943de96152e354774",
+          "training_matrix_hash": "5321c7c680ffd14c6562ff242b839eedbe4efa2b1c4cf7b24742b8a75d78a587",
+          "tree_count": 64,
+          "trees_per_iteration": 1
+        },
+        "training_manifest": {
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "fit_rows": 9725,
+          "fold_id": "DEV-2019",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "max_training_label_outcome_us": 1545602400000000,
+          "purge_boundary_exclusive_us": 1545609600000000,
+          "training_label_logical_sha256": "14307104915b5cc1861dbcc6313386e1fdde09a622f3587943de96152e354774",
+          "training_matrix_logical_sha256": "5321c7c680ffd14c6562ff242b839eedbe4efa2b1c4cf7b24742b8a75d78a587",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1545573600000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1546387200000000,
+          "variant": "SHALLOW_INTERNAL_HGBR"
+        }
+      },
+      {
+        "fold_id": "DEV-2020",
+        "model": {
+          "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+          "boosting_iterations": 64,
+          "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "feature_variants": 0,
+          "hyperparameters_searched": 0,
+          "identity_sha256": "73e03ca3da3bf471d1b5562871b77ada8322077eb8287d3619f9a7e9c1eeecc6",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+          "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+          "parameters": {
+            "early_stopping": false,
+            "l2_regularization": 1.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_bins": 63,
+            "max_depth": 3,
+            "max_iter": 64,
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 128,
+            "random_state": 0
+          },
+          "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+          "serialization_sha256": "f39260d7c324fd5992c018fb3e016c21c9a6a86fe26a2c884bafb10fc4991faf",
+          "sklearn_version": "1.7.2",
+          "thresholds_searched": 0,
+          "training_label_hash": "ea82509460f57ddeaba8d37d7ee8709abdbeac5416a5fa50fd9d7cfb873c4452",
+          "training_matrix_hash": "3925452da6e52fd5264d3dc09befffaea3e5a6ffc3c2695829f2640101761218",
+          "tree_count": 64,
+          "trees_per_iteration": 1
+        },
+        "training_manifest": {
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "fit_rows": 17359,
+          "fold_id": "DEV-2020",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "max_training_label_outcome_us": 1577142000000000,
+          "purge_boundary_exclusive_us": 1577145600000000,
+          "training_label_logical_sha256": "ea82509460f57ddeaba8d37d7ee8709abdbeac5416a5fa50fd9d7cfb873c4452",
+          "training_matrix_logical_sha256": "3925452da6e52fd5264d3dc09befffaea3e5a6ffc3c2695829f2640101761218",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1577131200000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1577923200000000,
+          "variant": "SHALLOW_INTERNAL_HGBR"
+        }
+      },
+      {
+        "fold_id": "DEV-2021",
+        "model": {
+          "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+          "boosting_iterations": 64,
+          "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "feature_variants": 0,
+          "hyperparameters_searched": 0,
+          "identity_sha256": "51f3781659068fc4bfc86c8ff937c27945f54b374bf9b0a3288725fd901ecdc9",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+          "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+          "parameters": {
+            "early_stopping": false,
+            "l2_regularization": 1.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_bins": 63,
+            "max_depth": 3,
+            "max_iter": 64,
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 128,
+            "random_state": 0
+          },
+          "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+          "serialization_sha256": "a9a9b15a0cf617aa7bbc385014935ccbcb7feeafd3bc0795b38945a6a7251eaa",
+          "sklearn_version": "1.7.2",
+          "thresholds_searched": 0,
+          "training_label_hash": "08737f279aa7c98af13746fa2e9dc41d22eb341e4d2f49fbf6e3cea7ff927dff",
+          "training_matrix_hash": "acd14c113020cab3f40f497e616ffb46181561543ed09f38f064e587998c5591",
+          "tree_count": 64,
+          "trees_per_iteration": 1
+        },
+        "training_manifest": {
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "fit_rows": 24915,
+          "fold_id": "DEV-2021",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "max_training_label_outcome_us": 1608552720000000,
+          "purge_boundary_exclusive_us": 1608768000000000,
+          "training_label_logical_sha256": "08737f279aa7c98af13746fa2e9dc41d22eb341e4d2f49fbf6e3cea7ff927dff",
+          "training_matrix_logical_sha256": "acd14c113020cab3f40f497e616ffb46181561543ed09f38f064e587998c5591",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1608552000000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1609545600000000,
+          "variant": "SHALLOW_INTERNAL_HGBR"
+        }
+      },
+      {
+        "fold_id": "DEV-2022",
+        "model": {
+          "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+          "boosting_iterations": 64,
+          "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "feature_variants": 0,
+          "hyperparameters_searched": 0,
+          "identity_sha256": "b7e8f4262a86387c68265cbe0f25509d75c4ef8ff81a95b895f1aab65a2d2a06",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+          "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+          "parameters": {
+            "early_stopping": false,
+            "l2_regularization": 1.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_bins": 63,
+            "max_depth": 3,
+            "max_iter": 64,
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 128,
+            "random_state": 0
+          },
+          "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+          "serialization_sha256": "770dd674dda442e76538f1e45cdad60d9e66cd2ac06cd41e27f02d83d9b59c43",
+          "sklearn_version": "1.7.2",
+          "thresholds_searched": 0,
+          "training_label_hash": "5a2f48fdb16e9c8cb39782b24f5ec9225962d7376c955af1b7c488867b6a32f3",
+          "training_matrix_hash": "e774ed3c0e4dfdc347ba8b696f408cf8305230506a53adb29a0d1983b01153f7",
+          "tree_count": 64,
+          "trees_per_iteration": 1
+        },
+        "training_manifest": {
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "fit_rows": 32410,
+          "fold_id": "DEV-2022",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "max_training_label_outcome_us": 1640288400000000,
+          "purge_boundary_exclusive_us": 1640304000000000,
+          "training_label_logical_sha256": "5a2f48fdb16e9c8cb39782b24f5ec9225962d7376c955af1b7c488867b6a32f3",
+          "training_matrix_logical_sha256": "e774ed3c0e4dfdc347ba8b696f408cf8305230506a53adb29a0d1983b01153f7",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1640278800000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1641081600000000,
+          "variant": "SHALLOW_INTERNAL_HGBR"
+        }
+      },
+      {
+        "fold_id": "DEV-2023",
+        "model": {
+          "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+          "boosting_iterations": 64,
+          "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "feature_variants": 0,
+          "hyperparameters_searched": 0,
+          "identity_sha256": "e0df8838c1f3e141293c3a95e335614336d761c4085a845db5c51c1ce48244c6",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+          "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+          "parameters": {
+            "early_stopping": false,
+            "l2_regularization": 1.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_bins": 63,
+            "max_depth": 3,
+            "max_iter": 64,
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 128,
+            "random_state": 0
+          },
+          "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+          "serialization_sha256": "7164ce9e3e6a33ed7bd94494084b40b967de17ee85c8783a1f1f0853f9df3ba1",
+          "sklearn_version": "1.7.2",
+          "thresholds_searched": 0,
+          "training_label_hash": "0c36d85d5eeea625a110255e7db6e2fb1d5bb230278d1f1355586ec81761d5de",
+          "training_matrix_hash": "150e65cadc27d81349aab322c7f040b12bf492df33ce6f32b84230e6ab3480a5",
+          "tree_count": 64,
+          "trees_per_iteration": 1
+        },
+        "training_manifest": {
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "fit_rows": 41152,
+          "fold_id": "DEV-2023",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "max_training_label_outcome_us": 1671836400000000,
+          "purge_boundary_exclusive_us": 1671840000000000,
+          "training_label_logical_sha256": "0c36d85d5eeea625a110255e7db6e2fb1d5bb230278d1f1355586ec81761d5de",
+          "training_matrix_logical_sha256": "150e65cadc27d81349aab322c7f040b12bf492df33ce6f32b84230e6ab3480a5",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1671750000000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1672617600000000,
+          "variant": "SHALLOW_INTERNAL_HGBR"
+        }
+      },
+      {
+        "fold_id": "DEV-2024",
+        "model": {
+          "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+          "boosting_iterations": 64,
+          "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "feature_variants": 0,
+          "hyperparameters_searched": 0,
+          "identity_sha256": "309039e7c25ffbfb216c85de363482f7df0cc3e043884f8199476444a9815004",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+          "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+          "parameters": {
+            "early_stopping": false,
+            "l2_regularization": 1.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_bins": 63,
+            "max_depth": 3,
+            "max_iter": 64,
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 128,
+            "random_state": 0
+          },
+          "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+          "serialization_sha256": "47fa7001b8adb9e09be2483dbd2b94448551f47b206878de3596128554a746c5",
+          "sklearn_version": "1.7.2",
+          "thresholds_searched": 0,
+          "training_label_hash": "34ef4ec02bae5fe1047b2cbef33df78b2294ae3a54dcf4e97d3e5c23ce09c7bc",
+          "training_matrix_hash": "07f2acc55b61222703d2688544c5e03c57d21dd90ee4891bc05d5698ae16eebc",
+          "tree_count": 64,
+          "trees_per_iteration": 1
+        },
+        "training_manifest": {
+          "feature_order": [
+            "LOG_RETURN_1H",
+            "LOG_RETURN_24H",
+            "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "REALIZED_VOL_24H",
+            "LOG_RELATIVE_VOLUME_1H",
+            "DIRECTIONAL_EFFICIENCY_4H",
+            "TAKER_BUY_SHARE_1H_CENTERED",
+            "TAKER_BUY_SHARE_4H_CENTERED"
+          ],
+          "fit_rows": 49716,
+          "fold_id": "DEV-2024",
+          "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+          "max_training_label_outcome_us": 1703372400000000,
+          "purge_boundary_exclusive_us": 1703376000000000,
+          "training_label_logical_sha256": "34ef4ec02bae5fe1047b2cbef33df78b2294ae3a54dcf4e97d3e5c23ce09c7bc",
+          "training_matrix_logical_sha256": "07f2acc55b61222703d2688544c5e03c57d21dd90ee4891bc05d5698ae16eebc",
+          "training_rows_committed": false,
+          "training_signal_max_us": 1703286000000000,
+          "training_signal_min_us": 1503565200000000,
+          "validation_start_us": 1704153600000000,
+          "variant": "SHALLOW_INTERNAL_HGBR"
+        }
+      }
+    ],
+    "prediction_diagnostics": {
+      "distribution": {
+        "count": 48784,
+        "maximum": 0.65300009565002,
+        "mean": -0.068603854596359,
+        "median": -0.07980202077306471,
+        "minimum": -0.5096113784259338,
+        "q25": -0.13349706007116735,
+        "q75": -0.0132975575672057,
+        "std_ddof_0": 0.11590207161280042
+      },
+      "eligible_validation_hours": 48784,
+      "paired_label_count": 48538,
+      "per_fold": {
+        "DEV-2019": {
+          "distribution": {
+            "count": 7641,
+            "maximum": 0.65300009565002,
+            "mean": -0.03878412159754016,
+            "median": -0.02377177062706239,
+            "minimum": -0.41421474016157356,
+            "q25": -0.126787969791731,
+            "q75": 0.05117762735710689,
+            "std_ddof_0": 0.15226681570377107
+          },
+          "eligible_hours": 7641,
+          "paired_labels": 7581,
+          "pearson": 0.07761263726150446,
+          "prediction_positive_hours": 3235
+        },
+        "DEV-2020": {
+          "distribution": {
+            "count": 7451,
+            "maximum": 0.6094382609890162,
+            "mean": -0.041359414702579825,
+            "median": -0.053085058345799935,
+            "minimum": -0.5096113784259338,
+            "q25": -0.14017556465674974,
+            "q75": 0.030322683247383964,
+            "std_ddof_0": 0.15115991214174287
+          },
+          "eligible_hours": 7451,
+          "paired_labels": 7335,
+          "pearson": 0.0521047234506091,
+          "prediction_positive_hours": 2161
+        },
+        "DEV-2021": {
+          "distribution": {
+            "count": 7705,
+            "maximum": 0.4601441933282023,
+            "mean": -0.0752000310219357,
+            "median": -0.06805243875379427,
+            "minimum": -0.4415611977221579,
+            "q25": -0.15286149202782448,
+            "q75": -0.00766406250579965,
+            "std_ddof_0": 0.11399917995952188
+          },
+          "eligible_hours": 7705,
+          "paired_labels": 7655,
+          "pearson": -0.02636011954921323,
+          "prediction_positive_hours": 1717
+        },
+        "DEV-2022": {
+          "distribution": {
+            "count": 8713,
+            "maximum": 0.30675378726821945,
+            "mean": -0.09342384405948974,
+            "median": -0.09724200099490561,
+            "minimum": -0.3845066867280318,
+            "q25": -0.15372859651648269,
+            "q75": -0.02887151078092097,
+            "std_ddof_0": 0.09619366902870888
+          },
+          "eligible_hours": 8713,
+          "paired_labels": 8713,
+          "pearson": -0.024291937132156657,
+          "prediction_positive_hours": 1002
+        },
+        "DEV-2023": {
+          "distribution": {
+            "count": 8537,
+            "maximum": 0.39378532372968394,
+            "mean": -0.0838831597774901,
+            "median": -0.08790377103923469,
+            "minimum": -0.46987781455431576,
+            "q25": -0.12622819310588337,
+            "q75": -0.042733290294196535,
+            "std_ddof_0": 0.08264512971592773
+          },
+          "eligible_hours": 8537,
+          "paired_labels": 8517,
+          "pearson": 0.024023367302410895,
+          "prediction_positive_hours": 1082
+        },
+        "DEV-2024": {
+          "distribution": {
+            "count": 8737,
+            "maximum": 0.39593650858086743,
+            "mean": -0.07241882147399216,
+            "median": -0.08757862449971394,
+            "minimum": -0.2710925422015157,
+            "q25": -0.11747443649874988,
+            "q75": -0.04210272551392021,
+            "std_ddof_0": 0.0746651388436249
+          },
+          "eligible_hours": 8737,
+          "paired_labels": 8737,
+          "pearson": 0.03515005595474583,
+          "prediction_positive_hours": 1161
+        }
+      },
+      "pooled_prediction_label_pearson": 0.03249332915839472,
+      "prediction_positive_hours": 10358
+    },
+    "profiles": {
+      "DEFAULT": {
+        "cumulative_net_r": -126.7640476522,
+        "net_expectancy_r": -0.0998928666,
+        "trade_count": 1269
+      },
+      "DELAY_1H": {
+        "cumulative_net_r": -112.2325297711,
+        "net_expectancy_r": -0.0868001004,
+        "trade_count": 1293
+      },
+      "DOUBLE": {
+        "cumulative_net_r": -279.0821572498,
+        "net_expectancy_r": -0.2199228978,
+        "trade_count": 1269
+      },
+      "ZERO": {
+        "cumulative_net_r": 25.5540721671,
+        "net_expectancy_r": 0.0201371727,
+        "trade_count": 1269
+      }
+    },
+    "terminal_classification": "REJECT_COST_DOMINATED"
+  },
+  "seed_reference": [
+    0
+  ],
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 4,
+    "executed_trials": 4
+  },
+  "validation_outcome": "PASS"
+}

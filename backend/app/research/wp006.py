@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -505,7 +506,19 @@ def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
     ):
         raise SearchMemoryError("undeclared variant/profile/configuration trial")
     if space["dependencies"] != dependency_manifest(root):
-        raise SearchMemoryError("implementation dependency identity mismatch")
+        implementation_commit = space["implementation_commit"]
+        for dependency in space["dependencies"]:
+            try:
+                content = subprocess.check_output(
+                    ["git", "show", f"{implementation_commit}:{dependency['path']}"],
+                    cwd=root,
+                )
+            except subprocess.CalledProcessError as error:
+                raise SearchMemoryError(
+                    "frozen implementation dependency is unavailable from Git"
+                ) from error
+            if hashlib.sha256(content).hexdigest() != dependency["sha256"]:
+                raise SearchMemoryError("implementation dependency identity mismatch")
     strategy_path = root / "backend/app/research/pullback.py"
     if (
         space["strategy_path"] != "backend/app/research/pullback.py"

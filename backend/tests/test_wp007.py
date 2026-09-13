@@ -179,7 +179,7 @@ def test_the_gate_checks_both_v1_and_v2_historical_signatures():
     assert len(signatures(exclude_experiment_ids=wp011)) == 15
     assert len(signatures(exclude_experiment_ids=wp012)) == 17
     assert len(signatures(exclude_experiment_ids=wp013)) == 19
-    assert len(signatures()) == 21
+    assert len(signatures()) == 23
 
 
 def test_neither_variant_duplicates_any_prior_admitted_behaviour():

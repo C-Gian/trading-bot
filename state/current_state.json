@@ -1,63 +1,38 @@
 {
-  "schema_version": 3,
-  "project_name": "Trading Bot",
-  "project_phase": "STRATEGY_RESEARCH",
-  "status": "EXECUTOR_COMPLETE_PENDING_REVIEW",
-  "product_surface": "LOCAL_WEB_APP",
-  "research_market": "crypto_spot",
-  "symbols": [
-    "BTCUSDT"
-  ],
-  "canonical_resolution": "1m",
-  "signal_timeframe": "1h",
-  "regime_timeframe": "4h",
-  "max_holding_horizon": {
-    "iso8601": "PT24H",
-    "minutes": 1440
-  },
-  "directions": [
-    "LONG",
-    "NO_TRADE"
-  ],
-  "development_cutoff": "2024-12-31T23:59:00Z",
-  "development_dataset": {
+  "adaptive_challenger": {
+    "ablation_sealed_eligibility": "NOT_ELIGIBLE_INCONCLUSIVE",
+    "ablation_terminal_classification": "INCONCLUSIVE",
+    "admissible_model_fits": 143,
+    "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
+    "half_life_days": 180,
+    "inadmissible_model_fits": 1,
+    "macro_asof_audit": "PASS",
+    "macro_incremental_effect": "NEGATIVE",
+    "model_reconciliation": "PASS",
+    "primary": "EWLS_INTERNAL_MACRO",
+    "research_director_verdict": "ACCEPTED",
+    "reserved_model_fits": 144,
+    "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
+    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+    "secondary": "EWLS_INTERNAL_ONLY",
     "status": "VALIDATED",
-    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
-    "manifest_sha256": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
-    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
-    "coverage": {
-      "start": "2017-08-17T04:00:00Z",
-      "end": "2024-12-31T23:59:00Z"
-    }
-  },
-  "experiments_completed": 21,
-  "sealed_evaluations_completed": 0,
-  "paper_trades_completed": 0,
-  "champion_status": "NONE",
-  "forward_evidence": "NONE",
-  "real_money_authorized": false,
-  "owner_decision_required": false,
-  "latest_reviewed_checkpoint": "WP-012",
-  "latest_executor_checkpoint": "WP-013",
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP_013",
-  "search_memory": {
-    "version": "SEARCH_MEMORY_V2",
-    "status": "VALIDATED",
-    "families_tracked": 11
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH",
+    "version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1"
   },
   "adaptive_search": {
-    "adaptive_decisions": 9,
-    "configuration_variants": 21,
+    "adaptive_decisions": 10,
+    "configuration_variants": 23,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
     "integrity_replay_profiles": 12,
-    "material_economic_hypotheses": 9,
+    "material_economic_hypotheses": 10,
     "numeric_parameter_variants": 0,
-    "profile_trials": 101,
-    "result_dependent_forks": 9,
+    "profile_trials": 109,
+    "result_dependent_forks": 10,
     "sealed_queries": 0,
-    "strategy_descendants": 10,
-    "supervised_model_fits": 186,
+    "strategy_descendants": 11,
+    "supervised_model_fits": 198,
     "wp004_profiles_reserved": 12,
     "wp004_variants_reserved": 3,
     "wp006_profiles_reserved": 8,
@@ -71,213 +46,261 @@
     "wp012_profiles_reserved": 8,
     "wp012_variants_reserved": 2,
     "wp013_profiles_reserved": 8,
-    "wp013_variants_reserved": 2
+    "wp013_variants_reserved": 2,
+    "wp014_profiles_reserved": 8,
+    "wp014_variants_reserved": 2
+  },
+  "artifact_storage": {
+    "historical_evidence_rewritten": false,
+    "status": "VALIDATED",
+    "training_matrices_committed": false,
+    "trial_artifact_format": "PARQUET_ZSTD",
+    "version": "RESEARCH_ARTIFACT_STORAGE_V1"
+  },
+  "backtest_substrate": {
+    "cost_model_version": "BTCUSDT_SPOT_COST_V1",
+    "engine_version": "BACKTEST_ENGINE_V2",
+    "execution_model_version": "EXECUTION_MODEL_V2",
+    "gap_artifact": {
+      "id": "BTCUSDT-SPOT-1M-DEV-v1-GAPS",
+      "sha256": "eaaed86d83897bc47479bbe71fea8775a72c248473a0e205bf4afee9cb551007"
+    },
+    "status": "VALIDATED",
+    "synthetic_validation": {
+      "status": "PASS",
+      "suite_hash": "ca71d3b8b64e3d4cc6d0dcbe1f4df7d96fa1979be6d9d8a957f59dbb9b9db819"
+    }
+  },
+  "canonical_resolution": "1m",
+  "champion_status": "NONE",
+  "contextual_interaction_challenger": {
+    "actual_model_fits": 12,
+    "context_version": "NFCI_CONTEXT_V1",
+    "control": "INTERNAL_ONLY_MATCHED_NFCI",
+    "macro_asof_audit": "PASS",
+    "model_reconciliation": "PASS",
+    "primary": "NFCI_CONTEXT_INTERACTIONS",
+    "reserved_model_fits": 12,
+    "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
+    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+    "status": "VALIDATED",
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "version": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1"
+  },
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "development_dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "coverage": {
+      "end": "2024-12-31T23:59:00Z",
+      "start": "2017-08-17T04:00:00Z"
+    },
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "manifest_sha256": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+    "status": "VALIDATED"
+  },
+  "directions": [
+    "LONG",
+    "NO_TRADE"
+  ],
+  "exogenous_acquisition_pause": {
+    "pause_reason": "PAUSED_FOR_PRODUCT_PRIORITY",
+    "pilot_expected_requests": 10,
+    "pilot_preserved_requests": 3,
+    "record": "research/exogenous/GDELT-NEWS-CONTEXT-V1_1-PAUSE-V1.json",
+    "status": "PARTIAL",
+    "version": "GDELT_NEWS_CONTEXT_V1_1",
+    "wp009_finalized": false
+  },
+  "experiments_completed": 23,
+  "forward_evidence": "NONE",
+  "latest_executor_checkpoint": "WP-014",
+  "latest_family": {
+    "name": "SHALLOW_INTERNAL_HGBR_V1",
+    "novelty_classification": "NEW_FAMILY",
+    "primary_experiment_id": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+    "root_family": "FAM-SHALLOW-NONLINEAR-INTERNAL",
+    "terminal_classification": "REJECT_COST_DOMINATED"
+  },
+  "latest_reviewed_checkpoint": "WP-013",
+  "max_holding_horizon": {
+    "iso8601": "PT24H",
+    "minutes": 1440
+  },
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP_014",
+  "order_flow_substrate": {
+    "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
+    "eligible_1h_buckets": 64135,
+    "eligible_4h_buckets": 16008,
+    "oracle_reconciliation": "PASS",
+    "status": "VALIDATED",
+    "version": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1"
+  },
+  "owner_decision_required": false,
+  "paper_trades_completed": 0,
+  "paper_trading": {
+    "champion_status": "NONE",
+    "chart_dashboard_surface": "AVAILABLE",
+    "credentials": false,
+    "equivalence_validation": "PASS",
+    "execution_equivalence": "PASS",
+    "feature_equivalence": "PASS",
+    "genuine_paper_trades_completed": 0,
+    "historical_engine_modified": false,
+    "historical_research_code_modified": false,
+    "leverage_or_short": false,
+    "lifecycle_trigger": "EXPLICIT_USER_ACTION_ONLY",
+    "order_placement": false,
+    "persistence_contract": "docs/contracts/FUTURE_PAPER_EVIDENCE_V1.md",
+    "persistence_version": "FUTURE_PAPER_EVIDENCE_V1",
+    "product_stage": "V1_PAPER_ALPHA",
+    "prospective_execution_version": "PROSPECTIVE_PAPER_EXECUTION_V1",
+    "prospective_features_version": "PROSPECTIVE_PAPER_FEATURES_V1",
+    "real_money": false,
+    "research_status": "PAPER_RESEARCH_CANDIDATE",
+    "scientifically_approved": false,
+    "statistics_surface": "AVAILABLE",
+    "statistics_version": "PAPER_STATISTICS_V1",
+    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "surface": "AVAILABLE",
+    "timestamp_translation_used": false
+  },
+  "product_analysis": {
+    "champion_status": "NONE",
+    "credentials": false,
+    "current_data_reenters_development_evidence": false,
+    "leverage_or_short": false,
+    "order_placement": false,
+    "paper_trade_persistence": false,
+    "possible_outputs": [
+      "NO_TRADE",
+      "LONG"
+    ],
+    "research_status": "PAPER_RESEARCH_CANDIDATE",
+    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "surface": "AVAILABLE",
+    "trade_history_statistics": false,
+    "trigger": "EXPLICIT_USER_ACTION_ONLY",
+    "variant": "ALIGNED",
+    "version": "PAPER_RESEARCH_ANALYSIS_V1"
+  },
+  "product_surface": "LOCAL_WEB_APP",
+  "project_name": "Trading Bot",
+  "project_phase": "STRATEGY_RESEARCH",
+  "real_money_authorized": false,
+  "regime_conditioned_challenger": {
+    "control": "GLOBAL_SINGLE_EXPERT_MATCHED",
+    "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
+    "model_reconciliation": "PASS",
+    "primary": "REGIME_TWO_EXPERTS",
+    "research_director_verdict": "ACCEPTED",
+    "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
+    "safe_phase_1_commit": "8633203f8fc054f13bd47bc1c03020fcd1f3e75e",
+    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+    "status": "VALIDATED",
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "version": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1"
+  },
+  "regime_timeframe": "4h",
+  "remote_ci": {
+    "policy": "Authoritative current remote CI truth per work package, linked to immutable evidence. Historical checkpoint reports are never rewritten when a once-pending external fact resolves.",
+    "work_packages": {
+      "WP-005": {
+        "evidence": "reports/reviews/WP-005-CI-EVIDENCE.json",
+        "head": "444172a359e2663887624da82254cc2185ff85e1",
+        "run_id": 34355806303,
+        "status": "SUCCESS"
+      },
+      "WP-006": {
+        "evidence": "reports/reviews/WP-006-CI-EVIDENCE.json",
+        "head": "d92088d5ef0426bf64f34326a3224dd9aba93603",
+        "run_id": 34362902153,
+        "status": "SUCCESS"
+      },
+      "WP-007": {
+        "evidence": "reports/reviews/WP-007-CI-EVIDENCE.json",
+        "head": "762b3b77f686305b1c73f19956d0b9b16b7a9b1c",
+        "run_id": 34375244463,
+        "status": "SUCCESS"
+      },
+      "WP-008": {
+        "evidence": "reports/reviews/WP-008-CI-EVIDENCE.json",
+        "head": "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2",
+        "run_id": 34392236263,
+        "status": "SUCCESS"
+      },
+      "WP-012": {
+        "evidence": "reports/reviews/WP-012-CI-EVIDENCE.json",
+        "head": "d88a1465560ecfe02d2eae6a924da27238fa898e",
+        "run_id": 34709907850,
+        "status": "SUCCESS"
+      },
+      "WP-013": {
+        "evidence": "reports/reviews/WP-013-CI-EVIDENCE.json",
+        "head": "e59318268099d428df0c108144aca739f5504b40",
+        "run_id": 34745601715,
+        "status": "SUCCESS"
+      }
+    }
+  },
+  "research_market": "crypto_spot",
+  "schema_version": 3,
+  "sealed_evaluation": {
+    "authorized_btc_queries": 0,
+    "candidates_assessed": 23,
+    "consumed_btc_queries": 0,
+    "dataset_state": "RESERVED_NOT_ACQUIRED",
+    "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
+    "seal_eligible_candidates": 0,
+    "status": "LOCKED_NO_AUTHORIZED_QUERY",
+    "version": "SEALED_EVALUATION_V1_1"
+  },
+  "sealed_evaluations_completed": 0,
+  "search_memory": {
+    "families_tracked": 12,
+    "status": "VALIDATED",
+    "version": "SEARCH_MEMORY_V2"
   },
   "selected_family": {
     "name": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
     "primary_experiment_id": "EXP-ALG-009-ALIGNED",
     "terminal_classification": "INCONCLUSIVE"
   },
-  "wp005_integrity": {
-    "status": "PASS",
-    "source_provenance_classification": "SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
-    "independent_reconciliation": "PASS",
-    "integrity_replay_profiles": 12,
-    "matched_control_classification": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE"
-  },
-  "remote_ci": {
-    "policy": "Authoritative current remote CI truth per work package, linked to immutable evidence. Historical checkpoint reports are never rewritten when a once-pending external fact resolves.",
-    "work_packages": {
-      "WP-005": {
-        "status": "SUCCESS",
-        "head": "444172a359e2663887624da82254cc2185ff85e1",
-        "run_id": 34355806303,
-        "evidence": "reports/reviews/WP-005-CI-EVIDENCE.json"
-      },
-      "WP-006": {
-        "status": "SUCCESS",
-        "head": "d92088d5ef0426bf64f34326a3224dd9aba93603",
-        "run_id": 34362902153,
-        "evidence": "reports/reviews/WP-006-CI-EVIDENCE.json"
-      },
-      "WP-007": {
-        "status": "SUCCESS",
-        "head": "762b3b77f686305b1c73f19956d0b9b16b7a9b1c",
-        "run_id": 34375244463,
-        "evidence": "reports/reviews/WP-007-CI-EVIDENCE.json"
-      },
-      "WP-008": {
-        "status": "SUCCESS",
-        "head": "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2",
-        "run_id": 34392236263,
-        "evidence": "reports/reviews/WP-008-CI-EVIDENCE.json"
-      },
-      "WP-012": {
-        "status": "SUCCESS",
-        "head": "d88a1465560ecfe02d2eae6a924da27238fa898e",
-        "run_id": 34709907850,
-        "evidence": "reports/reviews/WP-012-CI-EVIDENCE.json"
-      }
-    }
-  },
-  "backtest_substrate": {
+  "shallow_nonlinear_challenger": {
+    "actual_model_fits": 12,
+    "control": "INTERNAL_LINEAR_MATCHED",
+    "control_novelty": "DUPLICATE_MATCHED_CONTROL_REPLICATION",
+    "model_reconciliation": "PASS",
+    "primary": "SHALLOW_INTERNAL_HGBR",
+    "reserved_model_fits": 12,
+    "root_family": "FAM-SHALLOW-NONLINEAR-INTERNAL",
+    "safe_phase_1_commit": "45abdbc96132f85a412a0359f60c91286af710ff",
+    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+    "sklearn_version": "1.7.2",
     "status": "VALIDATED",
-    "engine_version": "BACKTEST_ENGINE_V2",
-    "execution_model_version": "EXECUTION_MODEL_V2",
-    "cost_model_version": "BTCUSDT_SPOT_COST_V1",
-    "synthetic_validation": {
-      "status": "PASS",
-      "suite_hash": "ca71d3b8b64e3d4cc6d0dcbe1f4df7d96fa1979be6d9d8a957f59dbb9b9db819"
-    },
-    "gap_artifact": {
-      "id": "BTCUSDT-SPOT-1M-DEV-v1-GAPS",
-      "sha256": "eaaed86d83897bc47479bbe71fea8775a72c248473a0e205bf4afee9cb551007"
-    }
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "version": "SHALLOW_INTERNAL_HGBR_V1"
   },
-  "latest_family": {
-    "name": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
-    "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
-    "primary_experiment_id": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
-    "novelty_classification": "NEW_FAMILY",
-    "terminal_classification": "REJECT_COST_DOMINATED"
-  },
-  "order_flow_substrate": {
-    "version": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1",
-    "status": "VALIDATED",
-    "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
-    "eligible_1h_buckets": 64135,
-    "eligible_4h_buckets": 16008,
-    "oracle_reconciliation": "PASS"
-  },
-  "artifact_storage": {
-    "version": "RESEARCH_ARTIFACT_STORAGE_V1",
-    "status": "VALIDATED",
-    "trial_artifact_format": "PARQUET_ZSTD",
-    "historical_evidence_rewritten": false,
-    "training_matrices_committed": false
-  },
+  "signal_timeframe": "1h",
+  "status": "EXECUTOR_COMPLETE_PENDING_REVIEW",
   "supervised_challenger": {
-    "version": "LINEAR_NET_R_SELECTION_V1",
-    "status": "VALIDATED",
-    "target": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+    "leakage_audit": "PASS",
+    "model_fits": 12,
+    "model_reconciliation": "PASS",
     "primary": "LINEAR_FULL",
     "secondary": "LINEAR_NO_FLOW",
-    "model_fits": 12,
-    "terminal_classification": "REJECT_COST_DOMINATED",
-    "leakage_audit": "PASS",
-    "model_reconciliation": "PASS"
-  },
-  "adaptive_challenger": {
-    "version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1",
     "status": "VALIDATED",
-    "root_family": "FAM-ADAPTIVE-EWLS-MACRO",
-    "primary": "EWLS_INTERNAL_MACRO",
-    "secondary": "EWLS_INTERNAL_ONLY",
-    "reserved_model_fits": 144,
-    "admissible_model_fits": 143,
-    "inadmissible_model_fits": 1,
-    "half_life_days": 180,
-    "update_cadence": "FIRST_UTC_HOUR_OF_EACH_CALENDAR_MONTH",
+    "target": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
     "terminal_classification": "REJECT_COST_DOMINATED",
-    "macro_incremental_effect": "NEGATIVE",
-    "model_reconciliation": "PASS",
-    "macro_asof_audit": "PASS",
-    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
-    "ablation_terminal_classification": "INCONCLUSIVE",
-    "research_director_verdict": "ACCEPTED",
-    "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
-    "ablation_sealed_eligibility": "NOT_ELIGIBLE_INCONCLUSIVE"
+    "version": "LINEAR_NET_R_SELECTION_V1"
   },
-  "regime_conditioned_challenger": {
-    "version": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1",
-    "status": "VALIDATED",
-    "root_family": "FAM-REGIME-CONDITIONED-LINEAR",
-    "primary": "REGIME_TWO_EXPERTS",
-    "control": "GLOBAL_SINGLE_EXPERT_MATCHED",
-    "terminal_classification": "REJECT_COST_DOMINATED",
-    "research_director_verdict": "ACCEPTED",
-    "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
-    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
-    "model_reconciliation": "PASS",
-    "safe_phase_1_commit": "8633203f8fc054f13bd47bc1c03020fcd1f3e75e"
-  },
-  "contextual_interaction_challenger": {
-    "version": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
-    "status": "VALIDATED",
-    "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
-    "context_version": "NFCI_CONTEXT_V1",
-    "primary": "NFCI_CONTEXT_INTERACTIONS",
-    "control": "INTERNAL_ONLY_MATCHED_NFCI",
-    "reserved_model_fits": 12,
-    "actual_model_fits": 12,
-    "terminal_classification": "REJECT_COST_DOMINATED",
-    "model_reconciliation": "PASS",
-    "macro_asof_audit": "PASS",
-    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED"
-  },
-  "product_analysis": {
-    "version": "PAPER_RESEARCH_ANALYSIS_V1",
-    "surface": "AVAILABLE",
-    "trigger": "EXPLICIT_USER_ACTION_ONLY",
-    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
-    "variant": "ALIGNED",
-    "research_status": "PAPER_RESEARCH_CANDIDATE",
-    "champion_status": "NONE",
-    "possible_outputs": [
-      "NO_TRADE",
-      "LONG"
-    ],
-    "paper_trade_persistence": false,
-    "trade_history_statistics": false,
-    "order_placement": false,
-    "credentials": false,
-    "leverage_or_short": false,
-    "current_data_reenters_development_evidence": false
-  },
-  "paper_trading": {
-    "surface": "AVAILABLE",
-    "product_stage": "V1_PAPER_ALPHA",
-    "persistence_contract": "docs/contracts/FUTURE_PAPER_EVIDENCE_V1.md",
-    "persistence_version": "FUTURE_PAPER_EVIDENCE_V1",
-    "prospective_features_version": "PROSPECTIVE_PAPER_FEATURES_V1",
-    "prospective_execution_version": "PROSPECTIVE_PAPER_EXECUTION_V1",
-    "feature_equivalence": "PASS",
-    "execution_equivalence": "PASS",
-    "equivalence_validation": "PASS",
-    "historical_engine_modified": false,
-    "historical_research_code_modified": false,
-    "timestamp_translation_used": false,
-    "statistics_version": "PAPER_STATISTICS_V1",
-    "statistics_surface": "AVAILABLE",
-    "chart_dashboard_surface": "AVAILABLE",
-    "lifecycle_trigger": "EXPLICIT_USER_ACTION_ONLY",
-    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
-    "research_status": "PAPER_RESEARCH_CANDIDATE",
-    "champion_status": "NONE",
-    "scientifically_approved": false,
-    "genuine_paper_trades_completed": 0,
-    "order_placement": false,
-    "credentials": false,
-    "leverage_or_short": false,
-    "real_money": false
-  },
-  "exogenous_acquisition_pause": {
-    "version": "GDELT_NEWS_CONTEXT_V1_1",
-    "status": "PARTIAL",
-    "pause_reason": "PAUSED_FOR_PRODUCT_PRIORITY",
-    "record": "research/exogenous/GDELT-NEWS-CONTEXT-V1_1-PAUSE-V1.json",
-    "pilot_expected_requests": 10,
-    "pilot_preserved_requests": 3,
-    "wp009_finalized": false
-  },
-  "sealed_evaluation": {
-    "version": "SEALED_EVALUATION_V1_1",
-    "status": "LOCKED_NO_AUTHORIZED_QUERY",
-    "dataset_state": "RESERVED_NOT_ACQUIRED",
-    "authorized_btc_queries": 0,
-    "consumed_btc_queries": 0,
-    "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
-    "seal_eligible_candidates": 0,
-    "candidates_assessed": 21
+  "symbols": [
+    "BTCUSDT"
+  ],
+  "wp005_integrity": {
+    "independent_reconciliation": "PASS",
+    "integrity_replay_profiles": 12,
+    "matched_control_classification": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
+    "source_provenance_classification": "SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
+    "status": "PASS"
   }
 }

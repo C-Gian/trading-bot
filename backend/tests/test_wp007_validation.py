@@ -15,8 +15,8 @@ def test_repository_checkpoint_validates():
         "FLOW_CORE": "REJECT_COST_DOMINATED",
         "FLOW_PRICE_RESPONSE": "REJECT_COST_DOMINATED",
     }
-    # WP-012 added two further assessed candidates; none is eligible and none queried.
-    assert result["sealed"] == {"assessed": 21, "eligible": 0, "queries": 0}
+    # WP-014 brought the cumulative assessment count to 23; none is eligible or queried.
+    assert result["sealed"] == {"assessed": 23, "eligible": 0, "queries": 0}
 
 
 def test_results_answer_the_preregistered_cost_and_timing_questions():
@@ -40,19 +40,21 @@ def test_admission_reproduces_after_its_own_ledger_exists():
 
 def test_cumulative_search_accounting_is_exact():
     totals = cumulative_accounting()
-    # WP-011, WP-012, and WP-013 each added one hypothesis, two configurations,
+    # WP-011 through WP-014 each added one hypothesis, two configurations,
     # and eight profiles.
-    assert totals["material_economic_hypotheses"] == 6 + 1 + 1 + 1
-    assert totals["configuration_variants"] == 15 + 2 + 2 + 2
-    assert totals["profile_trials"] == 77 + 8 + 8 + 8
-    # WP-011 reserved 144 fits, WP-012 18 expert fits, and WP-013 12 annual fits.
-    assert totals["supervised_model_fits"] == 12 + 144 + 18 + 12
+    assert totals["material_economic_hypotheses"] == 6 + 1 + 1 + 1 + 1
+    assert totals["configuration_variants"] == 15 + 2 + 2 + 2 + 2
+    assert totals["profile_trials"] == 77 + 8 + 8 + 8 + 8
+    # WP-011 reserved 144 fits; WP-012 18; WP-013 and WP-014 12 each.
+    assert totals["supervised_model_fits"] == 12 + 144 + 18 + 12 + 12
     assert totals["wp012_variants_reserved"] == 2
     assert totals["wp012_profiles_reserved"] == 8
     assert totals["wp013_variants_reserved"] == 2
     assert totals["wp013_profiles_reserved"] == 8
+    assert totals["wp014_variants_reserved"] == 2
+    assert totals["wp014_profiles_reserved"] == 8
     assert totals["numeric_parameter_variants"] == 0
-    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 9
+    assert totals["adaptive_decisions"] == totals["result_dependent_forks"] == 10
 
 
 def test_both_order_flow_candidates_are_sealed_ineligible():

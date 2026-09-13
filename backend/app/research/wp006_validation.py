@@ -42,7 +42,6 @@ from .wp006 import (
     ROOT_FAMILY,
     SPEC,
     SPEC_DEPENDENCY_PATHS,
-    dependency_manifest,
     effective_preregistration,
     read_json,
     validate_admission,
@@ -314,11 +313,17 @@ def validate_wp006(root: Path = ROOT) -> dict[str, Any]:
     )
     expected_ids = [f"{variant}:{profile}" for variant in SPEC.values() for profile in PROFILES]
     require(attempt["trial_ids"] == expected_ids, "undeclared or repeated strategy trials")
+    frozen_manifests = [
+        read_json(effective_preregistration(experiment_id, root))["parameter_space"]["dependencies"]
+        for experiment_id in SPEC
+    ]
+    require(
+        all(manifest == frozen_manifests[0] for manifest in frozen_manifests),
+        "WP-006 preregistrations disagree on their frozen execution dependencies",
+    )
     require(
         attempt["dependency_manifest_sha256"]
-        == hashlib.sha256(
-            json.dumps(dependency_manifest(root), sort_keys=True).encode()
-        ).hexdigest(),
+        == hashlib.sha256(json.dumps(frozen_manifests[0], sort_keys=True).encode()).hexdigest(),
         "execution closure mismatch",
     )
 

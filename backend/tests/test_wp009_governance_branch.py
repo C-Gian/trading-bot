@@ -80,9 +80,8 @@ def test_a_paused_wp009_must_assert_finalization_is_false(tmp_path: Path) -> Non
 
 def test_a_paused_wp009_cannot_claim_a_completed_task(tmp_path: Path) -> None:
     root = _mirror(tmp_path)
-    task = (root / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     (root / "tasks/CURRENT_TASK.md").write_text(
-        task.replace("## STATUS\nACTIVE", "## STATUS\nCOMPLETED"), encoding="utf-8", newline="\n"
+        "# CURRENT TASK — WP-009\n\n## STATUS\nCOMPLETED\n", encoding="utf-8", newline="\n"
     )
     with pytest.raises(AssertionError):
         wp009_governance_checks(root)
@@ -127,8 +126,7 @@ def test_a_completed_wp009_needs_every_final_artifact(tmp_path: Path) -> None:
         target = root / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text("{}\n", encoding="utf-8", newline="\n")
-    task = (root / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
-    completed = task.replace("## STATUS\nACTIVE", "## STATUS\nCOMPLETED")
+    completed = "# CURRENT TASK — WP-009\n\n## STATUS\nCOMPLETED\n"
     (root / "tasks/CURRENT_TASK.md").write_text(completed, encoding="utf-8", newline="\n")
     (root / "tasks/archive/WP-009.md").write_text(completed, encoding="utf-8", newline="\n")
     assert wp009_governance_checks(root) == "COMPLETED"
@@ -159,7 +157,7 @@ def test_the_validator_never_touches_cutoff_or_sealed_state() -> None:
 def test_state_records_the_accepted_wp011_review() -> None:
     state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
     adaptive = state["adaptive_challenger"]
-    assert state["latest_reviewed_checkpoint"] == "WP-012"
+    assert state["latest_reviewed_checkpoint"] == "WP-013"
     assert adaptive["research_director_verdict"] == "ACCEPTED"
     assert adaptive["terminal_classification"] == "REJECT_COST_DOMINATED"
     assert adaptive["ablation_terminal_classification"] == "INCONCLUSIVE"
@@ -172,7 +170,7 @@ def test_state_records_the_accepted_wp011_review() -> None:
     assert state["real_money_authorized"] is False
     assert state["exogenous_acquisition_pause"]["wp009_finalized"] is False
     assert state["paper_trading"]["research_status"] == "PAPER_RESEARCH_CANDIDATE"
-    assert state["next_recommended_work_package"] == "RESEARCH_DIRECTOR_REVIEW_WP_013"
+    assert state["next_recommended_work_package"] == "RESEARCH_DIRECTOR_REVIEW_WP_014"
 
 
 def test_the_sealed_table_keeps_both_wp011_candidates_ineligible() -> None:

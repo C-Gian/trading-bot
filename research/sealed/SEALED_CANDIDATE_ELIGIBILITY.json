@@ -314,6 +314,36 @@
       "structural_validator": "PASS",
       "terminal_classification": "REJECT_COST_DOMINATED",
       "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-022-SHALLOW-INTERNAL-HGBR/result.json",
+      "development_result_sha256": "b9b1aa7c3a9b5f25f42d26c5093f94435b7702e3385f80749907943d77076b9d",
+      "executable_spec_hash": "b1c94a9062928850b93f956876e5f4a46ad611353d0144d0200ab10a0fce5ecc",
+      "experiment_id": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-SHALLOW-NONLINEAR-INTERNAL",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-023-INTERNAL-LINEAR-MATCHED/result.json",
+      "development_result_sha256": "56a9dd366757ad701bc16814b1c0d04f26af15a810204a083265e4566e05a696",
+      "executable_spec_hash": "9b126656b3599c9ed5db62690fd9036328948b1d3a698570d4805c553ff1c0d2",
+      "experiment_id": "EXP-ML-023-INTERNAL-LINEAR-MATCHED",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-SHALLOW-NONLINEAR-INTERNAL",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
     }
   ],
   "generated_from": [

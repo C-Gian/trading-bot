@@ -23,6 +23,7 @@ WP007_BASE = "d92088d5ef0426bf64f34326a3224dd9aba93603"
 WP007_HEAD = "762b3b77f686305b1c73f19956d0b9b16b7a9b1c"
 WP008_HEAD = "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2"
 WP012_HEAD = "d88a1465560ecfe02d2eae6a924da27238fa898e"
+WP013_HEAD = "e59318268099d428df0c108144aca739f5504b40"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -99,6 +100,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.wp011 import EXPERIMENTS as WP011_EXPERIMENTS
     from app.research.wp012 import EXPERIMENTS as WP012_EXPERIMENTS
     from app.research.wp013 import EXPERIMENTS as WP013_EXPERIMENTS
+    from app.research.wp014 import EXPERIMENTS as WP014_EXPERIMENTS
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
     assert directories == (
@@ -110,9 +112,10 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP011_EXPERIMENTS.values())
         | set(WP012_EXPERIMENTS.values())
         | set(WP013_EXPERIMENTS.values())
+        | set(WP014_EXPERIMENTS.values())
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
-    assert len(results) == state["experiments_completed"] == 21
+    assert len(results) == state["experiments_completed"] == 23
     for experiment_id, budget in EXPERIMENTS.items():
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path, result_path = directory / "preregistration.json", directory / "result.json"
@@ -195,8 +198,8 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
-        state["latest_reviewed_checkpoint"] == "WP-012"
-        and state["latest_executor_checkpoint"] == "WP-013"
+        state["latest_reviewed_checkpoint"] == "WP-013"
+        and state["latest_executor_checkpoint"] == "WP-014"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -245,7 +248,7 @@ def validate_research_views(state: dict) -> None:
     wp007 = validate_wp007()
     assert wp007["status"] == "PASS"
     assert wp007["family_terminal_classification"] == "REJECT_COST_DOMINATED"
-    assert wp007["sealed"] == {"assessed": 21, "eligible": 0, "queries": 0}
+    assert wp007["sealed"] == {"assessed": 23, "eligible": 0, "queries": 0}
 
     from app.research.wp008_validation import validate_wp008
 
@@ -299,10 +302,30 @@ def validate_research_views(state: dict) -> None:
         "NFCI_CONTEXT_INTERACTIONS": "REJECT_COST_DOMINATED",
         "INTERNAL_ONLY_MATCHED_NFCI": "REJECT_COST_DOMINATED",
     }
+    wp014_comparison = json.loads(
+        (ROOT / "reports/research/WP-014-COMPARISON.json").read_text(encoding="utf-8")
+    )
+    wp014_reconciliation = json.loads(
+        (ROOT / "reports/validation/WP-014-MODEL-RECONCILIATION.json").read_text(encoding="utf-8")
+    )
+    assert wp014_reconciliation["status"] == "PASS"
+    assert not wp014_reconciliation["mismatches"]
+    assert set(wp014_reconciliation["checks"].values()) == {"PASS"}
+    assert wp014_reconciliation["prediction_tolerance"] == 1e-10
+    assert wp014_comparison["model_version"] == "SHALLOW_INTERNAL_HGBR_V1"
+    assert wp014_comparison["primary_vs_control"]["eligible_universe_matched"] is True
+    assert wp014_comparison["primary_vs_control"]["executed_trade_sets_paired"] is False
+    assert {
+        variant: record["terminal_classification"]
+        for variant, record in wp014_comparison["configurations"].items()
+    } == {
+        "SHALLOW_INTERNAL_HGBR": "REJECT_COST_DOMINATED",
+        "INTERNAL_LINEAR_MATCHED": "REJECT_COST_DOMINATED",
+    }
     assert state["latest_family"] == {
-        "name": "CONTEXTUAL_NFCI_INTERACTION_OLS_V1",
-        "root_family": "FAM-CONTEXTUAL-MACRO-INTERACTIONS",
-        "primary_experiment_id": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
+        "name": "SHALLOW_INTERNAL_HGBR_V1",
+        "root_family": "FAM-SHALLOW-NONLINEAR-INTERNAL",
+        "primary_experiment_id": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
         "novelty_classification": "NEW_FAMILY",
         "terminal_classification": "REJECT_COST_DOMINATED",
     }
@@ -310,6 +333,21 @@ def validate_research_views(state: dict) -> None:
     assert state["regime_conditioned_challenger"]["family_status"] == (
         "PARKED_REJECTED_NO_TUNING_AUTHORIZED"
     )
+    assert state["shallow_nonlinear_challenger"] == {
+        "actual_model_fits": 12,
+        "control": "INTERNAL_LINEAR_MATCHED",
+        "control_novelty": "DUPLICATE_MATCHED_CONTROL_REPLICATION",
+        "model_reconciliation": "PASS",
+        "primary": "SHALLOW_INTERNAL_HGBR",
+        "reserved_model_fits": 12,
+        "root_family": "FAM-SHALLOW-NONLINEAR-INTERNAL",
+        "safe_phase_1_commit": "45abdbc96132f85a412a0359f60c91286af710ff",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+        "sklearn_version": "1.7.2",
+        "status": "VALIDATED",
+        "terminal_classification": "REJECT_COST_DOMINATED",
+        "version": "SHALLOW_INTERNAL_HGBR_V1",
+    }
 
     # validate_wp009 is the completed-WP-009 validator; it may only run once state
     # declares finalization. A paused WP-009 is validated by wp009_governance_checks.
@@ -334,13 +372,14 @@ def validate_research_views(state: dict) -> None:
     }
     assert "remote_ci" not in state["wp005_integrity"], "stale pending CI state was reintroduced"
     remote = state["remote_ci"]["work_packages"]
-    assert set(remote) == {"WP-005", "WP-006", "WP-007", "WP-008", "WP-012"}
+    assert set(remote) == {"WP-005", "WP-006", "WP-007", "WP-008", "WP-012", "WP-013"}
     for work_package, expected_head in (
         ("WP-005", WP005_BASE_SUCCESSOR),
         ("WP-006", WP006_HEAD),
         ("WP-007", WP007_HEAD),
         ("WP-008", WP008_HEAD),
         ("WP-012", WP012_HEAD),
+        ("WP-013", WP013_HEAD),
     ):
         record = remote[work_package]
         evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
@@ -404,6 +443,11 @@ def dataset_scope_checks() -> None:
         approved_parquet.add(
             ROOT / json.loads(wp013_comparison.read_text(encoding="utf-8"))["artifact"]["path"]
         )
+    wp014_comparison = ROOT / "reports/research/WP-014-COMPARISON.json"
+    if wp014_comparison.is_file():
+        approved_parquet.add(
+            ROOT / json.loads(wp014_comparison.read_text(encoding="utf-8"))["artifact"]["path"]
+        )
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
         | set((ROOT / "data/derived").rglob("*.parquet"))
@@ -444,7 +488,7 @@ def wp009_governance_checks(root: Path = ROOT) -> str:
     if finalized:
         missing = [x for x in WP009_FINAL_ARTIFACTS if not (root / x).is_file()]
         assert not missing, f"WP-009 is declared finalized but these are missing: {missing}"
-        assert "## STATUS\nCOMPLETED" in task
+        assert "CURRENT TASK — WP-009" in task and "## STATUS\nCOMPLETED" in task
         assert (root / "tasks/archive/WP-009.md").read_bytes().replace(b"\r\n", b"\n") == (
             root / "tasks/CURRENT_TASK.md"
         ).read_bytes().replace(b"\r\n", b"\n")
@@ -466,7 +510,8 @@ def wp009_governance_checks(root: Path = ROOT) -> str:
     # A paused WP-009 must not silently carry finalized artifacts either.
     premature = [x for x in WP009_FINAL_ARTIFACTS if (root / x).is_file()]
     assert not premature, f"WP-009 is declared paused but finalized artifacts exist: {premature}"
-    assert "## STATUS\nCOMPLETED" not in task
+    if "CURRENT TASK — WP-009" in task:
+        assert "## STATUS\nCOMPLETED" not in task
     return "PAUSED"
 
 
@@ -559,6 +604,18 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/research/WP-013-COMPARISON.json",
         "reports/research/WP-013-INTERACTION-STABILITY.json",
         "reports/checkpoints/WP-013.md",
+        "reports/reviews/WP-013-RESEARCH-DIRECTOR-REVIEW.md",
+        "reports/reviews/WP-013-CI-EVIDENCE.json",
+        "research/protocols/WP-014-SHALLOW-INTERNAL-HGBR-V1.json",
+        "reports/validation/WP-014-PREFLIGHT.json",
+        "reports/validation/WP-014-MODEL-RECONCILIATION.json",
+        "reports/research/WP-014-COMPARISON.json",
+        "reports/research/WP-014-NONLINEAR-DIAGNOSTICS.json",
+        "reports/research/WP-014-HISTORICAL-COMPARISON.json",
+        "reports/research/WP-014-SCIENTIFIC-QUESTIONS.json",
+        "reports/research/WP-014-SHALLOW-NONLINEAR.md",
+        "reports/checkpoints/WP-014.md",
+        "tasks/archive/WP-014.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -718,6 +775,10 @@ def data_checks(state: dict) -> None:
         ROOT
         / json.loads(
             (ROOT / "reports/research/WP-013-COMPARISON.json").read_text(encoding="utf-8")
+        )["artifact"]["path"],
+        ROOT
+        / json.loads(
+            (ROOT / "reports/research/WP-014-COMPARISON.json").read_text(encoding="utf-8")
         )["artifact"]["path"],
     }
     assert (

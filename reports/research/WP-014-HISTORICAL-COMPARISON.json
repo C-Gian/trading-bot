@@ -1,0 +1,79 @@
+{
+  "caveat": "Historical families and executed trade sets differ; no paired claim is made. WP-014 configurations share eligible hours but predictions and occupancy differ.",
+  "comparison_basis": "DESCRIPTIVE_ONLY_EXCEPT_WITHIN_WP014_MATCHED_ELIGIBLE_UNIVERSE",
+  "historical": [
+    {
+      "experiment_id": "EXP-ML-014-LINEAR-NET-R-FULL",
+      "label": "WP-008 LINEAR_FULL",
+      "primary_result": -0.1142218454,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
+      "label": "WP-011 EWLS_INTERNAL_ONLY",
+      "primary_result": -0.0527152557,
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": 814
+    },
+    {
+      "experiment_id": "EXP-ML-019-GLOBAL-MATCHED-CONTROL",
+      "label": "WP-012 GLOBAL_SINGLE_EXPERT_MATCHED",
+      "primary_result": -0.1103044148,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1001
+    },
+    {
+      "experiment_id": "EXP-ML-021-INTERNAL-NFCI-MATCHED",
+      "label": "WP-013 INTERNAL_ONLY_MATCHED_NFCI",
+      "primary_result": -0.1103044148,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1001
+    },
+    {
+      "experiment_id": "EXP-ALG-009-ALIGNED",
+      "label": "ALIGNED",
+      "primary_result": 0.1373934676,
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-BASE-004-BREAKOUT",
+      "label": "breakout",
+      "primary_result": -0.0482093869,
+      "terminal_classification": null,
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-CTRL-006-NO-TRADE",
+      "label": "no-trade",
+      "primary_result": null,
+      "terminal_classification": null,
+      "trade_count": null
+    }
+  ],
+  "primary_vs_control": {
+    "control_duplicate_of": "EXP-ML-014-LINEAR-NET-R-FULL",
+    "default_net_expectancy_difference_r": 0.010411548199999995,
+    "default_trade_count_difference": 268,
+    "eligible_universe_matched": true,
+    "executed_trade_sets_paired": false,
+    "interpretation_guard": "Matched eligible hours do not make executed trades paired because predictions and occupancy differ."
+  },
+  "schema_version": 1,
+  "work_package": "WP-014",
+  "wp014": {
+    "INTERNAL_LINEAR_MATCHED": {
+      "experiment_id": "EXP-ML-023-INTERNAL-LINEAR-MATCHED",
+      "primary_result": -0.1103044148,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1001
+    },
+    "SHALLOW_INTERNAL_HGBR": {
+      "experiment_id": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+      "primary_result": -0.0998928666,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1269
+    }
+  }
+}

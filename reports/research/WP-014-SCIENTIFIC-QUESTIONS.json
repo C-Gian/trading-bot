@@ -1,0 +1,41 @@
+{
+  "answers": {
+    "1_hgbr_beats_internal_linear_matched": {
+      "answer": true,
+      "default_expectancy_difference_r": 0.010411548199999995
+    },
+    "2_default_expectancy_positive": {
+      "answer": false,
+      "net_expectancy_r": -0.0998928666
+    },
+    "3_improvement_broad_across_folds": {
+      "answer": false,
+      "nonnegative_folds": 1
+    },
+    "4_double_viable": {
+      "answer": false,
+      "net_expectancy_r": -0.2199228978
+    },
+    "5_delay_preserves_result": {
+      "answer": false,
+      "net_expectancy_r": -0.0868001004
+    },
+    "6_oos_correlation_materially_improves": {
+      "answer": true,
+      "control": 0.030509574361504192,
+      "difference": 0.00198375479689053,
+      "hgbr": 0.03249332915839472
+    },
+    "7_conditional_structure_or_degrees_of_freedom": {
+      "answer": "NO_ROBUST_USEFUL_NONLINEARITY; ADDED_DEGREES_DID_NOT_CLEAR_HURDLES",
+      "diagnostics_not_used_for_adaptation": true
+    },
+    "8_descriptive_comparison_to_aligned": {
+      "aligned_primary_result": 0.1373934676,
+      "hgbr_default_net_expectancy_r": -0.0998928666,
+      "paired": false
+    }
+  },
+  "schema_version": 1,
+  "work_package": "WP-014"
+}

@@ -1,0 +1,1151 @@
+{
+  "configurations": {
+    "INTERNAL_LINEAR_MATCHED": {
+      "folds": [
+        {
+          "fold_id": "DEV-2019",
+          "model": {
+            "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+            "coefficients": [
+              -0.04629449513756178,
+              -0.08495397618480977,
+              0.11241339753118088,
+              0.03725286778143298,
+              -0.01980657068172045,
+              0.0981657949976207,
+              -0.022151294323397287,
+              -0.017960907070196038
+            ],
+            "condition_number": 5.271690042328347,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "full_rank": true,
+            "hyperparameters_searched": 0,
+            "intercept": -0.07839001298753075,
+            "means": [
+              5.618535043235084e-06,
+              -0.0001585412152401361,
+              -0.032615228610632034,
+              0.009153371735958187,
+              -0.10387471139373916,
+              0.0015115972397593466,
+              0.0030828209348633005,
+              0.0006980894446488992
+            ],
+            "model_hash": "eb03fc7c5da197ad3064b287ab2996f927fbd6a48a8e82d88d4fb743bb72a8b3",
+            "rank": 9,
+            "regularization": "NONE",
+            "signal_threshold": 0.0,
+            "stds_ddof_0": [
+              0.011165894464088144,
+              0.048640519795720386,
+              0.03586857224610471,
+              0.006464562020806399,
+              0.4963891576661395,
+              0.23621282062638732,
+              0.10441515145675868,
+              0.07685457141384465
+            ],
+            "thresholds_searched": 0,
+            "training_label_hash": "14307104915b5cc1861dbcc6313386e1fdde09a622f3587943de96152e354774",
+            "training_matrix_hash": "5321c7c680ffd14c6562ff242b839eedbe4efa2b1c4cf7b24742b8a75d78a587"
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 9725,
+            "fold_id": "DEV-2019",
+            "input_scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+            "max_training_label_outcome_us": 1545602400000000,
+            "purge_boundary_exclusive_us": 1545609600000000,
+            "training_label_logical_sha256": "14307104915b5cc1861dbcc6313386e1fdde09a622f3587943de96152e354774",
+            "training_matrix_logical_sha256": "5321c7c680ffd14c6562ff242b839eedbe4efa2b1c4cf7b24742b8a75d78a587",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1545573600000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1546387200000000,
+            "variant": "INTERNAL_LINEAR_MATCHED"
+          }
+        },
+        {
+          "fold_id": "DEV-2020",
+          "model": {
+            "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+            "coefficients": [
+              -0.020342262775898262,
+              -0.06431567720053924,
+              0.07981893182773914,
+              0.015398113364053174,
+              -0.014861071605471263,
+              0.1182160662554689,
+              -0.011857288593060757,
+              -0.0005092984884798799
+            ],
+            "condition_number": 5.139851920868442,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "full_rank": true,
+            "hyperparameters_searched": 0,
+            "intercept": -0.07747532913065769,
+            "means": [
+              3.4309470407240104e-05,
+              0.0008042076271663373,
+              -0.028324551924138103,
+              0.007729217828158105,
+              -0.12288315074416095,
+              0.017643460121089416,
+              0.009798997416963516,
+              0.007408318919849986
+            ],
+            "model_hash": "2fbb09cc1f7063db2bd487db426bf16892d3b5aa7177c7d5aae37b8aea7802c6",
+            "rank": 9,
+            "regularization": "NONE",
+            "signal_threshold": 0.0,
+            "stds_ddof_0": [
+              0.009655653376619175,
+              0.043914713916392734,
+              0.03218069147696333,
+              0.0058163323437734945,
+              0.525285484179509,
+              0.23907459177893983,
+              0.08785120295282918,
+              0.06421644340599929
+            ],
+            "thresholds_searched": 0,
+            "training_label_hash": "ea82509460f57ddeaba8d37d7ee8709abdbeac5416a5fa50fd9d7cfb873c4452",
+            "training_matrix_hash": "3925452da6e52fd5264d3dc09befffaea3e5a6ffc3c2695829f2640101761218"
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 17359,
+            "fold_id": "DEV-2020",
+            "input_scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+            "max_training_label_outcome_us": 1577142000000000,
+            "purge_boundary_exclusive_us": 1577145600000000,
+            "training_label_logical_sha256": "ea82509460f57ddeaba8d37d7ee8709abdbeac5416a5fa50fd9d7cfb873c4452",
+            "training_matrix_logical_sha256": "3925452da6e52fd5264d3dc09befffaea3e5a6ffc3c2695829f2640101761218",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1577131200000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1577923200000000,
+            "variant": "INTERNAL_LINEAR_MATCHED"
+          }
+        },
+        {
+          "fold_id": "DEV-2021",
+          "model": {
+            "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+            "coefficients": [
+              -0.015544221785793406,
+              -0.05369551002412121,
+              0.07556857987464805,
+              -0.0013486102260762602,
+              -0.0021575167233428795,
+              0.08996197217878472,
+              -0.01524479384818487,
+              -0.004222040318067869
+            ],
+            "condition_number": 5.282662220465725,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "full_rank": true,
+            "hyperparameters_searched": 0,
+            "intercept": -0.04866988523925577,
+            "means": [
+              6.787461952219663e-05,
+              0.0015733347638196317,
+              -0.0261156320972594,
+              0.007190160990730521,
+              -0.12388190229051982,
+              0.036129689316559244,
+              0.0025502201905626544,
+              0.0010391993162574616
+            ],
+            "model_hash": "a227427334cfca9c96d95de0097e15543d35e640ec91862b79f96e94dbd17415",
+            "rank": 9,
+            "regularization": "NONE",
+            "signal_threshold": 0.0,
+            "stds_ddof_0": [
+              0.009234809484425925,
+              0.04205270071843025,
+              0.03173063910222994,
+              0.005809873623259368,
+              0.5249188541880127,
+              0.23321303497421925,
+              0.07873821921032395,
+              0.05740597849166922
+            ],
+            "thresholds_searched": 0,
+            "training_label_hash": "08737f279aa7c98af13746fa2e9dc41d22eb341e4d2f49fbf6e3cea7ff927dff",
+            "training_matrix_hash": "acd14c113020cab3f40f497e616ffb46181561543ed09f38f064e587998c5591"
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 24915,
+            "fold_id": "DEV-2021",
+            "input_scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+            "max_training_label_outcome_us": 1608552720000000,
+            "purge_boundary_exclusive_us": 1608768000000000,
+            "training_label_logical_sha256": "08737f279aa7c98af13746fa2e9dc41d22eb341e4d2f49fbf6e3cea7ff927dff",
+            "training_matrix_logical_sha256": "acd14c113020cab3f40f497e616ffb46181561543ed09f38f064e587998c5591",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1608552000000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1609545600000000,
+            "variant": "INTERNAL_LINEAR_MATCHED"
+          }
+        },
+        {
+          "fold_id": "DEV-2022",
+          "model": {
+            "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+            "coefficients": [
+              -0.010024775527405848,
+              -0.04957660895351487,
+              0.062175852938031045,
+              -0.0038826662124407697,
+              -0.0020446880568239668,
+              0.0678276076441077,
+              -0.01504464524787552,
+              0.005091796894441912
+            ],
+            "condition_number": 5.167171141774901,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "full_rank": true,
+            "hyperparameters_searched": 0,
+            "intercept": -0.0785127058478892,
+            "means": [
+              4.950041980433135e-05,
+              0.0012092958728670518,
+              -0.027442218401086436,
+              0.007483535114774758,
+              -0.11920686982517094,
+              0.03302338050430888,
+              0.00012481826842366772,
+              -0.0009496485968119218
+            ],
+            "model_hash": "59e4587cf4dd69ff50a012dd281ecb5d87831e9abf1ca57e332ff11ee9f190a5",
+            "rank": 9,
+            "regularization": "NONE",
+            "signal_threshold": 0.0,
+            "stds_ddof_0": [
+              0.009290484863769434,
+              0.042715654205699165,
+              0.031636055456896836,
+              0.005517559059483031,
+              0.5147952707273911,
+              0.224768401944806,
+              0.0714930595703302,
+              0.051906873858813075
+            ],
+            "thresholds_searched": 0,
+            "training_label_hash": "5a2f48fdb16e9c8cb39782b24f5ec9225962d7376c955af1b7c488867b6a32f3",
+            "training_matrix_hash": "e774ed3c0e4dfdc347ba8b696f408cf8305230506a53adb29a0d1983b01153f7"
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 32410,
+            "fold_id": "DEV-2022",
+            "input_scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+            "max_training_label_outcome_us": 1640288400000000,
+            "purge_boundary_exclusive_us": 1640304000000000,
+            "training_label_logical_sha256": "5a2f48fdb16e9c8cb39782b24f5ec9225962d7376c955af1b7c488867b6a32f3",
+            "training_matrix_logical_sha256": "e774ed3c0e4dfdc347ba8b696f408cf8305230506a53adb29a0d1983b01153f7",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1640278800000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1641081600000000,
+            "variant": "INTERNAL_LINEAR_MATCHED"
+          }
+        },
+        {
+          "fold_id": "DEV-2023",
+          "model": {
+            "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+            "coefficients": [
+              -0.007432978842551414,
+              -0.04233489492939555,
+              0.05481262988635244,
+              0.0057458537065342465,
+              0.005333587999243477,
+              0.054676311834035055,
+              -0.013388939730632425,
+              0.006495661296422171
+            ],
+            "condition_number": 5.157252168286723,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "full_rank": true,
+            "hyperparameters_searched": 0,
+            "intercept": -0.10422638365726936,
+            "means": [
+              1.2912015115471679e-05,
+              0.00033230145709886843,
+              -0.02705054032354095,
+              0.007169610249773136,
+              -0.11939555825833792,
+              0.01881194894359794,
+              -0.0007983732672829914,
+              -0.0016471681802240458
+            ],
+            "model_hash": "4c2ddda7e29cfadaf705add82f64d2d64aeb821eb3185026aec30e4d9ecebe0f",
+            "rank": 9,
+            "regularization": "NONE",
+            "signal_threshold": 0.0,
+            "stds_ddof_0": [
+              0.008831547976403979,
+              0.040979900260506213,
+              0.03039844118278483,
+              0.005166967832126526,
+              0.5186197253032117,
+              0.22308520636354673,
+              0.06535301129284896,
+              0.04713864693000684
+            ],
+            "thresholds_searched": 0,
+            "training_label_hash": "0c36d85d5eeea625a110255e7db6e2fb1d5bb230278d1f1355586ec81761d5de",
+            "training_matrix_hash": "150e65cadc27d81349aab322c7f040b12bf492df33ce6f32b84230e6ab3480a5"
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 41152,
+            "fold_id": "DEV-2023",
+            "input_scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+            "max_training_label_outcome_us": 1671836400000000,
+            "purge_boundary_exclusive_us": 1671840000000000,
+            "training_label_logical_sha256": "0c36d85d5eeea625a110255e7db6e2fb1d5bb230278d1f1355586ec81761d5de",
+            "training_matrix_logical_sha256": "150e65cadc27d81349aab322c7f040b12bf492df33ce6f32b84230e6ab3480a5",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1671750000000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1672617600000000,
+            "variant": "INTERNAL_LINEAR_MATCHED"
+          }
+        },
+        {
+          "fold_id": "DEV-2024",
+          "model": {
+            "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+            "coefficients": [
+              -0.006096593178783506,
+              -0.04055925608950202,
+              0.05189860466673854,
+              0.006023987542692273,
+              0.0009447762798612345,
+              0.05407455891107914,
+              -0.011121076904931672,
+              0.007052378791956279
+            ],
+            "condition_number": 5.104195450921065,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "full_rank": true,
+            "hyperparameters_searched": 0,
+            "intercept": -0.09212838582771028,
+            "means": [
+              2.9492429698403217e-05,
+              0.0007286502664217873,
+              -0.024931505889479726,
+              0.006590530614784061,
+              -0.12599732978436182,
+              0.02372904613405338,
+              -0.0032313103051611167,
+              -0.003794365474571658
+            ],
+            "model_hash": "b7a550044f11bc01d6898a524515e3c7b61ef2c8d815501031822b384d3c056c",
+            "rank": 9,
+            "regularization": "NONE",
+            "signal_threshold": 0.0,
+            "stds_ddof_0": [
+              0.00824749505034648,
+              0.03849679993512381,
+              0.02860085273388938,
+              0.004965897902041573,
+              0.532945939534618,
+              0.22876630606063472,
+              0.0631071336516676,
+              0.04504703638257303
+            ],
+            "thresholds_searched": 0,
+            "training_label_hash": "34ef4ec02bae5fe1047b2cbef33df78b2294ae3a54dcf4e97d3e5c23ce09c7bc",
+            "training_matrix_hash": "07f2acc55b61222703d2688544c5e03c57d21dd90ee4891bc05d5698ae16eebc"
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 49716,
+            "fold_id": "DEV-2024",
+            "input_scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+            "max_training_label_outcome_us": 1703372400000000,
+            "purge_boundary_exclusive_us": 1703376000000000,
+            "training_label_logical_sha256": "34ef4ec02bae5fe1047b2cbef33df78b2294ae3a54dcf4e97d3e5c23ce09c7bc",
+            "training_matrix_logical_sha256": "07f2acc55b61222703d2688544c5e03c57d21dd90ee4891bc05d5698ae16eebc",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1703286000000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1704153600000000,
+            "variant": "INTERNAL_LINEAR_MATCHED"
+          }
+        }
+      ],
+      "prediction": {
+        "distribution": {
+          "count": 48784,
+          "maximum": 0.28806399449181275,
+          "mean": -0.06776737022312997,
+          "median": -0.06886441451407058,
+          "minimum": -1.0490843067948472,
+          "q25": -0.11723534845109912,
+          "q75": -0.016294774323382888,
+          "std_ddof_0": 0.08571927290961383
+        },
+        "eligible_validation_hours": 48784,
+        "paired_label_count": 48538,
+        "per_fold": {
+          "DEV-2019": {
+            "distribution": {
+              "count": 7641,
+              "maximum": 0.28806399449181275,
+              "mean": -0.059326287144201115,
+              "median": -0.05678913414302737,
+              "minimum": -0.5200906320596931,
+              "q25": -0.1219773397235129,
+              "q75": 0.011985759857568473,
+              "std_ddof_0": 0.10321105326976963
+            },
+            "eligible_hours": 7641,
+            "paired_labels": 7581,
+            "pearson": 0.10827980367042814,
+            "prediction_positive_hours": 2210
+          },
+          "DEV-2020": {
+            "distribution": {
+              "count": 7451,
+              "maximum": 0.25108544410510014,
+              "mean": -0.03478833747240504,
+              "median": -0.02955638167626387,
+              "minimum": -1.0490843067948472,
+              "q25": -0.09780470234228589,
+              "q75": 0.03778897370588556,
+              "std_ddof_0": 0.11265011560783678
+            },
+            "eligible_hours": 7451,
+            "paired_labels": 7335,
+            "pearson": 0.02977756945465624,
+            "prediction_positive_hours": 2872
+          },
+          "DEV-2021": {
+            "distribution": {
+              "count": 7705,
+              "maximum": 0.18087184534522238,
+              "mean": -0.061484647942501365,
+              "median": -0.05947588052980843,
+              "minimum": -0.4220789669428257,
+              "q25": -0.11695852993514366,
+              "q75": -0.0008237538951743062,
+              "std_ddof_0": 0.0883687418192465
+            },
+            "eligible_hours": 7705,
+            "paired_labels": 7655,
+            "pearson": -0.03306521573987846,
+            "prediction_positive_hours": 1901
+          },
+          "DEV-2022": {
+            "distribution": {
+              "count": 8713,
+              "maximum": 0.0997737244437361,
+              "mean": -0.08858635611171652,
+              "median": -0.0800588698623389,
+              "minimum": -0.43825208606673105,
+              "q25": -0.12962890950537506,
+              "q75": -0.03668289223033196,
+              "std_ddof_0": 0.07521346786050837
+            },
+            "eligible_hours": 8713,
+            "paired_labels": 8713,
+            "pearson": -0.017805113496828947,
+            "prediction_positive_hours": 812
+          },
+          "DEV-2023": {
+            "distribution": {
+              "count": 8537,
+              "maximum": 0.09118818539790052,
+              "mean": -0.08014421714194327,
+              "median": -0.07925649269591367,
+              "minimum": -0.3313667392376073,
+              "q25": -0.1169842591399876,
+              "q75": -0.04205804129911885,
+              "std_ddof_0": 0.06135756747841057
+            },
+            "eligible_hours": 8537,
+            "paired_labels": 8517,
+            "pearson": 0.029921117480589433,
+            "prediction_positive_hours": 873
+          },
+          "DEV-2024": {
+            "distribution": {
+              "count": 8737,
+              "maximum": 0.07763893502451215,
+              "mean": -0.07595971288203192,
+              "median": -0.07694634132147551,
+              "minimum": -0.33586592251703523,
+              "q25": -0.11406405826017964,
+              "q75": -0.036531335525760496,
+              "std_ddof_0": 0.05484846015232761
+            },
+            "eligible_hours": 8737,
+            "paired_labels": 8737,
+            "pearson": 0.013184859727534852,
+            "prediction_positive_hours": 797
+          }
+        },
+        "pooled_prediction_label_pearson": 0.030509574361504192,
+        "prediction_positive_hours": 9465
+      }
+    },
+    "SHALLOW_INTERNAL_HGBR": {
+      "folds": [
+        {
+          "fold_id": "DEV-2019",
+          "model": {
+            "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+            "boosting_iterations": 64,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "feature_variants": 0,
+            "hyperparameters_searched": 0,
+            "identity_sha256": "5f40f76b1ac4de57005228eeeee6a565a0d4836558a18cf0a5a496929f142042",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+            "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+            "parameters": {
+              "early_stopping": false,
+              "l2_regularization": 1.0,
+              "learning_rate": 0.05,
+              "loss": "squared_error",
+              "max_bins": 63,
+              "max_depth": 3,
+              "max_iter": 64,
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 128,
+              "random_state": 0
+            },
+            "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+            "serialization_sha256": "13cd45a04fb0ae99e5b5fb2648d16134a590f4f34b7f0ba2bfbb66a046bb6660",
+            "sklearn_version": "1.7.2",
+            "thresholds_searched": 0,
+            "training_label_hash": "14307104915b5cc1861dbcc6313386e1fdde09a622f3587943de96152e354774",
+            "training_matrix_hash": "5321c7c680ffd14c6562ff242b839eedbe4efa2b1c4cf7b24742b8a75d78a587",
+            "tree_count": 64,
+            "trees_per_iteration": 1
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 9725,
+            "fold_id": "DEV-2019",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "max_training_label_outcome_us": 1545602400000000,
+            "purge_boundary_exclusive_us": 1545609600000000,
+            "training_label_logical_sha256": "14307104915b5cc1861dbcc6313386e1fdde09a622f3587943de96152e354774",
+            "training_matrix_logical_sha256": "5321c7c680ffd14c6562ff242b839eedbe4efa2b1c4cf7b24742b8a75d78a587",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1545573600000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1546387200000000,
+            "variant": "SHALLOW_INTERNAL_HGBR"
+          }
+        },
+        {
+          "fold_id": "DEV-2020",
+          "model": {
+            "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+            "boosting_iterations": 64,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "feature_variants": 0,
+            "hyperparameters_searched": 0,
+            "identity_sha256": "73e03ca3da3bf471d1b5562871b77ada8322077eb8287d3619f9a7e9c1eeecc6",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+            "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+            "parameters": {
+              "early_stopping": false,
+              "l2_regularization": 1.0,
+              "learning_rate": 0.05,
+              "loss": "squared_error",
+              "max_bins": 63,
+              "max_depth": 3,
+              "max_iter": 64,
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 128,
+              "random_state": 0
+            },
+            "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+            "serialization_sha256": "f39260d7c324fd5992c018fb3e016c21c9a6a86fe26a2c884bafb10fc4991faf",
+            "sklearn_version": "1.7.2",
+            "thresholds_searched": 0,
+            "training_label_hash": "ea82509460f57ddeaba8d37d7ee8709abdbeac5416a5fa50fd9d7cfb873c4452",
+            "training_matrix_hash": "3925452da6e52fd5264d3dc09befffaea3e5a6ffc3c2695829f2640101761218",
+            "tree_count": 64,
+            "trees_per_iteration": 1
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 17359,
+            "fold_id": "DEV-2020",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "max_training_label_outcome_us": 1577142000000000,
+            "purge_boundary_exclusive_us": 1577145600000000,
+            "training_label_logical_sha256": "ea82509460f57ddeaba8d37d7ee8709abdbeac5416a5fa50fd9d7cfb873c4452",
+            "training_matrix_logical_sha256": "3925452da6e52fd5264d3dc09befffaea3e5a6ffc3c2695829f2640101761218",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1577131200000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1577923200000000,
+            "variant": "SHALLOW_INTERNAL_HGBR"
+          }
+        },
+        {
+          "fold_id": "DEV-2021",
+          "model": {
+            "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+            "boosting_iterations": 64,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "feature_variants": 0,
+            "hyperparameters_searched": 0,
+            "identity_sha256": "51f3781659068fc4bfc86c8ff937c27945f54b374bf9b0a3288725fd901ecdc9",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+            "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+            "parameters": {
+              "early_stopping": false,
+              "l2_regularization": 1.0,
+              "learning_rate": 0.05,
+              "loss": "squared_error",
+              "max_bins": 63,
+              "max_depth": 3,
+              "max_iter": 64,
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 128,
+              "random_state": 0
+            },
+            "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+            "serialization_sha256": "a9a9b15a0cf617aa7bbc385014935ccbcb7feeafd3bc0795b38945a6a7251eaa",
+            "sklearn_version": "1.7.2",
+            "thresholds_searched": 0,
+            "training_label_hash": "08737f279aa7c98af13746fa2e9dc41d22eb341e4d2f49fbf6e3cea7ff927dff",
+            "training_matrix_hash": "acd14c113020cab3f40f497e616ffb46181561543ed09f38f064e587998c5591",
+            "tree_count": 64,
+            "trees_per_iteration": 1
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 24915,
+            "fold_id": "DEV-2021",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "max_training_label_outcome_us": 1608552720000000,
+            "purge_boundary_exclusive_us": 1608768000000000,
+            "training_label_logical_sha256": "08737f279aa7c98af13746fa2e9dc41d22eb341e4d2f49fbf6e3cea7ff927dff",
+            "training_matrix_logical_sha256": "acd14c113020cab3f40f497e616ffb46181561543ed09f38f064e587998c5591",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1608552000000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1609545600000000,
+            "variant": "SHALLOW_INTERNAL_HGBR"
+          }
+        },
+        {
+          "fold_id": "DEV-2022",
+          "model": {
+            "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+            "boosting_iterations": 64,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "feature_variants": 0,
+            "hyperparameters_searched": 0,
+            "identity_sha256": "b7e8f4262a86387c68265cbe0f25509d75c4ef8ff81a95b895f1aab65a2d2a06",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+            "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+            "parameters": {
+              "early_stopping": false,
+              "l2_regularization": 1.0,
+              "learning_rate": 0.05,
+              "loss": "squared_error",
+              "max_bins": 63,
+              "max_depth": 3,
+              "max_iter": 64,
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 128,
+              "random_state": 0
+            },
+            "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+            "serialization_sha256": "770dd674dda442e76538f1e45cdad60d9e66cd2ac06cd41e27f02d83d9b59c43",
+            "sklearn_version": "1.7.2",
+            "thresholds_searched": 0,
+            "training_label_hash": "5a2f48fdb16e9c8cb39782b24f5ec9225962d7376c955af1b7c488867b6a32f3",
+            "training_matrix_hash": "e774ed3c0e4dfdc347ba8b696f408cf8305230506a53adb29a0d1983b01153f7",
+            "tree_count": 64,
+            "trees_per_iteration": 1
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 32410,
+            "fold_id": "DEV-2022",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "max_training_label_outcome_us": 1640288400000000,
+            "purge_boundary_exclusive_us": 1640304000000000,
+            "training_label_logical_sha256": "5a2f48fdb16e9c8cb39782b24f5ec9225962d7376c955af1b7c488867b6a32f3",
+            "training_matrix_logical_sha256": "e774ed3c0e4dfdc347ba8b696f408cf8305230506a53adb29a0d1983b01153f7",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1640278800000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1641081600000000,
+            "variant": "SHALLOW_INTERNAL_HGBR"
+          }
+        },
+        {
+          "fold_id": "DEV-2023",
+          "model": {
+            "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+            "boosting_iterations": 64,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "feature_variants": 0,
+            "hyperparameters_searched": 0,
+            "identity_sha256": "e0df8838c1f3e141293c3a95e335614336d761c4085a845db5c51c1ce48244c6",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+            "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+            "parameters": {
+              "early_stopping": false,
+              "l2_regularization": 1.0,
+              "learning_rate": 0.05,
+              "loss": "squared_error",
+              "max_bins": 63,
+              "max_depth": 3,
+              "max_iter": 64,
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 128,
+              "random_state": 0
+            },
+            "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+            "serialization_sha256": "7164ce9e3e6a33ed7bd94494084b40b967de17ee85c8783a1f1f0853f9df3ba1",
+            "sklearn_version": "1.7.2",
+            "thresholds_searched": 0,
+            "training_label_hash": "0c36d85d5eeea625a110255e7db6e2fb1d5bb230278d1f1355586ec81761d5de",
+            "training_matrix_hash": "150e65cadc27d81349aab322c7f040b12bf492df33ce6f32b84230e6ab3480a5",
+            "tree_count": 64,
+            "trees_per_iteration": 1
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 41152,
+            "fold_id": "DEV-2023",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "max_training_label_outcome_us": 1671836400000000,
+            "purge_boundary_exclusive_us": 1671840000000000,
+            "training_label_logical_sha256": "0c36d85d5eeea625a110255e7db6e2fb1d5bb230278d1f1355586ec81761d5de",
+            "training_matrix_logical_sha256": "150e65cadc27d81349aab322c7f040b12bf492df33ce6f32b84230e6ab3480a5",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1671750000000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1672617600000000,
+            "variant": "SHALLOW_INTERNAL_HGBR"
+          }
+        },
+        {
+          "fold_id": "DEV-2024",
+          "model": {
+            "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+            "boosting_iterations": 64,
+            "dependency_hash": "0d5f14865c0232eb5d8cb72a69679203b1d0d32f20faf59d38a27102f831cb4f",
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "feature_variants": 0,
+            "hyperparameters_searched": 0,
+            "identity_sha256": "309039e7c25ffbfb216c85de363482f7df0cc3e043884f8199476444a9815004",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "leaf_node_statistics": "UNAVAILABLE_IN_PUBLIC_SKLEARN_API_NOT_INSPECTED",
+            "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+            "parameters": {
+              "early_stopping": false,
+              "l2_regularization": 1.0,
+              "learning_rate": 0.05,
+              "loss": "squared_error",
+              "max_bins": 63,
+              "max_depth": 3,
+              "max_iter": 64,
+              "max_leaf_nodes": 7,
+              "min_samples_leaf": 128,
+              "random_state": 0
+            },
+            "serialization_format": "PYTHON_PICKLE_PROTOCOL_5_NOT_COMMITTED",
+            "serialization_sha256": "47fa7001b8adb9e09be2483dbd2b94448551f47b206878de3596128554a746c5",
+            "sklearn_version": "1.7.2",
+            "thresholds_searched": 0,
+            "training_label_hash": "34ef4ec02bae5fe1047b2cbef33df78b2294ae3a54dcf4e97d3e5c23ce09c7bc",
+            "training_matrix_hash": "07f2acc55b61222703d2688544c5e03c57d21dd90ee4891bc05d5698ae16eebc",
+            "tree_count": 64,
+            "trees_per_iteration": 1
+          },
+          "training_manifest": {
+            "feature_order": [
+              "LOG_RETURN_1H",
+              "LOG_RETURN_24H",
+              "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+              "REALIZED_VOL_24H",
+              "LOG_RELATIVE_VOLUME_1H",
+              "DIRECTIONAL_EFFICIENCY_4H",
+              "TAKER_BUY_SHARE_1H_CENTERED",
+              "TAKER_BUY_SHARE_4H_CENTERED"
+            ],
+            "fit_rows": 49716,
+            "fold_id": "DEV-2024",
+            "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+            "max_training_label_outcome_us": 1703372400000000,
+            "purge_boundary_exclusive_us": 1703376000000000,
+            "training_label_logical_sha256": "34ef4ec02bae5fe1047b2cbef33df78b2294ae3a54dcf4e97d3e5c23ce09c7bc",
+            "training_matrix_logical_sha256": "07f2acc55b61222703d2688544c5e03c57d21dd90ee4891bc05d5698ae16eebc",
+            "training_rows_committed": false,
+            "training_signal_max_us": 1703286000000000,
+            "training_signal_min_us": 1503565200000000,
+            "validation_start_us": 1704153600000000,
+            "variant": "SHALLOW_INTERNAL_HGBR"
+          }
+        }
+      ],
+      "prediction": {
+        "distribution": {
+          "count": 48784,
+          "maximum": 0.65300009565002,
+          "mean": -0.068603854596359,
+          "median": -0.07980202077306471,
+          "minimum": -0.5096113784259338,
+          "q25": -0.13349706007116735,
+          "q75": -0.0132975575672057,
+          "std_ddof_0": 0.11590207161280042
+        },
+        "eligible_validation_hours": 48784,
+        "paired_label_count": 48538,
+        "per_fold": {
+          "DEV-2019": {
+            "distribution": {
+              "count": 7641,
+              "maximum": 0.65300009565002,
+              "mean": -0.03878412159754016,
+              "median": -0.02377177062706239,
+              "minimum": -0.41421474016157356,
+              "q25": -0.126787969791731,
+              "q75": 0.05117762735710689,
+              "std_ddof_0": 0.15226681570377107
+            },
+            "eligible_hours": 7641,
+            "paired_labels": 7581,
+            "pearson": 0.07761263726150446,
+            "prediction_positive_hours": 3235
+          },
+          "DEV-2020": {
+            "distribution": {
+              "count": 7451,
+              "maximum": 0.6094382609890162,
+              "mean": -0.041359414702579825,
+              "median": -0.053085058345799935,
+              "minimum": -0.5096113784259338,
+              "q25": -0.14017556465674974,
+              "q75": 0.030322683247383964,
+              "std_ddof_0": 0.15115991214174287
+            },
+            "eligible_hours": 7451,
+            "paired_labels": 7335,
+            "pearson": 0.0521047234506091,
+            "prediction_positive_hours": 2161
+          },
+          "DEV-2021": {
+            "distribution": {
+              "count": 7705,
+              "maximum": 0.4601441933282023,
+              "mean": -0.0752000310219357,
+              "median": -0.06805243875379427,
+              "minimum": -0.4415611977221579,
+              "q25": -0.15286149202782448,
+              "q75": -0.00766406250579965,
+              "std_ddof_0": 0.11399917995952188
+            },
+            "eligible_hours": 7705,
+            "paired_labels": 7655,
+            "pearson": -0.02636011954921323,
+            "prediction_positive_hours": 1717
+          },
+          "DEV-2022": {
+            "distribution": {
+              "count": 8713,
+              "maximum": 0.30675378726821945,
+              "mean": -0.09342384405948974,
+              "median": -0.09724200099490561,
+              "minimum": -0.3845066867280318,
+              "q25": -0.15372859651648269,
+              "q75": -0.02887151078092097,
+              "std_ddof_0": 0.09619366902870888
+            },
+            "eligible_hours": 8713,
+            "paired_labels": 8713,
+            "pearson": -0.024291937132156657,
+            "prediction_positive_hours": 1002
+          },
+          "DEV-2023": {
+            "distribution": {
+              "count": 8537,
+              "maximum": 0.39378532372968394,
+              "mean": -0.0838831597774901,
+              "median": -0.08790377103923469,
+              "minimum": -0.46987781455431576,
+              "q25": -0.12622819310588337,
+              "q75": -0.042733290294196535,
+              "std_ddof_0": 0.08264512971592773
+            },
+            "eligible_hours": 8537,
+            "paired_labels": 8517,
+            "pearson": 0.024023367302410895,
+            "prediction_positive_hours": 1082
+          },
+          "DEV-2024": {
+            "distribution": {
+              "count": 8737,
+              "maximum": 0.39593650858086743,
+              "mean": -0.07241882147399216,
+              "median": -0.08757862449971394,
+              "minimum": -0.2710925422015157,
+              "q25": -0.11747443649874988,
+              "q75": -0.04210272551392021,
+              "std_ddof_0": 0.0746651388436249
+            },
+            "eligible_hours": 8737,
+            "paired_labels": 8737,
+            "pearson": 0.03515005595474583,
+            "prediction_positive_hours": 1161
+          }
+        },
+        "pooled_prediction_label_pearson": 0.03249332915839472,
+        "prediction_positive_hours": 10358
+      }
+    }
+  },
+  "eligibility_exclusions": {
+    "internal_feature_ineligible": 5604,
+    "label_invalid": 83,
+    "label_unresolved": 1367,
+    "outcome_after_purge_boundary": 70
+  },
+  "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+  "predictive_not_causal": true,
+  "schema_version": 1,
+  "used_to_adapt_experiment": false,
+  "work_package": "WP-014"
+}

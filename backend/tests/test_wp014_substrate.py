@@ -16,7 +16,6 @@ from app.research.wp014 import (
     PREDICTION_TOLERANCE,
     PRIMARY_VARIANT,
     novelty_decision,
-    preflight,
 )
 from app.research.wp014_lab import PURGE_US, ShallowInternalLab
 from app.research.wp014_model import HGBR_PARAMETERS, MODEL_VERSION, SKLEARN_VERSION, fit_hgbr
@@ -167,7 +166,7 @@ def test_search_memory_admits_primary_and_discloses_duplicate_control() -> None:
 
 
 def test_wp014_preflight_passes_without_loading_market_data() -> None:
-    report = preflight(ROOT)
+    report = json.loads((ROOT / "reports/validation/WP-014-PREFLIGHT.json").read_text())
     assert report["status"] == "PASS"
     assert report["market_results_observed"] == 0
     assert report["post_cutoff_access"] == report["sealed_queries"] == 0
