@@ -264,6 +264,8 @@
         "wp014_profiles_reserved",
         "wp015_variants_reserved",
         "wp015_profiles_reserved",
+        "wp016_variants_reserved",
+        "wp016_profiles_reserved",
         "supervised_model_fits"
       ],
       "properties": {
@@ -380,6 +382,14 @@
           "minimum": 0
         },
         "wp015_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp016_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp016_profiles_reserved": {
           "type": "integer",
           "minimum": 0
         },
@@ -1035,6 +1045,38 @@
         }
       }
     },
+    "attention_context_challenger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "root_family",
+        "primary",
+        "control",
+        "attention_manifest_id",
+        "attention_records",
+        "validation_folds",
+        "reserved_model_fits",
+        "actual_model_fits",
+        "market_results_observed",
+        "runner_candidate_id"
+      ],
+      "properties": {
+        "version": {"const": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1"},
+        "status": {"const": "PREREGISTERED_PENDING_OWNER_EXECUTION"},
+        "root_family": {"const": "FAM-EXTERNAL-PUBLIC-ATTENTION"},
+        "primary": {"const": "INTERNAL_FUNDING_PLUS_ATTENTION_HGBR"},
+        "control": {"const": "INTERNAL_PLUS_FUNDING_HGBR_MATCHED_ATTENTION"},
+        "attention_manifest_id": {"const": "WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1"},
+        "attention_records": {"const": 3472},
+        "validation_folds": {"const": 5},
+        "reserved_model_fits": {"const": 10},
+        "actual_model_fits": {"const": 0},
+        "market_results_observed": {"const": false},
+        "runner_candidate_id": {"const": "WP016_WIKIPEDIA_ATTENTION_V1"}
+      }
+    },
     "research_runner": {
       "type": "object",
       "additionalProperties": false,
@@ -1046,7 +1088,9 @@
         "maximum_active_runs",
         "arbitrary_execution",
         "scientific_counters_mutated",
-        "real_backtest_executed_during_checkpoint"
+        "real_backtest_executed_during_checkpoint",
+        "research_director_verdict",
+        "wp015_reproduction"
       ],
       "properties": {
         "version": {
@@ -1059,12 +1103,15 @@
           "type": "array",
           "prefixItems": [
             {
+              "const": "WP016_WIKIPEDIA_ATTENTION_V1"
+            },
+            {
               "const": "WP015_REPRODUCTION_V1"
             }
           ],
           "items": false,
-          "minItems": 1,
-          "maxItems": 1
+          "minItems": 2,
+          "maxItems": 2
         },
         "runtime_storage": {
           "const": "GITIGNORED_LOCAL_ATOMIC_JSON"
@@ -1080,6 +1127,41 @@
         },
         "real_backtest_executed_during_checkpoint": {
           "const": false
+        },
+        "research_director_verdict": {
+          "const": "ACCEPTED"
+        },
+        "wp015_reproduction": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "evidence_type",
+            "default_expectancy_r",
+            "zero_cost_expectancy_r",
+            "double_cost_expectancy_r",
+            "delay_expectancy_r",
+            "trade_count",
+            "nonnegative_folds",
+            "control_default_expectancy_r",
+            "primary_minus_control_r",
+            "oos_correlation",
+            "reconciliation"
+          ],
+          "properties": {
+            "status": {"const": "SUCCESS"},
+            "evidence_type": {"const": "REPRODUCTION_NOT_NEW_EVIDENCE"},
+            "default_expectancy_r": {"const": -0.0814500414},
+            "zero_cost_expectancy_r": {"const": 0.0385955883},
+            "double_cost_expectancy_r": {"const": -0.2014956557},
+            "delay_expectancy_r": {"const": -0.1044031521},
+            "trade_count": {"const": 716},
+            "nonnegative_folds": {"const": 0},
+            "control_default_expectancy_r": {"const": -0.1236220929},
+            "primary_minus_control_r": {"const": 0.0421720515},
+            "oos_correlation": {"const": -0.0255549311},
+            "reconciliation": {"const": "PASS"}
+          }
         }
       }
     },

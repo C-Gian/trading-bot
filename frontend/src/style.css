@@ -206,6 +206,8 @@ button:disabled {
 .research-head { align-items: flex-start; }
 .research-grid { display: grid; grid-template-columns: minmax(280px, .8fr) minmax(0, 1.4fr); gap: var(--s5); }
 .research-candidate, .research-status { min-height: 280px; display: flex; flex-direction: column; justify-content: center; gap: var(--s4); }
+.research-picker { display: grid; gap: 6px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.research-picker select { width: 100%; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); padding: 11px 12px; font: inherit; letter-spacing: 0; text-transform: none; }
 .research-candidate-title h3 { font-size: 19px; }
 .research-warning { color: var(--accent-hi); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
 .research-cta { margin-top: var(--s3); }

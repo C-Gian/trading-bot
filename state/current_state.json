@@ -21,18 +21,18 @@
     "version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1"
   },
   "adaptive_search": {
-    "adaptive_decisions": 11,
-    "configuration_variants": 25,
+    "adaptive_decisions": 12,
+    "configuration_variants": 27,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
     "integrity_replay_profiles": 12,
-    "material_economic_hypotheses": 11,
+    "material_economic_hypotheses": 12,
     "numeric_parameter_variants": 0,
-    "profile_trials": 117,
+    "profile_trials": 125,
     "result_dependent_forks": 10,
     "sealed_queries": 0,
-    "strategy_descendants": 12,
-    "supervised_model_fits": 208,
+    "strategy_descendants": 13,
+    "supervised_model_fits": 218,
     "wp004_profiles_reserved": 12,
     "wp004_variants_reserved": 3,
     "wp006_profiles_reserved": 8,
@@ -50,7 +50,23 @@
     "wp014_profiles_reserved": 8,
     "wp014_variants_reserved": 2,
     "wp015_profiles_reserved": 8,
-    "wp015_variants_reserved": 2
+    "wp015_variants_reserved": 2,
+    "wp016_profiles_reserved": 8,
+    "wp016_variants_reserved": 2
+  },
+  "attention_context_challenger": {
+    "actual_model_fits": 0,
+    "attention_manifest_id": "WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1",
+    "attention_records": 3472,
+    "control": "INTERNAL_PLUS_FUNDING_HGBR_MATCHED_ATTENTION",
+    "market_results_observed": false,
+    "primary": "INTERNAL_FUNDING_PLUS_ATTENTION_HGBR",
+    "reserved_model_fits": 10,
+    "root_family": "FAM-EXTERNAL-PUBLIC-ATTENTION",
+    "runner_candidate_id": "WP016_WIKIPEDIA_ATTENTION_V1",
+    "status": "PREREGISTERED_PENDING_OWNER_EXECUTION",
+    "validation_folds": 5,
+    "version": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1"
   },
   "artifact_storage": {
     "historical_evidence_rewritten": false,
@@ -145,7 +161,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP_015",
+  "next_recommended_work_package": "OWNER_EXECUTE_WP016_WIKIPEDIA_ATTENTION_V1_FROM_RESEARCH_LAB",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -270,14 +286,30 @@
   "research_runner": {
     "arbitrary_execution": false,
     "candidate_ids": [
+      "WP016_WIKIPEDIA_ATTENTION_V1",
       "WP015_REPRODUCTION_V1"
     ],
     "maximum_active_runs": 1,
     "real_backtest_executed_during_checkpoint": false,
+    "research_director_verdict": "ACCEPTED",
     "runtime_storage": "GITIGNORED_LOCAL_ATOMIC_JSON",
     "scientific_counters_mutated": false,
     "surface": "AVAILABLE",
-    "version": "RESEARCH_RUNNER_V1"
+    "version": "RESEARCH_RUNNER_V1",
+    "wp015_reproduction": {
+      "default_expectancy_r": -0.0814500414,
+      "double_cost_expectancy_r": -0.2014956557,
+      "evidence_type": "REPRODUCTION_NOT_NEW_EVIDENCE",
+      "nonnegative_folds": 0,
+      "oos_correlation": -0.0255549311,
+      "primary_minus_control_r": 0.0421720515,
+      "reconciliation": "PASS",
+      "status": "SUCCESS",
+      "trade_count": 716,
+      "zero_cost_expectancy_r": 0.0385955883,
+      "delay_expectancy_r": -0.1044031521,
+      "control_default_expectancy_r": -0.1236220929
+    }
   },
   "research_market": "crypto_spot",
   "schema_version": 3,
@@ -293,7 +325,7 @@
   },
   "sealed_evaluations_completed": 0,
   "search_memory": {
-    "families_tracked": 13,
+    "families_tracked": 14,
     "status": "VALIDATED",
     "version": "SEARCH_MEMORY_V2"
   },

@@ -289,7 +289,7 @@ def build_review_bundle(result: Mapping[str, Any]) -> str:
         },
         "reconciliation_status": result["reconciliation_status"],
         "warnings": result.get("warnings", []),
-        "new_experiment": False,
+        "new_experiment": bool(result.get("new_experiment", False)),
     }
     return json.dumps(payload, indent=2, sort_keys=True, allow_nan=False)
 
@@ -385,7 +385,7 @@ class LocalResearchRunner:
                 status="COMPLETED",
                 stage="COMPLETED",
                 progress=100,
-                detail="Riproduzione completata",
+                detail="Esecuzione completata",
                 finished_at=finished,
                 result=result,
                 review_bundle=build_review_bundle(result),
@@ -412,8 +412,33 @@ class LocalResearchRunner:
         return payload
 
 
-def wp015_registry() -> CandidateRegistry:
+def research_candidate_registry() -> CandidateRegistry:
     from .wp015_reproduction import REQUIRED_DATASETS, run_wp015_reproduction
+    from .wp016_runner import (
+        EVIDENCE_TYPE as WP016_EVIDENCE_TYPE,
+    )
+    from .wp016_runner import (
+        REQUIRED_DATASETS as WP016_REQUIRED_DATASETS,
+    )
+    from .wp016_runner import run_wp016_attention
+
+    funding_manifest = json.loads(
+        (ROOT / "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json").read_text(encoding="utf-8")
+    )
+    attention_manifest = json.loads(
+        (ROOT / "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    wp016_required_datasets = tuple(
+        dict.fromkeys(
+            (
+                *WP016_REQUIRED_DATASETS,
+                *(item["path"] for item in funding_manifest["raw_requests"]),
+                *(item["path"] for item in attention_manifest["raw_requests"]),
+            )
+        )
+    )
 
     stages = (
         "READY",
@@ -433,6 +458,36 @@ def wp015_registry() -> CandidateRegistry:
     )
     return CandidateRegistry(
         (
+            CandidateDefinition(
+                candidate_id="WP016_WIKIPEDIA_ATTENTION_V1",
+                display_name="WP-016 · Shock di attenzione Wikipedia",
+                purpose=(
+                    "Valuta se l'attenzione pubblica anomala verso Bitcoin aggiunge "
+                    "informazione ai segnali spot e al funding già congelati."
+                ),
+                run_type="NEW_EXPERIMENT",
+                status="PREREGISTERED_AVAILABLE",
+                expected_stages=stages,
+                required_local_datasets=wp016_required_datasets,
+                fixed_runner_adapter="app.research.wp016_runner.run_wp016_attention",
+                scientific_warning=(
+                    "NEW PREREGISTERED DEVELOPMENT EXPERIMENT · NOT SEALED EVIDENCE · "
+                    "REQUIRES RESEARCH DIRECTOR REVIEW"
+                ),
+                scientific_evidence_type=WP016_EVIDENCE_TYPE,
+                execution_counts_as_new_evidence=True,
+                preregistration_sha256=(
+                    (
+                        "research/experiments/EXP-ML-026-INTERNAL-FUNDING-PLUS-ATTENTION-HGBR/preregistration.json",
+                        "164f7ee45e3301f3a6a908685f6fcd7d4eebd629990588283df04428b1842984",
+                    ),
+                    (
+                        "research/experiments/EXP-ML-027-INTERNAL-PLUS-FUNDING-HGBR-MATCHED-ATTENTION/preregistration.json",
+                        "da04ab767e46b7b0ca172d6276521abbfb40d71f2fdbc27e7f3bbde43087be1a",
+                    ),
+                ),
+                adapter=run_wp016_attention,
+            ),
             CandidateDefinition(
                 candidate_id="WP015_REPRODUCTION_V1",
                 display_name="WP-015 · Contesto funding perpetual",
@@ -467,9 +522,14 @@ def wp015_registry() -> CandidateRegistry:
     )
 
 
+def wp015_registry() -> CandidateRegistry:
+    """Compatibility alias for callers written before the WP-016 registry extension."""
+    return research_candidate_registry()
+
+
 @lru_cache(maxsize=1)
 def default_runner() -> LocalResearchRunner:
-    return LocalResearchRunner(wp015_registry())
+    return LocalResearchRunner(research_candidate_registry())
 
 
 __all__ = [
@@ -485,5 +545,6 @@ __all__ = [
     "UnknownCandidateError",
     "build_review_bundle",
     "default_runner",
+    "research_candidate_registry",
     "wp015_registry",
 ]

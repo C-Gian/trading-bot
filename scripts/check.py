@@ -103,6 +103,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.wp013 import EXPERIMENTS as WP013_EXPERIMENTS
     from app.research.wp014 import EXPERIMENTS as WP014_EXPERIMENTS
     from app.research.wp015 import EXPERIMENTS as WP015_EXPERIMENTS
+    from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
     assert directories == (
@@ -116,6 +117,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP013_EXPERIMENTS.values())
         | set(WP014_EXPERIMENTS.values())
         | set(WP015_EXPERIMENTS.values())
+        | set(WP016_EXPERIMENTS.values())
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
     assert len(results) == state["experiments_completed"] == 25
@@ -168,6 +170,12 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         ).splitlines()[-1]
         assert pre_commit != result_commit
         run(["git", "merge-base", "--is-ancestor", pre_commit, result_commit])
+    for experiment_id in WP016_EXPERIMENTS.values():
+        directory = ROOT / "research/experiments" / experiment_id
+        prereg_path = directory / "preregistration.json"
+        validate_json(prereg_path, ROOT / "contracts/experiment_preregistration.schema.json")
+        assert not (directory / "result.json").exists()
+        assert not (directory / "trials.json").exists()
     random_trials = json.loads(
         (ROOT / "research/experiments/EXP-CTRL-002-RANDOM/trials.json").read_text()
     )
@@ -220,6 +228,24 @@ def validate_research_views(state: dict) -> None:
         and state["latest_executor_checkpoint"] == "WP-015"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
+    from app.research.local_runner import research_candidate_registry
+    from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
+    from app.research.wp016 import preflight as wp016_preflight
+
+    wp016 = wp016_preflight()
+    assert wp016["status"] == "PASS"
+    assert wp016["market_results_observed"] == wp016["model_fits_executed"] == 0
+    assert not any(
+        (ROOT / f"research/experiments/{experiment}/result.json").exists()
+        for experiment in WP016_EXPERIMENTS.values()
+    )
+    registry = research_candidate_registry()
+    assert [item["candidate_id"] for item in registry.public_records(ROOT)] == [
+        "WP016_WIKIPEDIA_ATTENTION_V1",
+        "WP015_REPRODUCTION_V1",
+    ]
+    assert state["attention_context_challenger"]["actual_model_fits"] == 0
+    assert state["attention_context_challenger"]["market_results_observed"] is False
     path = "research/memory/WP-004-LESSONS.json"
     lessons = validate_json(ROOT / path, ROOT / "contracts/research_lessons.schema.json")
     immutable_from_first_commit(path)
@@ -462,11 +488,12 @@ def dataset_scope_checks() -> None:
     gdelt = ROOT / "data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json"
     alfred = ROOT / "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json"
     funding = ROOT / "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json"
+    attention = ROOT / "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json"
     exogenous = ROOT / "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json"
     # The GDELT and combined-context manifests only exist once WP-009 is finalized; a
     # paused WP-009 must not be asked for them, and must not carry them either.
     wp009_final = gdelt.is_file() or exogenous.is_file()
-    expected = {approved, order_flow, alfred, funding}
+    expected = {approved, order_flow, alfred, funding, attention}
     if wp009_final:
         expected |= {gdelt, exogenous}
     assert set((ROOT / "data/manifests").glob("*.json")) == expected
@@ -480,6 +507,7 @@ def dataset_scope_checks() -> None:
     assert set((ROOT / "data/raw").rglob("*.zip")) <= raw
     alfred_manifest = json.loads(alfred.read_text(encoding="utf-8"))
     funding_manifest = json.loads(funding.read_text(encoding="utf-8"))
+    attention_manifest = json.loads(attention.read_text(encoding="utf-8"))
     approved_parquet = {
         *(ROOT / item["path"] for item in manifest["files"].values()),
         *(ROOT / item["path"] for item in flow_manifest["files"].values()),
@@ -487,6 +515,7 @@ def dataset_scope_checks() -> None:
         ROOT / alfred_manifest["request_index"]["path"],
         ROOT / funding_manifest["canonical"]["path"],
         ROOT / funding_manifest["request_index"]["path"],
+        ROOT / attention_manifest["canonical"]["path"],
     }
     if wp009_final:
         approved_parquet |= {
@@ -708,6 +737,12 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/research/WP-015-PERPETUAL-FUNDING.md",
         "reports/checkpoints/WP-015.md",
         "tasks/archive/WP-015.md",
+        "reports/reviews/RESEARCH-RUNNER-V1-RESEARCH-DIRECTOR-REVIEW.md",
+        "docs/contracts/WIKIPEDIA_ATTENTION_CONTEXT_V1.md",
+        "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json",
+        "reports/validation/WP-016-WIKIMEDIA-ATTENTION-AUDIT.json",
+        "research/protocols/WP-016-WIKIPEDIA-ATTENTION-HGBR-V1.json",
+        "reports/validation/WP-016-PREFLIGHT.json",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()

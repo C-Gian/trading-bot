@@ -96,9 +96,14 @@ def wait_terminal(service: LocalResearchRunner, run_id: str) -> dict[str, Any]:
     raise AssertionError("synthetic run did not reach a terminal state")
 
 
-def test_v1_registry_is_exactly_one_fixed_reproduction() -> None:
+def test_registry_is_exactly_two_fixed_allowlisted_candidates() -> None:
     registry = wp015_registry()
-    assert len(registry) == 1
+    assert len(registry) == 2
+    attention = registry.get("WP016_WIKIPEDIA_ATTENTION_V1")
+    assert attention.run_type == "NEW_EXPERIMENT"
+    assert attention.execution_counts_as_new_evidence is True
+    assert attention.preregistration_ready(Path(__file__).resolve().parents[2]) is True
+    assert "NEW PREREGISTERED DEVELOPMENT EXPERIMENT" in attention.scientific_warning
     candidate = registry.get("WP015_REPRODUCTION_V1")
     assert candidate.run_type == "REPRODUCTION_ONLY"
     assert candidate.execution_counts_as_new_evidence is False
@@ -240,6 +245,14 @@ def test_review_bundle_omits_logs_and_declares_reproduction(tmp_path: Path) -> N
     assert "giant_logs" not in bundle
     assert "REPRODUCTION_OF_ALREADY_EXPOSED_DEVELOPMENT_RESULT" in bundle
     assert '"new_experiment": false' in bundle
+
+
+def test_review_bundle_declares_a_new_experiment_when_adapter_does(tmp_path: Path) -> None:
+    candidate = fixture_candidate(lambda context: result(context))
+    context = RunContext(tmp_path, tmp_path, "c" * 32, candidate, lambda *_: None)
+    payload = result(context)
+    payload["new_experiment"] = True
+    assert json.loads(build_review_bundle(payload))["new_experiment"] is True
 
 
 def test_synthetic_runner_never_mutates_scientific_state(tmp_path: Path) -> None:

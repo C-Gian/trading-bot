@@ -9,11 +9,11 @@ def test_wp009_fixed_scope_and_non_trial_accounting() -> None:
     wp009 = [item for item in directions() if item["work_package"] == "WP-009"]
     assert len(wp009) == 1
     assert wp009[0]["strategy_experiments"] == wp009[0]["model_fits"] == 0
-    # WP-009 itself consumed no strategy trial. WP-011 through WP-015 later advanced these
-    # cumulative totals; the WP-009 scope assertions above are what this test guards.
+    # WP-009 itself consumed no strategy trial. Later work through preregistered WP-016
+    # advanced cumulative totals; the WP-009 scope assertions above remain unchanged.
     totals = cumulative_accounting()
-    assert totals["adaptive_decisions"] == 11
+    assert totals["adaptive_decisions"] == 12
     assert totals["result_dependent_forks"] == 10
-    assert totals["configuration_variants"] == 25
-    assert totals["profile_trials"] == 117
-    assert totals["supervised_model_fits"] == 208
+    assert totals["configuration_variants"] == 27
+    assert totals["profile_trials"] == 125
+    assert totals["supervised_model_fits"] == 218

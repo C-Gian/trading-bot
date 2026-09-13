@@ -40,13 +40,13 @@ def test_admission_reproduces_after_its_own_ledger_exists():
 
 def test_cumulative_search_accounting_is_exact():
     totals = cumulative_accounting()
-    # WP-011 through WP-015 each added one hypothesis, two configurations,
+    # WP-011 through preregistered WP-016 each added one hypothesis, two configurations,
     # and eight profiles.
-    assert totals["material_economic_hypotheses"] == 6 + 1 + 1 + 1 + 1 + 1
-    assert totals["configuration_variants"] == 15 + 2 + 2 + 2 + 2 + 2
-    assert totals["profile_trials"] == 77 + 8 + 8 + 8 + 8 + 8
-    # WP-011 reserved 144 fits; WP-012 18; WP-013/WP-014 12; WP-015 10.
-    assert totals["supervised_model_fits"] == 12 + 144 + 18 + 12 + 12 + 10
+    assert totals["material_economic_hypotheses"] == 6 + 1 + 1 + 1 + 1 + 1 + 1
+    assert totals["configuration_variants"] == 15 + 2 + 2 + 2 + 2 + 2 + 2
+    assert totals["profile_trials"] == 77 + 8 + 8 + 8 + 8 + 8 + 8
+    # WP-016 prospectively reserves ten fits; none has executed yet.
+    assert totals["supervised_model_fits"] == 12 + 144 + 18 + 12 + 12 + 10 + 10
     assert totals["wp012_variants_reserved"] == 2
     assert totals["wp012_profiles_reserved"] == 8
     assert totals["wp013_variants_reserved"] == 2
@@ -55,8 +55,10 @@ def test_cumulative_search_accounting_is_exact():
     assert totals["wp014_profiles_reserved"] == 8
     assert totals["wp015_variants_reserved"] == 2
     assert totals["wp015_profiles_reserved"] == 8
+    assert totals["wp016_variants_reserved"] == 2
+    assert totals["wp016_profiles_reserved"] == 8
     assert totals["numeric_parameter_variants"] == 0
-    assert totals["adaptive_decisions"] == 11
+    assert totals["adaptive_decisions"] == 12
     assert totals["result_dependent_forks"] == 10
 
 

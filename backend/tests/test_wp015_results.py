@@ -86,4 +86,4 @@ def test_wp015_records_and_state_are_safe() -> None:
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert "# CURRENT TASK — WP-015" in archived
-    assert "# CURRENT TASK — RESEARCH-RUNNER-V1" in current
+    assert "# CURRENT TASK — WP-016 PREPARATION" in current

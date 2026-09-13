@@ -22,9 +22,10 @@ function researchMetric(value: number|null|undefined, suffix = ' R/trade') {
 }
 
 function ResearchLab({
-  candidate, run, onStart, onCopy,
+  candidates, candidate, run, onSelect, onStart, onCopy,
 }: {
-  candidate: ResearchRunnerCandidate|null; run: ResearchRun|null;
+  candidates: ResearchRunnerCandidate[]; candidate: ResearchRunnerCandidate|null; run: ResearchRun|null;
+  onSelect: (candidateId: string) => void;
   onStart: () => void; onCopy: () => void;
 }) {
   const running = run?.status === 'RUNNING' || run?.status === 'QUEUED';
@@ -37,7 +38,7 @@ function ResearchLab({
         <div>
           <p className="eyebrow">Laboratorio locale</p>
           <h1>Research Lab</h1>
-          <p className="lede">Riproduci un candidato già valutato, direttamente sul tuo PC.</p>
+          <p className="lede">Esegui localmente un candidato scientifico già preparato e congelato.</p>
         </div>
         <Badge tone="paper">Solo ricerca · nessun denaro reale</Badge>
       </div>
@@ -46,12 +47,20 @@ function ResearchLab({
           <div className="pad research-candidate">
             {candidate ? (
               <>
+                {candidates.length > 1 && <label className="research-picker">
+                  <span>Candidato</span>
+                  <select value={candidate.candidate_id} onChange={event => onSelect(event.target.value)} disabled={running}>
+                    {candidates.map(item => <option key={item.candidate_id} value={item.candidate_id}>{item.display_name}{item.run_type === 'REPRODUCTION_ONLY' ? ' · storico' : ''}</option>)}
+                  </select>
+                </label>}
                 <div className="row research-candidate-title">
                   <div className="grow"><h3>{candidate.display_name}</h3><p className="summary">{candidate.purpose}</p></div>
                   <Badge tone="neutral">{candidate.status}</Badge>
                 </div>
-                <p className="research-warning">REPRODUCTION ONLY · NOT A NEW EXPERIMENT</p>
-                <p className="summary">Non cambia i contatori scientifici e non crea evidenza sigillata.</p>
+                <p className="research-warning">{candidate.scientific_warning}</p>
+                <p className="summary">{candidate.run_type === 'NEW_EXPERIMENT'
+                  ? 'Esperimento di sviluppo preregistrato. Il risultato richiederà review e non crea evidenza sigillata.'
+                  : 'Riproduzione storica: non cambia i contatori scientifici e non crea evidenza sigillata.'}</p>
                 <button className="btn primary block research-cta" onClick={onStart} disabled={running || !candidate.required_data.ready}>
                   {running ? 'TEST IN CORSO…' : 'AVVIA TEST STORICO'}
                 </button>
@@ -69,7 +78,7 @@ function ResearchLab({
               <div className="research-progress" role="progressbar" aria-valuenow={Math.round(run?.progress ?? 0)} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${Math.max(0, Math.min(100, run?.progress ?? 0))}%` }} /></div>
               <p className="summary">{run?.detail ?? 'Preparazione deterministica'} · Tempo: {Math.floor(run?.elapsed_seconds ?? 0)} s · Puoi lasciare aperta questa pagina.</p>
             </>}
-            {!running && !completed && !failed && <p className="summary">Pronto per una riproduzione locale del WP-015. Il calcolo parte solo dopo il tuo clic.</p>}
+            {!running && !completed && !failed && <p className="summary">Pronto. Il calcolo parte solo dopo il tuo clic e usa esclusivamente il runner deterministico locale.</p>}
             {failed && <div className="research-failure"><Badge tone="neg">{run?.status}</Badge><p>{run?.error ?? 'Il test è stato interrotto. Nessun risultato scientifico è stato modificato.'}</p></div>}
             {completed && run.result && <>
               <div className="research-results-grid">
@@ -80,7 +89,7 @@ function ResearchLab({
                 <div><span>Confronto controllo</span><strong>{researchMetric(run.result.primary_minus_control_r)}</strong></div>
                 <div><span>Verdetto</span><strong>{run.result.verdict}</strong></div>
               </div>
-              <div className="row research-actions"><button className="btn primary" onClick={onCopy}>COPIA RISULTATO PER REVIEW</button><Badge tone="neutral">Riproduzione, non nuova evidenza</Badge></div>
+              <div className="row research-actions"><button className="btn primary" onClick={onCopy}>COPIA RISULTATO PER REVIEW</button><Badge tone="neutral">{candidate?.run_type === 'NEW_EXPERIMENT' ? 'Sviluppo · review richiesta' : 'Riproduzione · non nuova evidenza'}</Badge></div>
               <Advanced>
                 <div className="pad research-details"><KeyValues rows={[
                   ['Run ID', run.run_id], ['Codice', run.result.code_head ?? '—'], ['Zero costi', researchMetric(run.result.zero_cost_expectancy_r)],
@@ -110,6 +119,7 @@ export function App() {
   const [notice, setNotice] = useState<string | null>(null);
   const [runner, setRunner] = useState<ResearchRunnerPayload | null>(null);
   const [run, setRun] = useState<ResearchRun | null>(null);
+  const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(null);
 
   // Read-only status only. Never analyses and never creates or advances a paper trade.
   useEffect(() => {
@@ -121,6 +131,12 @@ export function App() {
     readResearchRunner().then(payload => {
       setRunner(payload);
       setRun(payload.current_or_last_run ?? null);
+      const active = payload.current_or_last_run;
+      setSelectedCandidateId(
+        active && ['QUEUED', 'RUNNING'].includes(active.status)
+          ? active.candidate_id
+          : (payload.candidates.find(item => item.run_type === 'NEW_EXPERIMENT') ?? payload.candidates[0])?.candidate_id ?? null,
+      );
     }).catch(() => setRunner(null));
   }, []);
 
@@ -153,7 +169,9 @@ export function App() {
   const analyze = () => act(async () => setAnalysis(await analyseMarket()), null);
   const simulate = () => act(async () => { await createPaperTrade(); await refreshPaper(); }, 'Simulazione creata.');
   const update = () => act(async () => { await advancePaperTrades(); await refreshPaper(); }, 'Simulazione aggiornata.');
-  const candidate: ResearchRunnerCandidate | null = runner?.candidates?.[0] ?? null;
+  const candidates = runner?.candidates ?? [];
+  const candidate: ResearchRunnerCandidate | null = candidates.find(item => item.candidate_id === selectedCandidateId) ?? candidates[0] ?? null;
+  const selectedRun = run?.candidate_id === candidate?.candidate_id ? run : null;
   const startResearch = async () => {
     if (!candidate || run?.status === 'RUNNING' || run?.status === 'QUEUED') return;
     setNotice(null);
@@ -289,7 +307,7 @@ export function App() {
           </>
         )}
 
-        {page === 'Research' && <ResearchLab candidate={candidate} run={run} onStart={startResearch} onCopy={copyReview} />}
+        {page === 'Research' && <ResearchLab candidates={candidates} candidate={candidate} run={selectedRun} onSelect={setSelectedCandidateId} onStart={startResearch} onCopy={copyReview} />}
 
         {page === 'Altro' && (
           <>

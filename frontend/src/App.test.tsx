@@ -118,6 +118,17 @@ const runnerCandidate = {
   preregistration_frozen: true, preregistration_paths: ['preregistration.json'],
   required_data: { ready: true, files: { funding: true } }, fixed_runner_adapter: 'fixed.adapter',
 };
+const wp016Candidate = {
+  ...runnerCandidate,
+  candidate_id: 'WP016_WIKIPEDIA_ATTENTION_V1',
+  display_name: 'WP-016 · Shock di attenzione Wikipedia',
+  purpose: 'Valuta informazione pubblica preregistrata.',
+  run_type: 'NEW_EXPERIMENT',
+  status: 'PREREGISTERED_AVAILABLE',
+  scientific_warning: 'NEW PREREGISTERED DEVELOPMENT EXPERIMENT · NOT SEALED EVIDENCE',
+  scientific_evidence_type: 'NEW_PREREGISTERED_DEVELOPMENT_EXPERIMENT_RESULT_PENDING_REVIEW',
+  execution_counts_as_new_evidence: true,
+};
 const runnerReady = { candidates: [runnerCandidate], current_or_last_run: null, runner_status: 'IDLE', arbitrary_execution: false, maximum_active_runs: 1 };
 const runnerCompleted = {
   run_id: 'run-015', candidate_id: 'WP015_REPRODUCTION_V1', started_at: '2026-03-05T12:00:00Z', finished_at: '2026-03-05T12:00:04Z',
@@ -592,6 +603,17 @@ describe('navigazione', () => {
 });
 
 describe('Research Lab', () => {
+  it('presenta WP-016 come candidato primario senza avviarlo', async () => {
+    const calls = mockApi({ 'research/runner': { ...runnerReady, candidates: [wp016Candidate, runnerCandidate] } });
+    render(<App />);
+    await screen.findByText(/Analisi non ancora eseguita/);
+    await userEvent.click(screen.getByRole('button', { name: 'Research' }));
+    expect(await screen.findByRole('heading', { name: 'WP-016 · Shock di attenzione Wikipedia' })).toBeInTheDocument();
+    expect(screen.getByText(/NEW PREREGISTERED DEVELOPMENT EXPERIMENT/)).toBeInTheDocument();
+    expect(screen.getByRole('combobox')).toHaveValue('WP016_WIKIPEDIA_ATTENTION_V1');
+    expect(calls.every(call => call.method === 'GET')).toBe(true);
+  });
+
   it('mostra il candidato allowlist e persiste il risultato durante il polling', async () => {
     const running = { ...runnerCompleted, status: 'RUNNING', stage: 'FOLD_2020', progress: 20, detail: 'Fold 2020', result: null };
     mockApi({}, { 'research/runner': [
