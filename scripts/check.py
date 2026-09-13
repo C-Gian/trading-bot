@@ -800,12 +800,13 @@ def governance_checks(pre_experiment: bool) -> dict:
             ), f"post-cutoff market file: {path.name}"
     from app.main import app
 
-    # The WP-010A paper-research surface adds exactly three explicit-user-action POSTs.
-    # Everything else stays read-only, and no route may mutate by any other method.
-    paper_actions = {
+    # Three paper actions and one owner-initiated, allowlisted local-research action are
+    # the complete POST surface. Everything else stays read-only.
+    explicit_actions = {
         "/api/v1/product/analysis",
         "/api/v1/product/paper-trades",
         "/api/v1/product/paper-trades/lifecycle",
+        "/api/v1/research/runner/runs",
     }
     for route in app.routes:
         route_path = str(getattr(route, "path", ""))
@@ -814,7 +815,7 @@ def governance_checks(pre_experiment: bool) -> dict:
             continue
         assert methods <= {"GET", "HEAD", "POST"}, f"unsafe method on {route_path}"
         if "POST" in methods:
-            assert route_path in paper_actions, f"undeclared mutating route: {route_path}"
+            assert route_path in explicit_actions, f"undeclared mutating route: {route_path}"
         assert not any(
             word in route_path.lower()
             for word in ("order", "balance", "account", "credential", "withdraw", "live")

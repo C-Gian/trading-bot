@@ -1,33 +1,18 @@
-# CURRENT TASK — WP-015
-# Perpetual funding sentiment / positioning context
+# CURRENT TASK — RESEARCH-RUNNER-V1
 
-## STATUS
-COMPLETED — PHASE 1
+## Owner-initiated local backtesting
 
-## AUTHORITY AND START
+Status: IMPLEMENTATION IN PROGRESS
 
-- Owner instruction dated 2026-09-13.
-- Exact starting HEAD: `478f2fcab10569f20a81136bca1b5cff6b66d601` on `main`.
-- Exact-head GitHub Actions run `34757514686` completed `SUCCESS` before work began.
-- No branch, push, WP-009/GDELT resumption, post-cutoff BTC access, sealed query,
-  product/ALIGNED change, futures execution surface, credentials, or real-money action.
+Starting HEAD: `b12f13f1f5fe7ab5d94893f9297e75d8f9c5b467` on `main`.
 
-## FROZEN QUESTION
+Build a local Research Lab workflow with a source-controlled candidate allowlist,
+non-blocking deterministic Python execution, atomic gitignored runtime state, meaningful
+progress, an Owner-facing result summary, and a compact review bundle.
 
-Test whether the latest strictly prior settled BTCUSDT USD-M perpetual funding rate adds
-positioning information to the exact WP-014 F1–F8 shallow HGBR for BTCUSDT SPOT LONG /
-NO_TRADE decisions. Predictive, not causal.
+V1 exposes exactly `WP015_REPRODUCTION_V1`. It is a reproduction of already-exposed
+development evidence, not a new experiment. It cannot change scientific counters, paper
+trades, Champion status, sealed-query accounting, or real-money state.
 
-## BUDGET
-
-One hypothesis, two configurations, eight profile evaluations, ten annual fits across
-2020–2024, and zero funding transforms/thresholds, feature subsets, algorithms,
-hyperparameters, signal thresholds, or result-dependent forks.
-
-## SAFE STOP
-
-Phase 1 must acquire and independently audit official Binance USD-M funding through the
-development cutoff, freeze point-in-time semantics, pass SEARCH_MEMORY admission and
-preregistration, validate on synthetic no-data fixtures, and commit before any market
-result. Phase 2 then runs the frozen walk-forward, independent reconciliation, result
-recording, state/accounting, and full validation.
+The implementation checkpoint must use only mocked or synthetic test execution. The real
+WP-015 historical workload must not be run by the executor.

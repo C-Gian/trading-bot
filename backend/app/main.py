@@ -7,6 +7,7 @@ from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, ConfigDict
 
 from . import __version__
 from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
@@ -23,9 +24,25 @@ from .product.paper import (
 )
 from .product.statistics import statistics
 from .research.checkpoint_views import budget_view, experiment_view
+from .research.local_runner import (
+    CandidateGateError,
+    LocalResearchRunner,
+    RequiredDataError,
+    RunConflictError,
+    RunNotFoundError,
+    UnknownCandidateError,
+    default_runner,
+)
 from .research.wp006_views import v2_budget_view
 from .sealed import public_status
 from .state import StateRepository
+
+
+class ResearchRunRequest(BaseModel):
+    """The only caller-controlled field is one allowlisted candidate identity."""
+
+    model_config = ConfigDict(extra="forbid")
+    candidate_id: str
 
 
 def create_app(
@@ -36,6 +53,7 @@ def create_app(
     paper_store: PaperTradeStore | None = None,
     lifecycle: Callable[[PaperTradeStore], dict] = update_lifecycle,
     market_view: Callable[[], dict] = recent_candles,
+    research_runner: LocalResearchRunner | None = None,
 ) -> FastAPI:
     application = FastAPI(title="Trading Bot", version=__version__)
     application.add_middleware(
@@ -46,6 +64,7 @@ def create_app(
     )
     repository = StateRepository(state_path)
     trades = paper_store or PaperTradeStore(Path(__file__).resolve().parents[2] / STORE_PATH)
+    local_runner = research_runner or default_runner()
 
     def state_repository() -> StateRepository:
         return repository
@@ -109,6 +128,37 @@ def create_app(
         if not research_summary_path.is_file():
             return {"evidence_stage": "NONE", "experiments": []}
         return json.loads(research_summary_path.read_text(encoding="utf-8"))
+
+    @application.get("/api/v1/research/runner")
+    def research_runner_status():
+        """List only source-controlled candidates and persisted local runtime state."""
+        return local_runner.overview()
+
+    @application.post("/api/v1/research/runner/runs", status_code=202)
+    def start_research_run(
+        request: ResearchRunRequest, repo: StateRepository = Depends(state_repository)
+    ):
+        """Start one fixed local research adapter after an explicit Owner action.
+
+        This route cannot accept commands, paths, parameters, credentials, or trading
+        instructions and never updates canonical scientific or paper-trade state.
+        """
+        state = repo.load()
+        if state["real_money_authorized"]:
+            raise HTTPException(409, "local research is disabled if real money is authorized")
+        try:
+            return local_runner.start(request.candidate_id)
+        except UnknownCandidateError as exc:
+            raise HTTPException(404, str(exc)) from exc
+        except (CandidateGateError, RequiredDataError, RunConflictError) as exc:
+            raise HTTPException(409, str(exc)) from exc
+
+    @application.get("/api/v1/research/runner/runs/{run_id}")
+    def research_run(run_id: str):
+        try:
+            return local_runner.read(run_id)
+        except RunNotFoundError as exc:
+            raise HTTPException(404, str(exc)) from exc
 
     @application.get("/api/v1/market/candles")
     def market_candles(

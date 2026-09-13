@@ -1035,6 +1035,54 @@
         }
       }
     },
+    "research_runner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "surface",
+        "candidate_ids",
+        "runtime_storage",
+        "maximum_active_runs",
+        "arbitrary_execution",
+        "scientific_counters_mutated",
+        "real_backtest_executed_during_checkpoint"
+      ],
+      "properties": {
+        "version": {
+          "const": "RESEARCH_RUNNER_V1"
+        },
+        "surface": {
+          "const": "AVAILABLE"
+        },
+        "candidate_ids": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "WP015_REPRODUCTION_V1"
+            }
+          ],
+          "items": false,
+          "minItems": 1,
+          "maxItems": 1
+        },
+        "runtime_storage": {
+          "const": "GITIGNORED_LOCAL_ATOMIC_JSON"
+        },
+        "maximum_active_runs": {
+          "const": 1
+        },
+        "arbitrary_execution": {
+          "const": false
+        },
+        "scientific_counters_mutated": {
+          "const": false
+        },
+        "real_backtest_executed_during_checkpoint": {
+          "const": false
+        }
+      }
+    },
     "remote_ci": {
       "type": "object",
       "additionalProperties": false,

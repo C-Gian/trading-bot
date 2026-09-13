@@ -267,6 +267,18 @@
       }
     }
   },
+  "research_runner": {
+    "arbitrary_execution": false,
+    "candidate_ids": [
+      "WP015_REPRODUCTION_V1"
+    ],
+    "maximum_active_runs": 1,
+    "real_backtest_executed_during_checkpoint": false,
+    "runtime_storage": "GITIGNORED_LOCAL_ATOMIC_JSON",
+    "scientific_counters_mutated": false,
+    "surface": "AVAILABLE",
+    "version": "RESEARCH_RUNNER_V1"
+  },
   "research_market": "crypto_spot",
   "schema_version": 3,
   "sealed_evaluation": {

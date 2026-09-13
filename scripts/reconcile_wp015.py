@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import bisect
 import hashlib
 import json
@@ -115,14 +116,23 @@ def independent_funding() -> tuple[list[int], list[float]]:
     return times_us, rates
 
 
-def main() -> int:
+def main(
+    trials_path: Path | None = None,
+    predictions_path: Path | None = None,
+    comparison_path: Path | None = None,
+    output_path: Path | None = None,
+) -> int:
+    trials_path = trials_path or ROOT / TRIALS_PATH
+    predictions_path = predictions_path or ROOT / PREDICTIONS_PATH
+    comparison_path = comparison_path or ROOT / COMPARISON_PATH
+    output_path = output_path or ROOT / RECONCILIATION_PATH
     if sklearn.__version__ != "1.7.2":
         raise ValueError("independent path requires scikit-learn 1.7.2")
     protocol = json.loads((ROOT / PROTOCOL_PATH).read_text(encoding="utf-8"))
     if protocol["hgbr_parameters"] != PARAMETERS:
         raise ValueError("frozen HGBR identity differs")
     folds = json.loads((ROOT / WALK_FORWARD_PATH).read_text(encoding="utf-8"))["folds"]
-    comparison = json.loads((ROOT / COMPARISON_PATH).read_text(encoding="utf-8"))
+    comparison = json.loads(comparison_path.read_text(encoding="utf-8"))
     funding_times, funding_rates = independent_funding()
     inputs = ResearchInputs.load(ROOT)
     source = load_feature_source(ROOT)
@@ -239,7 +249,7 @@ def main() -> int:
             )
             values = models[variant][fold["fold_id"]].predict(matrix)
             predictions[variant].update(zip(signals, map(float, values), strict=True))
-    stored_predictions = pq.read_table(ROOT / PREDICTIONS_PATH).to_pylist()
+    stored_predictions = pq.read_table(predictions_path).to_pylist()
     maximum_prediction_gap = 0.0
     for item in stored_predictions:
         value = predictions[item["variant"]].get(item["signal_us"])
@@ -254,7 +264,7 @@ def main() -> int:
     prediction_ok = len(stored_predictions) == expected_prediction_rows and not any(
         item.get("field", "").startswith("prediction") for item in mismatches
     )
-    stored_trials = pq.read_table(ROOT / TRIALS_PATH).to_pylist()
+    stored_trials = pq.read_table(trials_path).to_pylist()
     stored_default = {
         (item["variant"], item["signal_us"]): item
         for item in stored_trials
@@ -357,9 +367,8 @@ def main() -> int:
         "checks": checks,
         "mismatches": mismatches,
     }
-    path = ROOT / RECONCILIATION_PATH
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
         json.dumps(output, indent=2, sort_keys=True, allow_nan=False) + "\n",
         encoding="utf-8",
         newline="\n",
@@ -369,4 +378,17 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--trials-path", type=Path)
+    parser.add_argument("--predictions-path", type=Path)
+    parser.add_argument("--comparison-path", type=Path)
+    parser.add_argument("--output-path", type=Path)
+    arguments = parser.parse_args()
+    raise SystemExit(
+        main(
+            trials_path=arguments.trials_path,
+            predictions_path=arguments.predictions_path,
+            comparison_path=arguments.comparison_path,
+            output_path=arguments.output_path,
+        )
+    )
