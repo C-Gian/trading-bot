@@ -1,9 +1,16 @@
 from __future__ import annotations
 
 import json
+from datetime import date
 
 import pytest
-from app.research.nfci_context import CONTEXT_VERSION, NFCIContextError, load_nfci_context
+from app.research.evaluation_protocol import HOUR_US
+from app.research.macro import CUTOFF_US
+from app.research.nfci_context import (
+    CONTEXT_VERSION,
+    NFCIContextError,
+    NFCIContextSource,
+)
 from app.research.supervised import FULL_FEATURES
 from app.research.wp004 import ROOT
 from app.research.wp013 import (
@@ -46,6 +53,8 @@ def test_wp013_preflight_passes() -> None:
 
 
 def test_nfci_context_rejects_post_cutoff() -> None:
-    source = load_nfci_context(ROOT)
+    last_aligned_pre_cutoff_us = CUTOFF_US // HOUR_US * HOUR_US
+    source = NFCIContextSource([(last_aligned_pre_cutoff_us, date(2024, 12, 31), -0.1)])
+    first_aligned_post_cutoff_us = last_aligned_pre_cutoff_us + HOUR_US
     with pytest.raises(NFCIContextError):
-        source.at(1735689600000000)
+        source.at(first_aligned_post_cutoff_us)
