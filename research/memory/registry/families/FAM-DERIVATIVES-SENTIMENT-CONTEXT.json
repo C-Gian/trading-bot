@@ -1,0 +1,27 @@
+{
+  "admitted_by": "research/memory/registry/admissions/WP015-NOVELTY-ADMISSION.json",
+  "aliases": [
+    "SETTLED_FUNDING_ADDS_POSITIONING_INFORMATION_V1",
+    "PERPETUAL_FUNDING_CONTEXT_V1",
+    "INTERNAL_PLUS_FUNDING_HGBR"
+  ],
+  "allocation_id": "WP015-DERIVATIVES-SENTIMENT-ALLOCATION",
+  "entry_event_anchors": [
+    "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO"
+  ],
+  "failure_experiment_ids": [],
+  "family_id": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
+  "information_source": "STRICTLY_PRIOR_SETTLED_BTCUSDT_USDM_PERPETUAL_FUNDING",
+  "legitimate_revisit": "Only a new explicit Research Director allocation; no exposed-result tuning.",
+  "matched_control": {
+    "classification": "KNOWN_INTERNAL_HGBR_MATCHED_CONTROL",
+    "novelty_claimed": false,
+    "related_to": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+    "variant": "INTERNAL_HGBR_MATCHED_FUNDING"
+  },
+  "mechanism": "One raw settled derivatives positioning value is added to frozen spot F1-F8.",
+  "parent_family_id": null,
+  "schema_version": 1,
+  "status": "ADMITTED_PENDING_RESULTS",
+  "work_package": "WP-015"
+}

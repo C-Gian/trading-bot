@@ -1,0 +1,217 @@
+{
+  "canonical": {
+    "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+    "columns": [
+      {
+        "name": "funding_time",
+        "nullable": false,
+        "type": "timestamp[us, tz=UTC]"
+      },
+      {
+        "name": "funding_rate",
+        "nullable": false,
+        "type": "double"
+      }
+    ],
+    "file_sha256": "bab36514c4b8ff9fe1f64e9148f19adfd448021747f032dce05e1b45a35eceef",
+    "format": "PARQUET_ZSTD",
+    "logical_sha256": "a65e10ecb5912652e6c96ae978b23c354067387f4c7b8443a138014d5941f165",
+    "path": "data/derived/BTCUSDT-USDM-settled-funding-v1.parquet",
+    "rows": 5819,
+    "schema_version": 1,
+    "sort_key": [
+      "funding_time"
+    ],
+    "writer": {
+      "compression": "zstd",
+      "compression_level": 9,
+      "data_page_version": "1.0",
+      "pyarrow_version": "21.0.0",
+      "use_dictionary": false,
+      "version": "2.6",
+      "write_statistics": true
+    }
+  },
+  "contract": "docs/contracts/PERPETUAL_FUNDING_CONTEXT_V1.md",
+  "excluded_source_fields": [
+    "markPrice"
+  ],
+  "feature_columns": [
+    "LATEST_SETTLED_FUNDING_RATE"
+  ],
+  "first_funding_time": "2019-09-10T08:00:00Z",
+  "informational_only": true,
+  "last_funding_time": "2024-12-31T16:00:00Z",
+  "manifest_id": "BTCUSDT-USDM-FUNDING-DEV-v1",
+  "pagination": "ASCENDING_LIMIT_1000_NEXT_START_LAST_FUNDING_TIME_PLUS_1MS",
+  "parser_version": "BINANCE_USDM_SETTLED_FUNDING_V1",
+  "raw_requests": [
+    {
+      "end_time_ms": 1735689599999,
+      "first_funding_time_ms": 1568102400000,
+      "last_funding_time_ms": 1596873600000,
+      "page": 1,
+      "path": "data/raw/funding/binance-usdm/BTCUSDT/page-0001-00b33292b02f2ad6.json",
+      "response_sha256": "9614a223d9b82f8a63cda51aa7daab0c1bccb2b0efb9126408f6bc38f7ed39d1",
+      "row_count": 1000,
+      "sha256": "9614a223d9b82f8a63cda51aa7daab0c1bccb2b0efb9126408f6bc38f7ed39d1",
+      "start_time_ms": 1546300800000
+    },
+    {
+      "end_time_ms": 1735689599999,
+      "first_funding_time_ms": 1596902400000,
+      "last_funding_time_ms": 1625673600008,
+      "page": 2,
+      "path": "data/raw/funding/binance-usdm/BTCUSDT/page-0002-a5ba7929e65b7d33.json",
+      "response_sha256": "f1bacf6688fa743ee3fb9fa273c392ba3ede10edceb8d075c4ceab58ee69c064",
+      "row_count": 1000,
+      "sha256": "f1bacf6688fa743ee3fb9fa273c392ba3ede10edceb8d075c4ceab58ee69c064",
+      "start_time_ms": 1596873600001
+    },
+    {
+      "end_time_ms": 1735689599999,
+      "first_funding_time_ms": 1625702400002,
+      "last_funding_time_ms": 1654473600000,
+      "page": 3,
+      "path": "data/raw/funding/binance-usdm/BTCUSDT/page-0003-cdcc7512d3b47cc3.json",
+      "response_sha256": "2d15f9245377dcf3ede23df4603cf941bce69c96869abb09f6adc1d2b9a3ef65",
+      "row_count": 1000,
+      "sha256": "2d15f9245377dcf3ede23df4603cf941bce69c96869abb09f6adc1d2b9a3ef65",
+      "start_time_ms": 1625673600009
+    },
+    {
+      "end_time_ms": 1735689599999,
+      "first_funding_time_ms": 1654502400017,
+      "last_funding_time_ms": 1683273600000,
+      "page": 4,
+      "path": "data/raw/funding/binance-usdm/BTCUSDT/page-0004-cd25f8d1e43463eb.json",
+      "response_sha256": "38a33078583c79d1a3fff4fe6d323a27a9a9699cb035ebefc66259f4babf0cb9",
+      "row_count": 1000,
+      "sha256": "38a33078583c79d1a3fff4fe6d323a27a9a9699cb035ebefc66259f4babf0cb9",
+      "start_time_ms": 1654473600001
+    },
+    {
+      "end_time_ms": 1735689599999,
+      "first_funding_time_ms": 1683302400000,
+      "last_funding_time_ms": 1712073600000,
+      "page": 5,
+      "path": "data/raw/funding/binance-usdm/BTCUSDT/page-0005-2796aa02b3ee64c7.json",
+      "response_sha256": "e761a9a69f1ecbb5dd340e748a5043f7d3c237daf1baedf1f522aed266bfe6a8",
+      "row_count": 1000,
+      "sha256": "e761a9a69f1ecbb5dd340e748a5043f7d3c237daf1baedf1f522aed266bfe6a8",
+      "start_time_ms": 1683273600001
+    },
+    {
+      "end_time_ms": 1735689599999,
+      "first_funding_time_ms": 1712102400000,
+      "last_funding_time_ms": 1735660800000,
+      "page": 6,
+      "path": "data/raw/funding/binance-usdm/BTCUSDT/page-0006-1b344dd6a17bf0a7.json",
+      "response_sha256": "4ecc098c224faf42f6af817fca3bd13798c8186f5a36e90edce3e0e6a35dfd45",
+      "row_count": 819,
+      "sha256": "4ecc098c224faf42f6af817fca3bd13798c8186f5a36e90edce3e0e6a35dfd45",
+      "start_time_ms": 1712073600001
+    },
+    {
+      "end_time_ms": 1735689599999,
+      "first_funding_time_ms": null,
+      "last_funding_time_ms": null,
+      "page": 7,
+      "path": "data/raw/funding/binance-usdm/BTCUSDT/page-0007-af8642be5fe1a107.json",
+      "response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "row_count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "start_time_ms": 1735660800001
+    }
+  ],
+  "records": 5819,
+  "request_ceiling": "2024-12-31T23:59:59.999Z",
+  "request_index": {
+    "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+    "columns": [
+      {
+        "name": "page",
+        "nullable": false,
+        "type": "int32"
+      },
+      {
+        "name": "start_time_ms",
+        "nullable": false,
+        "type": "int64"
+      },
+      {
+        "name": "end_time_ms",
+        "nullable": false,
+        "type": "int64"
+      },
+      {
+        "name": "limit",
+        "nullable": false,
+        "type": "int32"
+      },
+      {
+        "name": "row_count",
+        "nullable": false,
+        "type": "int32"
+      },
+      {
+        "name": "first_funding_time_ms",
+        "nullable": true,
+        "type": "int64"
+      },
+      {
+        "name": "last_funding_time_ms",
+        "nullable": true,
+        "type": "int64"
+      },
+      {
+        "name": "request_url",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "raw_path",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "response_sha256",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "retrieval_time",
+        "nullable": false,
+        "type": "timestamp[us, tz=UTC]"
+      }
+    ],
+    "file_sha256": "ed08f48157f1079eddde97fc82ecb471f425f35737f25610c569cadfec2aaa86",
+    "format": "PARQUET_ZSTD",
+    "logical_sha256": "a1c472fa99ab99413f8b9e8d5b79f48294be9293c5126dd9566490fcbda7d1be",
+    "path": "data/derived/BTCUSDT-USDM-funding-request-index-v1.parquet",
+    "rows": 7,
+    "schema_version": 1,
+    "sort_key": [
+      "page"
+    ],
+    "writer": {
+      "compression": "zstd",
+      "compression_level": 9,
+      "data_page_version": "1.0",
+      "pyarrow_version": "21.0.0",
+      "use_dictionary": false,
+      "version": "2.6",
+      "write_statistics": true
+    }
+  },
+  "schema_version": 1,
+  "source": {
+    "credential_free": true,
+    "endpoint": "https://fapi.binance.com/fapi/v1/fundingRate",
+    "method": "GET",
+    "name": "BINANCE_USDM_FUTURES_PUBLIC_MARKET_DATA"
+  },
+  "symbol": "BTCUSDT",
+  "traded_instrument": "BTCUSDT_SPOT",
+  "version": "PERPETUAL_FUNDING_CONTEXT_V1"
+}

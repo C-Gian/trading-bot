@@ -1,0 +1,10 @@
+{
+  "branch": "main",
+  "conclusion": "success",
+  "head_sha": "478f2fcab10569f20a81136bca1b5cff6b66d601",
+  "reviewed_head": "478f2fcab10569f20a81136bca1b5cff6b66d601",
+  "run_id": 34757514686,
+  "status": "completed",
+  "url": "https://github.com/C-Gian/trading-bot/actions/runs/34757514686",
+  "workflow": "check"
+}

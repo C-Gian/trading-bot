@@ -1,96 +1,33 @@
-# CURRENT TASK — WP-014
-# Fixed shallow nonlinear internal-signal challenger
+# CURRENT TASK — WP-015
+# Perpetual funding sentiment / positioning context
 
 ## STATUS
-COMPLETED
+ACTIVE — PHASE 1
 
 ## AUTHORITY AND START
 
 - Owner instruction dated 2026-09-13.
-- Work directly on `main` from exact clean HEAD
-  `e59318268099d428df0c108144aca739f5504b40`.
-- Exact-head GitHub Actions run `34745601715` completed `SUCCESS` before WP-014 began.
-- Do not branch, push, resume WP-009/GDELT, alter ALIGNED/product UI, access post-2024
-  BTC development data, or query sealed data.
+- Exact starting HEAD: `478f2fcab10569f20a81136bca1b5cff6b66d601` on `main`.
+- Exact-head GitHub Actions run `34757514686` completed `SUCCESS` before work began.
+- No branch, push, WP-009/GDELT resumption, post-cutoff BTC access, sealed query,
+  product/ALIGNED change, futures execution surface, credentials, or real-money action.
 
-## PURPOSE
+## FROZEN QUESTION
 
-Test whether one small, rigidly preregistered nonlinear model can extract conditional
-or intersection structure from the same eight frozen internal BTC signals that fixed
-linear families failed to exploit. This is predictive, not causal, and is not a model
-search.
-
-## FIXED DESIGN
-
-- Root family: `FAM-SHALLOW-NONLINEAR-INTERNAL`.
-- Hypothesis: `NONLINEAR_INTERNAL_SIGNAL_INTERACTIONS_V1`.
-- Primary experiment: `EXP-ML-022-SHALLOW-INTERNAL-HGBR`.
-- Matched control: `EXP-ML-023-INTERNAL-LINEAR-MATCHED`.
-- Features: exactly WP-008 F1–F8 in their frozen order; no macro, NFCI, ALIGNED flag,
-  added indicator, engineering, subset, or selection.
-- Target: `ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1` with LONG-only 2% stop, 4% target,
-  24h maximum hold, DEFAULT costs, isolated labels, and excluded/count-preserved
-  invalid or unresolved labels.
-- Annual expanding folds: 2019–2024. Training signals and complete outcomes are
-  strictly before `validation_start - 216h`. No validation refit or monthly update.
-- Signal: `predicted_default_net_R > 0.0`.
-- Profiles/configuration: `DEFAULT`, `ZERO`, `DOUBLE`, `DELAY_1H`. Fit only DEFAULT;
-  ZERO/DOUBLE reuse predictions; DELAY uses the previous-hour prediction without refit.
-
-Primary `SHALLOW_INTERNAL_HGBR_V1` uses
-`sklearn.ensemble.HistGradientBoostingRegressor` on raw F1–F8 with exactly:
-
-```json
-{
-  "loss": "squared_error",
-  "learning_rate": 0.05,
-  "max_iter": 64,
-  "max_leaf_nodes": 7,
-  "max_depth": 3,
-  "min_samples_leaf": 128,
-  "l2_regularization": 1.0,
-  "max_bins": 63,
-  "early_stopping": false,
-  "random_state": 0
-}
-```
-
-The control uses the existing deterministic OLS implementation and training-only
-population scaling. It is a declared matched replication of the previously registered
-WP-008 LINEAR_FULL behavior, not a novel-family claim.
+Test whether the latest strictly prior settled BTCUSDT USD-M perpetual funding rate adds
+positioning information to the exact WP-014 F1–F8 shallow HGBR for BTCUSDT SPOT LONG /
+NO_TRADE decisions. Predictive, not causal.
 
 ## BUDGET
 
-Exactly one economic hypothesis, two configurations, eight profile evaluations,
-twelve annual model fits, and zero hyperparameter, feature, threshold, architecture,
-or model-selection variants/forks. One result-dependent research direction is counted.
+One hypothesis, two configurations, eight profile evaluations, ten annual fits across
+2020–2024, and zero funding transforms/thresholds, feature subsets, algorithms,
+hyperparameters, signal thresholds, or result-dependent forks.
 
-## PHASE 1 — SAFE STOP
+## SAFE STOP
 
-Before results, commit the WP-013 accepted review, dependency, frozen protocol/configs,
-SEARCH_MEMORY_V2 admission, matched-control duplicate disclosure, allocation,
-preregistrations, implementation, deterministic substrate tests, and preflight evidence.
-Prove feature order, forbidden-input absence, exact HGBR parameters, raw tree inputs,
-OLS-only scaling, matched eligibility, purge/outcome containment, fixed threshold/profile
-reuse, no post-cutoff or sealed access, and reproducible fold-model serialization identity.
-
-## PHASE 2 — EXECUTION AND CLOSE
-
-Only after the Phase-1 commit, run both configurations and four profiles on the frozen
-2019–2024 walk-forward. Record required overall/fold metrics, prediction correlation,
-positive hours, concentration/ESS, public HGBR diagnostics, and descriptive historical
-comparisons. Do not use diagnostics to adapt the experiment.
-
-Independently reconstruct eligible rows, training boundaries/outcomes, model parameters,
-fold predictions, signals, DEFAULT execution, and metrics without calling the primary
-WP-014 lab/runner. The prospectively frozen prediction tolerance is `1e-10`; any
-unexplained mismatch fails.
-
-Classify with `DEVELOPMENT_EVALUATION_V1`. At most classify as
-`DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW`; do not promote a Champion,
-query sealed data, replace the product strategy, change paper state, or authorize real
-money.
-
-Run focused tests, reconciliation, all backend tests, `scripts/check.py --no-data`,
-Ruff, formatting, mypy, and repository-invoked frontend checks. Update state once,
-create one checkpoint, archive this task, commit results, and leave the tree clean.
+Phase 1 must acquire and independently audit official Binance USD-M funding through the
+development cutoff, freeze point-in-time semantics, pass SEARCH_MEMORY admission and
+preregistration, validate on synthetic no-data fixtures, and commit before any market
+result. Phase 2 then runs the frozen walk-forward, independent reconciliation, result
+recording, state/accounting, and full validation.

@@ -101,6 +101,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.wp012 import EXPERIMENTS as WP012_EXPERIMENTS
     from app.research.wp013 import EXPERIMENTS as WP013_EXPERIMENTS
     from app.research.wp014 import EXPERIMENTS as WP014_EXPERIMENTS
+    from app.research.wp015 import EXPERIMENTS as WP015_EXPERIMENTS
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
     assert directories == (
@@ -113,6 +114,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP012_EXPERIMENTS.values())
         | set(WP013_EXPERIMENTS.values())
         | set(WP014_EXPERIMENTS.values())
+        | set(WP015_EXPERIMENTS.values())
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
     assert len(results) == state["experiments_completed"] == 23
@@ -406,11 +408,12 @@ def dataset_scope_checks() -> None:
     order_flow = ROOT / "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json"
     gdelt = ROOT / "data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json"
     alfred = ROOT / "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json"
+    funding = ROOT / "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json"
     exogenous = ROOT / "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json"
     # The GDELT and combined-context manifests only exist once WP-009 is finalized; a
     # paused WP-009 must not be asked for them, and must not carry them either.
     wp009_final = gdelt.is_file() or exogenous.is_file()
-    expected = {approved, order_flow, alfred}
+    expected = {approved, order_flow, alfred, funding}
     if wp009_final:
         expected |= {gdelt, exogenous}
     assert set((ROOT / "data/manifests").glob("*.json")) == expected
@@ -423,11 +426,14 @@ def dataset_scope_checks() -> None:
     raw = {ROOT / item["path"] for item in manifest["source"]["raw_objects"]}
     assert set((ROOT / "data/raw").rglob("*.zip")) <= raw
     alfred_manifest = json.loads(alfred.read_text(encoding="utf-8"))
+    funding_manifest = json.loads(funding.read_text(encoding="utf-8"))
     approved_parquet = {
         *(ROOT / item["path"] for item in manifest["files"].values()),
         *(ROOT / item["path"] for item in flow_manifest["files"].values()),
         ROOT / alfred_manifest["file"]["path"],
         ROOT / alfred_manifest["request_index"]["path"],
+        ROOT / funding_manifest["canonical"]["path"],
+        ROOT / funding_manifest["request_index"]["path"],
     }
     if wp009_final:
         approved_parquet |= {
@@ -625,6 +631,15 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/research/WP-014-SHALLOW-NONLINEAR.md",
         "reports/checkpoints/WP-014.md",
         "tasks/archive/WP-014.md",
+        "reports/reviews/WP-014-RESEARCH-DIRECTOR-REVIEW.md",
+        "reports/reviews/WP-014-CI-EVIDENCE.json",
+        "docs/contracts/PERPETUAL_FUNDING_CONTEXT_V1.md",
+        "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json",
+        "reports/validation/WP-015-FUNDING-INTEGRITY.json",
+        "reports/validation/WP-015-FUNDING-ASOF-AUDIT.json",
+        "research/protocols/WP-015-PERPETUAL-FUNDING-HGBR-V1.json",
+        "research/protocols/WP-015-WALK-FORWARD-V1.json",
+        "reports/validation/WP-015-PREFLIGHT.json",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()

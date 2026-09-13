@@ -1,0 +1,51 @@
+{
+  "adaptive_decision_increment": 1,
+  "algorithm_variants": 0,
+  "allocation_id": "WP015-DERIVATIVES-SENTIMENT-ALLOCATION",
+  "architecture": "SHALLOW_INTERNAL_HGBR_V1",
+  "architecture_variants": 0,
+  "authority": "Owner WP-015 instruction",
+  "conditionality": "Official funding integrity and strict as-of audit, fixed HGBR, matched funding availability, 216h purge, and complete outcomes.",
+  "cumulative_adaptive_decisions": 12,
+  "cumulative_result_dependent_forks": 10,
+  "experiment_ids": [
+    "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
+    "EXP-ML-025-INTERNAL-HGBR-MATCHED-FUNDING"
+  ],
+  "family_limits": {
+    "experiments": 2,
+    "numeric_parameter_variants": 0,
+    "strategy_variants": 2,
+    "trials": 8
+  },
+  "feature_subsets": 0,
+  "funding_thresholds": 0,
+  "funding_transformations": 0,
+  "hyperparameter_variants": 0,
+  "hypothesis_id": "SETTLED_FUNDING_ADDS_POSITIONING_INFORMATION_V1",
+  "kind": "DELIBERATE_NEW_INFORMATION_FAMILY_ALLOCATION",
+  "matched_control_variant": "INTERNAL_HGBR_MATCHED_FUNDING",
+  "model_configurations": 2,
+  "model_selection_forks": 0,
+  "new_economic_hypotheses": 1,
+  "paper_observations": 0,
+  "primary_variant": "INTERNAL_PLUS_FUNDING_HGBR",
+  "prior_adaptive_decisions": 11,
+  "prior_result_dependent_forks": 10,
+  "profile_evaluations": 8,
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "profiles_per_configuration": 4,
+  "result_dependent_fork_increment": 0,
+  "review_authority": "reports/reviews/WP-014-RESEARCH-DIRECTOR-REVIEW.md",
+  "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "supervised_model_fits": 10,
+  "threshold_variants": 0,
+  "work_package": "WP-015"
+}

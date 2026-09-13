@@ -1,0 +1,24 @@
+{
+  "canonical_match": true,
+  "duplicate_records": 0,
+  "first_funding_time": "2019-09-10T08:00:00Z",
+  "hourly_validation_coverage": {
+    "DEV-2020": 8737,
+    "DEV-2021": 8713,
+    "DEV-2022": 8713,
+    "DEV-2023": 8713,
+    "DEV-2024": 8737
+  },
+  "independent_path": "RAW_JSON_TO_CANONICAL_AND_BISECT_LEFT_MINUS_ONE",
+  "last_funding_time": "2024-12-31T16:00:00Z",
+  "no_interpolation": true,
+  "post_cutoff_records": 0,
+  "raw_requests_verified": 7,
+  "records_reconstructed": 5819,
+  "same_timestamp_exclusion_checks": 5819,
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "status": "PASS",
+  "strict_funding_time_before_signal_time": true,
+  "work_package": "WP-015"
+}

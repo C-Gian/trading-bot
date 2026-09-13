@@ -1,0 +1,28 @@
+{
+  "backward_timestamps": 0,
+  "canonical_columns": [
+    "funding_time",
+    "funding_rate"
+  ],
+  "deterministic_pagination": true,
+  "duplicates": 0,
+  "endpoint": "https://fapi.binance.com/fapi/v1/fundingRate",
+  "first_funding_time_ms": 1568102400000,
+  "last_funding_time_ms": 1735660800000,
+  "mark_price_feature": false,
+  "observed_settlement_cadence_hours_rounded": [
+    8
+  ],
+  "pages": 7,
+  "post_cutoff_records": 0,
+  "predicted_funding": false,
+  "premium_basis_oi_ratio": false,
+  "raw_request_hashes_verified": true,
+  "records": 5819,
+  "schema_version": 1,
+  "silent_fill": false,
+  "source": "BINANCE_USDM_FUTURES_PUBLIC_MARKET_DATA",
+  "status": "PASS",
+  "unexplained_gaps_over_8h_plus_60s": 0,
+  "work_package": "WP-015"
+}

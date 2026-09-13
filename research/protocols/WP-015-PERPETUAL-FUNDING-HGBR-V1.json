@@ -1,0 +1,73 @@
+{
+  "architecture_variants": 0,
+  "configurations": 2,
+  "control_variant": "INTERNAL_HGBR_MATCHED_FUNDING",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "feature_subsets": 0,
+  "folds": [2020, 2021, 2022, 2023, 2024],
+  "funding": {
+    "availability": "LATEST_FUNDING_TIME_STRICTLY_EARLIER_THAN_SIGNAL_TIME",
+    "feature": "LATEST_SETTLED_FUNDING_RATE",
+    "manifest": "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json",
+    "natural_latest_observation": true,
+    "source": "BINANCE_USDM_FUTURES_PUBLIC_MARKET_DATA",
+    "transformations": 0
+  },
+  "funding_thresholds": 0,
+  "hgbr_parameters": {
+    "early_stopping": false,
+    "l2_regularization": 1.0,
+    "learning_rate": 0.05,
+    "loss": "squared_error",
+    "max_bins": 63,
+    "max_depth": 3,
+    "max_iter": 64,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 128,
+    "random_state": 0
+  },
+  "hypothesis_id": "SETTLED_FUNDING_ADDS_POSITIONING_INFORMATION_V1",
+  "internal_features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED"
+  ],
+  "model_fits": 10,
+  "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+  "primary_feature_order": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED",
+    "LATEST_SETTLED_FUNDING_RATE"
+  ],
+  "primary_variant": "INTERNAL_PLUS_FUNDING_HGBR",
+  "profile_evaluations": 8,
+  "profiles": ["DEFAULT", "ZERO", "DOUBLE", "DELAY_1H"],
+  "protocol_id": "WP-015-PERPETUAL-FUNDING-HGBR-V1",
+  "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "signal": {
+    "operator": ">",
+    "predicted_field": "predicted_default_net_R",
+    "threshold": 0.0,
+    "threshold_variants": 0
+  },
+  "target": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+  "training": {
+    "complete_outcome_before_boundary": true,
+    "purge_boundary_hours": 216,
+    "update_cadence": "ONCE_PER_FOLD",
+    "validation_refits": 0
+  }
+}
