@@ -1,0 +1,628 @@
+{
+  "code_config_reference": "3cc0796a6af8f4e64acc0c7e72b503f16cb678e3a5f0360dfb17a09d68f4f323",
+  "cost_execution_reference": "BACKTEST_ENGINE_V2 / EXECUTION_MODEL_V2 / BTCUSDT_SPOT_COST_V1",
+  "created_at_utc": "2026-09-13T18:00:00Z",
+  "dataset": {
+    "content_hash": "f97a08b49b4cd11aede16f4024a2fd66d0eb8c36394bc95eda862fe40b90e225",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1 + BTCUSDT-USDM-FUNDING-DEV-v1 + WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1",
+    "maximum_timestamp": "2024-12-31T23:59:00Z"
+  },
+  "evaluation_design": "Five complete annual expanding folds 2020-2024; conservative daily attention availability; strict prior funding; identical primary/control universe; complete outcomes before validation_start-216h; four fixed profiles.",
+  "experiment_id": "EXP-ML-026-INTERNAL-FUNDING-PLUS-ATTENTION-HGBR",
+  "experiment_version": 1,
+  "hypothesis": "Unusual public attention to Bitcoin measured with point-in-time-safe daily Wikimedia pageviews may add information absent from frozen spot and funding inputs and improve after-cost SPOT LONG expectancy.",
+  "leakage_controls": [
+    "EXACT_FROZEN_F1_F8_AND_FUNDING_SEMANTICS",
+    "OBSERVATION_D_AVAILABLE_ONLY_AT_DAY_START_D_PLUS_48H",
+    "TRAILING_28_MEDIAN_EXCLUDES_D",
+    "PRIMARY_AND_CONTROL_REQUIRE_IDENTICAL_ATTENTION_AVAILABILITY",
+    "TRAINING_SIGNAL_AND_COMPLETE_OUTCOME_STRICTLY_BEFORE_PURGE_BOUNDARY",
+    "NO_VALIDATION_REFIT_SELECTION_SCALING_OR_EARLY_STOPPING",
+    "NO_POST_CUTOFF_OR_SEALED_ACCESS"
+  ],
+  "metrics": {
+    "primary": "POOLED_VALID_RESOLVED_DEFAULT_NET_R",
+    "secondary": [
+      "profiles",
+      "annual_folds",
+      "trade_ess_and_concentration",
+      "prediction_positive_hours",
+      "oos_prediction_label_pearson",
+      "attention_sign_diagnostics",
+      "independent_reconciliation"
+    ]
+  },
+  "parameter_space": {
+    "algorithm_variants": 0,
+    "allocation_id": "WP016-EXTERNAL-PUBLIC-ATTENTION-ALLOCATION",
+    "architecture_variants": 0,
+    "article_variants": 0,
+    "attention_availability": "UTC_DAY_END_PLUS_24H_FIRST_HOURLY_USE_AT_DAY_START_PLUS_48H",
+    "attention_logical_sha256": "a7719d7d90bb1fdaa68e68fabac30d289ec01894f96a116195a6665f31e22977",
+    "attention_manifest_id": "WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1",
+    "attention_transform": "LOG((PAGEVIEWS_D+1)/(MEDIAN(PREVIOUS_28_EXCLUDING_D)+1))",
+    "attention_transformations": 0,
+    "attention_windows": 0,
+    "behavior_hash": "da370334fda4e61921557f85e08ade81a3fbb6880d322bda715fa180c00be736",
+    "declared_trial_budget": {
+      "configurations": 1,
+      "model_fits": 5,
+      "profiles": 4,
+      "seeds": 0,
+      "total_trials": 4
+    },
+    "dependencies": [
+      {
+        "path": "backend/app/data/policy.py",
+        "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+      },
+      {
+        "path": "backend/app/backtest/models.py",
+        "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+      },
+      {
+        "path": "backend/app/backtest/engine.py",
+        "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+      },
+      {
+        "path": "backend/app/research/evaluation_protocol.py",
+        "sha256": "d159547e3ecd01c2789b3553a17f33184165a05da458ea6cdd0efb2928dbf4b6"
+      },
+      {
+        "path": "backend/app/research/continuation_lab.py",
+        "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+      },
+      {
+        "path": "backend/app/research/order_flow.py",
+        "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+      },
+      {
+        "path": "backend/app/research/supervised.py",
+        "sha256": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318"
+      },
+      {
+        "path": "backend/app/research/funding.py",
+        "sha256": "c76e6148dcf28d12c2586641491153dcdd650addb72d4789884bde149059c3c4"
+      },
+      {
+        "path": "backend/app/research/wikimedia.py",
+        "sha256": "72b53b00bd09f59215c4a837c3c16bf11b57048fd47d1f0564eb36e7ff2fb46e"
+      },
+      {
+        "path": "backend/app/research/wp014_model.py",
+        "sha256": "7e8a624bb57545b4d2cd8ae159585d29bdde8cc65ed84012faccac1161aff0cd"
+      },
+      {
+        "path": "backend/app/research/wp015_model.py",
+        "sha256": "1f0a397d95b0d24970d0f0753a18170fc240d0535a2ecdb94b4baac4c87efe5a"
+      },
+      {
+        "path": "backend/app/research/wp015_lab.py",
+        "sha256": "9350bd7b38e9c63eb108ea73194e8a21431107f946e12cdd4406e022d80cc556"
+      },
+      {
+        "path": "backend/app/research/wp016_lab.py",
+        "sha256": "00b4acafeec794053b694d56ef2eb73c94578dc942dd36ac485e99dd73d8c046"
+      },
+      {
+        "path": "backend/app/research/wp016_runner.py",
+        "sha256": "86ba0cef5ba181b1029d9adad0bdac91e987479e9ab2e13adf474420dfc31fe0"
+      },
+      {
+        "path": "backend/app/research/artifacts.py",
+        "sha256": "0f4b8c7b4dcc9b8f26fc7a3d5b5c086e817cb2358184ab6b0b84af923c5987cb"
+      },
+      {
+        "path": "backend/app/research/model_search_memory.py",
+        "sha256": "8e8499b344e8689a4423fb615ee1a9a4100efe4810ea3ddc34c2c40da141a1a8"
+      },
+      {
+        "path": "backend/app/research/search_memory_v2.py",
+        "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+      },
+      {
+        "path": "scripts/reconcile_wp016.py",
+        "sha256": "4620bb5d3d3384a23bb684bfc29426a2821958346b3b2d0dacf4f12ff083c904"
+      },
+      {
+        "path": "docs/contracts/PERPETUAL_FUNDING_CONTEXT_V1.md",
+        "sha256": "d6d523c9acfba0a4e9785d5d9f320479307015fbee5b823aff88635be3dfd7d0"
+      },
+      {
+        "path": "docs/contracts/WIKIPEDIA_ATTENTION_CONTEXT_V1.md",
+        "sha256": "bacd9b6cbe9de829e3c30d66a4d915f5e3e7cad4d1bbdee7410f21bec66c3c60"
+      },
+      {
+        "path": "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json",
+        "sha256": "f6f975370b5e701ba93d4fdd4da9cf2bd23013b174e462f59298074d50963bbc"
+      },
+      {
+        "path": "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json",
+        "sha256": "3aa863a6fe1ea423e5e9c55d627b629eb7f791f83205e5a8b137907eb98a2539"
+      },
+      {
+        "path": "research/protocols/WP-016-WIKIPEDIA-ATTENTION-HGBR-V1.json",
+        "sha256": "8fdd038147446f57d2db2087004b9440032819ef5460d8ee1f2a95ff1e22e7f6"
+      },
+      {
+        "path": "research/protocols/WP-015-WALK-FORWARD-V1.json",
+        "sha256": "4f087e481949081ecf58b69be658f5f06fd7470996b6ffc35459218055d9793f"
+      },
+      {
+        "path": "pyproject.toml",
+        "sha256": "4ae07165e24792e7dfe88442eca04048aa08318201414f92a0fca302a5d7d2e7"
+      },
+      {
+        "path": "uv.lock",
+        "sha256": "4b1747156cac18e57926f4601890af041ed25ef5be866bd84bdfdf41af3d4a36"
+      }
+    ],
+    "dependency_hash": "08163e6810923b08295af74ecc3305ef5adc81d0ad4ae50cafb9b3227e3137da",
+    "executable_model_spec": {
+      "algorithm": "SKLEARN_1.7.2_HIST_GRADIENT_BOOSTING_REGRESSOR",
+      "config_dependencies": [
+        {
+          "path": "research/configs/wp016/internal_funding_plus_attention_hgbr.json",
+          "sha256": "3cc0796a6af8f4e64acc0c7e72b503f16cb678e3a5f0360dfb17a09d68f4f323"
+        }
+      ],
+      "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+      "dataset": {
+        "attention_availability": "UTC_DAY_END_PLUS_24H",
+        "attention_logical_sha256": "a7719d7d90bb1fdaa68e68fabac30d289ec01894f96a116195a6665f31e22977",
+        "attention_manifest_id": "WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1",
+        "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+        "feature_version": "SUPERVISED_FEATURES_V1",
+        "funding_availability": "STRICTLY_PRIOR_SETTLEMENT",
+        "funding_logical_sha256": "a65e10ecb5912652e6c96ae978b23c354067387f4c7b8443a138014d5941f165",
+        "funding_manifest_id": "BTCUSDT-USDM-FUNDING-DEV-v1",
+        "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+        "matched_attention_eligible_universe": "REQUIRED_FOR_PRIMARY_AND_CONTROL",
+        "maximum_timestamp": "2024-12-31T23:59:00Z",
+        "order_flow_version": "ORDER_FLOW_FEATURES_V1"
+      },
+      "execution_geometry": {
+        "direction": "LONG",
+        "entry": "NEXT_CANONICAL_1M_OPEN",
+        "max_hold_minutes": 1440,
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "profiles": [
+          "DEFAULT",
+          "ZERO",
+          "DOUBLE",
+          "DELAY_1H"
+        ],
+        "reference": "JUST_COMPLETED_1H_CLOSE",
+        "stop_fraction": 0.02,
+        "stress_retrain": false,
+        "target_fraction": 0.04
+      },
+      "execution_model_reference": "EXECUTION_MODEL_V2",
+      "family": "FAM-EXTERNAL-PUBLIC-ATTENTION",
+      "features": [
+        {
+          "name": "LOG_RETURN_1H",
+          "order": 1,
+          "transformation": "LN(CURRENT_1H_CLOSE/CURRENT_1H_OPEN)"
+        },
+        {
+          "name": "LOG_RETURN_24H",
+          "order": 2,
+          "transformation": "LN(CURRENT_1H_CLOSE/CLOSE_24H_EARLIER)"
+        },
+        {
+          "name": "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "order": 3,
+          "transformation": "LN(CURRENT_CLOSE/MAX_PREVIOUS_24_HIGH_EXCLUDING_CURRENT)"
+        },
+        {
+          "name": "REALIZED_VOL_24H",
+          "order": 4,
+          "transformation": "SQRT(MEAN(EXACT_24_CLOSE_TO_CLOSE_LOG_RETURN_SQUARED))"
+        },
+        {
+          "name": "LOG_RELATIVE_VOLUME_1H",
+          "order": 5,
+          "transformation": "LN(CURRENT_BASE_VOLUME/MEAN_PREVIOUS_24_BASE_VOLUME)"
+        },
+        {
+          "name": "DIRECTIONAL_EFFICIENCY_4H",
+          "order": 6,
+          "transformation": "(SUM_POSITIVE_42_CHANGES-ABS_SUM_NEGATIVE)/(SUM_POSITIVE+ABS_SUM_NEGATIVE)"
+        },
+        {
+          "name": "TAKER_BUY_SHARE_1H_CENTERED",
+          "order": 7,
+          "transformation": "ORDER_FLOW_FEATURES_V1_CURRENT_1H_SHARE_MINUS_0.5"
+        },
+        {
+          "name": "TAKER_BUY_SHARE_4H_CENTERED",
+          "order": 8,
+          "transformation": "ORDER_FLOW_FEATURES_V1_NONOVERLAPPING_4H_SHARE_MINUS_0.5"
+        },
+        {
+          "name": "LATEST_SETTLED_FUNDING_RATE",
+          "order": 9,
+          "transformation": "RAW_LATEST_SETTLED_FUNDING_RATE_WITH_FUNDING_TIME_STRICTLY_BEFORE_SIGNAL"
+        },
+        {
+          "name": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1",
+          "order": 10,
+          "transformation": "LOG((PAGEVIEWS_D+1)/(MEDIAN(PREVIOUS_28_DAILY_PAGEVIEWS_EXCLUDING_D)+1))"
+        }
+      ],
+      "hyperparameters": {
+        "architecture_variants": 0,
+        "article_variants": 0,
+        "attention_transformations": 0,
+        "attention_windows": 0,
+        "feature_selection": "NONE",
+        "parameters": {
+          "early_stopping": false,
+          "l2_regularization": 1.0,
+          "learning_rate": 0.05,
+          "loss": "squared_error",
+          "max_bins": 63,
+          "max_depth": 3,
+          "max_iter": 64,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 128,
+          "random_state": 0
+        },
+        "searched": 0
+      },
+      "implementation_dependencies": [
+        {
+          "path": "backend/app/data/policy.py",
+          "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+        },
+        {
+          "path": "backend/app/backtest/models.py",
+          "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+        },
+        {
+          "path": "backend/app/backtest/engine.py",
+          "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+        },
+        {
+          "path": "backend/app/research/evaluation_protocol.py",
+          "sha256": "d159547e3ecd01c2789b3553a17f33184165a05da458ea6cdd0efb2928dbf4b6"
+        },
+        {
+          "path": "backend/app/research/continuation_lab.py",
+          "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+        },
+        {
+          "path": "backend/app/research/order_flow.py",
+          "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+        },
+        {
+          "path": "backend/app/research/supervised.py",
+          "sha256": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318"
+        },
+        {
+          "path": "backend/app/research/funding.py",
+          "sha256": "c76e6148dcf28d12c2586641491153dcdd650addb72d4789884bde149059c3c4"
+        },
+        {
+          "path": "backend/app/research/wikimedia.py",
+          "sha256": "72b53b00bd09f59215c4a837c3c16bf11b57048fd47d1f0564eb36e7ff2fb46e"
+        },
+        {
+          "path": "backend/app/research/wp014_model.py",
+          "sha256": "7e8a624bb57545b4d2cd8ae159585d29bdde8cc65ed84012faccac1161aff0cd"
+        },
+        {
+          "path": "backend/app/research/wp015_model.py",
+          "sha256": "1f0a397d95b0d24970d0f0753a18170fc240d0535a2ecdb94b4baac4c87efe5a"
+        },
+        {
+          "path": "backend/app/research/wp015_lab.py",
+          "sha256": "9350bd7b38e9c63eb108ea73194e8a21431107f946e12cdd4406e022d80cc556"
+        },
+        {
+          "path": "backend/app/research/wp016_lab.py",
+          "sha256": "00b4acafeec794053b694d56ef2eb73c94578dc942dd36ac485e99dd73d8c046"
+        },
+        {
+          "path": "backend/app/research/wp016_runner.py",
+          "sha256": "86ba0cef5ba181b1029d9adad0bdac91e987479e9ab2e13adf474420dfc31fe0"
+        },
+        {
+          "path": "backend/app/research/artifacts.py",
+          "sha256": "0f4b8c7b4dcc9b8f26fc7a3d5b5c086e817cb2358184ab6b0b84af923c5987cb"
+        },
+        {
+          "path": "backend/app/research/model_search_memory.py",
+          "sha256": "8e8499b344e8689a4423fb615ee1a9a4100efe4810ea3ddc34c2c40da141a1a8"
+        },
+        {
+          "path": "backend/app/research/search_memory_v2.py",
+          "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+        },
+        {
+          "path": "scripts/reconcile_wp016.py",
+          "sha256": "4620bb5d3d3384a23bb684bfc29426a2821958346b3b2d0dacf4f12ff083c904"
+        },
+        {
+          "path": "docs/contracts/PERPETUAL_FUNDING_CONTEXT_V1.md",
+          "sha256": "d6d523c9acfba0a4e9785d5d9f320479307015fbee5b823aff88635be3dfd7d0"
+        },
+        {
+          "path": "docs/contracts/WIKIPEDIA_ATTENTION_CONTEXT_V1.md",
+          "sha256": "bacd9b6cbe9de829e3c30d66a4d915f5e3e7cad4d1bbdee7410f21bec66c3c60"
+        },
+        {
+          "path": "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json",
+          "sha256": "f6f975370b5e701ba93d4fdd4da9cf2bd23013b174e462f59298074d50963bbc"
+        },
+        {
+          "path": "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json",
+          "sha256": "3aa863a6fe1ea423e5e9c55d627b629eb7f791f83205e5a8b137907eb98a2539"
+        },
+        {
+          "path": "research/protocols/WP-016-WIKIPEDIA-ATTENTION-HGBR-V1.json",
+          "sha256": "8fdd038147446f57d2db2087004b9440032819ef5460d8ee1f2a95ff1e22e7f6"
+        },
+        {
+          "path": "research/protocols/WP-015-WALK-FORWARD-V1.json",
+          "sha256": "4f087e481949081ecf58b69be658f5f06fd7470996b6ffc35459218055d9793f"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "4ae07165e24792e7dfe88442eca04048aa08318201414f92a0fca302a5d7d2e7"
+        },
+        {
+          "path": "uv.lock",
+          "sha256": "4b1747156cac18e57926f4601890af041ed25ef5be866bd84bdfdf41af3d4a36"
+        }
+      ],
+      "label": {
+        "invalid_unresolved": "EXCLUDE_COUNT_NEVER_IMPUTE",
+        "isolated": true,
+        "profile": "DEFAULT",
+        "version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1"
+      },
+      "regularization": {
+        "kind": "FIXED_L2_LEAF_REGULARIZATION",
+        "searched": false,
+        "value": 1.0
+      },
+      "root_family": "FAM-EXTERNAL-PUBLIC-ATTENTION",
+      "scaling": {
+        "mean": false,
+        "scope": "NONE_RAW_GOVERNED_VALUES",
+        "std": false
+      },
+      "schema_version": 2,
+      "signal_rule": {
+        "field": "predicted_default_net_R",
+        "operator": ">",
+        "threshold": 0.0
+      },
+      "train_window_rule": {
+        "attention_context_required_at_historical_signal": true,
+        "folds": [
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ],
+        "funding_context_required_at_historical_signal": true,
+        "kind": "EXPANDING_CHRONOLOGICAL_PER_ANNUAL_FOLD",
+        "label_outcome_before_purge_boundary": true,
+        "purge_hours": 216,
+        "training_signal_boundary": "STRICTLY_BEFORE_VALIDATION_START_MINUS_PURGE",
+        "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT"
+      }
+    },
+    "executable_spec_hash": "216b3e46bd773e385135e32a66eee9cd2b3fdb8d776078ab8cf133f2879d45a0",
+    "feature_count": 10,
+    "feature_subsets": 0,
+    "feature_variants": 0,
+    "features": [
+      "LOG_RETURN_1H",
+      "LOG_RETURN_24H",
+      "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+      "REALIZED_VOL_24H",
+      "LOG_RELATIVE_VOLUME_1H",
+      "DIRECTIONAL_EFFICIENCY_4H",
+      "TAKER_BUY_SHARE_1H_CENTERED",
+      "TAKER_BUY_SHARE_4H_CENTERED",
+      "LATEST_SETTLED_FUNDING_RATE",
+      "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1"
+    ],
+    "funding_availability": "FUNDING_TIME_STRICTLY_EARLIER_THAN_SIGNAL_TIME",
+    "funding_logical_sha256": "a65e10ecb5912652e6c96ae978b23c354067387f4c7b8443a138014d5941f165",
+    "funding_manifest_id": "BTCUSDT-USDM-FUNDING-DEV-v1",
+    "hgbr_parameters": {
+      "early_stopping": false,
+      "l2_regularization": 1.0,
+      "learning_rate": 0.05,
+      "loss": "squared_error",
+      "max_bins": 63,
+      "max_depth": 3,
+      "max_iter": 64,
+      "max_leaf_nodes": 7,
+      "min_samples_leaf": 128,
+      "random_state": 0
+    },
+    "hyperparameter_variants": 0,
+    "hypothesis_id": "WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1",
+    "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+    "known_control_mechanism": null,
+    "matched_attention_eligible_universe": true,
+    "model_fingerprint": {
+      "algorithm": "SKLEARN_1.7.2_HIST_GRADIENT_BOOSTING_REGRESSOR",
+      "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+      "dataset": {
+        "attention_availability": "UTC_DAY_END_PLUS_24H",
+        "attention_logical_sha256": "a7719d7d90bb1fdaa68e68fabac30d289ec01894f96a116195a6665f31e22977",
+        "attention_manifest_id": "WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1",
+        "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+        "feature_version": "SUPERVISED_FEATURES_V1",
+        "funding_availability": "STRICTLY_PRIOR_SETTLEMENT",
+        "funding_logical_sha256": "a65e10ecb5912652e6c96ae978b23c354067387f4c7b8443a138014d5941f165",
+        "funding_manifest_id": "BTCUSDT-USDM-FUNDING-DEV-v1",
+        "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+        "matched_attention_eligible_universe": "REQUIRED_FOR_PRIMARY_AND_CONTROL",
+        "maximum_timestamp": "2024-12-31T23:59:00Z",
+        "order_flow_version": "ORDER_FLOW_FEATURES_V1"
+      },
+      "execution_geometry": {
+        "direction": "LONG",
+        "entry": "NEXT_CANONICAL_1M_OPEN",
+        "max_hold_minutes": 1440,
+        "position_policy": "SINGLE_LONG_NO_OVERLAP",
+        "profiles": [
+          "DEFAULT",
+          "ZERO",
+          "DOUBLE",
+          "DELAY_1H"
+        ],
+        "reference": "JUST_COMPLETED_1H_CLOSE",
+        "stop_fraction": 0.02,
+        "stress_retrain": false,
+        "target_fraction": 0.04
+      },
+      "execution_model_reference": "EXECUTION_MODEL_V2",
+      "features": [
+        {
+          "name": "LOG_RETURN_1H",
+          "order": 1,
+          "transformation": "LN(CURRENT_1H_CLOSE/CURRENT_1H_OPEN)"
+        },
+        {
+          "name": "LOG_RETURN_24H",
+          "order": 2,
+          "transformation": "LN(CURRENT_1H_CLOSE/CLOSE_24H_EARLIER)"
+        },
+        {
+          "name": "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+          "order": 3,
+          "transformation": "LN(CURRENT_CLOSE/MAX_PREVIOUS_24_HIGH_EXCLUDING_CURRENT)"
+        },
+        {
+          "name": "REALIZED_VOL_24H",
+          "order": 4,
+          "transformation": "SQRT(MEAN(EXACT_24_CLOSE_TO_CLOSE_LOG_RETURN_SQUARED))"
+        },
+        {
+          "name": "LOG_RELATIVE_VOLUME_1H",
+          "order": 5,
+          "transformation": "LN(CURRENT_BASE_VOLUME/MEAN_PREVIOUS_24_BASE_VOLUME)"
+        },
+        {
+          "name": "DIRECTIONAL_EFFICIENCY_4H",
+          "order": 6,
+          "transformation": "(SUM_POSITIVE_42_CHANGES-ABS_SUM_NEGATIVE)/(SUM_POSITIVE+ABS_SUM_NEGATIVE)"
+        },
+        {
+          "name": "TAKER_BUY_SHARE_1H_CENTERED",
+          "order": 7,
+          "transformation": "ORDER_FLOW_FEATURES_V1_CURRENT_1H_SHARE_MINUS_0.5"
+        },
+        {
+          "name": "TAKER_BUY_SHARE_4H_CENTERED",
+          "order": 8,
+          "transformation": "ORDER_FLOW_FEATURES_V1_NONOVERLAPPING_4H_SHARE_MINUS_0.5"
+        },
+        {
+          "name": "LATEST_SETTLED_FUNDING_RATE",
+          "order": 9,
+          "transformation": "RAW_LATEST_SETTLED_FUNDING_RATE_WITH_FUNDING_TIME_STRICTLY_BEFORE_SIGNAL"
+        },
+        {
+          "name": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1",
+          "order": 10,
+          "transformation": "LOG((PAGEVIEWS_D+1)/(MEDIAN(PREVIOUS_28_DAILY_PAGEVIEWS_EXCLUDING_D)+1))"
+        }
+      ],
+      "hyperparameters": {
+        "architecture_variants": 0,
+        "article_variants": 0,
+        "attention_transformations": 0,
+        "attention_windows": 0,
+        "feature_selection": "NONE",
+        "parameters": {
+          "early_stopping": false,
+          "l2_regularization": 1.0,
+          "learning_rate": 0.05,
+          "loss": "squared_error",
+          "max_bins": 63,
+          "max_depth": 3,
+          "max_iter": 64,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 128,
+          "random_state": 0
+        },
+        "searched": 0
+      },
+      "label": {
+        "invalid_unresolved": "EXCLUDE_COUNT_NEVER_IMPUTE",
+        "isolated": true,
+        "profile": "DEFAULT",
+        "version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1"
+      },
+      "regularization": {
+        "kind": "FIXED_L2_LEAF_REGULARIZATION",
+        "searched": false,
+        "value": 1.0
+      },
+      "scaling": {
+        "mean": false,
+        "scope": "NONE_RAW_GOVERNED_VALUES",
+        "std": false
+      },
+      "signal_rule": {
+        "field": "predicted_default_net_R",
+        "operator": ">",
+        "threshold": 0.0
+      },
+      "train_window_rule": {
+        "attention_context_required_at_historical_signal": true,
+        "folds": [
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ],
+        "funding_context_required_at_historical_signal": true,
+        "kind": "EXPANDING_CHRONOLOGICAL_PER_ANNUAL_FOLD",
+        "label_outcome_before_purge_boundary": true,
+        "purge_hours": 216,
+        "training_signal_boundary": "STRICTLY_BEFORE_VALIDATION_START_MINUS_PURGE",
+        "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT"
+      }
+    },
+    "model_fits": 5,
+    "model_selection_forks": 0,
+    "only_new_feature": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1",
+    "prediction_tolerance": 1e-10,
+    "root_family": "FAM-EXTERNAL-PUBLIC-ATTENTION",
+    "signal_threshold": 0.0,
+    "sklearn_version": "1.7.2",
+    "structural_hash": "2834d81d5794b9dd31de4535b460645c19ec236bad75258769356051187aac40",
+    "threshold_variants": 0,
+    "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT",
+    "validation_years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "variant": "INTERNAL_FUNDING_PLUS_ATTENTION_HGBR"
+  },
+  "rationale": "One frozen relative-attention-shock variable versus a matched known HGBR control; predictive, not causal, with no model search.",
+  "research_scope": "BTCUSDT_SPOT_LONG_ONLY_WIKIMEDIA_INFORMATIONAL_NO_SEALED_NO_LIVE_TRADING",
+  "schema_version": 2,
+  "seeds": [
+    0
+  ],
+  "status": "PREREGISTERED",
+  "stopping_rule": "Owner executes four profiles once through the allowlisted runner; no attention window/article/transform, subset, algorithm, hyperparameter, signal threshold, or result-dependent fork.",
+  "trial_budget": 4
+}

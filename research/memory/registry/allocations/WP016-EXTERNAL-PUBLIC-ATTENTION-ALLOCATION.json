@@ -1,0 +1,52 @@
+{
+  "adaptive_decision_increment": 1,
+  "algorithm_variants": 0,
+  "allocation_id": "WP016-EXTERNAL-PUBLIC-ATTENTION-ALLOCATION",
+  "architecture": "SHALLOW_INTERNAL_HGBR_V1",
+  "architecture_variants": 0,
+  "article_variants": 0,
+  "attention_transformations": 0,
+  "attention_windows": 0,
+  "authority": "Owner WP-016 preparation instruction",
+  "conditionality": "Official Wikimedia integrity, 48h conservative daily availability, trailing 28 excluding current, exact WP-015 inputs/model, matched attention availability, 216h purge, and complete outcomes.",
+  "cumulative_adaptive_decisions": 12,
+  "cumulative_result_dependent_forks": 10,
+  "experiment_ids": [
+    "EXP-ML-026-INTERNAL-FUNDING-PLUS-ATTENTION-HGBR",
+    "EXP-ML-027-INTERNAL-PLUS-FUNDING-HGBR-MATCHED-ATTENTION"
+  ],
+  "family_limits": {
+    "experiments": 2,
+    "numeric_parameter_variants": 0,
+    "strategy_variants": 2,
+    "trials": 8
+  },
+  "feature_subsets": 0,
+  "hyperparameter_variants": 0,
+  "hypothesis_id": "WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1",
+  "kind": "DELIBERATE_NEW_INFORMATION_FAMILY_ALLOCATION",
+  "matched_control_variant": "INTERNAL_PLUS_FUNDING_HGBR_MATCHED_ATTENTION",
+  "model_configurations": 2,
+  "model_selection_forks": 0,
+  "new_economic_hypotheses": 1,
+  "paper_observations": 0,
+  "primary_variant": "INTERNAL_FUNDING_PLUS_ATTENTION_HGBR",
+  "prior_adaptive_decisions": 11,
+  "prior_result_dependent_forks": 10,
+  "profile_evaluations": 8,
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "profiles_per_configuration": 4,
+  "result_dependent_fork_increment": 0,
+  "review_authority": "reports/reviews/RESEARCH-RUNNER-V1-RESEARCH-DIRECTOR-REVIEW.md",
+  "root_family": "FAM-EXTERNAL-PUBLIC-ATTENTION",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "supervised_model_fits": 10,
+  "threshold_variants": 0,
+  "work_package": "WP-016"
+}

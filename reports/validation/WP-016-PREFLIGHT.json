@@ -1,0 +1,72 @@
+{
+  "attention_available_at_or_before_signal": true,
+  "attention_records": 3472,
+  "complete_outcomes_before_boundary": true,
+  "control_classification": "KNOWN_FUNDING_HGBR_MATCHED_CONTROL",
+  "family_classification": "NEW_FAMILY",
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED",
+    "LATEST_SETTLED_FUNDING_RATE",
+    "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1"
+  ],
+  "forbidden_sources": [
+    "GOOGLE_TRENDS",
+    "REDDIT",
+    "NEWS",
+    "OTHER_WIKIPEDIA_ARTICLES_OR_LANGUAGES"
+  ],
+  "hgbr_parameters": {
+    "early_stopping": false,
+    "l2_regularization": 1.0,
+    "learning_rate": 0.05,
+    "loss": "squared_error",
+    "max_bins": 63,
+    "max_depth": 3,
+    "max_iter": 64,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 128,
+    "random_state": 0
+  },
+  "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+  "market_results_observed": 0,
+  "matched_eligible_universe": true,
+  "model_fits_executed": 0,
+  "model_fits_reserved": 10,
+  "only_new_feature": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1",
+  "post_cutoff_access": 0,
+  "post_cutoff_rows": 0,
+  "prediction_tolerance": 1e-10,
+  "preregistration_sha256": {
+    "INTERNAL_FUNDING_PLUS_ATTENTION_HGBR": "164f7ee45e3301f3a6a908685f6fcd7d4eebd629990588283df04428b1842984",
+    "INTERNAL_PLUS_FUNDING_HGBR_MATCHED_ATTENTION": "da04ab767e46b7b0ca172d6276521abbfb40d71f2fdbc27e7f3bbde43087be1a"
+  },
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "protocol_id": "WP-016-WIKIPEDIA-ATTENTION-HGBR-V1",
+  "purge_boundary_hours": 216,
+  "same_day_attention_use": false,
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "signal_threshold": 0.0,
+  "status": "PASS",
+  "trailing_median_excludes_current": true,
+  "validation_years": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "work_package": "WP-016-PREPARATION"
+}

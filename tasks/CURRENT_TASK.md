@@ -1,22 +1,15 @@
-# CURRENT TASK — RESEARCH-RUNNER-V1
+# CURRENT TASK — WP-016 PREPARATION
 
-## Owner-initiated local backtesting
+Status: PREREGISTERED_PENDING_OWNER_EXECUTION
 
-Status: COMPLETED
+Starting HEAD: `5adf7c69ffdd4f60419cd4856a315c45faf689fe` on `main`.
 
-Starting HEAD: `b12f13f1f5fe7ab5d94893f9297e75d8f9c5b467` on `main`.
+Prepare `FAM-EXTERNAL-PUBLIC-ATTENTION` and the frozen hypothesis
+`WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1`. Acquire and audit only official
+en.wikipedia daily user pageviews for `Bitcoin`, freeze the conservative point-in-time
+attention-shock feature, preregister the primary and matched funding control, and expose
+`WP016_WIKIPEDIA_ATTENTION_V1` through Research Runner.
 
-Build a local Research Lab workflow with a source-controlled candidate allowlist,
-non-blocking deterministic Python execution, atomic gitignored runtime state, meaningful
-progress, an Owner-facing result summary, and a compact review bundle.
-
-V1 exposes exactly `WP015_REPRODUCTION_V1`. It is a reproduction of already-exposed
-development evidence, not a new experiment. It cannot change scientific counters, paper
-trades, Champion status, sealed-query accounting, or real-money state.
-
-The implementation checkpoint must use only mocked or synthetic test execution. The real
-WP-015 historical workload must not be run by the executor.
-
-Completed with the allowlisted backend runner, persistent refresh-safe lifecycle, fixed
-WP-015 reproduction adapter, Research Lab UI, compact review bundle, synthetic lifecycle
-coverage, and the full no-data repository gate passing. No historical candidate was run.
+The executor must not invoke the real WP-016 walk-forward, observe market results, create
+experiment results, or change completed-experiment accounting. The Owner initiates the
+first run manually from Research Lab after this preparation is committed.

@@ -1,0 +1,27 @@
+{
+  "admitted_by": "research/memory/registry/admissions/WP016-NOVELTY-ADMISSION.json",
+  "aliases": [
+    "WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1",
+    "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1",
+    "INTERNAL_FUNDING_PLUS_ATTENTION_HGBR"
+  ],
+  "allocation_id": "WP016-EXTERNAL-PUBLIC-ATTENTION-ALLOCATION",
+  "entry_event_anchors": [
+    "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO"
+  ],
+  "failure_experiment_ids": [],
+  "family_id": "FAM-EXTERNAL-PUBLIC-ATTENTION",
+  "information_source": "OFFICIAL_ENWIKIPEDIA_BITCOIN_DAILY_USER_PAGEVIEWS",
+  "legitimate_revisit": "Only a new explicit Research Director allocation; no exposed-result tuning.",
+  "matched_control": {
+    "classification": "KNOWN_FUNDING_HGBR_MATCHED_CONTROL",
+    "novelty_claimed": false,
+    "related_to": "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
+    "variant": "INTERNAL_PLUS_FUNDING_HGBR_MATCHED_ATTENTION"
+  },
+  "mechanism": "One conservative point-in-time relative public-attention shock is added to frozen spot and settled-funding inputs.",
+  "parent_family_id": null,
+  "schema_version": 1,
+  "status": "ADMITTED_PREREGISTERED_PENDING_OWNER_EXECUTION",
+  "work_package": "WP-016"
+}

@@ -1,0 +1,173 @@
+{
+  "availability": {
+    "lag_hours_from_observation_day_start": 48,
+    "rule": "UTC_DAY_END_PLUS_24H_FIRST_HOURLY_USE_AT_DAY_START_PLUS_48H",
+    "same_day_use": false
+  },
+  "canonical": {
+    "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+    "columns": [
+      {
+        "name": "observation_date",
+        "nullable": false,
+        "type": "timestamp[us, tz=UTC]"
+      },
+      {
+        "name": "availability_time",
+        "nullable": false,
+        "type": "timestamp[us, tz=UTC]"
+      },
+      {
+        "name": "pageviews",
+        "nullable": false,
+        "type": "int64"
+      }
+    ],
+    "file_sha256": "c52a38194e1a6bfa005ec184df23a75d8d25b61ffba89200219bb53aa81a5535",
+    "format": "PARQUET_ZSTD",
+    "logical_sha256": "a7719d7d90bb1fdaa68e68fabac30d289ec01894f96a116195a6665f31e22977",
+    "path": "data/derived/WIKIMEDIA-enwiki-Bitcoin-pageviews-daily-v1.parquet",
+    "rows": 3472,
+    "schema_version": 1,
+    "sort_key": [
+      "observation_date"
+    ],
+    "writer": {
+      "compression": "zstd",
+      "compression_level": 9,
+      "data_page_version": "1.0",
+      "pyarrow_version": "21.0.0",
+      "use_dictionary": false,
+      "version": "2.6",
+      "write_statistics": true
+    }
+  },
+  "coverage": {
+    "end": "2024-12-31",
+    "start": "2015-07-01"
+  },
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "feature": {
+    "current_observation_excluded_from_median": true,
+    "name": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1",
+    "previous_observations": 28,
+    "transform": "LOG((PAGEVIEWS_D+1)/(MEDIAN(PREVIOUS_28_PAGEVIEWS)+1))",
+    "variants": 0
+  },
+  "integrity": {
+    "duplicates": 0,
+    "missing_day_values": [],
+    "missing_days": 0,
+    "post_cutoff_rows": 0,
+    "strictly_increasing": true
+  },
+  "manifest_id": "WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1",
+  "raw_requests": [
+    {
+      "end": "2015-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2015-07-01_2015-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2015-07-01_2015-12-31.json",
+      "rows": 184,
+      "sha256": "d1ad0ad7d652afd48d6a4b58f1725bb0bd64696c46c6e573fcd2cb6e66fa28e1",
+      "start": "2015-07-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2015070100/2015123100"
+    },
+    {
+      "end": "2016-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2016-01-01_2016-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2016-01-01_2016-12-31.json",
+      "rows": 366,
+      "sha256": "037ca25adc9c0a800a6f730a246dd74d74be8f5ac75c7807ab33424b268e3d32",
+      "start": "2016-01-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2016010100/2016123100"
+    },
+    {
+      "end": "2017-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2017-01-01_2017-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2017-01-01_2017-12-31.json",
+      "rows": 365,
+      "sha256": "3492e71344756fb4b91061342e0ec07bae85322789925047a41cfbd9cda11cd5",
+      "start": "2017-01-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2017010100/2017123100"
+    },
+    {
+      "end": "2018-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2018-01-01_2018-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2018-01-01_2018-12-31.json",
+      "rows": 365,
+      "sha256": "31f10541bcae7ddef4d1993176e60134a2be75cfbccc25ba5f170757e9b03610",
+      "start": "2018-01-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2018010100/2018123100"
+    },
+    {
+      "end": "2019-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2019-01-01_2019-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2019-01-01_2019-12-31.json",
+      "rows": 365,
+      "sha256": "42a9976b8b17c7ef7776ed444e8a1a25bb6f04c10c521fb66312b6f6fb36aa21",
+      "start": "2019-01-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2019010100/2019123100"
+    },
+    {
+      "end": "2020-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2020-01-01_2020-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2020-01-01_2020-12-31.json",
+      "rows": 366,
+      "sha256": "87c60d9c95056454961873e2e861acded44a37156226459e4d23373624b63466",
+      "start": "2020-01-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2020010100/2020123100"
+    },
+    {
+      "end": "2021-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2021-01-01_2021-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2021-01-01_2021-12-31.json",
+      "rows": 365,
+      "sha256": "f8a1288ee07ee71d77b686db6c8d01473f4f6102b452b737e785e5cd636d7c15",
+      "start": "2021-01-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2021010100/2021123100"
+    },
+    {
+      "end": "2022-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2022-01-01_2022-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2022-01-01_2022-12-31.json",
+      "rows": 365,
+      "sha256": "a14a9a5e7f2cb70ef2faace6a31654c88248189b54f608fa351aa0cbf1f302d3",
+      "start": "2022-01-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2022010100/2022123100"
+    },
+    {
+      "end": "2023-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2023-01-01_2023-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2023-01-01_2023-12-31.json",
+      "rows": 365,
+      "sha256": "242a6462623b32e67ba065e6a9e7c29e0a6aeded16ac252f5f1daae0b887de1e",
+      "start": "2023-01-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2023010100/2023123100"
+    },
+    {
+      "end": "2024-12-31",
+      "metadata_path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2024-01-01_2024-12-31.meta.json",
+      "path": "data/raw/wikimedia/en.wikipedia/Bitcoin/daily/2024-01-01_2024-12-31.json",
+      "rows": 366,
+      "sha256": "bfbbedf074b647344bf7c7f851e457ff7074b9b0ee5c1ea72342fb89c4019121",
+      "start": "2024-01-01",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bitcoin/daily/2024010100/2024123100"
+    }
+  ],
+  "records": 3472,
+  "schema_version": 1,
+  "source": {
+    "access": "all-access",
+    "agent": "user",
+    "api": "Wikimedia REST Pageviews API",
+    "article": "Bitcoin",
+    "credentials": false,
+    "endpoint": "/api/rest_v1/metrics/pageviews/per-article",
+    "granularity": "daily",
+    "official_only": true,
+    "origin": "https://wikimedia.org",
+    "project": "en.wikipedia",
+    "provider": "Wikimedia Foundation"
+  },
+  "version": "WIKIPEDIA_ATTENTION_CONTEXT_V1"
+}

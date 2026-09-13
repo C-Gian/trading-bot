@@ -1,0 +1,40 @@
+{
+  "canonical_sha256": "c52a38194e1a6bfa005ec184df23a75d8d25b61ffba89200219bb53aa81a5535",
+  "checks": {
+    "availability_day_end_plus_24h": "PASS",
+    "canonical_exact_rebuild": "PASS",
+    "daily_no_duplicates_or_missing": "PASS",
+    "no_post_cutoff_observation": "PASS",
+    "official_source_selectors": "PASS",
+    "raw_response_hashes": "PASS",
+    "trailing_28_excludes_current": "PASS"
+  },
+  "complete_validation_folds": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "duplicates": 0,
+  "feature": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1",
+  "first_observation": "2015-07-01",
+  "last_observation": "2024-12-31",
+  "manifest_sha256": "3aa863a6fe1ea423e5e9c55d627b629eb7f791f83205e5a8b137907eb98a2539",
+  "market_results_observed": false,
+  "maximum_independent_feature_difference": 0.0,
+  "missing_days": 0,
+  "post_cutoff_rows": 0,
+  "records_rebuilt": 3472,
+  "schema_version": 1,
+  "selectors": {
+    "access": "all-access",
+    "agent": "user",
+    "article": "Bitcoin",
+    "granularity": "daily",
+    "project": "en.wikipedia"
+  },
+  "source": "OFFICIAL_WIKIMEDIA_REST_PAGEVIEWS_API_ONLY",
+  "status": "PASS",
+  "work_package": "WP-016-PREPARATION"
+}
