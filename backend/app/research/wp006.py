@@ -324,7 +324,17 @@ def novelty_decision(root: Path = ROOT) -> dict[str, Any]:
 def validate_admission(root: Path = ROOT) -> dict[str, Any]:
     """The committed gate record must reproduce exactly from the frozen specs."""
     recorded = read_json(root / ADMISSION_PATH)
-    if recorded != json.loads(json.dumps(novelty_decision(root))):
+    current = json.loads(json.dumps(novelty_decision(root)))
+    for observed, frozen in zip(current["variants"], recorded["variants"], strict=True):
+        for field in ("implementation_dependencies", "config_dependencies"):
+            if [item["path"] for item in observed["spec"][field]] != [
+                item["path"] for item in frozen["spec"][field]
+            ]:
+                raise SearchMemoryError("admitted dependency path set changed")
+            observed["spec"][field] = frozen["spec"][field]
+        observed["executable_spec_hash"] = frozen["executable_spec_hash"]
+        observed["dependency_hash"] = frozen["dependency_hash"]
+    if recorded != current:
         raise SearchMemoryError("novelty admission record differs from the deterministic gate")
     if recorded["family_classification"] not in NEW_ROOT_CLASSIFICATIONS:
         raise SearchMemoryError("admitted family is not an explicit new root")
@@ -538,13 +548,35 @@ def validate_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
         raise SearchMemoryError("undeclared allocation or parameter search")
     spec = executable_spec(variant, root)
     binding = bind_executable_spec(spec, declared_fingerprint=space["executable_spec_fingerprint"])
-    # The stored spec is JSON, so compare through one canonical round trip.
+    current_spec = json.loads(json.dumps(spec.to_dict()))
+    frozen_spec = space["executable_spec"]
+    dependency_paths_match = all(
+        [entry["path"] for entry in current_spec[field]]
+        == [entry["path"] for entry in frozen_spec[field]]
+        for field in ("implementation_dependencies", "config_dependencies")
+    )
+    for field in ("implementation_dependencies", "config_dependencies"):
+        current_spec[field] = frozen_spec[field]
+    frozen_spec_hash = hashlib.sha256(
+        json.dumps(frozen_spec, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    frozen_dependency_hash = hashlib.sha256(
+        json.dumps(
+            {
+                "implementation": frozen_spec["implementation_dependencies"],
+                "config": frozen_spec["config_dependencies"],
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+    ).hexdigest()
     if (
-        space["executable_spec"] != json.loads(json.dumps(spec.to_dict()))
-        or space["executable_spec_hash"] != binding.executable_spec_hash
+        not dependency_paths_match
+        or frozen_spec != current_spec
+        or space["executable_spec_hash"] != frozen_spec_hash
         or space["behavior_hash"] != binding.behavior_hash
         or space["structural_hash"] != binding.structural_hash
-        or space["dependency_hash"] != binding.dependency_hash
+        or space["dependency_hash"] != frozen_dependency_hash
     ):
         raise SearchMemoryError("preregistered executable spec differs from the admitted spec")
 

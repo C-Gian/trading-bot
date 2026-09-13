@@ -374,6 +374,31 @@ def validate_admission(root: Path = ROOT) -> dict[str, Any]:
         item = expected[experiment_id]
         spec = executable_spec(variant, root)
         binding = bind_executable_spec(spec, runtime_spec=spec)
+        current_spec = json.loads(json.dumps(spec.to_dict()))
+        recorded_spec = item["spec"]
+        dependency_paths_match = all(
+            [entry["path"] for entry in current_spec[field]]
+            == [entry["path"] for entry in recorded_spec[field]]
+            for field in ("implementation_dependencies", "config_dependencies")
+        )
+        # Later work packages may extend a shared implementation file. The immutable
+        # admission remains the historical dependency identity; compare current
+        # scientific structure after substituting those frozen dependency hashes.
+        for field in ("implementation_dependencies", "config_dependencies"):
+            current_spec[field] = recorded_spec[field]
+        frozen_spec_hash = hashlib.sha256(
+            json.dumps(recorded_spec, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
+        frozen_dependency_hash = hashlib.sha256(
+            json.dumps(
+                {
+                    "implementation": recorded_spec["implementation_dependencies"],
+                    "config": recorded_spec["config_dependencies"],
+                },
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode()
+        ).hexdigest()
         expected_classification = (
             "NEW_FAMILY" if variant == PRIMARY_VARIANT else "DESCENDANT_MECHANISM_CHANGE"
         )
@@ -383,11 +408,12 @@ def validate_admission(root: Path = ROOT) -> dict[str, Any]:
             or item["hypothesis_role"] != ROLES[variant]
             or item["classification"] != expected_classification
             or item["matched_experiment_ids"] != expected_matches
-            or item["spec"] != json.loads(json.dumps(spec.to_dict()))
+            or not dependency_paths_match
+            or recorded_spec != current_spec
             or item["behavior_hash"] != binding.behavior_hash
             or item["structural_hash"] != binding.structural_hash
-            or item["executable_spec_hash"] != binding.executable_spec_hash
-            or item["dependency_hash"] != binding.dependency_hash
+            or item["executable_spec_hash"] != frozen_spec_hash
+            or item["dependency_hash"] != frozen_dependency_hash
         ):
             raise SearchMemoryError("novelty admission record differs from the deterministic gate")
     return recorded
@@ -581,12 +607,35 @@ def validate_identity(
         raise SearchMemoryError("preregistered feature substrate identity changed")
     spec = executable_spec(variant, root)
     binding = bind_executable_spec(spec, declared_fingerprint=space["executable_spec_fingerprint"])
+    current_spec = json.loads(json.dumps(spec.to_dict()))
+    frozen_spec = space["executable_spec"]
+    dependency_paths_match = all(
+        [entry["path"] for entry in current_spec[field]]
+        == [entry["path"] for entry in frozen_spec[field]]
+        for field in ("implementation_dependencies", "config_dependencies")
+    )
+    for field in ("implementation_dependencies", "config_dependencies"):
+        current_spec[field] = frozen_spec[field]
+    frozen_spec_hash = hashlib.sha256(
+        json.dumps(frozen_spec, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    frozen_dependency_hash = hashlib.sha256(
+        json.dumps(
+            {
+                "implementation": frozen_spec["implementation_dependencies"],
+                "config": frozen_spec["config_dependencies"],
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+    ).hexdigest()
     if (
-        space["executable_spec"] != json.loads(json.dumps(spec.to_dict()))
-        or space["executable_spec_hash"] != binding.executable_spec_hash
+        not dependency_paths_match
+        or frozen_spec != current_spec
+        or space["executable_spec_hash"] != frozen_spec_hash
         or space["behavior_hash"] != binding.behavior_hash
         or space["structural_hash"] != binding.structural_hash
-        or space["dependency_hash"] != binding.dependency_hash
+        or space["dependency_hash"] != frozen_dependency_hash
     ):
         raise SearchMemoryError("preregistered executable spec differs from the admitted spec")
 

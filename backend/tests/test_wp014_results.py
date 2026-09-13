@@ -125,9 +125,9 @@ def test_wp014_result_records_and_state_are_consistent_and_safe() -> None:
         assert result["secondary_results"]["independent_reconciliation"] == "PASS"
 
     state = read_json("state/current_state.json")
-    assert state["experiments_completed"] == 23
-    assert state["latest_reviewed_checkpoint"] == "WP-013"
-    assert state["latest_executor_checkpoint"] == "WP-014"
+    assert state["experiments_completed"] == 25
+    assert state["latest_reviewed_checkpoint"] == "WP-014"
+    assert state["latest_executor_checkpoint"] == "WP-015"
     challenger = state["shallow_nonlinear_challenger"]
     assert challenger["terminal_classification"] == "REJECT_COST_DOMINATED"
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 12
@@ -137,6 +137,4 @@ def test_wp014_result_records_and_state_are_consistent_and_safe() -> None:
     assert state["paper_trades_completed"] == 0
     assert state["champion_status"] == "NONE"
     assert state["real_money_authorized"] is False
-    assert (ROOT / "tasks/CURRENT_TASK.md").read_bytes() == (
-        ROOT / "tasks/archive/WP-014.md"
-    ).read_bytes()
+    assert b"## STATUS\nCOMPLETED" in (ROOT / "tasks/archive/WP-014.md").read_bytes()

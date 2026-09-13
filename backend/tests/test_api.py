@@ -111,7 +111,7 @@ def test_memory_inspection_is_read_only_and_counters_come_from_state(tmp_path):
 def test_all_experiments_have_explicit_evidence_windows():
     payload = TestClient(app).get("/api/v1/research/experiments").json()
     assert payload["label"] == "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
-    assert len(payload["experiments"]) == 23
+    assert len(payload["experiments"]) == 25
     recovery = next(
         x for x in payload["experiments"] if x["experiment_id"].endswith("RECOVERY-CORE")
     )

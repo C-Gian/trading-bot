@@ -1,0 +1,93 @@
+{
+  "default_trade_outcomes_by_funding_sign": {
+    "NEGATIVE": {
+      "cumulative_net_r": 41.86328002732699,
+      "executed_attempts": 176,
+      "mean_net_r": 0.23785954560981243,
+      "valid_resolved_trades": 176
+    },
+    "POSITIVE": {
+      "cumulative_net_r": -100.1815096815694,
+      "executed_attempts": 545,
+      "mean_net_r": -0.18552131422512852,
+      "valid_resolved_trades": 540
+    },
+    "ZERO": {
+      "cumulative_net_r": 0.0,
+      "executed_attempts": 0,
+      "mean_net_r": null,
+      "valid_resolved_trades": 0
+    }
+  },
+  "diagnostic_only": true,
+  "first_funding_time": "2019-09-10T08:00:00Z",
+  "funding_distribution": {
+    "count": 41143,
+    "max": 0.00248993,
+    "mean": 0.0001206546216853414,
+    "median": 0.0001,
+    "min": -0.003
+  },
+  "funding_distribution_by_fold": {
+    "DEV-2020": {
+      "count": 7451,
+      "max": 0.00164021,
+      "mean": 0.00013266575627432557,
+      "median": 0.0001,
+      "min": -0.003
+    },
+    "DEV-2021": {
+      "count": 7705,
+      "max": 0.00248993,
+      "mean": 0.00027078911226476314,
+      "median": 0.0001,
+      "min": -0.00089697
+    },
+    "DEV-2022": {
+      "count": 8713,
+      "max": 0.0001,
+      "mean": 3.770159531734191e-05,
+      "median": 5.092e-05,
+      "min": -0.00119172
+    },
+    "DEV-2023": {
+      "count": 8537,
+      "max": 0.0005517,
+      "mean": 7.192780016399204e-05,
+      "median": 8.455e-05,
+      "min": -0.00011006
+    },
+    "DEV-2024": {
+      "count": 8737,
+      "max": 0.00088148,
+      "mean": 0.00010834712258212202,
+      "median": 0.0001,
+      "min": -0.00011235
+    }
+  },
+  "funding_observations_acquired": 5819,
+  "hourly_eligible_coverage": 41143,
+  "last_funding_time": "2024-12-31T16:00:00Z",
+  "mean_funding_executed_trades": 5.109619972260749e-05,
+  "prediction_groups": {
+    "mean_funding_nonpositive_prediction_hours": 0.00012916702825690074,
+    "mean_funding_positive_prediction_hours": 5.0358310081008106e-05
+  },
+  "schema_version": 1,
+  "sign_distribution": {
+    "NEGATIVE": {
+      "count": 5369,
+      "fraction": 0.13049607466640742
+    },
+    "POSITIVE": {
+      "count": 35774,
+      "fraction": 0.8695039253335926
+    },
+    "ZERO": {
+      "count": 0,
+      "fraction": 0.0
+    }
+  },
+  "used_to_adapt_experiment": false,
+  "work_package": "WP-015"
+}

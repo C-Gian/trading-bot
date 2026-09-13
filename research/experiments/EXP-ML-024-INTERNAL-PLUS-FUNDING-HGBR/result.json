@@ -1,0 +1,333 @@
+{
+  "artifacts": [
+    "reports/research/WP-015-COMPARISON.json",
+    "reports/research/WP-015-FUNDING-DIAGNOSTICS.json",
+    "reports/research/WP-015-HISTORICAL-COMPARISON.json",
+    "reports/research/WP-015-SCIENTIFIC-QUESTIONS.json",
+    "research/experiments/EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR/fold-models.json",
+    "reports/validation/WP-015-MODEL-RECONCILIATION.json",
+    "reports/validation/WP-015-PREFLIGHT.json"
+  ],
+  "code_config_reference": "a9d0de088289000767b2eb5f9d1acdb633d79c98d70d4ceb2e6cf230a87440fd",
+  "completed_at_utc": "2026-09-13T14:30:00Z",
+  "dataset": {
+    "content_hash": "08e5057d7c6a7c6d76980354608e91df814082a37b3009dbd294156bbfbc7a0d",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1 + BTCUSDT-USDM-FUNDING-DEV-v1"
+  },
+  "experiment_id": "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
+  "experiment_version": 1,
+  "interpretation": "EXPOSED DEVELOPMENT RESEARCH, PREDICTIVE NOT CAUSAL. Settled perpetual funding is information only; traded instrument remains BTCUSDT spot LONG.",
+  "preregistration_created_at_utc": "2026-09-13T13:10:00Z",
+  "preregistration_reference": "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
+  "primary_result": -0.0814500414,
+  "run_identity_hash": "2d92df4b51277fe8713583697e7fa51dcd7897e665ad0147d7bc40e9faf994f4",
+  "schema_version": 2,
+  "secondary_results": {
+    "annual_folds": {
+      "cumulative_net_r": -58.3182296542,
+      "folds": [
+        {
+          "fold_id": "DEV-2020",
+          "metrics": {
+            "attempted_setups": 138,
+            "average_loss_r": -0.9870999516,
+            "average_win_r": 1.2561651044,
+            "cost_drag_r": 16.335034738,
+            "cumulative_net_bps": -1272.702688377,
+            "cumulative_net_r": -6.3794852216,
+            "hit_rate": 0.4191176471,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 14.3314203119,
+            "net_expectancy_bps": -9.3581080028,
+            "net_expectancy_r": -0.0469079796,
+            "net_return_bps_observation_count": 136,
+            "profit_factor": 0.9181916914,
+            "trade_count": 136,
+            "unresolved_rate": 0.0144927536,
+            "unresolved_trades": 2,
+            "yearly": {
+              "2020": {
+                "cumulative_net_r": -6.3794852216,
+                "expectancy_r": -0.0469079796,
+                "trades": 136
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2021",
+          "metrics": {
+            "attempted_setups": 251,
+            "average_loss_r": -1.0591383144,
+            "average_win_r": 1.3648034258,
+            "cost_drag_r": 29.7567235601,
+            "cumulative_net_bps": -6021.7052930238,
+            "cumulative_net_r": -29.9678949214,
+            "hit_rate": 0.3870967742,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 38.1011921663,
+            "net_expectancy_bps": -24.2810697299,
+            "net_expectancy_r": -0.120838286,
+            "net_return_bps_observation_count": 248,
+            "profit_factor": 0.813851316,
+            "trade_count": 248,
+            "unresolved_rate": 0.0119521912,
+            "unresolved_trades": 3,
+            "yearly": {
+              "2021": {
+                "cumulative_net_r": -29.9678949214,
+                "expectancy_r": -0.120838286,
+                "trades": 248
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2022",
+          "metrics": {
+            "attempted_setups": 171,
+            "average_loss_r": -0.8634664399,
+            "average_win_r": 1.1023719182,
+            "cost_drag_r": 20.5395317942,
+            "cumulative_net_bps": -828.143896238,
+            "cumulative_net_r": -4.1465610783,
+            "hit_rate": 0.4269005848,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 10.7224988101,
+            "net_expectancy_bps": -4.8429467616,
+            "net_expectancy_r": -0.0242488952,
+            "net_return_bps_observation_count": 171,
+            "profit_factor": 0.9509976928,
+            "trade_count": 171,
+            "unresolved_rate": 0.0,
+            "unresolved_trades": 0,
+            "yearly": {
+              "2022": {
+                "cumulative_net_r": -4.1465610783,
+                "expectancy_r": -0.0242488952,
+                "trades": 171
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2023",
+          "metrics": {
+            "attempted_setups": 68,
+            "average_loss_r": -0.7414741564,
+            "average_win_r": 0.8555136105,
+            "cost_drag_r": 8.1548308578,
+            "cumulative_net_bps": -2418.2726594814,
+            "cumulative_net_r": -12.0925362296,
+            "hit_rate": 0.3529411765,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 14.7817374237,
+            "net_expectancy_bps": -35.5628332277,
+            "net_expectancy_r": -0.1778314151,
+            "net_return_bps_observation_count": 68,
+            "profit_factor": 0.6293459907,
+            "trade_count": 68,
+            "unresolved_rate": 0.0,
+            "unresolved_trades": 0,
+            "yearly": {
+              "2023": {
+                "cumulative_net_r": -12.0925362296,
+                "expectancy_r": -0.1778314151,
+                "trades": 68
+              }
+            }
+          }
+        },
+        {
+          "fold_id": "DEV-2024",
+          "metrics": {
+            "attempted_setups": 93,
+            "average_loss_r": -0.916476749,
+            "average_win_r": 1.2918728469,
+            "cost_drag_r": 11.1665499423,
+            "cumulative_net_bps": -1145.7425056687,
+            "cumulative_net_r": -5.7317522034,
+            "hit_rate": 0.3870967742,
+            "invalid_attempts": 0,
+            "invalid_rate": 0.0,
+            "maximum_drawdown_r": 21.6180626341,
+            "net_expectancy_bps": -12.3198118889,
+            "net_expectancy_r": -0.0616317441,
+            "net_return_bps_observation_count": 93,
+            "profit_factor": 0.8902786608,
+            "trade_count": 93,
+            "unresolved_rate": 0.0,
+            "unresolved_trades": 0,
+            "yearly": {
+              "2024": {
+                "cumulative_net_r": -5.7317522034,
+                "expectancy_r": -0.0616317441,
+                "trades": 93
+              }
+            }
+          }
+        }
+      ],
+      "minimum_fold_trade_count": 68,
+      "model_fits": 5,
+      "nonnegative_fold_count": 0,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 716,
+      "trade_ess": 603.6243168391
+    },
+    "funding_distribution_and_sign_diagnostics": {
+      "default_trade_outcomes_by_funding_sign": {
+        "NEGATIVE": {
+          "cumulative_net_r": 41.86328002732699,
+          "executed_attempts": 176,
+          "mean_net_r": 0.23785954560981243,
+          "valid_resolved_trades": 176
+        },
+        "POSITIVE": {
+          "cumulative_net_r": -100.1815096815694,
+          "executed_attempts": 545,
+          "mean_net_r": -0.18552131422512852,
+          "valid_resolved_trades": 540
+        },
+        "ZERO": {
+          "cumulative_net_r": 0.0,
+          "executed_attempts": 0,
+          "mean_net_r": null,
+          "valid_resolved_trades": 0
+        }
+      },
+      "diagnostic_only": true,
+      "first_funding_time": "2019-09-10T08:00:00Z",
+      "funding_distribution": {
+        "count": 41143,
+        "max": 0.00248993,
+        "mean": 0.0001206546216853414,
+        "median": 0.0001,
+        "min": -0.003
+      },
+      "funding_distribution_by_fold": {
+        "DEV-2020": {
+          "count": 7451,
+          "max": 0.00164021,
+          "mean": 0.00013266575627432557,
+          "median": 0.0001,
+          "min": -0.003
+        },
+        "DEV-2021": {
+          "count": 7705,
+          "max": 0.00248993,
+          "mean": 0.00027078911226476314,
+          "median": 0.0001,
+          "min": -0.00089697
+        },
+        "DEV-2022": {
+          "count": 8713,
+          "max": 0.0001,
+          "mean": 3.770159531734191e-05,
+          "median": 5.092e-05,
+          "min": -0.00119172
+        },
+        "DEV-2023": {
+          "count": 8537,
+          "max": 0.0005517,
+          "mean": 7.192780016399204e-05,
+          "median": 8.455e-05,
+          "min": -0.00011006
+        },
+        "DEV-2024": {
+          "count": 8737,
+          "max": 0.00088148,
+          "mean": 0.00010834712258212202,
+          "median": 0.0001,
+          "min": -0.00011235
+        }
+      },
+      "funding_observations_acquired": 5819,
+      "hourly_eligible_coverage": 41143,
+      "last_funding_time": "2024-12-31T16:00:00Z",
+      "mean_funding_executed_trades": 5.109619972260749e-05,
+      "prediction_groups": {
+        "mean_funding_nonpositive_prediction_hours": 0.00012916702825690074,
+        "mean_funding_positive_prediction_hours": 5.0358310081008106e-05
+      },
+      "schema_version": 1,
+      "sign_distribution": {
+        "NEGATIVE": {
+          "count": 5369,
+          "fraction": 0.13049607466640742
+        },
+        "POSITIVE": {
+          "count": 35774,
+          "fraction": 0.8695039253335926
+        },
+        "ZERO": {
+          "count": 0,
+          "fraction": 0.0
+        }
+      },
+      "used_to_adapt_experiment": false,
+      "work_package": "WP-015"
+    },
+    "independent_reconciliation": "PASS",
+    "oos_prediction_label_pearson": {
+      "per_fold": {
+        "DEV-2020": -0.023454935430828907,
+        "DEV-2021": 0.025572373439483514,
+        "DEV-2022": 0.03086298552446944,
+        "DEV-2023": -0.015575041972226375,
+        "DEV-2024": 0.05901145728657511
+      },
+      "pooled": -0.025554931116266017
+    },
+    "prediction_positive_hours": {
+      "per_fold": {
+        "DEV-2020": 842,
+        "DEV-2021": 1705,
+        "DEV-2022": 1063,
+        "DEV-2023": 364,
+        "DEV-2024": 470
+      },
+      "total": 4444
+    },
+    "profiles": {
+      "DEFAULT": {
+        "cumulative_net_r": -58.3182296542,
+        "net_expectancy_r": -0.0814500414,
+        "trade_count": 716
+      },
+      "DELAY_1H": {
+        "cumulative_net_r": -77.4671388665,
+        "net_expectancy_r": -0.1044031521,
+        "trade_count": 742
+      },
+      "DOUBLE": {
+        "cumulative_net_r": -144.270889493,
+        "net_expectancy_r": -0.2014956557,
+        "trade_count": 716
+      },
+      "ZERO": {
+        "cumulative_net_r": 27.6344412383,
+        "net_expectancy_r": 0.0385955883,
+        "trade_count": 716
+      }
+    },
+    "trade_ess_and_concentration": {
+      "active_week_kish_count": 122.3522673031,
+      "max_fold_trade_share": 0.3463687151,
+      "trade_ess": 603.6243168391
+    }
+  },
+  "seed_reference": [
+    0
+  ],
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 4,
+    "executed_trials": 4
+  },
+  "validation_outcome": "PASS"
+}

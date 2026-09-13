@@ -262,6 +262,8 @@
         "wp013_profiles_reserved",
         "wp014_variants_reserved",
         "wp014_profiles_reserved",
+        "wp015_variants_reserved",
+        "wp015_profiles_reserved",
         "supervised_model_fits"
       ],
       "properties": {
@@ -370,6 +372,14 @@
           "minimum": 0
         },
         "wp014_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp015_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp015_profiles_reserved": {
           "type": "integer",
           "minimum": 0
         },
@@ -828,6 +838,43 @@
           ]
         },
         "safe_phase_1_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "funding_context_challenger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "root_family", "primary", "control", "funding_source",
+        "funding_records", "validation_folds", "reserved_model_fits", "actual_model_fits",
+        "terminal_classification", "model_reconciliation", "sealed_eligibility",
+        "safe_phase_1_commit", "futures_execution"
+      ],
+      "properties": {
+        "version": {"const": "PERPETUAL_FUNDING_CONTEXT_V1"},
+        "status": {"const": "VALIDATED"},
+        "root_family": {"const": "FAM-DERIVATIVES-SENTIMENT-CONTEXT"},
+        "primary": {"const": "INTERNAL_PLUS_FUNDING_HGBR"},
+        "control": {"const": "INTERNAL_HGBR_MATCHED_FUNDING"},
+        "funding_source": {"const": "BINANCE_USDM_FUTURES_PUBLIC_MARKET_DATA"},
+        "funding_records": {"const": 5819},
+        "validation_folds": {"const": 5},
+        "reserved_model_fits": {"const": 10},
+        "actual_model_fits": {"const": 10},
+        "terminal_classification": {
+          "enum": [
+            "REJECT", "REJECT_COST_DOMINATED", "REJECT_UNSTABLE", "INCONCLUSIVE",
+            "PROMISING_DEVELOPMENT_ONLY"
+          ]
+        },
+        "model_reconciliation": {"const": "PASS"},
+        "sealed_eligibility": {
+          "enum": [
+            "NOT_ELIGIBLE_REJECTED", "NOT_ELIGIBLE_INCONCLUSIVE",
+            "DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW"
+          ]
+        },
+        "safe_phase_1_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "futures_execution": {"const": false}
       }
     },
     "product_analysis": {

@@ -18,6 +18,7 @@ from .wp011 import EXPERIMENTS as WP011_EXPERIMENTS
 from .wp012 import EXPERIMENTS as WP012_EXPERIMENTS
 from .wp013 import EXPERIMENTS as WP013_EXPERIMENTS
 from .wp014 import EXPERIMENTS as WP014_EXPERIMENTS
+from .wp015 import EXPERIMENTS as WP015_EXPERIMENTS
 
 LABEL = "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
 CONTROL_IDS = (
@@ -127,6 +128,9 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
         **dict.fromkeys(WP013_EXPERIMENTS.values(), "WP-013 exposed annual validation (2019–2024)"),
         **dict.fromkeys(WP014_EXPERIMENTS.values(), "WP-014 exposed annual validation (2019–2024)"),
     }
+    windows.update(
+        dict.fromkeys(WP015_EXPERIMENTS.values(), "WP-015 matched funding validation (2020-2024)")
+    )
     for eid, window in windows.items():
         path = root / "research/experiments" / eid / "result.json"
         if not path.is_file():
@@ -148,7 +152,11 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
         experiments.append(
             {
                 "experiment_id": eid,
-                "classification": secondary["terminal_classification"],
+                "classification": (
+                    secondary["terminal_classification"]
+                    if "terminal_classification" in secondary
+                    else secondary["annual_folds"]["terminal_classification"]
+                ),
                 "primary_metric": "Default-cost validation net expectancy R",
                 "primary_result": result["primary_result"],
                 "trade_count": trade_count,

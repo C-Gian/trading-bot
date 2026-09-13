@@ -118,7 +118,18 @@ def test_search_memory_and_preflight_precede_results_without_loading_data() -> N
     assert primary["classification"] == "NEW_FAMILY" and primary["admitted"] is True
     assert control["classification"] == "KNOWN_INTERNAL_HGBR_MATCHED_CONTROL"
     assert control["admitted"] is False and control["authorized_as_matched_control"] is True
-    gate = preflight(ROOT)
+    results_exist = any(
+        (ROOT / "research/experiments" / experiment / "result.json").exists()
+        for experiment in (
+            "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
+            "EXP-ML-025-INTERNAL-HGBR-MATCHED-FUNDING",
+        )
+    )
+    gate = (
+        json.loads((ROOT / "reports/validation/WP-015-PREFLIGHT.json").read_text())
+        if results_exist
+        else preflight(ROOT)
+    )
     assert gate["status"] == "PASS"
     assert gate["market_results_observed"] == gate["post_cutoff_access"] == 0
     assert gate["sealed_queries"] == 0

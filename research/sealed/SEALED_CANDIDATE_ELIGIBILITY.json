@@ -344,6 +344,36 @@
       "structural_validator": "PASS",
       "terminal_classification": "REJECT_COST_DOMINATED",
       "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR/result.json",
+      "development_result_sha256": "b938ae537f2e5ce98d9be6db6a8f5ae32ebb729c3d52f00cbc600b3382d3f32e",
+      "executable_spec_hash": "794e9a93d384b7b6d5225f76031debc76172790f3d0387c839cb3fd7641ecb37",
+      "experiment_id": "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-025-INTERNAL-HGBR-MATCHED-FUNDING/result.json",
+      "development_result_sha256": "9f5fd76e1ed2dfcf0500cbbec8a580e3ca5ab3596b691e370a33f6f3376999b4",
+      "executable_spec_hash": "eb0334ccc3cb2c74e3c0b0087e3fb9490e6ffb41cd552afa3a1b3d13aa5f4e72",
+      "experiment_id": "EXP-ML-025-INTERNAL-HGBR-MATCHED-FUNDING",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT",
+      "unresolved_material_integrity_issues": 0
     }
   ],
   "generated_from": [

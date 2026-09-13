@@ -24,6 +24,7 @@ WP007_HEAD = "762b3b77f686305b1c73f19956d0b9b16b7a9b1c"
 WP008_HEAD = "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2"
 WP012_HEAD = "d88a1465560ecfe02d2eae6a924da27238fa898e"
 WP013_HEAD = "e59318268099d428df0c108144aca739f5504b40"
+WP014_HEAD = "478f2fcab10569f20a81136bca1b5cff6b66d601"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -117,7 +118,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP015_EXPERIMENTS.values())
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
-    assert len(results) == state["experiments_completed"] == 23
+    assert len(results) == state["experiments_completed"] == 25
     for experiment_id, budget in EXPERIMENTS.items():
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path, result_path = directory / "preregistration.json", directory / "result.json"
@@ -144,6 +145,21 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         assert len(trials) == budget and {x["trial_id"] for x in trials} == {
             x["trial_id"] for x in plan
         }
+        pre_commit = git(
+            "log", "--diff-filter=A", "--format=%H", "--", str(prereg_path.relative_to(ROOT))
+        ).splitlines()[-1]
+        result_commit = git(
+            "log", "--diff-filter=A", "--format=%H", "--", str(result_path.relative_to(ROOT))
+        ).splitlines()[-1]
+        assert pre_commit != result_commit
+        run(["git", "merge-base", "--is-ancestor", pre_commit, result_commit])
+    for experiment_id in WP015_EXPERIMENTS.values():
+        directory = ROOT / "research/experiments" / experiment_id
+        prereg_path = directory / "preregistration.json"
+        result_path = directory / "result.json"
+        result = validate_result(result_path, prereg_path)
+        assert result["trial_accounting"] == {"declared_budget": 4, "executed_trials": 4}
+        assert result["secondary_results"]["independent_reconciliation"] == "PASS"
         pre_commit = git(
             "log", "--diff-filter=A", "--format=%H", "--", str(prereg_path.relative_to(ROOT))
         ).splitlines()[-1]
@@ -200,8 +216,8 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert (
-        state["latest_reviewed_checkpoint"] == "WP-013"
-        and state["latest_executor_checkpoint"] == "WP-014"
+        state["latest_reviewed_checkpoint"] == "WP-014"
+        and state["latest_executor_checkpoint"] == "WP-015"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     path = "research/memory/WP-004-LESSONS.json"
@@ -250,7 +266,7 @@ def validate_research_views(state: dict) -> None:
     wp007 = validate_wp007()
     assert wp007["status"] == "PASS"
     assert wp007["family_terminal_classification"] == "REJECT_COST_DOMINATED"
-    assert wp007["sealed"] == {"assessed": 23, "eligible": 0, "queries": 0}
+    assert wp007["sealed"] == {"assessed": 25, "eligible": 0, "queries": 0}
 
     from app.research.wp008_validation import validate_wp008
 
@@ -332,10 +348,29 @@ def validate_research_views(state: dict) -> None:
         "SHALLOW_INTERNAL_HGBR": "REJECT_COST_DOMINATED",
         "INTERNAL_LINEAR_MATCHED": "REJECT_COST_DOMINATED",
     }
+    wp015_comparison = json.loads(
+        (ROOT / "reports/research/WP-015-COMPARISON.json").read_text(encoding="utf-8")
+    )
+    wp015_reconciliation = json.loads(
+        (ROOT / "reports/validation/WP-015-MODEL-RECONCILIATION.json").read_text(encoding="utf-8")
+    )
+    assert wp015_reconciliation["status"] == "PASS"
+    assert not wp015_reconciliation["mismatches"]
+    assert set(wp015_reconciliation["checks"].values()) == {"PASS"}
+    assert wp015_reconciliation["prediction_tolerance"] == 1e-10
+    assert wp015_comparison["primary_vs_control"]["eligible_universe_matched"] is True
+    assert wp015_comparison["primary_vs_control"]["executed_trade_sets_paired"] is False
+    assert {
+        variant: record["terminal_classification"]
+        for variant, record in wp015_comparison["configurations"].items()
+    } == {
+        "INTERNAL_PLUS_FUNDING_HGBR": "REJECT_COST_DOMINATED",
+        "INTERNAL_HGBR_MATCHED_FUNDING": "REJECT",
+    }
     assert state["latest_family"] == {
-        "name": "SHALLOW_INTERNAL_HGBR_V1",
-        "root_family": "FAM-SHALLOW-NONLINEAR-INTERNAL",
-        "primary_experiment_id": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+        "name": "PERPETUAL_FUNDING_CONTEXT_V1",
+        "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
+        "primary_experiment_id": "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
         "novelty_classification": "NEW_FAMILY",
         "terminal_classification": "REJECT_COST_DOMINATED",
     }
@@ -357,6 +392,23 @@ def validate_research_views(state: dict) -> None:
         "status": "VALIDATED",
         "terminal_classification": "REJECT_COST_DOMINATED",
         "version": "SHALLOW_INTERNAL_HGBR_V1",
+    }
+    assert state["funding_context_challenger"] == {
+        "actual_model_fits": 10,
+        "control": "INTERNAL_HGBR_MATCHED_FUNDING",
+        "funding_records": 5819,
+        "funding_source": "BINANCE_USDM_FUTURES_PUBLIC_MARKET_DATA",
+        "futures_execution": False,
+        "model_reconciliation": "PASS",
+        "primary": "INTERNAL_PLUS_FUNDING_HGBR",
+        "reserved_model_fits": 10,
+        "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
+        "safe_phase_1_commit": "4010c889cc8422002ec320e88d06f2a7374ea639",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+        "status": "VALIDATED",
+        "terminal_classification": "REJECT_COST_DOMINATED",
+        "validation_folds": 5,
+        "version": "PERPETUAL_FUNDING_CONTEXT_V1",
     }
 
     # validate_wp009 is the completed-WP-009 validator; it may only run once state
@@ -382,7 +434,7 @@ def validate_research_views(state: dict) -> None:
     }
     assert "remote_ci" not in state["wp005_integrity"], "stale pending CI state was reintroduced"
     remote = state["remote_ci"]["work_packages"]
-    assert set(remote) == {"WP-005", "WP-006", "WP-007", "WP-008", "WP-012", "WP-013"}
+    assert set(remote) == {"WP-005", "WP-006", "WP-007", "WP-008", "WP-012", "WP-013", "WP-014"}
     for work_package, expected_head in (
         ("WP-005", WP005_BASE_SUCCESSOR),
         ("WP-006", WP006_HEAD),
@@ -390,6 +442,7 @@ def validate_research_views(state: dict) -> None:
         ("WP-008", WP008_HEAD),
         ("WP-012", WP012_HEAD),
         ("WP-013", WP013_HEAD),
+        ("WP-014", WP014_HEAD),
     ):
         record = remote[work_package]
         evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
@@ -462,6 +515,13 @@ def dataset_scope_checks() -> None:
         approved_parquet.add(
             ROOT / json.loads(wp014_comparison.read_text(encoding="utf-8"))["artifact"]["path"]
         )
+    wp015_comparison = ROOT / "reports/research/WP-015-COMPARISON.json"
+    if wp015_comparison.is_file():
+        record = json.loads(wp015_comparison.read_text(encoding="utf-8"))
+        approved_parquet |= {
+            ROOT / record["trials_artifact"]["path"],
+            ROOT / record["predictions_artifact"]["path"],
+        }
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
         | set((ROOT / "data/derived").rglob("*.parquet"))
@@ -640,6 +700,14 @@ def governance_checks(pre_experiment: bool) -> dict:
         "research/protocols/WP-015-PERPETUAL-FUNDING-HGBR-V1.json",
         "research/protocols/WP-015-WALK-FORWARD-V1.json",
         "reports/validation/WP-015-PREFLIGHT.json",
+        "reports/validation/WP-015-MODEL-RECONCILIATION.json",
+        "reports/research/WP-015-COMPARISON.json",
+        "reports/research/WP-015-FUNDING-DIAGNOSTICS.json",
+        "reports/research/WP-015-HISTORICAL-COMPARISON.json",
+        "reports/research/WP-015-SCIENTIFIC-QUESTIONS.json",
+        "reports/research/WP-015-PERPETUAL-FUNDING.md",
+        "reports/checkpoints/WP-015.md",
+        "tasks/archive/WP-015.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()

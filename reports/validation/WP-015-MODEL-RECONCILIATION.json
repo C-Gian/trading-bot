@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "all_fold_predictions_within_tolerance": "PASS",
+    "annual_boundaries_outcome_containment_and_model_identity": "PASS",
+    "default_metrics": "PASS",
+    "default_spot_execution": "PASS",
+    "matched_eligible_universe": "PASS",
+    "raw_funding_canonicalization": "PASS",
+    "strict_prior_funding_asof": "PASS"
+  },
+  "eligible_hour_counts": {
+    "DEV-2020": 7451,
+    "DEV-2021": 7705,
+    "DEV-2022": 8713,
+    "DEV-2023": 8537,
+    "DEV-2024": 8737
+  },
+  "funding_records_rebuilt": 5819,
+  "independent_of_primary_runner": true,
+  "maximum_prediction_absolute_difference": 0.0,
+  "mismatches": [],
+  "model_refits": 10,
+  "prediction_tolerance": 1e-10,
+  "schema_version": 1,
+  "status": "PASS",
+  "work_package": "WP-015"
+}

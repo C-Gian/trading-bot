@@ -1,0 +1,43 @@
+{
+  "answers": {
+    "1_funding_improves_matched_hgbr": {
+      "answer": true,
+      "default_expectancy_difference_r": 0.04217205149999999
+    },
+    "2_primary_default_positive": {
+      "answer": false,
+      "net_expectancy_r": -0.0814500414
+    },
+    "3_improvement_broad_2020_2024": {
+      "answer": false,
+      "nonnegative_folds": 0
+    },
+    "4_double_survives": {
+      "answer": false,
+      "net_expectancy_r": -0.2014956557
+    },
+    "5_delay_preserves": {
+      "answer": false,
+      "net_expectancy_r": -0.1044031521
+    },
+    "6_oos_correlation_improves_materially": {
+      "answer": "NOT_ESTABLISHED",
+      "control": -0.04857576110090083,
+      "difference": 0.023020829984634814,
+      "primary": -0.025554931116266017,
+      "reason": "No prospective materiality threshold was declared."
+    },
+    "7_incremental_value_consistent_with_funding_sign": {
+      "answer": "DESCRIPTIVE_SIGN_ASSOCIATION_NOT_ROBUST_INCREMENTAL_VALUE",
+      "negative_funding_mean_net_r": 0.23785954560981243,
+      "positive_funding_mean_net_r": -0.18552131422512852,
+      "zero_group_trades": 0
+    },
+    "8_useful_information_or_noisy_variable": {
+      "answer": "NO_ROBUST_USEFUL_INCREMENTAL_POSITIONING_INFORMATION",
+      "reason": "Relative improvement did not produce positive DEFAULT expectancy or any nonnegative fold."
+    }
+  },
+  "schema_version": 1,
+  "work_package": "WP-015"
+}

@@ -1,0 +1,86 @@
+{
+  "caveat": "WP-015 uses matched 2020-2024 funding coverage. Prior 2019-2024 experiments and differing executed trade sets are not paired comparisons.",
+  "comparison_basis": "DESCRIPTIVE_ONLY_EXCEPT_WITHIN_WP015_MATCHED_UNIVERSE",
+  "historical": [
+    {
+      "experiment_id": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+      "label": "WP-014 SHALLOW_INTERNAL_HGBR",
+      "primary_result": -0.0998928666,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1269
+    },
+    {
+      "experiment_id": "EXP-ML-023-INTERNAL-LINEAR-MATCHED",
+      "label": "WP-014 INTERNAL_LINEAR_MATCHED",
+      "primary_result": -0.1103044148,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1001
+    },
+    {
+      "experiment_id": "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS",
+      "label": "WP-013 NFCI_CONTEXT_INTERACTIONS",
+      "primary_result": -0.1086772939,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 1060
+    },
+    {
+      "experiment_id": "EXP-ML-018-REGIME-TWO-EXPERTS",
+      "label": "WP-012 REGIME_TWO_EXPERTS",
+      "primary_result": -0.1071860713,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 989
+    },
+    {
+      "experiment_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
+      "label": "WP-011 EWLS_INTERNAL_ONLY",
+      "primary_result": -0.0527152557,
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": 814
+    },
+    {
+      "experiment_id": "EXP-ALG-009-ALIGNED",
+      "label": "ALIGNED",
+      "primary_result": 0.1373934676,
+      "terminal_classification": "INCONCLUSIVE",
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-BASE-004-BREAKOUT",
+      "label": "breakout",
+      "primary_result": -0.0482093869,
+      "terminal_classification": null,
+      "trade_count": null
+    },
+    {
+      "experiment_id": "EXP-CTRL-006-NO-TRADE",
+      "label": "no-trade",
+      "primary_result": null,
+      "terminal_classification": null,
+      "trade_count": null
+    }
+  ],
+  "primary_vs_control": {
+    "control_classification": "KNOWN_INTERNAL_HGBR_MATCHED_CONTROL",
+    "control_known_mechanism": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+    "default_net_expectancy_difference_r": 0.04217205149999999,
+    "default_trade_count_difference": -42,
+    "eligible_universe_matched": true,
+    "executed_trade_sets_paired": false
+  },
+  "schema_version": 1,
+  "work_package": "WP-015",
+  "wp015": {
+    "INTERNAL_HGBR_MATCHED_FUNDING": {
+      "experiment_id": "EXP-ML-025-INTERNAL-HGBR-MATCHED-FUNDING",
+      "primary_result": -0.1236220929,
+      "terminal_classification": "REJECT",
+      "trade_count": 758
+    },
+    "INTERNAL_PLUS_FUNDING_HGBR": {
+      "experiment_id": "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
+      "primary_result": -0.0814500414,
+      "terminal_classification": "REJECT_COST_DOMINATED",
+      "trade_count": 716
+    }
+  }
+}

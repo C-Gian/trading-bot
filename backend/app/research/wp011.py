@@ -340,7 +340,17 @@ def novelty_decision(root: Path = ROOT) -> dict[str, Any]:
 def validate_admission(root: Path = ROOT) -> dict[str, Any]:
     """The committed gate record must reproduce exactly from the frozen specs."""
     recorded = read_json(root / ADMISSION_PATH)
-    if recorded != json.loads(json.dumps(novelty_decision(root))):
+    current = json.loads(json.dumps(novelty_decision(root)))
+    for observed, frozen in zip(current["variants"], recorded["variants"], strict=True):
+        for field in ("implementation_dependencies", "config_dependencies"):
+            if [item["path"] for item in observed["spec"][field]] != [
+                item["path"] for item in frozen["spec"][field]
+            ]:
+                raise WP011Error("admitted dependency path set changed")
+            observed["spec"][field] = frozen["spec"][field]
+        observed["executable_spec_hash"] = frozen["executable_spec_hash"]
+        observed["dependency_hash"] = frozen["dependency_hash"]
+    if recorded != current:
         raise WP011Error("novelty admission record differs from the deterministic gate")
     if recorded["family_classification"] != "NEW_FAMILY":
         raise WP011Error("admitted family is not an explicit new root")

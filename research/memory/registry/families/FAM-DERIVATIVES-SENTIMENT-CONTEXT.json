@@ -9,7 +9,9 @@
   "entry_event_anchors": [
     "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO"
   ],
-  "failure_experiment_ids": [],
+  "failure_experiment_ids": [
+    "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR"
+  ],
   "family_id": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
   "information_source": "STRICTLY_PRIOR_SETTLED_BTCUSDT_USDM_PERPETUAL_FUNDING",
   "legitimate_revisit": "Only a new explicit Research Director allocation; no exposed-result tuning.",
@@ -22,6 +24,6 @@
   "mechanism": "One raw settled derivatives positioning value is added to frozen spot F1-F8.",
   "parent_family_id": null,
   "schema_version": 1,
-  "status": "ADMITTED_PENDING_RESULTS",
+  "status": "PARKED_PENDING_RESEARCH_DIRECTOR_REVIEW",
   "work_package": "WP-015"
 }

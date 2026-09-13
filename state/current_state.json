@@ -21,18 +21,18 @@
     "version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1"
   },
   "adaptive_search": {
-    "adaptive_decisions": 10,
-    "configuration_variants": 23,
+    "adaptive_decisions": 11,
+    "configuration_variants": 25,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
     "integrity_replay_profiles": 12,
-    "material_economic_hypotheses": 10,
+    "material_economic_hypotheses": 11,
     "numeric_parameter_variants": 0,
-    "profile_trials": 109,
+    "profile_trials": 117,
     "result_dependent_forks": 10,
     "sealed_queries": 0,
-    "strategy_descendants": 11,
-    "supervised_model_fits": 198,
+    "strategy_descendants": 12,
+    "supervised_model_fits": 208,
     "wp004_profiles_reserved": 12,
     "wp004_variants_reserved": 3,
     "wp006_profiles_reserved": 8,
@@ -48,7 +48,9 @@
     "wp013_profiles_reserved": 8,
     "wp013_variants_reserved": 2,
     "wp014_profiles_reserved": 8,
-    "wp014_variants_reserved": 2
+    "wp014_variants_reserved": 2,
+    "wp015_profiles_reserved": 8,
+    "wp015_variants_reserved": 2
   },
   "artifact_storage": {
     "historical_evidence_rewritten": false,
@@ -111,22 +113,39 @@
     "version": "GDELT_NEWS_CONTEXT_V1_1",
     "wp009_finalized": false
   },
-  "experiments_completed": 23,
+  "experiments_completed": 25,
   "forward_evidence": "NONE",
-  "latest_executor_checkpoint": "WP-014",
+  "funding_context_challenger": {
+    "actual_model_fits": 10,
+    "control": "INTERNAL_HGBR_MATCHED_FUNDING",
+    "funding_records": 5819,
+    "funding_source": "BINANCE_USDM_FUTURES_PUBLIC_MARKET_DATA",
+    "futures_execution": false,
+    "model_reconciliation": "PASS",
+    "primary": "INTERNAL_PLUS_FUNDING_HGBR",
+    "reserved_model_fits": 10,
+    "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
+    "safe_phase_1_commit": "4010c889cc8422002ec320e88d06f2a7374ea639",
+    "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+    "status": "VALIDATED",
+    "terminal_classification": "REJECT_COST_DOMINATED",
+    "validation_folds": 5,
+    "version": "PERPETUAL_FUNDING_CONTEXT_V1"
+  },
+  "latest_executor_checkpoint": "WP-015",
   "latest_family": {
-    "name": "SHALLOW_INTERNAL_HGBR_V1",
+    "name": "PERPETUAL_FUNDING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
-    "primary_experiment_id": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
-    "root_family": "FAM-SHALLOW-NONLINEAR-INTERNAL",
+    "primary_experiment_id": "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
+    "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
     "terminal_classification": "REJECT_COST_DOMINATED"
   },
-  "latest_reviewed_checkpoint": "WP-013",
+  "latest_reviewed_checkpoint": "WP-014",
   "max_holding_horizon": {
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP_014",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_WP_015",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -239,6 +258,12 @@
         "head": "e59318268099d428df0c108144aca739f5504b40",
         "run_id": 34745601715,
         "status": "SUCCESS"
+      },
+      "WP-014": {
+        "evidence": "reports/reviews/WP-014-CI-EVIDENCE.json",
+        "head": "478f2fcab10569f20a81136bca1b5cff6b66d601",
+        "run_id": 34757514686,
+        "status": "SUCCESS"
       }
     }
   },
@@ -246,7 +271,7 @@
   "schema_version": 3,
   "sealed_evaluation": {
     "authorized_btc_queries": 0,
-    "candidates_assessed": 23,
+    "candidates_assessed": 25,
     "consumed_btc_queries": 0,
     "dataset_state": "RESERVED_NOT_ACQUIRED",
     "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
@@ -256,7 +281,7 @@
   },
   "sealed_evaluations_completed": 0,
   "search_memory": {
-    "families_tracked": 12,
+    "families_tracked": 13,
     "status": "VALIDATED",
     "version": "SEARCH_MEMORY_V2"
   },

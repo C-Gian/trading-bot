@@ -278,7 +278,17 @@ def novelty_decision(root: Path = ROOT) -> dict[str, Any]:
 
 def validate_admission(root: Path = ROOT) -> dict[str, Any]:
     recorded = read_json(root / ADMISSION_PATH)
-    if recorded != json.loads(json.dumps(novelty_decision(root))):
+    current = json.loads(json.dumps(novelty_decision(root)))
+    for observed, frozen in zip(current["variants"], recorded["variants"], strict=True):
+        for field in ("implementation_dependencies", "config_dependencies"):
+            if [item["path"] for item in observed["spec"][field]] != [
+                item["path"] for item in frozen["spec"][field]
+            ]:
+                raise WP013Error("admitted dependency path set changed")
+            observed["spec"][field] = frozen["spec"][field]
+        observed["executable_spec_hash"] = frozen["executable_spec_hash"]
+        observed["dependency_hash"] = frozen["dependency_hash"]
+    if recorded != current:
         raise WP013Error("WP-013 admission differs from deterministic SEARCH_MEMORY output")
     if recorded["market_results_observed_at_admission"] != 0:
         raise WP013Error("admission observed market results")
