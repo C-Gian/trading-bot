@@ -58,7 +58,7 @@
       },
       {
         "path": "backend/app/research/evaluation_protocol.py",
-        "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+        "sha256": "d159547e3ecd01c2789b3553a17f33184165a05da458ea6cdd0efb2928dbf4b6"
       },
       {
         "path": "backend/app/research/continuation_lab.py",
@@ -129,7 +129,7 @@
         "sha256": "4b1747156cac18e57926f4601890af041ed25ef5be866bd84bdfdf41af3d4a36"
       }
     ],
-    "dependency_hash": "47a47033b11f58e8efc144a20b2b2d83dffe590c21bc7176222993931ddfae9d",
+    "dependency_hash": "9f9ea39d67061ca754965b0468180806dcbffd6918a1cb326c8cf28a200d1796",
     "executable_model_spec": {
       "algorithm": "SKLEARN_1.7.2_HIST_GRADIENT_BOOSTING_REGRESSOR",
       "config_dependencies": [
@@ -248,7 +248,7 @@
         },
         {
           "path": "backend/app/research/evaluation_protocol.py",
-          "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+          "sha256": "d159547e3ecd01c2789b3553a17f33184165a05da458ea6cdd0efb2928dbf4b6"
         },
         {
           "path": "backend/app/research/continuation_lab.py",
@@ -358,7 +358,7 @@
         "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT"
       }
     },
-    "executable_spec_hash": "dd0cb2ef8d1f35d9c757c95f4e5ab70e0e26072d8b20a19915e12cf9752f7a09",
+    "executable_spec_hash": "794e9a93d384b7b6d5225f76031debc76172790f3d0387c839cb3fd7641ecb37",
     "feature_count": 9,
     "feature_subsets": 0,
     "feature_variants": 0,

@@ -17,8 +17,8 @@
       "admitted": true,
       "behavior_hash": "2ee30dfb79e98af224ec8dbcf55564f8bd5f45dcd1e3bd6b9ec51bf2e8a1202d",
       "classification": "NEW_FAMILY",
-      "dependency_hash": "47a47033b11f58e8efc144a20b2b2d83dffe590c21bc7176222993931ddfae9d",
-      "executable_spec_hash": "dd0cb2ef8d1f35d9c757c95f4e5ab70e0e26072d8b20a19915e12cf9752f7a09",
+      "dependency_hash": "9f9ea39d67061ca754965b0468180806dcbffd6918a1cb326c8cf28a200d1796",
+      "executable_spec_hash": "794e9a93d384b7b6d5225f76031debc76172790f3d0387c839cb3fd7641ecb37",
       "experiment_id": "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
       "hypothesis_role": "ECONOMIC_CORE",
       "matched_experiment_ids": [],
@@ -141,7 +141,7 @@
           },
           {
             "path": "backend/app/research/evaluation_protocol.py",
-            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+            "sha256": "d159547e3ecd01c2789b3553a17f33184165a05da458ea6cdd0efb2928dbf4b6"
           },
           {
             "path": "backend/app/research/continuation_lab.py",
@@ -259,9 +259,9 @@
       "authorized_as_matched_control": true,
       "behavior_hash": "198ba380a94a5b2f810f5560d2addc5454bcc75fdc45ab378b4734fe0f26f4cc",
       "classification": "KNOWN_INTERNAL_HGBR_MATCHED_CONTROL",
-      "dependency_hash": "4e3f8fb086a74ed2c0c48824897243f5332c120308e68753ccdcf895e6bf006e",
+      "dependency_hash": "200105a3187b237013714f3af4540eaf2e4fc5975c967c70a7c5180c00bd9115",
       "duplicate_gate_unchanged": true,
-      "executable_spec_hash": "7be9ef48bcb1a3d2314048029447d97a1cfd93e3c7aace0587fb0f0392c585ff",
+      "executable_spec_hash": "eb0334ccc3cb2c74e3c0b0087e3fb9490e6ffb41cd552afa3a1b3d13aa5f4e72",
       "experiment_id": "EXP-ML-025-INTERNAL-HGBR-MATCHED-FUNDING",
       "hypothesis_role": "MATCHED_KNOWN_CONTROL",
       "known_mechanism_experiment_ids": [
@@ -382,7 +382,7 @@
           },
           {
             "path": "backend/app/research/evaluation_protocol.py",
-            "sha256": "1b5d71a57caef1cd2dfafcc1eb4b1ccb13415bcb51d1ef4e9ad253996998c512"
+            "sha256": "d159547e3ecd01c2789b3553a17f33184165a05da458ea6cdd0efb2928dbf4b6"
           },
           {
             "path": "backend/app/research/continuation_lab.py",

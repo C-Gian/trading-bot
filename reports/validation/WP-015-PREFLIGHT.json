@@ -36,8 +36,8 @@
   "post_cutoff_access": 0,
   "prediction_tolerance": 1e-10,
   "preregistration_sha256": {
-    "INTERNAL_HGBR_MATCHED_FUNDING": "8e8c8e3f9ab923219e9ce27f05e264a468feac24239547e2403ae1484fd0e06b",
-    "INTERNAL_PLUS_FUNDING_HGBR": "37c4fcc5011de6aaba830df66c15a9524114abf0072ca903e323e2f48a62ec82"
+    "INTERNAL_HGBR_MATCHED_FUNDING": "41dc813a7bd4171b6716f8cf059d5c0384778b88f174e5886e4cb172f584f246",
+    "INTERNAL_PLUS_FUNDING_HGBR": "33da6b2748e05d839debbe418e8ed77ba5b15c759dd3215b662f6f95c649e3f1"
   },
   "profiles": [
     "DEFAULT",

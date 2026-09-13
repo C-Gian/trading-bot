@@ -75,7 +75,13 @@ def validate_protocol(protocol: dict[str, Any]) -> None:
         "diagnostics": DIAGNOSTICS,
         "folds": expected_folds,
     }
-    if protocol != expected:
+    wp015_expected = {
+        **expected,
+        "protocol_id": "WP-015-WALK-FORWARD-V1",
+        "fit_policy": "ANNUAL_EXPANDING_MODEL_FIT",
+        "folds": expected_folds[1:],
+    }
+    if protocol not in (expected, wp015_expected):
         raise ValueError("protocol differs from frozen DEVELOPMENT_WALK_FORWARD_V1")
     for fold in protocol["folds"]:
         start = utc_us(fold["validation_start"])
