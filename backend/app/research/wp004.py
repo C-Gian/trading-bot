@@ -119,7 +119,9 @@ def effective_preregistration(experiment_id: str, root: Path = ROOT) -> Path:
 
 def validate_historical_identity(prereg: dict[str, Any], root: Path = ROOT) -> None:
     space = prereg["parameter_space"]
-    commit = space["implementation_commit"]
+    commit = space.get("implementation_commit")
+    if not commit:
+        raise ValueError("historical preregistration has no implementation commit")
 
     def blob(path):
         return subprocess.check_output(["git", "show", f"{commit}:{path}"], cwd=root).replace(
