@@ -109,6 +109,25 @@ const filledStats = {
   cumulative_realized_r: 2.48, expectancy_r_per_trade: 0.62, max_drawdown_r: -1.1,
   best_realized_r: 1.95, worst_realized_r: -1.1, empty: false, empty_detail: null,
 };
+const runnerCandidate = {
+  candidate_id: 'WP015_REPRODUCTION_V1', display_name: 'WP-015 · Funding context',
+  purpose: 'Riproduzione deterministica del candidato WP-015 già valutato.', run_type: 'REPRODUCTION_ONLY',
+  status: 'READY', expected_stages: ['READY', 'FOLD_2020', 'COMPLETED'], required_local_datasets: ['funding'],
+  scientific_warning: 'REPRODUCTION ONLY', scientific_evidence_type: 'REPRODUCTION_OF_ALREADY_EXPOSED_DEVELOPMENT_RESULT',
+  execution_counts_as_new_evidence: false, arbitrary_execution: false,
+  preregistration_frozen: true, preregistration_paths: ['preregistration.json'],
+  required_data: { ready: true, files: { funding: true } }, fixed_runner_adapter: 'fixed.adapter',
+};
+const runnerReady = { candidates: [runnerCandidate], current_or_last_run: null, runner_status: 'IDLE', arbitrary_execution: false, maximum_active_runs: 1 };
+const runnerCompleted = {
+  run_id: 'run-015', candidate_id: 'WP015_REPRODUCTION_V1', started_at: '2026-03-05T12:00:00Z', finished_at: '2026-03-05T12:00:04Z',
+  status: 'COMPLETED', stage: 'COMPLETED', progress: 100, elapsed_seconds: 4, review_bundle: '{"run":"run-015"}',
+  result: { candidate_id: 'WP015_REPRODUCTION_V1', run_id: 'run-015', status: 'COMPLETED', classification: 'REJECT_COST_DOMINATED', verdict: 'RIPRODUZIONE CONCILIATA',
+    default_expectancy_r: -0.08, zero_cost_expectancy_r: 0.02, double_cost_expectancy_r: -0.2, delay_expectancy_r: -0.1,
+    trade_count: 12, nonnegative_folds: 1, fold_count: 5, minimum_fold_trades: 1, control_default_expectancy_r: -0.07,
+    primary_minus_control_r: -0.01, oos_correlation: 0.04, reconciliation_status: 'PASS', elapsed_seconds: 4,
+    scientific_evidence_type: 'REPRODUCTION_OF_ALREADY_EXPOSED_DEVELOPMENT_RESULT', code_head: 'b12f13f', dataset_identities: { funding: 'sha256:test' } },
+};
 
 type Calls = { url: string; method: string }[];
 function mockApi(overrides: Record<string, unknown> = {}, queues: Record<string, unknown[]> = {}) {
@@ -122,11 +141,13 @@ function mockApi(overrides: Record<string, unknown> = {}, queues: Record<string,
     'paper-trades/lifecycle': { updated: 0, trades: [], errors: [] },
     'product/analysis': noTrade,
     'paper-trades': emptyPaper,
+    'research/runner': runnerReady,
     ...overrides,
   };
   const order = [
     'system/health', 'research/status', 'research/experiments', 'product/market/recent',
     'paper-trades/statistics', 'paper-trades/lifecycle', 'product/analysis', 'paper-trades',
+    'research/runner',
   ];
   vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
     calls.push({ url, method: init?.method ?? 'GET' });
@@ -567,5 +588,27 @@ describe('navigazione', () => {
     expect(panel).toHaveTextContent('Champion');
     expect(panel).toHaveTextContent('NONE');
     expect(panel).toHaveTextContent('Esperimenti completati');
+  });
+});
+
+describe('Research Lab', () => {
+  it('mostra il candidato allowlist e persiste il risultato durante il polling', async () => {
+    const running = { ...runnerCompleted, status: 'RUNNING', stage: 'FOLD_2020', progress: 20, detail: 'Fold 2020', result: null };
+    mockApi({}, { 'research/runner': [
+      { body: runnerReady }, { body: running }, { body: runnerCompleted },
+    ] });
+    Object.assign(navigator, { clipboard: { writeText: vi.fn().mockResolvedValue(undefined) } });
+    render(<App />);
+    await screen.findByText(/Analisi non ancora eseguita/);
+    await userEvent.click(screen.getByRole('button', { name: 'Research' }));
+    expect(await screen.findByText('WP-015 · Funding context')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'AVVIA TEST STORICO' })).toBeEnabled();
+    await userEvent.click(screen.getByRole('button', { name: 'AVVIA TEST STORICO' }));
+    expect(await screen.findByText(/FOLD 2020/)).toBeInTheDocument();
+    expect(screen.getByText('TEST IN CORSO…')).toBeDisabled();
+    expect(await screen.findByText('Expectancy netta', {}, { timeout: 3000 })).toBeInTheDocument();
+    expect(screen.getByText(/-0\.0800 R\/trade/)).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'COPIA RISULTATO PER REVIEW' }));
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('{"run":"run-015"}');
   });
 });

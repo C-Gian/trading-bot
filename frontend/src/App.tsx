@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   Analysis, ExperimentPayload, Health, PaperListing, PaperStatistics, Research,
+  ResearchRunnerPayload, ResearchRun, ResearchRunnerCandidate,
   advancePaperTrades, analyseMarket, createPaperTrade, readPaperStatistics, readPaperTrades, request,
+  readResearchRunner, readResearchRun, startResearchRun,
 } from './api';
 import { MarketHero, PlanLines } from './MarketHero';
 import { Decision } from './Decision';
@@ -12,8 +14,89 @@ import { Advanced, Badge, Empty, KeyValues, Section } from './ui';
 import { refusalCopy } from './format';
 
 const PRIMARY = ['Dashboard', 'Trade', 'Risultati'] as const;
-const SECONDARY = ['Altro'] as const;
+const SECONDARY = ['Research', 'Altro'] as const;
 type Page = (typeof PRIMARY)[number] | (typeof SECONDARY)[number];
+
+function researchMetric(value: number|null|undefined, suffix = ' R/trade') {
+  return value == null ? '—' : `${value >= 0 ? '+' : ''}${value.toFixed(4)}${suffix}`;
+}
+
+function ResearchLab({
+  candidate, run, onStart, onCopy,
+}: {
+  candidate: ResearchRunnerCandidate|null; run: ResearchRun|null;
+  onStart: () => void; onCopy: () => void;
+}) {
+  const running = run?.status === 'RUNNING' || run?.status === 'QUEUED';
+  const completed = run?.status === 'COMPLETED' && run.result;
+  const failed = run?.status === 'FAILED';
+  const stage = run?.stage ?? (candidate ? 'READY' : 'VALIDATING_INPUTS');
+  return (
+    <>
+      <div className="pagehead research-head">
+        <div>
+          <p className="eyebrow">Laboratorio locale</p>
+          <h1>Research Lab</h1>
+          <p className="lede">Riproduci un candidato già valutato, direttamente sul tuo PC.</p>
+        </div>
+        <Badge tone="paper">Solo ricerca · nessun denaro reale</Badge>
+      </div>
+      <section className="research-grid" aria-label="Research Lab">
+        <Section title="Candidato disponibile" label="Candidato disponibile" hint="Allowlist locale">
+          <div className="pad research-candidate">
+            {candidate ? (
+              <>
+                <div className="row research-candidate-title">
+                  <div className="grow"><h3>{candidate.display_name}</h3><p className="summary">{candidate.purpose}</p></div>
+                  <Badge tone="neutral">{candidate.status}</Badge>
+                </div>
+                <p className="research-warning">REPRODUCTION ONLY · NOT A NEW EXPERIMENT</p>
+                <p className="summary">Non cambia i contatori scientifici e non crea evidenza sigillata.</p>
+                <button className="btn primary block research-cta" onClick={onStart} disabled={running || !candidate.required_data.ready}>
+                  {running ? 'TEST IN CORSO…' : 'AVVIA TEST STORICO'}
+                </button>
+                <p className="research-local-note">Il test viene eseguito localmente sul tuo PC. Non usa AI durante il calcolo.</p>
+                {!candidate.required_data.ready && <p className="notice warn">Dati locali richiesti non pronti: il test non può partire.</p>}
+              </>
+            ) : <Empty title="Nessun candidato disponibile" body="Il registro locale non è raggiungibile." />}
+          </div>
+        </Section>
+
+        <Section title={running ? 'Esecuzione in corso' : completed ? 'Risultato' : failed ? 'Esecuzione interrotta' : 'Stato del test'} label="Stato del test">
+          <div className="pad research-status">
+            {running && <>
+              <div className="research-progress-label"><strong>{stage.replaceAll('_', ' ')}</strong><span>{Math.round(run?.progress ?? 0)}%</span></div>
+              <div className="research-progress" role="progressbar" aria-valuenow={Math.round(run?.progress ?? 0)} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${Math.max(0, Math.min(100, run?.progress ?? 0))}%` }} /></div>
+              <p className="summary">{run?.detail ?? 'Preparazione deterministica'} · Tempo: {Math.floor(run?.elapsed_seconds ?? 0)} s · Puoi lasciare aperta questa pagina.</p>
+            </>}
+            {!running && !completed && !failed && <p className="summary">Pronto per una riproduzione locale del WP-015. Il calcolo parte solo dopo il tuo clic.</p>}
+            {failed && <div className="research-failure"><Badge tone="neg">{run?.status}</Badge><p>{run?.error ?? 'Il test è stato interrotto. Nessun risultato scientifico è stato modificato.'}</p></div>}
+            {completed && run.result && <>
+              <div className="research-results-grid">
+                <div><span>Expectancy netta</span><strong className={run.result.default_expectancy_r != null && run.result.default_expectancy_r >= 0 ? 'pos' : 'neg'}>{researchMetric(run.result.default_expectancy_r)}</strong></div>
+                <div><span>Trade</span><strong>{run.result.trade_count ?? '—'}</strong></div>
+                <div><span>Anni / fold positivi</span><strong>{run.result.nonnegative_folds ?? '—'} / {run.result.fold_count ?? '—'}</strong></div>
+                <div><span>Stress costi</span><strong>{researchMetric(run.result.double_cost_expectancy_r)}</strong></div>
+                <div><span>Confronto controllo</span><strong>{researchMetric(run.result.primary_minus_control_r)}</strong></div>
+                <div><span>Verdetto</span><strong>{run.result.verdict}</strong></div>
+              </div>
+              <div className="row research-actions"><button className="btn primary" onClick={onCopy}>COPIA RISULTATO PER REVIEW</button><Badge tone="neutral">Riproduzione, non nuova evidenza</Badge></div>
+              <Advanced>
+                <div className="pad research-details"><KeyValues rows={[
+                  ['Run ID', run.run_id], ['Codice', run.result.code_head ?? '—'], ['Zero costi', researchMetric(run.result.zero_cost_expectancy_r)],
+                  ['Delay 1h', researchMetric(run.result.delay_expectancy_r)], ['Controllo default', researchMetric(run.result.control_default_expectancy_r)],
+                  ['Correlazione OOS', run.result.oos_correlation == null ? '—' : run.result.oos_correlation.toFixed(4)], ['Riconciliazione', run.result.reconciliation_status],
+                  ['Tipo evidenza', run.result.scientific_evidence_type], ['Dataset', Object.entries(run.result.dataset_identities ?? {}).map(([key, value]) => `${key}: ${value}`).join(' · ') || '—'],
+                  ['Hash riproduzione', Object.entries(run.result.runtime_artifact_hashes ?? {}).map(([key, value]) => `${key}: ${value}`).join(' · ') || '—'],
+                ]} /></div>
+              </Advanced>
+            </>}
+          </div>
+        </Section>
+      </section>
+    </>
+  );
+}
 
 export function App() {
   const [page, setPage] = useState<Page>('Dashboard');
@@ -25,6 +108,8 @@ export function App() {
   const [stats, setStats] = useState<PaperStatistics | null>(null);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+  const [runner, setRunner] = useState<ResearchRunnerPayload | null>(null);
+  const [run, setRun] = useState<ResearchRun | null>(null);
 
   // Read-only status only. Never analyses and never creates or advances a paper trade.
   useEffect(() => {
@@ -33,7 +118,19 @@ export function App() {
     request<ExperimentPayload>('/api/v1/research/experiments').then(setExperiments).catch(() => setExperiments(null));
     readPaperTrades().then(setPaper).catch(() => setPaper(null));
     readPaperStatistics().then(setStats).catch(() => setStats(null));
+    readResearchRunner().then(payload => {
+      setRunner(payload);
+      setRun(payload.current_or_last_run ?? null);
+    }).catch(() => setRunner(null));
   }, []);
+
+  useEffect(() => {
+    if (page !== 'Research' || !run || !['QUEUED', 'RUNNING'].includes(run.status)) return undefined;
+    const timer = window.setInterval(() => {
+      readResearchRun(run.run_id).then(setRun).catch(() => undefined);
+    }, 800);
+    return () => window.clearInterval(timer);
+  }, [page, run?.run_id, run?.status]);
 
   const refreshPaper = useCallback(async () => {
     setPaper(await readPaperTrades().catch(() => null));
@@ -56,6 +153,26 @@ export function App() {
   const analyze = () => act(async () => setAnalysis(await analyseMarket()), null);
   const simulate = () => act(async () => { await createPaperTrade(); await refreshPaper(); }, 'Simulazione creata.');
   const update = () => act(async () => { await advancePaperTrades(); await refreshPaper(); }, 'Simulazione aggiornata.');
+  const candidate: ResearchRunnerCandidate | null = runner?.candidates?.[0] ?? null;
+  const startResearch = async () => {
+    if (!candidate || run?.status === 'RUNNING' || run?.status === 'QUEUED') return;
+    setNotice(null);
+    try {
+      const started = await startResearchRun(candidate.candidate_id);
+      setRun(started);
+    } catch (error) {
+      setNotice(refusalCopy(error instanceof Error ? error.message : 'Avvio non riuscito'));
+    }
+  };
+  const copyReview = async () => {
+    if (!run?.review_bundle) return;
+    try {
+      await navigator.clipboard.writeText(run.review_bundle);
+      setNotice('Risultato copiato per la review.');
+    } catch {
+      setNotice('Impossibile copiare il risultato.');
+    }
+  };
 
   const active = paper?.active?.[0] ?? null;
   const history = paper?.recent ?? [];
@@ -171,6 +288,8 @@ export function App() {
             <TradeHistory trades={history} />
           </>
         )}
+
+        {page === 'Research' && <ResearchLab candidate={candidate} run={run} onStart={startResearch} onCopy={copyReview} />}
 
         {page === 'Altro' && (
           <>

@@ -23,3 +23,39 @@ export type LiveMarket={classification:string;symbol:string;interval:string;stat
 export type PaperStatistics={statistics_version:string;evidence_version:string;evidence_stage:string;label:string;development_backtest_metrics_included:boolean;total_paper_trades:number;pending_entry:number;open:number;active:number;closed:number;invalidated:number;closed_target:number;closed_stop:number;expiries:number;realized_trades:number;wins:number;losses:number;breakeven:number;win_rate:number|null;mean_realized_r:number|null;cumulative_realized_r:number|null;expectancy_r_per_trade:number|null;max_drawdown_r:number|null;best_realized_r:number|null;worst_realized_r:number|null;empty:boolean;empty_detail:string|null;champion_status:string;real_money:boolean};
 export function readLiveMarket(){return request<LiveMarket>('/api/v1/product/market/recent')}
 export function readPaperStatistics(){return request<PaperStatistics>('/api/v1/product/paper-trades/statistics')}
+
+export type RunnerStage = 'READY'|'PREPARING_DATA'|'VALIDATING_INPUTS'|'FOLD_2020'|'FOLD_2021'|'FOLD_2022'|'FOLD_2023'|'FOLD_2024'|'COST_STRESS'|'RECONCILIATION'|'FINALIZING'|'COMPLETED'|'FAILED'|'INTERRUPTED';
+export type ResearchRunStatus = 'QUEUED'|'RUNNING'|'COMPLETED'|'FAILED';
+export type ResearchRunnerCandidate = {
+  candidate_id:string; display_name:string; purpose:string; run_type:string; status:string;
+  expected_stages:string[]; required_local_datasets:string[]; scientific_warning:string;
+  scientific_evidence_type:string; execution_counts_as_new_evidence:boolean; arbitrary_execution:boolean;
+  preregistration_frozen:boolean; preregistration_paths:string[];
+  required_data:{ready:boolean;files:Record<string,boolean>}; fixed_runner_adapter:string;
+};
+export type ResearchResult = {
+  candidate_id:string; run_id:string; status:ResearchRunStatus; classification:string; verdict:string;
+  default_expectancy_r:number|null; zero_cost_expectancy_r:number|null; double_cost_expectancy_r:number|null;
+  delay_expectancy_r:number|null; trade_count:number|null; nonnegative_folds:number|null; fold_count:number|null;
+  minimum_fold_trades:number|null; control_default_expectancy_r:number|null; primary_minus_control_r:number|null;
+  oos_correlation:number|null; reconciliation_status:string; elapsed_seconds:number|null;
+  scientific_evidence_type:string; code_head?:string|null; dataset_identities?:Record<string,string>;
+  runtime_artifact_hashes?:Record<string,string>;
+};
+export type ResearchRun = {
+  run_id:string; candidate_id:string; started_at:string|null; finished_at:string|null;
+  status:ResearchRunStatus; stage:RunnerStage; progress:number; detail?:string|null;
+  error?:string|null; result?:ResearchResult|null; review_bundle?:string|null; elapsed_seconds:number;
+};
+export type ResearchRunnerPayload = {
+  runner_status:'IDLE'|'BUSY'; arbitrary_execution:boolean; maximum_active_runs:number;
+  candidates:ResearchRunnerCandidate[]; current_or_last_run:ResearchRun|null;
+};
+export function readResearchRunner(){return request<ResearchRunnerPayload>('/api/v1/research/runner')}
+export async function startResearchRun(candidate_id:string){
+  const response=await fetch('/api/v1/research/runner/runs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({candidate_id})});
+  const body=await response.json().catch(()=>null);
+  if(!response.ok)throw new Error(body?.detail??`API ${response.status}`);
+  return body as ResearchRun;
+}
+export function readResearchRun(run_id:string){return request<ResearchRun>(`/api/v1/research/runner/runs/${encodeURIComponent(run_id)}`)}
