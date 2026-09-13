@@ -119,6 +119,54 @@ Future prospective paper evidence remains stronger than any historical holdout.
 - V1 is local and Windows-friendly.
 - No V2 server complexity until justified.
 
+## Cost-aware model routing
+
+Preserve scientific and engineering quality while minimizing Codex usage.
+
+The model selected by the Owner for the main Codex session is the orchestrator. When
+model-selectable subagent dispatch is available, do not automatically clone the
+orchestrator for every subtask. Route work by difficulty, risk, and context needs.
+
+Use the strongest selected model (normally Sol at high effort) for work where reasoning
+quality materially matters, including:
+
+- research design, preregistration, novelty/search-memory decisions, and scientific
+  interpretation;
+- architecture and cross-cutting implementation decisions;
+- ambiguous debugging, leakage/execution-risk analysis, and difficult root-cause work;
+- final integration/review of material checkpoints and any governance-sensitive change.
+
+Prefer cheaper models for bounded auxiliary work when the runtime supports explicit
+model/effort selection:
+
+- Luna at low effort for read-only scans, file discovery, mechanical extraction,
+  formatting/renaming inventories, simple fixture generation, deterministic result
+  transcription, and other narrow low-risk tasks;
+- Terra at medium effort for ordinary bounded implementation or test-writing that
+  requires more coding competence but not high-level scientific judgment.
+
+Delegation rules:
+
+- use deterministic tools/scripts directly instead of spawning any model when they can
+  perform the task reliably;
+- do not spawn a subagent for a trivial shell command or tiny edit where coordination
+  would cost more than doing the work directly;
+- give subagents the smallest task-specific context and explicit acceptance criteria;
+- prefer fresh bounded subagents over resuming a long-context child for usage-sensitive
+  work;
+- require the orchestrator to verify outputs before they affect scientific truth,
+  governance, experiment classification, or final commits;
+- never let a cheaper subagent independently change hypotheses after results, authorize
+  sealed access, promote a Champion, or make real-capital decisions;
+- if the runtime cannot prove which model/effort a subagent actually used, do not claim
+  a cost saving from model routing;
+- if delegation repeatedly fails or requires substantial rework, stop delegating that
+  class of task and let the orchestrator complete it directly.
+
+Optimize total workflow cost, not the number of subagents. Parallelism is useful only
+when subtasks are genuinely independent and the expected usage saving exceeds
+coordination overhead.
+
 ## Autonomous execution
 
 Work for as long as necessary to complete the active work package.
