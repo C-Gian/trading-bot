@@ -1,0 +1,32 @@
+{
+  "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+  "feature_engineering": "NONE",
+  "feature_selection": "NONE",
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED"
+  ],
+  "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+  "model_version": "SHALLOW_INTERNAL_HGBR_V1",
+  "parameters": {
+    "early_stopping": false,
+    "l2_regularization": 1.0,
+    "learning_rate": 0.05,
+    "loss": "squared_error",
+    "max_bins": 63,
+    "max_depth": 3,
+    "max_iter": 64,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 128,
+    "random_state": 0
+  },
+  "profile_retraining": false,
+  "signal_threshold": 0.0,
+  "variant": "SHALLOW_INTERNAL_HGBR"
+}

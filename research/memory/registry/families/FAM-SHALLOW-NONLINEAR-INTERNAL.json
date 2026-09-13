@@ -1,0 +1,27 @@
+{
+  "admitted_by": "research/memory/registry/admissions/WP014-NOVELTY-ADMISSION.json",
+  "aliases": [
+    "NONLINEAR_INTERNAL_SIGNAL_INTERACTIONS_V1",
+    "SHALLOW_INTERNAL_HGBR_V1",
+    "SHALLOW_INTERNAL_HGBR"
+  ],
+  "allocation_id": "WP014-SHALLOW-NONLINEAR-ALLOCATION",
+  "entry_event_anchors": [
+    "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO"
+  ],
+  "failure_experiment_ids": [],
+  "family_id": "FAM-SHALLOW-NONLINEAR-INTERNAL",
+  "information_source": "FROZEN_INTERNAL_MARKET_AND_ORDER_FLOW_FEATURES_F1_F8",
+  "legitimate_revisit": "Only a new explicit Research Director allocation; no exposed-result tuning.",
+  "matched_control": {
+    "classification": "DUPLICATE_MATCHED_CONTROL_REPLICATION",
+    "duplicate_of": "EXP-ML-014-LINEAR-NET-R-FULL",
+    "novelty_claimed": false,
+    "variant": "INTERNAL_LINEAR_MATCHED"
+  },
+  "mechanism": "A fixed shallow histogram gradient-boosted regressor may capture bounded threshold and intersection relationships among raw internal F1-F8.",
+  "parent_family_id": null,
+  "schema_version": 1,
+  "status": "ADMITTED_PENDING_RESULTS",
+  "work_package": "WP-014"
+}

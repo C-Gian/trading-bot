@@ -260,6 +260,8 @@
         "wp012_profiles_reserved",
         "wp013_variants_reserved",
         "wp013_profiles_reserved",
+        "wp014_variants_reserved",
+        "wp014_profiles_reserved",
         "supervised_model_fits"
       ],
       "properties": {
@@ -360,6 +362,14 @@
           "minimum": 0
         },
         "wp013_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp014_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp014_profiles_reserved": {
           "type": "integer",
           "minimum": 0
         },
@@ -783,6 +793,41 @@
         "model_reconciliation": {"const": "PASS"},
         "macro_asof_audit": {"const": "PASS"},
         "sealed_eligibility": {"enum": ["NOT_ELIGIBLE_REJECTED", "NOT_ELIGIBLE_INCONCLUSIVE", "DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW"]}
+      }
+    },
+    "shallow_nonlinear_challenger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "root_family", "primary", "control",
+        "control_novelty", "sklearn_version", "reserved_model_fits",
+        "actual_model_fits", "terminal_classification", "model_reconciliation",
+        "sealed_eligibility", "safe_phase_1_commit"
+      ],
+      "properties": {
+        "version": {"const": "SHALLOW_INTERNAL_HGBR_V1"},
+        "status": {"const": "VALIDATED"},
+        "root_family": {"const": "FAM-SHALLOW-NONLINEAR-INTERNAL"},
+        "primary": {"const": "SHALLOW_INTERNAL_HGBR"},
+        "control": {"const": "INTERNAL_LINEAR_MATCHED"},
+        "control_novelty": {"const": "DUPLICATE_MATCHED_CONTROL_REPLICATION"},
+        "sklearn_version": {"const": "1.7.2"},
+        "reserved_model_fits": {"const": 12},
+        "actual_model_fits": {"const": 12},
+        "terminal_classification": {
+          "enum": [
+            "REJECT", "REJECT_COST_DOMINATED", "REJECT_UNSTABLE", "INCONCLUSIVE",
+            "PROMISING_DEVELOPMENT_ONLY"
+          ]
+        },
+        "model_reconciliation": {"const": "PASS"},
+        "sealed_eligibility": {
+          "enum": [
+            "NOT_ELIGIBLE_REJECTED", "NOT_ELIGIBLE_INCONCLUSIVE",
+            "DEVELOPMENT_ELIGIBLE_PENDING_RESEARCH_DIRECTOR_REVIEW"
+          ]
+        },
+        "safe_phase_1_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
       }
     },
     "product_analysis": {

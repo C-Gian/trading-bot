@@ -1,0 +1,21 @@
+{
+  "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+  "feature_engineering": "NONE",
+  "feature_selection": "NONE",
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED"
+  ],
+  "input_scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+  "model_version": "INTERNAL_LINEAR_MATCHED",
+  "parameters": {},
+  "profile_retraining": false,
+  "signal_threshold": 0.0,
+  "variant": "INTERNAL_LINEAR_MATCHED"
+}

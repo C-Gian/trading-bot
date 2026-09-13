@@ -1,0 +1,79 @@
+{
+  "architecture_variants": 0,
+  "configurations": 2,
+  "control_variant": "INTERNAL_LINEAR_MATCHED",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "evidence_stage": "EXPOSED_DEVELOPMENT_WALK_FORWARD",
+  "execution": {
+    "direction": "LONG",
+    "entry": "NEXT_CANONICAL_1M_OPEN",
+    "max_hold_minutes": 1440,
+    "position_policy": "SINGLE_LONG_NO_OVERLAP",
+    "stop_fraction": 0.02,
+    "target_fraction": 0.04
+  },
+  "feature_variants": 0,
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED"
+  ],
+  "folds": [2019, 2020, 2021, 2022, 2023, 2024],
+  "hyperparameter_variants": 0,
+  "hypothesis_id": "NONLINEAR_INTERNAL_SIGNAL_INTERACTIONS_V1",
+  "model_fits": 12,
+  "models": {
+    "INTERNAL_LINEAR_MATCHED": {
+      "algorithm": "NUMPY_FLOAT64_ORDINARY_LEAST_SQUARES_WITH_INTERCEPT",
+      "input_scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+      "parameters": {}
+    },
+    "SHALLOW_INTERNAL_HGBR": {
+      "algorithm": "sklearn.ensemble.HistGradientBoostingRegressor",
+      "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+      "parameters": {
+        "early_stopping": false,
+        "l2_regularization": 1.0,
+        "learning_rate": 0.05,
+        "loss": "squared_error",
+        "max_bins": 63,
+        "max_depth": 3,
+        "max_iter": 64,
+        "max_leaf_nodes": 7,
+        "min_samples_leaf": 128,
+        "random_state": 0
+      }
+    }
+  },
+  "primary_variant": "SHALLOW_INTERNAL_HGBR",
+  "profile_evaluations": 8,
+  "profile_policy": {
+    "DELAY_1H": "PREVIOUS_HOUR_PREDICTION_NO_RETRAIN",
+    "DOUBLE": "REUSE_DEFAULT_PREDICTIONS_COST_ONLY_CHANGE",
+    "ZERO": "REUSE_DEFAULT_PREDICTIONS_COST_ONLY_CHANGE",
+    "fit_target_profile": "DEFAULT"
+  },
+  "profiles": ["DEFAULT", "ZERO", "DOUBLE", "DELAY_1H"],
+  "protocol_id": "WP-014-SHALLOW-INTERNAL-HGBR-V1",
+  "root_family": "FAM-SHALLOW-NONLINEAR-INTERNAL",
+  "schema_version": 1,
+  "signal": {
+    "operator": ">",
+    "predicted_field": "predicted_default_net_R",
+    "threshold": 0.0,
+    "threshold_variants": 0
+  },
+  "sklearn_version": "1.7.2",
+  "target": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1",
+  "training": {
+    "complete_label_outcome_boundary": "STRICTLY_BEFORE_TRAIN_END_EXCLUSIVE",
+    "purge_boundary_hours": 216,
+    "universe": "EXPANDING_CHRONOLOGICAL",
+    "validation_refits": 0
+  }
+}

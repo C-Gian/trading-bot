@@ -1,0 +1,52 @@
+{
+  "allocation_id": "WP014-SHALLOW-NONLINEAR-ALLOCATION",
+  "complete_outcomes_before_boundary": true,
+  "control_classification": "DUPLICATE_MATCHED_CONTROL_REPLICATION",
+  "control_input_scaling": "TRAINING_ONLY_MEAN_STD_DDOF_0",
+  "family_classification": "NEW_FAMILY",
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED"
+  ],
+  "forbidden_features": [],
+  "hgbr_input_scaling": "NONE_RAW_GOVERNED_VALUES",
+  "hgbr_parameters": {
+    "early_stopping": false,
+    "l2_regularization": 1.0,
+    "learning_rate": 0.05,
+    "loss": "squared_error",
+    "max_bins": 63,
+    "max_depth": 3,
+    "max_iter": 64,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 128,
+    "random_state": 0
+  },
+  "market_results_observed": 0,
+  "model_fits": 12,
+  "post_cutoff_access": 0,
+  "prediction_tolerance": 1e-10,
+  "preregistration_sha256": {
+    "INTERNAL_LINEAR_MATCHED": "3caf0e1eee59c338ccde234c0eb9e9da2b636d09b39cb9d6c51f1e47e5a41cf2",
+    "SHALLOW_INTERNAL_HGBR": "441727bf3ccbb28edf5090db14708a99ba6a5c2eb9c5b5afeb4a03a3161a99f7"
+  },
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "protocol_id": "WP-014-SHALLOW-INTERNAL-HGBR-V1",
+  "purge_boundary_hours": 216,
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "signal_threshold": 0.0,
+  "status": "PASS",
+  "work_package": "WP-014"
+}
