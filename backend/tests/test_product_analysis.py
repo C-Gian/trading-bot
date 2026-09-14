@@ -7,6 +7,7 @@ order surface, the research-status labels, and that nothing analyses on startup.
 from __future__ import annotations
 
 import ast
+import json
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
@@ -266,6 +267,11 @@ def test_endpoint_returns_a_labelled_paper_research_long_plan(client: TestClient
     assert body["paper_trade_persisted"] is False
     assert body["paper_trades_completed"] == 0
     assert body["real_money"] is False and body["real_money_authorized"] is False
+    bundle = json.loads(body["review_bundle"])
+    assert bundle["bundle_version"] == "DASHBOARD_ANALYSIS_REVIEW_BUNDLE_V1"
+    assert bundle["decision"] == "LONG"
+    assert bundle["paper_trade"] is None
+    assert "entry_price" not in bundle and "stop_price" not in bundle
 
 
 def test_endpoint_returns_no_trade_without_a_plan() -> None:
@@ -273,6 +279,8 @@ def test_endpoint_returns_no_trade_without_a_plan() -> None:
     body = TestClient(app).post("/api/v1/product/analysis").json()
     assert body["decision"] == "NO_TRADE" and body["plan"] is None
     assert body["research_status"] == "PAPER_RESEARCH_CANDIDATE"
+    bundle = json.loads(body["review_bundle"])
+    assert bundle["decision"] == "NO_TRADE" and bundle["paper_trade"] is None
 
 
 def test_analysis_runs_only_on_explicit_request(client: TestClient) -> None:

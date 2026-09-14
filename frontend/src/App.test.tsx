@@ -35,6 +35,20 @@ const market = {
   ],
 };
 
+const noTradeReview = JSON.stringify({
+  bundle_version: 'DASHBOARD_ANALYSIS_REVIEW_BUNDLE_V1',
+  decision: 'NO_TRADE',
+  analysis_id: 'a'.repeat(64),
+  paper_trade: null,
+});
+const longReview = JSON.stringify({
+  bundle_version: 'DASHBOARD_ANALYSIS_REVIEW_BUNDLE_V1',
+  decision: 'LONG',
+  analysis_id: 'a'.repeat(64),
+  paper_execution_version: 'PAPER_EXECUTION_V2_CAUSAL_NEXT_MINUTE',
+  paper_trade: null,
+});
+
 const analysisBase = {
   analysis_version: 'PAPER_RESEARCH_ANALYSIS_V1',
   classification: 'EXPERIMENTAL PAPER RESEARCH — NOT AN APPROVED LIVE STRATEGY',
@@ -44,6 +58,7 @@ const analysisBase = {
   analysis_time: '2026-03-05T12:30:00Z', signal_time: '2026-03-05T12:00:00Z',
   data_status: 'OK', data_detail: 'completed contiguous lookback available',
   paper_trade_persisted: false, real_money: false,
+  review_bundle: noTradeReview,
   features: {
     breakout: false, persistent_up: true, participation: false,
     signed_efficiency: 0.41, relative_volume: 0.8,
@@ -51,7 +66,7 @@ const analysisBase = {
 };
 const noTrade = { ...analysisBase, decision: 'NO_TRADE', plan: null };
 const longAnalysis = {
-  ...analysisBase, decision: 'LONG', reference_price: 50000,
+  ...analysisBase, decision: 'LONG', reference_price: 50000, review_bundle: longReview,
   features: { breakout: true, persistent_up: true, participation: true, signed_efficiency: 0.6, relative_volume: 2.4 },
   plan: {
     direction: 'LONG', entry_rule: 'STRICTLY_AFTER_DURABLE_INTENT_NEXT_1M_OPEN', entry_semantics: 'strictly future minute',
@@ -276,6 +291,32 @@ describe('analisi', () => {
     expect(within(card).queryByRole('button', { name: 'Simula questo trade' })).not.toBeInTheDocument();
     expect(card).not.toHaveTextContent('breakout');
     expect(card).not.toHaveTextContent('participation');
+  });
+
+  it('copia esattamente il bundle autorevole senza aprire i dettagli tecnici', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.assign(navigator, { clipboard: { writeText } });
+    mockApi();
+    await dashboard();
+    await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
+    const card = screen.getByRole('region', { name: 'Decisione del bot' });
+    const copy = await within(card).findByRole('button', { name: 'Copia analisi' });
+    expect(within(card).getByText('Dettagli tecnici').closest('details')).not.toHaveAttribute('open');
+    await userEvent.click(copy);
+    expect(writeText).toHaveBeenCalledOnce();
+    expect(writeText).toHaveBeenCalledWith(noTradeReview);
+    expect(await screen.findByRole('status')).toHaveTextContent('Copiato.');
+  });
+
+  it('segnala in modo pulito un errore della clipboard', async () => {
+    Object.assign(navigator, {
+      clipboard: { writeText: vi.fn().mockRejectedValue(new Error('denied')) },
+    });
+    mockApi();
+    await dashboard();
+    await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
+    await userEvent.click(await screen.findByRole('button', { name: 'Copia analisi' }));
+    expect(await screen.findByRole('status')).toHaveTextContent('Impossibile copiare l’analisi.');
   });
 
   it('mostra il LONG senza fingere livelli ancora ignoti', async () => {

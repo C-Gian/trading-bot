@@ -25,6 +25,7 @@ WP008_HEAD = "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2"
 WP012_HEAD = "d88a1465560ecfe02d2eae6a924da27238fa898e"
 WP013_HEAD = "e59318268099d428df0c108144aca739f5504b40"
 WP014_HEAD = "478f2fcab10569f20a81136bca1b5cff6b66d601"
+PAPER_RUNTIME_HEAD = "95362a1a24adde6b4e5a75eb2062c52dcc4fdb6d"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -223,8 +224,8 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
-    assert state["latest_executor_checkpoint"] == "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2"
+    assert state["latest_reviewed_checkpoint"] == "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2"
+    assert state["latest_executor_checkpoint"] == ("WP-017-SOURCE-DISCOVERY-GATE-OWNER-UX-V1_1")
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -472,7 +473,16 @@ def validate_research_views(state: dict) -> None:
     }
     assert "remote_ci" not in state["wp005_integrity"], "stale pending CI state was reintroduced"
     remote = state["remote_ci"]["work_packages"]
-    assert set(remote) == {"WP-005", "WP-006", "WP-007", "WP-008", "WP-012", "WP-013", "WP-014"}
+    assert set(remote) == {
+        "WP-005",
+        "WP-006",
+        "WP-007",
+        "WP-008",
+        "WP-012",
+        "WP-013",
+        "WP-014",
+        "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2",
+    }
     for work_package, expected_head in (
         ("WP-005", WP005_BASE_SUCCESSOR),
         ("WP-006", WP006_HEAD),
@@ -481,6 +491,7 @@ def validate_research_views(state: dict) -> None:
         ("WP-012", WP012_HEAD),
         ("WP-013", WP013_HEAD),
         ("WP-014", WP014_HEAD),
+        ("PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2", PAPER_RUNTIME_HEAD),
     ):
         record = remote[work_package]
         evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
@@ -769,6 +780,12 @@ def governance_checks(pre_experiment: bool) -> dict:
         "research/runtime/RESEARCH-RUNTIME-V2-BATCH.json",
         "reports/benchmarks/RESEARCH-RUNTIME-V2-BATCH.json",
         "reports/checkpoints/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2.md",
+        "reports/reviews/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2-CI-EVIDENCE.json",
+        "reports/reviews/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2-RESEARCH-DIRECTOR-REVIEW.md",
+        "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.md",
+        "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.json",
+        "reports/checkpoints/WP-017-SOURCE-DISCOVERY-GATE-OWNER-UX-V1_1.md",
+        "tasks/archive/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2.md",
         "tasks/archive/WP-016-PREP.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
@@ -808,6 +825,24 @@ def governance_checks(pre_experiment: bool) -> dict:
     state = validate_json(
         ROOT / "state/current_state.json", ROOT / "contracts/project_state.schema.json"
     )
+    source_gate = json.loads(
+        (ROOT / "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.json").read_text(encoding="utf-8")
+    )
+    assert source_gate["recommended_source"] == "CFTC_CME_BITCOIN_COT"
+    assert len(source_gate["candidates"]) >= 3
+    assert all(
+        candidate["point_in_time_status"] == "PASS" for candidate in source_gate["candidates"]
+    )
+    accounting = source_gate["scientific_accounting"]
+    assert accounting == {
+        "completed_experiments_before": 25,
+        "completed_experiments_after": 25,
+        "model_fits": 0,
+        "backtests": 0,
+        "sealed_queries": 0,
+        "wp017_preregistered": False,
+        "wp016_executed": False,
+    }
     assert state["development_cutoff"] == "2024-12-31T23:59:00Z"
     approved_state = json.loads(git("show", f"{WP004_BASE}:state/current_state.json"))
     assert state["development_dataset"] == approved_state["development_dataset"]

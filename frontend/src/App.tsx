@@ -170,6 +170,15 @@ export function App() {
   }, []);
 
   const analyze = () => act(async () => setAnalysis(await analyseMarket()), null);
+  const copyAnalysis = async () => {
+    if (!analysis?.review_bundle) return;
+    try {
+      await navigator.clipboard.writeText(analysis.review_bundle);
+      setNotice('Copiato.');
+    } catch {
+      setNotice('Impossibile copiare l’analisi.');
+    }
+  };
   const simulate = () => act(async () => { await createPaperTrade(); await refreshPaper(); }, 'Paper LONG registrato. Ingresso in attesa.');
   const update = () => act(async () => { await advancePaperTrades(); await refreshPaper(); }, 'Simulazione aggiornata.');
   const candidates = runner?.candidates ?? [];
@@ -257,6 +266,7 @@ export function App() {
                 blockedReason={blockedReason}
                 onAnalyze={analyze}
                 onSimulate={simulate}
+                onCopyAnalysis={copyAnalysis}
               />
             </div>
             {active && <ActiveTrade trade={active} busy={busy} onUpdate={update} />}

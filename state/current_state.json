@@ -148,7 +148,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2",
+  "latest_executor_checkpoint": "WP-017-SOURCE-DISCOVERY-GATE-OWNER-UX-V1_1",
   "latest_family": {
     "name": "PERPETUAL_FUNDING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -156,12 +156,12 @@
     "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
     "terminal_classification": "REJECT_COST_DOMINATED"
   },
-  "latest_reviewed_checkpoint": "PROJECT-RETROSPECTIVE-V1",
+  "latest_reviewed_checkpoint": "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2",
   "max_holding_horizon": {
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_PAPER_ENTRY_V2_RESEARCH_RUNTIME_V2",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_AND_WP017_CFTC_COT_HYPOTHESIS_DESIGN",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -214,6 +214,8 @@
     "leverage_or_short": false,
     "order_placement": false,
     "paper_trade_persistence": true,
+    "review_bundle_authority": "BACKEND",
+    "review_bundle_version": "DASHBOARD_ANALYSIS_REVIEW_BUNDLE_V1",
     "possible_outputs": [
       "NO_TRADE",
       "LONG"
@@ -310,6 +312,12 @@
         "head": "478f2fcab10569f20a81136bca1b5cff6b66d601",
         "run_id": 34757514686,
         "status": "SUCCESS"
+      },
+      "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2": {
+        "evidence": "reports/reviews/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2-CI-EVIDENCE.json",
+        "head": "95362a1a24adde6b4e5a75eb2062c52dcc4fdb6d",
+        "run_id": 34845744019,
+        "status": "SUCCESS"
       }
     }
   },
@@ -361,6 +369,19 @@
     "families_tracked": 14,
     "status": "VALIDATED",
     "version": "SEARCH_MEMORY_V2"
+  },
+  "source_discovery_gate": {
+    "backtests": 0,
+    "completed_experiments_after": 25,
+    "model_fits": 0,
+    "recommended_source": "CFTC_CME_BITCOIN_COT",
+    "report_json": "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.json",
+    "report_markdown": "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.md",
+    "sealed_queries": 0,
+    "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+    "version": "WP-017-SOURCE-DISCOVERY-GATE",
+    "wp016_executed": false,
+    "wp017_preregistered": false
   },
   "selected_family": {
     "name": "ALIGNED_PARTICIPATION_CONTINUATION_V1",

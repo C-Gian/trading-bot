@@ -949,6 +949,8 @@
         "champion_status",
         "possible_outputs",
         "paper_trade_persistence",
+        "review_bundle_authority",
+        "review_bundle_version",
         "trade_history_statistics",
         "order_placement",
         "credentials",
@@ -971,6 +973,8 @@
           "uniqueItems": true
         },
         "paper_trade_persistence": {"const": true},
+        "review_bundle_authority": {"const": "BACKEND"},
+        "review_bundle_version": {"const": "DASHBOARD_ANALYSIS_REVIEW_BUNDLE_V1"},
         "trade_history_statistics": {"const": false},
         "order_placement": {"const": false},
         "credentials": {"const": false},
@@ -1239,6 +1243,36 @@
             "reconciliation": {"const": "PASS"}
           }
         }
+      }
+    },
+    "source_discovery_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "recommended_source",
+        "report_markdown",
+        "report_json",
+        "completed_experiments_after",
+        "backtests",
+        "model_fits",
+        "sealed_queries",
+        "wp016_executed",
+        "wp017_preregistered"
+      ],
+      "properties": {
+        "version": {"const": "WP-017-SOURCE-DISCOVERY-GATE"},
+        "status": {"const": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW"},
+        "recommended_source": {"const": "CFTC_CME_BITCOIN_COT"},
+        "report_markdown": {"const": "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.md"},
+        "report_json": {"const": "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.json"},
+        "completed_experiments_after": {"const": 25},
+        "backtests": {"const": 0},
+        "model_fits": {"const": 0},
+        "sealed_queries": {"const": 0},
+        "wp016_executed": {"const": false},
+        "wp017_preregistered": {"const": false}
       }
     },
     "remote_ci": {

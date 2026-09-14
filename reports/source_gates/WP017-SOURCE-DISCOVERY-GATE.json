@@ -1,0 +1,217 @@
+{
+  "gate_id": "WP-017-SOURCE-DISCOVERY-GATE",
+  "gate_type": "SOURCE_INTEGRITY_ONLY_NOT_A_TRADING_EXPERIMENT",
+  "as_of_utc": "2026-09-14T00:00:00Z",
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "candidates": [
+    {
+      "source_id": "CFTC_CME_BITCOIN_COT",
+      "official_sources": [
+        {
+          "url": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm",
+          "claim": "COT reports ordinarily publish Friday at 15:30 ET from Tuesday positions; CFTC states historical data are not revised after publication."
+        },
+        {
+          "url": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalCompressed/index.htm",
+          "claim": "Official annual compressed Traders in Financial Futures archives are available by report year."
+        },
+        {
+          "url": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm",
+          "claim": "Official exception log records delayed releases, shutdown schedules and corrections."
+        },
+        {
+          "url": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives/2024/futures/financial_lf123124.htm",
+          "claim": "The 2024-12-31 report identifies BITCOIN - CHICAGO MERCANTILE EXCHANGE as CFTC market code 133741."
+        },
+        {
+          "url": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalViewable/cotvariablestfm",
+          "claim": "Official TFF field definitions enumerate positioning, changes, percentages and trader counts."
+        }
+      ],
+      "source_family": "OFFICIAL_REGULATORY_FUTURES_POSITIONING",
+      "coverage": {
+        "status": "PARTIAL",
+        "first_bitcoin_observation": "2018-04-10",
+        "last_scoped_observation": "2024-12-31",
+        "scoped_rows": 352,
+        "missing_development_prefix": "2017-08-17 through 2018-04-09"
+      },
+      "point_in_time_status": "PASS",
+      "availability_rule": "00:00 UTC on the calendar day after the actual CFTC publication date. Use the official ordinary Friday schedule plus official Historical Special Announcements/holiday/shutdown overrides; any report whose actual release date cannot be reconstructed is ineligible. Never use the Tuesday observation date as availability.",
+      "revision_risk": "MEDIUM",
+      "semantic_stability": "PASS",
+      "reproducibility": "PASS",
+      "approximate_volume": "3.77 MB compressed for official 2017-2024 TFF annual archives; 352 eligible Bitcoin rows from 2018-04-10 through 2024-12-31 before release-date admission.",
+      "acquisition_method": "Download official fut_fin_txt_YYYY.zip annual archives, preserve exact bytes and SHA-256, select market code 133741, and construct a separate official release-calendar manifest.",
+      "local_feasibility": "PASS",
+      "orthogonality": "HIGH",
+      "blockers": [],
+      "pilot": {
+        "retrieval_scope": "Official annual TFF archives only; no BTC prices or outcomes were read.",
+        "archive_years": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+        "compressed_bytes": 3771554,
+        "bitcoin_rows_by_year": {
+          "2017": 0,
+          "2018": 39,
+          "2019": 52,
+          "2020": 52,
+          "2021": 52,
+          "2022": 52,
+          "2023": 52,
+          "2024": 53
+        },
+        "archive_sha256": {
+          "2017": "e6e2dd537efcc57cdd6cdcc4e45e567fd47e65d8afc8369d8383bf09195ae7f5",
+          "2018": "6843d130a25a17c6248df67463810f02077ef4eeafdd629299d21c18f5125e40",
+          "2019": "631b31880d513072aa50d63117c896184dd35db3cc8fcdd6debd80197ee7a661",
+          "2020": "c90d98d94db708772d669f263fb8061c75f8a7f681ba231fb21247e5c9798e6b",
+          "2021": "5c929991038c70ae2501661b6d442b9e784d3c29d3166ceac2e21b45ac93d56a",
+          "2022": "94c9c1fdee9dfbe377a09923ddfe26b88d3460605dd076081f221ad367d88601",
+          "2023": "43c3dbdd4d01fceefad5e457003751cdc0974c7cf46097b322e26e9e2fe44d7a",
+          "2024": "3f00585741a7cf76c207df640951d644dd91ff22a1106b38ca37a2469c765637"
+        }
+      },
+      "verdict": "RECOMMEND_FOR_RESEARCH_DIRECTOR_HYPOTHESIS_DESIGN"
+    },
+    {
+      "source_id": "GDELT_2_CONTEMPORANEOUS_BULK",
+      "official_sources": [
+        {
+          "url": "https://gdeltproject.org/data.html",
+          "claim": "GDELT 2.0 publishes Events, Mentions and GKG file families on a 15-minute cadence."
+        },
+        {
+          "url": "https://blog.gdeltproject.org/gdelt-2-0-our-global-world-in-realtime/",
+          "claim": "GDELT 2.0 timestamped file coverage begins 2015-02-19 and exposes master/last-update enumeration."
+        },
+        {
+          "url": "https://data.gdeltproject.org/documentation/GDELT-Event_Codebook-V2.0.pdf",
+          "claim": "DATEADDED and MentionTimeDate identify GDELT processing/update batches in UTC."
+        },
+        {
+          "url": "https://data.gdeltproject.org/documentation/GDELT-Global_Knowledge_Graph_Codebook-V2.1.pdf",
+          "claim": "GKGRECORDID begins with the UTC batch timestamp in which a record was created; document publication date is a different field."
+        },
+        {
+          "url": "https://data.gdeltproject.org/gdeltv2/masterfilelist.txt",
+          "claim": "The deterministic master list enumerates timestamped bulk objects, sizes and MD5 identities."
+        }
+      ],
+      "source_family": "CONTEMPORANEOUS_GLOBAL_NEWS_PROCESSING_ARCHIVE",
+      "coverage": {
+        "status": "PASS",
+        "start": "2015-02-19",
+        "scoped_end": "2024-12-31"
+      },
+      "point_in_time_status": "PASS",
+      "availability_rule": "Batch timestamp plus 24 hours, using DATEADDED/MentionTimeDate/GKGRECORDID first-observation semantics. Never use a publisher-supplied document date as GDELT availability; preserve and hash the exact timestamped bulk object, and reject records lacking a valid processing-batch timestamp.",
+      "revision_risk": "MEDIUM",
+      "semantic_stability": "PASS",
+      "reproducibility": "PASS",
+      "approximate_volume": "Master list about 128 MB; naive 2017-2024 GKG acquisition is order 1-2 TiB compressed, while Events and Mentions are much smaller. Streamed source-time filtering is required.",
+      "acquisition_method": "Enumerate masterfilelist.txt, pin size/MD5 plus local SHA-256, stream timestamped Events/Mentions/GKG ZIP members, and retain first-seen records with raw-object provenance.",
+      "local_feasibility": "PARTIAL",
+      "orthogonality": "HIGH",
+      "blockers": [
+        "Naive GKG retention is too large for the V1 local path.",
+        "Duplicate/follow-on mention rules and exact Bitcoin entity query must be frozen before acquisition.",
+        "A bounded streamed acquisition pilot is still required; the paused WP-009 Timeline API path must not be reused."
+      ],
+      "pilot": {
+        "retrieval_scope": "Representative timestamped bulk objects only; no BTC prices or outcomes were read.",
+        "sample_2017_gkg": {
+          "path_timestamp": "2017-08-17T00:00:00Z",
+          "bytes": 8387,
+          "rows": 2,
+          "sha256": "f15e1dd77e118d53650175059bafe0501fd44a2b05ec027da341ed27bff3671a"
+        },
+        "sample_2024_gkg": {
+          "path_timestamp": "2024-12-31T23:45:00Z",
+          "bytes": 4570971,
+          "rows": 1152,
+          "sha256": "e36049158ef491379eae9fb6685017b5170658c82520c65f70ab6b4795bfd44a"
+        }
+      },
+      "verdict": "HOLD_FOR_BOUNDED_STREAMING_FOUNDATION"
+    },
+    {
+      "source_id": "COMMON_CRAWL_NEWS",
+      "official_sources": [
+        {
+          "url": "https://commoncrawl.org/blog/news-dataset-available",
+          "claim": "CC-NEWS has daily WARC files from 2016 onward under date-addressed paths and is published shortly after articles are crawled."
+        },
+        {
+          "url": "https://commoncrawl.org/get-started",
+          "claim": "WARC records preserve raw HTTP responses, WARC-Date capture timestamps and content digests."
+        },
+        {
+          "url": "https://data.commoncrawl.org/crawl-data/CC-NEWS/2017/08/warc.paths.gz",
+          "claim": "Official monthly path manifests deterministically enumerate CC-NEWS WARC objects."
+        },
+        {
+          "url": "https://data.commoncrawl.org/crawl-data/CC-NEWS/2024/12/warc.paths.gz",
+          "claim": "Official monthly path manifests continue through the scoped 2024-12 endpoint."
+        }
+      ],
+      "source_family": "RAW_TIMESTAMPED_OPEN_NEWS_CRAWL",
+      "coverage": {
+        "status": "PASS",
+        "start": "2016",
+        "scoped_months_verified": "2017-08 through 2024-12"
+      },
+      "point_in_time_status": "PASS",
+      "availability_rule": "00:00 UTC on the calendar day after max(WARC-Date, archived object Last-Modified). The WARC capture, not article metadata, is the information timestamp; preserve path, WARC record ID and payload/block digest and reject malformed timestamps.",
+      "revision_risk": "LOW",
+      "semantic_stability": "PASS",
+      "reproducibility": "PASS",
+      "approximate_volume": "41,292 monthly-enumerated WARC objects for 2017-08 through 2024-12, approximately 40.3 TiB compressed at roughly 1 GiB per object.",
+      "acquisition_method": "Pin each monthly warc.paths.gz manifest and stream WARC response records; no official CC-NEWS URL index was established in this gate.",
+      "local_feasibility": "FAIL",
+      "orthogonality": "HIGH",
+      "blockers": [
+        "Full local scanning is tens of TiB compressed.",
+        "Common Crawl documents CDX access for main crawls, but this gate did not establish an equivalent official CC-NEWS index for selective URL retrieval.",
+        "Language, deduplication and Bitcoin relevance must be defined without a future-derived publisher list."
+      ],
+      "pilot": {
+        "retrieval_scope": "Monthly path manifests and object metadata only; no BTC prices or outcomes were read.",
+        "months_enumerated": 89,
+        "warc_objects": 41292,
+        "sample_manifest_sha256": {
+          "2017-08": "0063008d777f9af1a857710b86c92baf9afc592f0376926fb9f26dba21a4c9b3",
+          "2024-12": "3bcc1531a178fc4a7d3619061b006317a892bb1377a01cd73468872986f70c88"
+        }
+      },
+      "verdict": "REJECT_LOCAL_FEASIBILITY"
+    }
+  ],
+  "recommended_source": "CFTC_CME_BITCOIN_COT",
+  "reason": "It has official observation and release semantics, a fail-closed historical availability rule, stable market code 133741, compact annual archives, deterministic byte identities and information orthogonal to existing spot/order-flow features. Partial pre-2018 coverage is explicit and manageable by matched-universe design.",
+  "rejected_sources": [
+    {
+      "source_id": "GDELT_2_CONTEMPORANEOUS_BULK",
+      "reason": "Not rejected scientifically, but deferred until a bounded streaming/deduplication foundation proves local cost and exact first-seen semantics."
+    },
+    {
+      "source_id": "COMMON_CRAWL_NEWS",
+      "reason": "Point-in-time semantics pass, but the scoped corpus is not locally feasible without a proven selective CC-NEWS index."
+    }
+  ],
+  "unresolved_questions": [
+    "CFTC: enumerate every 2018-2024 non-Friday release and correction from official schedules before canonicalization.",
+    "CFTC: define treatment of absent holiday/shutdown reports and classification changes before any feature design.",
+    "GDELT: benchmark a deterministic streaming first-seen Bitcoin subset without the Timeline API.",
+    "Common Crawl: determine whether an official CC-NEWS capture index exists that avoids full WARC scanning."
+  ],
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_AND_WP017_CFTC_COT_HYPOTHESIS_DESIGN",
+  "scientific_accounting": {
+    "completed_experiments_before": 25,
+    "completed_experiments_after": 25,
+    "model_fits": 0,
+    "backtests": 0,
+    "sealed_queries": 0,
+    "wp017_preregistered": false,
+    "wp016_executed": false
+  }
+}

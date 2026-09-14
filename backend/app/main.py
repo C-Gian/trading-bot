@@ -14,6 +14,7 @@ from . import __version__
 from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
 from .data.store import available, candles
 from .product.analysis import RESEARCH_STATUS, STRATEGY_VERSION, VARIANT, analyse
+from .product.analysis_review import build_analysis_review_bundle
 from .product.market_feed import recent_candles
 from .product.paper_v2 import (
     STORE_PATH,
@@ -200,12 +201,14 @@ def create_app(
         if state["real_money_authorized"]:
             raise HTTPException(409, "real-money authorization is not supported by this surface")
         result = analyser()
-        return {
+        response = {
             **result,
             "champion_status": state["champion_status"],
             "paper_trades_completed": state["paper_trades_completed"],
             "real_money_authorized": state["real_money_authorized"],
         }
+        response["review_bundle"] = build_analysis_review_bundle(response, trades.load())
+        return response
 
     @application.get("/api/v1/product/analysis/capability")
     def product_analysis_capability(repo: StateRepository = Depends(state_repository)):

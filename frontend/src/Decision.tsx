@@ -3,7 +3,7 @@ import { checksSummary, dataStatusCopy, gateChecks, when } from './format';
 import { Advanced, Checks, Debug, KeyValues } from './ui';
 
 export function Decision({
-  analysis, busy, canSimulate, blockedReason, onAnalyze, onSimulate,
+  analysis, busy, canSimulate, blockedReason, onAnalyze, onSimulate, onCopyAnalysis,
 }: {
   analysis: Analysis | null;
   busy: boolean;
@@ -11,6 +11,7 @@ export function Decision({
   blockedReason: string | null;
   onAnalyze: () => void;
   onSimulate: () => void;
+  onCopyAnalysis: () => void;
 }) {
   const plan = analysis?.plan ?? null;
   const dataIssue = analysis ? dataStatusCopy(analysis.data_status) : null;
@@ -93,6 +94,12 @@ export function Decision({
       >
         {analysis ? 'Analizza di nuovo' : 'Analizza ora'}
       </button>
+
+      {analysis && (
+        <button className="btn ghost block" onClick={onCopyAnalysis} disabled={busy}>
+          Copia analisi
+        </button>
+      )}
 
       {analysis && (
         <Advanced>
