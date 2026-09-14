@@ -565,10 +565,11 @@ def dataset_scope_checks() -> None:
     funding = ROOT / "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json"
     attention = ROOT / "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json"
     exogenous = ROOT / "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json"
+    cftc = ROOT / "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json"
     # The GDELT and combined-context manifests only exist once WP-009 is finalized; a
     # paused WP-009 must not be asked for them, and must not carry them either.
     wp009_final = gdelt.is_file() or exogenous.is_file()
-    expected = {approved, order_flow, alfred, funding, attention}
+    expected = {approved, order_flow, alfred, funding, attention, cftc}
     if wp009_final:
         expected |= {gdelt, exogenous}
     assert set((ROOT / "data/manifests").glob("*.json")) == expected
@@ -579,6 +580,9 @@ def dataset_scope_checks() -> None:
     assert flow_manifest["derived_from"]["content_hash"] == manifest["content_hash"]["value"]
     assert flow_manifest["coverage"]["end"] <= manifest["coverage"]["end"]
     raw = {ROOT / item["path"] for item in manifest["source"]["raw_objects"]}
+    cftc_manifest = json.loads(cftc.read_text(encoding="utf-8"))
+    # Official CFTC annual TFF archives are the only other approved raw ZIP objects.
+    raw |= {ROOT / item["path"] for item in cftc_manifest["raw_archives"]}
     assert set((ROOT / "data/raw").rglob("*.zip")) <= raw
     alfred_manifest = json.loads(alfred.read_text(encoding="utf-8"))
     funding_manifest = json.loads(funding.read_text(encoding="utf-8"))
@@ -591,6 +595,7 @@ def dataset_scope_checks() -> None:
         ROOT / funding_manifest["canonical"]["path"],
         ROOT / funding_manifest["request_index"]["path"],
         ROOT / attention_manifest["canonical"]["path"],
+        ROOT / cftc_manifest["canonical"]["path"],
     }
     if wp009_final:
         approved_parquet |= {
