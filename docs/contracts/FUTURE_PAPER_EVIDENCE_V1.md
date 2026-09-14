@@ -4,6 +4,12 @@ Version: `FUTURE_PAPER_EVIDENCE_V1`.
 
 Status: accepted prospectively before any paper trade exists.
 
+Current safety gate: `BLOCKED_CAUSAL_ENTRY_TIMING_V1`. PROJECT-RETROSPECTIVE-V1 found
+that the manual analysis request occurs after the boundary minute whose open this V1
+would record as its prospective entry. Production creation is therefore disabled. No
+paper trade exists and no evidence was contaminated. Restoring creation requires a new,
+versioned causal entry contract; this V1's historical definition is not silently changed.
+
 ## Scope
 
 This contract governs prospective BTCUSDT spot paper-research trades produced by the

@@ -171,7 +171,7 @@ def test_state_records_the_accepted_wp011_review() -> None:
     assert state["exogenous_acquisition_pause"]["wp009_finalized"] is False
     assert state["paper_trading"]["research_status"] == "PAPER_RESEARCH_CANDIDATE"
     assert state["next_recommended_work_package"] == (
-        "OWNER_EXECUTE_WP016_WIKIPEDIA_ATTENTION_V1_FROM_RESEARCH_LAB"
+        "REDESIGN_OR_ABANDON_WP016_POINT_IN_TIME_ATTENTION_SOURCE"
     )
 
 

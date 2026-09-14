@@ -89,7 +89,8 @@ const emptyPaper = {
   contract: 'docs/contracts/FUTURE_PAPER_EVIDENCE_V1.md',
   research_status: 'PAPER_RESEARCH_CANDIDATE', champion_status: 'NONE',
   strategy_version: 'ALIGNED_PARTICIPATION_CONTINUATION_V1', max_hold_minutes: 1440,
-  statuses: [], active: [], recent: [], recorded: 0, real_money: false,
+  statuses: [], active: [], recent: [], recorded: 0,
+  paper_entry_status: 'AVAILABLE', paper_entry_block_reason: '', real_money: false,
 };
 const emptyStats = {
   statistics_version: 'PAPER_STATISTICS_V1', evidence_version: 'FUTURE_PAPER_EVIDENCE_V1',
@@ -112,7 +113,7 @@ const filledStats = {
 const runnerCandidate = {
   candidate_id: 'WP015_REPRODUCTION_V1', display_name: 'WP-015 · Funding context',
   purpose: 'Riproduzione deterministica del candidato WP-015 già valutato.', run_type: 'REPRODUCTION_ONLY',
-  status: 'READY', expected_stages: ['READY', 'FOLD_2020', 'COMPLETED'], required_local_datasets: ['funding'],
+  status: 'READY', runnable: true, expected_stages: ['READY', 'FOLD_2020', 'COMPLETED'], required_local_datasets: ['funding'],
   scientific_warning: 'REPRODUCTION ONLY', scientific_evidence_type: 'REPRODUCTION_OF_ALREADY_EXPOSED_DEVELOPMENT_RESULT',
   execution_counts_as_new_evidence: false, arbitrary_execution: false,
   preregistration_frozen: true, preregistration_paths: ['preregistration.json'],
@@ -124,8 +125,9 @@ const wp016Candidate = {
   display_name: 'WP-016 · Shock di attenzione Wikipedia',
   purpose: 'Valuta informazione pubblica preregistrata.',
   run_type: 'NEW_EXPERIMENT',
-  status: 'PREREGISTERED_AVAILABLE',
-  scientific_warning: 'NEW PREREGISTERED DEVELOPMENT EXPERIMENT · NOT SEALED EVIDENCE',
+  status: 'BLOCKED_PROJECT_RETROSPECTIVE_V1',
+  runnable: false,
+  scientific_warning: 'BLOCKED BEFORE EXECUTION · POINT-IN-TIME VINTAGE UNPROVEN',
   scientific_evidence_type: 'NEW_PREREGISTERED_DEVELOPMENT_EXPERIMENT_RESULT_PENDING_REVIEW',
   execution_counts_as_new_evidence: true,
 };
@@ -314,6 +316,22 @@ describe('simulazione', () => {
     await waitFor(() => expect(
       calls.filter(call => call.method === 'POST' && call.url.endsWith('/paper-trades')),
     ).toHaveLength(1));
+  });
+
+  it('espone il blocco causale e non invia una richiesta di creazione', async () => {
+    const calls = mockApi({
+      'product/analysis': longAnalysis,
+      'paper-trades': {
+        ...emptyPaper,
+        paper_entry_status: 'BLOCKED_CAUSAL_ENTRY_TIMING_V1',
+        paper_entry_block_reason: 'Ingresso paper bloccato dal gate causale.',
+      },
+    });
+    await dashboard();
+    await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
+    expect(await screen.findByText('Ingresso paper bloccato dal gate causale.')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Simula questo trade' })).not.toBeInTheDocument();
+    expect(calls.filter(call => call.method === 'POST' && call.url.endsWith('/paper-trades'))).toHaveLength(0);
   });
 });
 
@@ -603,14 +621,16 @@ describe('navigazione', () => {
 });
 
 describe('Research Lab', () => {
-  it('presenta WP-016 come candidato primario senza avviarlo', async () => {
+  it('seleziona il candidato eseguibile e mostra WP-016 come bloccato', async () => {
     const calls = mockApi({ 'research/runner': { ...runnerReady, candidates: [wp016Candidate, runnerCandidate] } });
     render(<App />);
     await screen.findByText(/Analisi non ancora eseguita/);
     await userEvent.click(screen.getByRole('button', { name: 'Research' }));
-    expect(await screen.findByRole('heading', { name: 'WP-016 · Shock di attenzione Wikipedia' })).toBeInTheDocument();
-    expect(screen.getByText(/NEW PREREGISTERED DEVELOPMENT EXPERIMENT/)).toBeInTheDocument();
-    expect(screen.getByRole('combobox')).toHaveValue('WP016_WIKIPEDIA_ATTENTION_V1');
+    expect(await screen.findByRole('heading', { name: 'WP-015 · Funding context' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox')).toHaveValue('WP015_REPRODUCTION_V1');
+    await userEvent.selectOptions(screen.getByRole('combobox'), 'WP016_WIKIPEDIA_ATTENTION_V1');
+    expect(await screen.findByText(/bloccato dal gate retrospettivo/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'AVVIA TEST STORICO' })).toBeDisabled();
     expect(calls.every(call => call.method === 'GET')).toBe(true);
   });
 

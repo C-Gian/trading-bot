@@ -12,7 +12,7 @@ export type AnalysisPlan={direction:string;entry_rule:string;entry_semantics:str
 export type Analysis={analysis_version:string;classification:string;symbol:string;strategy_version:string;variant:string;feature_version:string;prospective_features_version?:string;analysis_id?:string;features?:AnalysisFeatures;research_status:string;champion_status:string;analysis_time:string;signal_time:string|null;data_status:string;data_detail:string;decision:'NO_TRADE'|'LONG';plan:AnalysisPlan|null;reference_price?:number;paper_trade_persisted:boolean;real_money:boolean;paper_trades_completed?:number;real_money_authorized?:boolean};
 export async function analyseMarket():Promise<Analysis>{const response=await fetch('/api/v1/product/analysis',{method:'POST'});if(!response.ok)throw new Error(`API ${response.status}`);return response.json() as Promise<Analysis>}
 export type PaperTrade={trade_id:string;evidence_version:string;evidence_stage:string;analysis_id:string;strategy_version:string;variant:string;research_status:string;champion_status:string;symbol:string;direction:string;status:'PENDING_ENTRY'|'OPEN'|'CLOSED_TARGET'|'CLOSED_STOP'|'CLOSED_EXPIRY'|'INVALIDATED';created_at:string;signal_time:string;entry_execution:string;entry_minute:string;ambiguous_fill_policy:string;execution_model_version:string;reference_price:number;stop_price:number;target_price:number;max_hold_minutes:number;expiry_time:string;entry_time:string|null;entry_price:number|null;exit_time:string|null;exit_price:number|null;exit_reason:string|null;net_r:number|null;holding_minutes:number|null;resolution_detail:string;last_update_time:string;real_money:boolean};
-export type PaperListing={evidence_version:string;evidence_stage:string;contract:string;research_status:string;champion_status:string;strategy_version:string;max_hold_minutes:number;statuses:string[];active:PaperTrade[];recent:PaperTrade[];recorded:number;real_money:boolean};
+export type PaperListing={evidence_version:string;evidence_stage:string;contract:string;research_status:string;champion_status:string;strategy_version:string;max_hold_minutes:number;statuses:string[];active:PaperTrade[];recent:PaperTrade[];recorded:number;paper_entry_status:string;paper_entry_block_reason:string;real_money:boolean};
 export type PaperLifecycle={evidence_version:string;updated:number;trades:PaperTrade[];errors:{trade_id:string;error:string}[];real_money:boolean};
 async function send<T>(url:string):Promise<T>{const response=await fetch(url,{method:'POST'});const body=await response.json().catch(()=>null);if(!response.ok)throw new Error(body?.detail??`API ${response.status}`);return body as T}
 export function createPaperTrade(){return send<{analysis_id:string;trade:PaperTrade;real_money:boolean}>('/api/v1/product/paper-trades')}
@@ -28,6 +28,7 @@ export type RunnerStage = 'READY'|'PREPARING_DATA'|'VALIDATING_INPUTS'|'FOLD_202
 export type ResearchRunStatus = 'QUEUED'|'RUNNING'|'COMPLETED'|'FAILED';
 export type ResearchRunnerCandidate = {
   candidate_id:string; display_name:string; purpose:string; run_type:string; status:string;
+  runnable:boolean;
   expected_stages:string[]; required_local_datasets:string[]; scientific_warning:string;
   scientific_evidence_type:string; execution_counts_as_new_evidence:boolean; arbitrary_execution:boolean;
   preregistration_frozen:boolean; preregistration_paths:string[];

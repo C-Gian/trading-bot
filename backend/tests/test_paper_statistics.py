@@ -22,6 +22,10 @@ def _trade(trade_id: str, status: str, net_r: float | None) -> dict:
         "net_r": net_r,
         "symbol": "BTCUSDT",
         "direction": "LONG",
+        "leverage": False,
+        "short": False,
+        "order_placed": False,
+        "real_money": False,
     }
 
 

@@ -1,0 +1,330 @@
+{
+  "audit_id": "PROJECT-RETROSPECTIVE-V1",
+  "audit_type": "NON_EXPERIMENT_PROJECT_RETROSPECTIVE",
+  "starting_head": "49c924795850c431743512e5725a3250259a67ea",
+  "overall_status": "BLOCKED",
+  "overall_confidence": {
+    "before": "MODERATE",
+    "after": "HIGH_FOR_HISTORICAL_DEVELOPMENT_EVIDENCE_AND_CORE_ENGINE; BLOCKED_FOR_WP016_AND_NEW_PAPER_ENTRIES"
+  },
+  "scope_guards": {
+    "wp016_executed": false,
+    "wp016_market_results_observed": false,
+    "post_cutoff_btc_data_accessed": false,
+    "sealed_queries": 0,
+    "experiment_counters_incremented": false,
+    "real_money_authorized": false
+  },
+  "lanes": {
+    "A_SCIENTIFIC_GOVERNANCE_EXPERIMENT_HISTORY": {
+      "status": "DEFECT_FIXED",
+      "severity": "MEDIUM",
+      "findings_count": 2,
+      "fixed_count": 1,
+      "open_count": 0,
+      "material_findings": [
+        "All 25 completed experiments have preregistration creation before result creation; WP016 has two preregistrations and no results or trials.",
+        "The work-package chronology registry stopped at an unfinished WP007 entry; it was extended without rewriting historical reports."
+      ],
+      "evidence_paths": [
+        "governance/WORK_PACKAGE_CHRONOLOGY.json",
+        "state/current_state.json",
+        "research/memory/registry/",
+        "research/experiments/",
+        "scripts/check.py"
+      ]
+    },
+    "B_DATA_FOUNDATION": {
+      "status": "PASS_WITH_IMPROVEMENTS",
+      "severity": "HIGH",
+      "findings_count": 2,
+      "fixed_count": 1,
+      "open_count": 1,
+      "material_findings": [
+        "BTC 1m/1h/4h, order-flow, ALFRED and funding identities, cutoffs, hashes and installed-data semantics reconcile.",
+        "The Wikimedia series is complete and content-addressed, but its retrieved historical values are not a point-in-time vintage dataset."
+      ],
+      "evidence_paths": [
+        "data/manifests/",
+        "data/reports/BTCUSDT-SPOT-1M-DEV-v1-gaps.json",
+        "reports/validation/WP-005-SOURCE-PROVENANCE.json",
+        "reports/validation/WP-007-ORDER-FLOW-INTEGRITY.json",
+        "reports/validation/WP-009-ALFRED-INTEGRITY.json",
+        "reports/validation/WP-015-FUNDING-ASOF-AUDIT.json",
+        "reports/validation/WP-016-WIKIMEDIA-ATTENTION-AUDIT.json"
+      ]
+    },
+    "C_TIME_AND_LABEL_SEMANTICS": {
+      "status": "DEFECT_FIXED",
+      "severity": "MATERIAL",
+      "findings_count": 2,
+      "fixed_count": 1,
+      "open_count": 1,
+      "material_findings": [
+        "Historical BAR_CLOSE to SIGNAL_DECISION to same-boundary NEXT_1M_OPEN execution is internally consistent; the entry bar is the minute opening at the signal boundary and expiry is exactly t+1440 minutes.",
+        "The manual paper action could occur after that entry minute was observed and then reconstruct it; production creation is now fail-closed pending a versioned causal design."
+      ],
+      "evidence_paths": [
+        "backend/app/backtest/engine.py",
+        "backend/app/research/supervised.py",
+        "backend/app/product/paper.py",
+        "backend/tests/test_engine.py",
+        "backend/tests/test_supervised.py",
+        "backend/tests/test_paper_trades.py"
+      ]
+    },
+    "D_COST_EXECUTION_MODEL": {
+      "status": "PASS",
+      "severity": "NONE",
+      "findings_count": 0,
+      "fixed_count": 0,
+      "open_count": 0,
+      "material_findings": [],
+      "evidence_paths": [
+        "docs/contracts/COST_MODEL_V1.md",
+        "backend/app/backtest/engine.py",
+        "backend/tests/test_engine.py",
+        "backend/tests/test_continuation.py"
+      ]
+    },
+    "E_FEATURE_IMPLEMENTATIONS": {
+      "status": "PASS_WITH_IMPROVEMENTS",
+      "severity": "HIGH",
+      "findings_count": 1,
+      "fixed_count": 0,
+      "open_count": 1,
+      "material_findings": [
+        "F1-F8, ALIGNED gates, NFCI, funding and attention transforms have correct closed-window/as-of code semantics; only the external Wikimedia vintage premise remains unproven."
+      ],
+      "evidence_paths": [
+        "backend/app/research/supervised.py",
+        "backend/app/research/continuation.py",
+        "backend/app/research/exogenous_context.py",
+        "backend/app/research/funding.py",
+        "backend/app/research/wikimedia.py"
+      ]
+    },
+    "F_MODEL_IMPLEMENTATIONS": {
+      "status": "PASS_WITH_IMPROVEMENTS",
+      "severity": "LOW",
+      "findings_count": 1,
+      "fixed_count": 0,
+      "open_count": 0,
+      "material_findings": [
+        "OLS, EWLS, regime/context models and HGBR obey train-only fitting, 216h purge, complete-label containment and strict prediction > 0. HGBR uses scikit-learn 1.7.2 pinned exactly; future model versions should spell out every upstream default for easier review."
+      ],
+      "evidence_paths": [
+        "backend/app/research/linear_model.py",
+        "backend/app/research/ewls.py",
+        "backend/app/research/wp012_lab.py",
+        "backend/app/research/wp013_lab.py",
+        "backend/app/research/wp014_model.py",
+        "pyproject.toml"
+      ]
+    },
+    "G_INDEPENDENT_RECONCILIATION": {
+      "status": "PASS_WITH_IMPROVEMENTS",
+      "severity": "MEDIUM",
+      "findings_count": 1,
+      "fixed_count": 0,
+      "open_count": 1,
+      "material_findings": [
+        "WP005 reconciliation is STRONG; WP008 and WP011-WP016 model reconcilers are PARTIAL because they independently reconstruct model predictions but share production feature/label/execution substrate. No major reconciler is circular or merely compares the same result object."
+      ],
+      "evidence_paths": [
+        "backend/app/research/wp005_validation.py",
+        "scripts/reconcile_wp008_models.py",
+        "scripts/reconcile_wp014_models.py",
+        "scripts/reconcile_wp015_models.py",
+        "scripts/reconcile_wp016_models.py"
+      ]
+    },
+    "H_HISTORICAL_RESULTS_SANITY": {
+      "status": "PASS",
+      "severity": "NONE",
+      "findings_count": 0,
+      "fixed_count": 0,
+      "open_count": 0,
+      "material_findings": [
+        "Committed WP003-WP015 arithmetic, fold totals, profile trade counts, cost monotonicity and matched-universe disclosures are internally consistent."
+      ],
+      "evidence_paths": [
+        "research/experiments/",
+        "reports/research/",
+        "backend/tests/test_wp012_results.py",
+        "backend/tests/test_wp013_results.py",
+        "backend/tests/test_wp015_results.py"
+      ]
+    },
+    "I_ALIGNED_CANDIDATE_REVIEW": {
+      "status": "PASS",
+      "severity": "NONE",
+      "findings_count": 0,
+      "fixed_count": 0,
+      "open_count": 0,
+      "material_findings": [
+        "ALIGNED remains an INCONCLUSIVE PAPER_RESEARCH_CANDIDATE: it is the strongest development clue, but it lacks consistent annual breadth and has no forward or sealed evidence. No implementation defect warrants changing that status."
+      ],
+      "evidence_paths": [
+        "reports/research/WP-004-COMPARISON.json",
+        "reports/validation/WP-005-CHECKPOINT.json",
+        "state/current_state.json"
+      ]
+    },
+    "J_PAPER_TRADING_SYSTEM": {
+      "status": "MATERIAL_BLOCKER",
+      "severity": "MATERIAL",
+      "findings_count": 3,
+      "fixed_count": 2,
+      "open_count": 1,
+      "material_findings": [
+        "No genuine paper trade exists, so no prospective evidence was contaminated.",
+        "New entry creation is disabled because manual analysis cannot causally obtain the already-observed signal-boundary open.",
+        "Atomic persistence now uses unique staging files, read-modify-write lifecycle operations are serialized, and unsafe persisted safety fields are rejected."
+      ],
+      "evidence_paths": [
+        "backend/app/product/paper.py",
+        "backend/tests/test_paper_trades.py",
+        "state/current_state.json"
+      ]
+    },
+    "K_RESEARCH_RUNNER_V1": {
+      "status": "DEFECT_FIXED",
+      "severity": "MATERIAL",
+      "findings_count": 4,
+      "fixed_count": 4,
+      "open_count": 0,
+      "material_findings": [
+        "Candidate and request allowlists prevent arbitrary command/path/config execution.",
+        "A second live backend instance no longer misclassifies an active run as interrupted; PID-aware locks distinguish live and dead owners.",
+        "NEW_EXPERIMENT candidates are one-shot after any persisted local attempt.",
+        "Blocked candidate status is enforced server-side and WP016 is non-runnable."
+      ],
+      "evidence_paths": [
+        "backend/app/research/local_runner.py",
+        "backend/tests/test_research_runner.py",
+        "frontend/src/App.tsx"
+      ]
+    },
+    "L_WEB_API_PRODUCT_INTEGRITY": {
+      "status": "DEFECT_FIXED",
+      "severity": "HIGH",
+      "findings_count": 2,
+      "fixed_count": 2,
+      "open_count": 0,
+      "material_findings": [
+        "Authoritative scientific values remain backend-owned and all POST routes remain explicitly enumerated with no order, balance, credential, leverage or short surface.",
+        "The UI now honors backend paper-entry and research-candidate blocks instead of offering unsafe actions."
+      ],
+      "evidence_paths": [
+        "backend/app/main.py",
+        "frontend/src/App.tsx",
+        "frontend/src/api.ts",
+        "frontend/src/App.test.tsx",
+        "scripts/check.py"
+      ]
+    },
+    "M_TEST_QUALITY": {
+      "status": "PASS_WITH_IMPROVEMENTS",
+      "severity": "MEDIUM",
+      "findings_count": 2,
+      "fixed_count": 1,
+      "open_count": 1,
+      "material_findings": [
+        "High-risk timing, costs, gaps, feature closure, cutoffs and reconciliation invariants have deterministic coverage.",
+        "Added live-lock, dead-owner recovery, one-shot experiment, causal paper block, unsafe-store, concurrent lifecycle and UI block tests. Direct full-lab performance regression coverage remains a future opportunity."
+      ],
+      "evidence_paths": [
+        "backend/tests/",
+        "frontend/src/App.test.tsx"
+      ]
+    },
+    "N_PERFORMANCE_COMPUTATIONAL_EFFICIENCY": {
+      "status": "PASS_WITH_IMPROVEMENTS",
+      "severity": "MEDIUM",
+      "findings_count": 2,
+      "fixed_count": 0,
+      "open_count": 2,
+      "material_findings": [
+        "Known WP015 reproduction runtime is 1067.810941 seconds.",
+        "A fixed-seed synthetic HGBR benchmark measured 15.9885752s scalar versus 0.0175172s batch prediction for 10,000 rows (912.7358x, max absolute difference 0). The frozen WP014-WP016 dependency identities were intentionally not changed; vectorization requires a prospectively versioned implementation and exact artifact equivalence proof."
+      ],
+      "evidence_paths": [
+        "data/research_runs/a76e79a581ec459c928aaa546c125621.json",
+        "backend/app/research/wp014_lab.py",
+        "backend/app/research/wp015_lab.py",
+        "backend/app/research/wp016_lab.py"
+      ]
+    },
+    "O_CODE_ARCHITECTURE_QUALITY": {
+      "status": "PASS_WITH_IMPROVEMENTS",
+      "severity": "MEDIUM",
+      "findings_count": 2,
+      "fixed_count": 0,
+      "open_count": 2,
+      "material_findings": [
+        "Dependency direction and thin HTTP boundary are sound.",
+        "Experiment lab modules duplicate fold/prediction/profile orchestration and several validators embed historical package constants; consolidate only in future versioned infrastructure, not by rewriting frozen experiment code."
+      ],
+      "evidence_paths": [
+        "backend/app/main.py",
+        "backend/app/research/",
+        "scripts/check.py"
+      ]
+    },
+    "P_RESEARCH_EFFICIENCY": {
+      "status": "PASS_WITH_IMPROVEMENTS",
+      "severity": "MEDIUM",
+      "findings_count": 2,
+      "fixed_count": 1,
+      "open_count": 1,
+      "material_findings": [
+        "SEARCH_MEMORY, matched controls and parking decisions generally prevent silent tuning and preserve negative results.",
+        "The full installed-data gate was stale for paused GDELT and omitted funding/Wikimedia/current derived artifacts; it now checks the actual governed inventory. Future runners should persist stage timing and use vectorized prediction in a new code identity."
+      ],
+      "evidence_paths": [
+        "research/memory/registry/",
+        "scripts/check.py",
+        "governance/WORK_PACKAGE_CHRONOLOGY.json"
+      ]
+    },
+    "Q_WP016_READINESS": {
+      "status": "MATERIAL_BLOCKER",
+      "severity": "MATERIAL",
+      "findings_count": 1,
+      "fixed_count": 1,
+      "open_count": 1,
+      "material_findings": [
+        "BLOCKED_BEFORE_EXECUTION. Wikimedia documents current historical aggregates and changing agent classification, but the acquired API records carry no historical vintage/publication identity proving that each value was the value available at D+2. The source-control candidate is disabled; any corrected version requires a new source design and preregistration."
+      ],
+      "evidence_paths": [
+        "docs/contracts/WIKIPEDIA_ATTENTION_CONTEXT_V1.md",
+        "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json",
+        "backend/app/research/local_runner.py",
+        "state/current_state.json"
+      ]
+    }
+  },
+  "historical_results_trust": "TRUSTWORTHY_AS_ALREADY_EXPOSED_DEVELOPMENT_EVIDENCE; NO_NUMERICAL_RESULT_DOWNGRADE; RECONCILIATION_INDEPENDENCE_IS_PARTIAL_FOR_SUPERVISED_FAMILIES",
+  "aligned_status": "UNCHANGED_INCONCLUSIVE_PAPER_RESEARCH_CANDIDATE",
+  "paper_engine_status": "BLOCKED_CAUSAL_ENTRY_TIMING_V1; EXISTING_LIFECYCLE_VALIDATED; ZERO_GENUINE_TRADES",
+  "research_runner_status": "AVAILABLE_FOR_WP015_REPRODUCTION; WP016_SERVER_SIDE_BLOCKED; LOCK_AND_ONE_SHOT_DEFECTS_FIXED",
+  "wp016_readiness": "BLOCKED_BEFORE_EXECUTION",
+  "performance_summary": {
+    "known_wp015_seconds": 1067.810941,
+    "primary_bottleneck": "PER_ROW_SKLEARN_PREDICT_CALLS_PLUS_REPEATED_IMMUTABLE_SUBSTRATE_WORK",
+    "synthetic_scalar_prediction_seconds": 15.9885752,
+    "synthetic_batch_prediction_seconds": 0.0175172,
+    "synthetic_prediction_speedup": 912.7358,
+    "max_absolute_prediction_difference": 0.0,
+    "implemented": false,
+    "reason_not_implemented": "WOULD_CHANGE_FROZEN_DEPENDENCY_IDENTITIES; MUST BE_VERSIONED_PROSPECTIVELY"
+  },
+  "research_process_summary": "The governance model is coherent and conservative, but future external sources need explicit vintage guarantees before preregistration, runner attempts must remain one-shot, full-data validation must track the live manifest inventory, and repeated research orchestration should migrate to versioned deterministic batch infrastructure.",
+  "external_source_evidence": [
+    "https://doc.wikimedia.org/generated-data-platform/aqs/analytics-api/reference/page-views.html",
+    "https://doc.wikimedia.org/generated-data-platform/aqs/analytics-api/concepts/page-views.html",
+    "https://doc.wikimedia.org/generated-data-platform/aqs/analytics-api/changelog.html",
+    "https://wikitech.wikimedia.org/wiki/Analytics/Data/Pageviews"
+  ]
+}

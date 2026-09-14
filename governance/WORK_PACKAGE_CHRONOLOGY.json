@@ -37,9 +37,89 @@
     {
       "work_package": "WP-007",
       "start_head": "d92088d5ef0426bf64f34326a3224dd9aba93603",
-      "final_head": null,
-      "review": null,
+      "final_head": "762b3b77f686305b1c73f19956d0b9b16b7a9b1c",
+      "review": "reports/reviews/WP-007-RESEARCH-DIRECTOR-REVIEW.md",
       "base_guard_enforced": true,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-008",
+      "start_head": "762b3b77f686305b1c73f19956d0b9b16b7a9b1c",
+      "final_head": "ffeb73d6c0799ccfc09d0ee3b85c25d8e52364c2",
+      "review": "reports/reviews/WP-008-RESEARCH-DIRECTOR-REVIEW.md",
+      "base_guard_enforced": true,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-009-PARTIAL-PAUSE",
+      "start_head": "86f2450aada930ca0595c9c09daee005b9b2b0bc",
+      "final_head": "5052544118a2cc22dc3a43dc06b169779c889ba3",
+      "review": null,
+      "base_guard_enforced": false,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-010-PAPER-SYSTEM",
+      "start_head": "5052544118a2cc22dc3a43dc06b169779c889ba3",
+      "final_head": "dfd57339d9a1b60ed64ae865c36fd3df279733c5",
+      "review": null,
+      "base_guard_enforced": false,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-011",
+      "start_head": "dfd57339d9a1b60ed64ae865c36fd3df279733c5",
+      "final_head": "a4dab6cc00c26fbaa108414c5a8d3977890ff8c7",
+      "review": "reports/reviews/WP-011-RESEARCH-DIRECTOR-REVIEW.md",
+      "base_guard_enforced": true,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-012",
+      "start_head": "a4dab6cc00c26fbaa108414c5a8d3977890ff8c7",
+      "final_head": "d88a1465560ecfe02d2eae6a924da27238fa898e",
+      "review": "reports/reviews/WP-012-RESEARCH-DIRECTOR-REVIEW.md",
+      "base_guard_enforced": false,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-013",
+      "start_head": "d88a1465560ecfe02d2eae6a924da27238fa898e",
+      "final_head": "e59318268099d428df0c108144aca739f5504b40",
+      "review": "reports/reviews/WP-013-RESEARCH-DIRECTOR-REVIEW.md",
+      "base_guard_enforced": false,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-014",
+      "start_head": "e59318268099d428df0c108144aca739f5504b40",
+      "final_head": "478f2fcab10569f20a81136bca1b5cff6b66d601",
+      "review": "reports/reviews/WP-014-RESEARCH-DIRECTOR-REVIEW.md",
+      "base_guard_enforced": false,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-015",
+      "start_head": "478f2fcab10569f20a81136bca1b5cff6b66d601",
+      "final_head": "ef6bcc7a36ecaa130e5a6a24c9927b58863377ee",
+      "review": null,
+      "base_guard_enforced": false,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "RESEARCH-RUNNER-V1",
+      "start_head": "b12f13f1f5fe7ab5d94893f9297e75d8f9c5b467",
+      "final_head": "5adf7c69ffdd4f60419cd4856a315c45faf689fe",
+      "review": "reports/reviews/RESEARCH-RUNNER-V1-RESEARCH-DIRECTOR-REVIEW.md",
+      "base_guard_enforced": false,
+      "documented_reporting_error": null
+    },
+    {
+      "work_package": "WP-016-PREP",
+      "start_head": "5adf7c69ffdd4f60419cd4856a315c45faf689fe",
+      "final_head": "49c924795850c431743512e5725a3250259a67ea",
+      "review": null,
+      "base_guard_enforced": false,
       "documented_reporting_error": null
     }
   ]

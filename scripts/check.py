@@ -223,10 +223,8 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert (
-        state["latest_reviewed_checkpoint"] == "WP-014"
-        and state["latest_executor_checkpoint"] == "WP-015"
-    )
+    assert state["latest_reviewed_checkpoint"] == "WP-014"
+    assert state["latest_executor_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -240,12 +238,18 @@ def validate_research_views(state: dict) -> None:
         for experiment in WP016_EXPERIMENTS.values()
     )
     registry = research_candidate_registry()
-    assert [item["candidate_id"] for item in registry.public_records(ROOT)] == [
+    candidates = registry.public_records(ROOT)
+    assert [item["candidate_id"] for item in candidates] == [
         "WP016_WIKIPEDIA_ATTENTION_V1",
         "WP015_REPRODUCTION_V1",
     ]
+    assert candidates[0]["status"] == "BLOCKED_PROJECT_RETROSPECTIVE_V1"
+    assert candidates[0]["runnable"] is False and candidates[1]["runnable"] is True
     assert state["attention_context_challenger"]["actual_model_fits"] == 0
     assert state["attention_context_challenger"]["market_results_observed"] is False
+    assert state["attention_context_challenger"]["status"] == (
+        "BLOCKED_POINT_IN_TIME_VINTAGE_UNPROVEN"
+    )
     path = "research/memory/WP-004-LESSONS.json"
     lessons = validate_json(ROOT / path, ROOT / "contracts/research_lessons.schema.json")
     immutable_from_first_commit(path)
@@ -743,6 +747,10 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/validation/WP-016-WIKIMEDIA-ATTENTION-AUDIT.json",
         "research/protocols/WP-016-WIKIPEDIA-ATTENTION-HGBR-V1.json",
         "reports/validation/WP-016-PREFLIGHT.json",
+        "reports/audits/PROJECT-RETROSPECTIVE-V1.md",
+        "reports/audits/PROJECT-RETROSPECTIVE-V1.json",
+        "reports/checkpoints/PROJECT-RETROSPECTIVE-V1.md",
+        "tasks/archive/WP-016-PREP.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -869,18 +877,21 @@ def data_checks(state: dict) -> None:
     schema = ROOT / "contracts/dataset_manifest.schema.json"
     path = ROOT / "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json"
     flow_path = ROOT / "data/manifests/BTCUSDT-SPOT-ORDERFLOW-DEV-v1.json"
-    gdelt_path = ROOT / "data/manifests/GDELT-NEWS-CONTEXT-DEV-v1.json"
     alfred_path = ROOT / "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json"
-    context_path = ROOT / "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json"
+    funding_path = ROOT / "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json"
+    attention_path = ROOT / "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json"
     assert set((ROOT / "data/manifests").glob("*.json")) == {
         path,
         flow_path,
-        gdelt_path,
         alfred_path,
-        context_path,
+        funding_path,
+        attention_path,
     }
     manifest = validate_json(path, schema)
     flow_manifest = json.loads(flow_path.read_text(encoding="utf-8"))
+    alfred_manifest = json.loads(alfred_path.read_text(encoding="utf-8"))
+    funding_manifest = json.loads(funding_path.read_text(encoding="utf-8"))
+    attention_manifest = json.loads(attention_path.read_text(encoding="utf-8"))
     assert manifest["symbol"] == "BTCUSDT"
     assert parse_utc_instant(manifest["coverage"]["end"]) <= CUTOFF
     assert parse_utc_instant(flow_manifest["coverage"]["end"]) <= CUTOFF
@@ -896,18 +907,22 @@ def data_checks(state: dict) -> None:
     parquet = {
         *(ROOT / x["path"] for x in manifest["files"].values()),
         *(ROOT / x["path"] for x in flow_manifest["files"].values()),
-        ROOT / json.loads(gdelt_path.read_text(encoding="utf-8"))["file"]["path"],
-        ROOT / json.loads(alfred_path.read_text(encoding="utf-8"))["file"]["path"],
-        ROOT / json.loads(alfred_path.read_text(encoding="utf-8"))["request_index"]["path"],
-        ROOT / json.loads(context_path.read_text(encoding="utf-8"))["file"]["path"],
-        ROOT
-        / json.loads(
-            (ROOT / "reports/research/WP-013-COMPARISON.json").read_text(encoding="utf-8")
-        )["artifact"]["path"],
-        ROOT
-        / json.loads(
-            (ROOT / "reports/research/WP-014-COMPARISON.json").read_text(encoding="utf-8")
-        )["artifact"]["path"],
+        ROOT / alfred_manifest["file"]["path"],
+        ROOT / alfred_manifest["request_index"]["path"],
+        ROOT / funding_manifest["canonical"]["path"],
+        ROOT / funding_manifest["request_index"]["path"],
+        ROOT / attention_manifest["canonical"]["path"],
+        *(
+            ROOT / relative
+            for relative in (
+                "data/derived/WP-011-adaptive-trials.parquet",
+                "data/derived/WP-012-regime-trials.parquet",
+                "data/derived/WP-013-context-interaction-trials.parquet",
+                "data/derived/WP-014-shallow-internal-trials.parquet",
+                "data/derived/WP-015-funding-predictions.parquet",
+                "data/derived/WP-015-funding-trials.parquet",
+            )
+        ),
     }
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))
@@ -949,9 +964,34 @@ def data_checks(state: dict) -> None:
     from app.research.wp008_validation import validate_installed_data_reconciliation
 
     assert validate_installed_data_reconciliation()["status"] == "PASS"
-    from app.research.wp009_validation import validate_wp009
+    alfred_integrity = json.loads(
+        (ROOT / "reports/validation/WP-009-ALFRED-INTEGRITY.json").read_text(encoding="utf-8")
+    )
+    assert alfred_integrity["status"] == "PASS"
+    assert alfred_manifest["current_revised_substitution"] is False
+    assert alfred_manifest["post_2024_vintages"] == 0
+    assert sha256(ROOT / alfred_manifest["file"]["path"]) == alfred_manifest["file"]["file_sha256"]
+    assert (
+        sha256(ROOT / alfred_manifest["request_index"]["path"])
+        == alfred_manifest["request_index"]["file_sha256"]
+    )
+    from app.research.funding import load_funding_context
+    from app.research.wikimedia import load_attention_context
 
-    assert validate_wp009(data_available=True)["status"] == "PASS"
+    funding = load_funding_context()
+    attention = load_attention_context()
+    assert len(funding.rates) == funding_manifest["canonical"]["rows"] == 5819
+    assert len(attention.observation_us) == attention_manifest["canonical"]["rows"] == 3472
+    assert attention_manifest["integrity"] == {
+        "duplicates": 0,
+        "missing_day_values": [],
+        "missing_days": 0,
+        "post_cutoff_rows": 0,
+        "strictly_increasing": True,
+    }
+    for external_manifest in (funding_manifest, attention_manifest):
+        for record in external_manifest["raw_requests"]:
+            assert sha256(ROOT / record["path"]) == record["sha256"]
 
 
 def main() -> None:

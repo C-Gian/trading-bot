@@ -64,7 +64,7 @@
     "reserved_model_fits": 10,
     "root_family": "FAM-EXTERNAL-PUBLIC-ATTENTION",
     "runner_candidate_id": "WP016_WIKIPEDIA_ATTENTION_V1",
-    "status": "PREREGISTERED_PENDING_OWNER_EXECUTION",
+    "status": "BLOCKED_POINT_IN_TIME_VINTAGE_UNPROVEN",
     "validation_folds": 5,
     "version": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1"
   },
@@ -148,7 +148,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "WP-015",
+  "latest_executor_checkpoint": "PROJECT-RETROSPECTIVE-V1",
   "latest_family": {
     "name": "PERPETUAL_FUNDING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -161,7 +161,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "OWNER_EXECUTE_WP016_WIKIPEDIA_ATTENTION_V1_FROM_RESEARCH_LAB",
+  "next_recommended_work_package": "REDESIGN_OR_ABANDON_WP016_POINT_IN_TIME_ATTENTION_SOURCE",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -185,6 +185,8 @@
     "leverage_or_short": false,
     "lifecycle_trigger": "EXPLICIT_USER_ACTION_ONLY",
     "order_placement": false,
+    "paper_entry_block_reason": "The manual analysis occurs after the frozen signal boundary and cannot prospectively enter at the already-observed boundary minute open.",
+    "paper_entry_status": "BLOCKED_CAUSAL_ENTRY_TIMING_V1",
     "persistence_contract": "docs/contracts/FUTURE_PAPER_EVIDENCE_V1.md",
     "persistence_version": "FUTURE_PAPER_EVIDENCE_V1",
     "product_stage": "V1_PAPER_ALPHA",
@@ -196,7 +198,7 @@
     "statistics_surface": "AVAILABLE",
     "statistics_version": "PAPER_STATISTICS_V1",
     "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
-    "surface": "AVAILABLE",
+    "surface": "BLOCKED_CAUSAL_ENTRY_TIMING_V1",
     "timestamp_translation_used": false
   },
   "product_analysis": {
@@ -288,6 +290,9 @@
     "candidate_ids": [
       "WP016_WIKIPEDIA_ATTENTION_V1",
       "WP015_REPRODUCTION_V1"
+    ],
+    "blocked_candidate_ids": [
+      "WP016_WIKIPEDIA_ATTENTION_V1"
     ],
     "maximum_active_runs": 1,
     "real_backtest_executed_during_checkpoint": false,

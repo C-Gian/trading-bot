@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import threading
 import time
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
@@ -10,6 +12,7 @@ import pytest
 from app.main import create_app
 from app.research.local_runner import (
     CandidateDefinition,
+    CandidateGateError,
     CandidateRegistry,
     LocalResearchRunner,
     RunConflictError,
@@ -101,9 +104,10 @@ def test_registry_is_exactly_two_fixed_allowlisted_candidates() -> None:
     assert len(registry) == 2
     attention = registry.get("WP016_WIKIPEDIA_ATTENTION_V1")
     assert attention.run_type == "NEW_EXPERIMENT"
+    assert attention.status == "BLOCKED_PROJECT_RETROSPECTIVE_V1"
     assert attention.execution_counts_as_new_evidence is True
     assert attention.preregistration_ready(Path(__file__).resolve().parents[2]) is True
-    assert "NEW PREREGISTERED DEVELOPMENT EXPERIMENT" in attention.scientific_warning
+    assert "BLOCKED BEFORE EXECUTION" in attention.scientific_warning
     candidate = registry.get("WP015_REPRODUCTION_V1")
     assert candidate.run_type == "REPRODUCTION_ONLY"
     assert candidate.execution_counts_as_new_evidence is False
@@ -180,7 +184,7 @@ def test_adapter_failure_is_useful_and_releases_lock(tmp_path: Path) -> None:
     assert wait_terminal(service, second["run_id"])["status"] == "FAILED"
 
 
-def test_backend_restart_marks_unfinished_record_interrupted(tmp_path: Path) -> None:
+def test_second_live_store_does_not_interrupt_an_active_run(tmp_path: Path) -> None:
     store = RunStore(tmp_path / "runs")
     record = {
         "run_id": "a" * 32,
@@ -194,12 +198,68 @@ def test_backend_restart_marks_unfinished_record_interrupted(tmp_path: Path) -> 
     store.write(record)
     run_id = str(record["run_id"])
     store.acquire(run_id)
+    second = RunStore(tmp_path / "runs")
+    second.recover_interrupted()
+    assert second.read(run_id)["status"] == "RUNNING"
+    assert store.lock_path.exists()
+    store.release(run_id)
+
+
+def test_backend_restart_marks_a_dead_owner_interrupted(tmp_path: Path) -> None:
+    store = RunStore(tmp_path / "runs")
+    record = {
+        "run_id": "a" * 32,
+        "candidate_id": "FIXED_REPRODUCTION",
+        "status": "RUNNING",
+        "stage": "FOLD_2020",
+        "progress": 30,
+        "started_at": "2026-09-13T10:00:00Z",
+        "finished_at": None,
+    }
+    store.write(record)
+    run_id = str(record["run_id"])
+    store.lock_path.write_text(
+        json.dumps({"schema_version": 1, "run_id": run_id, "owner_pid": 2_147_483_647}),
+        encoding="ascii",
+    )
     store.recover_interrupted()
     recovered = store.read(run_id)
     assert recovered["status"] == "FAILED"
     assert recovered["stage"] == "INTERRUPTED"
     assert "restarted" in recovered["error"]
     assert not store.lock_path.exists()
+
+
+def test_blocked_candidate_is_refused_before_any_execution(tmp_path: Path) -> None:
+    (tmp_path / "fixture.dat").write_text("synthetic", encoding="utf-8")
+    blocked = replace(fixture_candidate(lambda context: result(context)), status="BLOCKED_AUDIT")
+    service = LocalResearchRunner(
+        CandidateRegistry((blocked,)), tmp_path, RunStore(tmp_path / "runs")
+    )
+    with pytest.raises(CandidateGateError, match="not runnable"):
+        service.start(blocked.candidate_id)
+    assert service.store.records() == []
+
+
+def test_new_experiment_is_one_shot_even_after_completion(tmp_path: Path) -> None:
+    prereg = tmp_path / "preregistration.json"
+    prereg.write_text("{}\n", encoding="utf-8")
+    digest = hashlib.sha256(prereg.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    candidate = replace(
+        fixture_candidate(lambda context: result(context)),
+        candidate_id="SYNTHETIC_NEW_EXPERIMENT",
+        run_type="NEW_EXPERIMENT",
+        execution_counts_as_new_evidence=True,
+        preregistration_sha256=(("preregistration.json", digest),),
+    )
+    (tmp_path / "fixture.dat").write_text("synthetic", encoding="utf-8")
+    service = LocalResearchRunner(
+        CandidateRegistry((candidate,)), tmp_path, RunStore(tmp_path / "runs")
+    )
+    first = service.start(candidate.candidate_id)
+    assert wait_terminal(service, first["run_id"])["status"] == "COMPLETED"
+    with pytest.raises(RunConflictError, match="already has a local execution record"):
+        service.start(candidate.candidate_id)
 
 
 def test_api_accepts_only_candidate_id_and_returns_persisted_run(tmp_path: Path) -> None:

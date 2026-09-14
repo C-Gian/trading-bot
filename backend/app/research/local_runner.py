@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import sys
 import tempfile
 import threading
 import uuid
@@ -23,6 +24,7 @@ from typing import Any, Protocol
 ROOT = Path(__file__).resolve().parents[3]
 RUN_ROOT = ROOT / "data/research_runs"
 TERMINAL_STATUSES = frozenset({"COMPLETED", "FAILED"})
+RUNNABLE_CANDIDATE_STATUSES = frozenset({"AVAILABLE", "PREREGISTERED_AVAILABLE"})
 
 
 class RunnerError(RuntimeError):
@@ -88,6 +90,7 @@ class CandidateDefinition:
             "purpose": self.purpose,
             "run_type": self.run_type,
             "status": self.status,
+            "runnable": self.status in RUNNABLE_CANDIDATE_STATUSES,
             "expected_stages": list(self.expected_stages),
             "required_local_datasets": list(self.required_local_datasets),
             "required_data": self.readiness(root),
@@ -161,6 +164,11 @@ class RunStore:
         paths = sorted(self.path.glob("*.json"), key=lambda item: item.stat().st_mtime_ns)
         return json.loads(paths[-1].read_text(encoding="utf-8")) if paths else None
 
+    def records(self) -> list[dict[str, Any]]:
+        """Return persisted runs without treating runtime state as scientific truth."""
+        paths = sorted(self.path.glob("*.json"), key=lambda item: item.stat().st_mtime_ns)
+        return [json.loads(path.read_text(encoding="utf-8")) for path in paths]
+
     def acquire(self, run_id: str) -> None:
         with self._mutex:
             try:
@@ -168,19 +176,36 @@ class RunStore:
             except FileExistsError as exc:
                 raise RunConflictError("another local research run is active") from exc
             with os.fdopen(descriptor, "w", encoding="ascii") as handle:
-                handle.write(run_id)
+                json.dump({"schema_version": 1, "run_id": run_id, "owner_pid": os.getpid()}, handle)
 
     def release(self, run_id: str) -> None:
         with self._mutex:
-            if self.lock_path.is_file() and self.lock_path.read_text(encoding="ascii") == run_id:
+            if self.lock_path.is_file() and self._lock_identity()[0] == run_id:
                 self.lock_path.unlink()
+
+    def _lock_identity(self) -> tuple[str, int | None]:
+        raw = self.lock_path.read_text(encoding="ascii").strip()
+        try:
+            lock = json.loads(raw)
+        except json.JSONDecodeError:
+            return raw, None  # Compatibility with runner locks created before schema v1.
+        if not isinstance(lock, dict):
+            return "", None
+        run_id = lock.get("run_id")
+        owner_pid = lock.get("owner_pid")
+        return (
+            run_id if isinstance(run_id, str) else "",
+            owner_pid if isinstance(owner_pid, int) and owner_pid > 0 else None,
+        )
 
     def recover_interrupted(self) -> None:
         """A process restart cannot resume a fit, so it records an honest failure."""
         with self._mutex:
             if not self.lock_path.is_file():
                 return
-            run_id = self.lock_path.read_text(encoding="ascii").strip()
+            run_id, owner_pid = self._lock_identity()
+            if owner_pid is not None and _process_is_alive(owner_pid):
+                return
             try:
                 record = self.read(run_id)
             except RunNotFoundError:
@@ -196,6 +221,27 @@ class RunStore:
                 )
                 self.write(record)
             self.lock_path.unlink(missing_ok=True)
+
+
+def _process_is_alive(pid: int) -> bool:
+    """Check a lock owner's liveness without sending it a signal on Windows."""
+    if sys.platform == "win32":
+        import ctypes
+
+        process = ctypes.windll.kernel32.OpenProcess(0x00100000, False, pid)
+        if not process:
+            return False
+        try:
+            return ctypes.windll.kernel32.WaitForSingleObject(process, 0) == 0x00000102
+        finally:
+            ctypes.windll.kernel32.CloseHandle(process)
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
 
 
 @dataclass(frozen=True)
@@ -321,6 +367,8 @@ class LocalResearchRunner:
 
     def start(self, candidate_id: str) -> dict[str, Any]:
         candidate = self.registry.get(candidate_id)
+        if candidate.status not in RUNNABLE_CANDIDATE_STATUSES:
+            raise CandidateGateError(f"candidate is not runnable: {candidate.status}")
         if not candidate.preregistration_ready(self.root):
             raise CandidateGateError("candidate preregistration identity is not frozen")
         readiness = candidate.readiness(self.root)
@@ -345,6 +393,12 @@ class LocalResearchRunner:
             "scientific_record_mutated": False,
         }
         with self._mutex:
+            if candidate.run_type == "NEW_EXPERIMENT" and any(
+                record.get("candidate_id") == candidate_id for record in self.store.records()
+            ):
+                raise RunConflictError(
+                    "this preregistered new experiment already has a local execution record"
+                )
             self.store.acquire(run_id)
             try:
                 self.store.write(record)
@@ -466,13 +520,13 @@ def research_candidate_registry() -> CandidateRegistry:
                     "informazione ai segnali spot e al funding già congelati."
                 ),
                 run_type="NEW_EXPERIMENT",
-                status="PREREGISTERED_AVAILABLE",
+                status="BLOCKED_PROJECT_RETROSPECTIVE_V1",
                 expected_stages=stages,
                 required_local_datasets=wp016_required_datasets,
                 fixed_runner_adapter="app.research.wp016_runner.run_wp016_attention",
                 scientific_warning=(
-                    "NEW PREREGISTERED DEVELOPMENT EXPERIMENT · NOT SEALED EVIDENCE · "
-                    "REQUIRES RESEARCH DIRECTOR REVIEW"
+                    "BLOCKED BEFORE EXECUTION: the retrospective could not establish "
+                    "point-in-time vintage integrity for the historical pageview series."
                 ),
                 scientific_evidence_type=WP016_EVIDENCE_TYPE,
                 execution_counts_as_new_evidence=True,

@@ -16,6 +16,9 @@ from __future__ import annotations
 
 import json
 import os
+import tempfile
+import threading
+from contextlib import contextmanager
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from pathlib import Path
@@ -48,6 +51,11 @@ AMBIGUOUS_FILL_POLICY = "STOP_FIRST_V1"
 PROSPECTIVE_EXECUTION = PROSPECTIVE_EXECUTION_VERSION
 DATASET_MANIFEST_ID = "PUBLIC_BTCUSDT_SPOT_LIVE_READ_ONLY"
 DATASET_CONTENT_HASH = "NOT_A_FROZEN_DEVELOPMENT_DATASET"
+PAPER_ENTRY_STATUS = "BLOCKED_CAUSAL_ENTRY_TIMING_V1"
+PAPER_ENTRY_BLOCK_REASON = (
+    "Paper entry is disabled: an analysis requested after the hourly boundary cannot "
+    "prospectively enter at that already-observed minute open."
+)
 
 PENDING_ENTRY = "PENDING_ENTRY"
 OPEN = "OPEN"
@@ -87,33 +95,74 @@ class PaperTradeStore:
 
     def __init__(self, path: Path):
         self.path = Path(path)
+        self._mutex = threading.RLock()
+
+    @contextmanager
+    def locked(self):
+        """Serialize a complete read-modify-write operation for this store instance."""
+        with self._mutex:
+            yield
 
     def load(self) -> list[dict[str, Any]]:
-        if not self.path.is_file():
-            return []
-        document = json.loads(self.path.read_text(encoding="utf-8"))
-        if document.get("version") != EVIDENCE_VERSION:
-            raise PaperTradeError("paper trade store version mismatch")
-        return list(document["trades"])
+        with self._mutex:
+            if not self.path.is_file():
+                return []
+            document = json.loads(self.path.read_text(encoding="utf-8"))
+            expected = {
+                "version": EVIDENCE_VERSION,
+                "contract": EVIDENCE_CONTRACT,
+                "evidence_stage": EVIDENCE_STAGE,
+                "champion_status": CHAMPION_STATUS,
+                "research_status": RESEARCH_STATUS,
+                "real_money": False,
+            }
+            if any(document.get(key) != value for key, value in expected.items()):
+                raise PaperTradeError("paper trade store safety metadata mismatch")
+            trades = document.get("trades")
+            if not isinstance(trades, list):
+                raise PaperTradeError("paper trade store has an invalid trade collection")
+            for trade in trades:
+                if (
+                    not isinstance(trade, dict)
+                    or trade.get("status") not in STATUSES
+                    or trade.get("direction") != "LONG"
+                    or trade.get("real_money") is not False
+                    or trade.get("order_placed") is not False
+                    or trade.get("leverage") is not False
+                    or trade.get("short") is not False
+                ):
+                    raise PaperTradeError("paper trade store contains an unsafe record")
+            return trades
 
     def save(self, trades: list[dict[str, Any]]) -> None:
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        payload = {
-            "version": EVIDENCE_VERSION,
-            "contract": EVIDENCE_CONTRACT,
-            "evidence_stage": EVIDENCE_STAGE,
-            "champion_status": CHAMPION_STATUS,
-            "research_status": RESEARCH_STATUS,
-            "real_money": False,
-            "trades": trades,
-        }
-        temporary = self.path.with_suffix(".tmp")
-        temporary.write_text(
-            json.dumps(payload, sort_keys=True, indent=2, allow_nan=False) + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
-        os.replace(temporary, self.path)
+        with self._mutex:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+            payload = {
+                "version": EVIDENCE_VERSION,
+                "contract": EVIDENCE_CONTRACT,
+                "evidence_stage": EVIDENCE_STAGE,
+                "champion_status": CHAMPION_STATUS,
+                "research_status": RESEARCH_STATUS,
+                "real_money": False,
+                "trades": trades,
+            }
+            staging: Path | None = None
+            try:
+                with tempfile.NamedTemporaryFile(
+                    "w",
+                    encoding="utf-8",
+                    newline="\n",
+                    dir=self.path.parent,
+                    delete=False,
+                    suffix=".staging",
+                ) as handle:
+                    json.dump(payload, handle, sort_keys=True, indent=2, allow_nan=False)
+                    handle.write("\n")
+                    staging = Path(handle.name)
+                os.replace(staging, self.path)
+            finally:
+                if staging is not None:
+                    staging.unlink(missing_ok=True)
 
     def active(self) -> list[dict[str, Any]]:
         return [trade for trade in self.load() if trade["status"] in ACTIVE_STATUSES]
@@ -129,15 +178,15 @@ def create_from_analysis(analysis: dict[str, Any], store: PaperTradeStore) -> di
     if not analysis_id:
         raise PaperTradeError("analysis carries no identity")
 
-    trades = store.load()
-    if any(trade["analysis_id"] == analysis_id for trade in trades):
-        raise PaperTradeError("a paper trade already exists for this analysis")
-    if any(trade["status"] in ACTIVE_STATUSES for trade in trades):
-        raise PaperTradeError("one paper trade is already PENDING_ENTRY or OPEN")
+    raise PaperTradeError(PAPER_ENTRY_BLOCK_REASON)
 
+
+def _build_trade_from_analysis(analysis: dict[str, Any]) -> dict[str, Any]:
+    """Build a synthetic lifecycle fixture; production creation is fail-closed above."""
+    analysis_id = str(analysis["analysis_id"])
     plan = analysis["plan"]
     signal_time = _parse(analysis["signal_time"])
-    trade = {
+    return {
         "trade_id": f"PAPER-{analysis_id[:16]}",
         "evidence_version": EVIDENCE_VERSION,
         "evidence_stage": EVIDENCE_STAGE,
@@ -170,15 +219,13 @@ def create_from_analysis(analysis: dict[str, Any], store: PaperTradeStore) -> di
         "exit_reason": None,
         "net_r": None,
         "holding_minutes": None,
-        "resolution_detail": "awaiting the next 1m open after the signal hour",
+        "resolution_detail": "synthetic lifecycle fixture awaiting entry",
         "last_update_time": analysis["analysis_time"],
         "leverage": False,
         "short": False,
         "order_placed": False,
         "real_money": False,
     }
-    store.save([*trades, trade])
-    return trade
 
 
 def _intent(trade: dict[str, Any]) -> ProspectiveIntent:
@@ -266,31 +313,32 @@ def update_lifecycle(
 ) -> dict[str, Any]:
     """Explicitly advance every active trade. Deterministic and idempotent."""
     now = (now or datetime.now(UTC)).astimezone(UTC)
-    trades = store.load()
-    advanced, errors = [], []
-    changed = False
-    for index, trade in enumerate(trades):
-        if trade["status"] in TERMINAL_STATUSES:
-            continue
-        entry_ms = int(_parse(trade["entry_minute"]).timestamp() * 1000)
-        try:
-            klines = fetch_minutes(
-                entry_ms,
-                trade["max_hold_minutes"] + 1,
-                now=now,
-                client=client,
-                feed=feed,
-            )
-        except MarketFeedError as exc:
-            errors.append({"trade_id": trade["trade_id"], "error": str(exc)})
-            continue
-        resolved = _resolve(trade, klines, now)
-        if resolved != trade:
-            trades[index] = resolved
-            changed = True
-        advanced.append(resolved)
-    if changed:
-        store.save(trades)
+    with store.locked():
+        trades = store.load()
+        advanced, errors = [], []
+        changed = False
+        for index, trade in enumerate(trades):
+            if trade["status"] in TERMINAL_STATUSES:
+                continue
+            entry_ms = int(_parse(trade["entry_minute"]).timestamp() * 1000)
+            try:
+                klines = fetch_minutes(
+                    entry_ms,
+                    trade["max_hold_minutes"] + 1,
+                    now=now,
+                    client=client,
+                    feed=feed,
+                )
+            except MarketFeedError as exc:
+                errors.append({"trade_id": trade["trade_id"], "error": str(exc)})
+                continue
+            resolved = _resolve(trade, klines, now)
+            if resolved != trade:
+                trades[index] = resolved
+                changed = True
+            advanced.append(resolved)
+        if changed:
+            store.save(trades)
     return {
         "evidence_version": EVIDENCE_VERSION,
         "updated": len(advanced),
@@ -314,5 +362,7 @@ def listing(store: PaperTradeStore, *, limit: int = 20) -> dict[str, Any]:
         "active": [trade for trade in trades if trade["status"] in ACTIVE_STATUSES],
         "recent": trades[-limit:],
         "recorded": len(trades),
+        "paper_entry_status": PAPER_ENTRY_STATUS,
+        "paper_entry_block_reason": PAPER_ENTRY_BLOCK_REASON,
         "real_money": False,
     }

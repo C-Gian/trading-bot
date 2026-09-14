@@ -61,11 +61,12 @@ function ResearchLab({
                 <p className="summary">{candidate.run_type === 'NEW_EXPERIMENT'
                   ? 'Esperimento di sviluppo preregistrato. Il risultato richiederà review e non crea evidenza sigillata.'
                   : 'Riproduzione storica: non cambia i contatori scientifici e non crea evidenza sigillata.'}</p>
-                <button className="btn primary block research-cta" onClick={onStart} disabled={running || !candidate.required_data.ready}>
+                <button className="btn primary block research-cta" onClick={onStart} disabled={running || !candidate.required_data.ready || !candidate.runnable}>
                   {running ? 'TEST IN CORSO…' : 'AVVIA TEST STORICO'}
                 </button>
                 <p className="research-local-note">Il test viene eseguito localmente sul tuo PC. Non usa AI durante il calcolo.</p>
                 {!candidate.required_data.ready && <p className="notice warn">Dati locali richiesti non pronti: il test non può partire.</p>}
+                {!candidate.runnable && <p className="notice warn">Questo candidato è bloccato dal gate retrospettivo e non può essere eseguito.</p>}
               </>
             ) : <Empty title="Nessun candidato disponibile" body="Il registro locale non è raggiungibile." />}
           </div>
@@ -135,7 +136,7 @@ export function App() {
       setSelectedCandidateId(
         active && ['QUEUED', 'RUNNING'].includes(active.status)
           ? active.candidate_id
-          : (payload.candidates.find(item => item.run_type === 'NEW_EXPERIMENT') ?? payload.candidates[0])?.candidate_id ?? null,
+          : (payload.candidates.find(item => item.runnable) ?? payload.candidates[0])?.candidate_id ?? null,
       );
     }).catch(() => setRunner(null));
   }, []);
@@ -194,10 +195,11 @@ export function App() {
 
   const active = paper?.active?.[0] ?? null;
   const history = paper?.recent ?? [];
-  const canSimulate = !active && analysis?.decision === 'LONG' && analysis.data_status === 'OK';
+  const paperEntryEnabled = paper?.paper_entry_status === 'AVAILABLE';
+  const canSimulate = paperEntryEnabled && !active && analysis?.decision === 'LONG' && analysis.data_status === 'OK';
   const blockedReason = active
     ? 'C’è già una simulazione in corso. Aggiornala o aspetta che si chiuda prima di aprirne un’altra.'
-    : null;
+    : paper?.paper_entry_block_reason ?? null;
 
   const plan: PlanLines = active
     ? {

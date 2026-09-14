@@ -1,15 +1,18 @@
-# CURRENT TASK — WP-016 PREPARATION
+# CURRENT TASK — PROJECT-RETROSPECTIVE-V1
 
-Status: PREREGISTERED_PENDING_OWNER_EXECUTION
+Status: COMPLETED_PENDING_RESEARCH_DIRECTOR_REVIEW
 
-Starting HEAD: `5adf7c69ffdd4f60419cd4856a315c45faf689fe` on `main`.
+Starting HEAD: `49c924795850c431743512e5725a3250259a67ea` on local `main`.
 
-Prepare `FAM-EXTERNAL-PUBLIC-ATTENTION` and the frozen hypothesis
-`WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1`. Acquire and audit only official
-en.wikipedia daily user pageviews for `Bitcoin`, freeze the conservative point-in-time
-attention-shock feature, preregister the primary and matched funding control, and expose
-`WP016_WIKIPEDIA_ATTENTION_V1` through Research Runner.
+The one-time deep project retrospective audited scientific governance, development data,
+time/label/cost/feature/model semantics, reconciliation, historical results, ALIGNED,
+paper trading, Research Runner, web/API integration, tests, performance, architecture,
+research efficiency, and WP-016 readiness.
 
-The executor must not invoke the real WP-016 walk-forward, observe market results, create
-experiment results, or change completed-experiment accounting. The Owner initiates the
-first run manually from Research Lab after this preparation is committed.
+WP-016 was not executed and is blocked before execution because point-in-time vintage
+integrity for the historical Wikimedia values is unproven. New paper entries are also
+blocked pending a versioned causal entry design. Historical results and ALIGNED status
+are unchanged. See `reports/audits/PROJECT-RETROSPECTIVE-V1.md`.
+
+Next recommended work: redesign or abandon the WP-016 attention source under a new
+preregistration, then separately design a causal prospective paper-entry version.

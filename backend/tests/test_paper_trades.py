@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -15,13 +16,15 @@ from app.product.paper import (
     CLOSED_EXPIRY,
     CLOSED_STOP,
     CLOSED_TARGET,
-    ENTRY_EXECUTION,
     INVALIDATED,
     OPEN,
+    PAPER_ENTRY_BLOCK_REASON,
+    PAPER_ENTRY_STATUS,
     PENDING_ENTRY,
     STATUSES,
     PaperTradeError,
     PaperTradeStore,
+    _build_trade_from_analysis,
     create_from_analysis,
     listing,
     update_lifecycle,
@@ -105,7 +108,9 @@ def _store(tmp_path: Path) -> PaperTradeStore:
 
 def _created(tmp_path: Path) -> tuple[PaperTradeStore, dict]:
     store = _store(tmp_path)
-    return store, create_from_analysis(_analysis(), store)
+    trade = _build_trade_from_analysis(_analysis())
+    store.save([trade])
+    return store, trade
 
 
 # --- creation --------------------------------------------------------------------
@@ -119,24 +124,12 @@ def test_no_trade_analysis_creates_nothing(tmp_path: Path) -> None:
     assert not store.path.exists()
 
 
-def test_long_analysis_creates_one_pending_trade(tmp_path: Path) -> None:
-    store, trade = _created(tmp_path)
-    assert trade["status"] == PENDING_ENTRY
-    assert trade["direction"] == "LONG"
-    assert trade["symbol"] == "BTCUSDT"
-    assert trade["strategy_version"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
-    assert trade["research_status"] == "PAPER_RESEARCH_CANDIDATE"
-    assert trade["champion_status"] == "NONE"
-    assert trade["entry_execution"] == ENTRY_EXECUTION == "NEXT_1M_OPEN_EXECUTION"
-    assert trade["ambiguous_fill_policy"] == "STOP_FIRST_V1"
-    assert (trade["stop_price"], trade["target_price"]) == (STOP, TARGET)
-    assert trade["max_hold_minutes"] == 1440
-    assert trade["entry_time"] is None and trade["exit_time"] is None
-    assert trade["real_money"] is False and trade["order_placed"] is False
-    assert len(store.load()) == 1
-    document = json.loads(store.path.read_text(encoding="utf-8"))
-    assert document["version"] == "FUTURE_PAPER_EVIDENCE_V1"
-    assert document["real_money"] is False
+def test_long_analysis_is_fail_closed_before_a_retroactive_entry(tmp_path: Path) -> None:
+    store = _store(tmp_path)
+    with pytest.raises(PaperTradeError, match="already-observed minute open"):
+        create_from_analysis(_analysis(), store)
+    assert PAPER_ENTRY_STATUS == "BLOCKED_CAUSAL_ENTRY_TIMING_V1"
+    assert not store.path.exists()
 
 
 def test_incomplete_analysis_cannot_create_a_trade(tmp_path: Path) -> None:
@@ -148,27 +141,31 @@ def test_incomplete_analysis_cannot_create_a_trade(tmp_path: Path) -> None:
     assert store.load() == []
 
 
-def test_the_same_analysis_cannot_create_two_trades(tmp_path: Path) -> None:
+def test_store_rejects_forged_safety_metadata(tmp_path: Path) -> None:
     store, _ = _created(tmp_path)
-    with pytest.raises(PaperTradeError, match="already exists for this analysis"):
-        create_from_analysis(_analysis(), store)
-    assert len(store.load()) == 1
+    document = json.loads(store.path.read_text(encoding="utf-8"))
+    document["real_money"] = True
+    store.path.write_text(json.dumps(document), encoding="utf-8")
+    with pytest.raises(PaperTradeError, match="safety metadata"):
+        store.load()
 
 
-def test_a_second_analysis_is_blocked_while_one_trade_is_active(tmp_path: Path) -> None:
+def test_store_rejects_an_unsafe_persisted_trade(tmp_path: Path) -> None:
     store, _ = _created(tmp_path)
-    with pytest.raises(PaperTradeError, match="already PENDING_ENTRY or OPEN"):
-        create_from_analysis(_analysis(analysis_id="b" * 64), store)
-    assert len(store.load()) == 1
+    document = json.loads(store.path.read_text(encoding="utf-8"))
+    document["trades"][0]["order_placed"] = True
+    store.path.write_text(json.dumps(document), encoding="utf-8")
+    with pytest.raises(PaperTradeError, match="unsafe record"):
+        store.load()
 
 
-def test_a_new_trade_is_allowed_once_the_previous_one_closed(tmp_path: Path) -> None:
+def test_entry_remains_disabled_after_a_synthetic_trade_closes(tmp_path: Path) -> None:
     store, _ = _created(tmp_path)
     update_lifecycle(store, now=NOW, feed=_feed(_flat(1441)))
     assert store.load()[0]["status"] == CLOSED_EXPIRY
-    second = create_from_analysis(_analysis(analysis_id="b" * 64), store)
-    assert second["status"] == PENDING_ENTRY
-    assert len(store.load()) == 2
+    with pytest.raises(PaperTradeError, match="already-observed minute open"):
+        create_from_analysis(_analysis(analysis_id="b" * 64), store)
+    assert len(store.load()) == 1
 
 
 # --- lifecycle -------------------------------------------------------------------
@@ -308,6 +305,18 @@ def test_lifecycle_update_is_deterministic_and_idempotent(tmp_path: Path) -> Non
     assert store.path.read_bytes() == after_first
 
 
+def test_concurrent_lifecycle_updates_are_serialized_without_lost_state(tmp_path: Path) -> None:
+    store, _ = _created(tmp_path)
+    klines = _flat(10)
+    klines[3] = _minute(3, high=TARGET + 500, low=49_900, close=TARGET, opened=50_000)
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        results = list(
+            pool.map(lambda _: update_lifecycle(store, now=NOW, feed=_feed(klines)), range(2))
+        )
+    assert sorted(item["updated"] for item in results) == [0, 1]
+    assert store.load()[0]["status"] == CLOSED_TARGET
+
+
 def test_a_terminal_trade_is_never_reopened_by_later_data(tmp_path: Path) -> None:
     store, _ = _created(tmp_path)
     stop_path = _flat(10)
@@ -349,15 +358,17 @@ def _app(tmp_path: Path, decision: str = "LONG"):
 
 def test_endpoints_create_read_and_advance(tmp_path: Path) -> None:
     store, app = _app(tmp_path)
+    store.save([_build_trade_from_analysis(_analysis())])
     client = TestClient(app)
     created = client.post("/api/v1/product/paper-trades")
-    assert created.status_code == 200
-    assert created.json()["trade"]["status"] == PENDING_ENTRY
+    assert created.status_code == 409
+    assert PAPER_ENTRY_BLOCK_REASON in created.json()["detail"]
 
     read = client.get("/api/v1/product/paper-trades").json()
     assert read["evidence_version"] == "FUTURE_PAPER_EVIDENCE_V1"
     assert read["champion_status"] == "NONE"
     assert read["research_status"] == "PAPER_RESEARCH_CANDIDATE"
+    assert read["paper_entry_status"] == PAPER_ENTRY_STATUS
     assert len(read["active"]) == 1 and read["recorded"] == 1
 
     advanced = client.post("/api/v1/product/paper-trades/lifecycle").json()
@@ -374,13 +385,12 @@ def test_endpoint_refuses_to_create_from_a_no_trade_analysis(tmp_path: Path) -> 
     assert store.load() == []
 
 
-def test_endpoint_blocks_duplicate_and_concurrent_creation(tmp_path: Path) -> None:
+def test_endpoint_blocks_every_production_creation_attempt(tmp_path: Path) -> None:
     store, app = _app(tmp_path)
     client = TestClient(app)
-    assert client.post("/api/v1/product/paper-trades").status_code == 200
-    second = client.post("/api/v1/product/paper-trades")
-    assert second.status_code == 409
-    assert len(store.load()) == 1
+    assert client.post("/api/v1/product/paper-trades").status_code == 409
+    assert client.post("/api/v1/product/paper-trades").status_code == 409
+    assert store.load() == []
 
 
 def test_nothing_advances_without_an_explicit_lifecycle_call(tmp_path: Path) -> None:
@@ -396,9 +406,9 @@ def test_nothing_advances_without_an_explicit_lifecycle_call(tmp_path: Path) -> 
         paper_store=store,
         lifecycle=counting_lifecycle,
     )
+    store.save([_build_trade_from_analysis(_analysis())])
     with TestClient(app) as client:
         assert calls == []
-        client.post("/api/v1/product/paper-trades")
         client.get("/api/v1/product/paper-trades")
         client.get("/api/v1/system/health")
         assert calls == []
@@ -453,7 +463,9 @@ def test_scientific_paper_trade_counter_is_untouched() -> None:
 def test_state_declares_the_paper_surface_truthfully() -> None:
     state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
     paper = state["paper_trading"]
-    assert paper["surface"] == "AVAILABLE"
+    assert paper["surface"] == "BLOCKED_CAUSAL_ENTRY_TIMING_V1"
+    assert paper["paper_entry_status"] == "BLOCKED_CAUSAL_ENTRY_TIMING_V1"
+    assert "already-observed" in paper["paper_entry_block_reason"]
     assert paper["persistence_version"] == "FUTURE_PAPER_EVIDENCE_V1"
     assert paper["prospective_execution_version"] == "PROSPECTIVE_PAPER_EXECUTION_V1"
     assert paper["prospective_features_version"] == "PROSPECTIVE_PAPER_FEATURES_V1"

@@ -42,7 +42,7 @@ def _write(root: Path, document: dict) -> None:
 def test_repository_chronology_passes_and_pins_every_enforced_base():
     result = validate_report_bases()
     assert result["status"] == "PASS"
-    assert result["base_guard_enforced"] == ["WP-006", "WP-007"]
+    assert result["base_guard_enforced"] == ["WP-006", "WP-007", "WP-008", "WP-011"]
     assert declared_base("WP-006") == WP006_BASE
     assert declared_base("WP-007") == WP007_BASE
     assert result["documented_reporting_errors"] == [
