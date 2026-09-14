@@ -1,0 +1,18 @@
+{
+  "annual_net_mesi_percentage_points": 5.0,
+  "benchmark_policy": {
+    "primary": "MATCHED_CONTROL",
+    "secondary_product_benchmark": "BUY_AND_HOLD_BTC"
+  },
+  "interpretation": "A strategy or mechanism must add at least five percentage points per year of net performance relative to an appropriate comparable matched alternative after realistic costs, without obtaining the apparent advantage merely through materially greater risk or market exposure.",
+  "live_capital_target": false,
+  "mesi_role": "RESEARCH_AND_PRODUCT_CONTINUATION_THRESHOLD",
+  "p1a_event_level_translation_frozen": false,
+  "p1a_translation_authority": "RESEARCH_DIRECTOR_BEFORE_EXECUTION",
+  "promised_return": false,
+  "real_money_authorized": false,
+  "reference_capital_eur": 5000,
+  "reference_capital_role": "PLANNING_REFERENCE_ONLY_NOT_DEPLOYED_CAPITAL",
+  "schema_version": 1,
+  "status": "FROZEN_OWNER_ECONOMIC_POLICY_V1"
+}

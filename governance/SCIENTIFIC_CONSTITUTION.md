@@ -50,6 +50,38 @@ The laboratory's advantage must not be “try more strategies until one looks go
 
 The advantage must be “run many experiments without allowing the number of attempts to fool us.”
 
+## Selection/evaluation separation
+
+No feature set, feature weight, timeframe, signal threshold, label horizon,
+stop/target geometry, risk parameter, model hyperparameter, or ensemble weight may be
+selected using the final or outer evaluation metric.
+
+Any authorized tuning must occur entirely within the chronological training portion of
+the governed process. Outer evaluation remains unseen until candidate freeze. Any
+post-result material optimization creates a new preregistered experiment and consumes
+new search budget.
+
+## Future power gate
+
+Before executing any future `MATERIAL_ECONOMIC_HYPOTHESIS`, its preregistration must
+freeze:
+
+- experiment metric and MESI expressed in that metric;
+- expected sample design and expected dependence structure;
+- statistical dependence method;
+- expected MDE or an explicit fail-closed reason it is unavailable;
+- alpha and multiplicity-family membership;
+- target power, defaulting to 0.80.
+
+A design without adequate expected ability to distinguish its preregistered MESI must
+not automatically be executed. It must be classified `REDESIGN_REQUIRED` or explicitly
+accepted before execution as exploratory, non-resolution evidence. MESI and target power
+may not be lowered after results are observed.
+
+MDE and MESI are distinct: MDE describes design detectability under assumptions; MESI is
+the minimum economically important effect. Neither changes a historical terminal
+classification retrospectively.
+
 ## Governance
 
 This Constitution is Owner-controlled and cannot be automatically weakened or replaced by an AI agent.

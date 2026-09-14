@@ -133,3 +133,61 @@ Only after the BTC pipeline is credible:
 Only after sufficiently strong future evidence.
 
 Requires explicit Owner decision.
+
+## Governed next research sequence after P0
+
+The previous default loop of acquiring a new source, testing a candidate, and moving to
+another source is stopped. Future work separates statistical credibility, signal
+information, economic monetization/execution, and product validation.
+
+Next: `DESIGN_ALIGNED_SIGNAL_PERSISTENCE_V1`.
+
+P1A is a design question: **does an ALIGNED signal contain directional information that
+persists beyond the current 24-hour horizon?** It is not a stop/target rescue. Before any
+execution, P1A must:
+
+- use frozen ALIGNED raw signal timestamps;
+- separate informational events from one-position-at-a-time execution;
+- freeze an externally motivated primary horizon (120h is the current research
+  direction, not a preregistered choice);
+- measure raw event returns in price basis points rather than R;
+- use a matched/random timing control with the same horizon to distinguish signal from
+  market beta;
+- preregister a dependence method suited to irregular, overlapping or clustered events;
+- translate `ECONOMIC_SIGNIFICANCE_POLICY_V1` into the event metric before execution;
+- calculate MDE and power before execution;
+- treat low-resolution evidence as low resolution, not proof of no effect.
+
+Only if P1A supports persistent information may a distinct P1B be designed. P1B asks
+whether that information can be monetized under realistic execution, occupancy,
+turnover, costs, and risk. P1B is outside P0.
+
+### Future cross-sectional replication
+
+“ALIGNED has edge on BTC” and “an ALIGNED-like mechanism has a common positive effect
+across crypto” are different economic hypotheses. Additional assets are not independent
+BTC observations. Any authorized replication must freeze a point-in-time asset universe,
+inclusion/exclusion rules, delisting and survivorship treatment, per-asset realistic
+costs, a pooled primary endpoint, time/asset dependence treatment, and a prohibition on
+selecting winners after observation. Cross-sectional research is not currently
+authorized; the product remains BTCUSDT spot V1.
+
+### Future cyclical research
+
+A spectral null falsifies only the frozen periodicity hypothesis tested, not every idea
+within “Ciclica Evoluta.” Before any cyclic outcome is observed, freeze one material
+primary cycle hypothesis plus a finite number of preregistered diagnostics/ablations.
+Diagnostics cannot rescue a failed primary. A diagnostic-inspired successor is a new
+material hypothesis and consumes new search budget. Open-ended time, swing, volume,
+inverse, constraint, raccordo, or similar searches after observation are forbidden.
+
+### Future runtime engineering
+
+`RESEARCH_RUNTIME_V3_PERFORMANCE` is a future engineering checkpoint. WP017 timing shows
+the wall-time bottleneck in `BUILD_FEATURES`, `RECONCILIATION`, and `PROFILES`, while
+`FIT` and `PREDICT` were already fast under Runtime V2. V3 may investigate vectorized
+feature construction, immutable hash-bound intermediate caching, deterministic reuse,
+faster independent reconciliation, and removal of duplicate safe computations.
+`RESEARCH_RUNTIME_V2_BATCH` remains immutable for experiments already bound to it. V3
+must demonstrate numerical and scientific equivalence before any future candidate uses
+it. Runtime V3 is not implemented in P0.
