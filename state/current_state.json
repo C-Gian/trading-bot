@@ -148,7 +148,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "PAPER-ENTRY-V2-STAGE-A",
+  "latest_executor_checkpoint": "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2",
   "latest_family": {
     "name": "PERPETUAL_FUNDING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -161,7 +161,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "COMPLETE_RESEARCH_RUNTIME_V2_BATCH",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_PAPER_ENTRY_V2_RESEARCH_RUNTIME_V2",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -230,6 +230,28 @@
   "project_name": "Trading Bot",
   "project_phase": "STRATEGY_RESEARCH",
   "real_money_authorized": false,
+  "research_runtime": {
+    "batch_prediction_validation": "PASS_SYNTHETIC_AND_GOVERNED_WP015",
+    "benchmark": "reports/benchmarks/RESEARCH-RUNTIME-V2-BATCH.json",
+    "cache_implemented": false,
+    "future_only": true,
+    "governed_prediction_speedup": 251.06965571205538,
+    "historical_frozen_implementations_modified": false,
+    "max_prediction_difference": 0.0,
+    "metrics_identical": true,
+    "prediction_tolerance": 1e-12,
+    "runner_explicit_binding": true,
+    "signal_mismatches": 0,
+    "stage_timing": "AVAILABLE_REQUIRED_FOR_V2_RESULTS",
+    "status": "READY_FOR_FUTURE_EXPLICIT_PREREGISTRATION",
+    "synthetic_prediction_speedup": 470.7642672721958,
+    "trade_identities_identical": true,
+    "version": "RESEARCH_RUNTIME_V2_BATCH",
+    "whole_experiment_speedup_measured": false,
+    "wp015_runtime": "WP015_FROZEN_RUNTIME_V1",
+    "wp016_runtime": "WP016_PREREGISTERED_RUNTIME_V1",
+    "wp016_status": "BLOCKED_BEFORE_EXECUTION"
+  },
   "regime_conditioned_challenger": {
     "control": "GLOBAL_SINGLE_EXPERT_MATCHED",
     "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
@@ -361,7 +383,7 @@
     "version": "SHALLOW_INTERNAL_HGBR_V1"
   },
   "signal_timeframe": "1h",
-  "status": "IN_PROGRESS",
+  "status": "EXECUTOR_COMPLETE_PENDING_REVIEW",
   "supervised_challenger": {
     "leakage_audit": "PASS",
     "model_fits": 12,

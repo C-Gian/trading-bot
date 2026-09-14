@@ -31,6 +31,7 @@ export type ResearchRunnerCandidate = {
   runnable:boolean;
   expected_stages:string[]; required_local_datasets:string[]; scientific_warning:string;
   scientific_evidence_type:string; execution_counts_as_new_evidence:boolean; arbitrary_execution:boolean;
+  runtime_version:string;
   preregistration_frozen:boolean; preregistration_paths:string[];
   required_data:{ready:boolean;files:Record<string,boolean>}; fixed_runner_adapter:string;
 };
@@ -41,12 +42,14 @@ export type ResearchResult = {
   minimum_fold_trades:number|null; control_default_expectancy_r:number|null; primary_minus_control_r:number|null;
   oos_correlation:number|null; reconciliation_status:string; elapsed_seconds:number|null;
   scientific_evidence_type:string; code_head?:string|null; dataset_identities?:Record<string,string>;
-  runtime_artifact_hashes?:Record<string,string>;
+  runtime_artifact_hashes?:Record<string,string>; runtime_version?:string;
+  stage_timings?:{record_version:number;runtime_version:string;stage_order:string[];duration_seconds:Record<string,number>;total_seconds:number};
 };
 export type ResearchRun = {
   run_id:string; candidate_id:string; started_at:string|null; finished_at:string|null;
   status:ResearchRunStatus; stage:RunnerStage; progress:number; detail?:string|null;
   error?:string|null; result?:ResearchResult|null; review_bundle?:string|null; elapsed_seconds:number;
+  runtime_version?:string;
 };
 export type ResearchRunnerPayload = {
   runner_status:'IDLE'|'BUSY'; arbitrary_execution:boolean; maximum_active_runs:number;

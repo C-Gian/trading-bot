@@ -1,0 +1,25 @@
+{
+  "version": "FROZEN_HISTORICAL_RUNTIME_IDENTITIES_V1",
+  "baseline_commit": "63bbcf8ab6531926fbede318218eacddb3086004",
+  "hash_algorithm": "SHA256_WITH_CRLF_NORMALIZED_TO_LF",
+  "purpose": "Prospective guard only; these frozen implementations were not modified for RESEARCH_RUNTIME_V2_BATCH.",
+  "files": {
+    "backend/app/research/ewls.py": "c16e06eabf37303c2377371eaa8a71ed0d918a07ea928db704b4f6c77c57ba5a",
+    "backend/app/research/linear_lab.py": "10fd0bc70f71c7661860ef229da5de6280a615ba4ddc79fbfb1f159f32acc17e",
+    "backend/app/research/linear_model.py": "9f6099452211072c8a459ca3ee257d4416caf3c56643a9c4ec7a698dbad19545",
+    "backend/app/research/wp008.py": "4c19dcd842238a10802c5078f42a26432ff4bbecfd658362aa0aaa6b55c8e155",
+    "backend/app/research/wp011.py": "6667657135791dc678334d29e6a3d390bffe293881f9db80a9fc377dac754ef5",
+    "backend/app/research/wp011_lab.py": "9705e6ace3dc0c1c722bed3983c0073db15eadd289f0789c492d14844dfef26c",
+    "backend/app/research/wp012.py": "42c7a0843a6363459d248d9e42d7e8ddc13a8463c73fd070dc31d6e4f64eae13",
+    "backend/app/research/wp012_lab.py": "0f0b8abbcf327333d59890be5c20eaad07c2874bccf29975c809a5d122919e01",
+    "backend/app/research/wp013.py": "4ce90be298d96be824fd52945f19d1aa6b47defb9a783a98d4489ab78999a877",
+    "backend/app/research/wp013_lab.py": "a9cc4c40c73aaaa3e8a2733488b2f2c3159d13ecc50e9019497e8d393ec2ebbc",
+    "backend/app/research/wp014.py": "0b2b8e7fc0c1d9cb4067f27abf7d3be19e6e7acca647444ea3b0c0de2ba6ff3b",
+    "backend/app/research/wp014_lab.py": "12694b64cb6ae8cea0ddf0570903b85e5fed69fc884a78b3d8eb9662f760d9de",
+    "backend/app/research/wp014_model.py": "7e8a624bb57545b4d2cd8ae159585d29bdde8cc65ed84012faccac1161aff0cd",
+    "backend/app/research/wp015.py": "7846719e2e53cb47782c0e57abab1064beb359d54d0ce1bab2d2f7c952acab5f",
+    "backend/app/research/wp015_lab.py": "9350bd7b38e9c63eb108ea73194e8a21431107f946e12cdd4406e022d80cc556",
+    "backend/app/research/wp015_model.py": "1f0a397d95b0d24970d0f0753a18170fc240d0535a2ecdb94b4baac4c87efe5a",
+    "backend/app/research/wp015_reproduction.py": "0654f92654f8cb973c4cb74c1d6ecaf844fa75ce31f8184648fa538bd78a94b6"
+  }
+}

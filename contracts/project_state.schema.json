@@ -51,6 +51,7 @@
     "latest_reviewed_checkpoint",
     "latest_executor_checkpoint",
     "next_recommended_work_package",
+    "research_runtime",
     "backtest_substrate"
   ],
   "properties": {
@@ -203,6 +204,54 @@
     "next_recommended_work_package": {
       "type": "string",
       "minLength": 1
+    },
+    "research_runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "future_only",
+        "batch_prediction_validation",
+        "prediction_tolerance",
+        "max_prediction_difference",
+        "signal_mismatches",
+        "synthetic_prediction_speedup",
+        "governed_prediction_speedup",
+        "trade_identities_identical",
+        "metrics_identical",
+        "stage_timing",
+        "runner_explicit_binding",
+        "wp015_runtime",
+        "wp016_runtime",
+        "wp016_status",
+        "historical_frozen_implementations_modified",
+        "cache_implemented",
+        "whole_experiment_speedup_measured",
+        "benchmark"
+      ],
+      "properties": {
+        "version": {"const": "RESEARCH_RUNTIME_V2_BATCH"},
+        "status": {"const": "READY_FOR_FUTURE_EXPLICIT_PREREGISTRATION"},
+        "future_only": {"const": true},
+        "batch_prediction_validation": {"const": "PASS_SYNTHETIC_AND_GOVERNED_WP015"},
+        "prediction_tolerance": {"const": 1e-12},
+        "max_prediction_difference": {"const": 0.0},
+        "signal_mismatches": {"const": 0},
+        "synthetic_prediction_speedup": {"type": "number", "minimum": 1},
+        "governed_prediction_speedup": {"type": "number", "minimum": 1},
+        "trade_identities_identical": {"const": true},
+        "metrics_identical": {"const": true},
+        "stage_timing": {"const": "AVAILABLE_REQUIRED_FOR_V2_RESULTS"},
+        "runner_explicit_binding": {"const": true},
+        "wp015_runtime": {"const": "WP015_FROZEN_RUNTIME_V1"},
+        "wp016_runtime": {"const": "WP016_PREREGISTERED_RUNTIME_V1"},
+        "wp016_status": {"const": "BLOCKED_BEFORE_EXECUTION"},
+        "historical_frozen_implementations_modified": {"const": false},
+        "cache_implemented": {"const": false},
+        "whole_experiment_speedup_measured": {"const": false},
+        "benchmark": {"const": "reports/benchmarks/RESEARCH-RUNTIME-V2-BATCH.json"}
+      }
     },
     "search_memory": {
       "type": "object",

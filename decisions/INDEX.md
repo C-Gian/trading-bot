@@ -10,3 +10,4 @@
 - [ADR-0008](ADR-0008-SEALED-SCIENTIFIC-ALLOCATION-AUTHORITY.md) — sealed scientific allocation is a Research Director decision
 - [ADR-0009](ADR-0009-APPEND-ONLY-RESEARCH-REGISTRY.md) — append-only research registry instead of a layer per work package
 - [ADR-0010](ADR-0010-CAUSAL-PAPER-ENTRY-V2.md) — durable-intent-first causal paper entry
+- [ADR-0011](ADR-0011-RESEARCH-RUNTIME-V2-BATCH.md) — prospective deterministic batch research runtime

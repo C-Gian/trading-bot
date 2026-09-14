@@ -1,0 +1,43 @@
+{
+  "runtime_version": "RESEARCH_RUNTIME_V2_BATCH",
+  "schema_version": 1,
+  "status": "READY_FOR_FUTURE_EXPLICIT_PREREGISTRATION",
+  "code_identity": {
+    "hash_algorithm": "SHA256_WITH_CRLF_NORMALIZED_TO_LF",
+    "sources": {
+      "backend/app/research/runtime_v2.py": "52a2382cca36f792a6c0d1a74273386af99de523c1e13bdb6f1a38cf40135be2"
+    }
+  },
+  "runner_binding_contract": "CANDIDATE_DEFINITION_EXPLICIT_RUNTIME_VERSION_FAIL_CLOSED_V1",
+  "benchmark_implementation": "scripts/benchmark_research_runtime_v2.py",
+  "prediction_contract": {
+    "input_dtype": "FLOAT64",
+    "row_order": "STRICTLY_INCREASING_GOVERNED_SIGNAL_ID",
+    "default_batch_rows": "ALL_ROWS_IN_GOVERNED_FOLD_MATRIX",
+    "bounded_batches_allowed": true,
+    "finite_inputs_required": true,
+    "finite_outputs_required": true,
+    "positive_threshold": "PREDICTION_STRICTLY_GREATER_THAN_ZERO",
+    "absolute_equivalence_tolerance": 1e-12
+  },
+  "profile_contract": {
+    "shared_prediction_object": [
+      "ZERO",
+      "DEFAULT",
+      "DOUBLE"
+    ],
+    "delay_profile": "DELAY_1H_USES_PREVIOUS_GOVERNED_HOURLY_PREDICTION_WITHOUT_REFIT"
+  },
+  "stage_timing_version": 1,
+  "cache": {
+    "implemented": false,
+    "reason": "NO_CACHE_UNTIL_A_COMPLETE_STALE_SCIENCE_IDENTITY_IS_REQUIRED_AND_PROVEN"
+  },
+  "historical_frozen_implementations_modified": false,
+  "benchmark": {
+    "path": "reports/benchmarks/RESEARCH-RUNTIME-V2-BATCH.json",
+    "sha256_lf_normalized": "dc6b07db119a0bd6110c92b407c318c4414f57a174a0a07521354565534d9edc",
+    "classification": "ENGINEERING_EQUIVALENCE_REPRODUCTION",
+    "whole_experiment_speedup_claimed": false
+  }
+}

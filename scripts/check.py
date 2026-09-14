@@ -224,7 +224,7 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert state["latest_reviewed_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
-    assert state["latest_executor_checkpoint"] == "PAPER-ENTRY-V2-STAGE-A"
+    assert state["latest_executor_checkpoint"] == "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2"
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -245,6 +245,14 @@ def validate_research_views(state: dict) -> None:
     ]
     assert candidates[0]["status"] == "BLOCKED_PROJECT_RETROSPECTIVE_V1"
     assert candidates[0]["runnable"] is False and candidates[1]["runnable"] is True
+    assert candidates[0]["runtime_version"] == "WP016_PREREGISTERED_RUNTIME_V1"
+    assert candidates[1]["runtime_version"] == "WP015_FROZEN_RUNTIME_V1"
+    runtime = state["research_runtime"]
+    assert runtime["version"] == "RESEARCH_RUNTIME_V2_BATCH"
+    assert runtime["batch_prediction_validation"] == "PASS_SYNTHETIC_AND_GOVERNED_WP015"
+    assert runtime["max_prediction_difference"] == runtime["signal_mismatches"] == 0
+    assert runtime["trade_identities_identical"] and runtime["metrics_identical"]
+    assert not runtime["cache_implemented"] and not runtime["whole_experiment_speedup_measured"]
     assert state["attention_context_challenger"]["actual_model_fits"] == 0
     assert state["attention_context_challenger"]["market_results_observed"] is False
     assert state["attention_context_challenger"]["status"] == (
@@ -756,6 +764,11 @@ def governance_checks(pre_experiment: bool) -> dict:
         "docs/contracts/FUTURE_PAPER_EVIDENCE_V2.md",
         "research/paper/FUTURE_PAPER_EVIDENCE_V2.json",
         "reports/checkpoints/PAPER-ENTRY-V2-STAGE-A.md",
+        "decisions/ADR-0011-RESEARCH-RUNTIME-V2-BATCH.md",
+        "research/runtime/FROZEN-HISTORICAL-RUNTIME-IDENTITIES.json",
+        "research/runtime/RESEARCH-RUNTIME-V2-BATCH.json",
+        "reports/benchmarks/RESEARCH-RUNTIME-V2-BATCH.json",
+        "reports/checkpoints/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2.md",
         "tasks/archive/WP-016-PREP.md",
     ]
     assert all((ROOT / x).is_file() for x in required)

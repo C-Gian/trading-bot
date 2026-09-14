@@ -21,10 +21,16 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Protocol
 
+from .runtime_v2 import RUNTIME_VERSION as RUNTIME_V2
+from .runtime_v2 import validate_stage_timing_record
+
 ROOT = Path(__file__).resolve().parents[3]
 RUN_ROOT = ROOT / "data/research_runs"
 TERMINAL_STATUSES = frozenset({"COMPLETED", "FAILED"})
 RUNNABLE_CANDIDATE_STATUSES = frozenset({"AVAILABLE", "PREREGISTERED_AVAILABLE"})
+WP015_FROZEN_RUNTIME = "WP015_FROZEN_RUNTIME_V1"
+WP016_FROZEN_RUNTIME = "WP016_PREREGISTERED_RUNTIME_V1"
+KNOWN_RUNTIME_VERSIONS = frozenset({WP015_FROZEN_RUNTIME, WP016_FROZEN_RUNTIME, RUNTIME_V2})
 
 
 class RunnerError(RuntimeError):
@@ -69,6 +75,7 @@ class CandidateDefinition:
     scientific_evidence_type: str
     execution_counts_as_new_evidence: bool
     preregistration_sha256: tuple[tuple[str, str], ...]
+    runtime_version: str
     adapter: CandidateAdapter
 
     def preregistration_ready(self, root: Path) -> bool:
@@ -98,6 +105,7 @@ class CandidateDefinition:
             "scientific_warning": self.scientific_warning,
             "scientific_evidence_type": self.scientific_evidence_type,
             "execution_counts_as_new_evidence": self.execution_counts_as_new_evidence,
+            "runtime_version": self.runtime_version,
             "preregistration_frozen": self.preregistration_ready(root),
             "preregistration_paths": [path for path, _ in self.preregistration_sha256],
             "arbitrary_execution": False,
@@ -114,6 +122,8 @@ class CandidateRegistry:
             for candidate in candidates
         ):
             raise ValueError("a new experiment needs a source-controlled preregistration hash")
+        if any(candidate.runtime_version not in KNOWN_RUNTIME_VERSIONS for candidate in candidates):
+            raise ValueError("every candidate must bind a known research runtime version")
         self._candidates = {candidate.candidate_id: candidate for candidate in candidates}
 
     def get(self, candidate_id: str) -> CandidateDefinition:
@@ -273,6 +283,7 @@ RESULT_FIELDS = frozenset(
         "oos_correlation",
         "reconciliation_status",
         "scientific_evidence_type",
+        "runtime_version",
     }
 )
 
@@ -298,6 +309,13 @@ def validate_result(result: Mapping[str, Any], context: RunContext) -> None:
         raise RunnerError("candidate returned an invalid run identity or status")
     if result["scientific_evidence_type"] != context.candidate.scientific_evidence_type:
         raise RunnerError("candidate changed its frozen evidence classification")
+    if result["runtime_version"] != context.candidate.runtime_version:
+        raise RunnerError("candidate result changed its source-controlled runtime binding")
+    if context.candidate.runtime_version == RUNTIME_V2:
+        timings = result.get("stage_timings")
+        if not isinstance(timings, Mapping):
+            raise RunnerError("runtime V2 result omitted deterministic stage timings")
+        validate_stage_timing_record(timings)
 
 
 def build_review_bundle(result: Mapping[str, Any]) -> str:
@@ -306,6 +324,8 @@ def build_review_bundle(result: Mapping[str, Any]) -> str:
         "candidate": result["candidate_id"],
         "run_id": result["run_id"],
         "run_kind": result["scientific_evidence_type"],
+        "runtime_version": result["runtime_version"],
+        "stage_timings": result.get("stage_timings"),
         "code_head": result.get("code_head"),
         "dataset_identities": result.get("dataset_identities", {}),
         "reproduction_hashes": result.get("runtime_artifact_hashes", {}),
@@ -391,6 +411,7 @@ class LocalResearchRunner:
             "result": None,
             "review_bundle": None,
             "scientific_record_mutated": False,
+            "runtime_version": candidate.runtime_version,
         }
         with self._mutex:
             if candidate.run_type == "NEW_EXPERIMENT" and any(
@@ -432,6 +453,7 @@ class LocalResearchRunner:
         try:
             progress("PREPARING_DATA", 2, "Verifica degli input locali governati")
             result = candidate.adapter(context)
+            result.setdefault("runtime_version", candidate.runtime_version)
             validate_result(result, context)
             record = self.store.read(run_id)
             finished = utc_now()
@@ -540,6 +562,7 @@ def research_candidate_registry() -> CandidateRegistry:
                         "da04ab767e46b7b0ca172d6276521abbfb40d71f2fdbc27e7f3bbde43087be1a",
                     ),
                 ),
+                runtime_version=WP016_FROZEN_RUNTIME,
                 adapter=run_wp016_attention,
             ),
             CandidateDefinition(
@@ -570,6 +593,7 @@ def research_candidate_registry() -> CandidateRegistry:
                         "41dc813a7bd4171b6716f8cf059d5c0384778b88f174e5886e4cb172f584f246",
                     ),
                 ),
+                runtime_version=WP015_FROZEN_RUNTIME,
                 adapter=run_wp015_reproduction,
             ),
         )
@@ -587,6 +611,8 @@ def default_runner() -> LocalResearchRunner:
 
 
 __all__ = [
+    "WP015_FROZEN_RUNTIME",
+    "WP016_FROZEN_RUNTIME",
     "CandidateDefinition",
     "CandidateGateError",
     "CandidateRegistry",

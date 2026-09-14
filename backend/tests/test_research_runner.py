@@ -11,6 +11,8 @@ from typing import Any
 import pytest
 from app.main import create_app
 from app.research.local_runner import (
+    WP015_FROZEN_RUNTIME,
+    WP016_FROZEN_RUNTIME,
     CandidateDefinition,
     CandidateGateError,
     CandidateRegistry,
@@ -21,6 +23,7 @@ from app.research.local_runner import (
     build_review_bundle,
     wp015_registry,
 )
+from app.research.runtime_v2 import RUNTIME_VERSION, StageTimer
 from fastapi.testclient import TestClient
 
 EVIDENCE = "REPRODUCTION_OF_ALREADY_EXPOSED_DEVELOPMENT_RESULT"
@@ -58,6 +61,7 @@ def result(context: RunContext) -> dict[str, Any]:
         "oos_correlation": 0.01,
         "reconciliation_status": "PASS",
         "scientific_evidence_type": EVIDENCE,
+        "runtime_version": context.candidate.runtime_version,
         "code_head": "abc123",
         "dataset_identities": {"fixture": "sha256"},
         "fold_summary": [{"fold_id": "DEV-2020", "expectancy_r": -0.08, "trades": 10}],
@@ -80,6 +84,7 @@ def fixture_candidate(adapter: Any) -> CandidateDefinition:
         scientific_evidence_type=EVIDENCE,
         execution_counts_as_new_evidence=False,
         preregistration_sha256=(),
+        runtime_version=WP015_FROZEN_RUNTIME,
         adapter=adapter,
     )
 
@@ -106,11 +111,13 @@ def test_registry_is_exactly_two_fixed_allowlisted_candidates() -> None:
     assert attention.run_type == "NEW_EXPERIMENT"
     assert attention.status == "BLOCKED_PROJECT_RETROSPECTIVE_V1"
     assert attention.execution_counts_as_new_evidence is True
+    assert attention.runtime_version == WP016_FROZEN_RUNTIME
     assert attention.preregistration_ready(Path(__file__).resolve().parents[2]) is True
     assert "BLOCKED BEFORE EXECUTION" in attention.scientific_warning
     candidate = registry.get("WP015_REPRODUCTION_V1")
     assert candidate.run_type == "REPRODUCTION_ONLY"
     assert candidate.execution_counts_as_new_evidence is False
+    assert candidate.runtime_version == WP015_FROZEN_RUNTIME
     assert candidate.scientific_evidence_type == EVIDENCE
     assert "NOT A NEW EXPERIMENT" in candidate.scientific_warning
     with pytest.raises(Exception, match="fixed allowlist"):
@@ -149,10 +156,58 @@ def test_progress_result_and_review_bundle_are_persisted(tmp_path: Path) -> None
     assert bundle["candidate"] == "FIXED_REPRODUCTION"
     assert bundle["new_experiment"] is False
     assert bundle["reconciliation_status"] == "PASS"
+    assert bundle["runtime_version"] == WP015_FROZEN_RUNTIME
     refreshed = LocalResearchRunner(service.registry, tmp_path, RunStore(tmp_path / "runs")).read(
         started["run_id"]
     )
     assert refreshed["result"] == final["result"]
+
+
+def test_runtime_v2_binding_requires_and_persists_stage_timings(tmp_path: Path) -> None:
+    def adapter(context: RunContext) -> dict[str, Any]:
+        payload = result(context)
+        timer = StageTimer()
+        payload["stage_timings"] = timer.as_record()
+        return payload
+
+    candidate = replace(
+        fixture_candidate(adapter),
+        candidate_id="FUTURE_RUNTIME_V2_FIXTURE",
+        runtime_version=RUNTIME_VERSION,
+    )
+    (tmp_path / "fixture.dat").write_text("synthetic", encoding="utf-8")
+    service = LocalResearchRunner(
+        CandidateRegistry((candidate,)), tmp_path, RunStore(tmp_path / "runs")
+    )
+    final = wait_terminal(service, service.start(candidate.candidate_id)["run_id"])
+    assert final["status"] == "COMPLETED"
+    assert final["runtime_version"] == RUNTIME_VERSION
+    assert final["result"]["runtime_version"] == RUNTIME_VERSION
+    assert json.loads(final["review_bundle"])["stage_timings"]["total_seconds"] >= 0
+
+
+def test_runtime_v2_binding_fails_closed_without_stage_timings(tmp_path: Path) -> None:
+    candidate = replace(
+        fixture_candidate(lambda context: result(context)),
+        candidate_id="FUTURE_RUNTIME_V2_FIXTURE",
+        runtime_version=RUNTIME_VERSION,
+    )
+    (tmp_path / "fixture.dat").write_text("synthetic", encoding="utf-8")
+    service = LocalResearchRunner(
+        CandidateRegistry((candidate,)), tmp_path, RunStore(tmp_path / "runs")
+    )
+    final = wait_terminal(service, service.start(candidate.candidate_id)["run_id"])
+    assert final["status"] == "FAILED"
+    assert "omitted deterministic stage timings" in final["error"]
+
+
+def test_candidate_registry_rejects_an_unbound_runtime() -> None:
+    candidate = replace(
+        fixture_candidate(lambda context: result(context)),
+        runtime_version="UNDECLARED_RUNTIME",
+    )
+    with pytest.raises(ValueError, match="known research runtime"):
+        CandidateRegistry((candidate,))
 
 
 def test_one_active_run_lock_rejects_duplicate_start(tmp_path: Path) -> None:

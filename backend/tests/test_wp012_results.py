@@ -71,7 +71,7 @@ def test_wp012_result_records_preserve_governance() -> None:
 
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 25
-    assert state["latest_executor_checkpoint"] == "PAPER-ENTRY-V2-STAGE-A"
+    assert state["latest_executor_checkpoint"] == "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2"
     assert state["latest_reviewed_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
     assert state["regime_conditioned_challenger"]["research_director_verdict"] == "ACCEPTED"
     assert state["champion_status"] == "NONE"

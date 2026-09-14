@@ -141,6 +141,7 @@ const runnerCandidate = {
   status: 'READY', runnable: true, expected_stages: ['READY', 'FOLD_2020', 'COMPLETED'], required_local_datasets: ['funding'],
   scientific_warning: 'REPRODUCTION ONLY', scientific_evidence_type: 'REPRODUCTION_OF_ALREADY_EXPOSED_DEVELOPMENT_RESULT',
   execution_counts_as_new_evidence: false, arbitrary_execution: false,
+  runtime_version: 'WP015_FROZEN_RUNTIME_V1',
   preregistration_frozen: true, preregistration_paths: ['preregistration.json'],
   required_data: { ready: true, files: { funding: true } }, fixed_runner_adapter: 'fixed.adapter',
 };
@@ -155,16 +156,33 @@ const wp016Candidate = {
   scientific_warning: 'BLOCKED BEFORE EXECUTION · POINT-IN-TIME VINTAGE UNPROVEN',
   scientific_evidence_type: 'NEW_PREREGISTERED_DEVELOPMENT_EXPERIMENT_RESULT_PENDING_REVIEW',
   execution_counts_as_new_evidence: true,
+  runtime_version: 'WP016_PREREGISTERED_RUNTIME_V1',
 };
 const runnerReady = { candidates: [runnerCandidate], current_or_last_run: null, runner_status: 'IDLE', arbitrary_execution: false, maximum_active_runs: 1 };
 const runnerCompleted = {
   run_id: 'run-015', candidate_id: 'WP015_REPRODUCTION_V1', started_at: '2026-03-05T12:00:00Z', finished_at: '2026-03-05T12:00:04Z',
   status: 'COMPLETED', stage: 'COMPLETED', progress: 100, elapsed_seconds: 4, review_bundle: '{"run":"run-015"}',
+  runtime_version: 'WP015_FROZEN_RUNTIME_V1',
   result: { candidate_id: 'WP015_REPRODUCTION_V1', run_id: 'run-015', status: 'COMPLETED', classification: 'REJECT_COST_DOMINATED', verdict: 'RIPRODUZIONE CONCILIATA',
     default_expectancy_r: -0.08, zero_cost_expectancy_r: 0.02, double_cost_expectancy_r: -0.2, delay_expectancy_r: -0.1,
     trade_count: 12, nonnegative_folds: 1, fold_count: 5, minimum_fold_trades: 1, control_default_expectancy_r: -0.07,
     primary_minus_control_r: -0.01, oos_correlation: 0.04, reconciliation_status: 'PASS', elapsed_seconds: 4,
-    scientific_evidence_type: 'REPRODUCTION_OF_ALREADY_EXPOSED_DEVELOPMENT_RESULT', code_head: 'b12f13f', dataset_identities: { funding: 'sha256:test' } },
+    scientific_evidence_type: 'REPRODUCTION_OF_ALREADY_EXPOSED_DEVELOPMENT_RESULT', runtime_version: 'WP015_FROZEN_RUNTIME_V1', code_head: 'b12f13f', dataset_identities: { funding: 'sha256:test' } },
+};
+const runtimeV2Completed = {
+  ...runnerCompleted,
+  runtime_version: 'RESEARCH_RUNTIME_V2_BATCH',
+  result: {
+    ...runnerCompleted.result,
+    runtime_version: 'RESEARCH_RUNTIME_V2_BATCH',
+    stage_timings: {
+      record_version: 1,
+      runtime_version: 'RESEARCH_RUNTIME_V2_BATCH',
+      stage_order: ['LOAD_DATA', 'PREDICT'],
+      duration_seconds: { LOAD_DATA: 1.25, PREDICT: 0.005 },
+      total_seconds: 1.255,
+    },
+  },
 };
 
 type Calls = { url: string; method: string }[];
@@ -673,6 +691,19 @@ describe('navigazione', () => {
 });
 
 describe('Research Lab', () => {
+  it('mostra runtime e tempi reali per fase nei dettagli di un risultato V2', async () => {
+    mockApi({
+      'research/runner': { ...runnerReady, current_or_last_run: runtimeV2Completed },
+    });
+    render(<App />);
+    await screen.findByText(/Analisi non ancora eseguita/);
+    await userEvent.click(screen.getByRole('button', { name: 'Research' }));
+    expect(await screen.findByText('Expectancy netta')).toBeInTheDocument();
+    await userEvent.click(screen.getByText('Dettagli tecnici'));
+    expect(screen.getByText('RESEARCH_RUNTIME_V2_BATCH')).toBeInTheDocument();
+    expect(screen.getByText(/LOAD_DATA: 1\.250 s · PREDICT: 0\.005 s/)).toBeInTheDocument();
+  });
+
   it('seleziona il candidato eseguibile e mostra WP-016 come bloccato', async () => {
     const calls = mockApi({ 'research/runner': { ...runnerReady, candidates: [wp016Candidate, runnerCandidate] } });
     render(<App />);

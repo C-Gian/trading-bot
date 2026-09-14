@@ -72,7 +72,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 25
     assert state["latest_reviewed_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
-    assert state["latest_executor_checkpoint"] == "PAPER-ENTRY-V2-STAGE-A"
+    assert state["latest_executor_checkpoint"] == "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2"
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
     assert challenger["model_reconciliation"] == "PASS"

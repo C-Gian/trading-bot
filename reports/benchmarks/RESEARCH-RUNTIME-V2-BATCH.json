@@ -1,0 +1,73 @@
+{
+  "benchmark_version": "RESEARCH_RUNTIME_V2_BATCH_BENCHMARK_V1",
+  "cache_implemented": false,
+  "classification": "ENGINEERING_EQUIVALENCE_REPRODUCTION",
+  "experiment_counter_increment": 0,
+  "governed_stage_timings": {
+    "duration_seconds": {
+      "BUILD_FEATURES": 0.0660963999980595,
+      "BUILD_LABELS": 0.0,
+      "FINALIZE": 0.0002175999979954213,
+      "FIT": 23.53698990000703,
+      "LOAD_DATA": 2.48512739999569,
+      "PREDICT": 0.42237059999024495,
+      "PROFILES": 0.7750427999999374,
+      "RECONCILIATION": 0.0
+    },
+    "record_version": 1,
+    "runtime_version": "RESEARCH_RUNTIME_V2_BATCH",
+    "stage_order": [
+      "LOAD_DATA",
+      "BUILD_FEATURES",
+      "BUILD_LABELS",
+      "FIT",
+      "PREDICT",
+      "PROFILES",
+      "RECONCILIATION",
+      "FINALIZE"
+    ],
+    "total_seconds": 27.285844699988957
+  },
+  "governed_timing_scope": "Frozen WP-015 fit_fold combines training feature/label construction and model fit inside FIT; zero BUILD_LABELS is not a claim of zero label cost.",
+  "governed_wp015_prediction_and_profile": {
+    "batch_seconds": 0.001675399995292537,
+    "committed_model_identity_matched": true,
+    "cost_profile_prediction_object_reused": true,
+    "delay_alignment_identical": true,
+    "fold_id": "DEV-2020",
+    "max_abs_prediction_difference": 0.0,
+    "metrics_identical": true,
+    "metrics_sha256": "5f876da12cde0349e7f2f7768a604edc65c25499369252da7831bb862b9162e5",
+    "model_identity_sha256": "fa3f1378ce0a9c3a2970045f3b8e310f04adbddec0b7523b95300882b4bf56ed",
+    "rows": 513,
+    "rowwise_seconds": 0.42064209999807645,
+    "sample_matrix_sha256": "cce405698eb093ab63848a889837fe9b76daad716db10e30ab56424694f25dd0",
+    "scientific_state_sha256": "08186797901c7752b4999da365ca75e498adc395de8fc52c4412126a887e624c",
+    "signal_decisions_identical": true,
+    "signal_mismatch_count": 0,
+    "speedup": 251.06965571205538,
+    "trade_count": 3,
+    "trade_identities_identical": true,
+    "trade_identity_sha256": "90e979854b4020fd1578cfecac1144aa7382ccf063ebad7c8eae80d36fb0d364",
+    "training_matrix_logical_sha256": "6fbd18a2bd040aab590b5dcfde829618ed7a497959e5fa2339c123b5bedd632e",
+    "variant": "INTERNAL_PLUS_FUNDING_HGBR"
+  },
+  "known_full_wp015_reproduction_seconds": 1067.810941,
+  "numpy_version": "2.4.6",
+  "prediction_tolerance": 1e-12,
+  "runtime_version": "RESEARCH_RUNTIME_V2_BATCH",
+  "scientific_evidence": false,
+  "sealed_queries": 0,
+  "seed": 20260914,
+  "sklearn_version": "1.7.2",
+  "synthetic_prediction": {
+    "batch_seconds": 0.018034399996395223,
+    "max_abs_prediction_difference": 0.0,
+    "rows": 10000,
+    "rowwise_seconds": 8.489951099996688,
+    "signal_mismatch_count": 0,
+    "speedup": 470.7642672721958
+  },
+  "whole_experiment_speedup_claimed": false,
+  "wp016_executed": false
+}

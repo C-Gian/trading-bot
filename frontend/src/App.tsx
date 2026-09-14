@@ -96,6 +96,8 @@ function ResearchLab({
                   ['Run ID', run.run_id], ['Codice', run.result.code_head ?? '—'], ['Zero costi', researchMetric(run.result.zero_cost_expectancy_r)],
                   ['Delay 1h', researchMetric(run.result.delay_expectancy_r)], ['Controllo default', researchMetric(run.result.control_default_expectancy_r)],
                   ['Correlazione OOS', run.result.oos_correlation == null ? '—' : run.result.oos_correlation.toFixed(4)], ['Riconciliazione', run.result.reconciliation_status],
+                  ['Runtime', run.result.runtime_version ?? candidate?.runtime_version ?? 'Runtime storico non dichiarato'],
+                  ['Tempi per fase', run.result.stage_timings?.stage_order.map(stage => `${stage}: ${run.result?.stage_timings?.duration_seconds[stage].toFixed(3)} s`).join(' · ') ?? 'Non disponibili per il runtime storico'],
                   ['Tipo evidenza', run.result.scientific_evidence_type], ['Dataset', Object.entries(run.result.dataset_identities ?? {}).map(([key, value]) => `${key}: ${value}`).join(' · ') || '—'],
                   ['Hash riproduzione', Object.entries(run.result.runtime_artifact_hashes ?? {}).map(([key, value]) => `${key}: ${value}`).join(' · ') || '—'],
                 ]} /></div>
