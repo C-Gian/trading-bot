@@ -115,5 +115,14 @@ manifest, and content hashes; and require external vintage guarantees before all
 - Research Runner: **READY for WP-015 reproduction; WP-016 disabled**.
 - WP-016: **BLOCKED_BEFORE_EXECUTION**.
 
+## Validation
+
+The committed checkpoint passed `scripts/check.py --no-data`: Ruff, format verification,
+mypy over 148 source files, 637 backend tests, frontend lint/typecheck, 38 frontend tests,
+and the production build. The separate installed-data path passed against the current
+five manifests, all governed parquet identities, the preserved partial GDELT cache,
+ALFRED point-in-time artifacts, funding raw/as-of data, Wikimedia raw/canonical data,
+and the independent BTC/order-flow checks. No experiment adapter ran.
+
 Machine-readable lane findings and evidence paths are in
 `reports/audits/PROJECT-RETROSPECTIVE-V1.json`.

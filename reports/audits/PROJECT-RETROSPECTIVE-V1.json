@@ -321,6 +321,19 @@
     "reason_not_implemented": "WOULD_CHANGE_FROZEN_DEPENDENCY_IDENTITIES; MUST BE_VERSIONED_PROSPECTIVELY"
   },
   "research_process_summary": "The governance model is coherent and conservative, but future external sources need explicit vintage guarantees before preregistration, runner attempts must remain one-shot, full-data validation must track the live manifest inventory, and repeated research orchestration should migrate to versioned deterministic batch infrastructure.",
+  "validation": {
+    "backend_tests": "PASS_637",
+    "frontend_tests": "PASS_38",
+    "frontend_lint": "PASS",
+    "frontend_typecheck": "PASS",
+    "frontend_build": "PASS",
+    "ruff": "PASS",
+    "format_verification": "PASS",
+    "mypy": "PASS_148_SOURCE_FILES",
+    "check_py_no_data": "PASS",
+    "installed_real_data_integrity": "PASS_WITHOUT_EXPERIMENT_EXECUTION",
+    "wp016_executed": false
+  },
   "external_source_evidence": [
     "https://doc.wikimedia.org/generated-data-platform/aqs/analytics-api/reference/page-views.html",
     "https://doc.wikimedia.org/generated-data-platform/aqs/analytics-api/concepts/page-views.html",

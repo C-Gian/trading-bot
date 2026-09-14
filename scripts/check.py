@@ -975,6 +975,33 @@ def data_checks(state: dict) -> None:
         sha256(ROOT / alfred_manifest["request_index"]["path"])
         == alfred_manifest["request_index"]["file_sha256"]
     )
+    gdelt_pause = json.loads(
+        (ROOT / "research/exogenous/GDELT-NEWS-CONTEXT-V1_1-PAUSE-V1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    preserved = gdelt_pause["preserved_requests"]
+    assert gdelt_pause["status"] == "PARTIAL"
+    assert gdelt_pause["preserved_request_count"] == len(preserved) == 3
+    assert gdelt_pause["outstanding_request_count"] == 7
+    daily_root = ROOT / gdelt_pause["preservation"]["v1_1_daily_cache_root"]
+    assert set(daily_root.rglob("*.json.gz")) == {ROOT / item["raw_path"] for item in preserved}
+    assert len(list(daily_root.rglob("*.meta.json"))) == len(preserved)
+    for item in preserved:
+        raw_path = ROOT / item["raw_path"]
+        meta_path = raw_path.with_name(raw_path.name.removesuffix(".json.gz") + ".meta.json")
+        metadata = json.loads(meta_path.read_text(encoding="utf-8"))
+        assert sha256(raw_path) == item["compressed_file_sha256"]
+        assert all(
+            metadata[key] == item[key]
+            for key in (
+                "request_id",
+                "response_sha256",
+                "compressed_file_sha256",
+                "date_resolution",
+                "retrieval_time_utc",
+            )
+        )
     from app.research.funding import load_funding_context
     from app.research.wikimedia import load_attention_context
 

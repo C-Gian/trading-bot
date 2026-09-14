@@ -13,3 +13,7 @@ Runner restart/one-shot controls, paper-store atomicity and safety validation, U
 current installed-data validation, chronology bookkeeping, and high-value regression
 tests were completed. Full findings are in
 `reports/audits/PROJECT-RETROSPECTIVE-V1.{md,json}`.
+
+Validation passed with 637 backend tests, 38 frontend tests, Ruff, format verification,
+mypy, frontend lint/typecheck/build, `scripts/check.py --no-data`, and the repaired
+installed-data integrity gate. WP-016 remained unexecuted throughout.
