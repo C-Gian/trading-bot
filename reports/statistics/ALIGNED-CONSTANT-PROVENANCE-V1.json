@@ -1,0 +1,138 @@
+{
+  "allowed_provenance_statuses": [
+    "EX_ANTE_CONVENTION",
+    "INHERITED",
+    "RESULT_DEPENDENT",
+    "UNKNOWN_PROVENANCE"
+  ],
+  "append_only": true,
+  "audit_id": "ALIGNED-CONSTANT-PROVENANCE-V1",
+  "historical_design_rewritten": false,
+  "parameters": [
+    {
+      "evidence": [
+        "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+        "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json"
+      ],
+      "first_known_commit": "ee6488c9fc6d5a8ee0bf9323b6fbf48a66f30f8d",
+      "first_known_repository_source": "backend/app/research/baselines.py",
+      "known_before_relevant_result_exposure": true,
+      "notes": "Inherited unchanged from the fixed WP-003 breakout baseline.",
+      "parameter_id": "ALIGNED_BREAKOUT_LOOKBACK",
+      "provenance_status": "INHERITED",
+      "semantic_role": "ENTRY_EVENT_PRIOR_HIGH_WINDOW",
+      "unit": "completed_1h_bars",
+      "value": 24
+    },
+    {
+      "evidence": [
+        "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+        "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json"
+      ],
+      "first_known_commit": "17cc59a753d2368637de0263c31d3479d1303dff",
+      "first_known_repository_source": "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+      "known_before_relevant_result_exposure": true,
+      "notes": "Seven-day calendar interpretation; not reported as optimized.",
+      "parameter_id": "ALIGNED_CONTEXT_LENGTH",
+      "provenance_status": "EX_ANTE_CONVENTION",
+      "semantic_role": "DIRECTIONAL_PERSISTENCE_CONTEXT",
+      "unit": "4h_bars_and_increments",
+      "value": {
+        "close_to_close_increments": 42,
+        "completed_4h_bars": 43
+      }
+    },
+    {
+      "evidence": [
+        "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+        "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json"
+      ],
+      "first_known_commit": "17cc59a753d2368637de0263c31d3479d1303dff",
+      "first_known_repository_source": "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+      "known_before_relevant_result_exposure": true,
+      "notes": "Equivalent signed efficiency threshold is one third; no threshold search recorded.",
+      "parameter_id": "ALIGNED_PERSISTENCE_THRESHOLD",
+      "provenance_status": "EX_ANTE_CONVENTION",
+      "semantic_role": "DIRECTIONAL_PERSISTENCE_GATE",
+      "unit": "positive_to_negative_price_travel_ratio",
+      "value": "U >= 2D"
+    },
+    {
+      "evidence": [
+        "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+        "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json"
+      ],
+      "first_known_commit": "17cc59a753d2368637de0263c31d3479d1303dff",
+      "first_known_repository_source": "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+      "known_before_relevant_result_exposure": true,
+      "notes": "Prior-day calendar interpretation; current volume is excluded.",
+      "parameter_id": "ALIGNED_VOLUME_REFERENCE_LOOKBACK",
+      "provenance_status": "EX_ANTE_CONVENTION",
+      "semantic_role": "PARTICIPATION_REFERENCE_WINDOW",
+      "unit": "completed_1h_bars",
+      "value": 24
+    },
+    {
+      "evidence": [
+        "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+        "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json"
+      ],
+      "first_known_commit": "17cc59a753d2368637de0263c31d3479d1303dff",
+      "first_known_repository_source": "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+      "known_before_relevant_result_exposure": true,
+      "notes": "The design explicitly calls 2x a unit-based convention, not an estimated optimum.",
+      "parameter_id": "ALIGNED_PARTICIPATION_THRESHOLD",
+      "provenance_status": "EX_ANTE_CONVENTION",
+      "semantic_role": "PARTICIPATION_GATE",
+      "unit": "multiple_of_prior_24h_mean_base_volume",
+      "value": 2
+    },
+    {
+      "evidence": [
+        "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+        "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json"
+      ],
+      "first_known_commit": "ee6488c9fc6d5a8ee0bf9323b6fbf48a66f30f8d",
+      "first_known_repository_source": "backend/app/research/baselines.py",
+      "known_before_relevant_result_exposure": true,
+      "notes": "Frozen baseline barrier retained to isolate selection-gate evidence.",
+      "parameter_id": "ALIGNED_STOP",
+      "provenance_status": "INHERITED",
+      "semantic_role": "LOSS_BARRIER",
+      "unit": "percent_below_signal_reference",
+      "value": 2
+    },
+    {
+      "evidence": [
+        "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+        "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json"
+      ],
+      "first_known_commit": "ee6488c9fc6d5a8ee0bf9323b6fbf48a66f30f8d",
+      "first_known_repository_source": "backend/app/research/baselines.py",
+      "known_before_relevant_result_exposure": true,
+      "notes": "Frozen baseline barrier retained to isolate selection-gate evidence.",
+      "parameter_id": "ALIGNED_TARGET",
+      "provenance_status": "INHERITED",
+      "semantic_role": "PROFIT_BARRIER",
+      "unit": "percent_above_signal_reference",
+      "value": 4
+    },
+    {
+      "evidence": [
+        "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
+        "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json"
+      ],
+      "first_known_commit": "ee6488c9fc6d5a8ee0bf9323b6fbf48a66f30f8d",
+      "first_known_repository_source": "backend/app/research/baselines.py",
+      "known_before_relevant_result_exposure": true,
+      "notes": "Frozen baseline horizon; the rebaseline does not reinterpret or optimize it.",
+      "parameter_id": "ALIGNED_EXPIRY",
+      "provenance_status": "INHERITED",
+      "semantic_role": "MAXIMUM_HOLDING_HORIZON",
+      "unit": "hours_from_entry",
+      "value": 24
+    }
+  ],
+  "parameters_sha256": "ec37fed146dd7167b62d8c0993d8c1c76d9e098d889bb57ae936b801ecb70bae",
+  "schema_version": 1
+}

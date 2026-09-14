@@ -1,0 +1,344 @@
+{
+  "counting_policy": {
+    "annual_folds_are_hypotheses": false,
+    "cost_or_delay_profiles_are_hypotheses": false,
+    "matched_controls_are_discoveries": false,
+    "model_fits_are_hypotheses": false,
+    "only_observed_material_economic_hypotheses_enter_primary_family": true,
+    "reproductions_are_discoveries": false
+  },
+  "counts": {
+    "BLOCKED_NEVER_OBSERVED": 1,
+    "CONFIGURATION": 29,
+    "COST_OR_DELAY_PROFILE": 125,
+    "MATCHED_CONTROL": 5,
+    "MATERIAL_ECONOMIC_HYPOTHESIS": 12,
+    "REPRODUCTION": 1,
+    "WALK_FORWARD_FIT": 216
+  },
+  "events": [
+    {
+      "classification": "BLOCKED_NEVER_OBSERVED",
+      "discovery_family_member": false,
+      "event_id": "WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1",
+      "experiment_ids": [
+        "EXP-ML-026-INTERNAL-FUNDING-PLUS-ATTENTION-HGBR"
+      ],
+      "observed": false,
+      "unit_count": 1
+    },
+    {
+      "classification": "CONFIGURATION",
+      "discovery_family_member": false,
+      "event_id": "EXP-ALG-007-REGIME",
+      "hypothesis_id": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+      "observed": true,
+      "semantic_role": "STRUCTURAL_ABLATION",
+      "unit_count": 1
+    },
+    {
+      "classification": "CONFIGURATION",
+      "discovery_family_member": false,
+      "event_id": "EXP-ALG-008-PARTICIPATION",
+      "hypothesis_id": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+      "observed": true,
+      "semantic_role": "STRUCTURAL_ABLATION",
+      "unit_count": 1
+    },
+    {
+      "classification": "CONFIGURATION",
+      "discovery_family_member": false,
+      "event_id": "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM",
+      "hypothesis_id": "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
+      "observed": true,
+      "semantic_role": "STRUCTURAL_CONFIRMATION_VARIANT",
+      "unit_count": 1
+    },
+    {
+      "classification": "CONFIGURATION",
+      "discovery_family_member": false,
+      "event_id": "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE",
+      "hypothesis_id": "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
+      "observed": true,
+      "semantic_role": "STRUCTURAL_CONFIRMATION_VARIANT",
+      "unit_count": 1
+    },
+    {
+      "classification": "CONFIGURATION",
+      "discovery_family_member": false,
+      "event_id": "EXP-BASE-001-BUYHOLD",
+      "hypothesis_id": "REFERENCE-BUYHOLD-V1",
+      "observed": true,
+      "semantic_role": "REFERENCE",
+      "unit_count": 1
+    },
+    {
+      "classification": "CONFIGURATION",
+      "discovery_family_member": false,
+      "event_id": "EXP-CTRL-002-RANDOM",
+      "hypothesis_id": "CONTROL-RANDOM-V1",
+      "observed": true,
+      "semantic_role": "RANDOM_CONTROL",
+      "unit_count": 1
+    },
+    {
+      "classification": "CONFIGURATION",
+      "discovery_family_member": false,
+      "event_id": "EXP-CTRL-006-NO-TRADE",
+      "hypothesis_id": "CONTROL-NO-TRADE-V1",
+      "observed": true,
+      "semantic_role": "NO_TRADE_CONTROL",
+      "unit_count": 1
+    },
+    {
+      "classification": "CONFIGURATION",
+      "discovery_family_member": false,
+      "event_id": "EXP-ML-015-LINEAR-NET-R-NO-FLOW",
+      "hypothesis_id": "LINEAR_NET_R_SELECTION_V1",
+      "observed": true,
+      "semantic_role": "STRUCTURAL_CONFIRMATION_VARIANT",
+      "unit_count": 1
+    },
+    {
+      "classification": "CONFIGURATION",
+      "discovery_family_member": false,
+      "event_id": "EXP-ML-017-EWLS-INTERNAL-ONLY",
+      "hypothesis_id": "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+      "observed": true,
+      "semantic_role": "STRUCTURAL_ABLATION_VARIANT",
+      "unit_count": 1
+    },
+    {
+      "classification": "COST_OR_DELAY_PROFILE",
+      "discovery_family_member": false,
+      "event_id": "EXP-CTRL-005-TREND-DELAY-1H",
+      "hypothesis_id": "HYP-TREND-V1",
+      "observed": true,
+      "semantic_role": "TIMING_CONTROL",
+      "unit_count": 1
+    },
+    {
+      "classification": "COST_OR_DELAY_PROFILE",
+      "discovery_family_member": false,
+      "event_id": "OBSERVED_PROFILE_EVALUATIONS",
+      "observed": true,
+      "unit_count": 125
+    },
+    {
+      "classification": "MATCHED_CONTROL",
+      "discovery_family_member": false,
+      "event_id": "EXP-ML-019-GLOBAL-MATCHED-CONTROL",
+      "hypothesis_id": "FINANCIAL_REGIME_CONDITIONED_SIGNAL_WEIGHTS_V1",
+      "observed": true,
+      "semantic_role": "MATCHED_UNCONDITIONED_CONTROL",
+      "unit_count": 1
+    },
+    {
+      "classification": "MATCHED_CONTROL",
+      "discovery_family_member": false,
+      "event_id": "EXP-ML-021-INTERNAL-NFCI-MATCHED",
+      "hypothesis_id": "NFCI_MODULATES_INTERNAL_SIGNAL_VALUE_V1",
+      "observed": true,
+      "semantic_role": "MATCHED_INTERNAL_ONLY_CONTROL",
+      "unit_count": 1
+    },
+    {
+      "classification": "MATCHED_CONTROL",
+      "discovery_family_member": false,
+      "event_id": "EXP-ML-023-INTERNAL-LINEAR-MATCHED",
+      "hypothesis_id": "NONLINEAR_INTERNAL_SIGNAL_INTERACTIONS_V1",
+      "observed": true,
+      "semantic_role": "MATCHED_DUPLICATE_CONTROL",
+      "unit_count": 1
+    },
+    {
+      "classification": "MATCHED_CONTROL",
+      "discovery_family_member": false,
+      "event_id": "EXP-ML-025-INTERNAL-HGBR-MATCHED-FUNDING",
+      "hypothesis_id": "SETTLED_FUNDING_ADDS_POSITIONING_INFORMATION_V1",
+      "observed": true,
+      "semantic_role": "MATCHED_KNOWN_CONTROL",
+      "unit_count": 1
+    },
+    {
+      "classification": "MATCHED_CONTROL",
+      "discovery_family_member": false,
+      "event_id": "EXP-ML-027-INTERNAL-PLUS-FUNDING-HGBR-MATCHED-ATTENTION",
+      "hypothesis_id": "WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1",
+      "observed": false,
+      "semantic_role": "MATCHED_KNOWN_CONTROL",
+      "unit_count": 1
+    },
+    {
+      "classification": "MATCHED_CONTROL",
+      "discovery_family_member": false,
+      "event_id": "EXP-ML-029-INTERNAL-HGBR-MATCHED-CFTC",
+      "hypothesis_id": "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1",
+      "observed": true,
+      "semantic_role": "MATCHED_KNOWN_CONTROL",
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
+      "experiment_ids": [
+        "EXP-ALG-012-ORDERFLOW-CORE"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+      "experiment_ids": [
+        "EXP-ALG-009-ALIGNED"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1",
+      "experiment_ids": [
+        "EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+      "experiment_ids": [
+        "EXP-ML-016-EWLS-INTERNAL-MACRO"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "FINANCIAL_REGIME_CONDITIONED_SIGNAL_WEIGHTS_V1",
+      "experiment_ids": [
+        "EXP-ML-018-REGIME-TWO-EXPERTS"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "HYP-BREAKOUT-V1",
+      "experiment_ids": [
+        "EXP-BASE-004-BREAKOUT"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "HYP-TREND-V1",
+      "experiment_ids": [
+        "EXP-BASE-003-TREND"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "LINEAR_NET_R_SELECTION_V1",
+      "experiment_ids": [
+        "EXP-ML-014-LINEAR-NET-R-FULL"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "NFCI_MODULATES_INTERNAL_SIGNAL_VALUE_V1",
+      "experiment_ids": [
+        "EXP-ML-020-NFCI-CONTEXT-INTERACTIONS"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "NONLINEAR_INTERNAL_SIGNAL_INTERACTIONS_V1",
+      "experiment_ids": [
+        "EXP-ML-022-SHALLOW-INTERNAL-HGBR"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
+      "experiment_ids": [
+        "EXP-ALG-010-PULLBACK-RECOVERY-CORE"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "MATERIAL_ECONOMIC_HYPOTHESIS",
+      "discovery_family_member": true,
+      "event_id": "SETTLED_FUNDING_ADDS_POSITIONING_INFORMATION_V1",
+      "experiment_ids": [
+        "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR"
+      ],
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "REPRODUCTION",
+      "discovery_family_member": false,
+      "event_id": "OBSERVED_REPRODUCTIONS",
+      "observed": true,
+      "unit_count": 1
+    },
+    {
+      "classification": "WALK_FORWARD_FIT",
+      "discovery_family_member": false,
+      "event_id": "OBSERVED_WALK_FORWARD_FITS",
+      "observed": true,
+      "unit_count": 216
+    }
+  ],
+  "events_sha256": "87e8996915e1b82fc0263f8b3db32d572e274f19f80bff4e3eba9fe18514c9a3",
+  "known_count_is_lower_bound": true,
+  "known_discovery_family": [
+    "AGGRESSIVE_BUY_FLOW_TRANSITION_V1",
+    "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1",
+    "DYNAMIC_INTERNAL_MACRO_NET_R_V1",
+    "FINANCIAL_REGIME_CONDITIONED_SIGNAL_WEIGHTS_V1",
+    "HYP-BREAKOUT-V1",
+    "HYP-TREND-V1",
+    "LINEAR_NET_R_SELECTION_V1",
+    "NFCI_MODULATES_INTERNAL_SIGNAL_VALUE_V1",
+    "NONLINEAR_INTERNAL_SIGNAL_INTERACTIONS_V1",
+    "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
+    "SETTLED_FUNDING_ADDS_POSITIONING_INFORMATION_V1"
+  ],
+  "known_family_size": 12,
+  "known_material_hypothesis_count": 12,
+  "ledger_id": "MATERIAL-HYPOTHESIS-LEDGER-V1",
+  "missing_historical_trials_estimated": false,
+  "registered_material_hypothesis_count": 13,
+  "registered_search_burden": {
+    "configurations": 29,
+    "profile_evaluations": 133,
+    "supervised_model_fits": 228
+  },
+  "schema_version": 1,
+  "unquantified_pre_repo_exposure": true
+}
