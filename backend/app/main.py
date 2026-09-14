@@ -4,6 +4,7 @@ import json
 from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,7 +15,7 @@ from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
 from .data.store import available, candles
 from .product.analysis import RESEARCH_STATUS, STRATEGY_VERSION, VARIANT, analyse
 from .product.market_feed import recent_candles
-from .product.paper import (
+from .product.paper_v2 import (
     STORE_PATH,
     PaperTradeError,
     PaperTradeStore,
@@ -45,13 +46,19 @@ class ResearchRunRequest(BaseModel):
     candidate_id: str
 
 
+class PaperTradeCreateRequest(BaseModel):
+    """Creation accepts no client-owned decision, price, plan, or timestamp field."""
+
+    model_config = ConfigDict(extra="forbid")
+
+
 def create_app(
     state_path: Path | None = None,
     data_probe: Callable[[], bool] = available,
     research_summary_path: Path | None = None,
     analyser: Callable[[], dict] = analyse,
-    paper_store: PaperTradeStore | None = None,
-    lifecycle: Callable[[PaperTradeStore], dict] = update_lifecycle,
+    paper_store: Any | None = None,
+    lifecycle: Callable[[Any], dict] = update_lifecycle,
     market_view: Callable[[], dict] = recent_candles,
     research_runner: LocalResearchRunner | None = None,
 ) -> FastAPI:
@@ -210,17 +217,21 @@ def create_app(
             "variant": VARIANT,
             "research_status": RESEARCH_STATUS,
             "champion_status": state["champion_status"],
-            "paper_trade_persistence": False,
+            "paper_trade_persistence": True,
             "order_placement": False,
             "real_money_authorized": state["real_money_authorized"],
         }
 
     @application.post("/api/v1/product/paper-trades")
-    def create_paper_trade(repo: StateRepository = Depends(state_repository)):
+    def create_paper_trade(
+        request: PaperTradeCreateRequest | None = None,
+        repo: StateRepository = Depends(state_repository),
+    ):
         """Create one paper trade from a freshly evaluated LONG analysis.
 
         The plan is never supplied by the caller, so no price or geometry can be forged.
         """
+        del request
         state = repo.load()
         if state["real_money_authorized"]:
             raise HTTPException(409, "real-money authorization is not supported by this surface")

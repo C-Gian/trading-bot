@@ -71,8 +71,8 @@ def test_wp015_records_and_state_are_safe() -> None:
 
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 25
-    assert state["latest_reviewed_checkpoint"] == "WP-014"
-    assert state["latest_executor_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
+    assert state["latest_reviewed_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
+    assert state["latest_executor_checkpoint"] == "PAPER-ENTRY-V2-STAGE-A"
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
     assert challenger["model_reconciliation"] == "PASS"
@@ -86,5 +86,5 @@ def test_wp015_records_and_state_are_safe() -> None:
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert "# CURRENT TASK — WP-015" in archived
-    assert "# CURRENT TASK — PROJECT-RETROSPECTIVE-V1" in current
+    assert "# CURRENT TASK — PAPER-ENTRY-V2 + RESEARCH-RUNTIME-V2" in current
     assert (ROOT / "tasks/archive/WP-016-PREP.md").is_file()

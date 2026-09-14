@@ -1,13 +1,6 @@
 import { Analysis } from './api';
-import { checksSummary, dataStatusCopy, gateChecks, money, when } from './format';
+import { checksSummary, dataStatusCopy, gateChecks, when } from './format';
 import { Advanced, Checks, Debug, KeyValues } from './ui';
-
-const PLAN_ROWS: { key: 'entry' | 'stop' | 'target' | 'expiry'; label: string; why: string }[] = [
-  { key: 'entry', label: 'Ingresso', why: 'Prezzo a cui simuliamo l’ingresso' },
-  { key: 'stop', label: 'Stop', why: 'Se scende qui, chiudiamo la simulazione' },
-  { key: 'target', label: 'Obiettivo', why: 'Se sale qui, prendiamo profitto' },
-  { key: 'expiry', label: 'Scadenza', why: 'Il trade viene chiuso comunque entro questo momento' },
-];
 
 export function Decision({
   analysis, busy, canSimulate, blockedReason, onAnalyze, onSimulate,
@@ -78,26 +71,10 @@ export function Decision({
             </div>
           )}
 
-          <dl className="planrows">
-            {PLAN_ROWS.map(row => (
-              <div className="planrow" key={row.key}>
-                <dt>
-                  {row.label}
-                  <span className="why">{row.why}</span>
-                </dt>
-                {row.key === 'expiry' ? (
-                  <dd className="when">{when(plan.expiry_time)}</dd>
-                ) : (
-                  <dd className={row.key === 'entry' ? '' : row.key}>
-                    {money(
-                      row.key === 'entry' ? plan.reference_price
-                        : row.key === 'stop' ? plan.stop_price : plan.target_price,
-                    )}
-                  </dd>
-                )}
-              </div>
-            ))}
-          </dl>
+          <div className="notice">
+            Il prezzo di ingresso verrà definito solo dopo la registrazione, su un minuto futuro.
+            Stop e obiettivo saranno calcolati dal prezzo effettivo di ingresso.
+          </div>
 
           {canSimulate ? (
             <button className="btn primary block" onClick={onSimulate} disabled={busy}>
@@ -128,7 +105,7 @@ export function Decision({
               ['Qualità dei dati', analysis.data_status === 'OK' ? 'Completi' : 'Incompleti'],
               ...(plan
                 ? ([
-                  ['Regola di ingresso', 'Alla prima apertura del minuto successivo'],
+                  ['Regola di ingresso', 'Al primo minuto futuro dopo la registrazione'],
                   ['Uscita', 'Obiettivo, stop oppure scadenza'],
                   ['Durata massima', `${plan.max_hold_minutes} minuti`],
                   ['Distanza dello stop', `${(plan.stop_fraction * 100).toFixed(0)}%`],

@@ -1,8 +1,9 @@
 """One deterministic on-demand ALIGNED paper-research analysis.
 
 The frozen `ALIGNED_PARTICIPATION_CONTINUATION_V1` gates, thresholds and plan geometry
-are reused unchanged: 2% stop, 4% target, LONG or NO_TRADE only, next 1m open entry,
-1,440 minute maximum hold. Nothing here fits, tunes, ranks or persists anything, and the
+are reused unchanged: 2% stop, 4% target, LONG or NO_TRADE only, and a 1,440 minute
+maximum hold. The V2 paper workflow anchors that geometry only after a strictly future
+1m open is observed. Nothing here fits, tunes, ranks or persists anything, and the
 result is transient. ALIGNED is a paper-research candidate, never a Champion.
 """
 
@@ -28,7 +29,7 @@ CHAMPION_STATUS = "NONE"
 CLASSIFICATION = "EXPERIMENTAL PAPER RESEARCH — NOT AN APPROVED LIVE STRATEGY"
 SYMBOL = "BTCUSDT"
 DIRECTION = "LONG"
-ENTRY_RULE = "NEXT_1M_OPEN"
+ENTRY_RULE = "STRICTLY_AFTER_DURABLE_INTENT_NEXT_1M_OPEN"
 EXIT_POLICY = "FIXED_TARGET_OR_STOP_OR_24H"
 EXECUTION_MODEL = "EXECUTION_MODEL_V2"
 STOP_FRACTION = Decimal("0.98")
@@ -145,8 +146,8 @@ def analyse(
         "direction": DIRECTION,
         "entry_rule": ENTRY_RULE,
         "entry_semantics": (
-            "Paper entry at the next completed 1m open after the signal hour, "
-            "with adverse entry friction under EXECUTION_MODEL_V2."
+            "After the Owner accepts the LONG intent, entry is the first available "
+            "completed 1m open strictly later than durable server persistence."
         ),
         "execution_model": EXECUTION_MODEL,
         "exit_policy": EXIT_POLICY,

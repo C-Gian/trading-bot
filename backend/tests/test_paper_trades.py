@@ -18,7 +18,6 @@ from app.product.paper import (
     CLOSED_TARGET,
     INVALIDATED,
     OPEN,
-    PAPER_ENTRY_BLOCK_REASON,
     PAPER_ENTRY_STATUS,
     PENDING_ENTRY,
     STATUSES,
@@ -356,19 +355,19 @@ def _app(tmp_path: Path, decision: str = "LONG"):
     )
 
 
-def test_endpoints_create_read_and_advance(tmp_path: Path) -> None:
+def test_legacy_v1_fixture_remains_readable_but_cannot_create_v2(tmp_path: Path) -> None:
     store, app = _app(tmp_path)
     store.save([_build_trade_from_analysis(_analysis())])
     client = TestClient(app)
     created = client.post("/api/v1/product/paper-trades")
     assert created.status_code == 409
-    assert PAPER_ENTRY_BLOCK_REASON in created.json()["detail"]
+    assert "analysis identity mismatch" in created.json()["detail"]
 
     read = client.get("/api/v1/product/paper-trades").json()
-    assert read["evidence_version"] == "FUTURE_PAPER_EVIDENCE_V1"
+    assert read["evidence_version"] == "FUTURE_PAPER_EVIDENCE_V2"
     assert read["champion_status"] == "NONE"
     assert read["research_status"] == "PAPER_RESEARCH_CANDIDATE"
-    assert read["paper_entry_status"] == PAPER_ENTRY_STATUS
+    assert read["paper_entry_status"] == "AVAILABLE"
     assert len(read["active"]) == 1 and read["recorded"] == 1
 
     advanced = client.post("/api/v1/product/paper-trades/lifecycle").json()
@@ -463,17 +462,19 @@ def test_scientific_paper_trade_counter_is_untouched() -> None:
 def test_state_declares_the_paper_surface_truthfully() -> None:
     state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
     paper = state["paper_trading"]
-    assert paper["surface"] == "BLOCKED_CAUSAL_ENTRY_TIMING_V1"
-    assert paper["paper_entry_status"] == "BLOCKED_CAUSAL_ENTRY_TIMING_V1"
-    assert "already-observed" in paper["paper_entry_block_reason"]
-    assert paper["persistence_version"] == "FUTURE_PAPER_EVIDENCE_V1"
-    assert paper["prospective_execution_version"] == "PROSPECTIVE_PAPER_EXECUTION_V1"
+    assert paper["surface"] == "AVAILABLE"
+    assert paper["paper_entry_status"] == "AVAILABLE"
+    assert paper["paper_entry_block_reason"] == ""
+    assert paper["legacy_entry_status"] == "BLOCKED_CAUSAL_ENTRY_TIMING_V1"
+    assert paper["legacy_persistence_version"] == "FUTURE_PAPER_EVIDENCE_V1"
+    assert paper["persistence_version"] == "FUTURE_PAPER_EVIDENCE_V2"
+    assert paper["prospective_execution_version"] == "PAPER_EXECUTION_V2_CAUSAL_NEXT_MINUTE"
     assert paper["prospective_features_version"] == "PROSPECTIVE_PAPER_FEATURES_V1"
     assert paper["feature_equivalence"] == paper["execution_equivalence"] == "PASS"
     assert paper["historical_research_code_modified"] is False
     assert paper["statistics_surface"] == paper["chart_dashboard_surface"] == "AVAILABLE"
     assert paper["statistics_version"] == "PAPER_STATISTICS_V1"
-    assert paper["product_stage"] == "V1_PAPER_ALPHA"
+    assert paper["product_stage"] == "V2_PAPER_ALPHA"
     assert paper["scientifically_approved"] is False
     assert paper["lifecycle_trigger"] == "EXPLICIT_USER_ACTION_ONLY"
     assert paper["strategy_version"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"

@@ -179,7 +179,7 @@ def test_statistics_carry_the_future_paper_evidence_label(tmp_path: Path) -> Non
     assert result["statistics_version"] == STATISTICS_VERSION == "PAPER_STATISTICS_V1"
     assert result["label"] == STATISTICS_LABEL
     assert result["label"] == "FUTURE PAPER EVIDENCE — NOT BACKTEST PERFORMANCE"
-    assert result["evidence_stage"] == "PROSPECTIVE_PAPER_RESEARCH_NOT_DEVELOPMENT_EVIDENCE"
+    assert result["evidence_stage"] == "MANUAL_PROSPECTIVE_PAPER"
     assert result["development_backtest_metrics_included"] is False
     assert result["champion_status"] == "NONE"
     assert result["real_money"] is False
@@ -197,7 +197,7 @@ def test_no_development_backtest_metric_can_reach_paper_statistics() -> None:
         for name in modules
         if any(part in name for part in ("research", "backtest", "data.store", "sealed"))
     }
-    assert modules == {"typing", "__future__", "paper"}
+    assert modules == {"typing", "__future__", "paper_v2"}
     for forbidden in ("walk_forward", "fold", "experiment", "EXP-", "pooled", "profile_trials"):
         assert forbidden not in source.lower()
     # "backtest" may appear only in the two declarations that forbid it.

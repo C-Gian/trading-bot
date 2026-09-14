@@ -223,8 +223,8 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == "WP-014"
-    assert state["latest_executor_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
+    assert state["latest_reviewed_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
+    assert state["latest_executor_checkpoint"] == "PAPER-ENTRY-V2-STAGE-A"
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -750,6 +750,12 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/audits/PROJECT-RETROSPECTIVE-V1.md",
         "reports/audits/PROJECT-RETROSPECTIVE-V1.json",
         "reports/checkpoints/PROJECT-RETROSPECTIVE-V1.md",
+        "reports/reviews/PROJECT-RETROSPECTIVE-V1-RESEARCH-DIRECTOR-REVIEW.md",
+        "tasks/archive/PROJECT-RETROSPECTIVE-V1.md",
+        "decisions/ADR-0010-CAUSAL-PAPER-ENTRY-V2.md",
+        "docs/contracts/FUTURE_PAPER_EVIDENCE_V2.md",
+        "research/paper/FUTURE_PAPER_EVIDENCE_V2.json",
+        "reports/checkpoints/PAPER-ENTRY-V2-STAGE-A.md",
         "tasks/archive/WP-016-PREP.md",
     ]
     assert all((ROOT / x).is_file() for x in required)

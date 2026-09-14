@@ -148,7 +148,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "PROJECT-RETROSPECTIVE-V1",
+  "latest_executor_checkpoint": "PAPER-ENTRY-V2-STAGE-A",
   "latest_family": {
     "name": "PERPETUAL_FUNDING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -156,12 +156,12 @@
     "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
     "terminal_classification": "REJECT_COST_DOMINATED"
   },
-  "latest_reviewed_checkpoint": "WP-014",
+  "latest_reviewed_checkpoint": "PROJECT-RETROSPECTIVE-V1",
   "max_holding_horizon": {
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "REDESIGN_OR_ABANDON_WP016_POINT_IN_TIME_ATTENTION_SOURCE",
+  "next_recommended_work_package": "COMPLETE_RESEARCH_RUNTIME_V2_BATCH",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -185,12 +185,18 @@
     "leverage_or_short": false,
     "lifecycle_trigger": "EXPLICIT_USER_ACTION_ONLY",
     "order_placement": false,
-    "paper_entry_block_reason": "The manual analysis occurs after the frozen signal boundary and cannot prospectively enter at the already-observed boundary minute open.",
-    "paper_entry_status": "BLOCKED_CAUSAL_ENTRY_TIMING_V1",
-    "persistence_contract": "docs/contracts/FUTURE_PAPER_EVIDENCE_V1.md",
-    "persistence_version": "FUTURE_PAPER_EVIDENCE_V1",
-    "product_stage": "V1_PAPER_ALPHA",
-    "prospective_execution_version": "PROSPECTIVE_PAPER_EXECUTION_V1",
+    "causal_entry_validation": "PASS_SYNTHETIC",
+    "entry_timeout_completed_opportunities": 5,
+    "evidence_classification": "MANUAL_PROSPECTIVE_PAPER",
+    "initiation_mode": "OWNER_MANUAL",
+    "legacy_entry_status": "BLOCKED_CAUSAL_ENTRY_TIMING_V1",
+    "legacy_persistence_version": "FUTURE_PAPER_EVIDENCE_V1",
+    "paper_entry_block_reason": "",
+    "paper_entry_status": "AVAILABLE",
+    "persistence_contract": "docs/contracts/FUTURE_PAPER_EVIDENCE_V2.md",
+    "persistence_version": "FUTURE_PAPER_EVIDENCE_V2",
+    "product_stage": "V2_PAPER_ALPHA",
+    "prospective_execution_version": "PAPER_EXECUTION_V2_CAUSAL_NEXT_MINUTE",
     "prospective_features_version": "PROSPECTIVE_PAPER_FEATURES_V1",
     "real_money": false,
     "research_status": "PAPER_RESEARCH_CANDIDATE",
@@ -198,7 +204,7 @@
     "statistics_surface": "AVAILABLE",
     "statistics_version": "PAPER_STATISTICS_V1",
     "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
-    "surface": "BLOCKED_CAUSAL_ENTRY_TIMING_V1",
+    "surface": "AVAILABLE",
     "timestamp_translation_used": false
   },
   "product_analysis": {
@@ -207,7 +213,7 @@
     "current_data_reenters_development_evidence": false,
     "leverage_or_short": false,
     "order_placement": false,
-    "paper_trade_persistence": false,
+    "paper_trade_persistence": true,
     "possible_outputs": [
       "NO_TRADE",
       "LONG"
@@ -355,7 +361,7 @@
     "version": "SHALLOW_INTERNAL_HGBR_V1"
   },
   "signal_timeframe": "1h",
-  "status": "EXECUTOR_COMPLETE_PENDING_REVIEW",
+  "status": "IN_PROGRESS",
   "supervised_challenger": {
     "leakage_audit": "PASS",
     "model_fits": 12,

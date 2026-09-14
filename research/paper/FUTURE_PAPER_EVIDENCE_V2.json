@@ -1,0 +1,36 @@
+{
+  "version": "FUTURE_PAPER_EVIDENCE_V2",
+  "execution_version": "PAPER_EXECUTION_V2_CAUSAL_NEXT_MINUTE",
+  "status": "AVAILABLE_PROSPECTIVE_ZERO_GENUINE_TRADES",
+  "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+  "research_status": "PAPER_RESEARCH_CANDIDATE",
+  "champion_status": "NONE",
+  "evidence_classification": "MANUAL_PROSPECTIVE_PAPER",
+  "initiation_mode": "OWNER_MANUAL",
+  "causal_sequence": [
+    "ANALYZE",
+    "PERSIST_INTENT",
+    "OBSERVE_STRICTLY_FUTURE_MINUTE",
+    "FILL",
+    "MANAGE_PAPER_POSITION"
+  ],
+  "entry_predicate": "open_time > intent_persisted_at",
+  "entry_timeout_completed_opportunities": 5,
+  "risk_plan": {
+    "stop_fraction": 0.02,
+    "target_fraction": 0.04,
+    "maximum_hold_minutes_from_actual_fill": 1440
+  },
+  "v1_redefined": false,
+  "genuine_trades_created_by_checkpoint": 0,
+  "scientific_counters_changed": false,
+  "historical_engine_changed": false,
+  "historical_results_changed": false,
+  "safety": {
+    "real_money": false,
+    "orders": false,
+    "credentials": false,
+    "leverage": false,
+    "short": false
+  }
+}

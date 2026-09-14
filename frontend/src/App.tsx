@@ -168,7 +168,7 @@ export function App() {
   }, []);
 
   const analyze = () => act(async () => setAnalysis(await analyseMarket()), null);
-  const simulate = () => act(async () => { await createPaperTrade(); await refreshPaper(); }, 'Simulazione creata.');
+  const simulate = () => act(async () => { await createPaperTrade(); await refreshPaper(); }, 'Paper LONG registrato. Ingresso in attesa.');
   const update = () => act(async () => { await advancePaperTrades(); await refreshPaper(); }, 'Simulazione aggiornata.');
   const candidates = runner?.candidates ?? [];
   const candidate: ResearchRunnerCandidate | null = candidates.find(item => item.candidate_id === selectedCandidateId) ?? candidates[0] ?? null;
@@ -201,17 +201,12 @@ export function App() {
     ? 'C’è già una simulazione in corso. Aggiornala o aspetta che si chiuda prima di aprirne un’altra.'
     : paper?.paper_entry_block_reason ?? null;
 
-  const plan: PlanLines = active
+  const plan: PlanLines = active?.entry_price != null && active.stop_price != null && active.target_price != null
     ? {
-      reference: active.entry_price ?? active.reference_price,
+      reference: active.entry_price,
       stop: active.stop_price, target: active.target_price, origin: 'trade',
     }
-    : analysis?.plan
-      ? {
-        reference: analysis.plan.reference_price,
-        stop: analysis.plan.stop_price, target: analysis.plan.target_price, origin: 'analysis',
-      }
-      : null;
+    : null;
 
   return (
     <div className="shell">

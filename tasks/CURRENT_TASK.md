@@ -1,18 +1,13 @@
-# CURRENT TASK — PROJECT-RETROSPECTIVE-V1
+# CURRENT TASK — PAPER-ENTRY-V2 + RESEARCH-RUNTIME-V2
 
-Status: COMPLETED_PENDING_RESEARCH_DIRECTOR_REVIEW
+Status: STAGE_A_COMPLETE_VALIDATED_STAGE_B_NOT_STARTED
 
-Starting HEAD: `49c924795850c431743512e5725a3250259a67ea` on local `main`.
+Starting HEAD: `a30783888ffc719133a24332ff334a658f5c3010` on local `main`.
 
-The one-time deep project retrospective audited scientific governance, development data,
-time/label/cost/feature/model semantics, reconciliation, historical results, ALIGNED,
-paper trading, Research Runner, web/API integration, tests, performance, architecture,
-research efficiency, and WP-016 readiness.
+This is an engineering checkpoint with no trading experiment. Stage A introduces a
+separate durable-intent-first causal paper entry version while preserving blocked V1.
+Stage B may introduce a prospective batch research runtime only after Stage A is fully
+validated and committed and only if it can also be completed cleanly.
 
-WP-016 was not executed and is blocked before execution because point-in-time vintage
-integrity for the historical Wikimedia values is unproven. New paper entries are also
-blocked pending a versioned causal entry design. Historical results and ALIGNED status
-are unchanged. See `reports/audits/PROJECT-RETROSPECTIVE-V1.md`.
-
-Next recommended work: redesign or abandon the WP-016 attention source under a new
-preregistration, then separately design a causal prospective paper-entry version.
+WP-016 remains `BLOCKED_BEFORE_EXECUTION`; it must not run or be re-enabled. Scientific
+counters, historical experiment artifacts and frozen ALIGNED semantics remain unchanged.

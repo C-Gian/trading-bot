@@ -127,7 +127,7 @@ export function TradeHistory({ trades }: { trades: PaperTrade[] }) {
                   <tr key={trade.trade_id}>
                     <td>{day(trade.signal_time)}</td>
                     <td>Long</td>
-                    <td className="num">{money(trade.entry_price ?? trade.reference_price)}</td>
+                    <td className="num">{money(trade.entry_price)}</td>
                     <td className="num">{money(trade.exit_price)}</td>
                     <td className={copy.tone === 'pos' ? 'pos' : copy.tone === 'neg' ? 'neg' : ''}>
                       {copy.label}

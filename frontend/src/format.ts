@@ -38,6 +38,15 @@ export const when = (iso: string | null | undefined) =>
 
 export const day = (iso: string | null | undefined) => (!iso ? '—' : dayOnly.format(new Date(iso)));
 
+export function duration(seconds: number | null | undefined): string {
+  if (seconds === null || seconds === undefined) return '—';
+  if (seconds < 60) return `${Math.floor(seconds)} secondi`;
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  if (hours > 0) return minutes > 0 ? `${hours}h ${minutes}min` : `${hours}h`;
+  return `${minutes} minuti`;
+}
+
 /** "fra 3h 20min" / "scaduto" — never a raw timestamp diff. */
 export function timeLeft(iso: string | null | undefined, now: Date = new Date()): string {
   if (!iso) return '—';
@@ -53,6 +62,12 @@ export type Tone = 'pos' | 'neg' | 'neutral';
 type StatusCopy = { label: string; tone: Tone; closed: boolean; body: string };
 
 const STATUS: Record<string, StatusCopy> = {
+  PERSISTING_INTENT: {
+    label: 'Registrazione da verificare',
+    tone: 'neutral',
+    closed: false,
+    body: 'La registrazione si è interrotta prima di autorizzare un ingresso.',
+  },
   PENDING_ENTRY: {
     label: 'In attesa di ingresso',
     tone: 'neutral',
@@ -88,6 +103,18 @@ const STATUS: Record<string, StatusCopy> = {
     tone: 'neutral',
     closed: true,
     body: 'Non è stato possibile simulare l’ingresso, quindi il trade non è valido.',
+  },
+  INVALIDATED_ENTRY_UNAVAILABLE: {
+    label: 'Ingresso non disponibile',
+    tone: 'neutral',
+    closed: true,
+    body: 'Nessuno dei cinque minuti futuri consentiti era disponibile: la simulazione è stata annullata.',
+  },
+  INVALIDATED_INTENT_PERSISTENCE: {
+    label: 'Registrazione annullata',
+    tone: 'neutral',
+    closed: true,
+    body: 'La registrazione iniziale non si è completata: nessun ingresso era consentito.',
   },
 };
 

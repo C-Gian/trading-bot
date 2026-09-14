@@ -99,7 +99,7 @@ def test_long_plan_uses_the_frozen_stop_target_entry_and_horizon() -> None:
     assert plan["stop_price"] == pytest.approx(120.0 * 0.98)
     assert plan["target_price"] == pytest.approx(120.0 * 1.04)
     assert (plan["stop_fraction"], plan["target_fraction"]) == (0.02, 0.04)
-    assert plan["entry_rule"] == "NEXT_1M_OPEN"
+    assert plan["entry_rule"] == "STRICTLY_AFTER_DURABLE_INTENT_NEXT_1M_OPEN"
     assert plan["execution_model"] == "EXECUTION_MODEL_V2"
     assert plan["exit_policy"] == "FIXED_TARGET_OR_STOP_OR_24H"
     assert plan["direction"] == "LONG"
@@ -296,13 +296,15 @@ def test_analysis_is_not_reachable_by_get(client: TestClient) -> None:
     assert client.get("/api/v1/product/analysis").status_code == 405
 
 
-def test_capability_declares_no_persistence_order_or_real_money(client: TestClient) -> None:
+def test_capability_declares_causal_persistence_but_no_order_or_real_money(
+    client: TestClient,
+) -> None:
     body = client.get("/api/v1/product/analysis/capability").json()
     assert body["surface"] == "AVAILABLE"
     assert body["trigger"] == "EXPLICIT_USER_ACTION_ONLY"
     assert body["research_status"] == "PAPER_RESEARCH_CANDIDATE"
     assert body["champion_status"] == "NONE"
-    assert body["paper_trade_persistence"] is False
+    assert body["paper_trade_persistence"] is True
     assert body["order_placement"] is False
     assert body["real_money_authorized"] is False
 

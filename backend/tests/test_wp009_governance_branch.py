@@ -157,7 +157,7 @@ def test_the_validator_never_touches_cutoff_or_sealed_state() -> None:
 def test_state_records_the_accepted_wp011_review() -> None:
     state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
     adaptive = state["adaptive_challenger"]
-    assert state["latest_reviewed_checkpoint"] == "WP-014"
+    assert state["latest_reviewed_checkpoint"] == "PROJECT-RETROSPECTIVE-V1"
     assert adaptive["research_director_verdict"] == "ACCEPTED"
     assert adaptive["terminal_classification"] == "REJECT_COST_DOMINATED"
     assert adaptive["ablation_terminal_classification"] == "INCONCLUSIVE"
@@ -170,9 +170,7 @@ def test_state_records_the_accepted_wp011_review() -> None:
     assert state["real_money_authorized"] is False
     assert state["exogenous_acquisition_pause"]["wp009_finalized"] is False
     assert state["paper_trading"]["research_status"] == "PAPER_RESEARCH_CANDIDATE"
-    assert state["next_recommended_work_package"] == (
-        "REDESIGN_OR_ABANDON_WP016_POINT_IN_TIME_ATTENTION_SOURCE"
-    )
+    assert state["next_recommended_work_package"] == "COMPLETE_RESEARCH_RUNTIME_V2_BATCH"
 
 
 def test_the_sealed_table_keeps_both_wp011_candidates_ineligible() -> None:

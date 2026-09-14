@@ -14,9 +14,9 @@ metrics are explicitly `None` rather than a misleading zero.
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Protocol
 
-from .paper import (
+from .paper_v2 import (
     ACTIVE_STATUSES,
     CLOSED_EXPIRY,
     CLOSED_STOP,
@@ -24,13 +24,18 @@ from .paper import (
     EVIDENCE_STAGE,
     EVIDENCE_VERSION,
     INVALIDATED,
+    INVALIDATED_ENTRY_UNAVAILABLE,
+    INVALIDATED_INTENT_PERSISTENCE,
     TERMINAL_STATUSES,
-    PaperTradeStore,
 )
 
 STATISTICS_VERSION = "PAPER_STATISTICS_V1"
 STATISTICS_LABEL = "FUTURE PAPER EVIDENCE — NOT BACKTEST PERFORMANCE"
 REALIZED_STATUSES = (CLOSED_TARGET, CLOSED_STOP, CLOSED_EXPIRY)
+
+
+class ReadablePaperStore(Protocol):
+    def load(self) -> list[dict[str, Any]]: ...
 
 
 def _drawdown(returns: list[float]) -> float | None:
@@ -47,7 +52,7 @@ def _drawdown(returns: list[float]) -> float | None:
     return worst
 
 
-def statistics(store: PaperTradeStore) -> dict[str, Any]:
+def statistics(store: ReadablePaperStore) -> dict[str, Any]:
     """Counts and realized-return metrics over genuine persisted paper trades only."""
     trades = store.load()
     active = [trade for trade in trades if trade["status"] in ACTIVE_STATUSES]
@@ -74,7 +79,16 @@ def statistics(store: PaperTradeStore) -> dict[str, Any]:
         "open": sum(1 for trade in trades if trade["status"] == "OPEN"),
         "active": len(active),
         "closed": len(closed),
-        "invalidated": sum(1 for trade in trades if trade["status"] == INVALIDATED),
+        "invalidated": sum(
+            1
+            for trade in trades
+            if trade["status"]
+            in {
+                INVALIDATED,
+                INVALIDATED_ENTRY_UNAVAILABLE,
+                INVALIDATED_INTENT_PERSISTENCE,
+            }
+        ),
         "closed_target": sum(1 for trade in trades if trade["status"] == CLOSED_TARGET),
         "closed_stop": sum(1 for trade in trades if trade["status"] == CLOSED_STOP),
         "expiries": sum(1 for trade in trades if trade["status"] == CLOSED_EXPIRY),

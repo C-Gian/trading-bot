@@ -54,8 +54,8 @@ const longAnalysis = {
   ...analysisBase, decision: 'LONG', reference_price: 50000,
   features: { breakout: true, persistent_up: true, participation: true, signed_efficiency: 0.6, relative_volume: 2.4 },
   plan: {
-    direction: 'LONG', entry_rule: 'NEXT_1M_OPEN', entry_semantics: 'next completed 1m open',
-    execution_model: 'PROSPECTIVE_PAPER_EXECUTION_V1', exit_policy: 'FIXED_TARGET_OR_STOP_OR_24H',
+    direction: 'LONG', entry_rule: 'STRICTLY_AFTER_DURABLE_INTENT_NEXT_1M_OPEN', entry_semantics: 'strictly future minute',
+    execution_model: 'PAPER_EXECUTION_V2_CAUSAL_NEXT_MINUTE', exit_policy: 'FIXED_TARGET_OR_STOP_OR_24H',
     reference_price: 50000, stop_price: 49000, target_price: 52000,
     stop_fraction: 0.02, target_fraction: 0.04, max_hold_minutes: 1440,
     expiry_time: '2026-03-06T12:00:00Z', leverage: false, short: false, order_placed: false,
@@ -63,19 +63,43 @@ const longAnalysis = {
 };
 
 const openTrade = {
-  trade_id: 'PAPER-abc123', evidence_version: 'FUTURE_PAPER_EVIDENCE_V1',
-  evidence_stage: 'PROSPECTIVE_PAPER_RESEARCH_NOT_DEVELOPMENT_EVIDENCE',
+  trade_id: 'PAPER-V2-abc123', evidence_version: 'FUTURE_PAPER_EVIDENCE_V2',
+  evidence_stage: 'MANUAL_PROSPECTIVE_PAPER', initiation_mode: 'OWNER_MANUAL',
   analysis_id: 'a'.repeat(64), strategy_version: 'ALIGNED_PARTICIPATION_CONTINUATION_V1',
   variant: 'ALIGNED', research_status: 'PAPER_RESEARCH_CANDIDATE', champion_status: 'NONE',
   symbol: 'BTCUSDT', direction: 'LONG', status: 'OPEN',
-  created_at: '2026-03-05T12:30:00Z', signal_time: '2026-03-05T12:00:00Z',
-  entry_execution: 'NEXT_1M_OPEN_EXECUTION', entry_minute: '2026-03-05T12:00:00Z',
-  ambiguous_fill_policy: 'STOP_FIRST_V1', execution_model_version: 'PROSPECTIVE_PAPER_EXECUTION_V1',
-  reference_price: 50000, stop_price: 49000, target_price: 52000, max_hold_minutes: 1440,
+  created_at: '2026-03-05T12:30:01Z', analysis_completed_at: '2026-03-05T12:30:00Z',
+  intent_persisted_at: '2026-03-05T12:30:01Z', signal_timestamp: '2026-03-05T12:00:00Z',
+  signal_time: '2026-03-05T12:00:00Z', signal_age_seconds: 1801,
+  entry_not_before: '2026-03-05T12:31:00Z', entry_execution: 'STRICTLY_FUTURE_1M_OPEN',
+  entry_minute: '2026-03-05T12:31:00Z', ambiguous_fill_policy: 'STOP_FIRST_V1',
+  execution_model_version: 'PAPER_EXECUTION_V2_CAUSAL_NEXT_MINUTE',
+  reference_price: 50010, stop_price: 49000, target_price: 52000,
+  stop_fraction: 0.02, target_fraction: 0.04, max_hold_minutes: 1440,
   expiry_time: '2026-03-06T12:00:00Z', entry_time: '2026-03-05T12:00:00Z', entry_price: 50010,
   exit_time: null, exit_price: null, exit_reason: null, net_r: null, holding_minutes: null,
   resolution_detail: 'public minute data is incomplete', last_update_time: '2026-03-05T13:00:00Z',
   real_money: false,
+};
+const pendingTrade = {
+  ...openTrade,
+  status: 'PENDING_ENTRY',
+  entry_minute: null,
+  reference_price: null,
+  stop_price: null,
+  target_price: null,
+  expiry_time: null,
+  entry_time: null,
+  entry_price: null,
+  resolution_detail: 'durable LONG intent; awaiting a strictly future completed minute',
+};
+const persistingTrade = {
+  ...pendingTrade,
+  status: 'PERSISTING_INTENT',
+  intent_persisted_at: null,
+  signal_age_seconds: null,
+  entry_not_before: null,
+  resolution_detail: 'durable intent is being armed; no entry is permitted',
 };
 const wonTrade = {
   ...openTrade, trade_id: 'PAPER-won001', status: 'CLOSED_TARGET',
@@ -84,17 +108,18 @@ const wonTrade = {
 };
 
 const emptyPaper = {
-  evidence_version: 'FUTURE_PAPER_EVIDENCE_V1',
-  evidence_stage: 'PROSPECTIVE_PAPER_RESEARCH_NOT_DEVELOPMENT_EVIDENCE',
-  contract: 'docs/contracts/FUTURE_PAPER_EVIDENCE_V1.md',
+  evidence_version: 'FUTURE_PAPER_EVIDENCE_V2', evidence_stage: 'MANUAL_PROSPECTIVE_PAPER',
+  initiation_mode: 'OWNER_MANUAL', contract: 'docs/contracts/FUTURE_PAPER_EVIDENCE_V2.md',
   research_status: 'PAPER_RESEARCH_CANDIDATE', champion_status: 'NONE',
-  strategy_version: 'ALIGNED_PARTICIPATION_CONTINUATION_V1', max_hold_minutes: 1440,
+  strategy_version: 'ALIGNED_PARTICIPATION_CONTINUATION_V1',
+  execution_model_version: 'PAPER_EXECUTION_V2_CAUSAL_NEXT_MINUTE',
+  entry_timeout_opportunities: 5, max_hold_minutes: 1440,
   statuses: [], active: [], recent: [], recorded: 0,
   paper_entry_status: 'AVAILABLE', paper_entry_block_reason: '', real_money: false,
 };
 const emptyStats = {
-  statistics_version: 'PAPER_STATISTICS_V1', evidence_version: 'FUTURE_PAPER_EVIDENCE_V1',
-  evidence_stage: 'PROSPECTIVE_PAPER_RESEARCH_NOT_DEVELOPMENT_EVIDENCE',
+  statistics_version: 'PAPER_STATISTICS_V1', evidence_version: 'FUTURE_PAPER_EVIDENCE_V2',
+  evidence_stage: 'MANUAL_PROSPECTIVE_PAPER',
   label: 'FUTURE PAPER EVIDENCE — NOT BACKTEST PERFORMANCE',
   development_backtest_metrics_included: false,
   total_paper_trades: 0, pending_entry: 0, open: 0, active: 0, closed: 0, invalidated: 0,
@@ -235,32 +260,26 @@ describe('analisi', () => {
     expect(card).not.toHaveTextContent('participation');
   });
 
-  it('mostra il piano LONG con i quattro livelli spiegati', async () => {
+  it('mostra il LONG senza fingere livelli ancora ignoti', async () => {
     mockApi({ 'product/analysis': longAnalysis });
     await dashboard();
     await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
     const card = screen.getByRole('region', { name: 'Decisione del bot' });
     expect(await within(card).findByText('Possibile long')).toBeInTheDocument();
     expect(card).toHaveTextContent('Solo simulazione — nessun denaro reale');
-    expect(card).toHaveTextContent('Ingresso');
-    expect(card).toHaveTextContent('Prezzo a cui simuliamo l’ingresso');
-    expect(card).toHaveTextContent('Se scende qui, chiudiamo la simulazione');
-    expect(card).toHaveTextContent('Se sale qui, prendiamo profitto');
-    expect(card).toHaveTextContent('Il trade viene chiuso comunque entro questo momento');
-    expect(card).toHaveTextContent('Obiettivo');
-    expect(card).toHaveTextContent('Scadenza');
-    expect(card).toHaveTextContent('50.000,00');
-    expect(card).toHaveTextContent('49.000,00');
-    expect(card).toHaveTextContent('52.000,00');
+    expect(card).toHaveTextContent('Il prezzo di ingresso verrà definito solo dopo la registrazione');
+    expect(card).toHaveTextContent('Distanza dello stop2%');
+    expect(card).toHaveTextContent('Distanza dell’obiettivo4%');
+    expect(card).not.toHaveTextContent('50.000,00');
+    expect(card).not.toHaveTextContent('49.000,00');
+    expect(card).not.toHaveTextContent('52.000,00');
   });
 
-  it('sovrappone ingresso, stop e obiettivo sul grafico dopo l’analisi', async () => {
+  it('non sovrappone livelli non finali sul grafico dopo la sola analisi', async () => {
     mockApi({ 'product/analysis': longAnalysis });
     await dashboard();
     await userEvent.click(screen.getByRole('button', { name: 'Analizza ora' }));
-    await waitFor(() => expect(priceLines.map(line => [line.title, line.price])).toEqual([
-      ['Ingresso', 50000], ['Stop', 49000], ['Obiettivo', 52000],
-    ]));
+    await waitFor(() => expect(priceLines).toHaveLength(0));
   });
 
   it('non disegna livelli finché non c’è né analisi né simulazione', async () => {
@@ -338,6 +357,38 @@ describe('simulazione', () => {
 // ── trade attivo ──────────────────────────────────────────────────────────
 
 describe('trade attivo', () => {
+  it('presenta una registrazione interrotta senza fingere che sia in attesa di fill', async () => {
+    mockApi({
+      'paper-trades': {
+        ...emptyPaper, active: [persistingTrade], recent: [persistingTrade], recorded: 1,
+      },
+    });
+    await dashboard();
+    const panel = await screen.findByRole('region', { name: 'Simulazione in corso' });
+    expect(panel).toHaveTextContent('Registrazione da verificare');
+    expect(panel).toHaveTextContent('Registrazione incompleta');
+    expect(panel).toHaveTextContent('IngressoNon consentito');
+    expect(panel).not.toHaveTextContent('Ingresso in attesa');
+    expect(panel).toHaveTextContent(/un ingresso non può essere creato/);
+  });
+
+  it('mostra un intento V2 in attesa senza prezzi finali inventati', async () => {
+    mockApi({
+      'paper-trades': { ...emptyPaper, active: [pendingTrade], recent: [pendingTrade], recorded: 1 },
+    });
+    await dashboard();
+    const panel = await screen.findByRole('region', { name: 'Simulazione in corso' });
+    expect(panel).toHaveTextContent('Paper LONG registrato');
+    expect(panel).toHaveTextContent('Ingresso in attesa');
+    expect(panel).toHaveTextContent('Decisione presa');
+    expect(panel).toHaveTextContent('Ingresso non prima di');
+    expect(panel).toHaveTextContent('Età del segnale30 minuti');
+    expect(panel).toHaveTextContent(/solo su un minuto futuro non ancora osservato/);
+    expect(panel).not.toHaveTextContent('49.000,00');
+    expect(panel).not.toHaveTextContent('52.000,00');
+    expect(priceLines).toHaveLength(0);
+  });
+
   it('mostra lo stato in parole semplici con i livelli', async () => {
     mockApi({ 'paper-trades': { ...emptyPaper, active: [openTrade], recent: [openTrade], recorded: 1 } });
     await dashboard();
@@ -432,8 +483,9 @@ describe('linguaggio e sicurezza', () => {
     }
     // Jargon may live inside the collapsed disclosures, never outside them.
     for (const jargon of [
-      /PAPER_RESEARCH_CANDIDATE/, /FUTURE_PAPER_EVIDENCE_V1/, /PROSPECTIVE_PAPER_EXECUTION_V1/,
-      /NOT CHAMPION/, /STOP_FIRST_V1/, /NEXT_1M_OPEN/,
+      /PAPER_RESEARCH_CANDIDATE/, /FUTURE_PAPER_EVIDENCE_V2/,
+      /PAPER_EXECUTION_V2_CAUSAL_NEXT_MINUTE/, /NOT CHAMPION/, /STOP_FIRST_V1/,
+      /STRICTLY_FUTURE_1M_OPEN/,
     ]) {
       for (const node of screen.queryAllByText(jargon)) {
         expect(node.closest('details.advanced')).not.toBeNull();
