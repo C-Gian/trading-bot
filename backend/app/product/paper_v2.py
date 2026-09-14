@@ -7,7 +7,6 @@ that commit, and then permits only completed minute bars whose open is strictly 
 
 from __future__ import annotations
 
-import importlib
 import json
 import os
 import tempfile
@@ -40,6 +39,7 @@ from .execution_v2 import (
     simulate_causal_paper,
 )
 from .market_feed import Kline, MarketFeedError, fetch_minutes
+from .platform_file_io import platform_file_operations
 
 EVIDENCE_VERSION = "FUTURE_PAPER_EVIDENCE_V2"
 EVIDENCE_CONTRACT = "docs/contracts/FUTURE_PAPER_EVIDENCE_V2.md"
@@ -151,46 +151,18 @@ def _interprocess_lock(path: Path):
             handle.write(b"\0")
             handle.flush()
         handle.seek(0)
-        if os.name == "nt":
-            import msvcrt
-
-            msvcrt.locking(handle.fileno(), msvcrt.LK_LOCK, 1)
-            try:
-                yield
-            finally:
-                handle.seek(0)
-                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
-        else:
-            fcntl = importlib.import_module("fcntl")
-
-            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
-            try:
-                yield
-            finally:
-                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+        operations = platform_file_operations()
+        operations.lock(handle.fileno())
+        try:
+            yield
+        finally:
+            handle.seek(0)
+            operations.unlock(handle.fileno())
 
 
 def _replace_durably(staging: Path, target: Path) -> None:
     """Atomically replace and flush rename metadata on the supported platform."""
-    if os.name == "nt":
-        import ctypes
-
-        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
-        move = kernel32.MoveFileExW
-        move.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
-        move.restype = ctypes.c_int
-        replace_existing = 0x1
-        write_through = 0x8
-        if not move(str(staging), str(target), replace_existing | write_through):
-            error = ctypes.get_last_error()
-            raise OSError(error, ctypes.FormatError(error), str(target))
-        return
-    os.replace(staging, target)
-    descriptor = os.open(target.parent, os.O_RDONLY)
-    try:
-        os.fsync(descriptor)
-    finally:
-        os.close(descriptor)
+    platform_file_operations().replace_durably(staging, target)
 
 
 class PaperTradeStore:
