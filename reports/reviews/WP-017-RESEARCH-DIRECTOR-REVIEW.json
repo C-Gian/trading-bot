@@ -1,0 +1,47 @@
+{
+  "artifact_hashes": {
+    "comparison_sha256": "cea6d58dcc63c617220e44e54bff9fcd11eb90602ae2db7b87def38d9ce3052a",
+    "fold_models_sha256": "ec38c6d1dabc442b66dc8f68c7d8b60ba7e746cb2ce3d18cf84a0a5510cdfb1e",
+    "predictions_sha256": "2baa3de586e44a2483622a16ebd91103e333e51a3f2445f3a626bcd6f801aa7c",
+    "reconciliation_sha256": "b2b097362908db5afd3d09d8ba7e9b2576e3271b86c67cf709cd817292f6ceca",
+    "run_record_sha256": "1c8fd764d92fd2949e4b0d259c0b13035b02f14573c4824435f9af9439e24c17",
+    "trials_sha256": "d3a945eaf016088ce1589a453c0039aab492af635f40100c8bc3485243b73498"
+  },
+  "candidate_id": "WP017_CFTC_LEVERAGED_POSITIONING_V1",
+  "classification": "REJECT",
+  "conclusion": "The tested CFTC Leveraged Funds feature does not demonstrate useful incremental predictive information in this frozen specification.",
+  "family_action": "PARKED_NO_RESCUE",
+  "family_id": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+  "frozen_result": {
+    "default_mean_net_r": -0.1336606174,
+    "delay_1h_mean_net_r": -0.1259686378,
+    "double_mean_net_r": -0.2536726859,
+    "fold_count": 5,
+    "matched_control_default_mean_net_r": -0.1143167546,
+    "nonnegative_fold_count": 2,
+    "oos_correlation": 0.0021203273237163987,
+    "primary_minus_control_r": -0.0193438628,
+    "reconciliation": "PASS",
+    "trade_count": 1030,
+    "zero_mean_net_r": -0.0136485544
+  },
+  "prohibited_rescues": [
+    "PARAMETER_RESCUE",
+    "ALTERNATE_CFTC_TRANSFORMATIONS",
+    "SIGN_SPLITS",
+    "FUNDING_COMBINATIONS"
+  ],
+  "reason_codes": [
+    "DEFAULT_EXPECTANCY_NEGATIVE",
+    "ZERO_COST_EXPECTANCY_NEGATIVE",
+    "PRIMARY_WORSE_THAN_MATCHED_CONTROL",
+    "ONLY_2_OF_5_FOLDS_NONNEGATIVE",
+    "OOS_CORRELATION_APPROXIMATELY_ZERO"
+  ],
+  "review_id": "WP-017-RESEARCH-DIRECTOR-REVIEW",
+  "run_id": "f475f7a2ef4b4ed693b5f86aa56d4b38",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "status": "FINAL",
+  "terminal_classifications_rewritten": false
+}

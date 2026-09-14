@@ -1,0 +1,97 @@
+{
+  "artifacts": [
+    "reports/reviews/WP-017-RESEARCH-DIRECTOR-REVIEW.json",
+    "reports/reviews/WP-017-RESEARCH-DIRECTOR-REVIEW.md",
+    "research/experiments/EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR/trials.parquet"
+  ],
+  "code_config_reference": "1fffba1dcd51153d5d8d3cb8c3697ee4bc5dff0e9caad949a44d12f6159be41e",
+  "completed_at_utc": "2026-09-14T15:28:13.477030Z",
+  "dataset": {
+    "content_hash": "87cde983f09b10a7e64186dd209ce93693bd8c71aa87c3552ad9a58046745dba",
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1 + CFTC-CME-BITCOIN-TFF-DEV-v1"
+  },
+  "experiment_id": "EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR",
+  "experiment_version": 1,
+  "interpretation": "EXPOSED DEVELOPMENT RESEARCH, PREDICTIVE NOT CAUSAL. The frozen CFTC Leveraged Funds feature did not demonstrate useful incremental predictive information. No parameter rescue or related transformation is authorized.",
+  "preregistration_created_at_utc": "2026-09-14T12:00:00Z",
+  "preregistration_reference": "EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR",
+  "primary_result": -0.1336606174,
+  "run_identity_hash": "1c8fd764d92fd2949e4b0d259c0b13035b02f14573c4824435f9af9439e24c17",
+  "schema_version": 2,
+  "secondary_results": {
+    "annual_folds": {
+      "fold_count": 5,
+      "folds": [
+        {"expectancy_r": 0.0566317073, "fold_id": "DEV-2020", "trades": 178},
+        {"expectancy_r": -0.2212613948, "fold_id": "DEV-2021", "trades": 491},
+        {"expectancy_r": -0.175626203, "fold_id": "DEV-2022", "trades": 94},
+        {"expectancy_r": 0.0231666084, "fold_id": "DEV-2023", "trades": 103},
+        {"expectancy_r": -0.1523709304, "fold_id": "DEV-2024", "trades": 164}
+      ],
+      "minimum_fold_trades": 94,
+      "model_fits": 10,
+      "nonnegative_fold_count": 2,
+      "terminal_classification": "REJECT",
+      "trade_count": 1030,
+      "trade_ess": 987.6906427001
+    },
+    "independent_reconciliation": {
+      "status": "PASS",
+      "strength": "PARTIAL_INDEPENDENT_OF_WP017_LAB_AND_RUNNER"
+    },
+    "oos_prediction_label_pearson": 0.0021203273237163987,
+    "prediction_positive_hours": {
+      "eligible_validation_hours": 41143,
+      "paired_label_count": 40957,
+      "total": 9192
+    },
+    "primary_minus_control_default_net_r": {
+      "control_default_expectancy_r": -0.1143167546,
+      "control_experiment_id": "EXP-ML-029-INTERNAL-HGBR-MATCHED-CFTC",
+      "difference_r": -0.0193438628,
+      "role": "MATCHED_CONTROL_NOT_NEW_DISCOVERY"
+    },
+    "profiles": {
+      "DEFAULT": {"net_expectancy_r": -0.1336606174, "trade_count": 1030},
+      "DELAY_1H": {"net_expectancy_r": -0.1259686378},
+      "DOUBLE": {"net_expectancy_r": -0.2536726859},
+      "ZERO": {"net_expectancy_r": -0.0136485544}
+    },
+    "stage_timings": {
+      "artifact_hashes": {
+        "comparison_sha256": "cea6d58dcc63c617220e44e54bff9fcd11eb90602ae2db7b87def38d9ce3052a",
+        "fold_models_sha256": "ec38c6d1dabc442b66dc8f68c7d8b60ba7e746cb2ce3d18cf84a0a5510cdfb1e",
+        "predictions_sha256": "2baa3de586e44a2483622a16ebd91103e333e51a3f2445f3a626bcd6f801aa7c",
+        "reconciliation_sha256": "b2b097362908db5afd3d09d8ba7e9b2576e3271b86c67cf709cd817292f6ceca",
+        "trials_sha256": "d3a945eaf016088ce1589a453c0039aab492af635f40100c8bc3485243b73498"
+      },
+      "code_head": "24fccaa1e0e2e4684df8ae226afc64f0bda5d371",
+      "run_id": "f475f7a2ef4b4ed693b5f86aa56d4b38",
+      "runtime_version": "RESEARCH_RUNTIME_V2_BATCH",
+      "stage_seconds": {
+        "BUILD_FEATURES": 474.0582152000279,
+        "BUILD_LABELS": 0.09667610001633875,
+        "FINALIZE": 2.7280482000060147,
+        "FIT": 0.7582457000244176,
+        "LOAD_DATA": 3.3777218000032008,
+        "PREDICT": 1.1400850000063656,
+        "PROFILES": 76.24748399999226,
+        "RECONCILIATION": 619.6658469999966
+      }
+    },
+    "trade_ess_and_concentration": {
+      "active_week_count": 196,
+      "active_week_kish_count": 99.3538115752,
+      "dependence_method": "POSITIVE_TRADE_RETURN_AUTOCORRELATIONS_LAGS_1_TO_5",
+      "max_fold_trade_share": 0.4766990291,
+      "trade_ess": 987.6906427001
+    }
+  },
+  "seed_reference": [0],
+  "status": "COMPLETED",
+  "trial_accounting": {
+    "declared_budget": 4,
+    "executed_trials": 4
+  },
+  "validation_outcome": "PASS"
+}
