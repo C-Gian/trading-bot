@@ -1,0 +1,98 @@
+{
+  "cftc_available_at_or_before_signal": true,
+  "cftc_canonical_eligible_rows": 351,
+  "cftc_canonical_sha256": "d2984e9102d1c41e21f5408ebbcfba12525b298697c34793a9d137200702ae0d",
+  "cftc_excluded_availability_after_cutoff": 1,
+  "cftc_excluded_publication_date_unresolved": 0,
+  "cftc_first_availability_timestamp": "2018-04-14T00:00:00Z",
+  "cftc_last_availability_timestamp": "2024-12-31T00:00:00Z",
+  "cftc_manifest_id": "CFTC-CME-BITCOIN-TFF-DEV-v1",
+  "cftc_raw_rows": 352,
+  "complete_outcomes_before_boundary": true,
+  "control_classification": "KNOWN_INTERNAL_HGBR_MATCHED_CONTROL",
+  "control_features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED"
+  ],
+  "family_classification": "NEW_FAMILY",
+  "features": [
+    "LOG_RETURN_1H",
+    "LOG_RETURN_24H",
+    "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+    "REALIZED_VOL_24H",
+    "LOG_RELATIVE_VOLUME_1H",
+    "DIRECTIONAL_EFFICIENCY_4H",
+    "TAKER_BUY_SHARE_1H_CENTERED",
+    "TAKER_BUY_SHARE_4H_CENTERED",
+    "CFTC_LEVERAGED_FUNDS_NET_OI_SHARE_V1"
+  ],
+  "forbidden_sources": [
+    "THIRD_PARTY_COT_MIRRORS",
+    "CURRENT_API_RECONSTRUCTION_OF_HISTORICAL_VALUES",
+    "BINANCE_FUNDING",
+    "NEWS",
+    "OTHER_CFTC_TRADER_GROUPS"
+  ],
+  "freshness_cutoff": false,
+  "hgbr_parameters": {
+    "early_stopping": false,
+    "l2_regularization": 1.0,
+    "learning_rate": 0.05,
+    "loss": "squared_error",
+    "max_bins": 63,
+    "max_depth": 3,
+    "max_iter": 64,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 128,
+    "random_state": 0
+  },
+  "input_scaling": "NONE_RAW_GOVERNED_VALUES",
+  "interpolation": false,
+  "market_results_observed": 0,
+  "matched_eligible_universe": true,
+  "model_fits_executed": 0,
+  "model_fits_reserved": 10,
+  "new_feature_count": 1,
+  "only_new_feature": "CFTC_LEVERAGED_FUNDS_NET_OI_SHARE_V1",
+  "post_cutoff_access": 0,
+  "prediction_tolerance": 1e-10,
+  "preregistration_sha256": {
+    "INTERNAL_HGBR_MATCHED_CFTC": "2be6336a8cc811da13227199c70b87914974decfea2ccb36db2e5a25264b3cca",
+    "INTERNAL_PLUS_CFTC_LEVERAGED_NET_HGBR": "e14fc038ae639510db93b9ddd925a66959f95c2cc252fdc6a8270257b28f2274"
+  },
+  "profiles": [
+    "DEFAULT",
+    "ZERO",
+    "DOUBLE",
+    "DELAY_1H"
+  ],
+  "protocol_id": "WP-017-CFTC-LEVERAGED-POSITIONING-V1",
+  "purge_boundary_hours": 216,
+  "report_age_feature": false,
+  "report_date_used_as_availability": false,
+  "runtime_version": "RESEARCH_RUNTIME_V2_BATCH",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "signal_threshold": 0.0,
+  "status": "PASS",
+  "success_criteria": [
+    "PRIMARY_DEFAULT_MEAN_NET_R_ABOVE_ZERO",
+    "PRIMARY_DEFAULT_MEAN_NET_R_ABOVE_CONTROL_DEFAULT_MEAN_NET_R",
+    "AT_LEAST_3_OF_5_PRIMARY_ANNUAL_DEFAULT_FOLDS_WITH_MEAN_NET_R_AT_OR_ABOVE_ZERO",
+    "PRIMARY_DOUBLE_MEAN_NET_R_AT_OR_ABOVE_ZERO"
+  ],
+  "validation_years": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "work_package": "WP-017-PREPARATION"
+}

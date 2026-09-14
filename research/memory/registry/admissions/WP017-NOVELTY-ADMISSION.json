@@ -1,0 +1,532 @@
+{
+  "admitted": true,
+  "classifier_modified": false,
+  "conditions_added_to_force_novelty": false,
+  "family_classification": "NEW_FAMILY",
+  "gate": "GOVERNED_NEW_INFORMATION_ADMISSION_BEFORE_VALIDATION_RESULT",
+  "market_results_observed_at_admission": 0,
+  "matched_control_policy": "The frozen WP-014 internal HGBR is disclosed as a known mechanism on the exact CFTC-available universe; no novelty is claimed for the control.",
+  "mechanism_distinction": "One point-in-time-safe regulated-futures positioning share, taken from official CFTC Traders in Financial Futures reports at their actual publication availability, adds reported-positioning information to the frozen internal F1-F8 inputs.",
+  "proposed_hypothesis_id": "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1",
+  "proposed_root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+  "reference_signatures": 27,
+  "renamed_to_force_novelty": false,
+  "schema_version": 1,
+  "variants": [
+    {
+      "admitted": true,
+      "behavior_hash": "14faf8bebf05c4eb5ae5a7f961ca1ef070d7065d02f90f3b3f072ea556c87be0",
+      "classification": "NEW_FAMILY",
+      "dependency_hash": "4ce645c36935589198ca2a20868170c0c84f0f86f3586bda60308ea925ff4244",
+      "executable_spec_hash": "b6aecb69ee624138e17ba5e7756621cbc06efd87b8c9178095e1756a11a0199a",
+      "experiment_id": "EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR",
+      "hypothesis_role": "ECONOMIC_CORE",
+      "matched_experiment_ids": [],
+      "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+      "spec": {
+        "algorithm": "SKLEARN_1.7.2_HIST_GRADIENT_BOOSTING_REGRESSOR",
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp017/internal_plus_cftc_leveraged_net_hgbr.json",
+            "sha256": "1fffba1dcd51153d5d8d3cb8c3697ee4bc5dff0e9caad949a44d12f6159be41e"
+          }
+        ],
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "cftc_availability": "UTC_MIDNIGHT_CALENDAR_DAY_AFTER_ACTUAL_CFTC_PUBLICATION_DATE",
+          "cftc_logical_sha256": "d2984e9102d1c41e21f5408ebbcfba12525b298697c34793a9d137200702ae0d",
+          "cftc_manifest_id": "CFTC-CME-BITCOIN-TFF-DEV-v1",
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "feature_version": "SUPERVISED_FEATURES_V1",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "matched_cftc_eligible_universe": "REQUIRED_FOR_PRIMARY_AND_CONTROL",
+          "maximum_timestamp": "2024-12-31T23:59:00Z",
+          "order_flow_version": "ORDER_FLOW_FEATURES_V1",
+          "runtime_version": "RESEARCH_RUNTIME_V2_BATCH"
+        },
+        "execution_geometry": {
+          "ambiguous_intrabar_hit": "STOP_FIRST",
+          "direction": "LONG",
+          "entry": "NEXT_CANONICAL_1M_OPEN",
+          "max_hold_minutes": 1440,
+          "position_policy": "SINGLE_LONG_NO_OVERLAP",
+          "profiles": [
+            "DEFAULT",
+            "ZERO",
+            "DOUBLE",
+            "DELAY_1H"
+          ],
+          "reference": "JUST_COMPLETED_1H_CLOSE",
+          "stop_fraction": 0.02,
+          "stress_retrain": false,
+          "target_fraction": 0.04
+        },
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+        "features": [
+          {
+            "name": "LOG_RETURN_1H",
+            "order": 1,
+            "transformation": "LN(CURRENT_1H_CLOSE/CURRENT_1H_OPEN)"
+          },
+          {
+            "name": "LOG_RETURN_24H",
+            "order": 2,
+            "transformation": "LN(CURRENT_1H_CLOSE/CLOSE_24H_EARLIER)"
+          },
+          {
+            "name": "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "order": 3,
+            "transformation": "LN(CURRENT_CLOSE/MAX_PREVIOUS_24_HIGH_EXCLUDING_CURRENT)"
+          },
+          {
+            "name": "REALIZED_VOL_24H",
+            "order": 4,
+            "transformation": "SQRT(MEAN(EXACT_24_CLOSE_TO_CLOSE_LOG_RETURN_SQUARED))"
+          },
+          {
+            "name": "LOG_RELATIVE_VOLUME_1H",
+            "order": 5,
+            "transformation": "LN(CURRENT_BASE_VOLUME/MEAN_PREVIOUS_24_BASE_VOLUME)"
+          },
+          {
+            "name": "DIRECTIONAL_EFFICIENCY_4H",
+            "order": 6,
+            "transformation": "(SUM_POSITIVE_42_CHANGES-ABS_SUM_NEGATIVE)/(SUM_POSITIVE+ABS_SUM_NEGATIVE)"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_1H_CENTERED",
+            "order": 7,
+            "transformation": "ORDER_FLOW_FEATURES_V1_CURRENT_1H_SHARE_MINUS_0.5"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_4H_CENTERED",
+            "order": 8,
+            "transformation": "ORDER_FLOW_FEATURES_V1_NONOVERLAPPING_4H_SHARE_MINUS_0.5"
+          },
+          {
+            "name": "CFTC_LEVERAGED_FUNDS_NET_OI_SHARE_V1",
+            "order": 9,
+            "transformation": "(Lev_Money_Positions_Long_All - Lev_Money_Positions_Short_All) / Open_Interest_All"
+          }
+        ],
+        "hyperparameters": {
+          "cftc_normalizer_variants": 0,
+          "cftc_trader_group_variants": 0,
+          "cftc_transformations": 0,
+          "cftc_windows": 0,
+          "feature_selection": "NONE",
+          "parameters": {
+            "early_stopping": false,
+            "l2_regularization": 1.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_bins": 63,
+            "max_depth": 3,
+            "max_iter": 64,
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 128,
+            "random_state": 0
+          },
+          "searched": 0
+        },
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "d159547e3ecd01c2789b3553a17f33184165a05da458ea6cdd0efb2928dbf4b6"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/order_flow.py",
+            "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+          },
+          {
+            "path": "backend/app/research/supervised.py",
+            "sha256": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318"
+          },
+          {
+            "path": "backend/app/research/cftc.py",
+            "sha256": "aaa9869ed7ba97468c8f6e6e26868e3dfc4dee5b1dd81f2cd78731887d1a220b"
+          },
+          {
+            "path": "backend/app/research/runtime_v2.py",
+            "sha256": "52a2382cca36f792a6c0d1a74273386af99de523c1e13bdb6f1a38cf40135be2"
+          },
+          {
+            "path": "backend/app/research/wp014_model.py",
+            "sha256": "7e8a624bb57545b4d2cd8ae159585d29bdde8cc65ed84012faccac1161aff0cd"
+          },
+          {
+            "path": "backend/app/research/wp014_lab.py",
+            "sha256": "12694b64cb6ae8cea0ddf0570903b85e5fed69fc884a78b3d8eb9662f760d9de"
+          },
+          {
+            "path": "backend/app/research/wp015_model.py",
+            "sha256": "1f0a397d95b0d24970d0f0753a18170fc240d0535a2ecdb94b4baac4c87efe5a"
+          },
+          {
+            "path": "backend/app/research/wp017_lab.py",
+            "sha256": "aaeda0b8149397e2c3c634c70278e5ea888bff9ee514ccc14c2d03c4b396cba3"
+          },
+          {
+            "path": "backend/app/research/wp017_runner.py",
+            "sha256": "617ac8fb18c582235f41fef36f8261766d867288eaed6b3243ccde4be10c5676"
+          },
+          {
+            "path": "backend/app/research/artifacts.py",
+            "sha256": "0f4b8c7b4dcc9b8f26fc7a3d5b5c086e817cb2358184ab6b0b84af923c5987cb"
+          },
+          {
+            "path": "backend/app/research/model_search_memory.py",
+            "sha256": "8e8499b344e8689a4423fb615ee1a9a4100efe4810ea3ddc34c2c40da141a1a8"
+          },
+          {
+            "path": "backend/app/research/search_memory_v2.py",
+            "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+          },
+          {
+            "path": "scripts/reconcile_wp017.py",
+            "sha256": "1630f0e9f71604939848b557c42b48fc7997b90995e1af4d9babf2f34293716c"
+          },
+          {
+            "path": "docs/contracts/CFTC_LEVERAGED_POSITIONING_CONTEXT_V1.md",
+            "sha256": "96d8bab1186e7a0a65591ce092d0cf78d746ffbe00b4163024f74b357546fcbe"
+          },
+          {
+            "path": "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json",
+            "sha256": "e4a45cf5083925cb81530df82e75c787a83c4fb11ca9c81998b0a9b016a65157"
+          },
+          {
+            "path": "research/protocols/WP-017-CFTC-LEVERAGED-POSITIONING-V1.json",
+            "sha256": "f71c5ad38510f0b90dcc45404a0928aedbb08817ca27f97d1f947e050b0bde69"
+          },
+          {
+            "path": "research/protocols/WP-015-WALK-FORWARD-V1.json",
+            "sha256": "4f087e481949081ecf58b69be658f5f06fd7470996b6ffc35459218055d9793f"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "4ae07165e24792e7dfe88442eca04048aa08318201414f92a0fca302a5d7d2e7"
+          },
+          {
+            "path": "uv.lock",
+            "sha256": "4b1747156cac18e57926f4601890af041ed25ef5be866bd84bdfdf41af3d4a36"
+          }
+        ],
+        "label": {
+          "invalid_unresolved": "EXCLUDE_COUNT_NEVER_IMPUTE",
+          "isolated": true,
+          "profile": "DEFAULT",
+          "version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1"
+        },
+        "regularization": {
+          "kind": "FIXED_L2_LEAF_REGULARIZATION",
+          "searched": false,
+          "value": 1.0
+        },
+        "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+        "scaling": {
+          "mean": false,
+          "scope": "NONE_RAW_GOVERNED_VALUES",
+          "std": false
+        },
+        "schema_version": 2,
+        "signal_rule": {
+          "field": "predicted_default_net_R",
+          "operator": ">",
+          "threshold": 0.0
+        },
+        "train_window_rule": {
+          "cftc_context_required_at_historical_signal": true,
+          "folds": [
+            2020,
+            2021,
+            2022,
+            2023,
+            2024
+          ],
+          "kind": "EXPANDING_CHRONOLOGICAL_PER_ANNUAL_FOLD",
+          "label_outcome_before_purge_boundary": true,
+          "purge_hours": 216,
+          "training_signal_boundary": "STRICTLY_BEFORE_VALIDATION_START_MINUS_PURGE",
+          "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT"
+        }
+      },
+      "structural_hash": "9873dd288ec9c34cc8ccafb82d823016646aa5356a89e8a2fec252b3d37cc5b0",
+      "variant": "INTERNAL_PLUS_CFTC_LEVERAGED_NET_HGBR"
+    },
+    {
+      "admitted": false,
+      "authorized_as_matched_control": true,
+      "behavior_hash": "dcaa16ed3905bc429719d396d9f2cc95a4e831d01f7e56f5c81740327fc94a71",
+      "classification": "KNOWN_INTERNAL_HGBR_MATCHED_CONTROL",
+      "dependency_hash": "e7eed78454398d85a92ee007fcfc2ed1c4029701c0bdaed2424bd3811373780d",
+      "duplicate_gate_unchanged": true,
+      "executable_spec_hash": "ac3a5091202644f0d4b10a75726986c2956ecf60ad1c379b51aca830805ebb4e",
+      "experiment_id": "EXP-ML-029-INTERNAL-HGBR-MATCHED-CFTC",
+      "hypothesis_role": "MATCHED_KNOWN_CONTROL",
+      "known_mechanism_experiment_ids": [
+        "EXP-ML-022-SHALLOW-INTERNAL-HGBR"
+      ],
+      "matched_experiment_ids": [],
+      "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+      "spec": {
+        "algorithm": "SKLEARN_1.7.2_HIST_GRADIENT_BOOSTING_REGRESSOR",
+        "config_dependencies": [
+          {
+            "path": "research/configs/wp017/internal_hgbr_matched_cftc.json",
+            "sha256": "63900a4406d4b1979ea281772b2bb34d1665cc7a06d33735b01909a1f544270f"
+          }
+        ],
+        "cost_model_reference": "BTCUSDT_SPOT_COST_V1",
+        "dataset": {
+          "cftc_availability": "UTC_MIDNIGHT_CALENDAR_DAY_AFTER_ACTUAL_CFTC_PUBLICATION_DATE",
+          "cftc_logical_sha256": "d2984e9102d1c41e21f5408ebbcfba12525b298697c34793a9d137200702ae0d",
+          "cftc_manifest_id": "CFTC-CME-BITCOIN-TFF-DEV-v1",
+          "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+          "feature_version": "SUPERVISED_FEATURES_V1",
+          "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+          "matched_cftc_eligible_universe": "REQUIRED_FOR_PRIMARY_AND_CONTROL",
+          "maximum_timestamp": "2024-12-31T23:59:00Z",
+          "order_flow_version": "ORDER_FLOW_FEATURES_V1",
+          "runtime_version": "RESEARCH_RUNTIME_V2_BATCH"
+        },
+        "execution_geometry": {
+          "ambiguous_intrabar_hit": "STOP_FIRST",
+          "direction": "LONG",
+          "entry": "NEXT_CANONICAL_1M_OPEN",
+          "max_hold_minutes": 1440,
+          "position_policy": "SINGLE_LONG_NO_OVERLAP",
+          "profiles": [
+            "DEFAULT",
+            "ZERO",
+            "DOUBLE",
+            "DELAY_1H"
+          ],
+          "reference": "JUST_COMPLETED_1H_CLOSE",
+          "stop_fraction": 0.02,
+          "stress_retrain": false,
+          "target_fraction": 0.04
+        },
+        "execution_model_reference": "EXECUTION_MODEL_V2",
+        "family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+        "features": [
+          {
+            "name": "LOG_RETURN_1H",
+            "order": 1,
+            "transformation": "LN(CURRENT_1H_CLOSE/CURRENT_1H_OPEN)"
+          },
+          {
+            "name": "LOG_RETURN_24H",
+            "order": 2,
+            "transformation": "LN(CURRENT_1H_CLOSE/CLOSE_24H_EARLIER)"
+          },
+          {
+            "name": "LOG_DISTANCE_TO_PRIOR_24H_HIGH",
+            "order": 3,
+            "transformation": "LN(CURRENT_CLOSE/MAX_PREVIOUS_24_HIGH_EXCLUDING_CURRENT)"
+          },
+          {
+            "name": "REALIZED_VOL_24H",
+            "order": 4,
+            "transformation": "SQRT(MEAN(EXACT_24_CLOSE_TO_CLOSE_LOG_RETURN_SQUARED))"
+          },
+          {
+            "name": "LOG_RELATIVE_VOLUME_1H",
+            "order": 5,
+            "transformation": "LN(CURRENT_BASE_VOLUME/MEAN_PREVIOUS_24_BASE_VOLUME)"
+          },
+          {
+            "name": "DIRECTIONAL_EFFICIENCY_4H",
+            "order": 6,
+            "transformation": "(SUM_POSITIVE_42_CHANGES-ABS_SUM_NEGATIVE)/(SUM_POSITIVE+ABS_SUM_NEGATIVE)"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_1H_CENTERED",
+            "order": 7,
+            "transformation": "ORDER_FLOW_FEATURES_V1_CURRENT_1H_SHARE_MINUS_0.5"
+          },
+          {
+            "name": "TAKER_BUY_SHARE_4H_CENTERED",
+            "order": 8,
+            "transformation": "ORDER_FLOW_FEATURES_V1_NONOVERLAPPING_4H_SHARE_MINUS_0.5"
+          }
+        ],
+        "hyperparameters": {
+          "cftc_normalizer_variants": 0,
+          "cftc_trader_group_variants": 0,
+          "cftc_transformations": 0,
+          "cftc_windows": 0,
+          "feature_selection": "NONE",
+          "parameters": {
+            "early_stopping": false,
+            "l2_regularization": 1.0,
+            "learning_rate": 0.05,
+            "loss": "squared_error",
+            "max_bins": 63,
+            "max_depth": 3,
+            "max_iter": 64,
+            "max_leaf_nodes": 7,
+            "min_samples_leaf": 128,
+            "random_state": 0
+          },
+          "searched": 0
+        },
+        "implementation_dependencies": [
+          {
+            "path": "backend/app/data/policy.py",
+            "sha256": "b4e7a48fefb3b8d4454ffb4a4f48c09944cab0e2dd667b65311398e756a1b1a3"
+          },
+          {
+            "path": "backend/app/backtest/models.py",
+            "sha256": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845"
+          },
+          {
+            "path": "backend/app/backtest/engine.py",
+            "sha256": "d393034e521af5741ababa7b9a5efff715131e311539ffdf10ab01ab15ec74a1"
+          },
+          {
+            "path": "backend/app/research/evaluation_protocol.py",
+            "sha256": "d159547e3ecd01c2789b3553a17f33184165a05da458ea6cdd0efb2928dbf4b6"
+          },
+          {
+            "path": "backend/app/research/continuation_lab.py",
+            "sha256": "66ae60aa5b91315c8d2d224bcc40caeaa6b843ca2790a10d242b0cffb7c733d9"
+          },
+          {
+            "path": "backend/app/research/order_flow.py",
+            "sha256": "9396b1335247e03fdfe2942dfae7a9ea8d75bd6da7ecb1e1ff8ab43059fb5a8a"
+          },
+          {
+            "path": "backend/app/research/supervised.py",
+            "sha256": "c887e1d67880322b6fd02c7d38c930c9aa862a4c532962b9667f1da275c47318"
+          },
+          {
+            "path": "backend/app/research/cftc.py",
+            "sha256": "aaa9869ed7ba97468c8f6e6e26868e3dfc4dee5b1dd81f2cd78731887d1a220b"
+          },
+          {
+            "path": "backend/app/research/runtime_v2.py",
+            "sha256": "52a2382cca36f792a6c0d1a74273386af99de523c1e13bdb6f1a38cf40135be2"
+          },
+          {
+            "path": "backend/app/research/wp014_model.py",
+            "sha256": "7e8a624bb57545b4d2cd8ae159585d29bdde8cc65ed84012faccac1161aff0cd"
+          },
+          {
+            "path": "backend/app/research/wp014_lab.py",
+            "sha256": "12694b64cb6ae8cea0ddf0570903b85e5fed69fc884a78b3d8eb9662f760d9de"
+          },
+          {
+            "path": "backend/app/research/wp015_model.py",
+            "sha256": "1f0a397d95b0d24970d0f0753a18170fc240d0535a2ecdb94b4baac4c87efe5a"
+          },
+          {
+            "path": "backend/app/research/wp017_lab.py",
+            "sha256": "aaeda0b8149397e2c3c634c70278e5ea888bff9ee514ccc14c2d03c4b396cba3"
+          },
+          {
+            "path": "backend/app/research/wp017_runner.py",
+            "sha256": "617ac8fb18c582235f41fef36f8261766d867288eaed6b3243ccde4be10c5676"
+          },
+          {
+            "path": "backend/app/research/artifacts.py",
+            "sha256": "0f4b8c7b4dcc9b8f26fc7a3d5b5c086e817cb2358184ab6b0b84af923c5987cb"
+          },
+          {
+            "path": "backend/app/research/model_search_memory.py",
+            "sha256": "8e8499b344e8689a4423fb615ee1a9a4100efe4810ea3ddc34c2c40da141a1a8"
+          },
+          {
+            "path": "backend/app/research/search_memory_v2.py",
+            "sha256": "055f5ef83449e18eb52f77f8f24b0f46e7751874bb20fa0a0c91597d8706ab7f"
+          },
+          {
+            "path": "scripts/reconcile_wp017.py",
+            "sha256": "1630f0e9f71604939848b557c42b48fc7997b90995e1af4d9babf2f34293716c"
+          },
+          {
+            "path": "docs/contracts/CFTC_LEVERAGED_POSITIONING_CONTEXT_V1.md",
+            "sha256": "96d8bab1186e7a0a65591ce092d0cf78d746ffbe00b4163024f74b357546fcbe"
+          },
+          {
+            "path": "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json",
+            "sha256": "e4a45cf5083925cb81530df82e75c787a83c4fb11ca9c81998b0a9b016a65157"
+          },
+          {
+            "path": "research/protocols/WP-017-CFTC-LEVERAGED-POSITIONING-V1.json",
+            "sha256": "f71c5ad38510f0b90dcc45404a0928aedbb08817ca27f97d1f947e050b0bde69"
+          },
+          {
+            "path": "research/protocols/WP-015-WALK-FORWARD-V1.json",
+            "sha256": "4f087e481949081ecf58b69be658f5f06fd7470996b6ffc35459218055d9793f"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "4ae07165e24792e7dfe88442eca04048aa08318201414f92a0fca302a5d7d2e7"
+          },
+          {
+            "path": "uv.lock",
+            "sha256": "4b1747156cac18e57926f4601890af041ed25ef5be866bd84bdfdf41af3d4a36"
+          }
+        ],
+        "label": {
+          "invalid_unresolved": "EXCLUDE_COUNT_NEVER_IMPUTE",
+          "isolated": true,
+          "profile": "DEFAULT",
+          "version": "ISOLATED_FIXED_PLAN_DEFAULT_NET_R_V1"
+        },
+        "regularization": {
+          "kind": "FIXED_L2_LEAF_REGULARIZATION",
+          "searched": false,
+          "value": 1.0
+        },
+        "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+        "scaling": {
+          "mean": false,
+          "scope": "NONE_RAW_GOVERNED_VALUES",
+          "std": false
+        },
+        "schema_version": 2,
+        "signal_rule": {
+          "field": "predicted_default_net_R",
+          "operator": ">",
+          "threshold": 0.0
+        },
+        "train_window_rule": {
+          "cftc_context_required_at_historical_signal": true,
+          "folds": [
+            2020,
+            2021,
+            2022,
+            2023,
+            2024
+          ],
+          "kind": "EXPANDING_CHRONOLOGICAL_PER_ANNUAL_FOLD",
+          "label_outcome_before_purge_boundary": true,
+          "purge_hours": 216,
+          "training_signal_boundary": "STRICTLY_BEFORE_VALIDATION_START_MINUS_PURGE",
+          "update_cadence": "ONCE_PER_FOLD_NO_VALIDATION_REFIT"
+        }
+      },
+      "structural_hash": "76101cc0f19a5166bcdfdca61df1be396b689ec60ab2fde1f8762fbdfc073113",
+      "variant": "INTERNAL_HGBR_MATCHED_CFTC"
+    }
+  ],
+  "work_package": "WP-017"
+}

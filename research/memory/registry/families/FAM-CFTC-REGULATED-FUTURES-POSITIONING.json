@@ -1,0 +1,27 @@
+{
+  "admitted_by": "research/memory/registry/admissions/WP017-NOVELTY-ADMISSION.json",
+  "aliases": [
+    "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1",
+    "CFTC_LEVERAGED_FUNDS_NET_OI_SHARE_V1",
+    "INTERNAL_PLUS_CFTC_LEVERAGED_NET_HGBR"
+  ],
+  "allocation_id": "WP017-CFTC-REGULATED-FUTURES-POSITIONING-ALLOCATION",
+  "entry_event_anchors": [
+    "PREDICTED_DEFAULT_NET_R_STRICTLY_ABOVE_ZERO"
+  ],
+  "failure_experiment_ids": [],
+  "family_id": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+  "information_source": "OFFICIAL_CFTC_TRADERS_IN_FINANCIAL_FUTURES_CME_BITCOIN_133741",
+  "legitimate_revisit": "Only a new explicit Research Director allocation; no exposed-result tuning.",
+  "matched_control": {
+    "classification": "KNOWN_INTERNAL_HGBR_MATCHED_CONTROL",
+    "novelty_claimed": false,
+    "related_to": "EXP-ML-022-SHALLOW-INTERNAL-HGBR",
+    "variant": "INTERNAL_HGBR_MATCHED_CFTC"
+  },
+  "mechanism": "One reported regulated-futures Leveraged Funds net position share, available only after its actual CFTC publication date, is added to the frozen internal F1-F8 inputs.",
+  "parent_family_id": null,
+  "schema_version": 1,
+  "status": "ADMITTED_PREREGISTERED_PENDING_OWNER_EXECUTION",
+  "work_package": "WP-017"
+}
