@@ -21,18 +21,18 @@
     "version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1"
   },
   "adaptive_search": {
-    "adaptive_decisions": 12,
-    "configuration_variants": 27,
+    "adaptive_decisions": 13,
+    "configuration_variants": 29,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
     "integrity_replay_profiles": 12,
-    "material_economic_hypotheses": 12,
+    "material_economic_hypotheses": 13,
     "numeric_parameter_variants": 0,
-    "profile_trials": 125,
+    "profile_trials": 133,
     "result_dependent_forks": 10,
     "sealed_queries": 0,
-    "strategy_descendants": 13,
-    "supervised_model_fits": 218,
+    "strategy_descendants": 14,
+    "supervised_model_fits": 228,
     "wp004_profiles_reserved": 12,
     "wp004_variants_reserved": 3,
     "wp006_profiles_reserved": 8,
@@ -52,7 +52,16 @@
     "wp015_profiles_reserved": 8,
     "wp015_variants_reserved": 2,
     "wp016_profiles_reserved": 8,
-    "wp016_variants_reserved": 2
+    "wp016_variants_reserved": 2,
+    "wp017_profiles_reserved": 8,
+    "wp017_variants_reserved": 2
+  },
+  "artifact_storage": {
+    "historical_evidence_rewritten": false,
+    "status": "VALIDATED",
+    "training_matrices_committed": false,
+    "trial_artifact_format": "PARQUET_ZSTD",
+    "version": "RESEARCH_ARTIFACT_STORAGE_V1"
   },
   "attention_context_challenger": {
     "actual_model_fits": 0,
@@ -67,13 +76,6 @@
     "status": "BLOCKED_POINT_IN_TIME_VINTAGE_UNPROVEN",
     "validation_folds": 5,
     "version": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1"
-  },
-  "artifact_storage": {
-    "historical_evidence_rewritten": false,
-    "status": "VALIDATED",
-    "training_matrices_committed": false,
-    "trial_artifact_format": "PARQUET_ZSTD",
-    "version": "RESEARCH_ARTIFACT_STORAGE_V1"
   },
   "backtest_substrate": {
     "cost_model_version": "BTCUSDT_SPOT_COST_V1",
@@ -90,6 +92,27 @@
     }
   },
   "canonical_resolution": "1m",
+  "cftc_positioning_challenger": {
+    "actual_model_fits": 0,
+    "cftc_canonical_eligible_rows": 351,
+    "cftc_contract_market_code": "133741",
+    "cftc_excluded_availability_after_cutoff": 1,
+    "cftc_manifest_id": "CFTC-CME-BITCOIN-TFF-DEV-v1",
+    "cftc_raw_rows": 352,
+    "cftc_unresolved_publication_rows": 0,
+    "control": "INTERNAL_HGBR_MATCHED_CFTC",
+    "hypothesis_id": "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1",
+    "market_results_observed": false,
+    "new_feature_count": 1,
+    "primary": "INTERNAL_PLUS_CFTC_LEVERAGED_NET_HGBR",
+    "reserved_model_fits": 10,
+    "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+    "runner_candidate_id": "WP017_CFTC_LEVERAGED_POSITIONING_V1",
+    "runtime_version": "RESEARCH_RUNTIME_V2_BATCH",
+    "status": "PREREGISTERED_PENDING_OWNER_EXECUTION",
+    "validation_folds": 5,
+    "version": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1"
+  },
   "champion_status": "NONE",
   "contextual_interaction_challenger": {
     "actual_model_fits": 12,
@@ -148,7 +171,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "WP-017-SOURCE-DISCOVERY-GATE-OWNER-UX-V1_1",
+  "latest_executor_checkpoint": "WP-017-CFTC-LEVERAGED-POSITIONING-PREP",
   "latest_family": {
     "name": "PERPETUAL_FUNDING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -161,7 +184,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_AND_WP017_CFTC_COT_HYPOTHESIS_DESIGN",
+  "next_recommended_work_package": "OWNER_EXECUTION_OF_WP017_THEN_RESEARCH_DIRECTOR_REVIEW",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -173,24 +196,24 @@
   "owner_decision_required": false,
   "paper_trades_completed": 0,
   "paper_trading": {
+    "causal_entry_validation": "PASS_SYNTHETIC",
     "champion_status": "NONE",
     "chart_dashboard_surface": "AVAILABLE",
     "credentials": false,
+    "entry_timeout_completed_opportunities": 5,
     "equivalence_validation": "PASS",
+    "evidence_classification": "MANUAL_PROSPECTIVE_PAPER",
     "execution_equivalence": "PASS",
     "feature_equivalence": "PASS",
     "genuine_paper_trades_completed": 0,
     "historical_engine_modified": false,
     "historical_research_code_modified": false,
-    "leverage_or_short": false,
-    "lifecycle_trigger": "EXPLICIT_USER_ACTION_ONLY",
-    "order_placement": false,
-    "causal_entry_validation": "PASS_SYNTHETIC",
-    "entry_timeout_completed_opportunities": 5,
-    "evidence_classification": "MANUAL_PROSPECTIVE_PAPER",
     "initiation_mode": "OWNER_MANUAL",
     "legacy_entry_status": "BLOCKED_CAUSAL_ENTRY_TIMING_V1",
     "legacy_persistence_version": "FUTURE_PAPER_EVIDENCE_V1",
+    "leverage_or_short": false,
+    "lifecycle_trigger": "EXPLICIT_USER_ACTION_ONLY",
+    "order_placement": false,
     "paper_entry_block_reason": "",
     "paper_entry_status": "AVAILABLE",
     "persistence_contract": "docs/contracts/FUTURE_PAPER_EVIDENCE_V2.md",
@@ -214,13 +237,13 @@
     "leverage_or_short": false,
     "order_placement": false,
     "paper_trade_persistence": true,
-    "review_bundle_authority": "BACKEND",
-    "review_bundle_version": "DASHBOARD_ANALYSIS_REVIEW_BUNDLE_V1",
     "possible_outputs": [
       "NO_TRADE",
       "LONG"
     ],
     "research_status": "PAPER_RESEARCH_CANDIDATE",
+    "review_bundle_authority": "BACKEND",
+    "review_bundle_version": "DASHBOARD_ANALYSIS_REVIEW_BUNDLE_V1",
     "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
     "surface": "AVAILABLE",
     "trade_history_statistics": false,
@@ -232,28 +255,6 @@
   "project_name": "Trading Bot",
   "project_phase": "STRATEGY_RESEARCH",
   "real_money_authorized": false,
-  "research_runtime": {
-    "batch_prediction_validation": "PASS_SYNTHETIC_AND_GOVERNED_WP015",
-    "benchmark": "reports/benchmarks/RESEARCH-RUNTIME-V2-BATCH.json",
-    "cache_implemented": false,
-    "future_only": true,
-    "governed_prediction_speedup": 251.06965571205538,
-    "historical_frozen_implementations_modified": false,
-    "max_prediction_difference": 0.0,
-    "metrics_identical": true,
-    "prediction_tolerance": 1e-12,
-    "runner_explicit_binding": true,
-    "signal_mismatches": 0,
-    "stage_timing": "AVAILABLE_REQUIRED_FOR_V2_RESULTS",
-    "status": "READY_FOR_FUTURE_EXPLICIT_PREREGISTRATION",
-    "synthetic_prediction_speedup": 470.7642672721958,
-    "trade_identities_identical": true,
-    "version": "RESEARCH_RUNTIME_V2_BATCH",
-    "whole_experiment_speedup_measured": false,
-    "wp015_runtime": "WP015_FROZEN_RUNTIME_V1",
-    "wp016_runtime": "WP016_PREREGISTERED_RUNTIME_V1",
-    "wp016_status": "BLOCKED_BEFORE_EXECUTION"
-  },
   "regime_conditioned_challenger": {
     "control": "GLOBAL_SINGLE_EXPERT_MATCHED",
     "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
@@ -271,6 +272,12 @@
   "remote_ci": {
     "policy": "Authoritative current remote CI truth per work package, linked to immutable evidence. Historical checkpoint reports are never rewritten when a once-pending external fact resolves.",
     "work_packages": {
+      "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2": {
+        "evidence": "reports/reviews/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2-CI-EVIDENCE.json",
+        "head": "95362a1a24adde6b4e5a75eb2062c52dcc4fdb6d",
+        "run_id": 34845744019,
+        "status": "SUCCESS"
+      },
       "WP-005": {
         "evidence": "reports/reviews/WP-005-CI-EVIDENCE.json",
         "head": "444172a359e2663887624da82254cc2185ff85e1",
@@ -312,23 +319,19 @@
         "head": "478f2fcab10569f20a81136bca1b5cff6b66d601",
         "run_id": 34757514686,
         "status": "SUCCESS"
-      },
-      "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2": {
-        "evidence": "reports/reviews/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2-CI-EVIDENCE.json",
-        "head": "95362a1a24adde6b4e5a75eb2062c52dcc4fdb6d",
-        "run_id": 34845744019,
-        "status": "SUCCESS"
       }
     }
   },
+  "research_market": "crypto_spot",
   "research_runner": {
     "arbitrary_execution": false,
-    "candidate_ids": [
-      "WP016_WIKIPEDIA_ATTENTION_V1",
-      "WP015_REPRODUCTION_V1"
-    ],
     "blocked_candidate_ids": [
       "WP016_WIKIPEDIA_ATTENTION_V1"
+    ],
+    "candidate_ids": [
+      "WP017_CFTC_LEVERAGED_POSITIONING_V1",
+      "WP016_WIKIPEDIA_ATTENTION_V1",
+      "WP015_REPRODUCTION_V1"
     ],
     "maximum_active_runs": 1,
     "real_backtest_executed_during_checkpoint": false,
@@ -338,7 +341,9 @@
     "surface": "AVAILABLE",
     "version": "RESEARCH_RUNNER_V1",
     "wp015_reproduction": {
+      "control_default_expectancy_r": -0.1236220929,
       "default_expectancy_r": -0.0814500414,
+      "delay_expectancy_r": -0.1044031521,
       "double_cost_expectancy_r": -0.2014956557,
       "evidence_type": "REPRODUCTION_NOT_NEW_EVIDENCE",
       "nonnegative_folds": 0,
@@ -347,12 +352,33 @@
       "reconciliation": "PASS",
       "status": "SUCCESS",
       "trade_count": 716,
-      "zero_cost_expectancy_r": 0.0385955883,
-      "delay_expectancy_r": -0.1044031521,
-      "control_default_expectancy_r": -0.1236220929
+      "zero_cost_expectancy_r": 0.0385955883
     }
   },
-  "research_market": "crypto_spot",
+  "research_runtime": {
+    "batch_prediction_validation": "PASS_SYNTHETIC_AND_GOVERNED_WP015",
+    "benchmark": "reports/benchmarks/RESEARCH-RUNTIME-V2-BATCH.json",
+    "cache_implemented": false,
+    "future_only": true,
+    "governed_prediction_speedup": 251.06965571205538,
+    "historical_frozen_implementations_modified": false,
+    "max_prediction_difference": 0.0,
+    "metrics_identical": true,
+    "prediction_tolerance": 1e-12,
+    "runner_explicit_binding": true,
+    "signal_mismatches": 0,
+    "stage_timing": "AVAILABLE_REQUIRED_FOR_V2_RESULTS",
+    "status": "EXPLICITLY_BOUND_BY_WP017_PREREGISTERED_CANDIDATE",
+    "synthetic_prediction_speedup": 470.7642672721958,
+    "trade_identities_identical": true,
+    "version": "RESEARCH_RUNTIME_V2_BATCH",
+    "whole_experiment_speedup_measured": false,
+    "wp015_runtime": "WP015_FROZEN_RUNTIME_V1",
+    "wp016_runtime": "WP016_PREREGISTERED_RUNTIME_V1",
+    "wp016_status": "BLOCKED_BEFORE_EXECUTION",
+    "wp017_runtime": "RESEARCH_RUNTIME_V2_BATCH",
+    "wp017_status": "PREREGISTERED_PENDING_OWNER_EXECUTION"
+  },
   "schema_version": 3,
   "sealed_evaluation": {
     "authorized_btc_queries": 0,
@@ -366,22 +392,9 @@
   },
   "sealed_evaluations_completed": 0,
   "search_memory": {
-    "families_tracked": 14,
+    "families_tracked": 15,
     "status": "VALIDATED",
     "version": "SEARCH_MEMORY_V2"
-  },
-  "source_discovery_gate": {
-    "backtests": 0,
-    "completed_experiments_after": 25,
-    "model_fits": 0,
-    "recommended_source": "CFTC_CME_BITCOIN_COT",
-    "report_json": "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.json",
-    "report_markdown": "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.md",
-    "sealed_queries": 0,
-    "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
-    "version": "WP-017-SOURCE-DISCOVERY-GATE",
-    "wp016_executed": false,
-    "wp017_preregistered": false
   },
   "selected_family": {
     "name": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
@@ -404,6 +417,19 @@
     "version": "SHALLOW_INTERNAL_HGBR_V1"
   },
   "signal_timeframe": "1h",
+  "source_discovery_gate": {
+    "backtests": 0,
+    "completed_experiments_after": 25,
+    "model_fits": 0,
+    "recommended_source": "CFTC_CME_BITCOIN_COT",
+    "report_json": "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.json",
+    "report_markdown": "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.md",
+    "sealed_queries": 0,
+    "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+    "version": "WP-017-SOURCE-DISCOVERY-GATE",
+    "wp016_executed": false,
+    "wp017_preregistered": false
+  },
   "status": "EXECUTOR_COMPLETE_PENDING_REVIEW",
   "supervised_challenger": {
     "leakage_audit": "PASS",

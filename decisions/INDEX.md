@@ -11,3 +11,4 @@
 - [ADR-0009](ADR-0009-APPEND-ONLY-RESEARCH-REGISTRY.md) — append-only research registry instead of a layer per work package
 - [ADR-0010](ADR-0010-CAUSAL-PAPER-ENTRY-V2.md) — durable-intent-first causal paper entry
 - [ADR-0011](ADR-0011-RESEARCH-RUNTIME-V2-BATCH.md) — prospective deterministic batch research runtime
+- [ADR-0012](ADR-0012-WP017-CFTC-LEVERAGED-POSITIONING.md) — CFTC leveraged-funds positioning as a point-in-time development context

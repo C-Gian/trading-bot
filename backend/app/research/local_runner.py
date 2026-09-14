@@ -497,6 +497,13 @@ def research_candidate_registry() -> CandidateRegistry:
         REQUIRED_DATASETS as WP016_REQUIRED_DATASETS,
     )
     from .wp016_runner import run_wp016_attention
+    from .wp017_runner import (
+        EVIDENCE_TYPE as WP017_EVIDENCE_TYPE,
+    )
+    from .wp017_runner import (
+        REQUIRED_DATASETS as WP017_REQUIRED_DATASETS,
+    )
+    from .wp017_runner import run_wp017_cftc_positioning
 
     funding_manifest = json.loads(
         (ROOT / "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json").read_text(encoding="utf-8")
@@ -532,8 +539,54 @@ def research_candidate_registry() -> CandidateRegistry:
         "FAILED",
         "INTERRUPTED",
     )
+    cftc_manifest = json.loads(
+        (ROOT / "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json").read_text(encoding="utf-8")
+    )
+    wp017_required_datasets = tuple(
+        dict.fromkeys(
+            (
+                *WP017_REQUIRED_DATASETS,
+                *(item["path"] for item in cftc_manifest["raw_archives"]),
+                cftc_manifest["publication_calendar"]["path"],
+            )
+        )
+    )
+
     return CandidateRegistry(
         (
+            CandidateDefinition(
+                candidate_id="WP017_CFTC_LEVERAGED_POSITIONING_V1",
+                display_name="WP-017 · Posizionamento CFTC leveraged funds",
+                purpose=(
+                    "Valuta se il posizionamento netto dichiarato dei leveraged funds sui "
+                    "future CME Bitcoin, disponibile solo dopo l'effettiva pubblicazione "
+                    "CFTC, aggiunge informazione ai segnali interni F1-F8 già congelati."
+                ),
+                run_type="NEW_EXPERIMENT",
+                status="PREREGISTERED_AVAILABLE",
+                expected_stages=stages,
+                required_local_datasets=wp017_required_datasets,
+                fixed_runner_adapter="app.research.wp017_runner.run_wp017_cftc_positioning",
+                scientific_warning=(
+                    "NUOVO ESPERIMENTO DI SVILUPPO PREREGISTRATO · ESECUZIONE LOCALE "
+                    "AVVIATA DALL'OWNER · NON È EVIDENZA SIGILLATA · RICHIEDE REVIEW DEL "
+                    "RESEARCH DIRECTOR"
+                ),
+                scientific_evidence_type=WP017_EVIDENCE_TYPE,
+                execution_counts_as_new_evidence=True,
+                preregistration_sha256=(
+                    (
+                        "research/experiments/EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR/preregistration.json",
+                        "e14fc038ae639510db93b9ddd925a66959f95c2cc252fdc6a8270257b28f2274",
+                    ),
+                    (
+                        "research/experiments/EXP-ML-029-INTERNAL-HGBR-MATCHED-CFTC/preregistration.json",
+                        "2be6336a8cc811da13227199c70b87914974decfea2ccb36db2e5a25264b3cca",
+                    ),
+                ),
+                runtime_version=RUNTIME_V2,
+                adapter=run_wp017_cftc_positioning,
+            ),
             CandidateDefinition(
                 candidate_id="WP016_WIKIPEDIA_ATTENTION_V1",
                 display_name="WP-016 · Shock di attenzione Wikipedia",

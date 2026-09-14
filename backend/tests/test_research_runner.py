@@ -104,9 +104,21 @@ def wait_terminal(service: LocalResearchRunner, run_id: str) -> dict[str, Any]:
     raise AssertionError("synthetic run did not reach a terminal state")
 
 
-def test_registry_is_exactly_two_fixed_allowlisted_candidates() -> None:
+def test_registry_is_exactly_three_fixed_allowlisted_candidates() -> None:
     registry = wp015_registry()
-    assert len(registry) == 2
+    assert len(registry) == 3
+    root = Path(__file__).resolve().parents[2]
+    cftc = registry.get("WP017_CFTC_LEVERAGED_POSITIONING_V1")
+    assert cftc.run_type == "NEW_EXPERIMENT"
+    assert cftc.status == "PREREGISTERED_AVAILABLE"
+    assert cftc.execution_counts_as_new_evidence is True
+    assert cftc.runtime_version == RUNTIME_VERSION == "RESEARCH_RUNTIME_V2_BATCH"
+    assert cftc.fixed_runner_adapter == ("app.research.wp017_runner.run_wp017_cftc_positioning")
+    assert cftc.preregistration_ready(root) is True
+    assert [path for path, _ in cftc.preregistration_sha256] == [
+        "research/experiments/EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR/preregistration.json",
+        "research/experiments/EXP-ML-029-INTERNAL-HGBR-MATCHED-CFTC/preregistration.json",
+    ]
     attention = registry.get("WP016_WIKIPEDIA_ATTENTION_V1")
     assert attention.run_type == "NEW_EXPERIMENT"
     assert attention.status == "BLOCKED_PROJECT_RETROSPECTIVE_V1"
@@ -122,6 +134,38 @@ def test_registry_is_exactly_two_fixed_allowlisted_candidates() -> None:
     assert "NOT A NEW EXPERIMENT" in candidate.scientific_warning
     with pytest.raises(Exception, match="fixed allowlist"):
         registry.get("../../scripts/run_anything.py")
+
+
+def test_wp017_candidate_gate_rejects_a_drifted_preregistration(tmp_path: Path) -> None:
+    registry = wp015_registry()
+    cftc = registry.get("WP017_CFTC_LEVERAGED_POSITIONING_V1")
+    drifted = replace(
+        cftc,
+        preregistration_sha256=(
+            (
+                "research/experiments/EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR/preregistration.json",
+                "0" * 64,
+            ),
+        ),
+    )
+    assert drifted.preregistration_ready(Path(__file__).resolve().parents[2]) is False
+    service = LocalResearchRunner(
+        CandidateRegistry((drifted,)), tmp_path, RunStore(tmp_path / "runs")
+    )
+    with pytest.raises(CandidateGateError):
+        service.start(drifted.candidate_id)
+
+
+def test_wp017_is_not_executed_and_has_produced_no_result_record() -> None:
+    root = Path(__file__).resolve().parents[2]
+    for experiment in (
+        "EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR",
+        "EXP-ML-029-INTERNAL-HGBR-MATCHED-CFTC",
+    ):
+        directory = root / "research/experiments" / experiment
+        assert (directory / "preregistration.json").is_file()
+        assert not (directory / "result.json").exists()
+        assert not (directory / "trials.json").exists()
 
 
 def test_required_data_readiness_is_explicit_and_blocks_start(tmp_path: Path) -> None:

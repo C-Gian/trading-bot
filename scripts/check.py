@@ -105,6 +105,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
     from app.research.wp014 import EXPERIMENTS as WP014_EXPERIMENTS
     from app.research.wp015 import EXPERIMENTS as WP015_EXPERIMENTS
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
+    from app.research.wp017 import EXPERIMENTS as WP017_EXPERIMENTS
 
     directories = {p.name for p in (ROOT / "research/experiments").iterdir() if p.is_dir()}
     assert directories == (
@@ -119,6 +120,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP014_EXPERIMENTS.values())
         | set(WP015_EXPERIMENTS.values())
         | set(WP016_EXPERIMENTS.values())
+        | set(WP017_EXPERIMENTS.values())
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
     assert len(results) == state["experiments_completed"] == 25
@@ -171,12 +173,28 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         ).splitlines()[-1]
         assert pre_commit != result_commit
         run(["git", "merge-base", "--is-ancestor", pre_commit, result_commit])
-    for experiment_id in WP016_EXPERIMENTS.values():
+    for experiment_id in (*WP016_EXPERIMENTS.values(), *WP017_EXPERIMENTS.values()):
         directory = ROOT / "research/experiments" / experiment_id
         prereg_path = directory / "preregistration.json"
         validate_json(prereg_path, ROOT / "contracts/experiment_preregistration.schema.json")
         assert not (directory / "result.json").exists()
         assert not (directory / "trials.json").exists()
+    # WP-017 preregistration must be an ancestor of HEAD and precede runner exposure.
+    for experiment_id in WP017_EXPERIMENTS.values():
+        relative = f"research/experiments/{experiment_id}/preregistration.json"
+        prereg_commit = git("log", "--diff-filter=A", "--format=%H", "--", relative).splitlines()[
+            -1
+        ]
+        exposure_commit = git(
+            "log",
+            "-S",
+            "WP017_CFTC_LEVERAGED_POSITIONING_V1",
+            "--format=%H",
+            "--",
+            "backend/app/research/local_runner.py",
+        ).splitlines()[-1]
+        assert prereg_commit != exposure_commit
+        run(["git", "merge-base", "--is-ancestor", prereg_commit, exposure_commit])
     random_trials = json.loads(
         (ROOT / "research/experiments/EXP-CTRL-002-RANDOM/trials.json").read_text()
     )
@@ -225,11 +243,13 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert state["latest_reviewed_checkpoint"] == "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2"
-    assert state["latest_executor_checkpoint"] == ("WP-017-SOURCE-DISCOVERY-GATE-OWNER-UX-V1_1")
+    assert state["latest_executor_checkpoint"] == "WP-017-CFTC-LEVERAGED-POSITIONING-PREP"
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
     from app.research.wp016 import preflight as wp016_preflight
+    from app.research.wp017 import EXPERIMENTS as WP017_EXPERIMENTS
+    from app.research.wp017 import preflight as wp017_preflight
 
     wp016 = wp016_preflight()
     assert wp016["status"] == "PASS"
@@ -238,19 +258,51 @@ def validate_research_views(state: dict) -> None:
         (ROOT / f"research/experiments/{experiment}/result.json").exists()
         for experiment in WP016_EXPERIMENTS.values()
     )
+    wp017 = wp017_preflight()
+    assert wp017["status"] == "PASS"
+    assert wp017["market_results_observed"] == wp017["model_fits_executed"] == 0
+    assert wp017["post_cutoff_access"] == wp017["sealed_queries"] == 0
+    assert wp017["new_feature_count"] == 1
+    assert wp017["only_new_feature"] == "CFTC_LEVERAGED_FUNDS_NET_OI_SHARE_V1"
+    assert wp017["runtime_version"] == "RESEARCH_RUNTIME_V2_BATCH"
+    assert wp017["matched_eligible_universe"] is True
+    assert wp017["report_date_used_as_availability"] is False
+    assert wp017["cftc_excluded_publication_date_unresolved"] == 0
+    assert wp017["cftc_excluded_availability_after_cutoff"] == 1
+    assert wp017["cftc_last_availability_timestamp"] <= state["development_cutoff"]
+    assert not any(
+        (ROOT / f"research/experiments/{experiment}/result.json").exists()
+        for experiment in WP017_EXPERIMENTS.values()
+    )
     registry = research_candidate_registry()
     candidates = registry.public_records(ROOT)
     assert [item["candidate_id"] for item in candidates] == [
+        "WP017_CFTC_LEVERAGED_POSITIONING_V1",
         "WP016_WIKIPEDIA_ATTENTION_V1",
         "WP015_REPRODUCTION_V1",
     ]
-    assert candidates[0]["status"] == "BLOCKED_PROJECT_RETROSPECTIVE_V1"
-    assert candidates[0]["runnable"] is False and candidates[1]["runnable"] is True
-    assert candidates[0]["runtime_version"] == "WP016_PREREGISTERED_RUNTIME_V1"
-    assert candidates[1]["runtime_version"] == "WP015_FROZEN_RUNTIME_V1"
+    assert state["research_runner"]["candidate_ids"] == [
+        item["candidate_id"] for item in candidates
+    ]
+    assert candidates[0]["status"] == "PREREGISTERED_AVAILABLE"
+    assert candidates[0]["runnable"] is True
+    assert candidates[0]["runtime_version"] == "RESEARCH_RUNTIME_V2_BATCH"
+    assert candidates[0]["preregistration_frozen"] is True
+    assert candidates[0]["execution_counts_as_new_evidence"] is True
+    assert candidates[1]["status"] == "BLOCKED_PROJECT_RETROSPECTIVE_V1"
+    assert candidates[1]["runnable"] is False and candidates[2]["runnable"] is True
+    assert candidates[1]["runtime_version"] == "WP016_PREREGISTERED_RUNTIME_V1"
+    assert candidates[2]["runtime_version"] == "WP015_FROZEN_RUNTIME_V1"
     runtime = state["research_runtime"]
     assert runtime["version"] == "RESEARCH_RUNTIME_V2_BATCH"
     assert runtime["batch_prediction_validation"] == "PASS_SYNTHETIC_AND_GOVERNED_WP015"
+    assert runtime["wp017_runtime"] == "RESEARCH_RUNTIME_V2_BATCH"
+    assert runtime["wp017_status"] == "PREREGISTERED_PENDING_OWNER_EXECUTION"
+    challenger = state["cftc_positioning_challenger"]
+    assert challenger["status"] == "PREREGISTERED_PENDING_OWNER_EXECUTION"
+    assert challenger["actual_model_fits"] == 0
+    assert challenger["market_results_observed"] is False
+    assert challenger["new_feature_count"] == 1
     assert runtime["max_prediction_difference"] == runtime["signal_mismatches"] == 0
     assert runtime["trade_identities_identical"] and runtime["metrics_identical"]
     assert not runtime["cache_implemented"] and not runtime["whole_experiment_speedup_measured"]
@@ -785,6 +837,12 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.md",
         "reports/source_gates/WP017-SOURCE-DISCOVERY-GATE.json",
         "reports/checkpoints/WP-017-SOURCE-DISCOVERY-GATE-OWNER-UX-V1_1.md",
+        "reports/checkpoints/WP-017-CFTC-LEVERAGED-POSITIONING-PREP.md",
+        "decisions/ADR-0012-WP017-CFTC-LEVERAGED-POSITIONING.md",
+        "docs/contracts/CFTC_LEVERAGED_POSITIONING_CONTEXT_V1.md",
+        "research/protocols/WP-017-CFTC-LEVERAGED-POSITIONING-V1.json",
+        "reports/validation/WP-017-CFTC-INTEGRITY.json",
+        "reports/validation/WP-017-PREFLIGHT.json",
         "tasks/archive/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2.md",
         "tasks/archive/WP-016-PREP.md",
     ]

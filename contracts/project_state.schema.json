@@ -225,6 +225,8 @@
         "wp015_runtime",
         "wp016_runtime",
         "wp016_status",
+        "wp017_runtime",
+        "wp017_status",
         "historical_frozen_implementations_modified",
         "cache_implemented",
         "whole_experiment_speedup_measured",
@@ -232,7 +234,7 @@
       ],
       "properties": {
         "version": {"const": "RESEARCH_RUNTIME_V2_BATCH"},
-        "status": {"const": "READY_FOR_FUTURE_EXPLICIT_PREREGISTRATION"},
+        "status": {"const": "EXPLICITLY_BOUND_BY_WP017_PREREGISTERED_CANDIDATE"},
         "future_only": {"const": true},
         "batch_prediction_validation": {"const": "PASS_SYNTHETIC_AND_GOVERNED_WP015"},
         "prediction_tolerance": {"const": 1e-12},
@@ -247,6 +249,8 @@
         "wp015_runtime": {"const": "WP015_FROZEN_RUNTIME_V1"},
         "wp016_runtime": {"const": "WP016_PREREGISTERED_RUNTIME_V1"},
         "wp016_status": {"const": "BLOCKED_BEFORE_EXECUTION"},
+        "wp017_runtime": {"const": "RESEARCH_RUNTIME_V2_BATCH"},
+        "wp017_status": {"const": "PREREGISTERED_PENDING_OWNER_EXECUTION"},
         "historical_frozen_implementations_modified": {"const": false},
         "cache_implemented": {"const": false},
         "whole_experiment_speedup_measured": {"const": false},
@@ -315,6 +319,8 @@
         "wp015_profiles_reserved",
         "wp016_variants_reserved",
         "wp016_profiles_reserved",
+        "wp017_variants_reserved",
+        "wp017_profiles_reserved",
         "supervised_model_fits"
       ],
       "properties": {
@@ -439,6 +445,14 @@
           "minimum": 0
         },
         "wp016_profiles_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp017_variants_reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wp017_profiles_reserved": {
           "type": "integer",
           "minimum": 0
         },
@@ -1114,6 +1128,57 @@
         }
       }
     },
+    "cftc_positioning_challenger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "root_family",
+        "hypothesis_id",
+        "primary",
+        "control",
+        "runtime_version",
+        "cftc_manifest_id",
+        "cftc_contract_market_code",
+        "cftc_raw_rows",
+        "cftc_canonical_eligible_rows",
+        "cftc_excluded_availability_after_cutoff",
+        "cftc_unresolved_publication_rows",
+        "new_feature_count",
+        "validation_folds",
+        "reserved_model_fits",
+        "actual_model_fits",
+        "market_results_observed",
+        "runner_candidate_id"
+      ],
+      "properties": {
+        "version": {"const": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1"},
+        "status": {
+          "enum": [
+            "PREREGISTERED_PENDING_OWNER_EXECUTION",
+            "BLOCKED_BEFORE_EXECUTION"
+          ]
+        },
+        "root_family": {"const": "FAM-CFTC-REGULATED-FUTURES-POSITIONING"},
+        "hypothesis_id": {"const": "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1"},
+        "primary": {"const": "INTERNAL_PLUS_CFTC_LEVERAGED_NET_HGBR"},
+        "control": {"const": "INTERNAL_HGBR_MATCHED_CFTC"},
+        "runtime_version": {"const": "RESEARCH_RUNTIME_V2_BATCH"},
+        "cftc_manifest_id": {"const": "CFTC-CME-BITCOIN-TFF-DEV-v1"},
+        "cftc_contract_market_code": {"const": "133741"},
+        "cftc_raw_rows": {"const": 352},
+        "cftc_canonical_eligible_rows": {"const": 351},
+        "cftc_excluded_availability_after_cutoff": {"const": 1},
+        "cftc_unresolved_publication_rows": {"const": 0},
+        "new_feature_count": {"const": 1},
+        "validation_folds": {"const": 5},
+        "reserved_model_fits": {"const": 10},
+        "actual_model_fits": {"const": 0},
+        "market_results_observed": {"const": false},
+        "runner_candidate_id": {"const": "WP017_CFTC_LEVERAGED_POSITIONING_V1"}
+      }
+    },
     "attention_context_challenger": {
       "type": "object",
       "additionalProperties": false,
@@ -1183,6 +1248,9 @@
           "type": "array",
           "prefixItems": [
             {
+              "const": "WP017_CFTC_LEVERAGED_POSITIONING_V1"
+            },
+            {
               "const": "WP016_WIKIPEDIA_ATTENTION_V1"
             },
             {
@@ -1190,8 +1258,8 @@
             }
           ],
           "items": false,
-          "minItems": 2,
-          "maxItems": 2
+          "minItems": 3,
+          "maxItems": 3
         },
         "runtime_storage": {
           "const": "GITIGNORED_LOCAL_ATOMIC_JSON"

@@ -127,7 +127,7 @@ def test_wp014_result_records_and_state_are_consistent_and_safe() -> None:
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 25
     assert state["latest_reviewed_checkpoint"] == "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2"
-    assert state["latest_executor_checkpoint"] == "WP-017-SOURCE-DISCOVERY-GATE-OWNER-UX-V1_1"
+    assert state["latest_executor_checkpoint"] == "WP-017-CFTC-LEVERAGED-POSITIONING-PREP"
     challenger = state["shallow_nonlinear_challenger"]
     assert challenger["terminal_classification"] == "REJECT_COST_DOMINATED"
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 12
