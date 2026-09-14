@@ -35,6 +35,6 @@ demonstrable.
 - Static analysis: Ruff check and format verification passed; mypy passed across 153
   source files.
 - Focused runtime, runner, and paper tests: 99 tests passed.
-- Repository checker: `python scripts/check.py --no-data` is required from the clean
-  exact Stage B commit before handoff.
+- Repository checker: `python scripts/check.py --no-data` passed from the clean,
+  committed Stage B implementation.
 - Safety: no V2 paper store was created and WP-016 has no result artifact.
