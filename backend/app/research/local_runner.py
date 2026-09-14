@@ -9,12 +9,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import sys
 import tempfile
 import threading
 import uuid
-from collections.abc import Callable, Mapping
+from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from functools import lru_cache
@@ -59,6 +60,19 @@ class RunNotFoundError(RunnerError):
 
 class CandidateAdapter(Protocol):
     def __call__(self, context: RunContext) -> dict[str, Any]: ...
+
+
+class ProgressCallback(Protocol):
+    def __call__(
+        self,
+        stage: str,
+        value: float,
+        detail: str | None = None,
+        *,
+        completed_work_units: int | None = None,
+        total_work_units: int | None = None,
+        unit_label: str | None = None,
+    ) -> None: ...
 
 
 @dataclass(frozen=True)
@@ -170,6 +184,14 @@ class RunStore:
             raise RunNotFoundError("local research run was not found")
         return json.loads(path.read_text(encoding="utf-8"))
 
+    def update(self, run_id: str, **updates: Any) -> dict[str, Any]:
+        """Atomically patch one record so heartbeat and progress cannot clobber each other."""
+        with self._mutex:
+            record = self.read(run_id)
+            record.update(updates)
+            self.write(record)
+            return record
+
     def latest(self) -> dict[str, Any] | None:
         paths = sorted(self.path.glob("*.json"), key=lambda item: item.stat().st_mtime_ns)
         return json.loads(paths[-1].read_text(encoding="utf-8")) if paths else None
@@ -260,7 +282,7 @@ class RunContext:
     run_dir: Path
     run_id: str
     candidate: CandidateDefinition
-    progress: Callable[[str, int, str | None], None]
+    progress: ProgressCallback
 
 
 RESULT_FIELDS = frozenset(
@@ -404,8 +426,14 @@ class LocalResearchRunner:
             "status": "QUEUED",
             "stage": "READY",
             "progress": 0,
+            "progress_fraction": None,
+            "completed_work_units": None,
+            "total_work_units": None,
+            "unit_label": None,
             "detail": None,
             "started_at": now,
+            "last_update_at": now,
+            "last_heartbeat_at": now,
             "finished_at": None,
             "error": None,
             "result": None,
@@ -440,16 +468,66 @@ class LocalResearchRunner:
         run_dir = self.store.path / run_id
         run_dir.mkdir(parents=True, exist_ok=True)
 
-        def progress(stage: str, value: int, detail: str | None = None) -> None:
+        def progress(
+            stage: str,
+            value: float,
+            detail: str | None = None,
+            *,
+            completed_work_units: int | None = None,
+            total_work_units: int | None = None,
+            unit_label: str | None = None,
+        ) -> None:
             if stage not in candidate.expected_stages:
                 raise RunnerError(f"adapter emitted undeclared stage: {stage}")
-            if not 0 <= value <= 100:
+            if (
+                not isinstance(value, (int, float))
+                or isinstance(value, bool)
+                or not math.isfinite(float(value))
+                or not 0 <= value <= 100
+            ):
                 raise RunnerError("progress must be between 0 and 100")
-            record = self.store.read(run_id)
-            record.update(status="RUNNING", stage=stage, progress=value, detail=detail)
-            self.store.write(record)
+            if (completed_work_units is None) != (total_work_units is None):
+                raise RunnerError("truthful work-unit progress requires numerator and denominator")
+            if completed_work_units is not None and (
+                type(completed_work_units) is not int
+                or type(total_work_units) is not int
+                or total_work_units <= 0
+                or not 0 <= completed_work_units <= total_work_units
+            ):
+                raise RunnerError("work-unit progress is invalid")
+            now = utc_now()
+            fraction = (
+                completed_work_units / total_work_units * 100
+                if completed_work_units is not None and total_work_units is not None
+                else None
+            )
+            self.store.update(
+                run_id,
+                status="RUNNING",
+                stage=stage,
+                progress=value,
+                progress_fraction=fraction,
+                completed_work_units=completed_work_units,
+                total_work_units=total_work_units,
+                unit_label=unit_label,
+                detail=detail,
+                last_update_at=now,
+                last_heartbeat_at=now,
+            )
 
         context = RunContext(self.root, run_dir, run_id, candidate, progress)
+        heartbeat_stop = threading.Event()
+
+        def heartbeat() -> None:
+            while not heartbeat_stop.wait(1.0):
+                self.store.update(run_id, last_heartbeat_at=utc_now())
+
+        heartbeat_thread = threading.Thread(
+            target=heartbeat,
+            name=f"research-heartbeat-{run_id[:8]}",
+            daemon=True,
+        )
+        heartbeat_thread.start()
         try:
             progress("PREPARING_DATA", 2, "Verifica degli input locali governati")
             result = candidate.adapter(context)
@@ -461,8 +539,14 @@ class LocalResearchRunner:
                 status="COMPLETED",
                 stage="COMPLETED",
                 progress=100,
+                progress_fraction=100.0,
+                completed_work_units=None,
+                total_work_units=None,
+                unit_label=None,
                 detail="Esecuzione completata",
                 finished_at=finished,
+                last_update_at=finished,
+                last_heartbeat_at=finished,
                 result=result,
                 review_bundle=build_review_bundle(result),
             )
@@ -477,14 +561,26 @@ class LocalResearchRunner:
                 finished_at=utc_now(),
                 error=f"{type(exc).__name__}: {exc}",
             )
+            record["last_update_at"] = record["finished_at"]
+            record["last_heartbeat_at"] = record["finished_at"]
             self.store.write(record)
         finally:
+            heartbeat_stop.set()
+            heartbeat_thread.join(timeout=2)
             self.store.release(run_id)
 
     @staticmethod
     def _public_run(record: Mapping[str, Any]) -> dict[str, Any]:
         payload = dict(record)
         payload["elapsed_seconds"] = elapsed_seconds(record)
+        heartbeat = record.get("last_heartbeat_at")
+        if isinstance(heartbeat, str):
+            heartbeat_time = datetime.fromisoformat(heartbeat)
+            payload["heartbeat_age_seconds"] = max(
+                0.0, (datetime.now(UTC) - heartbeat_time).total_seconds()
+            )
+        else:
+            payload["heartbeat_age_seconds"] = None
         return payload
 
 
@@ -527,12 +623,18 @@ def research_candidate_registry() -> CandidateRegistry:
         "READY",
         "PREPARING_DATA",
         "VALIDATING_INPUTS",
+        "LOAD_DATA",
+        "BUILD_FEATURES",
+        "BUILD_LABELS",
+        "FIT",
+        "PREDICT",
         "FOLD_2020",
         "FOLD_2021",
         "FOLD_2022",
         "FOLD_2023",
         "FOLD_2024",
         "COST_STRESS",
+        "PROFILES",
         "RECONCILIATION",
         "FINALIZING",
         "COMPLETED",
@@ -563,7 +665,7 @@ def research_candidate_registry() -> CandidateRegistry:
                     "CFTC, aggiunge informazione ai segnali interni F1-F8 già congelati."
                 ),
                 run_type="NEW_EXPERIMENT",
-                status="PREREGISTERED_AVAILABLE",
+                status="REVIEWED_REJECTED",
                 expected_stages=stages,
                 required_local_datasets=wp017_required_datasets,
                 fixed_runner_adapter="app.research.wp017_runner.run_wp017_cftc_positioning",
@@ -595,7 +697,7 @@ def research_candidate_registry() -> CandidateRegistry:
                     "informazione ai segnali spot e al funding già congelati."
                 ),
                 run_type="NEW_EXPERIMENT",
-                status="BLOCKED_PROJECT_RETROSPECTIVE_V1",
+                status="BLOCKED_BEFORE_EXECUTION",
                 expected_stages=stages,
                 required_local_datasets=wp016_required_datasets,
                 fixed_runner_adapter="app.research.wp016_runner.run_wp016_attention",

@@ -166,12 +166,29 @@ const wp016Candidate = {
   display_name: 'WP-016 · Shock di attenzione Wikipedia',
   purpose: 'Valuta informazione pubblica preregistrata.',
   run_type: 'NEW_EXPERIMENT',
-  status: 'BLOCKED_PROJECT_RETROSPECTIVE_V1',
+  status: 'BLOCKED_BEFORE_EXECUTION',
   runnable: false,
   scientific_warning: 'BLOCKED BEFORE EXECUTION · POINT-IN-TIME VINTAGE UNPROVEN',
   scientific_evidence_type: 'NEW_PREREGISTERED_DEVELOPMENT_EXPERIMENT_RESULT_PENDING_REVIEW',
   execution_counts_as_new_evidence: true,
   runtime_version: 'WP016_PREREGISTERED_RUNTIME_V1',
+};
+const runnableScientificCandidate = {
+  ...runnerCandidate,
+  candidate_id: 'P1A_FROZEN_SIGNAL_PERSISTENCE_V1',
+  display_name: 'P1A · Persistenza informativa',
+  purpose: 'Misura un segnale congelato con un disegno preregistrato.',
+  run_type: 'NEW_EXPERIMENT',
+  status: 'PREREGISTERED_AVAILABLE',
+  scientific_warning: 'SVILUPPO · REVIEW RICHIESTA',
+  scientific_evidence_type: 'NEW_PREREGISTERED_DEVELOPMENT_EXPERIMENT_RESULT_PENDING_REVIEW',
+  execution_counts_as_new_evidence: true,
+  runtime_version: 'FUTURE_FROZEN_RUNTIME_V1',
+};
+const secondRunnableScientificCandidate = {
+  ...runnableScientificCandidate,
+  candidate_id: 'P1A_SECOND_FROZEN_V1',
+  display_name: 'P1A · Secondo candidato congelato',
 };
 const runnerReady = { candidates: [runnerCandidate], current_or_last_run: null, runner_status: 'IDLE', arbitrary_execution: false, maximum_active_runs: 1 };
 const runnerCompleted = {
@@ -745,21 +762,42 @@ describe('Research Lab', () => {
     expect(screen.getByText(/LOAD_DATA: 1\.250 s · PREDICT: 0\.005 s/)).toBeInTheDocument();
   });
 
-  it('seleziona il candidato eseguibile e mostra WP-016 come bloccato', async () => {
-    const calls = mockApi({ 'research/runner': { ...runnerReady, candidates: [wp016Candidate, runnerCandidate] } });
+  it('usa un combobox accessibile e separa candidati eseguibili da storico e diagnostica', async () => {
+    const calls = mockApi({
+      'research/runner': {
+        ...runnerReady,
+        candidates: [wp016Candidate, runnerCandidate, runnableScientificCandidate, secondRunnableScientificCandidate],
+      },
+    });
     render(<App />);
     await screen.findByText(/Analisi non ancora eseguita/);
     await userEvent.click(screen.getByRole('button', { name: 'Research' }));
-    expect(await screen.findByRole('heading', { name: 'WP-015 · Funding context' })).toBeInTheDocument();
-    expect(screen.getByRole('combobox')).toHaveValue('WP015_REPRODUCTION_V1');
-    await userEvent.selectOptions(screen.getByRole('combobox'), 'WP016_WIKIPEDIA_ATTENTION_V1');
-    expect(await screen.findByText(/bloccato dal gate retrospettivo/)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'AVVIA TEST STORICO' })).toBeDisabled();
+    expect(await screen.findByRole('heading', { name: 'P1A · Persistenza informativa' })).toBeInTheDocument();
+    const combobox = screen.getByRole('combobox', { name: 'Candidato scientifico' });
+    expect(combobox.tagName).toBe('BUTTON');
+    expect(screen.queryByRole('option')).not.toBeInTheDocument();
+    combobox.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    expect(combobox).toHaveAttribute('aria-expanded', 'true');
+    const options = screen.getAllByRole('option');
+    expect(options).toHaveLength(2);
+    expect(options.every(option => !option.textContent?.includes('WP-016'))).toBe(true);
+    await userEvent.keyboard('{Enter}');
+    expect(await screen.findByRole('heading', { name: 'P1A · Secondo candidato congelato' })).toBeInTheDocument();
+    const history = screen.getByRole('region', { name: 'Storico / diagnostica' });
+    expect(within(history).getByText('BLOCKED_BEFORE_EXECUTION')).toBeInTheDocument();
+    expect(within(history).getByText('WP-016 · Shock di attenzione Wikipedia')).toBeInTheDocument();
+    expect(within(history).getByRole('button', { name: 'RIPRODUCI DIAGNOSTICA' })).toBeEnabled();
     expect(calls.every(call => call.method === 'GET')).toBe(true);
   });
 
-  it('mostra il candidato allowlist e persiste il risultato durante il polling', async () => {
-    const running = { ...runnerCompleted, status: 'RUNNING', stage: 'FOLD_2020', progress: 20, detail: 'Fold 2020', result: null };
+  it('persiste il risultato durante il polling diagnostico senza promuoverlo a candidato', async () => {
+    const running = {
+      ...runnerCompleted,
+      status: 'RUNNING', stage: 'FOLD_2020', progress: 20, progress_fraction: null,
+      completed_work_units: null, total_work_units: null, detail: 'Fold 2020', heartbeat_age_seconds: 2,
+      result: null,
+    };
     mockApi({}, { 'research/runner': [
       { body: runnerReady }, { body: running }, { body: runnerCompleted },
     ] });
@@ -768,13 +806,40 @@ describe('Research Lab', () => {
     await screen.findByText(/Analisi non ancora eseguita/);
     await userEvent.click(screen.getByRole('button', { name: 'Research' }));
     expect(await screen.findByText('WP-015 · Funding context')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'AVVIA TEST STORICO' })).toBeEnabled();
-    await userEvent.click(screen.getByRole('button', { name: 'AVVIA TEST STORICO' }));
+    expect(screen.getByRole('button', { name: 'RIPRODUCI DIAGNOSTICA' })).toBeEnabled();
+    await userEvent.click(screen.getByRole('button', { name: 'RIPRODUCI DIAGNOSTICA' }));
     expect(await screen.findByText(/FOLD 2020/)).toBeInTheDocument();
-    expect(screen.getByText('TEST IN CORSO…')).toBeDisabled();
+    expect(screen.getByRole('status')).toHaveTextContent('Attività in corso');
+    expect(screen.queryByText('20.0%')).not.toBeInTheDocument();
+    expect(screen.getByText('Ultimo aggiornamento: 2s fa')).toBeInTheDocument();
     expect(await screen.findByText('Expectancy netta', {}, { timeout: 3000 })).toBeInTheDocument();
     expect(screen.getByText(/-0\.0800 R\/trade/)).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'COPIA RISULTATO PER REVIEW' }));
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith('{"run":"run-015"}');
+  });
+
+  it('mostra avanzamento frazionario solo dalle unità reali fornite dal backend', async () => {
+    const running = {
+      ...runnerCompleted,
+      status: 'RUNNING', stage: 'BUILD_FEATURES', progress: 42, progress_fraction: 42.755,
+      detail: 'Costruzione feature storiche', completed_work_units: 231400, total_work_units: 541220,
+      unit_label: 'unità', elapsed_seconds: 391, heartbeat_age_seconds: 2, result: null,
+    };
+    mockApi({
+      'research/runner': {
+        ...runnerReady,
+        candidates: [runnableScientificCandidate],
+        current_or_last_run: running,
+      },
+    });
+    render(<App />);
+    await screen.findByText(/Analisi non ancora eseguita/);
+    await userEvent.click(screen.getByRole('button', { name: 'Research' }));
+    expect(await screen.findByText('42.8%')).toBeInTheDocument();
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '42.755');
+    expect(screen.getByText('Costruzione feature storiche')).toBeInTheDocument();
+    expect(screen.getByText(/231[.]400 \/ 541[.]220 unità/)).toBeInTheDocument();
+    expect(screen.getByText('Trascorsi 06:31')).toBeInTheDocument();
+    expect(screen.getByText('Ultimo aggiornamento: 2s fa')).toBeInTheDocument();
   });
 });

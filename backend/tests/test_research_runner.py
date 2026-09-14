@@ -110,7 +110,8 @@ def test_registry_is_exactly_three_fixed_allowlisted_candidates() -> None:
     root = Path(__file__).resolve().parents[2]
     cftc = registry.get("WP017_CFTC_LEVERAGED_POSITIONING_V1")
     assert cftc.run_type == "NEW_EXPERIMENT"
-    assert cftc.status == "PREREGISTERED_AVAILABLE"
+    assert cftc.status == "REVIEWED_REJECTED"
+    assert cftc.public_record(root)["runnable"] is False
     assert cftc.execution_counts_as_new_evidence is True
     assert cftc.runtime_version == RUNTIME_VERSION == "RESEARCH_RUNTIME_V2_BATCH"
     assert cftc.fixed_runner_adapter == ("app.research.wp017_runner.run_wp017_cftc_positioning")
@@ -121,7 +122,7 @@ def test_registry_is_exactly_three_fixed_allowlisted_candidates() -> None:
     ]
     attention = registry.get("WP016_WIKIPEDIA_ATTENTION_V1")
     assert attention.run_type == "NEW_EXPERIMENT"
-    assert attention.status == "BLOCKED_PROJECT_RETROSPECTIVE_V1"
+    assert attention.status == "BLOCKED_BEFORE_EXECUTION"
     assert attention.execution_counts_as_new_evidence is True
     assert attention.runtime_version == WP016_FROZEN_RUNTIME
     assert attention.preregistration_ready(Path(__file__).resolve().parents[2]) is True
@@ -156,16 +157,22 @@ def test_wp017_candidate_gate_rejects_a_drifted_preregistration(tmp_path: Path) 
         service.start(drifted.candidate_id)
 
 
-def test_wp017_is_not_executed_and_has_produced_no_result_record() -> None:
+def test_wp017_review_preserves_one_counted_result_and_embedded_control() -> None:
     root = Path(__file__).resolve().parents[2]
-    for experiment in (
-        "EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR",
-        "EXP-ML-029-INTERNAL-HGBR-MATCHED-CFTC",
-    ):
-        directory = root / "research/experiments" / experiment
-        assert (directory / "preregistration.json").is_file()
-        assert not (directory / "result.json").exists()
-        assert not (directory / "trials.json").exists()
+    primary = root / "research/experiments/EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR"
+    control = root / "research/experiments/EXP-ML-029-INTERNAL-HGBR-MATCHED-CFTC"
+    assert (primary / "preregistration.json").is_file()
+    assert (primary / "result.json").is_file()
+    assert (primary / "trials.parquet").is_file()
+    result = json.loads((primary / "result.json").read_text(encoding="utf-8"))
+    assert result["secondary_results"]["primary_minus_control_default_net_r"] == {
+        "control_default_expectancy_r": -0.1143167546,
+        "control_experiment_id": "EXP-ML-029-INTERNAL-HGBR-MATCHED-CFTC",
+        "difference_r": -0.0193438628,
+        "role": "MATCHED_CONTROL_NOT_NEW_DISCOVERY",
+    }
+    assert (control / "preregistration.json").is_file()
+    assert not (control / "result.json").exists()
 
 
 def test_required_data_readiness_is_explicit_and_blocks_start(tmp_path: Path) -> None:
@@ -205,6 +212,68 @@ def test_progress_result_and_review_bundle_are_persisted(tmp_path: Path) -> None
         started["run_id"]
     )
     assert refreshed["result"] == final["result"]
+
+
+def test_real_work_units_create_fractional_progress_and_heartbeat(tmp_path: Path) -> None:
+    release = threading.Event()
+
+    def adapter(context: RunContext) -> dict[str, Any]:
+        context.progress(
+            "BUILD_FEATURES",
+            20,
+            "Costruzione feature storiche",
+            completed_work_units=231_400,
+            total_work_units=541_220,
+            unit_label="rows",
+        )
+        assert release.wait(timeout=3)
+        return result(context)
+
+    candidate = replace(
+        fixture_candidate(adapter),
+        expected_stages=(*STAGES, "BUILD_FEATURES"),
+    )
+    (tmp_path / "fixture.dat").write_text("synthetic", encoding="utf-8")
+    service = LocalResearchRunner(
+        CandidateRegistry((candidate,)), tmp_path, RunStore(tmp_path / "runs")
+    )
+    run_id = service.start(candidate.candidate_id)["run_id"]
+    for _ in range(100):
+        current = service.read(run_id)
+        if current["stage"] == "BUILD_FEATURES":
+            break
+        time.sleep(0.01)
+    assert current["progress_fraction"] == pytest.approx(231_400 / 541_220 * 100)
+    assert current["completed_work_units"] == 231_400
+    first_heartbeat = current["last_heartbeat_at"]
+    time.sleep(1.1)
+    refreshed = service.read(run_id)
+    assert refreshed["last_heartbeat_at"] > first_heartbeat
+    assert refreshed["heartbeat_age_seconds"] < 1
+    release.set()
+    assert wait_terminal(service, run_id)["status"] == "COMPLETED"
+
+
+def test_stage_only_progress_has_no_fractional_claim(tmp_path: Path) -> None:
+    release = threading.Event()
+
+    def adapter(context: RunContext) -> dict[str, Any]:
+        context.progress("RECONCILIATION", 87, "Ricostruzione indipendente in corso")
+        assert release.wait(timeout=3)
+        return result(context)
+
+    service = runner(tmp_path, adapter)
+    run_id = service.start("FIXED_REPRODUCTION")["run_id"]
+    for _ in range(100):
+        current = service.read(run_id)
+        if current["stage"] == "RECONCILIATION":
+            break
+        time.sleep(0.01)
+    assert current["progress"] == 87
+    assert current["progress_fraction"] is None
+    assert current["total_work_units"] is None
+    release.set()
+    assert wait_terminal(service, run_id)["status"] == "COMPLETED"
 
 
 def test_runtime_v2_binding_requires_and_persists_stage_timings(tmp_path: Path) -> None:

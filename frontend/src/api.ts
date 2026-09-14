@@ -24,7 +24,7 @@ export type PaperStatistics={statistics_version:string;evidence_version:string;e
 export function readLiveMarket(){return request<LiveMarket>('/api/v1/product/market/recent')}
 export function readPaperStatistics(){return request<PaperStatistics>('/api/v1/product/paper-trades/statistics')}
 
-export type RunnerStage = 'READY'|'PREPARING_DATA'|'VALIDATING_INPUTS'|'FOLD_2020'|'FOLD_2021'|'FOLD_2022'|'FOLD_2023'|'FOLD_2024'|'COST_STRESS'|'RECONCILIATION'|'FINALIZING'|'COMPLETED'|'FAILED'|'INTERRUPTED';
+export type RunnerStage = 'READY'|'PREPARING_DATA'|'VALIDATING_INPUTS'|'LOAD_DATA'|'BUILD_FEATURES'|'BUILD_LABELS'|'FIT'|'PREDICT'|'FOLD_2020'|'FOLD_2021'|'FOLD_2022'|'FOLD_2023'|'FOLD_2024'|'COST_STRESS'|'PROFILES'|'RECONCILIATION'|'FINALIZING'|'COMPLETED'|'FAILED'|'INTERRUPTED';
 export type ResearchRunStatus = 'QUEUED'|'RUNNING'|'COMPLETED'|'FAILED';
 export type ResearchRunnerCandidate = {
   candidate_id:string; display_name:string; purpose:string; run_type:string; status:string;
@@ -49,6 +49,9 @@ export type ResearchRun = {
   run_id:string; candidate_id:string; started_at:string|null; finished_at:string|null;
   status:ResearchRunStatus; stage:RunnerStage; progress:number; detail?:string|null;
   error?:string|null; result?:ResearchResult|null; review_bundle?:string|null; elapsed_seconds:number;
+  progress_fraction?:number|null; completed_work_units?:number|null; total_work_units?:number|null;
+  unit_label?:string|null; last_update_at?:string|null; last_heartbeat_at?:string|null;
+  heartbeat_age_seconds?:number|null;
   runtime_version?:string;
 };
 export type ResearchRunnerPayload = {
