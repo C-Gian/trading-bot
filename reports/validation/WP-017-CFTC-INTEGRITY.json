@@ -1,0 +1,23 @@
+{
+  "availability_rule_verified": true,
+  "canonical_eligible_rows": 351,
+  "contract_market_code": "133741",
+  "duplicate_market_report_rows": 0,
+  "excluded_availability_after_cutoff": 1,
+  "feature_formula_verified": true,
+  "market_identity_verified": true,
+  "market_name": "BITCOIN - CHICAGO MERCANTILE EXCHANGE",
+  "market_outcomes_read": false,
+  "missing_or_invalid_required_fields": 0,
+  "official_exception_rows": 47,
+  "postcutoff_rows_in_canonical": 0,
+  "publication_calendar_hash_verified": true,
+  "raw_archive_hashes_verified": true,
+  "raw_rows": 352,
+  "schema_version": 1,
+  "source": "CFTC_TRADERS_IN_FINANCIAL_FUTURES_HISTORICAL",
+  "source_gate_raw_row_reconciliation": true,
+  "status": "PASS",
+  "unresolved_publication_rows": 0,
+  "work_package": "WP-017-CFTC-LEVERAGED-POSITIONING-PREP"
+}

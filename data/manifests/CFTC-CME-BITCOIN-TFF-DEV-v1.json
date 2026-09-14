@@ -1,0 +1,213 @@
+{
+  "archive_years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "availability_rule": "UTC_MIDNIGHT_CALENDAR_DAY_AFTER_ACTUAL_CFTC_PUBLICATION_DATE",
+  "canonical": {
+    "artifact_storage_version": "RESEARCH_ARTIFACT_STORAGE_V1",
+    "columns": [
+      {
+        "name": "report_date",
+        "nullable": false,
+        "type": "date32[day]"
+      },
+      {
+        "name": "publication_date",
+        "nullable": false,
+        "type": "date32[day]"
+      },
+      {
+        "name": "availability_timestamp",
+        "nullable": false,
+        "type": "timestamp[us, tz=UTC]"
+      },
+      {
+        "name": "publication_date_basis",
+        "nullable": false,
+        "type": "string"
+      },
+      {
+        "name": "open_interest_all",
+        "nullable": false,
+        "type": "int64"
+      },
+      {
+        "name": "leveraged_funds_long_all",
+        "nullable": false,
+        "type": "int64"
+      },
+      {
+        "name": "leveraged_funds_short_all",
+        "nullable": false,
+        "type": "int64"
+      },
+      {
+        "name": "leveraged_funds_net_oi_share",
+        "nullable": false,
+        "type": "double"
+      }
+    ],
+    "file_sha256": "4036ba66b88ce2d291169f9181b93d2bbc2d24064be26568fbf29bafe9c814f4",
+    "format": "PARQUET_ZSTD",
+    "logical_sha256": "d2984e9102d1c41e21f5408ebbcfba12525b298697c34793a9d137200702ae0d",
+    "path": "data/derived/CFTC-CME-BITCOIN-leveraged-net-oi-share-v1.parquet",
+    "rows": 351,
+    "schema_version": 1,
+    "sort_key": [
+      "availability_timestamp"
+    ],
+    "writer": {
+      "compression": "zstd",
+      "compression_level": 9,
+      "data_page_version": "1.0",
+      "pyarrow_version": "21.0.0",
+      "use_dictionary": false,
+      "version": "2.6",
+      "write_statistics": true
+    }
+  },
+  "code_reference": "backend/app/research/cftc.py",
+  "coverage": {
+    "first_availability_timestamp": "2018-04-14T00:00:00Z",
+    "first_report_date": "2018-04-10",
+    "last_availability_timestamp": "2024-12-31T00:00:00Z",
+    "last_report_date": "2024-12-31"
+  },
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "feature": {
+    "clipping": false,
+    "formula": "(Lev_Money_Positions_Long_All - Lev_Money_Positions_Short_All) / Open_Interest_All",
+    "freshness_threshold": null,
+    "id": "CFTC_LEVERAGED_FUNDS_NET_OI_SHARE_V1",
+    "interpolation": false,
+    "new_feature_count": 1,
+    "normalization": "NONE"
+  },
+  "integrity": {
+    "duplicate_market_report_rows": 0,
+    "invalid_open_interest": 0,
+    "missing_or_invalid_required_fields": 0,
+    "official_exception_rows": 47,
+    "postcutoff_rows_in_canonical": 0,
+    "report_gaps_over_10_days": [],
+    "source_gate_raw_row_reconciliation": true,
+    "unresolved_publication_rows": 0
+  },
+  "manifest_id": "CFTC-CME-BITCOIN-TFF-DEV-v1",
+  "market": {
+    "cftc_contract_market_code": "133741",
+    "name": "BITCOIN - CHICAGO MERCANTILE EXCHANGE",
+    "source_column": "CFTC_Contract_Market_Code"
+  },
+  "parser_version": "CFTC_TFF_LEVERAGED_POSITIONING_PARSER_V1",
+  "publication_calendar": {
+    "basis_values": [
+      "ORDINARY_CFTC_RELEASE_RULE",
+      "CFTC_OFFICIAL_EXCEPTION"
+    ],
+    "path": "data/raw/cftc/tff/publication-calendar-v1.json",
+    "records": 352,
+    "sha256": "fb66f3f14f124b2f54ceb8cc1b388e413813ed880127f452170344dc68b35b28"
+  },
+  "raw_archives": [
+    {
+      "compressed_bytes": 458570,
+      "path": "data/raw/cftc/tff/2018/fut_fin_txt_2018.zip",
+      "retrieval_timestamp": "2026-09-14T13:53:32.620906Z",
+      "rows": 39,
+      "sha256": "6843d130a25a17c6248df67463810f02077ef4eeafdd629299d21c18f5125e40",
+      "source_family_version": "CFTC_TRADERS_IN_FINANCIAL_FUTURES_HISTORICAL",
+      "source_last_modified": "Fri, 08 Feb 2019 20:20:19 GMT",
+      "source_url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2018.zip",
+      "year": 2018
+    },
+    {
+      "compressed_bytes": 454803,
+      "path": "data/raw/cftc/tff/2019/fut_fin_txt_2019.zip",
+      "retrieval_timestamp": "2026-09-14T13:53:32.761500Z",
+      "rows": 52,
+      "sha256": "631b31880d513072aa50d63117c896184dd35db3cc8fcdd6debd80197ee7a661",
+      "source_family_version": "CFTC_TRADERS_IN_FINANCIAL_FUTURES_HISTORICAL",
+      "source_last_modified": "Mon, 06 Jan 2020 20:34:06 GMT",
+      "source_url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2019.zip",
+      "year": 2019
+    },
+    {
+      "compressed_bytes": 430721,
+      "path": "data/raw/cftc/tff/2020/fut_fin_txt_2020.zip",
+      "retrieval_timestamp": "2026-09-14T13:53:32.886471Z",
+      "rows": 52,
+      "sha256": "c90d98d94db708772d669f263fb8061c75f8a7f681ba231fb21247e5c9798e6b",
+      "source_family_version": "CFTC_TRADERS_IN_FINANCIAL_FUTURES_HISTORICAL",
+      "source_last_modified": "Fri, 29 Oct 2021 19:28:15 GMT",
+      "source_url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2020.zip",
+      "year": 2020
+    },
+    {
+      "compressed_bytes": 466549,
+      "path": "data/raw/cftc/tff/2021/fut_fin_txt_2021.zip",
+      "retrieval_timestamp": "2026-09-14T13:53:33.027063Z",
+      "rows": 52,
+      "sha256": "5c929991038c70ae2501661b6d442b9e784d3c29d3166ceac2e21b45ac93d56a",
+      "source_family_version": "CFTC_TRADERS_IN_FINANCIAL_FUTURES_HISTORICAL",
+      "source_last_modified": "Fri, 14 Jan 2022 20:27:12 GMT",
+      "source_url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2021.zip",
+      "year": 2021
+    },
+    {
+      "compressed_bytes": 494559,
+      "path": "data/raw/cftc/tff/2022/fut_fin_txt_2022.zip",
+      "retrieval_timestamp": "2026-09-14T13:53:33.138616Z",
+      "rows": 52,
+      "sha256": "94c9c1fdee9dfbe377a09923ddfe26b88d3460605dd076081f221ad367d88601",
+      "source_family_version": "CFTC_TRADERS_IN_FINANCIAL_FUTURES_HISTORICAL",
+      "source_last_modified": "Thu, 15 Jan 2026 17:02:23 GMT",
+      "source_url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2022.zip",
+      "year": 2022
+    },
+    {
+      "compressed_bytes": 506931,
+      "path": "data/raw/cftc/tff/2023/fut_fin_txt_2023.zip",
+      "retrieval_timestamp": "2026-09-14T13:53:33.294832Z",
+      "rows": 52,
+      "sha256": "43c3dbdd4d01fceefad5e457003751cdc0974c7cf46097b322e26e9e2fe44d7a",
+      "source_family_version": "CFTC_TRADERS_IN_FINANCIAL_FUTURES_HISTORICAL",
+      "source_last_modified": "Thu, 15 Jan 2026 17:02:24 GMT",
+      "source_url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2023.zip",
+      "year": 2023
+    },
+    {
+      "compressed_bytes": 563591,
+      "path": "data/raw/cftc/tff/2024/fut_fin_txt_2024.zip",
+      "retrieval_timestamp": "2026-09-14T13:53:33.419803Z",
+      "rows": 53,
+      "sha256": "3f00585741a7cf76c207df640951d644dd91ff22a1106b38ca37a2469c765637",
+      "source_family_version": "CFTC_TRADERS_IN_FINANCIAL_FUTURES_HISTORICAL",
+      "source_last_modified": "Thu, 15 Jan 2026 17:02:25 GMT",
+      "source_url": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2024.zip",
+      "year": 2024
+    }
+  ],
+  "row_counts": {
+    "canonical_point_in_time_eligible_rows": 351,
+    "excluded_availability_after_cutoff": 1,
+    "excluded_publication_date_unresolved": 0,
+    "raw_cftc_rows": 352
+  },
+  "schema_version": 1,
+  "source": {
+    "annual_archive_base": "https://www.cftc.gov/files/dea/history",
+    "family": "CFTC_TRADERS_IN_FINANCIAL_FUTURES_HISTORICAL",
+    "official_only": true,
+    "ordinary_release_documentation": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm",
+    "report_archive_base": "https://www.cftc.gov/sites/default/files/files/dea/cotarchives",
+    "special_announcements": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm"
+  },
+  "version": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1"
+}
