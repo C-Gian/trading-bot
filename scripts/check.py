@@ -1073,18 +1073,21 @@ def data_checks(state: dict) -> None:
     alfred_path = ROOT / "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json"
     funding_path = ROOT / "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json"
     attention_path = ROOT / "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json"
+    cftc_path = ROOT / "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json"
     assert set((ROOT / "data/manifests").glob("*.json")) == {
         path,
         flow_path,
         alfred_path,
         funding_path,
         attention_path,
+        cftc_path,
     }
     manifest = validate_json(path, schema)
     flow_manifest = json.loads(flow_path.read_text(encoding="utf-8"))
     alfred_manifest = json.loads(alfred_path.read_text(encoding="utf-8"))
     funding_manifest = json.loads(funding_path.read_text(encoding="utf-8"))
     attention_manifest = json.loads(attention_path.read_text(encoding="utf-8"))
+    cftc_manifest = json.loads(cftc_path.read_text(encoding="utf-8"))
     assert manifest["symbol"] == "BTCUSDT"
     assert parse_utc_instant(manifest["coverage"]["end"]) <= CUTOFF
     assert parse_utc_instant(flow_manifest["coverage"]["end"]) <= CUTOFF
@@ -1093,10 +1096,14 @@ def data_checks(state: dict) -> None:
         and manifest["content_hash"]["value"] == state["development_dataset"]["content_hash"]
     )
     raw = {ROOT / x["path"] for x in manifest["source"]["raw_objects"]}
-    assert set((ROOT / "data/raw").rglob("*.zip")) == raw
+    cftc_raw = {ROOT / x["path"] for x in cftc_manifest["raw_archives"]}
+    assert set((ROOT / "data/raw").rglob("*.zip")) == raw | cftc_raw
     assert all(
         "BTCUSDT" in p.name and not any(f"-{y}-" in p.name for y in range(2025, 2100)) for p in raw
     )
+    for record in cftc_manifest["raw_archives"]:
+        assert sha256(ROOT / record["path"]) == record["sha256"]
+        assert record["year"] <= 2024, "post-cutoff CFTC archive year"
     parquet = {
         *(ROOT / x["path"] for x in manifest["files"].values()),
         *(ROOT / x["path"] for x in flow_manifest["files"].values()),
@@ -1105,6 +1112,7 @@ def data_checks(state: dict) -> None:
         ROOT / funding_manifest["canonical"]["path"],
         ROOT / funding_manifest["request_index"]["path"],
         ROOT / attention_manifest["canonical"]["path"],
+        ROOT / cftc_manifest["canonical"]["path"],
         *(
             ROOT / relative
             for relative in (
