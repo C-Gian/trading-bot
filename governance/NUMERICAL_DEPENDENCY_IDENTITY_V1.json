@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "policy_id": "NUMERICAL_DEPENDENCY_IDENTITY_V1",
+  "python_major_minor": "3.11",
+  "installer": "uv sync --frozen",
+  "uv_version": "0.12.10",
+  "lockfile": "uv.lock",
+  "lockfile_sha256": "4b1747156cac18e57926f4601890af041ed25ef5be866bd84bdfdf41af3d4a36",
+  "numerical_packages": {
+    "numpy": "2.4.6",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.17.1"
+  },
+  "scope": "Deterministic governed statistical artifact reconstruction under Python 3.11"
+}

@@ -3,7 +3,7 @@
 Known documented family: **12**. Primary alpha: 0.05; power target: 0.8.
 
 Holm adjustment covers only the documented known family and cannot fully correct unknowable historical selection.
-Naive t statistics and raw p-values use exact preserved trades but an IID standard error; governed ESS remains a diagnostic and is not used to create a dependence-adjusted test statistic or p-value.
+Naive t statistics and raw p-values use exact preserved trades but an IID standard error; governed ESS remains a diagnostic and is not used to create a dependence-adjusted test statistic, p-value, or inferential MDE. Historical MDE fails closed without a governed inferential dependence model.
 
 | Hypothesis | n | Mean net R | Raw p | Holm p | Status |
 |---|---:|---:|---:|---:|---|
@@ -14,14 +14,14 @@ Naive t statistics and raw p-values use exact preserved trades but an IID standa
 | FINANCIAL_REGIME_CONDITIONED_SIGNAL_WEIGHTS_V1 | 989 | -0.1071860713 | — | — | EXACT_STATISTIC_UNAVAILABLE |
 | HYP-BREAKOUT-V1 | 1123 | -0.04820938690970614 | — | — | TEST_STATISTIC_AVAILABLE_P_VALUE_UNAVAILABLE |
 | HYP-TREND-V1 | 2445 | -0.09081053410085888 | — | — | TEST_STATISTIC_AVAILABLE_P_VALUE_UNAVAILABLE |
-| LINEAR_NET_R_SELECTION_V1 | 1003 | -0.11422184539487015 | 0.9990917779047769 | 1.0 | NAIVE_IID_T_AVAILABLE_DEPENDENCE_UNRESOLVED |
+| LINEAR_NET_R_SELECTION_V1 | 1003 | -0.11422184539487014 | 0.9990917779047769 | 1.0 | NAIVE_IID_T_AVAILABLE_DEPENDENCE_UNRESOLVED |
 | NFCI_MODULATES_INTERNAL_SIGNAL_VALUE_V1 | 1060 | -0.1086772939 | — | — | EXACT_STATISTIC_UNAVAILABLE |
 | NONLINEAR_INTERNAL_SIGNAL_INTERACTIONS_V1 | 1269 | -0.0998928666 | — | — | EXACT_STATISTIC_UNAVAILABLE |
-| PERSISTENT_TREND_PULLBACK_RECOVERY_V1 | 126 | 0.00038230751686283706 | 0.49844642207738815 | 1.0 | NAIVE_IID_T_AVAILABLE_DEPENDENCE_UNRESOLVED |
+| PERSISTENT_TREND_PULLBACK_RECOVERY_V1 | 126 | 0.00038230751686284926 | 0.4984464220773881 | 1.0 | NAIVE_IID_T_AVAILABLE_DEPENDENCE_UNRESOLVED |
 | SETTLED_FUNDING_ADDS_POSITIONING_INFORMATION_V1 | 716 | -0.0814500414 | — | — | EXACT_STATISTIC_UNAVAILABLE |
 
-MDE computed for 5 historical families; unavailable for 7.
+MDE computed for 0 historical families; unavailable for 12.
 MDE is not MESI. No historical MESI was invented and no historical classification changed.
 
-Statistics hash: `f3344e56d06ed5525d52e40bac92540b85df619753a7f2bbfde79e473fe8069f`
-Detectability hash: `c9a59b08a7adc428a3e4344726c5beafba569996b22df01e99767ea18c66e6e4`
+Statistics hash: `1d9b0d89f9120b67c77dd67de32ab99685b937306ef1857839896ed30ac5796e`
+Detectability hash: `675ac63122cdcdc8374db3989a5c7e91a26090f6080424ebdbc42127bd5b5a26`

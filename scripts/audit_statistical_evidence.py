@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
+from typing import Any
 
 from app.research.statistical_governance import (
     build_aligned_provenance_audit,
@@ -24,6 +26,52 @@ OUTPUTS = {
     "statistics_json": ROOT / "reports/statistics/STATISTICAL-EVIDENCE-AUDIT-V1.json",
     "statistics_md": ROOT / "reports/statistics/STATISTICAL-EVIDENCE-AUDIT-V1.md",
 }
+
+
+def json_differences(actual: Any, expected: Any, pointer: str = "") -> list[str]:
+    """Return deterministic JSON pointers whose scalar/type values differ."""
+    if type(actual) is not type(expected):
+        return [pointer or "/"]
+    if isinstance(actual, dict):
+        differences: list[str] = []
+        for key in sorted(set(actual) | set(expected)):
+            child = f"{pointer}/{key.replace('~', '~0').replace('/', '~1')}"
+            if key not in actual or key not in expected:
+                differences.append(child)
+            else:
+                differences.extend(json_differences(actual[key], expected[key], child))
+        return differences
+    if isinstance(actual, list):
+        differences = []
+        if len(actual) != len(expected):
+            differences.append(f"{pointer}/length")
+        for index, (actual_item, expected_item) in enumerate(zip(actual, expected, strict=False)):
+            differences.extend(json_differences(actual_item, expected_item, f"{pointer}/{index}"))
+        return differences
+    return [] if actual == expected else [pointer or "/"]
+
+
+def drift_details(path: Path, expected: bytes) -> str:
+    if not path.is_file():
+        return "missing"
+    if path.suffix == ".json":
+        try:
+            actual_value = json.loads(path.read_text(encoding="utf-8"))
+            expected_value = json.loads(expected.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return "invalid JSON"
+        pointers = json_differences(actual_value, expected_value)
+        return ", ".join(pointers) if pointers else "byte encoding/newline only"
+    actual_lines = path.read_text(encoding="utf-8").splitlines()
+    expected_lines = expected.decode("utf-8").splitlines()
+    changed = [
+        str(index + 1)
+        for index, pair in enumerate(zip(actual_lines, expected_lines, strict=False))
+        if pair[0] != pair[1]
+    ]
+    if len(actual_lines) != len(expected_lines):
+        changed.append("line-count")
+    return "lines " + ", ".join(changed[:40])
 
 
 def expected_outputs() -> dict[Path, bytes]:
@@ -52,6 +100,9 @@ def main() -> int:
             if not path.is_file() or path.read_bytes() != content
         ]
         if drift:
+            for path in drift:
+                relative = path.relative_to(ROOT).as_posix()
+                print(f"::error file={relative}::{drift_details(path, expected[path])}")
             raise SystemExit("statistical audit drift: " + ", ".join(str(path) for path in drift))
         print("statistical audit: PASS")
         return 0

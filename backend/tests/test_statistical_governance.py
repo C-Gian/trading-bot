@@ -148,7 +148,9 @@ def test_machine_reconstruction_matches_aligned_governed_values() -> None:
     assert aligned["mean_net_R"] == pytest.approx(0.1373934676, abs=1e-10)
     assert aligned["governed_effective_sample_size"] == pytest.approx(116.35, abs=0.01)
     assert aligned["naive_test_statistic"] is not None
+    assert aligned["naive_test_statistic_basis"] == "NAIVE_IID"
     assert aligned["unadjusted_p_value"] is not None
+    assert aligned["unadjusted_p_value_basis"] == "NAIVE_IID_ONE_SIDED"
     assert aligned["holm_adjusted_p_value"] is not None
     assert aligned["dependence_adjusted_statistic"] is None
 
@@ -163,6 +165,8 @@ def test_missing_raw_evidence_never_uses_win_loss_averages_as_exact_data() -> No
     assert funding["mean_net_R"] == -0.0814500414
     assert funding["sample_standard_deviation"] is None
     assert funding["naive_test_statistic"] is None
+    assert funding["naive_test_statistic_basis"] is None
+    assert funding["unadjusted_p_value_basis"] is None
     assert funding["statistical_status"] == "EXACT_STATISTIC_UNAVAILABLE"
     assert funding["unavailable_reason"] == (
         "RAW_TRADE_OUTCOMES_NOT_PRESERVED_IN_GOVERNED_RESULT_ARTIFACT"
@@ -176,7 +180,7 @@ def test_mde_behaves_monotonically_and_fails_closed() -> None:
         "alpha": 0.05,
         "power_target": 0.80,
         "directional": True,
-        "dependence_method": "GOVERNED_POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC",
+        "dependence_method": "GOVERNED_IID",
     }
 
     def calculate(**overrides: Any) -> float:
@@ -198,6 +202,8 @@ def test_mde_behaves_monotonically_and_fails_closed() -> None:
     assert calculate(power_target=0.90) > value
     with pytest.raises(StatisticalGovernanceError, match="dependence basis"):
         calculate(dependence_method="INVENTED")
+    with pytest.raises(StatisticalGovernanceError, match="dependence basis"):
+        calculate(dependence_method="GOVERNED_POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC")
     with pytest.raises(StatisticalGovernanceError, match="valid domain"):
         calculate(sample_standard_deviation=0.0)
 
@@ -207,6 +213,13 @@ def test_detectability_adds_no_mesi_and_changes_no_historical_verdict() -> None:
     assert audit["historical_mesi_invented"] is False
     assert audit["historical_classifications_changed"] is False
     assert all(item["historical_mesi"] is None for item in audit["detectability"])
+    assert all(item["minimum_detectable_effect"] is None for item in audit["detectability"])
+    assert all(item["calculation_status"] == "MDE_UNAVAILABLE" for item in audit["detectability"])
+    assert all(
+        item["unavailable_reason"] == "NO_GOVERNED_INFERENTIAL_DEPENDENCE_MODEL"
+        for item in audit["detectability"]
+    )
+    assert all(item["effective_sample_size"] is None for item in audit["detectability"])
     assert all(
         item["economic_power_interpretation"] == "ECONOMIC_POWER_INTERPRETATION_UNAVAILABLE"
         for item in audit["detectability"]
@@ -222,6 +235,10 @@ def test_detectability_adds_no_mesi_and_changes_no_historical_verdict() -> None:
     assert (
         aligned["terminal_historical_classification"]
         == result["secondary_results"]["terminal_classification"]
+    )
+    assert aligned["diagnostic_trade_ess"] == pytest.approx(116.35, abs=0.01)
+    assert aligned["dependence_diagnostic_method"] == (
+        "POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC_ONLY"
     )
 
 

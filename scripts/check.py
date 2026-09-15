@@ -1196,6 +1196,7 @@ def main() -> None:
     parser.add_argument("--pre-experiment", action="store_true")
     options = parser.parse_args()
     state = governance_checks(options.pre_experiment)
+    run([sys.executable, "scripts/check_numerical_environment.py"])
     run([sys.executable, "scripts/audit_statistical_evidence.py", "--check"])
     for command in (
         [sys.executable, "-m", "ruff", "check", "backend", "scripts"],

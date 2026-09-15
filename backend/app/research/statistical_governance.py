@@ -8,9 +8,9 @@ import math
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
+from statistics import fmean, stdev
 from typing import Any
 
-import numpy as np
 import pyarrow.parquet as pq
 from scipy import stats
 
@@ -376,10 +376,7 @@ def compute_mde(
     dependence_method: str,
 ) -> float:
     """Normal-approximation mean MDE under an explicit governed sample-size basis."""
-    if dependence_method not in {
-        "RAW_IID",
-        "GOVERNED_POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC",
-    }:
+    if dependence_method != "GOVERNED_IID":
         raise StatisticalGovernanceError("dependence basis is not governed")
     values = (sample_standard_deviation, effective_sample_size, alpha, power_target)
     if any(not math.isfinite(float(value)) for value in values):
@@ -541,29 +538,35 @@ def reconstruct_statistical_evidence(root: Path = ROOT) -> dict[str, Any]:
             "mean_net_bps": _summary_metric(result, "net_expectancy_bps"),
             "sample_standard_deviation": None,
             "naive_test_statistic": None,
+            "naive_test_statistic_basis": None,
             "governed_effective_sample_size": _governed_ess(result),
             "dependence_adjusted_statistic": None,
             "unadjusted_p_value": None,
+            "unadjusted_p_value_basis": None,
             "holm_adjusted_p_value": None,
             "statistical_status": "EXACT_STATISTIC_UNAVAILABLE",
             "unavailable_reason": None,
         }
         if outcomes:
-            values = np.asarray(outcomes, dtype=np.float64)
-            mean = float(np.mean(values))
-            deviation = float(np.std(values, ddof=1)) if len(values) > 1 else math.nan
+            # statistics.fmean/stdev have a platform-stable, high-precision reduction
+            # path. NumPy's vector reduction can differ by a final bit across CPU builds,
+            # which is unacceptable for byte-frozen governance artifacts.
+            mean = fmean(outcomes)
+            deviation = stdev(outcomes) if len(outcomes) > 1 else math.nan
             row.update(
-                raw_trade_count=len(values),
+                raw_trade_count=len(outcomes),
                 mean_net_R=mean,
-                mean_net_bps=float(np.mean(np.asarray(bps))) if bps is not None else None,
+                mean_net_bps=fmean(bps) if bps is not None else None,
                 sample_standard_deviation=deviation if math.isfinite(deviation) else None,
             )
-            if len(values) > 1 and deviation > 0:
-                statistic = mean / (deviation / math.sqrt(len(values)))
+            if len(outcomes) > 1 and deviation > 0:
+                statistic = mean / (deviation / math.sqrt(len(outcomes)))
                 row["naive_test_statistic"] = float(statistic)
+                row["naive_test_statistic_basis"] = "NAIVE_IID"
                 if spec.directional_positive_claim is True:
-                    raw_p = float(stats.t.sf(statistic, df=len(values) - 1))
+                    raw_p = float(stats.t.sf(statistic, df=len(outcomes) - 1))
                     row["unadjusted_p_value"] = raw_p
+                    row["unadjusted_p_value_basis"] = "NAIVE_IID_ONE_SIDED"
                     row["statistical_status"] = "NAIVE_IID_T_AVAILABLE_DEPENDENCE_UNRESOLVED"
                     row["unavailable_reason"] = None
                     raw_p_values[spec.hypothesis_id] = raw_p
@@ -585,19 +588,19 @@ def reconstruct_statistical_evidence(root: Path = ROOT) -> dict[str, Any]:
             row["holm_adjusted_p_value"] = adjusted[hypothesis_id]
 
     detectability = []
-    by_hypothesis = {spec.hypothesis_id: spec for spec in MATERIAL_PRIMARY_SPECS}
     for row in rows:
-        ess = row["governed_effective_sample_size"]
+        diagnostic_ess = row["governed_effective_sample_size"]
         deviation = row["sample_standard_deviation"]
-        spec = by_hypothesis[str(row["hypothesis_id"])]
         record = {
             "hypothesis_id": row["hypothesis_id"],
             "experiment_id": row["experiment_id"],
             "raw_sample_size": row["raw_trade_count"],
-            "effective_sample_size": ess,
+            "effective_sample_size": None,
+            "diagnostic_trade_ess": diagnostic_ess,
             "observed_dispersion_estimate": deviation,
-            "dependence_method": (
-                "GOVERNED_POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC" if ess else None
+            "dependence_method": "NO_GOVERNED_INFERENTIAL_DEPENDENCE_MODEL",
+            "dependence_diagnostic_method": (
+                "POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC_ONLY" if diagnostic_ess else None
             ),
             "alpha": PRIMARY_ALPHA,
             "power_target": POWER_TARGET,
@@ -608,25 +611,11 @@ def reconstruct_statistical_evidence(root: Path = ROOT) -> dict[str, Any]:
                 f"BONFERRONI_WORST_CASE_ALPHA_{PRIMARY_ALPHA}/{family_size}_KNOWN_FAMILY"
             ),
             "calculation_status": "MDE_UNAVAILABLE",
-            "unavailable_reason": None,
+            "unavailable_reason": "NO_GOVERNED_INFERENTIAL_DEPENDENCE_MODEL",
             "economic_power_interpretation": "ECONOMIC_POWER_INTERPRETATION_UNAVAILABLE",
             "historical_mesi": None,
             "terminal_historical_classification": row["terminal_historical_classification"],
         }
-        if isinstance(ess, (int, float)) and isinstance(deviation, (int, float)):
-            record["minimum_detectable_effect"] = compute_mde(
-                sample_standard_deviation=float(deviation),
-                effective_sample_size=float(ess),
-                alpha=PRIMARY_ALPHA / family_size,
-                power_target=POWER_TARGET,
-                directional=spec.directional_positive_claim is True,
-                dependence_method="GOVERNED_POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC",
-            )
-            record["calculation_status"] = "COMPUTED_NO_HISTORICAL_MESI"
-        elif deviation is None:
-            record["unavailable_reason"] = "RAW_DISPERSION_UNAVAILABLE"
-        else:
-            record["unavailable_reason"] = "GOVERNED_DEPENDENCE_BASIS_UNAVAILABLE"
         detectability.append(record)
 
     payload = {
@@ -644,7 +633,8 @@ def reconstruct_statistical_evidence(root: Path = ROOT) -> dict[str, Any]:
         "dependence_inference_limitation": (
             "Naive t statistics and raw p-values use exact preserved trades but an IID "
             "standard error; governed ESS remains a diagnostic and is not used to create "
-            "a dependence-adjusted test statistic or p-value."
+            "a dependence-adjusted test statistic, p-value, or inferential MDE. Historical "
+            "MDE fails closed without a governed inferential dependence model."
         ),
         "historical_mesi_invented": False,
         "historical_classifications_changed": False,

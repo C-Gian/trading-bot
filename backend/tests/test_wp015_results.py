@@ -88,6 +88,6 @@ def test_wp015_records_and_state_are_safe() -> None:
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert "# CURRENT TASK — WP-015" in archived
-    assert "# CURRENT TASK — RESEARCH-REBASELINE-V2 + P0-STATISTICAL-GOVERNANCE-V1" in current
+    assert "# CURRENT TASK — P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX" in current
     assert (ROOT / "tasks/archive/WP-017-CFTC-LEVERAGED-POSITIONING-PREP.md").is_file()
     assert (ROOT / "tasks/archive/WP-016-PREP.md").is_file()
