@@ -1,6 +1,11 @@
 {
   "schema_version": 1,
+  "branch": "main",
   "checkpoint": "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX",
+  "conclusion": "success",
+  "reviewed_head": "292f3eb468e388a8844ed7431a24e4a446162e8c",
+  "run_id": 34983918054,
+  "status": "SUCCESS",
   "failed_reference": {
     "head": "a8e54d472add9d9257e7073c2b6c9258012884c2",
     "run_id": 34931941608,
