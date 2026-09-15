@@ -374,6 +374,21 @@
       "structural_validator": "PASS",
       "terminal_classification": "REJECT",
       "unresolved_material_integrity_issues": 0
+    },
+    {
+      "development_result_path": "research/experiments/EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR/result.json",
+      "development_result_sha256": "523f8afdf3b9abe075b7bab4648bd2547d6056104fc41c1cbfea6b62d1f184a6",
+      "executable_spec_hash": "b6aecb69ee624138e17ba5e7756621cbc06efd87b8c9178095e1756a11a0199a",
+      "experiment_id": "EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR",
+      "integrity_status": "PASS",
+      "rejection_reason": "The frozen development hurdles were failed.",
+      "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+      "sealed_allocation": null,
+      "sealed_eligibility": "NOT_ELIGIBLE_REJECTED",
+      "search_memory_v2_binding": "VALID",
+      "structural_validator": "PASS",
+      "terminal_classification": "REJECT",
+      "unresolved_material_integrity_issues": 0
     }
   ],
   "generated_from": [

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 from app.research.statistical_governance import (
@@ -95,12 +96,13 @@ def test_repository_ledger_excludes_wp016_and_counts_wp017_once() -> None:
     ledger = build_repository_ledger(ROOT)
     assert ledger["known_family_size"] == 12
     assert ledger["registered_material_hypothesis_count"] == 13
-    assert ledger["known_discovery_family"].count(
-        "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1"
-    ) == 1
-    assert "WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1" not in ledger[
-        "known_discovery_family"
-    ]
+    assert (
+        ledger["known_discovery_family"].count(
+            "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1"
+        )
+        == 1
+    )
+    assert "WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1" not in ledger["known_discovery_family"]
     assert ledger["unquantified_pre_repo_exposure"] is True
     assert ledger["known_count_is_lower_bound"] is True
     assert ledger["missing_historical_trials_estimated"] is False
@@ -168,24 +170,36 @@ def test_missing_raw_evidence_never_uses_win_loss_averages_as_exact_data() -> No
 
 
 def test_mde_behaves_monotonically_and_fails_closed() -> None:
-    base = dict(
-        sample_standard_deviation=1.0,
-        effective_sample_size=100.0,
-        alpha=0.05,
-        power_target=0.80,
-        directional=True,
-        dependence_method="GOVERNED_POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC",
-    )
-    value = compute_mde(**base)
+    base = {
+        "sample_standard_deviation": 1.0,
+        "effective_sample_size": 100.0,
+        "alpha": 0.05,
+        "power_target": 0.80,
+        "directional": True,
+        "dependence_method": "GOVERNED_POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC",
+    }
+
+    def calculate(**overrides: Any) -> float:
+        parameters = {**base, **overrides}
+        return compute_mde(
+            sample_standard_deviation=float(parameters["sample_standard_deviation"]),
+            effective_sample_size=float(parameters["effective_sample_size"]),
+            alpha=float(parameters["alpha"]),
+            power_target=float(parameters["power_target"]),
+            directional=bool(parameters["directional"]),
+            dependence_method=str(parameters["dependence_method"]),
+        )
+
+    value = calculate()
     assert value == pytest.approx(0.248648, abs=1e-6)
-    assert compute_mde(**{**base, "effective_sample_size": 50.0}) > value
-    assert compute_mde(**{**base, "sample_standard_deviation": 2.0}) > value
-    assert compute_mde(**{**base, "alpha": 0.01}) > value
-    assert compute_mde(**{**base, "power_target": 0.90}) > value
+    assert calculate(effective_sample_size=50.0) > value
+    assert calculate(sample_standard_deviation=2.0) > value
+    assert calculate(alpha=0.01) > value
+    assert calculate(power_target=0.90) > value
     with pytest.raises(StatisticalGovernanceError, match="dependence basis"):
-        compute_mde(**{**base, "dependence_method": "INVENTED"})
+        calculate(dependence_method="INVENTED")
     with pytest.raises(StatisticalGovernanceError, match="valid domain"):
-        compute_mde(**{**base, "sample_standard_deviation": 0.0})
+        calculate(sample_standard_deviation=0.0)
 
 
 def test_detectability_adds_no_mesi_and_changes_no_historical_verdict() -> None:
@@ -194,24 +208,21 @@ def test_detectability_adds_no_mesi_and_changes_no_historical_verdict() -> None:
     assert audit["historical_classifications_changed"] is False
     assert all(item["historical_mesi"] is None for item in audit["detectability"])
     assert all(
-        item["economic_power_interpretation"]
-        == "ECONOMIC_POWER_INTERPRETATION_UNAVAILABLE"
+        item["economic_power_interpretation"] == "ECONOMIC_POWER_INTERPRETATION_UNAVAILABLE"
         for item in audit["detectability"]
     )
     result = json.loads(
-        (
-            ROOT
-            / "research/experiments/EXP-ALG-009-ALIGNED/result.json"
-        ).read_text(encoding="utf-8")
+        (ROOT / "research/experiments/EXP-ALG-009-ALIGNED/result.json").read_text(encoding="utf-8")
     )
     aligned = next(
         item
         for item in audit["detectability"]
         if item["hypothesis_id"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     )
-    assert aligned["terminal_historical_classification"] == result["secondary_results"][
-        "terminal_classification"
-    ]
+    assert (
+        aligned["terminal_historical_classification"]
+        == result["secondary_results"]["terminal_classification"]
+    )
 
 
 def test_safety_state_remains_closed() -> None:

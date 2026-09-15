@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -57,21 +57,15 @@ class EvidenceSpec:
 MATERIAL_PRIMARY_SPECS = (
     EvidenceSpec("HYP-TREND-V1", "EXP-BASE-003-TREND", None),
     EvidenceSpec("HYP-BREAKOUT-V1", "EXP-BASE-004-BREAKOUT", None),
-    EvidenceSpec(
-        "ALIGNED_PARTICIPATION_CONTINUATION_V1", "EXP-ALG-009-ALIGNED", True
-    ),
+    EvidenceSpec("ALIGNED_PARTICIPATION_CONTINUATION_V1", "EXP-ALG-009-ALIGNED", True),
     EvidenceSpec(
         "PERSISTENT_TREND_PULLBACK_RECOVERY_V1",
         "EXP-ALG-010-PULLBACK-RECOVERY-CORE",
         True,
     ),
-    EvidenceSpec(
-        "AGGRESSIVE_BUY_FLOW_TRANSITION_V1", "EXP-ALG-012-ORDERFLOW-CORE", True
-    ),
+    EvidenceSpec("AGGRESSIVE_BUY_FLOW_TRANSITION_V1", "EXP-ALG-012-ORDERFLOW-CORE", True),
     EvidenceSpec("LINEAR_NET_R_SELECTION_V1", "EXP-ML-014-LINEAR-NET-R-FULL", True),
-    EvidenceSpec(
-        "DYNAMIC_INTERNAL_MACRO_NET_R_V1", "EXP-ML-016-EWLS-INTERNAL-MACRO", True
-    ),
+    EvidenceSpec("DYNAMIC_INTERNAL_MACRO_NET_R_V1", "EXP-ML-016-EWLS-INTERNAL-MACRO", True),
     EvidenceSpec(
         "FINANCIAL_REGIME_CONDITIONED_SIGNAL_WEIGHTS_V1",
         "EXP-ML-018-REGIME-TWO-EXPERTS",
@@ -137,9 +131,7 @@ def load_search_records(root: Path = ROOT) -> list[dict[str, Any]]:
                 "hypothesis_id": wp006["proposed_hypothesis_id"],
                 "hypothesis_role": variant["hypothesis_role"],
                 "record_kind": "PREREGISTERED_ADMISSION",
-                "result_path": (
-                    f"research/experiments/{variant['experiment_id']}/result.json"
-                ),
+                "result_path": (f"research/experiments/{variant['experiment_id']}/result.json"),
             }
         )
     for path in sorted((root / "research/memory/registry/ledger").glob("*.jsonl")):
@@ -201,7 +193,9 @@ def build_material_hypothesis_ledger(
 
     discovery_events: list[dict[str, Any]] = []
     for hypothesis_id in sorted(economic_by_hypothesis):
-        ids = sorted(str(record["experiment_id"]) for record in economic_by_hypothesis[hypothesis_id])
+        ids = sorted(
+            str(record["experiment_id"]) for record in economic_by_hypothesis[hypothesis_id]
+        )
         is_blocked = hypothesis_id in blocked
         is_observed = any(experiment_id in observed for experiment_id in ids) and not is_blocked
         discovery_events.append(
@@ -294,21 +288,18 @@ def build_material_hypothesis_ledger(
 
 def build_repository_ledger(root: Path = ROOT) -> dict[str, Any]:
     records = load_search_records(root)
-    observed = {
-        str(record["experiment_id"]) for record in records if _result_exists(root, record)
-    }
+    observed = {str(record["experiment_id"]) for record in records if _result_exists(root, record)}
     wp017_primary = _json(
-        root
-        / "research/experiments/EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR/result.json"
+        root / "research/experiments/EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR/result.json"
     )
     control_id = wp017_primary["secondary_results"]["primary_minus_control_default_net_r"][
         "control_experiment_id"
     ]
     observed.add(str(control_id))
     result_paths = sorted((root / "research/experiments").glob("*/result.json"))
-    observed_profiles = sum(
-        int(_json(path)["trial_accounting"]["executed_trials"]) for path in result_paths
-    ) + 4  # WP017's matched control is embedded in the single counted result.
+    observed_profiles = (
+        sum(int(_json(path)["trial_accounting"]["executed_trials"]) for path in result_paths) + 4
+    )  # WP017's matched control is embedded in the single counted result.
     model_fits = sum(_extract_model_fits(_json(path)) for path in result_paths)
     state = _json(root / "state/current_state.json")
     model_fits += int(state["adaptive_challenger"]["inadmissible_model_fits"])
@@ -403,9 +394,7 @@ def compute_mde(
     critical = stats.norm.ppf(1 - alpha if directional else 1 - alpha / 2)
     power_quantile = stats.norm.ppf(power_target)
     return float(
-        (critical + power_quantile)
-        * sample_standard_deviation
-        / math.sqrt(effective_sample_size)
+        (critical + power_quantile) * sample_standard_deviation / math.sqrt(effective_sample_size)
     )
 
 
@@ -449,7 +438,11 @@ def _raw_outcomes(root: Path, experiment_id: str) -> tuple[list[float], list[flo
     if not isinstance(trials, list):
         return [], None
     default = next(
-        (trial for trial in trials if isinstance(trial, dict) and _profile_name(trial) == "DEFAULT"),
+        (
+            trial
+            for trial in trials
+            if isinstance(trial, dict) and _profile_name(trial) == "DEFAULT"
+        ),
         None,
     )
     if not isinstance(default, dict) or not isinstance(default.get("trades"), list):
@@ -618,9 +611,7 @@ def reconstruct_statistical_evidence(root: Path = ROOT) -> dict[str, Any]:
             "unavailable_reason": None,
             "economic_power_interpretation": "ECONOMIC_POWER_INTERPRETATION_UNAVAILABLE",
             "historical_mesi": None,
-            "terminal_historical_classification": row[
-                "terminal_historical_classification"
-            ],
+            "terminal_historical_classification": row["terminal_historical_classification"],
         }
         if isinstance(ess, (int, float)) and isinstance(deviation, (int, float)):
             record["minimum_detectable_effect"] = compute_mde(
@@ -693,7 +684,10 @@ def build_aligned_provenance_audit() -> dict[str, Any]:
             "first_known_commit": baseline_commit,
             "known_before_relevant_result_exposure": True,
             "provenance_status": "INHERITED",
-            "evidence": [design_source, "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json"],
+            "evidence": [
+                design_source,
+                "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json",
+            ],
             "notes": "Inherited unchanged from the fixed WP-003 breakout baseline.",
         },
         {
@@ -705,8 +699,11 @@ def build_aligned_provenance_audit() -> dict[str, Any]:
             "first_known_commit": design_commit,
             "known_before_relevant_result_exposure": True,
             "provenance_status": "EX_ANTE_CONVENTION",
-            "evidence": [design_source, "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json"],
-            "notes": "Seven-day calendar interpretation; not reported as optimized.",
+            "evidence": [
+                design_source,
+                "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json",
+            ],
+            "notes": "Seven-day calendar interpretation; no repository-recorded search is reported.",
         },
         {
             "parameter_id": "ALIGNED_PERSISTENCE_THRESHOLD",
@@ -717,7 +714,10 @@ def build_aligned_provenance_audit() -> dict[str, Any]:
             "first_known_commit": design_commit,
             "known_before_relevant_result_exposure": True,
             "provenance_status": "EX_ANTE_CONVENTION",
-            "evidence": [design_source, "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json"],
+            "evidence": [
+                design_source,
+                "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json",
+            ],
             "notes": "Equivalent signed efficiency threshold is one third; no threshold search recorded.",
         },
         {
@@ -729,7 +729,10 @@ def build_aligned_provenance_audit() -> dict[str, Any]:
             "first_known_commit": design_commit,
             "known_before_relevant_result_exposure": True,
             "provenance_status": "EX_ANTE_CONVENTION",
-            "evidence": [design_source, "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json"],
+            "evidence": [
+                design_source,
+                "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json",
+            ],
             "notes": "Prior-day calendar interpretation; current volume is excluded.",
         },
         {
@@ -741,7 +744,10 @@ def build_aligned_provenance_audit() -> dict[str, Any]:
             "first_known_commit": design_commit,
             "known_before_relevant_result_exposure": True,
             "provenance_status": "EX_ANTE_CONVENTION",
-            "evidence": [design_source, "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json"],
+            "evidence": [
+                design_source,
+                "research/experiments/EXP-ALG-009-ALIGNED/preregistration.json",
+            ],
             "notes": "The design explicitly calls 2x a unit-based convention, not an estimated optimum.",
         },
         {
@@ -753,7 +759,10 @@ def build_aligned_provenance_audit() -> dict[str, Any]:
             "first_known_commit": baseline_commit,
             "known_before_relevant_result_exposure": True,
             "provenance_status": "INHERITED",
-            "evidence": [design_source, "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json"],
+            "evidence": [
+                design_source,
+                "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json",
+            ],
             "notes": "Frozen baseline barrier retained to isolate selection-gate evidence.",
         },
         {
@@ -765,7 +774,10 @@ def build_aligned_provenance_audit() -> dict[str, Any]:
             "first_known_commit": baseline_commit,
             "known_before_relevant_result_exposure": True,
             "provenance_status": "INHERITED",
-            "evidence": [design_source, "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json"],
+            "evidence": [
+                design_source,
+                "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json",
+            ],
             "notes": "Frozen baseline barrier retained to isolate selection-gate evidence.",
         },
         {
@@ -777,8 +789,11 @@ def build_aligned_provenance_audit() -> dict[str, Any]:
             "first_known_commit": baseline_commit,
             "known_before_relevant_result_exposure": True,
             "provenance_status": "INHERITED",
-            "evidence": [design_source, "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json"],
-            "notes": "Frozen baseline horizon; the rebaseline does not reinterpret or optimize it.",
+            "evidence": [
+                design_source,
+                "research/experiments/EXP-BASE-004-BREAKOUT/preregistration.json",
+            ],
+            "notes": "Frozen baseline horizon; the rebaseline does not reinterpret or retune it.",
         },
     ]
     normalized = [normalize_provenance_entry(entry) for entry in entries]
@@ -885,8 +900,8 @@ __all__ = [
     "POWER_TARGET",
     "PRIMARY_ALPHA",
     "REPRODUCTION",
-    "StatisticalGovernanceError",
     "WALK_FORWARD_FIT",
+    "StatisticalGovernanceError",
     "build_aligned_provenance_audit",
     "build_material_hypothesis_ledger",
     "build_repository_ledger",

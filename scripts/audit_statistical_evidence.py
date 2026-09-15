@@ -46,7 +46,11 @@ def main() -> int:
     args = parser.parse_args()
     expected = expected_outputs()
     if args.check:
-        drift = [path for path, content in expected.items() if not path.is_file() or path.read_bytes() != content]
+        drift = [
+            path
+            for path, content in expected.items()
+            if not path.is_file() or path.read_bytes() != content
+        ]
         if drift:
             raise SystemExit("statistical audit drift: " + ", ".join(str(path) for path in drift))
         print("statistical audit: PASS")

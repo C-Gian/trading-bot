@@ -32,7 +32,7 @@
       "first_known_commit": "17cc59a753d2368637de0263c31d3479d1303dff",
       "first_known_repository_source": "research/design/ALGORITHM_FAMILY_V1_DESIGN.md",
       "known_before_relevant_result_exposure": true,
-      "notes": "Seven-day calendar interpretation; not reported as optimized.",
+      "notes": "Seven-day calendar interpretation; no repository-recorded search is reported.",
       "parameter_id": "ALIGNED_CONTEXT_LENGTH",
       "provenance_status": "EX_ANTE_CONVENTION",
       "semantic_role": "DIRECTIONAL_PERSISTENCE_CONTEXT",
@@ -125,7 +125,7 @@
       "first_known_commit": "ee6488c9fc6d5a8ee0bf9323b6fbf48a66f30f8d",
       "first_known_repository_source": "backend/app/research/baselines.py",
       "known_before_relevant_result_exposure": true,
-      "notes": "Frozen baseline horizon; the rebaseline does not reinterpret or optimize it.",
+      "notes": "Frozen baseline horizon; the rebaseline does not reinterpret or retune it.",
       "parameter_id": "ALIGNED_EXPIRY",
       "provenance_status": "INHERITED",
       "semantic_role": "MAXIMUM_HOLDING_HORIZON",
@@ -133,6 +133,6 @@
       "value": 24
     }
   ],
-  "parameters_sha256": "ec37fed146dd7167b62d8c0993d8c1c76d9e098d889bb57ae936b801ecb70bae",
+  "parameters_sha256": "1a692eb85fb3d836ba62fc28fc68f48a31378a3e0ef8607fe615429447e464a0",
   "schema_version": 1
 }

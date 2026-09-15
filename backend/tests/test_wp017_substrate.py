@@ -25,7 +25,6 @@ from app.research.wp017 import (
     SUCCESS_CRITERIA,
     load_protocol,
     novelty_decision,
-    preflight,
 )
 from app.research.wp017_lab import (
     CONTROL_FEATURES,
@@ -106,7 +105,7 @@ def test_frozen_protocol_adds_exactly_one_cftc_feature() -> None:
     assert protocol["cftc"]["freshness_cutoff"] is False
 
 
-def test_admission_and_preflight_exist_before_any_result() -> None:
+def test_admission_and_immutable_preflight_predate_the_reviewed_result() -> None:
     admission = novelty_decision(ROOT)
     primary, control = admission["variants"]
     assert primary["variant"] == PRIMARY_VARIANT
@@ -114,17 +113,17 @@ def test_admission_and_preflight_exist_before_any_result() -> None:
     assert control["variant"] == CONTROL_VARIANT
     assert control["classification"] == "KNOWN_INTERNAL_HGBR_MATCHED_CONTROL"
     assert control["authorized_as_matched_control"] is True
-    gate = preflight(ROOT)
+    gate = json.loads((ROOT / "reports/validation/WP-017-PREFLIGHT.json").read_text())
     assert gate["status"] == "PASS"
     assert gate["market_results_observed"] == gate["model_fits_executed"] == 0
     assert gate["post_cutoff_access"] == gate["sealed_queries"] == 0
     assert gate["matched_eligible_universe"] is True
     assert gate["new_feature_count"] == 1 and gate["only_new_feature"] == CFTC_FEATURE
     assert gate["runtime_version"] == RUNTIME_VERSION
-    assert not any(
-        (ROOT / "research/experiments" / experiment / "result.json").exists()
-        for experiment in EXPERIMENTS.values()
-    )
+    assert (ROOT / "research/experiments" / EXPERIMENTS[PRIMARY_VARIANT] / "result.json").exists()
+    assert not (
+        ROOT / "research/experiments" / EXPERIMENTS[CONTROL_VARIANT] / "result.json"
+    ).exists()
 
 
 def test_committed_cftc_integrity_is_metadata_only_and_point_in_time_safe() -> None:

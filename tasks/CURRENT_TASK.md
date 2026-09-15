@@ -1,33 +1,31 @@
-# CURRENT TASK — WP-017-CFTC-LEVERAGED-POSITIONING-PREP
+# CURRENT TASK — RESEARCH-REBASELINE-V2 + P0-STATISTICAL-GOVERNANCE-V1
 
-Status: COMPLETED_PENDING_OWNER_EXECUTION_AND_RESEARCH_DIRECTOR_REVIEW
+Status: COMPLETED_PENDING_RESEARCH_DIRECTOR_REVIEW
 
-Starting HEAD: `920376eef118c238c0e9a1c6d59d0fd0aaf08c28` on local `main`.
+Starting HEAD: `24fccaa1e0e2e4684df8ae226afc64f0bda5d371` on local `main`.
 
-This checkpoint prepares exactly one new preregistered development experiment for later
-Owner execution through Research Lab. It stops before any WP-017 market result.
+This checkpoint rebaselines the future research system without resetting the repository,
+rewriting history, changing ALIGNED, or executing a new historical market experiment.
+The immutable Owner-executed WP-017 run `f475f7a2ef4b4ed693b5f86aa56d4b38`
+is formally reviewed as REJECT and the CFTC positioning family is parked without rescue.
 
-The governed CFTC data foundation uses official Traders in Financial Futures annual
-archives 2018-2024 for `BITCOIN - CHICAGO MERCANTILE EXCHANGE`, code `133741`. Report date
-is never treated as availability: each report resolves an actual publication date from its
-own official archived object and becomes available at 00:00:00 UTC the following calendar
-day. 352 raw rows yield 351 eligible canonical rows; the 2024-12-31 report was published
-2025-01-06 and is excluded as post-cutoff; zero publication dates are unresolved.
+Canonical governance now separates statistical credibility, signal information,
+economic monetization/execution, and product validation. It freezes the Owner economic
+significance policy, selection/evaluation separation, and a binding future power gate.
+Champion remains NONE; ALIGNED remains PAPER_RESEARCH_CANDIDATE; BTCUSDT spot remains the
+only product universe; sealed queries and real-money authorization remain zero/false.
 
-`FAM-CFTC-REGULATED-FUTURES-POSITIONING` is admitted as a new family. EXP-ML-028 adds the
-single feature `CFTC_LEVERAGED_FUNDS_NET_OI_SHARE_V1` to the frozen F1-F8 set; EXP-ML-029
-is the matched F1-F8 control on an identical eligible universe. WP-017 binds
-`RESEARCH_RUNTIME_V2_BATCH` explicitly. Success criteria, folds, profiles, threshold,
-purge and the full search restriction are frozen before any result exists.
+The deterministic statistical layer provides a discovery-level material hypothesis
+ledger, explicit unquantified pre-repository exposure, ALIGNED constant provenance,
+machine-reconstructed statistics, known-family Holm adjustment, and historical
+detectability/MDE metadata without changing any historical classification.
 
-Preregistration was committed before the Research Lab candidate was exposed, and
-`scripts/check.py` verifies that ordering mechanically.
+Research Lab V1.2 uses an accessible dark custom combobox, isolates runnable scientific
+candidates from historical/diagnostic records, keeps WP-016 visibly blocked, and displays
+only backend-originated stage, work-unit progress, elapsed time, and heartbeat truth.
 
-No backtest, model fit, trading result, sealed query or paper trade was created.
-`experiments_completed` remains 25, WP-016 remains `BLOCKED_BEFORE_EXECUTION`, Champion
-remains NONE, and real money remains false. See
-`reports/checkpoints/WP-017-CFTC-LEVERAGED-POSITIONING-PREP.md` and
-`decisions/ADR-0012-WP017-CFTC-LEVERAGED-POSITIONING.md`.
+No P1A, P1B, cross-sectional, cycle, Runtime V3, sealed, or real-capital work was executed.
+The next research work package is design-only:
+`DESIGN_ALIGNED_SIGNAL_PERSISTENCE_V1`.
 
-Owner next action: run `WP017_CFTC_LEVERAGED_POSITIONING_V1` once from Research Lab and
-send the review bundle to the Research Director.
+Next action: Research Director review before any new historical experiment.

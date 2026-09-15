@@ -93,7 +93,7 @@
   },
   "canonical_resolution": "1m",
   "cftc_positioning_challenger": {
-    "actual_model_fits": 0,
+    "actual_model_fits": 10,
     "cftc_canonical_eligible_rows": 351,
     "cftc_contract_market_code": "133741",
     "cftc_excluded_availability_after_cutoff": 1,
@@ -102,14 +102,16 @@
     "cftc_unresolved_publication_rows": 0,
     "control": "INTERNAL_HGBR_MATCHED_CFTC",
     "hypothesis_id": "CFTC_LEVERAGED_FUNDS_NET_POSITIONING_ADDS_INFORMATION_V1",
-    "market_results_observed": false,
+    "market_results_observed": true,
     "new_feature_count": 1,
     "primary": "INTERNAL_PLUS_CFTC_LEVERAGED_NET_HGBR",
     "reserved_model_fits": 10,
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+    "run_id": "f475f7a2ef4b4ed693b5f86aa56d4b38",
     "runner_candidate_id": "WP017_CFTC_LEVERAGED_POSITIONING_V1",
     "runtime_version": "RESEARCH_RUNTIME_V2_BATCH",
-    "status": "PREREGISTERED_PENDING_OWNER_EXECUTION",
+    "status": "VALIDATED_REVIEWED_REJECTED",
+    "terminal_classification": "REJECT",
     "validation_folds": 5,
     "version": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1"
   },
@@ -152,7 +154,7 @@
     "version": "GDELT_NEWS_CONTEXT_V1_1",
     "wp009_finalized": false
   },
-  "experiments_completed": 25,
+  "experiments_completed": 26,
   "forward_evidence": "NONE",
   "funding_context_challenger": {
     "actual_model_fits": 10,
@@ -171,20 +173,20 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "WP-017-CFTC-LEVERAGED-POSITIONING-PREP",
+  "latest_executor_checkpoint": "RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1",
   "latest_family": {
-    "name": "PERPETUAL_FUNDING_CONTEXT_V1",
+    "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
-    "primary_experiment_id": "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
-    "root_family": "FAM-DERIVATIVES-SENTIMENT-CONTEXT",
-    "terminal_classification": "REJECT_COST_DOMINATED"
+    "primary_experiment_id": "EXP-ML-028-INTERNAL-PLUS-CFTC-LEVERAGED-NET-HGBR",
+    "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
+    "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2",
+  "latest_reviewed_checkpoint": "WP-017-RESEARCH-DIRECTOR-REVIEW",
   "max_holding_horizon": {
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "OWNER_EXECUTION_OF_WP017_THEN_RESEARCH_DIRECTOR_REVIEW",
+  "next_recommended_work_package": "DESIGN_ALIGNED_SIGNAL_PERSISTENCE_V1",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -194,6 +196,14 @@
     "version": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1"
   },
   "owner_decision_required": false,
+  "owner_economic_policy": {
+    "annual_net_excess_return_mesi_percentage_points": 5,
+    "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
+    "policy": "governance/ECONOMIC_SIGNIFICANCE_POLICY_V1.json",
+    "primary_benchmark_family": "MATCHED_CONTROL",
+    "real_money_authorized": false,
+    "reference_capital_eur": 5000
+  },
   "paper_trades_completed": 0,
   "paper_trading": {
     "causal_entry_validation": "PASS_SYNTHETIC",
@@ -340,6 +350,9 @@
     "scientific_counters_mutated": false,
     "surface": "AVAILABLE",
     "version": "RESEARCH_RUNNER_V1",
+    "reviewed_candidate_ids": [
+      "WP017_CFTC_LEVERAGED_POSITIONING_V1"
+    ],
     "wp015_reproduction": {
       "control_default_expectancy_r": -0.1236220929,
       "default_expectancy_r": -0.0814500414,
@@ -377,12 +390,12 @@
     "wp016_runtime": "WP016_PREREGISTERED_RUNTIME_V1",
     "wp016_status": "BLOCKED_BEFORE_EXECUTION",
     "wp017_runtime": "RESEARCH_RUNTIME_V2_BATCH",
-    "wp017_status": "PREREGISTERED_PENDING_OWNER_EXECUTION"
+    "wp017_status": "REVIEWED_REJECTED"
   },
   "schema_version": 3,
   "sealed_evaluation": {
     "authorized_btc_queries": 0,
-    "candidates_assessed": 25,
+    "candidates_assessed": 26,
     "consumed_btc_queries": 0,
     "dataset_state": "RESERVED_NOT_ACQUIRED",
     "isolation": "APPLICATION_AND_REPOSITORY_LAYER_ONLY_NOT_OS_ENFORCED",
@@ -400,6 +413,18 @@
     "name": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
     "primary_experiment_id": "EXP-ALG-009-ALIGNED",
     "terminal_classification": "INCONCLUSIVE"
+  },
+  "statistical_governance": {
+    "aligned_constant_provenance": "reports/statistics/ALIGNED-CONSTANT-PROVENANCE-V1.json",
+    "detectability_power_target": 0.8,
+    "familywise_alpha": 0.05,
+    "future_power_gate": "BINDING",
+    "known_discovery_family_size": 12,
+    "ledger": "reports/statistics/MATERIAL-HYPOTHESIS-LEDGER-V1.json",
+    "selection_evaluation_separation": "BINDING",
+    "statistical_audit": "reports/statistics/STATISTICAL-EVIDENCE-AUDIT-V1.json",
+    "unquantified_pre_repo_exposure": true,
+    "version": "P0_STATISTICAL_GOVERNANCE_V1"
   },
   "shallow_nonlinear_challenger": {
     "actual_model_fits": 12,
@@ -430,7 +455,7 @@
     "wp016_executed": false,
     "wp017_preregistered": false
   },
-  "status": "EXECUTOR_COMPLETE_PENDING_REVIEW",
+  "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
   "supervised_challenger": {
     "leakage_audit": "PASS",
     "model_fits": 12,

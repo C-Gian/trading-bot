@@ -13,4 +13,4 @@ Append-only audit; the frozen design document is unchanged.
 | ALIGNED_TARGET | `4` | INHERITED | `ee6488c9fc6d5a8ee0bf9323b6fbf48a66f30f8d` |
 | ALIGNED_EXPIRY | `24` | INHERITED | `ee6488c9fc6d5a8ee0bf9323b6fbf48a66f30f8d` |
 
-Parameters hash: `ec37fed146dd7167b62d8c0993d8c1c76d9e098d889bb57ae936b801ecb70bae`
+Parameters hash: `1a692eb85fb3d836ba62fc28fc68f48a31378a3e0ef8607fe615429447e464a0`

@@ -430,7 +430,7 @@ def test_manual_classification_and_counter_discipline_persist(tmp_path: Path) ->
     assert trade["initiation_mode"] == INITIATION_MODE == "OWNER_MANUAL"
     assert trade["execution_model_version"] == PAPER_EXECUTION_VERSION
     state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
-    assert state["experiments_completed"] == 25
+    assert state["experiments_completed"] == 26
     assert state["paper_trades_completed"] == 0
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
 

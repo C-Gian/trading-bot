@@ -451,7 +451,7 @@ def test_scientific_paper_trade_counter_is_untouched() -> None:
     assert state["champion_status"] == "NONE"
     assert state["forward_evidence"] == "NONE"
     assert state["real_money_authorized"] is False
-    assert state["experiments_completed"] == 25
+    assert state["experiments_completed"] == 26
     assert state["sealed_evaluations_completed"] == 0
     # WP-011 through preregistered WP-016 advanced search burden; paper counters stay zero.
     assert state["adaptive_search"]["adaptive_decisions"] == 13

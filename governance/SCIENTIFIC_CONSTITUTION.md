@@ -50,6 +50,12 @@ The laboratory's advantage must not be “try more strategies until one looks go
 
 The advantage must be “run many experiments without allowing the number of attempts to fool us.”
 
+## Governance
+
+This Constitution is Owner-controlled and cannot be automatically weakened or replaced by an AI agent.
+
+Lower-level research workflow may evolve, but never in conflict with this document.
+
 ## Selection/evaluation separation
 
 No feature set, feature weight, timeframe, signal threshold, label horizon,
@@ -81,9 +87,3 @@ may not be lowered after results are observed.
 MDE and MESI are distinct: MDE describes design detectability under assumptions; MESI is
 the minimum economically important effect. Neither changes a historical terminal
 classification retrospectively.
-
-## Governance
-
-This Constitution is Owner-controlled and cannot be automatically weakened or replaced by an AI agent.
-
-Lower-level research workflow may evolve, but never in conflict with this document.

@@ -41,6 +41,18 @@ STAGES = (
 )
 
 
+def noop_progress(
+    stage: str,
+    value: float,
+    detail: str | None = None,
+    *,
+    completed_work_units: int | None = None,
+    total_work_units: int | None = None,
+    unit_label: str | None = None,
+) -> None:
+    del stage, value, detail, completed_work_units, total_work_units, unit_label
+
+
 def result(context: RunContext) -> dict[str, Any]:
     return {
         "candidate_id": context.candidate.candidate_id,
@@ -466,7 +478,7 @@ def test_api_accepts_only_candidate_id_and_returns_persisted_run(tmp_path: Path)
 
 def test_review_bundle_omits_logs_and_declares_reproduction(tmp_path: Path) -> None:
     candidate = fixture_candidate(lambda context: result(context))
-    context = RunContext(tmp_path, tmp_path, "b" * 32, candidate, lambda *_: None)
+    context = RunContext(tmp_path, tmp_path, "b" * 32, candidate, noop_progress)
     payload = result(context)
     payload["giant_logs"] = "do not copy"
     bundle = build_review_bundle(payload)
@@ -477,7 +489,7 @@ def test_review_bundle_omits_logs_and_declares_reproduction(tmp_path: Path) -> N
 
 def test_review_bundle_declares_a_new_experiment_when_adapter_does(tmp_path: Path) -> None:
     candidate = fixture_candidate(lambda context: result(context))
-    context = RunContext(tmp_path, tmp_path, "c" * 32, candidate, lambda *_: None)
+    context = RunContext(tmp_path, tmp_path, "c" * 32, candidate, noop_progress)
     payload = result(context)
     payload["new_experiment"] = True
     assert json.loads(build_review_bundle(payload))["new_experiment"] is True

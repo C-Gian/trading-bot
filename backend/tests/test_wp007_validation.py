@@ -15,8 +15,8 @@ def test_repository_checkpoint_validates():
         "FLOW_CORE": "REJECT_COST_DOMINATED",
         "FLOW_PRICE_RESPONSE": "REJECT_COST_DOMINATED",
     }
-    # WP-015 brought the cumulative assessment count to 25; none is eligible or queried.
-    assert result["sealed"] == {"assessed": 25, "eligible": 0, "queries": 0}
+    # WP-017 brought the cumulative assessment count to 26; none is eligible or queried.
+    assert result["sealed"] == {"assessed": 26, "eligible": 0, "queries": 0}
 
 
 def test_results_answer_the_preregistered_cost_and_timing_questions():

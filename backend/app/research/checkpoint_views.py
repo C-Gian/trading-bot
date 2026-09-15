@@ -19,6 +19,7 @@ from .wp012 import EXPERIMENTS as WP012_EXPERIMENTS
 from .wp013 import EXPERIMENTS as WP013_EXPERIMENTS
 from .wp014 import EXPERIMENTS as WP014_EXPERIMENTS
 from .wp015 import EXPERIMENTS as WP015_EXPERIMENTS
+from .wp017 import EXPERIMENTS as WP017_EXPERIMENTS
 
 LABEL = "DEVELOPMENT RESEARCH — NOT APPROVED STRATEGY PERFORMANCE"
 CONTROL_IDS = (
@@ -130,6 +131,9 @@ def experiment_view(root: Path = ROOT, *, state: dict[str, Any] | None = None) -
     }
     windows.update(
         dict.fromkeys(WP015_EXPERIMENTS.values(), "WP-015 matched funding validation (2020-2024)")
+    )
+    windows.update(
+        dict.fromkeys(WP017_EXPERIMENTS.values(), "WP-017 matched CFTC validation (2020-2024)")
     )
     for eid, window in windows.items():
         path = root / "research/experiments" / eid / "result.json"
