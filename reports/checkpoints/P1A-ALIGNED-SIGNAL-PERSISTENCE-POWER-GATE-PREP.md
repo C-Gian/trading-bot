@@ -100,4 +100,15 @@ Unchanged: `experiments_completed` 26, observed material hypotheses 12, sealed q
 Champion NONE, real money false, forward evidence NONE. ALIGNED semantics, stop, target,
 volume, trend and breakout parameters untouched; historical research artifacts unchanged.
 
+## Validation
+
+`python scripts/check.py` exit 0 on a clean tree: governance, statistical audit, P1A gate
+audit, ruff, mypy, 761 backend tests, 44 frontend tests, frontend build, and the
+data-mode checks that reproduce the committed placebo distribution from the local
+development dataset.
+
+Exact head `8d3286a29093e542ed2fdeff5c457666dca5ea66` passed GitHub Actions run
+`34993308932` (SUCCESS), evidence in
+`reports/reviews/P1A-POWER-GATE-PREP-CI-EVIDENCE.json`.
+
 Next action: Research Director review of the redesign decision.

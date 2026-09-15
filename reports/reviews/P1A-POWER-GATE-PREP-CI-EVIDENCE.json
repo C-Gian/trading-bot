@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "branch": "main",
+  "checkpoint": "P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP",
+  "conclusion": "success",
+  "reviewed_head": "8d3286a29093e542ed2fdeff5c457666dca5ea66",
+  "run_id": 34993308932,
+  "status": "SUCCESS",
+  "run_url": "https://github.com/C-Gian/trading-bot/actions/runs/34993308932",
+  "starting_head": "44c604508e470e4e06fa6ac5334d2c12f49c3d3e",
+  "commits": [
+    {
+      "sha": "2c37d7631d6eb7de53addceca3eccfa66c4abf8a",
+      "subject": "Design and measure the P1A 120h persistence power gate"
+    },
+    {
+      "sha": "8d3286a29093e542ed2fdeff5c457666dca5ea66",
+      "subject": "Restore data-mode inventory coverage for the WP-017 CFTC artifacts"
+    }
+  ],
+  "local_validation": {
+    "command": "python scripts/check.py",
+    "exit_code": 0,
+    "backend_tests": "761 passed",
+    "frontend_tests": "44 passed",
+    "statistical_audit": "PASS",
+    "p1a_power_gate_audit": "PASS",
+    "data_mode_checks": "PASS",
+    "clean_tree": true
+  },
+  "ci_verification": {
+    "command": "uv run --frozen python scripts/check.py --no-data",
+    "p1a_gate_rederived_without_market_data": true,
+    "null_distribution_source": "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-NULL-DISTRIBUTION-V1.json"
+  },
+  "power_gate": {
+    "hypothesis_id": "ALIGNED_SIGNAL_PERSISTS_TO_120H_V1",
+    "hypothesis_status": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
+    "primary_horizon_hours": 120,
+    "raw_signal_count": 180,
+    "placebo_shift_count": 7369,
+    "minimum_shift_hours": 168,
+    "prospective_family_size": 13,
+    "effective_alpha": 0.0038461538461538464,
+    "power_target": 0.8,
+    "mesi_bps_per_event": 24.0,
+    "empirical_mde_bps_per_event": 285.640052,
+    "power_at_mesi": 0.014248880445107885,
+    "minimum_attainable_randomization_p": 0.000135685210312076,
+    "power_gate_status": "REDESIGN_REQUIRED"
+  },
+  "leakage": {
+    "zero_shift_statistic_computed": false,
+    "actual_p1a_effect_observed": false,
+    "p1a_p_value_observed": false,
+    "p1a_performance_classified": false,
+    "future_outcome_artifact_created": false
+  },
+  "safety": {
+    "experiments_completed": 26,
+    "observed_material_hypotheses": 12,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "real_money_authorized": false,
+    "material_experiment_executed": false,
+    "aligned_semantics_modified": false,
+    "historical_research_artifacts_modified": false,
+    "preregistration_created": false,
+    "runner_candidate_registered": false
+  }
+}

@@ -36,4 +36,7 @@ trend/breakout parameters are unchanged. `experiments_completed` remains 26, obs
 material hypotheses remain 12, sealed queries remain 0, Champion remains NONE and real
 money remains false.
 
+Full local validation passed on a clean tree and exact head
+`8d3286a29093e542ed2fdeff5c457666dca5ea66` passed GitHub Actions run `34993308932`.
+
 Next action: Research Director review of the redesign decision.

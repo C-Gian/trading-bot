@@ -27,6 +27,7 @@ WP013_HEAD = "e59318268099d428df0c108144aca739f5504b40"
 WP014_HEAD = "478f2fcab10569f20a81136bca1b5cff6b66d601"
 PAPER_RUNTIME_HEAD = "95362a1a24adde6b4e5a75eb2062c52dcc4fdb6d"
 P01_VERIFIED_HEAD = "292f3eb468e388a8844ed7431a24e4a446162e8c"
+P1A_VERIFIED_HEAD = "8d3286a29093e542ed2fdeff5c457666dca5ea66"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -569,6 +570,7 @@ def validate_research_views(state: dict) -> None:
         "WP-014",
         "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2",
         "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX",
+        "P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP",
     }
     for work_package, expected_head in (
         ("WP-005", WP005_BASE_SUCCESSOR),
@@ -580,6 +582,7 @@ def validate_research_views(state: dict) -> None:
         ("WP-014", WP014_HEAD),
         ("PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2", PAPER_RUNTIME_HEAD),
         ("P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX", P01_VERIFIED_HEAD),
+        ("P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP", P1A_VERIFIED_HEAD),
     ):
         record = remote[work_package]
         evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
@@ -902,6 +905,7 @@ def governance_checks(pre_experiment: bool) -> dict:
         "governance/NUMERICAL_DEPENDENCY_IDENTITY_V1.json",
         "reports/checkpoints/P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX.md",
         "reports/reviews/P0.1-DETECTABILITY-CI-EVIDENCE.json",
+        "reports/reviews/P1A-POWER-GATE-PREP-CI-EVIDENCE.json",
         "tasks/archive/RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1.md",
         "research/design/ALIGNED_SIGNAL_PERSISTENCE_V1_DESIGN.md",
         "decisions/ADR-0013-P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE.md",

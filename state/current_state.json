@@ -335,6 +335,12 @@
         "head": "478f2fcab10569f20a81136bca1b5cff6b66d601",
         "run_id": 34757514686,
         "status": "SUCCESS"
+      },
+      "P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP": {
+        "evidence": "reports/reviews/P1A-POWER-GATE-PREP-CI-EVIDENCE.json",
+        "head": "8d3286a29093e542ed2fdeff5c457666dca5ea66",
+        "run_id": 34993308932,
+        "status": "SUCCESS"
       }
     }
   },
