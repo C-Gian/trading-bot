@@ -73,6 +73,13 @@ cross-asset/time dependence treatment, a matched placebo/null, economic threshol
 translation, the power gate, and the prohibition on per-asset winner selection. No
 numeric universe threshold is frozen by this checkpoint.
 
+## Remote CI
+
+Exact-head CI SUCCESS on `334b76670cb7ef06f1e6a960c1aae67ce79eaae5`, run
+[`35022067872`](https://github.com/C-Gian/trading-bot/actions/runs/35022067872), branch
+`main`. Bound in `state/current_state.json` under `remote_ci.work_packages` and preserved
+in `reports/reviews/P2-METHODOLOGY-BLOCK-CLOSURE-CI-EVIDENCE.json`.
+
 ## Accounting
 
 Completed experiments remain 26 and known observed material economic hypotheses remain

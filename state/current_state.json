@@ -436,6 +436,12 @@
         "head": "15fd9361a16c78781650b8b5a1ecce7527200bb4",
         "run_id": 35008780484,
         "status": "SUCCESS"
+      },
+      "P2-METHODOLOGY-BLOCK-CLOSURE": {
+        "evidence": "reports/reviews/P2-METHODOLOGY-BLOCK-CLOSURE-CI-EVIDENCE.json",
+        "head": "334b76670cb7ef06f1e6a960c1aae67ce79eaae5",
+        "run_id": 35022067872,
+        "status": "SUCCESS"
       }
     }
   },

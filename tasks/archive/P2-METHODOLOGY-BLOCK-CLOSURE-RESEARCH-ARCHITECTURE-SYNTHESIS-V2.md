@@ -27,4 +27,7 @@ Accounting is unchanged: 26 completed experiments, 12 known observed material ec
 hypotheses, 15 adaptive decisions, 12 result-dependent forks, 0 sealed queries, 0 genuine
 completed paper trades, Champion `NONE`, real money false. No Owner decision is required.
 
+Repository-standard validation passed on a clean tree and exact-head CI SUCCESS is
+recorded for `334b76670cb7ef06f1e6a960c1aae67ce79eaae5` (run `35022067872`).
+
 Next action: RESEARCH DIRECTOR REVIEW.
