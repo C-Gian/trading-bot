@@ -897,6 +897,7 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/statistics/STATISTICAL-EVIDENCE-AUDIT-V1.json",
         "reports/statistics/STATISTICAL-EVIDENCE-AUDIT-V1.md",
         "reports/checkpoints/RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1.md",
+        "reports/validation/RESEARCH-REBASELINE-V2-P0-VALIDATION.json",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()

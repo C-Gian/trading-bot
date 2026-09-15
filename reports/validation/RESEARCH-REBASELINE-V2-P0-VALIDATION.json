@@ -1,0 +1,26 @@
+{
+  "backend_tests": {
+    "passed": 727,
+    "status": "PASS"
+  },
+  "checkpoint": "RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1",
+  "clean_tree_validation_command": "uv run python scripts/check.py --no-data",
+  "frontend": {
+    "build": "PASS",
+    "lint": "PASS",
+    "tests_passed": 44,
+    "typecheck": "PASS"
+  },
+  "historical_market_experiment_executed": false,
+  "python": {
+    "format_check": "PASS",
+    "mypy": "PASS",
+    "ruff": "PASS"
+  },
+  "real_money_authorized": false,
+  "sealed_queries": 0,
+  "statistical_audit": "PASS",
+  "status": "PASS",
+  "validated_content_head": "7725021dd8335c202f6dce8ee24eb3be5a399963",
+  "validated_on": "2026-09-15"
+}

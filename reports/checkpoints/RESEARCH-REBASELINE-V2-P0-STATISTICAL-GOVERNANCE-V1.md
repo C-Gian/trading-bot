@@ -39,5 +39,7 @@ The next research action is design-only: `DESIGN_ALIGNED_SIGNAL_PERSISTENCE_V1`.
 cross-sectional research, cycle research, Runtime V3, sealed evaluation, and real-capital
 work were not executed.
 
-Final repository-standard validation is the completion gate and is recorded by the
-executor only after the clean-tree run succeeds.
+Final clean-tree repository-standard validation passed on 2026-09-15: deterministic
+statistical audit, Ruff, format verification, mypy, 727 backend tests, 44 frontend tests,
+frontend lint, frontend typecheck, and the production build. The compact machine record
+is `reports/validation/RESEARCH-REBASELINE-V2-P0-VALIDATION.json`.
