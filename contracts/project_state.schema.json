@@ -598,6 +598,11 @@
         "unquantified_pre_repo_exposure",
         "familywise_alpha",
         "detectability_power_target",
+        "diagnostic_ess_used_for_inferential_mde",
+        "historical_mde_computed",
+        "historical_mde_unavailable",
+        "numerical_dependency_identity",
+        "p0_status",
         "selection_evaluation_separation",
         "future_power_gate"
       ],
@@ -610,6 +615,11 @@
         "unquantified_pre_repo_exposure": {"const": true},
         "familywise_alpha": {"const": 0.05},
         "detectability_power_target": {"const": 0.8},
+        "diagnostic_ess_used_for_inferential_mde": {"const": false},
+        "historical_mde_computed": {"const": 0},
+        "historical_mde_unavailable": {"const": 12},
+        "numerical_dependency_identity": {"const": "governance/NUMERICAL_DEPENDENCY_IDENTITY_V1.json"},
+        "p0_status": {"const": "ACCEPTED"},
         "selection_evaluation_separation": {"const": "BINDING"},
         "future_power_gate": {"const": "BINDING"}
       }
