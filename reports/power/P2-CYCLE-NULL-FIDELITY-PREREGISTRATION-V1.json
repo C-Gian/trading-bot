@@ -1,0 +1,167 @@
+{
+  "ACTUAL_MARKET_PRIMARY_RESULT_OBSERVED": false,
+  "artifact_id": "P2-CYCLE-NULL-FIDELITY-PREREGISTRATION-V1",
+  "block_expected_observations": 42,
+  "block_length_frozen_for_this_test": true,
+  "block_length_may_be_tuned_after_observation": false,
+  "criteria": {
+    "absolute_acf_lag180": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "absolute_acf_lag360": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "absolute_acf_lag42": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "absolute_acf_lag540": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "absolute_acf_lag90": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "excess_kurtosis": {
+      "maximum": 4.0,
+      "minimum": 0.25,
+      "rule": "RATIO_BAND"
+    },
+    "log_realized_volatility_sd_1d": {
+      "retained_share": 0.5,
+      "rule": "RETAINED_SHARE"
+    },
+    "log_realized_volatility_sd_30d": {
+      "retained_share": 0.5,
+      "rule": "RETAINED_SHARE"
+    },
+    "log_realized_volatility_sd_7d": {
+      "retained_share": 0.5,
+      "rule": "RETAINED_SHARE"
+    },
+    "return_acf_lag1": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag2": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag3": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag4": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag5": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag6": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_sd": {
+      "maximum": 2.0,
+      "minimum": 0.5,
+      "rule": "RATIO_BAND"
+    },
+    "tail_ratio_q995_q50": {
+      "maximum": 2.0,
+      "minimum": 0.5,
+      "rule": "RATIO_BAND"
+    },
+    "variance_ratio_12": {
+      "rule": "LOG_RATIO",
+      "tolerance": 1.5
+    },
+    "variance_ratio_180": {
+      "rule": "LOG_RATIO",
+      "tolerance": 1.5
+    },
+    "variance_ratio_42": {
+      "rule": "LOG_RATIO",
+      "tolerance": 1.5
+    },
+    "variance_ratio_540": {
+      "rule": "LOG_RATIO",
+      "tolerance": 1.5
+    }
+  },
+  "criterion_semantics": {
+    "ABSOLUTE_GAP": "pass when |observed - null median| <= tolerance",
+    "ABSOLUTE_GAP_OR_RETAINED_SHARE": "pass when |observed - null median| <= tolerance, or when the null median retains at least retained_share of the observed value",
+    "LOG_RATIO": "pass when |ln(observed / null median)| <= ln(tolerance)",
+    "RATIO_BAND": "pass when minimum <= observed / null median <= maximum",
+    "RETAINED_SHARE": "pass when null median >= retained_share * observed"
+  },
+  "decision_rule": "NULL_FIDELITY_STATUS is PASS only when every statistic passes its criterion in every fold; otherwise REDESIGN_REQUIRED and the frozen cycle result stays unobserved.",
+  "design_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
+  "evaluation_segments": "EACH_FOLD_EMBARGOED_TRAINING_SELECTION_WINDOW",
+  "fidelity_replicates": 999,
+  "null_under_test": "TRAINING_ONLY_AR_SIEVE_BIC_0_TO_42_PLUS_STATIONARY_RESIDUAL_BLOCK_BOOTSTRAP_EXPECTED_42",
+  "purpose": "Fix every NULL_FIDELITY_V1 statistic and materiality tolerance before the fidelity calculation runs, so that no threshold can be derived from an observed discrepancy.",
+  "rank_p_role": "DESCRIPTIVE_ONLY_NOT_A_GATE",
+  "rationale": {
+    "absolute_return_dependence_long_lags": "42, 90, 180, 360 and 540 four-hour observations are 7, 15, 30, 60 and 90 days: every lag except the first is materially longer than the frozen seven-day bootstrap block, and they span the frozen 2-90 day band.",
+    "realized_volatility_horizons": "Dispersion of 1-, 7- and 30-day realized volatility measures whether the null keeps the volatility-of-volatility that inflates the sampling variability of Lomb-Scargle power.",
+    "variance_ratio_horizons": "Aggregated-return variance at 2, 7, 30 and 90 days is the statistic most directly tied to spectral content inside the frozen band, so it detects a null that becomes artificially low-dependence at those frequencies."
+  },
+  "rng_stream": 3,
+  "schema_version": 1,
+  "seed": 20260915,
+  "statistic_families": {
+    "absolute_return_dependence_long_lags": [
+      42,
+      90,
+      180,
+      360,
+      540
+    ],
+    "marginal_dispersion_and_tails": [
+      "return_sd",
+      "excess_kurtosis",
+      "tail_ratio_q995_q50"
+    ],
+    "multi_day_realized_volatility_horizons": [
+      {
+        "name": "1d",
+        "observations": 6
+      },
+      {
+        "name": "7d",
+        "observations": 42
+      },
+      {
+        "name": "30d",
+        "observations": 180
+      }
+    ],
+    "return_autocorrelation_short_memory_lags": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "variance_ratio_horizons": [
+      12,
+      42,
+      180,
+      540
+    ]
+  },
+  "training_only": true,
+  "validation_results_used": false
+}
