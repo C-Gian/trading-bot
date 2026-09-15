@@ -1,0 +1,229 @@
+{
+  "ACTUAL_MARKET_PRIMARY_RESULT_OBSERVED": false,
+  "alternative_block_lengths_may_be_tested_after_measurement": false,
+  "alternative_block_lengths_tested": false,
+  "ar_garch_har_figarch_used": false,
+  "artifact_id": "P2-CYCLE-NULL-V2-PREREGISTRATION",
+  "block_length_rationale": "Twice the longest searched 90-day period, fixed before V2 fidelity measurement.",
+  "block_support_gate": {
+    "failure_action": "STOP_WITHOUT_CHANGING_BLOCK_LENGTH_OR_GAP_SEMANTICS_AND_RETURN_TO_RESEARCH_DIRECTOR",
+    "failure_status": "REDESIGN_REQUIRED",
+    "lags_four_hour_intervals": [
+      42,
+      90,
+      180,
+      360,
+      540
+    ],
+    "measured_before_fidelity": true,
+    "minimum_same_block_survival_at_lag540_every_fold": 0.5
+  },
+  "canonical_gaps_interpolated": false,
+  "criteria": {
+    "absolute_acf_lag180": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "absolute_acf_lag360": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "absolute_acf_lag42": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "absolute_acf_lag540": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "absolute_acf_lag90": {
+      "retained_share": 0.5,
+      "rule": "ABSOLUTE_GAP_OR_RETAINED_SHARE",
+      "tolerance": 0.05
+    },
+    "excess_kurtosis": {
+      "maximum": 4.0,
+      "minimum": 0.25,
+      "rule": "RATIO_BAND"
+    },
+    "log_realized_volatility_sd_1d": {
+      "retained_share": 0.5,
+      "rule": "RETAINED_SHARE"
+    },
+    "log_realized_volatility_sd_30d": {
+      "retained_share": 0.5,
+      "rule": "RETAINED_SHARE"
+    },
+    "log_realized_volatility_sd_7d": {
+      "retained_share": 0.5,
+      "rule": "RETAINED_SHARE"
+    },
+    "return_acf_lag1": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag2": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag3": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag4": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag5": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_acf_lag6": {
+      "rule": "ABSOLUTE_GAP",
+      "tolerance": 0.05
+    },
+    "return_sd": {
+      "maximum": 2.0,
+      "minimum": 0.5,
+      "rule": "RATIO_BAND"
+    },
+    "tail_ratio_q995_q50": {
+      "maximum": 2.0,
+      "minimum": 0.5,
+      "rule": "RATIO_BAND"
+    },
+    "variance_ratio_12": {
+      "rule": "LOG_RATIO",
+      "tolerance": 1.5
+    },
+    "variance_ratio_180": {
+      "rule": "LOG_RATIO",
+      "tolerance": 1.5
+    },
+    "variance_ratio_42": {
+      "rule": "LOG_RATIO",
+      "tolerance": 1.5
+    },
+    "variance_ratio_540": {
+      "rule": "LOG_RATIO",
+      "tolerance": 1.5
+    }
+  },
+  "criterion_semantics": {
+    "ABSOLUTE_GAP": "pass when |observed - null median| <= tolerance",
+    "ABSOLUTE_GAP_OR_RETAINED_SHARE": "pass when |observed - null median| <= tolerance, or when the null median retains at least retained_share of the observed value",
+    "LOG_RATIO": "pass when |ln(observed / null median)| <= ln(tolerance)",
+    "RATIO_BAND": "pass when minimum <= observed / null median <= maximum",
+    "RETAINED_SHARE": "pass when null median >= retained_share * observed"
+  },
+  "cross_fold_dependence_handling": "ONE_COMPLETE_CHRONOLOGY_PER_REPLICATE",
+  "decision_rule": "NULL_V2_FIDELITY_STATUS is PASS only when every unchanged V1 material criterion passes in every fold; otherwise REDESIGN_REQUIRED.",
+  "design_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
+  "donor_blocks_cross_canonical_gaps": false,
+  "donor_pool_by_stage": "LATEST_TRAINING_ONLY_PREFIX_HISTORICALLY_AVAILABLE_AT_CAUSAL_STAGE",
+  "expected_block_days_nominal": 180,
+  "expected_block_observations": 1080,
+  "fidelity_replicates": 999,
+  "folds_simulated_independently": false,
+  "forced_gap_termination": true,
+  "gate_snr": 0.5,
+  "ideal_same_block_survival": {
+    "180": 0.8464163721,
+    "360": 0.716420675,
+    "42": 0.9618402483,
+    "540": 0.6063901886,
+    "90": 0.9200088978
+  },
+  "ideal_survival_is_observed_btc_target": false,
+  "immutable_v1_criterion_artifact": {
+    "path": "reports/power/P2-CYCLE-NULL-FIDELITY-PREREGISTRATION-V1.json",
+    "sha256": "7bc16573c460fb6949b6dffbd8968fabf842d7f5c0a763ec63fc14e1ba5f151a"
+  },
+  "joint_replication_method": "JOINT_NESTED_PREFIX_CAUSAL_LONG_BLOCK_PATH_V2",
+  "mean_model": null,
+  "null_id": "P2_CYCLE_NULL_V2",
+  "null_method": "TRAINING_ONLY_RAW_RETURN_STATIONARY_BLOCK_BOOTSTRAP_EXPECTED_1080_V2",
+  "null_replicates": 4999,
+  "null_v1_disposition": "FAILED_FIDELITY_REJECTED_FOR_INFERENCE",
+  "period_days": [
+    3.0,
+    7.0,
+    14.0,
+    30.0,
+    60.0
+  ],
+  "phase_count": 16,
+  "purpose": "Freeze Null V2 and the unchanged Null V1 fidelity contract before any V2 block-support or fidelity value is measured.",
+  "raw_returns_resampled_directly": true,
+  "rng_streams": {
+    "benchmark": 15,
+    "fidelity": 13,
+    "null": 11,
+    "support": 14,
+    "synthetic": 12
+  },
+  "schema_version": 1,
+  "seed": 20260915,
+  "shared_history_handling": "NESTED_PREFIXES_SHARE_IDENTICAL_GENERATED_SLOTS_AND_EARLIER_SIMULATED_VALIDATION_REAPPEARS_IN_LATER_SIMULATED_TRAINING",
+  "snr_grid": [
+    0.0,
+    0.1,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "statistic_families": {
+    "absolute_return_dependence_long_lags": [
+      42,
+      90,
+      180,
+      360,
+      540
+    ],
+    "marginal_dispersion_and_tails": [
+      "return_sd",
+      "excess_kurtosis",
+      "tail_ratio_q995_q50"
+    ],
+    "multi_day_realized_volatility_horizons": [
+      {
+        "name": "1d",
+        "observations": 6
+      },
+      {
+        "name": "7d",
+        "observations": 42
+      },
+      {
+        "name": "30d",
+        "observations": 180
+      }
+    ],
+    "return_autocorrelation_short_memory_lags": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "variance_ratio_horizons": [
+      12,
+      42,
+      180,
+      540
+    ]
+  },
+  "support_replicates": 999,
+  "synthetic_replicates_per_cell": 2000,
+  "target_power": 0.8,
+  "thresholds_unchanged_from_v1": true,
+  "training_only": true,
+  "validation_results_used": false,
+  "volatility_model": null
+}

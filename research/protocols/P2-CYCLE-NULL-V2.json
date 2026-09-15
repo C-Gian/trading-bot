@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "version": "P2_CYCLE_NULL_V2",
+  "status": "PREREGISTERED_BEFORE_BLOCK_SUPPORT_AND_FIDELITY",
+  "structural_primary": {
+    "hypothesis_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
+    "status": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
+    "representation": "CONTIGUOUS_4H_CLOSE_TO_CLOSE_LOG_RETURN",
+    "period_band_days": [2, 90],
+    "spectral_estimator": "FLOATING_MEAN_GENERALIZED_LOMB_SCARGLE",
+    "outer_folds": "DEVELOPMENT_WALK_FORWARD_V1_ANNUAL_2019_TO_2024",
+    "maximum_diagnostics": 2,
+    "diagnostics_non_rescuing": true,
+    "actual_market_result_inspected": false
+  },
+  "null_v1": {
+    "status": "FAILED_FIDELITY_REJECTED_FOR_INFERENCE",
+    "material_fidelity_failures": 28,
+    "artifacts_preserved": true,
+    "structural_primary_classified": false
+  },
+  "null_v2": {
+    "method": "TRAINING_ONLY_RAW_RETURN_STATIONARY_BLOCK_BOOTSTRAP_EXPECTED_1080_V2",
+    "expected_block_observations": 1080,
+    "expected_block_days_nominal": 180,
+    "alternative_block_lengths_tested": false,
+    "mean_model": null,
+    "volatility_model": null,
+    "ar_garch_har_figarch_used": false,
+    "canonical_gaps_interpolated": false,
+    "donor_blocks_cross_canonical_gaps": false,
+    "forced_gap_termination": true,
+    "remove_local_cycles_from_donors": false
+  },
+  "block_support_gate": {
+    "measured_before_fidelity": true,
+    "lags_four_hour_intervals": [42, 90, 180, 360, 540],
+    "minimum_lag540_same_block_survival_every_fold": 0.5,
+    "failure_status": "REDESIGN_REQUIRED",
+    "failure_action": "STOP"
+  },
+  "fidelity": {
+    "threshold_artifact": "reports/power/P2-CYCLE-NULL-FIDELITY-PREREGISTRATION-V1.json",
+    "threshold_artifact_sha256": "7bc16573c460fb6949b6dffbd8968fabf842d7f5c0a763ec63fc14e1ba5f151a",
+    "thresholds_changed": false,
+    "replicates": 999,
+    "seed": 20260915,
+    "training_only": true,
+    "validation_results_used": false
+  },
+  "joint_replication": {
+    "method": "JOINT_NESTED_PREFIX_CAUSAL_LONG_BLOCK_PATH_V2",
+    "one_complete_chronology_per_replicate": true,
+    "folds_independent": false,
+    "overlapping_histories_preserved": true,
+    "donor_pool_by_stage": "LATEST_TRAINING_ONLY_PREFIX_HISTORICALLY_AVAILABLE_AT_CAUSAL_STAGE"
+  },
+  "compute": {
+    "runtime_budget_seconds": 14400,
+    "null_replicates": 4999,
+    "synthetic_replicates_per_cell": 2000,
+    "period_days": [3, 7, 14, 30, 60],
+    "phase_count": 16,
+    "snr_grid": [0, 0.1, 0.25, 0.5, 0.75, 1],
+    "target_power": 0.8,
+    "gate_snr": 0.5,
+    "injection": "SINUSOID_IN_LOG_PRICE_THEN_DIFFERENCE_TO_4H_RETURN"
+  },
+  "leakage": {
+    "actual_selected_btc_period": "INACCESSIBLE",
+    "actual_validation_powers": "INACCESSIBLE",
+    "actual_primary_statistic": "INACCESSIBLE",
+    "actual_structural_p_value": "INACCESSIBLE",
+    "actual_cycle_classification": "INACCESSIBLE",
+    "sealed_queries": 0
+  },
+  "material_market_experiment_executed": false,
+  "economic_strategy_created": false,
+  "real_money": false
+}
+
