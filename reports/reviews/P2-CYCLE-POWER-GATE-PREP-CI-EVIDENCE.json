@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "branch": "main",
+  "checkpoint": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
+  "conclusion": "success",
+  "reviewed_head": "15fd9361a16c78781650b8b5a1ecce7527200bb4",
+  "run_id": 35008780484,
+  "status": "SUCCESS",
+  "run_url": "https://github.com/C-Gian/trading-bot/actions/runs/35008780484",
+  "starting_head": "ca45582ab821f0d1aa3c962b9a436d488e1b2d6a",
+  "commits": [
+    {
+      "sha": "f33d9e6",
+      "subject": "Preregister the P2 cycle null-fidelity thresholds before measuring them"
+    },
+    {
+      "sha": "15fd9361a16c78781650b8b5a1ecce7527200bb4",
+      "subject": "Block P2 cycle execution on a failed null-fidelity gate"
+    }
+  ],
+  "local_validation": {
+    "command": "python scripts/check.py",
+    "exit_code": 0,
+    "backend_tests": "811 passed",
+    "frontend_tests": "44 passed",
+    "statistical_audit": "PASS",
+    "p1a_power_gate_audit": "PASS",
+    "p2_cycle_power_gate_audit": "PASS",
+    "data_mode_checks": "PASS",
+    "clean_tree": true
+  },
+  "ci_verification": {
+    "command": "uv run --frozen python scripts/check.py --no-data",
+    "p2_gate_rederived_without_market_data": true,
+    "gate_inputs": [
+      "reports/power/P2-CYCLE-NULL-FIDELITY-PREREGISTRATION-V1.json",
+      "reports/power/P2-CYCLE-NULL-FIDELITY-V1.json",
+      "reports/power/P2-CYCLE-COMPUTE-BENCHMARK-V1.json"
+    ]
+  },
+  "power_gate": {
+    "hypothesis_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
+    "hypothesis_status": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
+    "representation": "CONTIGUOUS_4H_CLOSE_TO_CLOSE_LOG_RETURN",
+    "period_band_days": [
+      2,
+      90
+    ],
+    "spectral_estimator": "FLOATING_MEAN_GENERALIZED_LOMB_SCARGLE",
+    "null_method": "TRAINING_ONLY_AR_SIEVE_BIC_0_TO_42_PLUS_STATIONARY_RESIDUAL_BLOCK_BOOTSTRAP_EXPECTED_42",
+    "null_block_expected_observations": 42,
+    "null_fidelity_material_failures": 28,
+    "NULL_FIDELITY_STATUS": "REDESIGN_REQUIRED",
+    "joint_replication_method": "JOINT_NESTED_PREFIX_CAUSAL_SIEVE_PATH_V1",
+    "joint_pooled_sd": 0.0004433391,
+    "independent_pooled_sd": 0.000414181,
+    "pooled_sd_ratio": 1.0703994131,
+    "JOINT_REPLICATION_STATUS": "PASS",
+    "projected_runtime_seconds": 673.53665498,
+    "runtime_budget_seconds": 14400.0,
+    "COMPUTATIONAL_STATUS": "PASS",
+    "null_replicates": 4999,
+    "synthetic_replicates_per_cell": 2000,
+    "target_power": 0.8,
+    "gate_snr": 0.5,
+    "detectability_executed": false,
+    "P2_POWER_GATE_STATUS": "REDESIGN_REQUIRED"
+  },
+  "leakage": {
+    "actual_selected_btc_period_observed": false,
+    "actual_validation_power_observed": false,
+    "actual_pooled_statistic_observed": false,
+    "actual_structural_p_value_observed": false,
+    "market_classification_emitted": false,
+    "material_market_result_consumed": false,
+    "future_outcome_artifact_created": false,
+    "sealed_data_queried": false,
+    "post_cutoff_data_used": false
+  },
+  "safety": {
+    "experiments_completed": 26,
+    "observed_material_hypotheses": 12,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "real_money_authorized": false,
+    "material_experiment_executed": false,
+    "assets_expanded": false,
+    "cycle_trading_implemented": false,
+    "economic_strategy_created": false,
+    "preregistration_created": false,
+    "historical_research_artifacts_modified": false
+  },
+  "ACTUAL_MARKET_PRIMARY_RESULT_OBSERVED": false
+}

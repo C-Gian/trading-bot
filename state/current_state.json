@@ -407,6 +407,12 @@
         "head": "8d3286a29093e542ed2fdeff5c457666dca5ea66",
         "run_id": 34993308932,
         "status": "SUCCESS"
+      },
+      "P2-CYCLE-FOUNDATION-POWER-GATE-PREP": {
+        "evidence": "reports/reviews/P2-CYCLE-POWER-GATE-PREP-CI-EVIDENCE.json",
+        "head": "15fd9361a16c78781650b8b5a1ecce7527200bb4",
+        "run_id": 35008780484,
+        "status": "SUCCESS"
       }
     }
   },

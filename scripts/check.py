@@ -28,6 +28,7 @@ WP014_HEAD = "478f2fcab10569f20a81136bca1b5cff6b66d601"
 PAPER_RUNTIME_HEAD = "95362a1a24adde6b4e5a75eb2062c52dcc4fdb6d"
 P01_VERIFIED_HEAD = "292f3eb468e388a8844ed7431a24e4a446162e8c"
 P1A_VERIFIED_HEAD = "8d3286a29093e542ed2fdeff5c457666dca5ea66"
+P2_VERIFIED_HEAD = "15fd9361a16c78781650b8b5a1ecce7527200bb4"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -571,6 +572,7 @@ def validate_research_views(state: dict) -> None:
         "PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2",
         "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX",
         "P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP",
+        "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
     }
     for work_package, expected_head in (
         ("WP-005", WP005_BASE_SUCCESSOR),
@@ -583,6 +585,7 @@ def validate_research_views(state: dict) -> None:
         ("PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2", PAPER_RUNTIME_HEAD),
         ("P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX", P01_VERIFIED_HEAD),
         ("P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP", P1A_VERIFIED_HEAD),
+        ("P2-CYCLE-FOUNDATION-POWER-GATE-PREP", P2_VERIFIED_HEAD),
     ):
         record = remote[work_package]
         evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
@@ -1017,6 +1020,7 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.json",
         "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.md",
         "reports/checkpoints/P2-CYCLE-FOUNDATION-POWER-GATE-PREP.md",
+        "reports/reviews/P2-CYCLE-POWER-GATE-PREP-CI-EVIDENCE.json",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
