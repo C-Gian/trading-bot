@@ -47,6 +47,7 @@
     "champion_status",
     "cycle_foundation",
     "cycle_family_closure",
+    "cross_section_feasibility",
     "research_architecture",
     "cycle_null_v2",
     "forward_evidence",
@@ -292,6 +293,112 @@
         "preregistration_authorized": {"const": false},
         "material_experiment_executed": {"const": false},
         "actual_market_primary_result_observed": {"const": false}
+      }
+    },
+    "cross_section_feasibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "hypothesis_id", "status", "design", "protocol", "inventory_manifest",
+        "inventory_report", "equivalence_report", "universe_report",
+        "signal_support_report", "survivorship_report", "placebo_report",
+        "power_gate_report", "power_gate_markdown", "substrate", "substrate_sha256",
+        "archive_symbols", "usdt_quoted_symbols", "leveraged_tokens_excluded",
+        "candidate_symbols_with_archive", "monthly_objects", "hourly_rows",
+        "eligible_assets", "instrument_epochs", "decision_rows", "raw_signals",
+        "asset_clusters_with_events", "week_clusters_with_events", "placebo_replicates",
+        "placebo_zero_shift_used", "placebo_empirical_size_at_effective_alpha",
+        "placebo_size_inflation_factor", "design_standard_error_bps",
+        "minimum_detectable_effect_bps", "power_at_mesi", "mesi_bps", "effective_alpha",
+        "prospective_family_size", "target_power", "data_source_status",
+        "data_feasibility_status", "universe_feasibility_status", "survivorship_status",
+        "cluster_support_status", "dependence_inference_status",
+        "placebo_calibration_status", "power_gate_status", "preregistration_authorized",
+        "material_economic_hypotheses_executed", "zero_alignment_effect_observed",
+        "aligned_modified", "product_universe", "cross_section_product_authorized",
+        "multi_asset_trading_implemented", "decision_record",
+        "universe_thresholds_frozen", "universe_policy_frozen_commit"
+      ],
+      "properties": {
+        "version": {"const": "CROSS_SECTION_FEASIBILITY_AND_POWER_V1"},
+        "hypothesis_id": {"const": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1"},
+        "status": {"const": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED"},
+        "design": {"const": "research/design/CROSS_SECTION_COMMON_EFFECT_V1_DESIGN.md"},
+        "protocol": {
+          "const": "research/protocols/CROSS-SECTION-FEASIBILITY-AND-POWER-V1.json"
+        },
+        "inventory_manifest": {
+          "const": "data/manifests/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.json"
+        },
+        "inventory_report": {
+          "const": "reports/cross_section/CROSS-SECTION-ARCHIVE-INVENTORY-V1.json"
+        },
+        "equivalence_report": {
+          "const": "reports/cross_section/CROSS-SECTION-BTC-1H-EQUIVALENCE-V1.json"
+        },
+        "universe_report": {
+          "const": "reports/cross_section/CROSS-SECTION-UNIVERSE-FEASIBILITY-V1.json"
+        },
+        "signal_support_report": {
+          "const": "reports/cross_section/CROSS-SECTION-SIGNAL-SUPPORT-V1.json"
+        },
+        "survivorship_report": {
+          "const": "reports/cross_section/CROSS-SECTION-SURVIVORSHIP-AUDIT-V1.json"
+        },
+        "placebo_report": {
+          "const": "reports/cross_section/CROSS-SECTION-PLACEBO-CALIBRATION-V1.json"
+        },
+        "power_gate_report": {"const": "reports/power/CROSS-SECTION-POWER-GATE-V1.json"},
+        "power_gate_markdown": {"const": "reports/power/CROSS-SECTION-POWER-GATE-V1.md"},
+        "substrate": {
+          "const": "data/derived/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.parquet"
+        },
+        "substrate_sha256": {"$ref": "#/$defs/sha256"},
+        "archive_symbols": {"type": "integer", "minimum": 1},
+        "usdt_quoted_symbols": {"type": "integer", "minimum": 1},
+        "leveraged_tokens_excluded": {"type": "integer", "minimum": 0},
+        "candidate_symbols_with_archive": {"type": "integer", "minimum": 1},
+        "monthly_objects": {"type": "integer", "minimum": 1},
+        "hourly_rows": {"type": "integer", "minimum": 1},
+        "eligible_assets": {"type": "integer", "minimum": 0},
+        "instrument_epochs": {"type": "integer", "minimum": 0},
+        "decision_rows": {"type": "integer", "minimum": 0},
+        "raw_signals": {"type": "integer", "minimum": 0},
+        "asset_clusters_with_events": {"type": "integer", "minimum": 0},
+        "week_clusters_with_events": {"type": "integer", "minimum": 0},
+        "placebo_replicates": {"type": "integer", "minimum": 0},
+        "placebo_zero_shift_used": {"const": false},
+        "placebo_empirical_size_at_effective_alpha": {"type": "number", "minimum": 0},
+        "placebo_size_inflation_factor": {"type": "number", "minimum": 0},
+        "design_standard_error_bps": {"type": "number", "exclusiveMinimum": 0},
+        "minimum_detectable_effect_bps": {"type": "number", "exclusiveMinimum": 0},
+        "power_at_mesi": {"type": "number", "minimum": 0, "maximum": 1},
+        "mesi_bps": {"const": 24.0},
+        "effective_alpha": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.05},
+        "prospective_family_size": {"const": 13},
+        "target_power": {"const": 0.8},
+        "data_source_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "data_feasibility_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "universe_feasibility_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "survivorship_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "cluster_support_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "dependence_inference_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "placebo_calibration_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "power_gate_status": {
+          "enum": ["READY_FOR_PREREGISTRATION", "REDESIGN_REQUIRED"]
+        },
+        "preregistration_authorized": {"const": false},
+        "material_economic_hypotheses_executed": {"const": 0},
+        "zero_alignment_effect_observed": {"const": false},
+        "aligned_modified": {"const": false},
+        "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
+        "cross_section_product_authorized": {"const": false},
+        "multi_asset_trading_implemented": {"const": false},
+        "decision_record": {
+          "const": "decisions/ADR-0019-CROSS-SECTION-FEASIBILITY-AND-POWER.md"
+        },
+        "universe_thresholds_frozen": {"const": true},
+        "universe_policy_frozen_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
       }
     },
     "cycle_family_closure": {

@@ -142,9 +142,9 @@ def build_inventory(*, workers: int = 8, symbols: list[str] | None = None) -> di
                 "availability_status": "ARCHIVE_EVIDENCE_IN_DEVELOPMENT_WINDOW",
             }
         )
-    records.sort(key=lambda item: item["symbol"])
-    compressed = sum(item["compressed_bytes"] for item in records)
-    months = sum(item["month_count"] for item in records)
+    records.sort(key=lambda item: str(item["symbol"]))
+    compressed = sum(int(str(item["compressed_bytes"])) for item in records)
+    months = sum(int(str(item["month_count"])) for item in records)
     return {
         "inventory_id": "BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1",
         "source": {
@@ -162,8 +162,8 @@ def build_inventory(*, workers: int = 8, symbols: list[str] | None = None) -> di
         "leveraged_token_excluded_count": len(excluded),
         "candidate_symbol_count": len(candidates),
         "candidate_with_development_archive_count": len(records),
-        "monthly_object_count": months,
-        "compressed_bytes": compressed,
+        "monthly_object_count": int(months),
+        "compressed_bytes": int(compressed),
         "symbols": records,
         "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": False,
     }
@@ -172,7 +172,7 @@ def build_inventory(*, workers: int = 8, symbols: list[str] | None = None) -> di
 KLINE_COLUMNS = 12
 
 
-def parse_monthly_csv(payload: bytes, symbol: str, month: str) -> list[tuple[int, ...]]:
+def parse_monthly_csv(payload: bytes, symbol: str, month: str) -> list[list[str]]:
     """Decode one official monthly 1h zip into integer-microsecond OHLCV rows."""
     with zipfile.ZipFile(io.BytesIO(payload)) as archive:
         names = [name for name in archive.namelist() if name.endswith(".csv")]

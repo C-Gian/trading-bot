@@ -30,6 +30,7 @@ from app.research.cross_section import (
 )
 from app.research.cross_section_archive import (
     INVENTORY_PATH,
+    RAW_ROOT,
     build_inventory,
     download_month,
     write_json,
@@ -127,7 +128,47 @@ def stage_acquire(workers: int) -> int:
     with ThreadPoolExecutor(max_workers=workers) as pool:
         records = list(pool.map(lambda job: download_month(ROOT, job[0], job[1]), jobs))
     objects = sorted(records, key=lambda item: (item["symbol"], item["month"]))
-    inventory["objects"] = objects
+    # Store objects in a compact schema; path, URL, quote asset and status are derivable.
+    inventory["object_schema"] = [
+        "symbol",
+        "month",
+        "sha256",
+        "rows",
+        "first_open_us",
+        "last_open_us",
+    ]
+    inventory["object_path_rule"] = f"{RAW_ROOT}/<symbol>/<symbol>-1h-<month>.zip"
+    inventory["object_url_rule"] = (
+        "https://data.binance.vision/data/spot/monthly/klines/<symbol>/1h/<symbol>-1h-<month>.zip"
+    )
+    inventory["object_quote_asset"] = "USDT"
+    inventory["object_availability_status"] = "DOWNLOADED"
+    inventory["objects"] = [
+        [
+            item["symbol"],
+            item["month"],
+            item["sha256"],
+            item["rows"],
+            item["first_open_us"],
+            item["last_open_us"],
+        ]
+        for item in objects
+    ]
+    # BTCUSDT months before the window exist only to warm up the equivalence lookback.
+    warmup = [month for month in EQUIVALENCE_MONTHS if month < "2019-01"]
+    inventory["equivalence_symbol"] = "BTCUSDT"
+    inventory["equivalence_warmup_months"] = warmup
+    inventory["equivalence_warmup_objects"] = [
+        [
+            record["symbol"],
+            record["month"],
+            record["sha256"],
+            record["rows"],
+            record["first_open_us"],
+            record["last_open_us"],
+        ]
+        for record in (download_month(ROOT, "BTCUSDT", month) for month in warmup)
+    ]
     inventory["object_count"] = len(objects)
     inventory["object_rows"] = sum(item["rows"] for item in objects)
     inventory["objects_sha256"] = hashlib.sha256(

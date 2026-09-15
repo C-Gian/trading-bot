@@ -182,18 +182,29 @@ across crypto” are different economic hypotheses. Additional assets are not in
 BTC observations. Cross-sectional work is now the primary research direction, as a
 scientific generalization and power investigation only.
 
-`CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1` must occur before any aligned
-cross-sectional market outcome is inspected, and must freeze point-in-time universe
-construction, historical listing/delisting handling, survivorship controls, liquidity
-eligibility, per-asset data requirements, frozen ALIGNED transfer semantics, the pooled
-primary endpoint, cross-asset/time dependence treatment, a matched placebo/null, economic
-threshold translation, the power gate, and the prohibition on per-asset winner selection.
-No numeric universe threshold is frozen yet; each requires its own rationale and
-feasibility audit before exposure.
+`CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1` is complete. It froze point-in-time
+universe construction, listing/delisting handling, survivorship controls, liquidity
+eligibility, per-asset data requirements, the frozen ALIGNED transfer, the pooled primary
+endpoint, cross-asset/time dependence treatment, the matched non-zero placebo, the
+economic threshold, the power gate and the prohibition on per-asset winner selection —
+all committed in `cb13309` before any cross-sectional signal was generated.
 
-Choosing this direction validates neither ALIGNED nor BTC. The product universe remains
+Its result is `CROSS_SECTION_POWER_GATE_STATUS = REDESIGN_REQUIRED` on two independent
+grounds. The non-zero timing placebo invalidates the frozen two-way asset/UTC-week
+clustered inference: empirical size 3.55% against a nominal 0.05/13, a 9.2x inflation
+with exact binomial p = 1.26e-8. And the design cannot resolve its own threshold: power
+at the frozen 24.0 bps/event MESI is 0.2117 against a 0.80 target, with an MDE of
+44.87 bps/event.
+
+Neither failure is evidence about crypto markets. The true pooled beta, its t statistic,
+its p value and every per-asset effect remain uncomputed. The product universe remains
 `BTCUSDT_SPOT_V1_UNCHANGED`, the cross-sectional product is not authorized, no
-cross-sectional market outcome has been observed, and no asset may be cherry-picked.
+cross-sectional market outcome has been observed, and no asset was cherry-picked. No
+MESI, power target, universe threshold, liquidity cutoff, horizon or ALIGNED parameter
+may be changed by an executor in response; the next move belongs to the Research
+Director.
+
+Next: `RESEARCH-DIRECTOR-REVIEW-CROSS-SECTION-POWER-BLOCK`.
 
 ### Cycle research boundary
 

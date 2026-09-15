@@ -171,7 +171,7 @@ def test_state_records_the_accepted_wp011_review() -> None:
     assert state["exogenous_acquisition_pause"]["wp009_finalized"] is False
     assert state["paper_trading"]["research_status"] == "PAPER_RESEARCH_CANDIDATE"
     assert state["next_recommended_work_package"] == (
-        "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1"
+        "RESEARCH-DIRECTOR-REVIEW-CROSS-SECTION-POWER-BLOCK"
     )
 
 

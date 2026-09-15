@@ -262,9 +262,7 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert state["latest_reviewed_checkpoint"] == "P2-METHODOLOGY-BLOCK-REVIEW"
-    assert state["latest_executor_checkpoint"] == (
-        "P2-METHODOLOGY-BLOCK-CLOSURE-RESEARCH-ARCHITECTURE-SYNTHESIS-V2"
-    )
+    assert state["latest_executor_checkpoint"] == ("CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1")
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -340,7 +338,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1"
+        "RESEARCH-DIRECTOR-REVIEW-CROSS-SECTION-POWER-BLOCK"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
@@ -816,7 +814,12 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["secondary_parallel_direction"] == "PROSPECTIVE_PAPER_EVIDENCE_CONTINUES"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
     assert architecture["next_checkpoint"] == "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1"
-    assert state["next_recommended_work_package"] == architecture["next_checkpoint"]
+    # The declared successor is honoured either by still being next, or by having run.
+    successor = architecture["next_checkpoint"]
+    assert (
+        state["next_recommended_work_package"] == successor
+        or (ROOT / f"reports/checkpoints/{successor}.md").is_file()
+    )
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -829,12 +832,15 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["cross_section_product_authorized"] is False
     assert architecture["cross_section_market_result_observed"] is False
     assert architecture["cross_section_universe_numerically_frozen"] is False
+    # A cross-sectional *design* may exist; a cross-sectional market outcome may not.
     assert not list((ROOT / "research/experiments").glob("*CROSS-SECTION*"))
-    assert not list((ROOT / "reports/power").glob("*CROSS-SECTION*"))
-    assert not any(
-        manifest.name.startswith("CROSS-SECTION")
-        for manifest in (ROOT / "data/manifests").glob("*.json")
-    )
+    gate = ROOT / "reports/power/CROSS-SECTION-POWER-GATE-V1.json"
+    if gate.is_file():
+        payload = json.loads(gate.read_text(encoding="utf-8"))
+        assert payload["ACTUAL_CROSS_SECTION_EFFECT_OBSERVED"] is False
+        assert payload["preregistration_authorized"] is False
+        assert payload["actual_execution_authorized"] is False
+        assert payload["safety"]["cross_section_product_authorized"] is False
 
     # Accounting is untouched by a formally recorded review.
     assert state["experiments_completed"] == 26
@@ -847,6 +853,214 @@ def p2_closure_checks(state: dict) -> None:
     assert state["paper_trading"]["genuine_paper_trades_completed"] == 0
     assert state["real_money_authorized"] is False
     assert state["paper_trading"]["real_money"] is False
+
+
+def cross_section_raw_objects(manifest: dict) -> set[Path]:
+    """Every preserved cross-sectional monthly object, derived from the compact schema."""
+    rule = manifest["object_path_rule"]
+    assert rule == "data/raw/cross_section/<symbol>/<symbol>-1h-<month>.zip"
+    rows = [*manifest["objects"], *manifest["equivalence_warmup_objects"]]
+    return {
+        ROOT / f"data/raw/cross_section/{symbol}/{symbol}-1h-{month}.zip"
+        for symbol, month, *_ in rows
+    }
+
+
+def cross_section_checks(state: dict) -> None:
+    """The cross-sectional preparation stays a design study with no real effect exposed."""
+    from app.research.cross_section import (
+        CROSS_SECTION_MESI_BPS,
+        EFFECTIVE_ALPHA,
+        LEVERAGED_TOKEN_SUFFIXES,
+        LIQUIDITY_LOOKBACK_DAYS,
+        MINIMUM_ASSET_CLUSTERS,
+        MINIMUM_HISTORY_DAYS,
+        MINIMUM_MEDIAN_DAILY_QUOTE_VOLUME_USDT,
+        MINIMUM_WEEK_CLUSTERS,
+        OUTCOME_HORIZON_HOURS,
+        PROSPECTIVE_FAMILY_SIZE,
+        QUOTE_ASSET,
+        TARGET_POWER,
+        assert_no_real_effect_leakage,
+        is_candidate_symbol,
+        is_leveraged_token,
+        mesi_bps,
+    )
+    from app.research.cross_section_power import PLACEBO_MINIMUM_ABS_SHIFT_POSITIONS
+
+    record = state["cross_section_feasibility"]
+    protocol = json.loads(
+        (ROOT / "research/protocols/CROSS-SECTION-FEASIBILITY-AND-POWER-V1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    gate = json.loads((ROOT / record["power_gate_report"]).read_text(encoding="utf-8"))
+    placebo = json.loads((ROOT / record["placebo_report"]).read_text(encoding="utf-8"))
+    signals = json.loads((ROOT / record["signal_support_report"]).read_text(encoding="utf-8"))
+    feasibility = json.loads((ROOT / record["universe_report"]).read_text(encoding="utf-8"))
+    survivorship = json.loads((ROOT / record["survivorship_report"]).read_text(encoding="utf-8"))
+    equivalence = json.loads((ROOT / record["equivalence_report"]).read_text(encoding="utf-8"))
+    inventory = json.loads((ROOT / record["inventory_report"]).read_text(encoding="utf-8"))
+    artifacts = (gate, placebo, signals, feasibility, survivorship, equivalence, inventory)
+    for artifact in artifacts:
+        assert_no_real_effect_leakage(artifact)
+        assert artifact["ACTUAL_CROSS_SECTION_EFFECT_OBSERVED"] is False
+
+    # The true alignment is unreachable: no artifact may carry a real pooled effect.
+    assert gate["leakage_guard"] == {
+        "zero_alignment_pooled_effect_computed": False,
+        "zero_alignment_t_computed": False,
+        "zero_alignment_p_computed": False,
+        "per_asset_real_effect_computed": False,
+        "cross_section_trading_verdict_emitted": False,
+        "sealed_data_queried": False,
+        "post_cutoff_data_used": False,
+    }
+    assert signals["zero_alignment_outcome_inspected"] is False
+    assert record["zero_alignment_effect_observed"] is False
+    assert record["material_economic_hypotheses_executed"] == 0
+
+    # Universe policy: archive-derived, USDT only, mechanical leveraged exclusion.
+    assert QUOTE_ASSET == "USDT" and LEVERAGED_TOKEN_SUFFIXES == ("UP", "DOWN", "BULL", "BEAR")
+    assert is_leveraged_token("BTCUPUSDT") and is_leveraged_token("ETHBEARUSDT")
+    assert not is_leveraged_token("BTCUSDT") and not is_candidate_symbol("BTCUPUSDT")
+    assert not is_candidate_symbol("ETHBTC") and is_candidate_symbol("ETHUSDT")
+    assert protocol["universe_policy"]["derivation"] == (
+        "HISTORICAL_ARCHIVE_EVIDENCE_NOT_CURRENT_EXCHANGE_INFO"
+    )
+    assert protocol["universe_policy"]["survival_to_2024_required"] is False
+    assert protocol["universe_policy"]["frozen_before_signal_counts"] is True
+    assert protocol["universe_policy"]["discretionary_asset_list"] is False
+    assert protocol["universe_policy"]["stablecoin_or_fiat_pairs_manually_removed"] is False
+    assert protocol["data_source"]["current_exchange_info_used_as_listing_truth"] is False
+    assert protocol["data_source"]["one_minute_multi_asset_history_downloaded"] is False
+    assert feasibility["universe_derivation"] == (
+        "HISTORICAL_ARCHIVE_EVIDENCE_NOT_CURRENT_EXCHANGE_INFO"
+    )
+    assert feasibility["universe_policy_frozen_before_signal_counts"] is True
+    assert survivorship["universe_is_current_survivor_list"] is False
+    assert survivorship["delisted_or_archive_end_assets_retained"] is True
+    assert survivorship["eligible_assets_whose_archive_ends_before_2024_12"] > 0
+    assert survivorship["post_2024_information_used_for_inclusion"] is False
+    assert survivorship["assets_entering_only_after_history_exists"] is True
+
+    # Causal eligibility uses trailing information only and never interpolates.
+    assert (MINIMUM_HISTORY_DAYS, LIQUIDITY_LOOKBACK_DAYS) == (30, 30)
+    assert MINIMUM_MEDIAN_DAILY_QUOTE_VOLUME_USDT == 10_000_000.0
+    assert feasibility["eligibility"]["trailing_information_only"] is True
+    assert feasibility["eligibility"]["future_survival_required"] is False
+    assert feasibility["eligibility"]["canonical_gaps_interpolated"] is False
+    assert protocol["causal_eligibility"]["complete_day_required_for_liquidity_median"] is True
+
+    # The frozen ALIGNED transfer is unmodified and raw events are never suppressed.
+    assert signals["aligned_modified"] is False and signals["events"] == "RAW_SIGNAL_EVENTS"
+    assert signals["occupancy_suppression_applied"] is False
+    assert protocol["aligned_transfer"]["strategy_version"] == (
+        "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    )
+    assert protocol["aligned_transfer"]["breakout_hours"] == 24
+    assert protocol["aligned_transfer"]["context_bars"] == 43
+    assert protocol["aligned_transfer"]["context_increments"] == 42
+    assert protocol["aligned_transfer"]["up_to_down_ratio"] == 2
+    assert protocol["aligned_transfer"]["volume_multiplier"] == 2
+    assert protocol["aligned_transfer"]["asset_specific_tuning"] is False
+    assert all(item["equivalent"] for item in signals["vectorized_engine_equivalence"])
+    assert equivalence["DATA_SOURCE_STATUS"] == "PASS"
+    assert equivalence["aligned_decisions_match"] is True
+    assert equivalence["identical_decisions"] == equivalence["both_decidable"]
+    assert equivalence["canonical_aligned_signals"] == equivalence["archive_aligned_signals"]
+
+    # Exactly one pooled primary, evaluated only in the future and never per asset.
+    assert protocol["primary_estimand"]["count"] == gate["frozen_design"]["primary_count"] == 1
+    assert gate["frozen_design"]["fixed_effects"] == ["ASSET", "DECISION_TIME"]
+    assert gate["frozen_design"]["horizon_hours"] == OUTCOME_HORIZON_HOURS == 24
+    assert gate["frozen_design"]["per_asset_selection"] is False
+    assert protocol["primary_estimand"]["per_asset_beta_is_primary"] is False
+    assert protocol["primary_estimand"]["per_asset_beta_may_rescue"] is False
+    assert protocol["primary_estimand"]["evaluated_at_true_alignment"] is False
+    assert protocol["future_outcome"]["terminal_interpolation"] is False
+    assert protocol["future_outcome"]["one_position_constraint"] is False
+
+    # Dependence, multiplicity and the economic threshold are the frozen ones.
+    assert gate["dependence"]["cluster_dimensions"] == [
+        "ASSET_INSTRUMENT_EPOCH",
+        "UTC_CALENDAR_WEEK",
+    ]
+    assert gate["cluster_support"]["minimum_asset_clusters"] == MINIMUM_ASSET_CLUSTERS == 30
+    assert gate["cluster_support"]["minimum_week_clusters"] == MINIMUM_WEEK_CLUSTERS == 100
+    assert gate["cluster_support"]["manual_asset_addition"] is False
+    assert mesi_bps() == CROSS_SECTION_MESI_BPS == 24.0
+    assert gate["economic_threshold"]["lowered_after_power"] is False
+    assert gate["multiplicity"]["prospective_family_size"] == PROSPECTIVE_FAMILY_SIZE == 13
+    assert abs(gate["multiplicity"]["effective_alpha"] - 0.05 / 13) < 1e-15
+    assert abs(EFFECTIVE_ALPHA - 0.05 / 13) < 1e-15
+    assert gate["multiplicity"]["UNQUANTIFIED_PRE_REPO_EXPOSURE"] is True
+    assert gate["power"]["target_power"] == TARGET_POWER == 0.8
+
+    # The placebo is non-zero by construction and never rescues power.
+    assert placebo["zero_shift_used"] is False
+    assert placebo["minimum_absolute_shift_positions"] == PLACEBO_MINIMUM_ABS_SHIFT_POSITIONS
+    assert all(abs(shift) >= 168 for shift in _placebo_shift_bounds(placebo))
+    assert placebo["searched_for_favourable_construction"] is False
+    assert placebo["placebo_count"] > 0
+
+    # Gate arithmetic: every prerequisite and the power target decide the status.
+    prerequisites = gate["prerequisite_gates"]
+    powered = gate["power"]["power_at_MESI"] >= TARGET_POWER
+    expected = (
+        "READY_FOR_PREREGISTRATION"
+        if all(value == "PASS" for value in prerequisites.values()) and powered
+        else "REDESIGN_REQUIRED"
+    )
+    assert gate["CROSS_SECTION_POWER_GATE_STATUS"] == expected
+    assert record["power_gate_status"] == gate["CROSS_SECTION_POWER_GATE_STATUS"]
+    assert record["placebo_calibration_status"] == placebo["PLACEBO_CALIBRATION_STATUS"]
+    assert record["cluster_support_status"] == gate["cluster_support"]["CLUSTER_SUPPORT_STATUS"]
+    assert record["data_source_status"] == equivalence["DATA_SOURCE_STATUS"]
+    assert record["survivorship_status"] == survivorship["SURVIVORSHIP_STATUS"]
+    assert protocol["status"] == "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED"
+    if record["power_gate_status"] != "READY_FOR_PREREGISTRATION":
+        assert gate["preregistration_authorized"] is False
+        assert gate["actual_execution_authorized"] is False
+        assert record["preregistration_authorized"] is False
+
+    # Product and safety boundaries are untouched.
+    assert record["product_universe"] == "BTCUSDT_SPOT_V1_UNCHANGED"
+    assert record["cross_section_product_authorized"] is False
+    assert record["multi_asset_trading_implemented"] is False
+    assert state["symbols"] == ["BTCUSDT"]
+    assert state["product_analysis"]["possible_outputs"] == ["NO_TRADE", "LONG"]
+    assert state["paper_trading"]["strategy_version"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    assert gate["safety"] == {
+        "experiments_completed": 26,
+        "observed_material_economic_hypotheses": 12,
+        "sealed_queries": 0,
+        "champion_status": "NONE",
+        "real_money_authorized": False,
+        "cross_section_product_authorized": False,
+    }
+    assert state["experiments_completed"] == 26
+    assert state["statistical_governance"]["known_discovery_family_size"] == 12
+    assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
+    assert state["champion_status"] == "NONE"
+    assert state["real_money_authorized"] is False
+    forbidden = {"cross_section", "multi_asset", "universe"}
+    assert not any(
+        word in str(getattr(route, "path", "")).lower()
+        for route in _api_routes()
+        for word in forbidden
+    ), "a cross-sectional product surface was exposed"
+
+
+def _placebo_shift_bounds(placebo: dict) -> list[int]:
+    grid = placebo["shift_grid"]
+    return [int(item["shift_positions"]) for item in grid.get("examples", [])]
+
+
+def _api_routes() -> list:
+    from app.main import app
+
+    return list(app.routes)
 
 
 def dataset_scope_checks() -> None:
@@ -862,10 +1076,11 @@ def dataset_scope_checks() -> None:
     attention = ROOT / "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json"
     exogenous = ROOT / "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json"
     cftc = ROOT / "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json"
+    cross_section = ROOT / "data/manifests/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.json"
     # The GDELT and combined-context manifests only exist once WP-009 is finalized; a
     # paused WP-009 must not be asked for them, and must not carry them either.
     wp009_final = gdelt.is_file() or exogenous.is_file()
-    expected = {approved, order_flow, alfred, funding, attention, cftc}
+    expected = {approved, order_flow, alfred, funding, attention, cftc, cross_section}
     if wp009_final:
         expected |= {gdelt, exogenous}
     assert set((ROOT / "data/manifests").glob("*.json")) == expected
@@ -879,6 +1094,8 @@ def dataset_scope_checks() -> None:
     cftc_manifest = json.loads(cftc.read_text(encoding="utf-8"))
     # Official CFTC annual TFF archives are the only other approved raw ZIP objects.
     raw |= {ROOT / item["path"] for item in cftc_manifest["raw_archives"]}
+    cross_manifest = json.loads(cross_section.read_text(encoding="utf-8"))
+    raw |= cross_section_raw_objects(cross_manifest)
     assert set((ROOT / "data/raw").rglob("*.zip")) <= raw
     alfred_manifest = json.loads(alfred.read_text(encoding="utf-8"))
     funding_manifest = json.loads(funding.read_text(encoding="utf-8"))
@@ -892,6 +1109,7 @@ def dataset_scope_checks() -> None:
         ROOT / funding_manifest["request_index"]["path"],
         ROOT / attention_manifest["canonical"]["path"],
         ROOT / cftc_manifest["canonical"]["path"],
+        ROOT / cross_manifest["substrate"]["path"],
     }
     if wp009_final:
         approved_parquet |= {
@@ -1204,6 +1422,20 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/checkpoints/P2-METHODOLOGY-BLOCK-CLOSURE-RESEARCH-ARCHITECTURE-SYNTHESIS-V2.md",
         "tasks/archive/P2-METHODOLOGY-BLOCK-CLOSURE-RESEARCH-ARCHITECTURE-SYNTHESIS-V2.md",
         "reports/reviews/P2-METHODOLOGY-BLOCK-CLOSURE-CI-EVIDENCE.json",
+        "research/design/CROSS_SECTION_COMMON_EFFECT_V1_DESIGN.md",
+        "research/protocols/CROSS-SECTION-FEASIBILITY-AND-POWER-V1.json",
+        "decisions/ADR-0019-CROSS-SECTION-FEASIBILITY-AND-POWER.md",
+        "data/manifests/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.json",
+        "reports/cross_section/CROSS-SECTION-ARCHIVE-INVENTORY-V1.json",
+        "reports/cross_section/CROSS-SECTION-BTC-1H-EQUIVALENCE-V1.json",
+        "reports/cross_section/CROSS-SECTION-UNIVERSE-FEASIBILITY-V1.json",
+        "reports/cross_section/CROSS-SECTION-SIGNAL-SUPPORT-V1.json",
+        "reports/cross_section/CROSS-SECTION-SURVIVORSHIP-AUDIT-V1.json",
+        "reports/cross_section/CROSS-SECTION-PLACEBO-CALIBRATION-V1.json",
+        "reports/power/CROSS-SECTION-POWER-GATE-V1.json",
+        "reports/power/CROSS-SECTION-POWER-GATE-V1.md",
+        "reports/checkpoints/CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1.md",
+        "tasks/archive/CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -1309,6 +1541,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     p2_power_gate_checks(state, p2)
     p2_null_v2_checks(state)
     p2_closure_checks(state)
+    cross_section_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -1423,6 +1656,7 @@ def data_checks(state: dict) -> None:
     funding_path = ROOT / "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json"
     attention_path = ROOT / "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json"
     cftc_path = ROOT / "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json"
+    cross_path = ROOT / "data/manifests/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.json"
     assert set((ROOT / "data/manifests").glob("*.json")) == {
         path,
         flow_path,
@@ -1430,6 +1664,7 @@ def data_checks(state: dict) -> None:
         funding_path,
         attention_path,
         cftc_path,
+        cross_path,
     }
     manifest = validate_json(path, schema)
     flow_manifest = json.loads(flow_path.read_text(encoding="utf-8"))
@@ -1446,7 +1681,9 @@ def data_checks(state: dict) -> None:
     )
     raw = {ROOT / x["path"] for x in manifest["source"]["raw_objects"]}
     cftc_raw = {ROOT / x["path"] for x in cftc_manifest["raw_archives"]}
-    assert set((ROOT / "data/raw").rglob("*.zip")) == raw | cftc_raw
+    cross_manifest = json.loads(cross_path.read_text(encoding="utf-8"))
+    cross_raw = cross_section_raw_objects(cross_manifest)
+    assert set((ROOT / "data/raw").rglob("*.zip")) == raw | cftc_raw | cross_raw
     assert all(
         "BTCUSDT" in p.name and not any(f"-{y}-" in p.name for y in range(2025, 2100)) for p in raw
     )
@@ -1473,6 +1710,7 @@ def data_checks(state: dict) -> None:
                 "data/derived/WP-015-funding-trials.parquet",
             )
         ),
+        ROOT / cross_manifest["substrate"]["path"],
     }
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))

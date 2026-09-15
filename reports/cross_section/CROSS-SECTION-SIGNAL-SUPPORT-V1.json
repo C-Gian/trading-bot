@@ -1,0 +1,147 @@
+{
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false,
+  "aligned_modified": false,
+  "aligned_strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+  "asset_clusters_with_events": 259,
+  "assets_with_signals": 259,
+  "decision_rows": 2556366,
+  "events": "RAW_SIGNAL_EVENTS",
+  "first_signal": "2019-02-05T18:00:00Z",
+  "last_signal": "2024-12-28T01:00:00Z",
+  "occupancy_suppression_applied": false,
+  "raw_signals": 3380,
+  "report_id": "CROSS-SECTION-SIGNAL-SUPPORT-V1",
+  "signal_rate": 0.0013221893891563257,
+  "signals_per_year": {
+    "2019": 87,
+    "2020": 205,
+    "2021": 656,
+    "2022": 514,
+    "2023": 697,
+    "2024": 1221
+  },
+  "vectorized_engine_equivalence": [
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 1,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "1000SATSUSDT",
+      "vector_signals": 1
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 0,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "1INCHUSDT",
+      "vector_signals": 0
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 1,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "1MBABYDOGEUSDT",
+      "vector_signals": 1
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 1,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "AAVEUSDT",
+      "vector_signals": 1
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 0,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "ACAUSDT",
+      "vector_signals": 0
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 0,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "ACEUSDT",
+      "vector_signals": 0
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 1,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "ACHUSDT",
+      "vector_signals": 1
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 0,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "ACTUSDT",
+      "vector_signals": 0
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 0,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "ADAUSDT",
+      "vector_signals": 0
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 0,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "AEVOUSDT",
+      "vector_signals": 0
+    },
+    {
+      "compared": 400,
+      "engine_decidable": 400,
+      "engine_signals": 0,
+      "equivalent": true,
+      "identical": 400,
+      "symbol": "AGIXUSDT",
+      "vector_signals": 0
+    },
+    {
+      "compared": 239,
+      "engine_decidable": 239,
+      "engine_signals": 0,
+      "equivalent": true,
+      "identical": 239,
+      "symbol": "AGLDUSDT",
+      "vector_signals": 0
+    }
+  ],
+  "week_clustering_top": [
+    112,
+    104,
+    90,
+    89,
+    88,
+    86,
+    83,
+    82,
+    77,
+    75
+  ],
+  "week_clusters_with_events": 184,
+  "zero_alignment_outcome_inspected": false
+}

@@ -18,3 +18,4 @@
 - [ADR-0016](ADR-0016-P2-CYCLE-NULL-V2.md) — append-only raw-return long-block Null V2 with a gap-topology support gate
 - [ADR-0017](ADR-0017-P2-CYCLE-NULL-V2-BLOCK-SUPPORT.md) — canonical gaps defeat the frozen Null V2 long-block support gate
 - [ADR-0018](ADR-0018-P2-METHODOLOGY-BLOCK-CLOSURE-AND-CROSS-SECTION-ALLOCATION.md) — P2 closes methodology-blocked and research allocates to cross-sectional feasibility
+- [ADR-0019](ADR-0019-CROSS-SECTION-FEASIBILITY-AND-POWER.md) — the frozen cross-sectional design is placebo-invalidated and power-blocked

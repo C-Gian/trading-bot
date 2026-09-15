@@ -81,10 +81,10 @@ class SymbolBars:
     close: np.ndarray
     volume: np.ndarray
     quote_volume: np.ndarray
-    off_grid_rows: int
-    duplicate_rows: int
-    out_of_window_rows: int
-    invalid_rows: int
+    off_grid_rows: int = 0
+    duplicate_rows: int = 0
+    out_of_window_rows: int = 0
+    invalid_rows: int = 0
 
     def __len__(self) -> int:
         return len(self.open_time)
@@ -93,7 +93,7 @@ class SymbolBars:
 def load_symbol(root: Path, symbol: str) -> SymbolBars:
     """Read every preserved monthly object for one symbol under the frozen window rules."""
     directory = root / RAW_ROOT / symbol
-    collected: dict[int, tuple[float, float, float, float, float, float]] = {}
+    collected: dict[int, tuple[float, ...]] = {}
     off_grid = duplicates = outside = invalid = 0
     for path in sorted(directory.glob(f"{symbol}-1h-*.zip")):
         for fields in _rows(path):
@@ -216,17 +216,19 @@ def read_substrate(root: Path) -> dict[str, SymbolBars]:
     for start, end in zip(boundaries[:-1], boundaries[1:], strict=True):
         name = str(symbols[start])
         inner = np.argsort(columns["open_time"][start:end], kind="stable")
+        values = [
+            columns[key][start:end][inner]
+            for key in ("open", "high", "low", "close", "volume", "quote_volume")
+        ]
         out[name] = SymbolBars(
             name,
             columns["open_time"][start:end][inner].astype(np.int64),
-            *(
-                columns[key][start:end][inner]
-                for key in ("open", "high", "low", "close", "volume", "quote_volume")
-            ),
-            0,
-            0,
-            0,
-            0,
+            values[0],
+            values[1],
+            values[2],
+            values[3],
+            values[4],
+            values[5],
         )
     return out
 
@@ -260,14 +262,21 @@ def feature_source(bars: SymbolBars) -> FeatureSource:
 
 
 def daily_quote_volume(bars: SymbolBars) -> tuple[np.ndarray, np.ndarray]:
-    """Completed UTC-day quote turnover, used only for trailing capacity eligibility."""
+    """Completed UTC-day quote turnover on a contiguous calendar axis.
+
+    The axis is contiguous so an archive gap cannot be skipped over: absent days and
+    partial days both carry `nan` and therefore block the trailing liquidity window until
+    thirty consecutive complete days exist again. Nothing is interpolated.
+    """
+    if len(bars) == 0:
+        return np.zeros(0, dtype=np.int64), np.zeros(0, dtype=np.float64)
     days = bars.open_time // DAY_US
-    unique, inverse = np.unique(days, return_inverse=True)
-    totals = np.zeros(len(unique), dtype=np.float64)
-    np.add.at(totals, inverse, bars.quote_volume)
-    hours = np.zeros(len(unique), dtype=np.int64)
-    np.add.at(hours, inverse, 1)
-    return unique, np.where(hours == 24, totals, np.nan)
+    first, last = int(days[0]), int(days[-1])
+    axis = np.arange(first, last + 1, dtype=np.int64)
+    offset = (days - first).astype(np.int64)
+    totals = np.bincount(offset, weights=bars.quote_volume, minlength=len(axis))
+    hours = np.bincount(offset, minlength=len(axis))
+    return axis, np.where(hours == 24, totals, np.nan)
 
 
 def eligible_hours(bars: SymbolBars) -> np.ndarray:
@@ -277,14 +286,12 @@ def eligible_hours(bars: SymbolBars) -> np.ndarray:
     has at least `MINIMUM_HISTORY_DAYS` of archive history and its trailing median
     completed-day quote turnover over `LIQUIDITY_LOOKBACK_DAYS` clears the frozen floor.
     """
-    days, totals = daily_quote_volume(bars)
     if len(bars) == 0:
         return np.zeros(0, dtype=np.int64)
+    days, totals = daily_quote_volume(bars)
     first_us = int(bars.open_time[0])
     eligible = []
-    for index in range(len(days)):
-        if index < LIQUIDITY_LOOKBACK_DAYS:
-            continue
+    for index in range(LIQUIDITY_LOOKBACK_DAYS, len(days)):
         window = totals[index - LIQUIDITY_LOOKBACK_DAYS : index]
         if np.isnan(window).any():
             continue
@@ -338,7 +345,7 @@ def forward_outcome(bars: SymbolBars, decision_us: int) -> dict[str, Any] | None
     horizon_end = decision_us + OUTCOME_HORIZON_HOURS * HOUR_US
     if entry_us > horizon_end:
         return None
-    end_index = int(np.searchsorted(times, horizon_end, side="right")) - 1
+    end_index = int(np.searchsorted(times, horizon_end, side="left")) - 1
     if end_index <= start_index:
         return None
     entry = float(bars.open[start_index])
@@ -458,15 +465,18 @@ def btc_equivalence_report(root: Path) -> dict[str, Any]:
                 )
 
     ordered = sorted(archive)
+    series = [
+        np.array([archive[key][index] for key in ordered], dtype=np.float64) for index in range(5)
+    ]
     archive_bars = SymbolBars(
         "BTCUSDT",
         np.array(ordered, dtype=np.int64),
-        *(np.array([archive[t][index] for t in ordered], dtype=np.float64) for index in range(5)),
+        series[0],
+        series[1],
+        series[2],
+        series[3],
+        series[4],
         np.zeros(len(ordered), dtype=np.float64),
-        0,
-        0,
-        0,
-        0,
     )
     archive_source = feature_source(archive_bars)
     canonical_source = FeatureSource(
@@ -504,16 +514,17 @@ def btc_equivalence_report(root: Path) -> dict[str, Any]:
     both = identical = canonical_only = archive_only = 0
     canonical_signals = archive_signals = 0
     for hour in range(DEVELOPMENT_START_US, DEVELOPMENT_END_US + 1, HOUR_US):
-        left, right = decide(canonical_source, hour), decide(archive_source, hour)
-        if left is not None and right is not None:
+        canonical_decision = decide(canonical_source, hour)
+        archive_decision = decide(archive_source, hour)
+        if canonical_decision is not None and archive_decision is not None:
             both += 1
-            identical += left == right
-        elif left is not None:
+            identical += canonical_decision == archive_decision
+        elif canonical_decision is not None:
             canonical_only += 1
-        elif right is not None:
+        elif archive_decision is not None:
             archive_only += 1
-        canonical_signals += bool(left and left[0])
-        archive_signals += bool(right and right[0])
+        canonical_signals += bool(canonical_decision and canonical_decision[0])
+        archive_signals += bool(archive_decision and archive_decision[0])
 
     decisions_match = (
         identical == both
@@ -549,4 +560,147 @@ def btc_equivalence_report(root: Path) -> dict[str, Any]:
         "aligned_decisions_match": decisions_match,
         "DATA_SOURCE_STATUS": "PASS" if decisions_match else "REDESIGN_REQUIRED",
         "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": False,
+    }
+
+
+# --- vectorized frozen-ALIGNED evaluation (equivalent to FeatureSource.decision) -----
+BREAKOUT_HOURS = 24
+HOURLY_WINDOW = BREAKOUT_HOURS + 1
+CONTEXT_BARS = 43
+CONTEXT_INCREMENTS = CONTEXT_BARS - 1
+VOLUME_MULTIPLIER = 2.0
+UP_TO_DOWN_RATIO = 2.0
+
+
+def _rolling_sum(values: np.ndarray, window: int) -> np.ndarray:
+    """Inclusive rolling sum; element k holds the sum of values[k - window + 1 .. k]."""
+    cumulative = np.concatenate(([0.0], np.cumsum(values, dtype=np.float64)))
+    out = np.full(len(values), np.nan, dtype=np.float64)
+    if len(values) >= window:
+        out[window - 1 :] = cumulative[window:] - cumulative[:-window]
+    return out
+
+
+def _rolling_max(values: np.ndarray, window: int) -> np.ndarray:
+    out = np.full(len(values), -np.inf, dtype=np.float64)
+    if len(values) >= window:
+        view = np.lib.stride_tricks.sliding_window_view(values, window)
+        out[window - 1 :] = view.max(axis=1)
+    return out
+
+
+def aligned_grid(bars: SymbolBars) -> tuple[np.ndarray, np.ndarray]:
+    """Vectorized frozen ALIGNED gates.
+
+    Returns the decision hours where the frozen lookback is computable and the matching
+    emission flags. Bars are placed on a contiguous hourly grid; a missing hour or an
+    incomplete 4h bucket breaks the required contiguity exactly as `FeatureSource` does,
+    and nothing is ever interpolated.
+    """
+    if len(bars) == 0:
+        return np.zeros(0, dtype=np.int64), np.zeros(0, dtype=bool)
+    first, last = int(bars.open_time[0]), int(bars.open_time[-1])
+    size = (last - first) // HOUR_US + 1
+    position = (bars.open_time - first) // HOUR_US
+    present = np.zeros(size, dtype=np.float64)
+    high = np.zeros(size, dtype=np.float64)
+    close = np.zeros(size, dtype=np.float64)
+    volume = np.zeros(size, dtype=np.float64)
+    present[position] = 1.0
+    high[position] = bars.high
+    close[position] = bars.close
+    volume[position] = bars.volume
+    masked_high = np.where(present > 0, high, -np.inf)
+
+    # Hourly window: the 25 bars opening at k-25 .. k-1 relative to decision position k.
+    presence_25 = _rolling_sum(present, HOURLY_WINDOW)
+    breakout_max = _rolling_max(masked_high, BREAKOUT_HOURS)
+    volume_24 = _rolling_sum(volume, BREAKOUT_HOURS)
+
+    hours = np.arange(size, dtype=np.int64)
+    latest = hours - 1  # position of the latest completed hourly bar
+    baseline_end = hours - 2  # last position of the 24-bar breakout/volume baseline
+    valid_hourly = (latest >= 0) & (baseline_end >= BREAKOUT_HOURS - 1)
+    valid_hourly &= np.where(
+        latest >= 0, presence_25[np.clip(latest, 0, size - 1)] == HOURLY_WINDOW, False
+    )
+
+    reference = np.where(latest >= 0, close[np.clip(latest, 0, size - 1)], np.nan)
+    latest_volume = np.where(latest >= 0, volume[np.clip(latest, 0, size - 1)], np.nan)
+    prior_high = np.where(
+        baseline_end >= 0, breakout_max[np.clip(baseline_end, 0, size - 1)], np.inf
+    )
+    baseline_volume = np.where(
+        baseline_end >= 0, volume_24[np.clip(baseline_end, 0, size - 1)], np.nan
+    )
+    volume_mean = baseline_volume / BREAKOUT_HOURS
+    breakout = valid_hourly & (reference > prior_high)
+    participation = (
+        valid_hourly & (volume_mean > 0) & (latest_volume >= VOLUME_MULTIPLIER * volume_mean)
+    )
+
+    # 4h context: the 43 completed buckets ending at the last bucket before the decision.
+    grid_times = first + hours * HOUR_US
+    bucket_of = grid_times // FOUR_HOUR_US
+    first_bucket = int(bucket_of[0])
+    bucket_count = int(bucket_of[-1]) - first_bucket + 1
+    bucket_index = (bucket_of - first_bucket).astype(np.int64)
+    hours_in_bucket = np.bincount(bucket_index, weights=present, minlength=bucket_count)
+    complete = (hours_in_bucket == 4).astype(np.float64)
+    last_close = np.zeros(bucket_count, dtype=np.float64)
+    last_close[bucket_index[present > 0]] = close[present > 0]
+    increments = np.diff(last_close, prepend=last_close[0])
+    up_increment = np.maximum(increments, 0.0)
+    down_increment = np.maximum(-increments, 0.0)
+    complete_run = _rolling_sum(complete, CONTEXT_BARS)
+    up_sum = _rolling_sum(up_increment, CONTEXT_INCREMENTS)
+    down_sum = _rolling_sum(down_increment, CONTEXT_INCREMENTS)
+
+    last_bucket = bucket_index - 1
+    valid_context = last_bucket >= CONTEXT_BARS - 1
+    safe_bucket = np.clip(last_bucket, 0, bucket_count - 1)
+    valid_context &= complete_run[safe_bucket] == CONTEXT_BARS
+    up_total = up_sum[safe_bucket]
+    down_total = down_sum[safe_bucket]
+    persistent = valid_context & (up_total + down_total > 0)
+    persistent &= up_total >= UP_TO_DOWN_RATIO * down_total
+
+    computable = valid_hourly & valid_context
+    # `FeatureSource.decision` also evaluates the previous hour: the same quality universe.
+    previous = np.concatenate(([False], computable[:-1]))
+    decidable = computable & previous
+    emits = decidable & breakout & persistent & participation
+    selected = np.flatnonzero(decidable)
+    return grid_times[selected], emits[selected]
+
+
+def verify_aligned_equivalence(bars: SymbolBars, hours: np.ndarray) -> dict[str, Any]:
+    """Confirm the vectorized gates equal the frozen engine bar-for-bar on real data."""
+    source = feature_source(bars)
+    grid_hours, grid_emits = aligned_grid(bars)
+    lookup = dict(zip(grid_hours.tolist(), grid_emits.tolist(), strict=True))
+    checked = agree = engine_decidable = 0
+    engine_signals = grid_signals = 0
+    for hour in hours.tolist():
+        try:
+            emits, _, _ = source.decision(int(hour), "ALIGNED")
+        except (IneligibleSignal, ValueError):
+            if hour in lookup:
+                return {"symbol": bars.symbol, "equivalent": False, "reason": "VECTOR_EXTRA"}
+            continue
+        engine_decidable += 1
+        engine_signals += bool(emits)
+        if hour not in lookup:
+            return {"symbol": bars.symbol, "equivalent": False, "reason": "VECTOR_MISSING"}
+        checked += 1
+        agree += lookup[hour] == emits
+        grid_signals += bool(lookup[hour])
+    return {
+        "symbol": bars.symbol,
+        "engine_decidable": engine_decidable,
+        "compared": checked,
+        "identical": agree,
+        "engine_signals": engine_signals,
+        "vector_signals": grid_signals,
+        "equivalent": checked == agree and engine_signals == grid_signals,
     }

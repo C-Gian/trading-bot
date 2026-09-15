@@ -1,0 +1,111 @@
+{
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false,
+  "CROSS_SECTION_POWER_GATE_STATUS": "REDESIGN_REQUIRED",
+  "absorber_diagnostics": {
+    "max_absolute_asset_mean": 2.373715990720926e-17,
+    "max_absolute_time_mean": 2.0805281967575362e-17
+  },
+  "actual_execution_authorized": false,
+  "cluster_support": {
+    "CLUSTER_SUPPORT_STATUS": "PASS",
+    "asset_clusters_with_events": 258,
+    "manual_asset_addition": false,
+    "minimum_asset_clusters": 30,
+    "minimum_week_clusters": 100,
+    "week_clusters_with_events": 184
+  },
+  "dependence": {
+    "DEPENDENCE_INFERENCE_STATUS": "PASS",
+    "all_replicates_positive_semidefinite": true,
+    "cluster_dimensions": [
+      "ASSET_INSTRUMENT_EPOCH",
+      "UTC_CALENDAR_WEEK"
+    ],
+    "covariance_identity": "V = V_asset + V_week - V_intersection",
+    "finite_sample_correction": "G_OVER_G_MINUS_ONE_PER_DIMENSION",
+    "method": "TWO_WAY_CAMERON_GELBACH_MILLER_INCLUSION_EXCLUSION"
+  },
+  "economic_threshold": {
+    "CROSS_SECTION_MESI_BPS": 24.0,
+    "lowered_after_power": false,
+    "necessary_lower_bound": true,
+    "sufficient_for_product_claim": false
+  },
+  "frozen_design": {
+    "aligned_modified": false,
+    "cross_section_role": "SCIENTIFIC_GENERALIZATION_ONLY",
+    "fixed_effects": [
+      "ASSET",
+      "DECISION_TIME"
+    ],
+    "horizon_hours": 24,
+    "metric": "FORWARD_LOG_PRICE_RETURN_BPS",
+    "occupancy_suppression_applied": false,
+    "per_asset_selection": false,
+    "primary_count": 1,
+    "product_universe": "BTCUSDT_SPOT_V1"
+  },
+  "hypothesis_id": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1",
+  "leakage_guard": {
+    "cross_section_trading_verdict_emitted": false,
+    "per_asset_real_effect_computed": false,
+    "post_cutoff_data_used": false,
+    "sealed_data_queried": false,
+    "zero_alignment_p_computed": false,
+    "zero_alignment_pooled_effect_computed": false,
+    "zero_alignment_t_computed": false
+  },
+  "multiplicity": {
+    "UNQUANTIFIED_PRE_REPO_EXPOSURE": true,
+    "effective_alpha": 0.0038461538461538464,
+    "effective_alpha_tail_resolvable_by_placebo": true,
+    "prospective_family_size": 13,
+    "sidedness": "ONE_SIDED_POSITIVE"
+  },
+  "panel": {
+    "decision_rows": 2547356,
+    "decision_times": 40141,
+    "instrument_epochs": 355,
+    "placebo_non_participants": 35,
+    "placebo_participants": 355,
+    "placebo_participation_rule_positions": 504,
+    "raw_signals": 3378
+  },
+  "placebo": {
+    "PLACEBO_CALIBRATION_STATUS": "REDESIGN_REQUIRED",
+    "placebo_count": 338
+  },
+  "power": {
+    "cluster_method": "TWO_WAY_CAMERON_GELBACH_MILLER_INCLUSION_EXCLUSION",
+    "critical_t": 2.6950999794982033,
+    "degrees_of_freedom": 183.0,
+    "degrees_of_freedom_rule": "CONSERVATIVE_MINIMUM_CLUSTER_DIMENSION_MINUS_ONE",
+    "design_standard_error_bps": 12.680466155873276,
+    "effective_alpha": 0.0038461538461538464,
+    "minimum_detectable_effect_bps": 44.87223602651074,
+    "noncentrality_at_MESI": 1.8926748989337272,
+    "power_at_MESI": 0.21167397651623476,
+    "target_power": 0.8
+  },
+  "power_at_MESI_meets_target": false,
+  "preregistration_authorized": false,
+  "prerequisite_gates": {
+    "CLUSTER_SUPPORT_STATUS": "PASS",
+    "DATA_FEASIBILITY_STATUS": "PASS",
+    "DATA_SOURCE_STATUS": "PASS",
+    "DEPENDENCE_INFERENCE_STATUS": "PASS",
+    "PLACEBO_CALIBRATION_STATUS": "REDESIGN_REQUIRED",
+    "SURVIVORSHIP_STATUS": "PASS",
+    "UNIVERSE_FEASIBILITY_STATUS": "PASS"
+  },
+  "prerequisites_pass": false,
+  "report_id": "CROSS-SECTION-POWER-GATE-V1",
+  "safety": {
+    "champion_status": "NONE",
+    "cross_section_product_authorized": false,
+    "experiments_completed": 26,
+    "observed_material_economic_hypotheses": 12,
+    "real_money_authorized": false,
+    "sealed_queries": 0
+  }
+}
