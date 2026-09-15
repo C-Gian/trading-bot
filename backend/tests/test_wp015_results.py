@@ -72,7 +72,9 @@ def test_wp015_records_and_state_are_safe() -> None:
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
     assert state["latest_reviewed_checkpoint"] == "P1A-POWER-BLOCK-REVIEW"
-    assert state["latest_executor_checkpoint"] == "P2-CYCLE-FOUNDATION-POWER-GATE-PREP"
+    assert state["latest_executor_checkpoint"] == (
+        "P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2"
+    )
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
     assert challenger["model_reconciliation"] == "PASS"
@@ -86,7 +88,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert "# CURRENT TASK — WP-015" in archived
-    assert "# CURRENT TASK — P2-CYCLE-FOUNDATION-POWER-GATE-PREP" in current
+    assert "# CURRENT TASK — P2-CYCLE-NULL-V2-REDESIGN + P2-CYCLE-POWER-GATE-V2" in current
     assert (
         ROOT / "tasks/archive/"
         "P1A-POWER-BLOCK-REVIEW-RESEARCH-ARCHITECTURE-SYNTHESIS-V1-P2-CYCLE-FOUNDATION-DESIGN.md"

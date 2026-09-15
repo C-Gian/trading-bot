@@ -9,6 +9,7 @@ import ast
 import hashlib
 import json
 from pathlib import Path
+from typing import Any, cast
 
 import numpy as np
 import pytest
@@ -137,7 +138,7 @@ def test_v2_method_is_fixed_raw_return_bootstrap_without_model_family_or_alterna
 def test_gap_safe_draw_preserves_raw_values_and_never_bridges_a_gap() -> None:
     topology = _topology()
     values, indices, block_ids, forced = stationary_raw_return_draw(
-        _NoRestartGenerator(), topology, 4
+        cast(Any, _NoRestartGenerator()), topology, 4
     )
     assert forced.tolist() == [False, True, False, False]
     assert indices.tolist() == [2, 4, 5, 6]
@@ -154,7 +155,7 @@ def test_block_support_is_measured_before_fidelity_and_requires_lag540_survival(
     passing = build_donor_topology(
         "LONG", np.arange(4000, dtype=float), np.ones(4000, dtype=bool), 4000
     )
-    report = block_support_report(None, (passing,), ROOT)
+    report = block_support_report(cast(Any, None), (passing,), ROOT)
     assert report["support_measured_before_fidelity"] is True
     assert report["fidelity_executed_at_measurement_time"] is False
     assert report["survival_lags"] == list(SUPPORT_LAGS)
@@ -162,12 +163,12 @@ def test_block_support_is_measured_before_fidelity_and_requires_lag540_survival(
     assert report["BLOCK_SUPPORT_STATUS"] == PASS
 
     failing = _topology(540, ())
-    blocked = block_support_report(None, (failing,), ROOT)
+    blocked = block_support_report(cast(Any, None), (failing,), ROOT)
     assert blocked["folds"][0]["lag540_pass"] is False
     assert blocked["BLOCK_SUPPORT_STATUS"] == REDESIGN
     assert MINIMUM_LAG_540_SURVIVAL == 0.50
     with pytest.raises(ValueError, match="blocked by failed donor support"):
-        fidelity_report_v2(None, None, blocked, ROOT)
+        fidelity_report_v2(cast(Any, None), cast(Any, None), blocked, ROOT)
 
 
 def test_v2_thresholds_exactly_reuse_immutable_v1_criteria() -> None:
@@ -203,7 +204,7 @@ def test_joint_path_is_one_causal_chronology_with_shared_nested_slots() -> None:
 
 def test_validation_accessor_refuses_real_arrays_and_outcome_keys_are_rejected() -> None:
     with pytest.raises(PrepModeViolation, match="simulated paths only"):
-        project(None, np.zeros((2, 1)))
+        project(cast(Any, None), cast(Any, np.zeros((2, 1))))
     for key in FORBIDDEN_ARTIFACT_KEYS:
         with pytest.raises(PrepModeViolation, match="forbidden P2 outcome key"):
             assert_no_result_leakage({key: 0.0})

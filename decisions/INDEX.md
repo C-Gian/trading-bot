@@ -16,3 +16,4 @@
 - [ADR-0014](ADR-0014-P2-CYCLE-FOUNDATION-BOUNDARY.md) — P1A power block and P2 time-only cycle foundation
 - [ADR-0015](ADR-0015-P2-CYCLE-NULL-FIDELITY-BLOCK.md) — the frozen P2 cycle null fails its predeclared fidelity gate
 - [ADR-0016](ADR-0016-P2-CYCLE-NULL-V2.md) — append-only raw-return long-block Null V2 with a gap-topology support gate
+- [ADR-0017](ADR-0017-P2-CYCLE-NULL-V2-BLOCK-SUPPORT.md) — canonical gaps defeat the frozen Null V2 long-block support gate

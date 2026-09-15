@@ -1,0 +1,55 @@
+{
+  "ACTUAL_MARKET_PRIMARY_RESULT_OBSERVED": false,
+  "P2_POWER_GATE_STATUS": "REDESIGN_REQUIRED",
+  "actual_execution_authorized": false,
+  "alternative_block_lengths_tested": false,
+  "ar_garch_har_figarch_used": false,
+  "artifact_id": "P2-CYCLE-POWER-GATE-V2",
+  "design_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
+  "detectability": null,
+  "expected_block_observations": 1080,
+  "gate_snr": 0.5,
+  "leakage_guard": {
+    "actual_pooled_statistic_computed": false,
+    "actual_structural_p_value_computed": false,
+    "actual_training_selected_period_computed": false,
+    "actual_validation_power_computed": false,
+    "assets_expanded": false,
+    "cycle_trading_implemented": false,
+    "market_classification_emitted": false,
+    "real_money_authorized": false,
+    "real_validation_returns_loaded": false,
+    "sealed_data_queried": false
+  },
+  "null_id": "P2_CYCLE_NULL_V2",
+  "null_method": "TRAINING_ONLY_RAW_RETURN_STATIONARY_BLOCK_BOOTSTRAP_EXPECTED_1080_V2",
+  "null_replicates": 4999,
+  "period_days": [
+    3.0,
+    7.0,
+    14.0,
+    30.0,
+    60.0
+  ],
+  "phase_count": 16,
+  "power_at_gate_snr_by_period": {},
+  "preregistration_authorized": false,
+  "prerequisite_gates": {
+    "BLOCK_SUPPORT_STATUS": "REDESIGN_REQUIRED",
+    "COMPUTATIONAL_STATUS": "NOT_RUN_BLOCKED",
+    "JOINT_REPLICATION_STATUS": "NOT_RUN_BLOCKED",
+    "NULL_V2_FIDELITY_STATUS": "NOT_RUN_BLOCKED"
+  },
+  "prerequisites_pass": false,
+  "schema_version": 1,
+  "snr_grid": [
+    0.0,
+    0.1,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "synthetic_replicates_per_cell": 2000,
+  "target_power": 0.8
+}

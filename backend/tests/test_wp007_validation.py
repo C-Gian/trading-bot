@@ -60,8 +60,8 @@ def test_cumulative_search_accounting_is_exact():
     assert totals["wp017_variants_reserved"] == 2
     assert totals["wp017_profiles_reserved"] == 8
     assert totals["numeric_parameter_variants"] == 0
-    assert totals["adaptive_decisions"] == 14
-    assert totals["result_dependent_forks"] == 11
+    assert totals["adaptive_decisions"] == 15
+    assert totals["result_dependent_forks"] == 12
 
 
 def test_both_order_flow_candidates_are_sealed_ineligible():

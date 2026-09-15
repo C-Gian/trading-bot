@@ -46,6 +46,7 @@
     "paper_trades_completed",
     "champion_status",
     "cycle_foundation",
+    "cycle_null_v2",
     "forward_evidence",
     "real_money_authorized",
     "owner_decision_required",
@@ -215,7 +216,8 @@
         "next_checkpoint": {
           "enum": [
             "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
-            "RESEARCH_DIRECTOR_REVIEW_P2_NULL_REDESIGN"
+            "RESEARCH_DIRECTOR_REVIEW_P2_NULL_REDESIGN",
+            "RESEARCH_DIRECTOR_REVIEW_P2_NULL_V2_BLOCK_SUPPORT"
           ]
         }
       }
@@ -286,6 +288,48 @@
         "power_gate_status": {"enum": ["READY_FOR_PREREGISTRATION", "REDESIGN_REQUIRED"]},
         "preregistration_authorized": {"const": false},
         "material_experiment_executed": {"const": false},
+        "actual_market_primary_result_observed": {"const": false}
+      }
+    },
+    "cycle_null_v2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "protocol", "preregistration", "null_v1_disposition",
+        "null_method", "expected_block_observations", "alternative_block_lengths_tested",
+        "ar_garch_har_figarch_used", "block_support_report", "block_support_status",
+        "fidelity_report_created", "null_fidelity_status", "joint_replication_method",
+        "joint_replication_status", "computational_status", "detectability_executed",
+        "power_gate_report", "power_gate_status", "thresholds_changed",
+        "actual_market_primary_result_observed"
+      ],
+      "properties": {
+        "version": {"const": "P2_CYCLE_NULL_V2"},
+        "status": {"const": "BLOCK_SUPPORT_REDESIGN_REQUIRED_STOPPED_BEFORE_FIDELITY"},
+        "protocol": {"const": "research/protocols/P2-CYCLE-NULL-V2.json"},
+        "preregistration": {"const": "reports/power/P2-CYCLE-NULL-V2-PREREGISTRATION.json"},
+        "null_v1_disposition": {"const": "FAILED_FIDELITY_REJECTED_FOR_INFERENCE"},
+        "null_method": {
+          "const": "TRAINING_ONLY_RAW_RETURN_STATIONARY_BLOCK_BOOTSTRAP_EXPECTED_1080_V2"
+        },
+        "expected_block_observations": {"const": 1080},
+        "alternative_block_lengths_tested": {"const": false},
+        "ar_garch_har_figarch_used": {"const": false},
+        "block_support_report": {
+          "const": "reports/power/P2-CYCLE-NULL-V2-BLOCK-SUPPORT.json"
+        },
+        "block_support_status": {"const": "REDESIGN_REQUIRED"},
+        "fidelity_report_created": {"const": false},
+        "null_fidelity_status": {"const": "NOT_RUN_BLOCKED"},
+        "joint_replication_method": {
+          "const": "JOINT_NESTED_PREFIX_CAUSAL_LONG_BLOCK_PATH_V2"
+        },
+        "joint_replication_status": {"const": "NOT_RUN_BLOCKED"},
+        "computational_status": {"const": "NOT_RUN_BLOCKED"},
+        "detectability_executed": {"const": false},
+        "power_gate_report": {"const": "reports/power/P2-CYCLE-POWER-GATE-V2.json"},
+        "power_gate_status": {"const": "REDESIGN_REQUIRED"},
+        "thresholds_changed": {"const": false},
         "actual_market_primary_result_observed": {"const": false}
       }
     },

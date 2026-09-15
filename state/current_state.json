@@ -21,7 +21,7 @@
     "version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1"
   },
   "adaptive_search": {
-    "adaptive_decisions": 14,
+    "adaptive_decisions": 15,
     "configuration_variants": 29,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
@@ -29,7 +29,7 @@
     "material_economic_hypotheses": 13,
     "numeric_parameter_variants": 0,
     "profile_trials": 133,
-    "result_dependent_forks": 11,
+    "result_dependent_forks": 12,
     "sealed_queries": 0,
     "strategy_descendants": 14,
     "supervised_model_fits": 228,
@@ -124,7 +124,7 @@
     "implemented_components": [],
     "material_economic_hypotheses_executed": 0,
     "maximum_diagnostics": 2,
-    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_P2_NULL_REDESIGN",
+    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_P2_NULL_V2_BLOCK_SUPPORT",
     "power_target": 0.8,
     "primary_hypothesis_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
     "primary_structural_hypotheses": 1,
@@ -181,6 +181,29 @@
     "synthetic_replicates_per_cell": 2000,
     "target_power": 0.8,
     "version": "P2_CYCLE_POWER_GATE_V1"
+  },
+  "cycle_null_v2": {
+    "actual_market_primary_result_observed": false,
+    "alternative_block_lengths_tested": false,
+    "ar_garch_har_figarch_used": false,
+    "block_support_report": "reports/power/P2-CYCLE-NULL-V2-BLOCK-SUPPORT.json",
+    "block_support_status": "REDESIGN_REQUIRED",
+    "computational_status": "NOT_RUN_BLOCKED",
+    "detectability_executed": false,
+    "expected_block_observations": 1080,
+    "fidelity_report_created": false,
+    "joint_replication_method": "JOINT_NESTED_PREFIX_CAUSAL_LONG_BLOCK_PATH_V2",
+    "joint_replication_status": "NOT_RUN_BLOCKED",
+    "null_fidelity_status": "NOT_RUN_BLOCKED",
+    "null_method": "TRAINING_ONLY_RAW_RETURN_STATIONARY_BLOCK_BOOTSTRAP_EXPECTED_1080_V2",
+    "null_v1_disposition": "FAILED_FIDELITY_REJECTED_FOR_INFERENCE",
+    "power_gate_report": "reports/power/P2-CYCLE-POWER-GATE-V2.json",
+    "power_gate_status": "REDESIGN_REQUIRED",
+    "preregistration": "reports/power/P2-CYCLE-NULL-V2-PREREGISTRATION.json",
+    "protocol": "research/protocols/P2-CYCLE-NULL-V2.json",
+    "status": "BLOCK_SUPPORT_REDESIGN_REQUIRED_STOPPED_BEFORE_FIDELITY",
+    "thresholds_changed": false,
+    "version": "P2_CYCLE_NULL_V2"
   },
   "contextual_interaction_challenger": {
     "actual_model_fits": 12,
@@ -239,7 +262,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
+  "latest_executor_checkpoint": "P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -252,7 +275,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH-DIRECTOR-REVIEW-P2-NULL-REDESIGN",
+  "next_recommended_work_package": "RESEARCH-DIRECTOR-REVIEW-P2-NULL-V2-BLOCK-SUPPORT",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,

@@ -1,0 +1,26 @@
+{
+  "adaptive_decision_increment": 1,
+  "configuration_variants": 0,
+  "decision_id": "P2-CYCLE-NULL-V2-REDESIGN",
+  "direction": "RAW_RETURN_LONG_BLOCK_NULL_WITH_GAP_SUPPORT_GATE",
+  "economic_strategy_created": false,
+  "kind": "RESULT_DEPENDENT_NON_TRIAL_STRUCTURAL_METHOD_REDESIGN",
+  "market_outcomes_observed": false,
+  "material_economic_hypotheses": 0,
+  "material_economic_hypotheses_executed": 0,
+  "model_fits": 0,
+  "numeric_parameter_variants": 0,
+  "primary_structural_hypotheses": 0,
+  "profile_evaluations": 0,
+  "protocol": "research/protocols/P2-CYCLE-NULL-V2.json",
+  "result_dependent_fork_increment": 1,
+  "sealed_queries": 0,
+  "source_decision": {
+    "disposition": "FAILED_FIDELITY_REJECTED_FOR_INFERENCE",
+    "null_id": "P2_CYCLE_NULL_V1",
+    "structural_market_result_observed": false
+  },
+  "status": "BLOCK_SUPPORT_REDESIGN_REQUIRED_STOPPED_BEFORE_FIDELITY",
+  "strategy_experiments": 0,
+  "work_package": "P2-CYCLE-NULL-V2-REDESIGN"
+}

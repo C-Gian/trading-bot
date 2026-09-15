@@ -261,7 +261,9 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert state["latest_reviewed_checkpoint"] == "P1A-POWER-BLOCK-REVIEW"
-    assert state["latest_executor_checkpoint"] == "P2-CYCLE-FOUNDATION-POWER-GATE-PREP"
+    assert state["latest_executor_checkpoint"] == (
+        "P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2"
+    )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -683,6 +685,85 @@ def p2_power_gate_checks(state: dict, protocol: dict) -> None:
     }
 
 
+def p2_null_v2_checks(state: dict) -> None:
+    """Null V2 stopped at support without exposing or classifying the P2 market result."""
+    from app.research.cycle_structure import assert_no_result_leakage, fidelity_criteria
+    from app.research.cycle_structure_v2 import (
+        BLOCK_EXPECTED_OBSERVATIONS_V2,
+        JOINT_REPLICATION_METHOD_V2,
+        MINIMUM_LAG_540_SURVIVAL,
+        NULL_METHOD_V2,
+    )
+    from app.research.cycle_structure_v2_lab import normalized_sha256
+
+    record = state["cycle_null_v2"]
+    preregistration = json.loads((ROOT / record["preregistration"]).read_text(encoding="utf-8"))
+    support = json.loads((ROOT / record["block_support_report"]).read_text(encoding="utf-8"))
+    gate = json.loads((ROOT / record["power_gate_report"]).read_text(encoding="utf-8"))
+    protocol = json.loads(
+        (ROOT / "research/protocols/P2-CYCLE-NULL-V2.json").read_text(encoding="utf-8")
+    )
+    for artifact in (preregistration, support, gate):
+        assert_no_result_leakage(artifact)
+        assert artifact["ACTUAL_MARKET_PRIMARY_RESULT_OBSERVED"] is False
+
+    v1 = ROOT / "reports/power/P2-CYCLE-NULL-FIDELITY-PREREGISTRATION-V1.json"
+    assert preregistration["criteria"] == fidelity_criteria()
+    assert preregistration["immutable_v1_criterion_artifact"]["sha256"] == normalized_sha256(v1)
+    assert preregistration["thresholds_unchanged_from_v1"] is True
+    assert preregistration["expected_block_observations"] == BLOCK_EXPECTED_OBSERVATIONS_V2 == 1080
+    assert preregistration["alternative_block_lengths_tested"] is False
+    assert preregistration["ar_garch_har_figarch_used"] is False
+    assert preregistration["joint_replication_method"] == JOINT_REPLICATION_METHOD_V2
+    assert preregistration["fidelity_replicates"] == 999
+    assert preregistration["null_replicates"] == 4999
+    assert preregistration["synthetic_replicates_per_cell"] == 2000
+
+    assert support["null_method"] == record["null_method"] == NULL_METHOD_V2
+    assert support["support_measured_before_fidelity"] is True
+    assert support["fidelity_executed_at_measurement_time"] is False
+    assert support["forced_gap_termination"] is True
+    assert support["canonical_gaps_interpolated"] is False
+    assert support["donor_blocks_cross_canonical_gaps"] is False
+    assert support["alternative_block_lengths_tested"] is False
+    assert support["minimum_lag540_survival_every_fold"] == MINIMUM_LAG_540_SURVIVAL
+    assert len(support["folds"]) == 6
+    assert all(item["lag540_pass"] is False for item in support["folds"])
+    assert all(
+        item["same_block_survival_probability"]["540"] < MINIMUM_LAG_540_SURVIVAL
+        for item in support["folds"]
+    )
+    assert support["BLOCK_SUPPORT_STATUS"] == "REDESIGN_REQUIRED"
+
+    assert (
+        record["block_support_status"]
+        == gate["prerequisite_gates"]["BLOCK_SUPPORT_STATUS"]
+        == "REDESIGN_REQUIRED"
+    )
+    assert record["null_fidelity_status"] == "NOT_RUN_BLOCKED"
+    assert record["joint_replication_status"] == "NOT_RUN_BLOCKED"
+    assert record["computational_status"] == "NOT_RUN_BLOCKED"
+    assert record["detectability_executed"] is False
+    assert record["fidelity_report_created"] is False
+    assert gate["detectability"] is None and gate["prerequisites_pass"] is False
+    assert gate["P2_POWER_GATE_STATUS"] == record["power_gate_status"] == "REDESIGN_REQUIRED"
+    assert gate["preregistration_authorized"] is False
+    assert gate["actual_execution_authorized"] is False
+    assert all(value is False for value in gate["leakage_guard"].values())
+    assert protocol["structural_primary"]["status"] == "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED"
+    assert protocol["structural_primary"]["actual_market_result_inspected"] is False
+    assert protocol["null_v1"]["status"] == "FAILED_FIDELITY_REJECTED_FOR_INFERENCE"
+    assert protocol["null_v1"]["structural_primary_classified"] is False
+    assert not any(
+        (ROOT / path).is_file()
+        for path in (
+            "reports/power/P2-CYCLE-NULL-V2-FIDELITY.json",
+            "reports/power/P2-CYCLE-NULL-V2-COMPUTE.json",
+            "reports/power/P2-CYCLE-NULL-V2-DETECTABILITY.json",
+        )
+    )
+
+
 def dataset_scope_checks() -> None:
     """Metadata/inventory admission also runs in a checkout with no installed market data."""
     from app.research.continuation_lab import MANIFEST_SHA256
@@ -1021,6 +1102,17 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.md",
         "reports/checkpoints/P2-CYCLE-FOUNDATION-POWER-GATE-PREP.md",
         "reports/reviews/P2-CYCLE-POWER-GATE-PREP-CI-EVIDENCE.json",
+        "research/design/P2_CYCLE_NULL_V2_DESIGN.md",
+        "research/protocols/P2-CYCLE-NULL-V2.json",
+        "research/memory/registry/directions/P2-CYCLE-NULL-V2-REDESIGN.json",
+        "decisions/ADR-0016-P2-CYCLE-NULL-V2.md",
+        "decisions/ADR-0017-P2-CYCLE-NULL-V2-BLOCK-SUPPORT.md",
+        "reports/power/P2-CYCLE-NULL-V2-PREREGISTRATION.json",
+        "reports/power/P2-CYCLE-NULL-V2-BLOCK-SUPPORT.json",
+        "reports/power/P2-CYCLE-POWER-GATE-V2.json",
+        "reports/power/P2-CYCLE-POWER-GATE-V2.md",
+        "reports/checkpoints/P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2.md",
+        "tasks/archive/P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -1124,6 +1216,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert not p2_state["actual_market_result_inspected"]
     assert not p2_state["economic_strategy_created"]
     p2_power_gate_checks(state, p2)
+    p2_null_v2_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -1401,6 +1494,11 @@ def data_checks(state: dict) -> None:
     joint = build_joint_design(grids, fit_models(grids))
     fidelity_path = ROOT / state["cycle_power_gate"]["null_fidelity_report"]
     assert json_bytes(fidelity_report(grids, joint, ROOT)) == fidelity_path.read_bytes()
+    from app.research.cycle_structure_v2_lab import block_support_report, build_donors
+
+    donors = build_donors(grids)
+    support_path = ROOT / state["cycle_null_v2"]["block_support_report"]
+    assert json_bytes(block_support_report(grids, donors, ROOT)) == support_path.read_bytes()
 
 
 def main() -> None:
@@ -1413,6 +1511,7 @@ def main() -> None:
     run([sys.executable, "scripts/audit_statistical_evidence.py", "--check"])
     run([sys.executable, "scripts/audit_p1a_power_gate.py", "--check"])
     run([sys.executable, "scripts/audit_p2_cycle_power_gate.py", "--check"])
+    run([sys.executable, "scripts/audit_p2_cycle_null_v2.py", "--check"])
     for command in (
         [sys.executable, "-m", "ruff", "check", "backend", "scripts"],
         [sys.executable, "-m", "ruff", "format", "--check", "backend", "scripts"],
