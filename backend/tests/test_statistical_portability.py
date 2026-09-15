@@ -45,3 +45,16 @@ def test_json_differences_identifies_exact_drift_fields_deterministically() -> N
     )
     assert forward == ["/added", "/removed", "/rows/0/p", "/z"]
     assert reverse_order == forward
+
+
+def test_ci_root_cause_evidence_records_exact_fields_and_no_precision_waiver() -> None:
+    evidence = json.loads(
+        (ROOT / "reports/reviews/P0.1-DETECTABILITY-CI-EVIDENCE.json").read_text(encoding="utf-8")
+    )
+    assert evidence["failed_reference"]["exact_json_drift_fields"] == [
+        "/statistics/1/unadjusted_p_value",
+        "/statistics_sha256",
+    ]
+    assert evidence["deterministic_fix"]["comparison_precision_lowered"] is False
+    assert evidence["deterministic_fix"]["os_specific_expected_artifact"] is False
+    assert evidence["successful_verification"]["conclusion"] == "SUCCESS"

@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "checkpoint": "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX",
+  "failed_reference": {
+    "head": "a8e54d472add9d9257e7073c2b6c9258012884c2",
+    "run_id": 34931941608,
+    "conclusion": "FAILURE",
+    "exact_json_drift_fields": [
+      "/statistics/1/unadjusted_p_value",
+      "/statistics_sha256"
+    ],
+    "field_mapping": {
+      "/statistics/1/unadjusted_p_value": "ALIGNED_PARTICIPATION_CONTINUATION_V1 naive IID one-sided raw p",
+      "/statistics_sha256": "derived hash"
+    },
+    "markdown_drift_lines": [11, 26],
+    "installed_numerical_packages": {
+      "numpy": "2.4.6",
+      "scikit-learn": "1.7.2",
+      "scipy": "1.17.1"
+    }
+  },
+  "root_cause": "SciPy 1.17.1 Student-t survival evaluation differed by one final binary64 bit between supported Windows and Linux builds. The failed run and local lock used identical numerical package versions; ambient pip bootstrap also allowed future lock divergence.",
+  "diagnostic_reproduction": {
+    "head": "62808de36cbaa2ec383342fe58eabd8d7428ba0d",
+    "run_id": 34983145955,
+    "conclusion": "FAILURE",
+    "purpose": "Re-executed the a8 reconstruction path on Linux and emitted exact JSON pointers before replacing the final platform-sensitive tail calculation.",
+    "exact_json_drift_fields": [
+      "/statistics/1/unadjusted_p_value",
+      "/statistics_sha256"
+    ]
+  },
+  "deterministic_fix": {
+    "dependency_identity": "governance/NUMERICAL_DEPENDENCY_IDENTITY_V1.json",
+    "bootstrap": "uv sync --frozen with uv 0.12.10",
+    "ci_execution": "uv run --frozen",
+    "artifact_reductions": "Python statistics.fmean/stdev",
+    "student_t_tail": "80-digit Decimal regularized incomplete-beta calculation",
+    "comparison_precision_lowered": false,
+    "os_specific_expected_artifact": false
+  },
+  "detectability_correction": {
+    "diagnostic_ess_used_inferentially_before": true,
+    "diagnostic_ess_used_inferentially_after": false,
+    "historical_mde_computed": 0,
+    "historical_mde_unavailable": 12,
+    "unavailable_reason": "NO_GOVERNED_INFERENTIAL_DEPENDENCE_MODEL",
+    "historical_classifications_changed": false
+  },
+  "successful_verification": {
+    "head": "292f3eb468e388a8844ed7431a24e4a446162e8c",
+    "run_id": 34983918054,
+    "conclusion": "SUCCESS"
+  },
+  "safety": {
+    "historical_market_results_modified": false,
+    "market_experiment_executed": false,
+    "sealed_queries": 0,
+    "real_money_authorized": false
+  }
+}

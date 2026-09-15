@@ -69,7 +69,7 @@ def test_wp013_result_records_and_safety_state() -> None:
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
     assert (
-        state["latest_executor_checkpoint"] == "RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1"
+        state["latest_executor_checkpoint"] == "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX"
     )
     assert state["latest_reviewed_checkpoint"] == "WP-017-RESEARCH-DIRECTOR-REVIEW"
     assert state["champion_status"] == "NONE"

@@ -259,3 +259,8 @@ def test_safety_state_remains_closed() -> None:
     assert state["real_money_authorized"] is False
     assert state["attention_context_challenger"]["market_results_observed"] is False
     assert state["research_runtime"]["wp016_status"] == "BLOCKED_BEFORE_EXECUTION"
+    governance = state["statistical_governance"]
+    assert governance["p0_status"] == "ACCEPTED"
+    assert governance["diagnostic_ess_used_for_inferential_mde"] is False
+    assert governance["historical_mde_computed"] == 0
+    assert governance["historical_mde_unavailable"] == 12

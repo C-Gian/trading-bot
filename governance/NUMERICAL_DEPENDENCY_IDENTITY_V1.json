@@ -11,5 +11,6 @@
     "scikit-learn": "1.7.2",
     "scipy": "1.17.1"
   },
+  "artifact_student_t_tail_method": "DECIMAL_INCOMPLETE_BETA_PRECISION_80",
   "scope": "Deterministic governed statistical artifact reconstruction under Python 3.11"
 }

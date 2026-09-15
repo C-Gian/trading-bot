@@ -173,7 +173,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1",
+  "latest_executor_checkpoint": "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -286,6 +286,12 @@
         "evidence": "reports/reviews/PAPER-ENTRY-V2-RESEARCH-RUNTIME-V2-CI-EVIDENCE.json",
         "head": "95362a1a24adde6b4e5a75eb2062c52dcc4fdb6d",
         "run_id": 34845744019,
+        "status": "SUCCESS"
+      },
+      "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX": {
+        "evidence": "reports/reviews/P0.1-DETECTABILITY-CI-EVIDENCE.json",
+        "head": "292f3eb468e388a8844ed7431a24e4a446162e8c",
+        "run_id": 34983918054,
         "status": "SUCCESS"
       },
       "WP-005": {
@@ -417,10 +423,15 @@
   "statistical_governance": {
     "aligned_constant_provenance": "reports/statistics/ALIGNED-CONSTANT-PROVENANCE-V1.json",
     "detectability_power_target": 0.8,
+    "diagnostic_ess_used_for_inferential_mde": false,
     "familywise_alpha": 0.05,
     "future_power_gate": "BINDING",
+    "historical_mde_computed": 0,
+    "historical_mde_unavailable": 12,
     "known_discovery_family_size": 12,
     "ledger": "reports/statistics/MATERIAL-HYPOTHESIS-LEDGER-V1.json",
+    "numerical_dependency_identity": "governance/NUMERICAL_DEPENDENCY_IDENTITY_V1.json",
+    "p0_status": "ACCEPTED",
     "selection_evaluation_separation": "BINDING",
     "statistical_audit": "reports/statistics/STATISTICAL-EVIDENCE-AUDIT-V1.json",
     "unquantified_pre_repo_exposure": true,

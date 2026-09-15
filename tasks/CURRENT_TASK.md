@@ -1,6 +1,8 @@
 # CURRENT TASK — P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX
 
-Status: CORRECTION_REQUIRED_AFTER_RESEARCH_DIRECTOR_REVIEW
+Status: COMPLETED_PENDING_RESEARCH_DIRECTOR_REVIEW
+
+P0 Status: ACCEPTED
 
 Starting HEAD: `a8e54d472add9d9257e7073c2b6c9258012884c2` on local `main`.
 
@@ -17,6 +19,8 @@ fail closed with `NO_GOVERNED_INFERENTIAL_DEPENDENCE_MODEL` when no governed inf
 dependence model exists. Naive IID statistics remain explicitly labelled, and historical
 classifications remain immutable.
 
-P0 status may become ACCEPTED only after full local validation and exact-head GitHub
-Actions SUCCESS. No P1A, sealed evaluation, market experiment, or real-money work is in
-scope.
+Full local validation passed and exact correction head `292f3eb468e388a8844ed7431a24e4a446162e8c`
+passed GitHub Actions run `34983918054`. P0 is ACCEPTED. No P1A, sealed evaluation,
+market experiment, or real-money work was executed.
+
+Next action: Research Director review.

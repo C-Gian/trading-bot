@@ -73,7 +73,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     assert state["experiments_completed"] == 26
     assert state["latest_reviewed_checkpoint"] == "WP-017-RESEARCH-DIRECTOR-REVIEW"
     assert (
-        state["latest_executor_checkpoint"] == "RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1"
+        state["latest_executor_checkpoint"] == "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX"
     )
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
