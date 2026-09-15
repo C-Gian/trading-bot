@@ -124,7 +124,7 @@
     "implemented_components": [],
     "material_economic_hypotheses_executed": 0,
     "maximum_diagnostics": 2,
-    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_P2_NULL_V2_BLOCK_SUPPORT",
+    "next_checkpoint": "NONE_CYCLE_FAMILY_PARKED_METHODOLOGY_BLOCKED",
     "power_target": 0.8,
     "primary_hypothesis_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
     "primary_structural_hypotheses": 1,
@@ -262,7 +262,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2",
+  "latest_executor_checkpoint": "P2-METHODOLOGY-BLOCK-CLOSURE-RESEARCH-ARCHITECTURE-SYNTHESIS-V2",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -270,12 +270,12 @@
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
     "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "P1A-POWER-BLOCK-REVIEW",
+  "latest_reviewed_checkpoint": "P2-METHODOLOGY-BLOCK-REVIEW",
   "max_holding_horizon": {
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH-DIRECTOR-REVIEW-P2-NULL-V2-BLOCK-SUPPORT",
+  "next_recommended_work_package": "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -615,5 +615,38 @@
     "matched_control_classification": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
     "source_provenance_classification": "SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
     "status": "PASS"
+  },
+  "cycle_family_closure": {
+    "version": "P2_METHODOLOGY_BLOCK_CLOSURE_V1",
+    "hypothesis_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
+    "hypothesis_status": "METHODOLOGY_BLOCKED_NOT_EXECUTED",
+    "actual_market_result_observed": false,
+    "null_v1_disposition": "FAILED_FIDELITY_REJECTED_FOR_INFERENCE",
+    "null_v2_disposition": "FAILED_BLOCK_SUPPORT_REJECTED_FOR_INFERENCE",
+    "null_v3_authorized": false,
+    "alternate_design_authorized": false,
+    "family_status": "PARKED_METHODOLOGY_BLOCKED",
+    "material_economic_hypotheses_executed": 0,
+    "review": "reports/reviews/P2-METHODOLOGY-BLOCK-REVIEW.md",
+    "decision_record": "decisions/ADR-0018-P2-METHODOLOGY-BLOCK-CLOSURE-AND-CROSS-SECTION-ALLOCATION.md"
+  },
+  "research_architecture": {
+    "version": "RESEARCH_ARCHITECTURE_SYNTHESIS_V2",
+    "document": "research/design/RESEARCH_ARCHITECTURE_SYNTHESIS_V2.md",
+    "evaluated_directions": [
+      "BTC_ONLY_NEW_SIGNAL_OR_MECHANISM",
+      "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
+      "PROSPECTIVE_EVIDENCE_COLLECTION"
+    ],
+    "primary_next_direction": "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN",
+    "secondary_parallel_direction": "PROSPECTIVE_PAPER_EVIDENCE_CONTINUES",
+    "btc_only_new_source_or_model_search": "DEPRIORITIZED",
+    "cycle_research": "PARKED_METHODOLOGY_BLOCKED",
+    "next_checkpoint": "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1",
+    "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
+    "cross_section_product_authorized": false,
+    "cross_section_market_result_observed": false,
+    "cross_section_universe_numerically_frozen": false,
+    "paper_strategy_semantics_changed": false
   }
 }

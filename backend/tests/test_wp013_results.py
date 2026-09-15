@@ -69,9 +69,9 @@ def test_wp013_result_records_and_safety_state() -> None:
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
     assert state["latest_executor_checkpoint"] == (
-        "P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2"
+        "P2-METHODOLOGY-BLOCK-CLOSURE-RESEARCH-ARCHITECTURE-SYNTHESIS-V2"
     )
-    assert state["latest_reviewed_checkpoint"] == "P1A-POWER-BLOCK-REVIEW"
+    assert state["latest_reviewed_checkpoint"] == "P2-METHODOLOGY-BLOCK-REVIEW"
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["paper_trades_completed"] == 0

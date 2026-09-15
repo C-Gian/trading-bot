@@ -147,35 +147,62 @@ is not statistically resolvable with the available clustered BTC evidence: empir
 120h ALIGNED outcome remains unavailable. No P1A rescue, tuning, alternate horizon,
 cross-section, or execution is authorized.
 
-Next: `P2-CYCLE-FOUNDATION-POWER-GATE-PREP`.
+P2 was one structural time-only hypothesis, `BTC_TIME_CYCLE_STRUCTURE_V1`, on a 4h context
+series derived from canonical BTCUSDT 1m development data. Its protocol froze one primary,
+at most two non-rescuing diagnostics, a colored/dependent-noise null, synthetic cycle
+injection, multiple-frequency correction, chronological outer evaluation, and a target
+power of 0.80 before any actual cycle result could be exposed. It created no trading rule
+and consumed no material economic hypothesis.
 
-P2 is one structural time-only hypothesis, `BTC_TIME_CYCLE_STRUCTURE_V1`, on a 4h context
-series derived from canonical BTCUSDT 1m development data. Its protocol freezes one
-primary, at most two non-rescuing diagnostics, a colored/dependent-noise null, synthetic
-cycle injection, multiple-frequency correction, chronological outer evaluation, and a
-target power of 0.80 before any actual cycle result may be exposed. It creates no trading
-rule and consumes no material economic hypothesis.
+P2 is closed as `METHODOLOGY_BLOCKED_NOT_EXECUTED`. The frozen inference design could not
+produce a scientifically acceptable dependence-preserving null without violating its own
+preregistered safeguards: Null V1 is `FAILED_FIDELITY_REJECTED_FOR_INFERENCE` and Null V2
+is `FAILED_BLOCK_SUPPORT_REJECTED_FOR_INFERENCE`. The actual BTC cycle primary result was
+never observed, so this is not `REJECT`, not `NOT_SUPPORTED`, not
+`INCONCLUSIVE_MARKET_EVIDENCE`, and not evidence against cyclic structure. No Null V3 is
+authorized, and no alternate block length, period band, representation,
+GARCH/HAR/FIGARCH model, bootstrap or spectral estimator may be tried inside P2 V1. The
+cycle family is `PARKED_METHODOLOGY_BLOCKED`.
 
-After P2 cycle foundation is resolved, `RESEARCH-ARCHITECTURE-SYNTHESIS-V2` is mandatory
-before another hypothesis family may open automatically.
+`RESEARCH_ARCHITECTURE_SYNTHESIS_V2`
+(`research/design/RESEARCH_ARCHITECTURE_SYNTHESIS_V2.md`) records the resulting
+allocation. Primary next research direction:
+`CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN`. Secondary parallel direction:
+`PROSPECTIVE_PAPER_EVIDENCE_CONTINUES`. BTC-only new source/model search is
+`DEPRIORITIZED`. New alternative data, a new ML architecture, new threshold optimization
+and another cycle-null method stay closed without a later explicit Research Director
+allocation.
+
+Next: `CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1`.
 
 ### Future cross-sectional replication
 
 “ALIGNED has edge on BTC” and “an ALIGNED-like mechanism has a common positive effect
 across crypto” are different economic hypotheses. Additional assets are not independent
-BTC observations. Any authorized replication must freeze a point-in-time asset universe,
-inclusion/exclusion rules, delisting and survivorship treatment, per-asset realistic
-costs, a pooled primary endpoint, time/asset dependence treatment, and a prohibition on
-selecting winners after observation. Cross-sectional research is not currently
-authorized; the product remains BTCUSDT spot V1.
+BTC observations. Cross-sectional work is now the primary research direction, as a
+scientific generalization and power investigation only.
+
+`CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1` must occur before any aligned
+cross-sectional market outcome is inspected, and must freeze point-in-time universe
+construction, historical listing/delisting handling, survivorship controls, liquidity
+eligibility, per-asset data requirements, frozen ALIGNED transfer semantics, the pooled
+primary endpoint, cross-asset/time dependence treatment, a matched placebo/null, economic
+threshold translation, the power gate, and the prohibition on per-asset winner selection.
+No numeric universe threshold is frozen yet; each requires its own rationale and
+feasibility audit before exposure.
+
+Choosing this direction validates neither ALIGNED nor BTC. The product universe remains
+`BTCUSDT_SPOT_V1_UNCHANGED`, the cross-sectional product is not authorized, no
+cross-sectional market outcome has been observed, and no asset may be cherry-picked.
 
 ### Cycle research boundary
 
 `docs/canonical/CYCLE_RESEARCH_SOURCE_BOUNDARY_V1.md` distinguishes public concepts from
 project-reconstructed rules and executable detail that remains unspecified. A spectral
 null falsifies only the frozen timing representation tested, not every idea within
-“Ciclica Evoluta.” P2 opens time structure only. Swing, volume, inverse, vincolo,
-raccordo, target, and cycle-based trading remain closed. Diagnostics cannot rescue a
+“Ciclica Evoluta.” P2 opened time structure only and is now closed
+`METHODOLOGY_BLOCKED_NOT_EXECUTED`; swing, volume, inverse, vincolo, raccordo, target,
+and cycle-based trading were never opened and remain closed. Diagnostics cannot rescue a
 failed primary. A diagnostic-inspired successor requires a new prospective hypothesis
 and search budget; any trading rule is a new `MATERIAL_ECONOMIC_HYPOTHESIS` with its own
 MESI and power gate.

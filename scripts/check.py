@@ -260,9 +260,9 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == "P1A-POWER-BLOCK-REVIEW"
+    assert state["latest_reviewed_checkpoint"] == "P2-METHODOLOGY-BLOCK-REVIEW"
     assert state["latest_executor_checkpoint"] == (
-        "P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2"
+        "P2-METHODOLOGY-BLOCK-CLOSURE-RESEARCH-ARCHITECTURE-SYNTHESIS-V2"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
@@ -339,7 +339,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "RESEARCH-DIRECTOR-REVIEW-P2-NULL-V2-BLOCK-SUPPORT"
+        "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
@@ -766,6 +766,86 @@ def p2_null_v2_checks(state: dict) -> None:
     )
 
 
+def p2_closure_checks(state: dict) -> None:
+    """P2 closed without a market result, and the successor is a design checkpoint only."""
+    closure = state["cycle_family_closure"]
+    architecture = state["research_architecture"]
+    review = (ROOT / closure["review"]).read_text(encoding="utf-8")
+    synthesis = (ROOT / architecture["document"]).read_text(encoding="utf-8")
+
+    # The actual BTC cycle result was never observed, so P2 is blocked, not classified.
+    assert closure["hypothesis_status"] == "METHODOLOGY_BLOCKED_NOT_EXECUTED"
+    assert closure["hypothesis_status"] not in {
+        "REJECT",
+        "NOT_SUPPORTED",
+        "INCONCLUSIVE",
+        "INCONCLUSIVE_MARKET_EVIDENCE",
+        "SUPPORTED",
+    }
+    assert closure["actual_market_result_observed"] is False
+    assert state["cycle_foundation"]["actual_market_result_inspected"] is False
+    assert state["cycle_power_gate"]["actual_market_primary_result_observed"] is False
+    assert state["cycle_null_v2"]["actual_market_primary_result_observed"] is False
+    assert closure["material_economic_hypotheses_executed"] == 0
+    assert "METHODOLOGY_BLOCKED_NOT_EXECUTED" in review
+    assert "did **not** observe the actual BTC cycle primary result" in review
+
+    # Both nulls stay rejected for inference and no third null exists anywhere.
+    assert closure["null_v1_disposition"] == "FAILED_FIDELITY_REJECTED_FOR_INFERENCE"
+    assert closure["null_v2_disposition"] == "FAILED_BLOCK_SUPPORT_REJECTED_FOR_INFERENCE"
+    assert closure["null_v3_authorized"] is False
+    assert closure["alternate_design_authorized"] is False
+    for directory, pattern in (
+        ("reports/power", "*NULL-V3*"),
+        ("research/protocols", "*NULL-V3*"),
+        ("research/design", "*NULL_V3*"),
+        ("backend/app/research", "cycle_structure_v3*.py"),
+    ):
+        assert not list((ROOT / directory).glob(pattern)), f"a Null V3 artifact appeared: {pattern}"
+
+    # The cycle family is parked and hands over to a design-only successor checkpoint.
+    assert closure["family_status"] == "PARKED_METHODOLOGY_BLOCKED"
+    assert architecture["cycle_research"] == "PARKED_METHODOLOGY_BLOCKED"
+    assert state["cycle_foundation"]["next_checkpoint"] == (
+        "NONE_CYCLE_FAMILY_PARKED_METHODOLOGY_BLOCKED"
+    )
+    assert architecture["primary_next_direction"] == "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN"
+    assert architecture["secondary_parallel_direction"] == "PROSPECTIVE_PAPER_EVIDENCE_CONTINUES"
+    assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
+    assert architecture["next_checkpoint"] == "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1"
+    assert state["next_recommended_work_package"] == architecture["next_checkpoint"]
+    assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
+    assert len(architecture["evaluated_directions"]) == 3
+
+    # The product is unchanged and no cross-sectional outcome exists.
+    assert architecture["product_universe"] == "BTCUSDT_SPOT_V1_UNCHANGED"
+    assert state["symbols"] == ["BTCUSDT"] and state["research_market"] == "crypto_spot"
+    assert state["product_analysis"]["strategy_version"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    assert state["paper_trading"]["strategy_version"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    assert architecture["paper_strategy_semantics_changed"] is False
+    assert architecture["cross_section_product_authorized"] is False
+    assert architecture["cross_section_market_result_observed"] is False
+    assert architecture["cross_section_universe_numerically_frozen"] is False
+    assert not list((ROOT / "research/experiments").glob("*CROSS-SECTION*"))
+    assert not list((ROOT / "reports/power").glob("*CROSS-SECTION*"))
+    assert not any(
+        manifest.name.startswith("CROSS-SECTION")
+        for manifest in (ROOT / "data/manifests").glob("*.json")
+    )
+
+    # Accounting is untouched by a formally recorded review.
+    assert state["experiments_completed"] == 26
+    assert state["statistical_governance"]["known_discovery_family_size"] == 12
+    assert state["adaptive_search"]["adaptive_decisions"] == 15
+    assert state["adaptive_search"]["result_dependent_forks"] == 12
+    assert state["adaptive_search"]["sealed_queries"] == 0
+    assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
+    assert state["champion_status"] == "NONE"
+    assert state["paper_trading"]["genuine_paper_trades_completed"] == 0
+    assert state["real_money_authorized"] is False
+    assert state["paper_trading"]["real_money"] is False
+
+
 def dataset_scope_checks() -> None:
     """Metadata/inventory admission also runs in a checkout with no installed market data."""
     from app.research.continuation_lab import MANIFEST_SHA256
@@ -1115,6 +1195,11 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/power/P2-CYCLE-POWER-GATE-V2.md",
         "reports/checkpoints/P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2.md",
         "tasks/archive/P2-CYCLE-NULL-V2-REDESIGN-P2-CYCLE-POWER-GATE-V2.md",
+        "reports/reviews/P2-METHODOLOGY-BLOCK-REVIEW.md",
+        "research/design/RESEARCH_ARCHITECTURE_SYNTHESIS_V2.md",
+        "decisions/ADR-0018-P2-METHODOLOGY-BLOCK-CLOSURE-AND-CROSS-SECTION-ALLOCATION.md",
+        "reports/checkpoints/P2-METHODOLOGY-BLOCK-CLOSURE-RESEARCH-ARCHITECTURE-SYNTHESIS-V2.md",
+        "tasks/archive/P2-METHODOLOGY-BLOCK-CLOSURE-RESEARCH-ARCHITECTURE-SYNTHESIS-V2.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -1219,6 +1304,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert not p2_state["economic_strategy_created"]
     p2_power_gate_checks(state, p2)
     p2_null_v2_checks(state)
+    p2_closure_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
