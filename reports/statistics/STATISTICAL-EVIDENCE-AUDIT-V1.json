@@ -297,7 +297,7 @@
       "sample_standard_deviation": 1.2967686329990742,
       "statistical_status": "NAIVE_IID_T_AVAILABLE_DEPENDENCE_UNRESOLVED",
       "terminal_historical_classification": "INCONCLUSIVE",
-      "unadjusted_p_value": 0.11922765035087371,
+      "unadjusted_p_value": 0.11922765035087377,
       "unadjusted_p_value_basis": "NAIVE_IID_ONE_SIDED",
       "unavailable_reason": null
     },
@@ -482,6 +482,6 @@
       "unavailable_reason": "RAW_TRADE_OUTCOMES_NOT_PRESERVED_IN_GOVERNED_RESULT_ARTIFACT"
     }
   ],
-  "statistics_sha256": "1d9b0d89f9120b67c77dd67de32ab99685b937306ef1857839896ed30ac5796e",
+  "statistics_sha256": "cfc867f024558d465d2db65f539ec769b5a04fadd926970e40ad694a6af1c420",
   "unquantified_pre_repo_exposure": true
 }

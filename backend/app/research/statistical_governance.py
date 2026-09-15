@@ -7,6 +7,8 @@ import json
 import math
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
+from decimal import Decimal, localcontext
+from math import factorial
 from pathlib import Path
 from statistics import fmean, stdev
 from typing import Any
@@ -41,10 +43,98 @@ PROVENANCE_STATUSES = frozenset(
 BLOCKED_HYPOTHESES = frozenset({"WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1"})
 PRIMARY_ALPHA = 0.05
 POWER_TARGET = 0.80
+DECIMAL_PI = Decimal(
+    "3.141592653589793238462643383279502884197169399375105820974944592307816406286"
+)
 
 
 class StatisticalGovernanceError(ValueError):
     """A statistical calculation lacks a governed or finite basis."""
+
+
+def _gamma_integer_or_half(twice_value: int) -> Decimal:
+    if twice_value < 1:
+        raise StatisticalGovernanceError("gamma input must be a positive integer or half")
+    if twice_value % 2 == 0:
+        return Decimal(factorial(twice_value // 2 - 1))
+    half_steps = (twice_value - 1) // 2
+    numerator = Decimal(factorial(2 * half_steps)) * DECIMAL_PI.sqrt()
+    denominator = (Decimal(4) ** half_steps) * Decimal(factorial(half_steps))
+    return numerator / denominator
+
+
+def _regularized_incomplete_beta(x: Decimal, a: Decimal, b: Decimal) -> Decimal:
+    """Deterministic high-precision regularized incomplete beta continued fraction."""
+    if not Decimal(0) < x < Decimal(1):
+        if x == 0:
+            return Decimal(0)
+        if x == 1:
+            return Decimal(1)
+        raise StatisticalGovernanceError("incomplete beta x is outside [0, 1]")
+
+    tiny = Decimal("1e-70")
+    epsilon = Decimal("1e-70")
+
+    def continued_fraction(left: Decimal, right: Decimal, value: Decimal) -> Decimal:
+        total = left + right
+        plus = left + 1
+        minus = left - 1
+        c = Decimal(1)
+        d = 1 - total * value / plus
+        if abs(d) < tiny:
+            d = tiny
+        d = 1 / d
+        result = d
+        for index in range(1, 10_001):
+            doubled = Decimal(2 * index)
+            term = Decimal(index) * (right - index) * value
+            term /= (minus + doubled) * (left + doubled)
+            d = 1 + term * d
+            d = tiny if abs(d) < tiny else d
+            c = 1 + term / c
+            c = tiny if abs(c) < tiny else c
+            d = 1 / d
+            result *= d * c
+
+            term = -(left + index) * (total + index) * value
+            term /= (left + doubled) * (plus + doubled)
+            d = 1 + term * d
+            d = tiny if abs(d) < tiny else d
+            c = 1 + term / c
+            c = tiny if abs(c) < tiny else c
+            d = 1 / d
+            delta = d * c
+            result *= delta
+            if abs(delta - 1) <= epsilon:
+                return result
+        raise StatisticalGovernanceError("incomplete beta continued fraction did not converge")
+
+    twice_a = int(a * 2)
+    twice_b = int(b * 2)
+    beta = (
+        _gamma_integer_or_half(twice_a)
+        * _gamma_integer_or_half(twice_b)
+        / _gamma_integer_or_half(twice_a + twice_b)
+    )
+    front = (a * x.ln() + b * (1 - x).ln()).exp() / beta
+    if x < (a + 1) / (a + b + 2):
+        return front * continued_fraction(a, b, x) / a
+    return 1 - front * continued_fraction(b, a, 1 - x) / b
+
+
+def deterministic_student_t_sf(statistic: float, *, degrees_of_freedom: int) -> float:
+    """One-tailed Student-t survival probability with platform-stable arithmetic."""
+    if not math.isfinite(statistic) or degrees_of_freedom < 1:
+        raise StatisticalGovernanceError("Student-t inputs are invalid")
+    if statistic == 0:
+        return 0.5
+    with localcontext() as context:
+        context.prec = 80
+        value = Decimal.from_float(abs(statistic))
+        freedom = Decimal(degrees_of_freedom)
+        x = freedom / (freedom + value * value)
+        tail = _regularized_incomplete_beta(x, freedom / 2, Decimal("0.5")) / 2
+        return float(tail if statistic > 0 else 1 - tail)
 
 
 @dataclass(frozen=True)
@@ -564,7 +654,9 @@ def reconstruct_statistical_evidence(root: Path = ROOT) -> dict[str, Any]:
                 row["naive_test_statistic"] = float(statistic)
                 row["naive_test_statistic_basis"] = "NAIVE_IID"
                 if spec.directional_positive_claim is True:
-                    raw_p = float(stats.t.sf(statistic, df=len(outcomes) - 1))
+                    raw_p = deterministic_student_t_sf(
+                        statistic, degrees_of_freedom=len(outcomes) - 1
+                    )
                     row["unadjusted_p_value"] = raw_p
                     row["unadjusted_p_value_basis"] = "NAIVE_IID_ONE_SIDED"
                     row["statistical_status"] = "NAIVE_IID_T_AVAILABLE_DEPENDENCE_UNRESOLVED"
@@ -896,6 +988,7 @@ __all__ = [
     "build_material_hypothesis_ledger",
     "build_repository_ledger",
     "compute_mde",
+    "deterministic_student_t_sf",
     "holm_bonferroni",
     "json_bytes",
     "normalize_provenance_entry",

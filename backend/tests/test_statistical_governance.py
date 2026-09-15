@@ -18,6 +18,7 @@ from app.research.statistical_governance import (
     build_material_hypothesis_ledger,
     build_repository_ledger,
     compute_mde,
+    deterministic_student_t_sf,
     holm_bonferroni,
     normalize_provenance_entry,
     reconstruct_statistical_evidence,
@@ -206,6 +207,16 @@ def test_mde_behaves_monotonically_and_fails_closed() -> None:
         calculate(dependence_method="GOVERNED_POSITIVE_ACF_LAGS_1_TO_5_ESS_DIAGNOSTIC")
     with pytest.raises(StatisticalGovernanceError, match="valid domain"):
         calculate(sample_standard_deviation=0.0)
+
+
+def test_deterministic_student_t_survival_matches_known_values() -> None:
+    assert deterministic_student_t_sf(0.0, degrees_of_freedom=10) == 0.5
+    assert deterministic_student_t_sf(1.0, degrees_of_freedom=1) == 0.25
+    positive = deterministic_student_t_sf(1.5, degrees_of_freedom=24)
+    negative = deterministic_student_t_sf(-1.5, degrees_of_freedom=24)
+    assert positive + negative == pytest.approx(1.0, abs=1e-15)
+    with pytest.raises(StatisticalGovernanceError, match="Student-t inputs"):
+        deterministic_student_t_sf(float("nan"), degrees_of_freedom=10)
 
 
 def test_detectability_adds_no_mesi_and_changes_no_historical_verdict() -> None:

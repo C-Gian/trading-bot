@@ -30,6 +30,11 @@ def test_statistical_outputs_are_byte_identical_on_repeated_reconstruction() -> 
     assert all(path.read_bytes() == content for path, content in first.items())
 
 
+def test_artifact_p_values_do_not_use_platform_sensitive_scipy_tail() -> None:
+    source = (ROOT / "backend/app/research/statistical_governance.py").read_text(encoding="utf-8")
+    assert "stats.t.sf" not in source
+
+
 def test_json_differences_identifies_exact_drift_fields_deterministically() -> None:
     actual = {"z": 1, "rows": [{"p": 0.1}], "removed": True}
     expected = {"z": 2, "rows": [{"p": 0.2}], "added": True}
