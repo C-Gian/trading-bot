@@ -259,7 +259,7 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert state["latest_reviewed_checkpoint"] == "WP-017-RESEARCH-DIRECTOR-REVIEW"
     assert state["latest_executor_checkpoint"] == (
-        "RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1"
+        "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
@@ -898,6 +898,10 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/statistics/STATISTICAL-EVIDENCE-AUDIT-V1.md",
         "reports/checkpoints/RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1.md",
         "reports/validation/RESEARCH-REBASELINE-V2-P0-VALIDATION.json",
+        "governance/NUMERICAL_DEPENDENCY_IDENTITY_V1.json",
+        "reports/checkpoints/P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX.md",
+        "reports/reviews/P0.1-DETECTABILITY-CI-EVIDENCE.json",
+        "tasks/archive/RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
