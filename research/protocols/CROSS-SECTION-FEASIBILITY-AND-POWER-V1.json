@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "protocol_id": "CROSS-SECTION-FEASIBILITY-AND-POWER-V1",
+  "hypothesis_id": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1",
+  "status": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
+  "design": "research/design/CROSS_SECTION_COMMON_EFFECT_V1_DESIGN.md",
+  "question": "Across a frozen point-in-time Binance Spot USDT universe, do the unchanged ALIGNED gates identify asset-hours with a positive common 24-hour forward effect beyond contemporaneous market/time and asset effects?",
+  "material_economic_hypotheses": 1,
+  "material_economic_hypotheses_executed": 0,
+  "one_hypothesis_per_asset": false,
+  "observed_family_size_during_preparation": 12,
+  "prospective_family_size_on_execution": 13,
+  "product": {
+    "product_universe": "BTCUSDT_SPOT_V1",
+    "cross_section_role": "SCIENTIFIC_GENERALIZATION_ONLY",
+    "cross_section_product_authorized": false,
+    "multi_asset_trading_implemented": false,
+    "multi_asset_analyze_market_exposed": false,
+    "real_money_authorized": false
+  },
+  "development_window": {
+    "start": "2019-01-01T00:00:00Z",
+    "end": "2024-12-31T23:59:00Z",
+    "post_cutoff_information_used": false
+  },
+  "data_source": {
+    "provider": "Binance",
+    "market_type": "spot",
+    "dataset": "monthly_klines",
+    "interval": "1h",
+    "credentials_used": false,
+    "current_exchange_info_used_as_listing_truth": false,
+    "one_minute_multi_asset_history_downloaded": false,
+    "equivalence_report": "reports/cross_section/CROSS-SECTION-BTC-1H-EQUIVALENCE-V1.json",
+    "equivalence_requirement": "IDENTICAL_ALIGNED_DECISIONS_AND_SIGNAL_COUNTS_VS_CANONICAL_1M"
+  },
+  "universe_policy": {
+    "frozen_before_signal_counts": true,
+    "quote_asset": "USDT",
+    "derivation": "HISTORICAL_ARCHIVE_EVIDENCE_NOT_CURRENT_EXCHANGE_INFO",
+    "survival_to_2024_required": false,
+    "leveraged_token_suffixes": ["UP", "DOWN", "BULL", "BEAR"],
+    "leveraged_token_rule": "SUFFIX_IMMEDIATELY_BEFORE_USDT_MECHANICAL_NON_DISCRETIONARY",
+    "stablecoin_or_fiat_pairs_manually_removed": false,
+    "discretionary_asset_list": false,
+    "selection_using_future_return_or_performance": false
+  },
+  "causal_eligibility": {
+    "minimum_history_days": 30,
+    "liquidity_lookback_days": 30,
+    "minimum_median_daily_quote_volume_usdt": 10000000.0,
+    "planning_order_notional_usdt": 5000.0,
+    "rationale": "CAPACITY_AND_DATA_QUALITY_NOT_PERFORMANCE_OPTIMIZATION",
+    "authorizes_capital": false,
+    "complete_day_required_for_liquidity_median": true,
+    "canonical_gaps_interpolated": false,
+    "future_longevity_is_eligibility_condition": false
+  },
+  "aligned_transfer": {
+    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "feature_version": "CONTINUATION_FEATURES_V2",
+    "modified": false,
+    "breakout_hours": 24,
+    "context_bars": 43,
+    "context_increments": 42,
+    "up_to_down_ratio": 2,
+    "volume_baseline_hours": 24,
+    "volume_multiplier": 2,
+    "parameter_scaling_by_asset_or_regime": false,
+    "asset_specific_tuning": false,
+    "occupancy_suppression_applied": false,
+    "events": "RAW_SIGNAL_EVENTS"
+  },
+  "future_outcome": {
+    "horizon_hours": 24,
+    "metric": "FORWARD_LOG_PRICE_RETURN_BPS",
+    "start_rule": "NEXT_COMPLETED_TRADABLE_HOURLY_OPEN_AFTER_DECISION",
+    "terminal_rule": "LATEST_LEGITIMATE_TRADABLE_PRICE_AT_OR_BEFORE_PLUS_24H",
+    "terminal_interpolation": false,
+    "stop": null,
+    "target": null,
+    "r_denominator": false,
+    "one_position_constraint": false
+  },
+  "primary_estimand": {
+    "count": 1,
+    "specification": "Y(i,t) = asset_fe + decision_time_fe + beta * ALIGNED_SIGNAL(i,t) + error(i,t)",
+    "fixed_effects": ["ASSET", "DECISION_TIME"],
+    "claim": "BETA_GREATER_THAN_ZERO",
+    "unit": "BPS_PER_ALIGNED_SIGNAL_EVENT",
+    "evaluated_at_true_alignment": false,
+    "per_asset_beta_is_primary": false,
+    "per_asset_beta_may_rescue": false,
+    "per_asset_role": "DESCRIPTIVE_DIAGNOSTIC_NEVER_SELECTION"
+  },
+  "economic_threshold": {
+    "CROSS_SECTION_MESI_BPS": 24.0,
+    "derivation": "500_BPS_PER_YEAR / (125_ALIGNED_TRADES / 6_YEARS)",
+    "necessary_lower_bound": true,
+    "sufficient_for_product_claim": false,
+    "lowered_after_power": false
+  },
+  "inference": {
+    "iid_inference_permitted": false,
+    "cluster_dimensions": ["ASSET_INSTRUMENT_EPOCH", "UTC_CALENDAR_WEEK"],
+    "method": "TWO_WAY_CAMERON_GELBACH_MILLER_INCLUSION_EXCLUSION",
+    "covariance_identity": "V = V_asset + V_week - V_intersection",
+    "degrees_of_freedom_rule": "CONSERVATIVE_MINIMUM_CLUSTER_DIMENSION_MINUS_ONE",
+    "minimum_asset_clusters": 30,
+    "minimum_week_clusters": 100,
+    "manual_asset_addition_to_pass": false
+  },
+  "multiplicity": {
+    "observed_family_before_execution": 12,
+    "prospective_family_size": 13,
+    "familywise_alpha": 0.05,
+    "alpha_effective": 0.003846153846153846,
+    "sidedness": "ONE_SIDED_POSITIVE",
+    "UNQUANTIFIED_PRE_REPO_EXPOSURE": true
+  },
+  "placebo": {
+    "method": "DETERMINISTIC_CIRCULAR_SHIFT_WITHIN_CAUSALLY_ELIGIBLE_HISTORY",
+    "zero_shift_used": false,
+    "minimum_absolute_shift_positions": 168,
+    "same_shift_magnitude_across_assets": true,
+    "true_alignment_evaluated": false,
+    "role": "CALIBRATION_DIAGNOSTIC_MAY_INVALIDATE_NEVER_RESCUE",
+    "searched_for_favourable_construction": false
+  },
+  "power": {
+    "target_power": 0.8,
+    "synthetic_injection_bps": [0.0, 12.0, 24.0, 48.0, 96.0],
+    "synthetic_effects_are_market_effects": false,
+    "permitted": [
+      "FIXED_EFFECTS_NULL_RESIDUALS_WITHOUT_ALIGNED_REGRESSOR",
+      "RESIDUAL_DISPERSION",
+      "TWO_WAY_CLUSTER_COVARIANCE_INGREDIENTS",
+      "NON_ZERO_PLACEBO_EFFECTS",
+      "SYNTHETIC_INJECTED_EFFECTS"
+    ],
+    "forbidden": [
+      "ZERO_ALIGNMENT_BETA",
+      "ZERO_ALIGNMENT_T",
+      "ZERO_ALIGNMENT_P",
+      "PER_ASSET_REAL_EFFECT"
+    ]
+  },
+  "gate": {
+    "keys": [
+      "DATA_SOURCE_STATUS",
+      "UNIVERSE_FEASIBILITY_STATUS",
+      "DATA_FEASIBILITY_STATUS",
+      "SURVIVORSHIP_STATUS",
+      "CLUSTER_SUPPORT_STATUS",
+      "PLACEBO_CALIBRATION_STATUS",
+      "DEPENDENCE_INFERENCE_STATUS"
+    ],
+    "pass_status": "READY_FOR_PREREGISTRATION",
+    "fail_status": "REDESIGN_REQUIRED",
+    "on_fail_forbidden": [
+      "LOWER_MESI",
+      "LOWER_TARGET_POWER",
+      "SELECT_HIGH_SIGNAL_ASSETS",
+      "REMOVE_CATEGORIES",
+      "ALTER_ALIGNED",
+      "INSPECT_REAL_BETA",
+      "SECOND_UNIVERSE_THRESHOLD",
+      "ANOTHER_LIQUIDITY_CUTOFF",
+      "ANOTHER_HORIZON"
+    ]
+  },
+  "accounting": {
+    "experiments_completed": 26,
+    "observed_material_economic_hypotheses": 12,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "real_money_authorized": false
+  },
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false
+}

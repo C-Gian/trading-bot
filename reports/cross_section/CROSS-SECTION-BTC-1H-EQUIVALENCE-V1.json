@@ -1,0 +1,218 @@
+{
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false,
+  "DATA_SOURCE_STATUS": "PASS",
+  "aligned_decisions_match": true,
+  "archive_aligned_signals": 195,
+  "archive_off_grid_rows_in_window": 0,
+  "archive_off_grid_rows_total": 43,
+  "archive_only_decidable": 192,
+  "bar_field_mismatch_total": 25,
+  "bar_field_mismatches": {
+    "close": 0,
+    "high": 1,
+    "low": 1,
+    "open": 0,
+    "volume": 23
+  },
+  "bar_fields_compared": 262655,
+  "bars_compared": 52531,
+  "both_decidable": 49034,
+  "canonical_aligned_signals": 195,
+  "canonical_only_decidable": 0,
+  "decision_hours_scanned": 52608,
+  "identical_decisions": 49034,
+  "identical_hour_key_set": true,
+  "in_window_hours_archive": 52549,
+  "in_window_hours_canonical": 52549,
+  "report_id": "CROSS-SECTION-BTC-1H-EQUIVALENCE-V1",
+  "source_discrepancies": [
+    {
+      "archive": 729.24665,
+      "canonical": 728.6137319999998,
+      "field": "volume",
+      "open_time": "2019-08-20T05:00:00Z",
+      "relative_deviation": 0.0008686605428955124
+    },
+    {
+      "archive": 2253.302206,
+      "canonical": 2235.968501,
+      "field": "volume",
+      "open_time": "2020-04-09T08:00:00Z",
+      "relative_deviation": 0.007752213410988481
+    },
+    {
+      "archive": 576.740407,
+      "canonical": 576.6831890000001,
+      "field": "volume",
+      "open_time": "2020-06-14T01:00:00Z",
+      "relative_deviation": 9.921912254654039e-05
+    },
+    {
+      "archive": 830.970743,
+      "canonical": 830.8850899999998,
+      "field": "volume",
+      "open_time": "2020-06-24T01:00:00Z",
+      "relative_deviation": 0.00010308645687721599
+    },
+    {
+      "archive": 7567.338068,
+      "canonical": 7564.058172000003,
+      "field": "volume",
+      "open_time": "2021-02-04T09:00:00Z",
+      "relative_deviation": 0.00043361591429036384
+    },
+    {
+      "archive": 11977.058639,
+      "canonical": 11977.009964,
+      "field": "volume",
+      "open_time": "2021-02-08T14:00:00Z",
+      "relative_deviation": 4.0640360278824354e-06
+    },
+    {
+      "archive": 9038.406956,
+      "canonical": 9030.607439999998,
+      "field": "volume",
+      "open_time": "2021-02-08T15:00:00Z",
+      "relative_deviation": 0.0008636756776134176
+    },
+    {
+      "archive": 2801.287684,
+      "canonical": 2776.4151229999998,
+      "field": "volume",
+      "open_time": "2021-04-01T10:00:00Z",
+      "relative_deviation": 0.008958516611566568
+    },
+    {
+      "archive": 52561.0,
+      "canonical": 52569.17,
+      "field": "low",
+      "open_time": "2021-04-22T02:00:00Z",
+      "relative_deviation": 0.00015541428559739967
+    },
+    {
+      "archive": 8567.790162,
+      "canonical": 8110.637536000001,
+      "field": "volume",
+      "open_time": "2021-04-22T02:00:00Z",
+      "relative_deviation": 0.056364573557981544
+    },
+    {
+      "archive": 11667.632162,
+      "canonical": 9588.813973000002,
+      "field": "volume",
+      "open_time": "2021-04-23T01:00:00Z",
+      "relative_deviation": 0.21679617467326973
+    },
+    {
+      "archive": 51427.93,
+      "canonical": 51317.74,
+      "field": "high",
+      "open_time": "2021-04-23T02:00:00Z",
+      "relative_deviation": 0.0021472106916633964
+    },
+    {
+      "archive": 15482.244353,
+      "canonical": 11917.232497999998,
+      "field": "volume",
+      "open_time": "2021-04-23T02:00:00Z",
+      "relative_deviation": 0.2991476297536612
+    },
+    {
+      "archive": 1479.189582,
+      "canonical": 1478.994363,
+      "field": "volume",
+      "open_time": "2021-08-19T06:00:00Z",
+      "relative_deviation": 0.00013199441788538572
+    },
+    {
+      "archive": 2573.59888,
+      "canonical": 2573.5372199999997,
+      "field": "volume",
+      "open_time": "2021-09-21T13:00:00Z",
+      "relative_deviation": 2.3959241592123472e-05
+    },
+    {
+      "archive": 1578.96124,
+      "canonical": 1578.8550199999997,
+      "field": "volume",
+      "open_time": "2021-09-23T01:00:00Z",
+      "relative_deviation": 6.727660149590468e-05
+    },
+    {
+      "archive": 737.70456,
+      "canonical": 728.0771400000002,
+      "field": "volume",
+      "open_time": "2021-10-23T05:00:00Z",
+      "relative_deviation": 0.013223076884407879
+    },
+    {
+      "archive": 810.35916,
+      "canonical": 810.3568599999998,
+      "field": "volume",
+      "open_time": "2021-10-30T07:00:00Z",
+      "relative_deviation": 2.8382557287396337e-06
+    },
+    {
+      "archive": 1084.11426,
+      "canonical": 1082.5859400000002,
+      "field": "volume",
+      "open_time": "2021-12-31T00:00:00Z",
+      "relative_deviation": 0.0014117308783817145
+    },
+    {
+      "archive": 1083.03504,
+      "canonical": 1081.8328999999999,
+      "field": "volume",
+      "open_time": "2022-02-05T06:00:00Z",
+      "relative_deviation": 0.001111206730725327
+    },
+    {
+      "archive": 1147.19743,
+      "canonical": 1144.7242899999997,
+      "field": "volume",
+      "open_time": "2022-02-23T06:00:00Z",
+      "relative_deviation": 0.0021604678275851785
+    },
+    {
+      "archive": 984.30171,
+      "canonical": 983.0633500000001,
+      "field": "volume",
+      "open_time": "2022-04-13T06:00:00Z",
+      "relative_deviation": 0.0012596950135510894
+    },
+    {
+      "archive": 1919.44107,
+      "canonical": 1919.3496500000006,
+      "field": "volume",
+      "open_time": "2022-04-25T09:00:00Z",
+      "relative_deviation": 4.76307169980812e-05
+    },
+    {
+      "archive": 2191.17797,
+      "canonical": 2182.1316599999996,
+      "field": "volume",
+      "open_time": "2022-04-28T01:00:00Z",
+      "relative_deviation": 0.004145629782943818
+    },
+    {
+      "archive": 805.63863,
+      "canonical": 805.6141700000001,
+      "field": "volume",
+      "open_time": "2022-05-01T08:00:00Z",
+      "relative_deviation": 3.0361928713314944e-05
+    }
+  ],
+  "source_discrepancy_interpretation": "UPSTREAM_BINANCE_1M_VS_1H_SERIALIZATION_DIFFERENCE_NOT_AGGREGATION_ERROR",
+  "symbol": "BTCUSDT",
+  "window": {
+    "end_us": 1735689540000000,
+    "start_us": 1546300800000000
+  },
+  "worst_relative_deviation": {
+    "close": 0.0,
+    "high": 0.0021472106916633964,
+    "low": 0.00015541428559739967,
+    "open": 0.0,
+    "volume": 0.2991476297536612
+  }
+}
