@@ -173,7 +173,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX",
+  "latest_executor_checkpoint": "P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -186,7 +186,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "DESIGN_ALIGNED_SIGNAL_PERSISTENCE_V1",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_P1A_REDESIGN_DECISION",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,
@@ -451,6 +451,33 @@
     "status": "VALIDATED",
     "terminal_classification": "REJECT_COST_DOMINATED",
     "version": "SHALLOW_INTERNAL_HGBR_V1"
+  },
+  "signal_persistence_power_gate": {
+    "aligned_semantics_changed": false,
+    "design": "research/design/ALIGNED_SIGNAL_PERSISTENCE_V1_DESIGN.md",
+    "effective_alpha": 0.0038461538461538464,
+    "empirical_mde_bps_per_event": 285.640052,
+    "hypothesis_id": "ALIGNED_SIGNAL_PERSISTS_TO_120H_V1",
+    "hypothesis_status": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
+    "matched_control_method": "DETERMINISTIC_WITHIN_FOLD_CIRCULAR_CALENDAR_SHIFT_V1",
+    "material_experiment_executed": false,
+    "mesi_bps_per_event": 24.0,
+    "minimum_attainable_randomization_p": 0.000135685210312076,
+    "minimum_shift_hours": 168,
+    "null_distribution": "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-NULL-DISTRIBUTION-V1.json",
+    "placebo_shift_count": 7369,
+    "power_at_mesi": 0.014248880445107885,
+    "power_gate_status": "REDESIGN_REQUIRED",
+    "power_target": 0.8,
+    "preregistration_authorized": false,
+    "primary_horizon_hours": 120,
+    "prospective_family_size": 13,
+    "raw_signal_count": 180,
+    "report_json": "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-V1.json",
+    "report_markdown": "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-V1.md",
+    "runner_candidate_registered": false,
+    "version": "ALIGNED_SIGNAL_PERSISTENCE_V1",
+    "zero_shift_statistic_computed": false
   },
   "signal_timeframe": "1h",
   "source_discovery_gate": {

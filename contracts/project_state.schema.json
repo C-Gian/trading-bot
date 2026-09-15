@@ -977,6 +977,63 @@
         "safe_phase_1_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
       }
     },
+    "signal_persistence_power_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "design", "report_json", "report_markdown", "null_distribution",
+        "hypothesis_id", "hypothesis_status", "primary_horizon_hours",
+        "aligned_semantics_changed", "raw_signal_count", "matched_control_method",
+        "minimum_shift_hours", "placebo_shift_count", "prospective_family_size",
+        "effective_alpha", "power_target", "mesi_bps_per_event",
+        "empirical_mde_bps_per_event", "power_at_mesi",
+        "minimum_attainable_randomization_p", "power_gate_status",
+        "preregistration_authorized", "runner_candidate_registered",
+        "material_experiment_executed", "zero_shift_statistic_computed"
+      ],
+      "properties": {
+        "version": {"const": "ALIGNED_SIGNAL_PERSISTENCE_V1"},
+        "design": {"const": "research/design/ALIGNED_SIGNAL_PERSISTENCE_V1_DESIGN.md"},
+        "report_json": {
+          "const": "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-V1.json"
+        },
+        "report_markdown": {
+          "const": "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-V1.md"
+        },
+        "null_distribution": {
+          "const": "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-NULL-DISTRIBUTION-V1.json"
+        },
+        "hypothesis_id": {"const": "ALIGNED_SIGNAL_PERSISTS_TO_120H_V1"},
+        "hypothesis_status": {
+          "enum": [
+            "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
+            "PREREGISTERED_NOT_EXECUTED"
+          ]
+        },
+        "primary_horizon_hours": {"const": 120},
+        "aligned_semantics_changed": {"const": false},
+        "raw_signal_count": {"type": "integer", "minimum": 1},
+        "matched_control_method": {
+          "const": "DETERMINISTIC_WITHIN_FOLD_CIRCULAR_CALENDAR_SHIFT_V1"
+        },
+        "minimum_shift_hours": {"const": 168},
+        "placebo_shift_count": {"type": "integer", "minimum": 1},
+        "prospective_family_size": {"const": 13},
+        "effective_alpha": {"const": 0.0038461538461538464},
+        "power_target": {"const": 0.8},
+        "mesi_bps_per_event": {"const": 24.0},
+        "empirical_mde_bps_per_event": {"type": ["number", "null"]},
+        "power_at_mesi": {"type": ["number", "null"]},
+        "minimum_attainable_randomization_p": {"type": "number", "exclusiveMinimum": 0},
+        "power_gate_status": {
+          "enum": ["READY_FOR_PREREGISTRATION", "REDESIGN_REQUIRED"]
+        },
+        "preregistration_authorized": {"type": "boolean"},
+        "runner_candidate_registered": {"type": "boolean"},
+        "material_experiment_executed": {"const": false},
+        "zero_shift_statistic_computed": {"const": false}
+      }
+    },
     "funding_context_challenger": {
       "type": "object",
       "additionalProperties": false,

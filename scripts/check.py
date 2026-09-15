@@ -259,9 +259,7 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert state["latest_reviewed_checkpoint"] == "WP-017-RESEARCH-DIRECTOR-REVIEW"
-    assert state["latest_executor_checkpoint"] == (
-        "P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX"
-    )
+    assert state["latest_executor_checkpoint"] == ("P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP")
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -336,7 +334,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == "DESIGN_ALIGNED_SIGNAL_PERSISTENCE_V1"
+    assert state["next_recommended_work_package"] == "RESEARCH_DIRECTOR_P1A_REDESIGN_DECISION"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -905,6 +903,12 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/checkpoints/P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX.md",
         "reports/reviews/P0.1-DETECTABILITY-CI-EVIDENCE.json",
         "tasks/archive/RESEARCH-REBASELINE-V2-P0-STATISTICAL-GOVERNANCE-V1.md",
+        "research/design/ALIGNED_SIGNAL_PERSISTENCE_V1_DESIGN.md",
+        "decisions/ADR-0013-P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE.md",
+        "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-NULL-DISTRIBUTION-V1.json",
+        "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-V1.json",
+        "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-V1.md",
+        "reports/checkpoints/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -973,6 +977,19 @@ def governance_checks(pre_experiment: bool) -> dict:
         state["champion_status"] == state["forward_evidence"] == "NONE"
         and not state["real_money_authorized"]
     )
+    p1a_state = state["signal_persistence_power_gate"]
+    p1a_gate = json.loads((ROOT / p1a_state["report_json"]).read_text(encoding="utf-8"))
+    assert p1a_state["power_gate_status"] == p1a_gate["power_gate_status"]
+    assert p1a_state["power_at_mesi"] == p1a_gate["power"]["power_at_MESI"]
+    assert (
+        p1a_state["empirical_mde_bps_per_event"] == p1a_gate["power"]["empirical_MDE_bps_per_event"]
+    )
+    assert p1a_state["raw_signal_count"] == p1a_gate["signal"]["raw_signal_count"]
+    assert not p1a_state["material_experiment_executed"]
+    assert not p1a_state["zero_shift_statistic_computed"]
+    if p1a_state["power_gate_status"] != "READY_FOR_PREREGISTRATION":
+        assert not p1a_state["preregistration_authorized"]
+        assert not p1a_state["runner_candidate_registered"]
     substrate = state["backtest_substrate"]
     assert (
         substrate["engine_version"],
@@ -1195,6 +1212,12 @@ def data_checks(state: dict) -> None:
     for external_manifest in (funding_manifest, attention_manifest):
         for record in external_manifest["raw_requests"]:
             assert sha256(ROOT / record["path"]) == record["sha256"]
+    from app.research.signal_persistence import build_null_distribution
+    from app.research.signal_persistence_lab import load_fold_series
+    from app.research.statistical_governance import json_bytes
+
+    null_path = ROOT / state["signal_persistence_power_gate"]["null_distribution"]
+    assert json_bytes(build_null_distribution(load_fold_series(ROOT))) == null_path.read_bytes()
 
 
 def main() -> None:
@@ -1205,6 +1228,7 @@ def main() -> None:
     state = governance_checks(options.pre_experiment)
     run([sys.executable, "scripts/check_numerical_environment.py"])
     run([sys.executable, "scripts/audit_statistical_evidence.py", "--check"])
+    run([sys.executable, "scripts/audit_p1a_power_gate.py", "--check"])
     for command in (
         [sys.executable, "-m", "ruff", "check", "backend", "scripts"],
         [sys.executable, "-m", "ruff", "format", "--check", "backend", "scripts"],

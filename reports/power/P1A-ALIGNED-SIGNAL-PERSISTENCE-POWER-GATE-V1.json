@@ -1,0 +1,128 @@
+{
+  "aligned_semantics_changed": false,
+  "artifact_id": "P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-V1",
+  "design_id": "ALIGNED_SIGNAL_PERSISTENCE_V1",
+  "economic_threshold": {
+    "P1A_INFORMATION_MESI_BPS": 24.0,
+    "interpretation": "24 bps per event is a NECESSARY informational lower bound at roughly the historical ALIGNED product cadence. It is not sufficient evidence that a 120h execution strategy would earn five percentage points per year; execution feasibility under longer holding belongs to P1B.",
+    "mesi_translation": "500 bps per year / (125 resolved DEFAULT trades / 6 annual folds) = 24.0 bps",
+    "owner_annual_net_excess_mesi_bps": 500.0,
+    "reference_folds": 6,
+    "reference_resolved_trades": 125
+  },
+  "hypothesis_id": "ALIGNED_SIGNAL_PERSISTS_TO_120H_V1",
+  "hypothesis_status": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
+  "integrity": {
+    "all_shifts_exceed_primary_horizon": true,
+    "deterministic_shift_enumeration": true,
+    "event_count_preserved_under_every_shift": true,
+    "randomization_resolution_sufficient": true,
+    "zero_shift_excluded": true
+  },
+  "integrity_pass": true,
+  "leakage_guard": {
+    "actual_aligned_120h_mean_present": false,
+    "actual_minus_placebo_effect_present": false,
+    "new_material_experiment_consumed": false,
+    "p1a_p_value_present": false,
+    "p1a_performance_classified": false,
+    "post_cutoff_data_used": false,
+    "prep_mode_rejects_zero_shift": true,
+    "sealed_data_inspected": false,
+    "zero_shift_statistic_computed": false
+  },
+  "matched_control": {
+    "central_estimator": "ARITHMETIC_MEAN_OF_PLACEBO_EVENT_MEAN_RETURNS",
+    "largest_shift": 7536,
+    "method": "DETERMINISTIC_WITHIN_FOLD_CIRCULAR_CALENDAR_SHIFT_V1",
+    "minimum_shift_hours": 168,
+    "placebo_center_bps": 112.5650719822,
+    "placebo_maximum_bps": 353.3469079357,
+    "placebo_minimum_bps": -195.4117321016,
+    "placebo_shift_count": 7369,
+    "preserves_annual_exposure": true,
+    "preserves_event_count": true,
+    "preserves_horizon": true,
+    "preserves_sparsity": true,
+    "preserves_within_fold_clustering": true,
+    "smallest_shift": 168
+  },
+  "multiplicity": {
+    "alpha_family": 0.05,
+    "basis": "HOLM_FIRST_RANK_FAMILYWISE_THRESHOLD_ALPHA_0.05/13_TWELVE_OBSERVED_MATERIAL_HYPOTHESES_PLUS_P1A",
+    "documented_family_is_lower_bound": true,
+    "effective_alpha": 0.0038461538461538464,
+    "observed_material_hypotheses": 12,
+    "prospective_family_size": 13,
+    "warning": "The documented material family is a lower bound; pre-repository exposure remains unquantified and is not converted into a numeric family size."
+  },
+  "next_action": "RESEARCH_DIRECTOR_REVIEW",
+  "power": {
+    "MESI_bps_per_event": 24.0,
+    "critical_excess_bps_per_event": 216.4442374683,
+    "critical_placebo_pooled_mean_bps": 329.0093094505,
+    "empirical_MDE_bps_per_event": 285.640052,
+    "minimum_attainable_randomization_p": 0.000135685210312076,
+    "power_at_MDE": 0.8001085628986294,
+    "power_at_MESI": 0.014248880445107885,
+    "power_target": 0.8,
+    "randomization_resolution_sufficient": true,
+    "rejection_budget_draws": 27,
+    "search_rules": {
+      "critical_value": "reject when the statistic strictly exceeds the (K+1)-th largest placebo pooled mean, with K = floor(effective_alpha * (M + 1)) - 1",
+      "mde": "smallest multiple of 1e-6 bps strictly greater than the ceil(0.80 * M)-th smallest required displacement",
+      "power": "fraction of admissible placebo draws whose required displacement is strictly below the injected event-level effect"
+    }
+  },
+  "power_gate_status": "REDESIGN_REQUIRED",
+  "preregistration_authorized": false,
+  "primary_design": {
+    "cost_treatment": "IDENTICAL_FOR_SIGNAL_AND_PLACEBO_DIFFERENTIAL_IN_EXCESS_BPS",
+    "horizon_minutes": 7200,
+    "horizon_search_performed": false,
+    "one_position_at_a_time": false,
+    "primary_horizon_hours": 120,
+    "primary_metric": "FORWARD_120H_BTCUSDT_PRICE_RETURN_BPS",
+    "profit_target": false,
+    "r_denominator": false,
+    "retained_reference_horizon_hours": 24,
+    "start_price_convention": "GOVERNED_NEXT_1M_OPEN_AT_SIGNAL_INSTANT",
+    "stop_loss": false,
+    "terminal_price_convention": "CLOSE_OF_THE_1M_BAR_OPENING_AT_SIGNAL_PLUS_7199_MINUTES",
+    "trailing_logic": false
+  },
+  "runner_candidate_registered": false,
+  "schema_version": 1,
+  "signal": {
+    "eligible_decision_instants_per_fold": {
+      "DEV-2019": 7871,
+      "DEV-2020": 7704,
+      "DEV-2021": 7884,
+      "DEV-2022": 8617,
+      "DEV-2023": 8496,
+      "DEV-2024": 8641
+    },
+    "emitted_conditions_per_fold": {
+      "DEV-2019": 45,
+      "DEV-2020": 40,
+      "DEV-2021": 13,
+      "DEV-2022": 7,
+      "DEV-2023": 45,
+      "DEV-2024": 43
+    },
+    "observed_signals_per_year": 30.0,
+    "occupancy_suppression_applied": false,
+    "raw_signal_count": 180,
+    "reference_signals_per_year": 20.8333333333,
+    "signals_per_fold": {
+      "DEV-2019": 38,
+      "DEV-2020": 37,
+      "DEV-2021": 12,
+      "DEV-2022": 7,
+      "DEV-2023": 43,
+      "DEV-2024": 43
+    }
+  },
+  "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+  "variant": "ALIGNED"
+}
