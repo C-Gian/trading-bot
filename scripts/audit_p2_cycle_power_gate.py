@@ -60,10 +60,8 @@ from app.research.cycle_structure import (
     binomial_interval,
     combine,
     critical_value,
-    evaluate_fidelity,
     evaluate_power_gate,
     fidelity_criteria,
-    fidelity_statistics,
     injection_amplitude,
     injection_matrix,
     injection_path,
@@ -95,6 +93,7 @@ JOINT_PROOF_REPLICATES = 120
 BENCHMARK_REPLICATES = 50
 RUNTIME_BUDGET_SECONDS = 14400.0
 POOLED_SD_RATIO_TOLERANCE = 0.02
+SELECTION_AGREEMENT_TOLERANCE = 0.10
 
 
 def _rounded(value: float) -> float:
@@ -198,49 +197,6 @@ def preregistration_artifact() -> dict[str, Any]:
 # ---------------------------------------------------------------------------------
 
 
-def run_fidelity(grids: Any, joint: JointNullDesign) -> dict[str, Any]:
-    from app.research.cycle_structure_lab import training_observations
-
-    if not PREREGISTRATION.is_file():
-        raise SystemExit("preregister the fidelity thresholds before running the diagnostic")
-    preregistered = json.loads(PREREGISTRATION.read_text(encoding="utf-8"))
-    criteria = preregistered["criteria"]
-    if criteria != fidelity_criteria():
-        raise SystemExit("committed fidelity thresholds differ from the implementation")
-
-    observed = {
-        fold.fold_id: fidelity_statistics(training_observations(grids, fold))
-        for fold in grids.folds
-    }
-    replicated: dict[str, dict[str, list[float]]] = {
-        fold_id: {name: [] for name in values} for fold_id, values in observed.items()
-    }
-    eligible = grids.lattice.eligible
-    for first, count in _batches(FIDELITY_REPLICATES, 111):
-        values = simulate_joint_paths(joint, STREAM_FIDELITY, first, count)
-        for fold in grids.folds:
-            mask = eligible[: fold.train_stop]
-            segment = values[: fold.train_stop][mask]
-            for column in range(count):
-                for name, value in fidelity_statistics(segment[:, column]).items():
-                    replicated[fold.fold_id][name].append(value)
-    artifact = evaluate_fidelity(observed, replicated, criteria)
-    artifact["preregistration"] = {
-        "artifact": PREREGISTRATION.relative_to(ROOT).as_posix(),
-        "artifact_sha256": sha256_text(PREREGISTRATION),
-        "thresholds_fixed_before_calculation": True,
-    }
-    artifact["training_segments"] = {
-        fold.fold_id: int(eligible[: fold.train_stop].sum()) for fold in grids.folds
-    }
-    artifact["ar_order_by_fold"] = {model.fold_id: model.order for model in joint.models}
-    artifact["ar_order_search_set"] = [0, 42]
-    artifact["ar_order_uses_training_only"] = True
-    artifact["innovation_rms"] = _rounded(joint.innovation_rms)
-    assert_no_result_leakage(artifact)
-    return artifact
-
-
 # ---------------------------------------------------------------------------------
 # Stage 3 - joint replicate proof and computational feasibility
 # ---------------------------------------------------------------------------------
@@ -309,10 +265,14 @@ def run_joint_proof(
         return float(np.mean(upper))
 
     def agreement(selection: list[np.ndarray]) -> float:
-        pairs = [
-            float(np.mean(selection[index] == selection[index + 1]))
-            for index in range(len(selection) - 1)
-        ]
+        """Adjacent folds pick from different grids, so compare frequencies, not indices."""
+        pairs = []
+        for index in range(len(selection) - 1):
+            earlier = designs[index].frequencies[selection[index]]
+            later = designs[index + 1].frequencies[selection[index + 1]]
+            pairs.append(
+                float(np.mean(np.abs(later - earlier) <= SELECTION_AGREEMENT_TOLERANCE * earlier))
+            )
         return float(np.mean(pairs))
 
     joint_sd = float(np.std(joint_pooled, ddof=1))
@@ -320,7 +280,7 @@ def run_joint_proof(
     ratio = joint_sd / independent_sd
     joint_agreement = agreement(joint_selection)
     independent_agreement = agreement(independent_selection)
-    checks = {
+    required = {
         "single_path_per_replicate": True,
         "nested_training_prefixes_identical_within_a_replicate": nested,
         "earlier_validation_slots_reused_in_later_training": all(count > 0 for count in reused),
@@ -328,9 +288,12 @@ def run_joint_proof(
         "adjacent_fold_selection_more_concordant_than_independent": (
             joint_agreement >= independent_agreement
         ),
-        "fold_nulls_concatenated_from_independent_draws": False,
     }
-    status = PASS if all(checks.values()) else REDESIGN
+    # This one must stay false: concatenating six independent fold draws is the forbidden
+    # construction, so it is recorded as refuted rather than required.
+    forbidden = {"fold_nulls_concatenated_from_independent_draws": False}
+    checks = {**required, **forbidden}
+    status = PASS if all(required.values()) and not any(forbidden.values()) else REDESIGN
     return {
         "joint_replication_method": JOINT_REPLICATION_METHOD,
         "cross_fold_dependence_handling": joint.cross_fold_dependence_handling,
@@ -351,6 +314,7 @@ def run_joint_proof(
         "independent_mean_cross_fold_power_correlation": _rounded(
             mean_correlation(independent_powers)
         ),
+        "selection_agreement_relative_tolerance": SELECTION_AGREEMENT_TOLERANCE,
         "joint_adjacent_selection_agreement": _rounded(joint_agreement),
         "independent_adjacent_selection_agreement": _rounded(independent_agreement),
         "checks": checks,
@@ -634,6 +598,7 @@ def generate() -> int:
     from app.research.cycle_structure_lab import (
         build_designs,
         build_joint_design,
+        fidelity_report,
         fit_models,
         load_grids,
     )
@@ -642,7 +607,10 @@ def generate() -> int:
     models = fit_models(grids)
     joint = build_joint_design(grids, models)
 
-    fidelity = run_fidelity(grids, joint)
+    if not PREREGISTRATION.is_file():
+        raise SystemExit("preregister the fidelity thresholds before running the diagnostic")
+    fidelity = fidelity_report(grids, joint, ROOT)
+    assert_no_result_leakage(fidelity)
     write({FIDELITY: json_bytes(fidelity)})
     print(f"NULL_FIDELITY_STATUS: {fidelity['NULL_FIDELITY_STATUS']}")
 

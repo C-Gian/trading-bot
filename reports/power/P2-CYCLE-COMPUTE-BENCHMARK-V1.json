@@ -1,0 +1,125 @@
+{
+  "ACTUAL_MARKET_PRIMARY_RESULT_OBSERVED": false,
+  "artifact_id": "P2-CYCLE-COMPUTE-BENCHMARK-V1",
+  "compute": {
+    "COMPUTATIONAL_STATUS": "PASS",
+    "approximation_for_speed": false,
+    "batch_size": 250,
+    "benchmark_combination_seconds": 0.0474075,
+    "benchmark_elapsed_seconds": 4.402879,
+    "benchmark_path_seconds": 4.3554715,
+    "benchmark_replicates": 50,
+    "elements_per_replicate": 183701444,
+    "frequencies_per_fold": {
+      "DEV-2019": 807,
+      "DEV-2020": 1521,
+      "DEV-2021": 2237,
+      "DEV-2022": 2950,
+      "DEV-2023": 3664,
+      "DEV-2024": 4378
+    },
+    "grid_coarsened": false,
+    "null_changed": false,
+    "optimizations": [
+      "PRECOMPUTED_FIXED_TIMESTAMP_GLS_DESIGN_TERMS",
+      "BATCHED_BLAS_FOURIER_PROJECTIONS_OVER_REPLICATES",
+      "EXACT_LINEAR_REUSE_OF_ONE_PATH_ACROSS_THE_FROZEN_SNR_GRID",
+      "SIXTEEN_PHASE_INJECTIONS_PROJECTED_ONCE_PER_FROZEN_PERIOD",
+      "IMMUTABLE_PER_FOLD_FREQUENCY_GRIDS_REUSED_BY_EVERY_REPLICATE"
+    ],
+    "peak_memory_mib": 436.9008483887,
+    "periods_reduced": false,
+    "phases_reduced": false,
+    "projected_combination_cells": 60000,
+    "projected_path_projections": 7079,
+    "projected_runtime_seconds": 673.53665498,
+    "replicates_reduced": false,
+    "runtime_budget_seconds": 14400.0,
+    "training_observations_per_fold": {
+      "DEV-2019": 2442,
+      "DEV-2020": 4611,
+      "DEV-2021": 6788,
+      "DEV-2022": 8954,
+      "DEV-2023": 11144,
+      "DEV-2024": 13332
+    },
+    "training_span_days_per_fold": {
+      "DEV-2019": 412.5,
+      "DEV-2020": 777.5,
+      "DEV-2021": 1143.5,
+      "DEV-2022": 1508.5,
+      "DEV-2023": 1873.5,
+      "DEV-2024": 2238.5
+    },
+    "validation_observations_per_fold": {
+      "DEV-2019": 2165,
+      "DEV-2020": 2169,
+      "DEV-2021": 2167,
+      "DEV-2022": 2184,
+      "DEV-2023": 2182,
+      "DEV-2024": 2190
+    }
+  },
+  "design_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
+  "joint_replication": {
+    "JOINT_REPLICATION_STATUS": "PASS",
+    "burn_in_observations": 504,
+    "checks": {
+      "adjacent_fold_selection_more_concordant_than_independent": true,
+      "earlier_validation_slots_reused_in_later_training": true,
+      "fold_nulls_concatenated_from_independent_draws": false,
+      "joint_pooled_sd_at_least_independent": true,
+      "nested_training_prefixes_identical_within_a_replicate": true,
+      "single_path_per_replicate": true
+    },
+    "cross_fold_dependence_handling": "SINGLE_JOINT_PATH_PER_REPLICATE_SIX_FOLD_STATISTICS_READ_FROM_ONE_REALIZATION",
+    "earlier_validation_slots_reused_in_later_training": [
+      1636,
+      1642,
+      1633,
+      1650,
+      1648
+    ],
+    "folds_simulated_independently": false,
+    "independent_adjacent_selection_agreement": 0.3933333333,
+    "independent_mean_cross_fold_power_correlation": -0.0037549531,
+    "independent_pooled_sd": 0.000414181,
+    "joint_adjacent_selection_agreement": 0.66,
+    "joint_mean_cross_fold_power_correlation": -0.0191755923,
+    "joint_pooled_sd": 0.0004433391,
+    "joint_proof_replicates": 120,
+    "joint_replication_method": "JOINT_NESTED_PREFIX_CAUSAL_SIEVE_PATH_V1",
+    "pooled_sd_ratio": 1.0703994131,
+    "pooled_sd_ratio_tolerance": 0.02,
+    "selection_agreement_relative_tolerance": 0.1,
+    "shared_history_handling": "NESTED_PREFIX_TRAINING_WINDOWS_SHARE_IDENTICAL_SIMULATED_SLOTS_AND_EARLIER_VALIDATION_SLOTS_REAPPEAR_IN_LATER_TRAINING_WINDOWS",
+    "shared_training_slots_with_next_fold": [
+      2442,
+      4611,
+      6788,
+      8954,
+      11144
+    ],
+    "stage_bounds": [
+      0,
+      2476,
+      4666,
+      6862,
+      9052,
+      11242,
+      13432,
+      16162
+    ],
+    "stage_generating_model": [
+      "DEV-2019",
+      "DEV-2019",
+      "DEV-2020",
+      "DEV-2021",
+      "DEV-2022",
+      "DEV-2023",
+      "DEV-2024"
+    ],
+    "stage_model_fitted_before_stage": true
+  },
+  "schema_version": 1
+}

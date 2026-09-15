@@ -27,6 +27,8 @@ from .cycle_structure import (
     BAR_US,
     DAY_US,
     EMBARGO_DAYS,
+    FIDELITY_REPLICATES,
+    STREAM_FIDELITY,
     CycleFold,
     CycleLattice,
     FoldDesign,
@@ -34,12 +36,18 @@ from .cycle_structure import (
     PrepModeViolation,
     SieveModel,
     build_fold_design,
+    evaluate_fidelity,
+    fidelity_criteria,
+    fidelity_statistics,
     fit_sieve,
+    simulate_joint_paths,
 )
 from .evaluation_protocol import load_protocol, utc_us
 
 ROOT = Path(__file__).resolve().parents[3]
 DERIVED_4H = "data/derived/BTCUSDT-4h.parquet"
+PREREGISTRATION = "reports/power/P2-CYCLE-NULL-FIDELITY-PREREGISTRATION-V1.json"
+FIDELITY_BATCH = 111
 
 
 def _verified_4h_table(root: Path) -> Any:
@@ -204,3 +212,55 @@ def training_observations(grids: CycleGrids, fold: CycleFold) -> np.ndarray:
     if observations.size <= AR_MAXIMUM_ORDER:
         raise ValueError("training segment is too short")
     return observations
+
+
+def preregistration_sha256(root: Path = ROOT) -> str:
+    """Line-ending-normalized hash binding a fidelity report to its frozen thresholds."""
+    body = (root / PREREGISTRATION).read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(body).hexdigest()
+
+
+def fidelity_report(grids: CycleGrids, joint: JointNullDesign, root: Path = ROOT) -> dict[str, Any]:
+    """Run NULL_FIDELITY_V1 against the committed thresholds, on training data only.
+
+    Every segment is one fold's embargoed training-selection window: the real series
+    supplies the observation and the joint null path supplies the replicate distribution.
+    No outer-validation return is read and no spectral statistic is formed here.
+    """
+    path = root / PREREGISTRATION
+    preregistered = json.loads(path.read_text(encoding="utf-8"))
+    criteria = preregistered["criteria"]
+    if criteria != fidelity_criteria():
+        raise ValueError("committed fidelity thresholds differ from the implementation")
+
+    observed = {
+        fold.fold_id: fidelity_statistics(training_observations(grids, fold))
+        for fold in grids.folds
+    }
+    replicated: dict[str, dict[str, list[float]]] = {
+        fold_id: {name: [] for name in values} for fold_id, values in observed.items()
+    }
+    eligible = grids.lattice.eligible
+    for first in range(0, FIDELITY_REPLICATES, FIDELITY_BATCH):
+        count = min(FIDELITY_BATCH, FIDELITY_REPLICATES - first)
+        values = simulate_joint_paths(joint, STREAM_FIDELITY, first, count)
+        for fold in grids.folds:
+            segment = values[: fold.train_stop][eligible[: fold.train_stop]]
+            for column in range(count):
+                for name, value in fidelity_statistics(segment[:, column]).items():
+                    replicated[fold.fold_id][name].append(value)
+
+    artifact = evaluate_fidelity(observed, replicated, criteria)
+    artifact["preregistration"] = {
+        "artifact": PREREGISTRATION,
+        "artifact_sha256": preregistration_sha256(root),
+        "thresholds_fixed_before_calculation": True,
+    }
+    artifact["training_segments"] = {
+        fold.fold_id: int(eligible[: fold.train_stop].sum()) for fold in grids.folds
+    }
+    artifact["ar_order_by_fold"] = {model.fold_id: model.order for model in joint.models}
+    artifact["ar_order_search_set"] = [0, AR_MAXIMUM_ORDER]
+    artifact["ar_order_uses_training_only"] = True
+    artifact["innovation_rms"] = round(joint.innovation_rms, 10)
+    return artifact

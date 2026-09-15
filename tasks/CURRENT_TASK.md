@@ -1,34 +1,40 @@
-# CURRENT TASK — P1A-POWER-BLOCK-REVIEW + RESEARCH-ARCHITECTURE-SYNTHESIS-V1 + P2-CYCLE-FOUNDATION-DESIGN
+# CURRENT TASK — P2-CYCLE-FOUNDATION-POWER-GATE-PREP
 
-Status: COMPLETED_PENDING_RESEARCH_DIRECTOR_REVIEW
+Status: COMPLETED_PARTIAL_PENDING_RESEARCH_DIRECTOR_REVIEW
 
-Starting HEAD: `70ff806e5352b0336c42c3272414adda1b7c822c` on local `main`.
+Starting HEAD: `ca45582ab821f0d1aa3c962b9a436d488e1b2d6a` on local `main`.
 
-The immutable P1A gate was reviewed without computing its true zero-shift outcome.
-`ALIGNED_SIGNAL_PERSISTS_TO_120H_V1` is dispositioned
-`POWER_BLOCKED_NOT_EXECUTED`: MESI 24.0 bps/event, empirical MDE 285.640052 bps/event,
-power at MESI 0.01424888, gate `REDESIGN_REQUIRED`. This is not `REJECT`, not
-`INCONCLUSIVE` market evidence, and not an observed material hypothesis. No P1A rescue,
-tuning, alternate horizon, asset expansion, or execution is authorized.
+The frozen P2 procedure was built and gated before any market result could be exposed.
+`BTC_TIME_CYCLE_STRUCTURE_V1` remains `DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED`: no
+training-selected BTCUSDT period, no outer validation power, no pooled statistic, no
+structural p-value and no SUPPORTED / NOT_SUPPORTED classification exists.
 
-`research/design/RESEARCH_ARCHITECTURE_SYNTHESIS_V1.md` establishes the two-axis
-pre-execution screen: economic usefulness and statistical resolvability. Its eventual
-single-algorithm modules are only architecture slots; no component is approved and no
-weight is optimized.
+`NULL_FIDELITY_STATUS = REDESIGN_REQUIRED`. Thresholds were preregistered and committed
+in `f33d9e6` before measurement. 28 of 126 predeclared checks fail, systematically in
+every fold: the frozen seven-day stationary block bootstrap retains only 7-28% of the
+observed absolute-return autocorrelation at 7, 15, 30 and 60 days, which is inside the
+frozen 2-90 day band the primary searches. The 42-observation block was not tuned after
+the discrepancy was seen and no remedy was attempted.
+See `decisions/ADR-0015-P2-CYCLE-NULL-FIDELITY-BLOCK.md`.
 
-`docs/canonical/CYCLE_RESEARCH_SOURCE_BOUNDARY_V1.md` freezes the distinction between
-`DOCUMENTED_PUBLIC`, `RECONSTRUCTED`, and `UNSPECIFIED` for Ciclica Evoluta / Analisi
-Evoluta. Project-invented executable detail cannot be attributed to Marini as official.
+`JOINT_REPLICATION_STATUS = PASS`. One replicate is one realization of the whole
+chronology under `JOINT_NESTED_PREFIX_CAUSAL_SIEVE_PATH_V1`; nested training prefixes are
+the same simulated slots and earlier validation slots reappear in later training. Joint
+pooled SD 0.00044334 against 0.00041418 for the forbidden independent concatenation;
+adjacent-fold frozen-frequency agreement 0.660 against 0.393.
 
-P2 is frozen in `research/design/BTC_TIME_CYCLE_STRUCTURE_V1_DESIGN.md` and
-`research/protocols/P2-CYCLE-FOUNDATION-V1.json`: exactly one time-only structural
-primary, at most two non-rescuing diagnostics, chronological selection/evaluation
-separation, a dependent-noise null, synthetic-cycle injection, corrected frequency
-selection, prospective detection curves, and target power 0.80. No actual cycle result,
-economic strategy, or cycle component implementation exists.
+`COMPUTATIONAL_STATUS = PASS`. The exact frozen budget of 4,999 null and 2,000 synthetic
+replicates per cell projects to about 673 s and 437 MiB, with no replicate, period,
+phase or grid reduction and no approximation.
 
-Scientific accounting remains 26 completed experiments, 12 observed material economic
-hypotheses, zero sealed queries, Champion NONE, and real money false.
+`P2_POWER_GATE_STATUS = REDESIGN_REQUIRED`. The synthetic detectability curves were not
+run, because the checkpoint forbids spending them on a null that has already failed.
 
-Next: `P2-CYCLE-FOUNDATION-POWER-GATE-PREP`. After P2 is resolved,
-`RESEARCH-ARCHITECTURE-SYNTHESIS-V2` is required before another hypothesis family opens.
+Scientific accounting is unchanged: 26 completed experiments, 12 observed material
+economic hypotheses, zero sealed queries, Champion NONE, real money false, zero material
+economic hypotheses executed, no cycle component implemented.
+
+Next: RESEARCH DIRECTOR REVIEW. A new null design and version for
+`BTC_TIME_CYCLE_STRUCTURE_V1` is required, or an explicit recorded acceptance of the
+frozen null's limitation, before the P2 detectability curves or the actual cycle result
+may be approached.

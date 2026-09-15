@@ -212,7 +212,81 @@
         },
         "design": {"const": "research/design/BTC_TIME_CYCLE_STRUCTURE_V1_DESIGN.md"},
         "protocol": {"const": "research/protocols/P2-CYCLE-FOUNDATION-V1.json"},
-        "next_checkpoint": {"const": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP"}
+        "next_checkpoint": {
+          "enum": [
+            "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
+            "RESEARCH_DIRECTOR_REVIEW_P2_NULL_REDESIGN"
+          ]
+        }
+      }
+    },
+    "cycle_power_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "design", "protocol", "report_json", "report_markdown",
+        "null_fidelity_report", "null_fidelity_preregistration", "compute_benchmark",
+        "hypothesis_id", "representation", "period_band_days", "spectral_estimator",
+        "null_method", "null_block_expected_observations", "ar_order_by_fold",
+        "null_fidelity_material_failures", "null_fidelity_status",
+        "joint_replication_method", "joint_replication_status", "computational_status",
+        "projected_runtime_within_budget", "null_replicates",
+        "synthetic_replicates_per_cell", "calibration_period_days", "target_power",
+        "gate_snr", "detectability_executed", "power_gate_status",
+        "preregistration_authorized", "material_experiment_executed",
+        "actual_market_primary_result_observed"
+      ],
+      "properties": {
+        "version": {"const": "P2_CYCLE_POWER_GATE_V1"},
+        "design": {"const": "research/design/BTC_TIME_CYCLE_STRUCTURE_V1_DESIGN.md"},
+        "protocol": {"const": "research/protocols/P2-CYCLE-FOUNDATION-V1.json"},
+        "report_json": {"const": "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.json"},
+        "report_markdown": {"const": "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.md"},
+        "null_fidelity_report": {"const": "reports/power/P2-CYCLE-NULL-FIDELITY-V1.json"},
+        "null_fidelity_preregistration": {
+          "const": "reports/power/P2-CYCLE-NULL-FIDELITY-PREREGISTRATION-V1.json"
+        },
+        "compute_benchmark": {"const": "reports/power/P2-CYCLE-COMPUTE-BENCHMARK-V1.json"},
+        "hypothesis_id": {"const": "BTC_TIME_CYCLE_STRUCTURE_V1"},
+        "representation": {"const": "CONTIGUOUS_4H_CLOSE_TO_CLOSE_LOG_RETURN"},
+        "period_band_days": {
+          "type": "array",
+          "prefixItems": [{"const": 2}, {"const": 90}],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "spectral_estimator": {"const": "FLOATING_MEAN_GENERALIZED_LOMB_SCARGLE"},
+        "null_method": {
+          "const": "TRAINING_ONLY_AR_SIEVE_BIC_0_TO_42_PLUS_STATIONARY_RESIDUAL_BLOCK_BOOTSTRAP_EXPECTED_42"
+        },
+        "null_block_expected_observations": {"const": 42},
+        "ar_order_by_fold": {
+          "type": "object",
+          "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 42}
+        },
+        "null_fidelity_material_failures": {"type": "integer", "minimum": 0},
+        "null_fidelity_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "joint_replication_method": {"const": "JOINT_NESTED_PREFIX_CAUSAL_SIEVE_PATH_V1"},
+        "joint_replication_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "computational_status": {"enum": ["PASS", "REDESIGN_REQUIRED"]},
+        "projected_runtime_within_budget": {"type": "boolean"},
+        "null_replicates": {"const": 4999},
+        "synthetic_replicates_per_cell": {"const": 2000},
+        "calibration_period_days": {
+          "type": "array",
+          "prefixItems": [
+            {"const": 3}, {"const": 7}, {"const": 14}, {"const": 30}, {"const": 60}
+          ],
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "target_power": {"const": 0.8},
+        "gate_snr": {"const": 0.5},
+        "detectability_executed": {"type": "boolean"},
+        "power_gate_status": {"enum": ["READY_FOR_PREREGISTRATION", "REDESIGN_REQUIRED"]},
+        "preregistration_authorized": {"const": false},
+        "material_experiment_executed": {"const": false},
+        "actual_market_primary_result_observed": {"const": false}
       }
     },
     "forward_evidence": {

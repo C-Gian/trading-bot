@@ -14,3 +14,4 @@
 - [ADR-0012](ADR-0012-WP017-CFTC-LEVERAGED-POSITIONING.md) — CFTC leveraged-funds positioning as a point-in-time development context
 - [ADR-0013](ADR-0013-P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE.md) — prospective power gate for ALIGNED 120h signal persistence
 - [ADR-0014](ADR-0014-P2-CYCLE-FOUNDATION-BOUNDARY.md) — P1A power block and P2 time-only cycle foundation
+- [ADR-0015](ADR-0015-P2-CYCLE-NULL-FIDELITY-BLOCK.md) — the frozen P2 cycle null fails its predeclared fidelity gate

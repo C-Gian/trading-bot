@@ -124,7 +124,7 @@
     "implemented_components": [],
     "material_economic_hypotheses_executed": 0,
     "maximum_diagnostics": 2,
-    "next_checkpoint": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
+    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_P2_NULL_REDESIGN",
     "power_target": 0.8,
     "primary_hypothesis_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
     "primary_structural_hypotheses": 1,
@@ -132,6 +132,55 @@
     "source_boundary": "docs/canonical/CYCLE_RESEARCH_SOURCE_BOUNDARY_V1.md",
     "status": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
     "version": "P2_CYCLE_FOUNDATION_V1"
+  },
+  "cycle_power_gate": {
+    "actual_market_primary_result_observed": false,
+    "ar_order_by_fold": {
+      "DEV-2019": 7,
+      "DEV-2020": 7,
+      "DEV-2021": 7,
+      "DEV-2022": 7,
+      "DEV-2023": 7,
+      "DEV-2024": 7
+    },
+    "calibration_period_days": [
+      3,
+      7,
+      14,
+      30,
+      60
+    ],
+    "computational_status": "PASS",
+    "compute_benchmark": "reports/power/P2-CYCLE-COMPUTE-BENCHMARK-V1.json",
+    "design": "research/design/BTC_TIME_CYCLE_STRUCTURE_V1_DESIGN.md",
+    "detectability_executed": false,
+    "gate_snr": 0.5,
+    "hypothesis_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
+    "joint_replication_method": "JOINT_NESTED_PREFIX_CAUSAL_SIEVE_PATH_V1",
+    "joint_replication_status": "PASS",
+    "material_experiment_executed": false,
+    "null_block_expected_observations": 42,
+    "null_fidelity_material_failures": 28,
+    "null_fidelity_preregistration": "reports/power/P2-CYCLE-NULL-FIDELITY-PREREGISTRATION-V1.json",
+    "null_fidelity_report": "reports/power/P2-CYCLE-NULL-FIDELITY-V1.json",
+    "null_fidelity_status": "REDESIGN_REQUIRED",
+    "null_method": "TRAINING_ONLY_AR_SIEVE_BIC_0_TO_42_PLUS_STATIONARY_RESIDUAL_BLOCK_BOOTSTRAP_EXPECTED_42",
+    "null_replicates": 4999,
+    "period_band_days": [
+      2,
+      90
+    ],
+    "power_gate_status": "REDESIGN_REQUIRED",
+    "preregistration_authorized": false,
+    "projected_runtime_within_budget": true,
+    "protocol": "research/protocols/P2-CYCLE-FOUNDATION-V1.json",
+    "report_json": "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.json",
+    "report_markdown": "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.md",
+    "representation": "CONTIGUOUS_4H_CLOSE_TO_CLOSE_LOG_RETURN",
+    "spectral_estimator": "FLOATING_MEAN_GENERALIZED_LOMB_SCARGLE",
+    "synthetic_replicates_per_cell": 2000,
+    "target_power": 0.8,
+    "version": "P2_CYCLE_POWER_GATE_V1"
   },
   "contextual_interaction_challenger": {
     "actual_model_fits": 12,
@@ -190,7 +239,7 @@
     "validation_folds": 5,
     "version": "PERPETUAL_FUNDING_CONTEXT_V1"
   },
-  "latest_executor_checkpoint": "P1A-POWER-BLOCK-REVIEW+RESEARCH-ARCHITECTURE-SYNTHESIS-V1+P2-CYCLE-FOUNDATION-DESIGN",
+  "latest_executor_checkpoint": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -203,7 +252,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
+  "next_recommended_work_package": "RESEARCH-DIRECTOR-REVIEW-P2-NULL-REDESIGN",
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
     "eligible_1h_buckets": 64135,

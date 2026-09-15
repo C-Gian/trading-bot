@@ -50,16 +50,29 @@
     "multiple_frequency_correction": "REPEAT_COMPLETE_SELECTION_INSIDE_EVERY_NULL_AND_SYNTHETIC_REPLICATE"
   },
   "detectability": {
-    "status": "DESIGNED_NOT_RUN",
+    "status": "NOT_RUN_BLOCKED_BY_NULL_FIDELITY",
     "target_power": 0.8,
     "null_replicates": 4999,
     "synthetic_replicates_per_cell": 2000,
     "seed": 20260915,
     "injection_domain": "LOG_PRICE_THEN_DIFFERENCE_TO_4H_LOG_RETURN",
-    "period_days": [3, 7, 14, 30, 60],
+    "period_days": [
+      3,
+      7,
+      14,
+      30,
+      60
+    ],
     "phase_grid_count": 16,
     "effect_scale": "SNR_CYCLE_RMS_INJECTED_RETURN_OVER_TRAINING_RMS_NULL_INNOVATION",
-    "snr_grid": [0.0, 0.1, 0.25, 0.5, 0.75, 1.0],
+    "snr_grid": [
+      0.0,
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
     "gate_snr": 0.5,
     "gate_rule": "POWER_AT_LEAST_0_80_FOR_EVERY_FROZEN_CALIBRATION_PERIOD",
     "economic_mesi": null,
@@ -80,5 +93,15 @@
   "actual_market_result_inspected": false,
   "source_boundary": "docs/canonical/CYCLE_RESEARCH_SOURCE_BOUNDARY_V1.md",
   "design": "research/design/BTC_TIME_CYCLE_STRUCTURE_V1_DESIGN.md",
-  "next_checkpoint": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP"
+  "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_P2_NULL_REDESIGN",
+  "power_gate": {
+    "checkpoint": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
+    "report": "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.json",
+    "NULL_FIDELITY_STATUS": "REDESIGN_REQUIRED",
+    "JOINT_REPLICATION_STATUS": "PASS",
+    "COMPUTATIONAL_STATUS": "PASS",
+    "P2_POWER_GATE_STATUS": "REDESIGN_REQUIRED",
+    "detectability_executed": false,
+    "actual_market_primary_result_observed": false
+  }
 }

@@ -260,9 +260,7 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert state["latest_reviewed_checkpoint"] == "P1A-POWER-BLOCK-REVIEW"
-    assert state["latest_executor_checkpoint"] == (
-        "P1A-POWER-BLOCK-REVIEW+RESEARCH-ARCHITECTURE-SYNTHESIS-V1+P2-CYCLE-FOUNDATION-DESIGN"
-    )
+    assert state["latest_executor_checkpoint"] == "P2-CYCLE-FOUNDATION-POWER-GATE-PREP"
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -337,7 +335,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == "P2-CYCLE-FOUNDATION-POWER-GATE-PREP"
+    assert state["next_recommended_work_package"] == "RESEARCH-DIRECTOR-REVIEW-P2-NULL-REDESIGN"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -592,6 +590,94 @@ def validate_research_views(state: dict) -> None:
         assert evidence["conclusion"] == "success" and evidence["branch"] == "main"
         assert evidence["reviewed_head"] == expected_head
         assert evidence["run_id"] == record["run_id"]
+
+
+def p2_power_gate_checks(state: dict, protocol: dict) -> None:
+    """The P2 preparation may never carry, or authorize, an actual BTCUSDT cycle outcome."""
+    from app.research.cycle_structure import (
+        BLOCK_EXPECTED_OBSERVATIONS,
+        CALIBRATION_PERIOD_DAYS,
+        SNR_GRID,
+        assert_no_result_leakage,
+        fidelity_criteria,
+    )
+    from app.research.cycle_structure_lab import preregistration_sha256
+
+    record = state["cycle_power_gate"]
+    gate = json.loads((ROOT / record["report_json"]).read_text(encoding="utf-8"))
+    fidelity = json.loads((ROOT / record["null_fidelity_report"]).read_text(encoding="utf-8"))
+    benchmark = json.loads((ROOT / record["compute_benchmark"]).read_text(encoding="utf-8"))
+    preregistered = json.loads(
+        (ROOT / record["null_fidelity_preregistration"]).read_text(encoding="utf-8")
+    )
+    for artifact in (gate, fidelity, benchmark, preregistered):
+        assert_no_result_leakage(artifact)
+        assert artifact["ACTUAL_MARKET_PRIMARY_RESULT_OBSERVED"] is False
+
+    # Thresholds were fixed before measurement and the fidelity report is bound to them.
+    assert preregistered["criteria"] == fidelity_criteria()
+    assert preregistered["block_expected_observations"] == BLOCK_EXPECTED_OBSERVATIONS == 42
+    assert preregistered["block_length_may_be_tuned_after_observation"] is False
+    assert fidelity["preregistration"]["artifact_sha256"] == preregistration_sha256(ROOT)
+    assert fidelity["preregistration"]["thresholds_fixed_before_calculation"] is True
+    assert fidelity["training_only"] and not fidelity["validation_results_used"]
+    assert fidelity["block_length_tuned_after_observation"] is False
+    assert fidelity["ar_order_uses_training_only"] is True
+    assert all(0 <= order <= 42 for order in fidelity["ar_order_by_fold"].values())
+
+    # The frozen design is intact and the frozen budget was never reduced.
+    design = gate["frozen_design"]
+    assert design["representation"] == "CONTIGUOUS_4H_CLOSE_TO_CLOSE_LOG_RETURN"
+    assert design["period_band_days"] == [2.0, 90.0]
+    assert design["spectral_estimator"] == "FLOATING_MEAN_GENERALIZED_LOMB_SCARGLE"
+    assert design["primary_structural_hypotheses"] == 1
+    assert design["maximum_diagnostics"] == 2 and design["diagnostics_non_rescuing"]
+    assert design["validation_frequency_search"] is False
+    assert design["embargo_days"] == 90 and design["economic_mesi"] is None
+    assert not design["economic_trading_logic"] and not design["period_band_changed"]
+    assert not design["representation_added"] and not design["estimator_added"]
+    assert not design["structural_primary_added"] and not design["diagnostic_added"]
+    assert gate["null_replicates"] == 4999 and gate["synthetic_replicates_per_cell"] == 2000
+    assert gate["calibration_period_days"] == list(CALIBRATION_PERIOD_DAYS)
+    assert gate["snr_grid"] == list(SNR_GRID) and gate["phase_grid_count"] == 16
+    assert gate["target_power"] == 0.8 and gate["gate_snr"] == 0.5
+    joint = benchmark["joint_replication"]
+    assert joint["folds_simulated_independently"] is False
+    assert joint["checks"]["fold_nulls_concatenated_from_independent_draws"] is False
+    assert joint["checks"]["single_path_per_replicate"] is True
+    assert joint["cross_fold_dependence_handling"] and joint["shared_history_handling"]
+    compute = benchmark["compute"]
+    assert not compute["replicates_reduced"] and not compute["grid_coarsened"]
+    assert not compute["periods_reduced"] and not compute["phases_reduced"]
+    assert not compute["null_changed"] and not compute["approximation_for_speed"]
+
+    # State, protocol and artifacts agree, and nothing authorizes execution.
+    assert record["null_fidelity_status"] == fidelity["NULL_FIDELITY_STATUS"]
+    assert record["joint_replication_status"] == joint["JOINT_REPLICATION_STATUS"]
+    assert record["computational_status"] == compute["COMPUTATIONAL_STATUS"]
+    assert record["power_gate_status"] == gate["P2_POWER_GATE_STATUS"]
+    assert record["null_fidelity_material_failures"] == fidelity["material_failure_count"]
+    assert record["ar_order_by_fold"] == fidelity["ar_order_by_fold"]
+    assert record["detectability_executed"] == (gate["detectability"] is not None)
+    assert protocol["power_gate"]["P2_POWER_GATE_STATUS"] == gate["P2_POWER_GATE_STATUS"]
+    assert protocol["power_gate"]["NULL_FIDELITY_STATUS"] == fidelity["NULL_FIDELITY_STATUS"]
+    assert protocol["detectability"]["status"] != "RUN"
+    if record["power_gate_status"] != "READY_FOR_PREREGISTRATION":
+        assert not record["detectability_executed"] and gate["detectability"] is None
+        assert not (ROOT / "reports/power/P2-CYCLE-DETECTABILITY-V1.json").is_file()
+    assert record["preregistration_authorized"] is False
+    assert record["material_experiment_executed"] is False
+    assert record["actual_market_primary_result_observed"] is False
+    assert gate["preregistration_authorized"] is False
+    assert gate["actual_execution_authorized"] is False
+    assert all(value is False for value in gate["leakage_guard"].values())
+    assert gate["safety"] == {
+        "experiments_completed": 26,
+        "observed_material_economic_hypotheses": 12,
+        "sealed_queries": 0,
+        "champion_status": "NONE",
+        "real_money_authorized": False,
+    }
 
 
 def dataset_scope_checks() -> None:
@@ -924,6 +1010,13 @@ def governance_checks(pre_experiment: bool) -> dict:
         "decisions/ADR-0014-P2-CYCLE-FOUNDATION-BOUNDARY.md",
         "reports/checkpoints/P1A-POWER-BLOCK-REVIEW-RESEARCH-ARCHITECTURE-SYNTHESIS-V1-P2-CYCLE-FOUNDATION-DESIGN.md",
         "tasks/archive/P1A-POWER-BLOCK-REVIEW-RESEARCH-ARCHITECTURE-SYNTHESIS-V1-P2-CYCLE-FOUNDATION-DESIGN.md",
+        "decisions/ADR-0015-P2-CYCLE-NULL-FIDELITY-BLOCK.md",
+        "reports/power/P2-CYCLE-NULL-FIDELITY-PREREGISTRATION-V1.json",
+        "reports/power/P2-CYCLE-NULL-FIDELITY-V1.json",
+        "reports/power/P2-CYCLE-COMPUTE-BENCHMARK-V1.json",
+        "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.json",
+        "reports/power/P2-CYCLE-FOUNDATION-POWER-GATE-V1.md",
+        "reports/checkpoints/P2-CYCLE-FOUNDATION-POWER-GATE-PREP.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -1026,6 +1119,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert p2_state["diagnostic_count"] <= p2_state["maximum_diagnostics"] == 2
     assert not p2_state["actual_market_result_inspected"]
     assert not p2_state["economic_strategy_created"]
+    p2_power_gate_checks(state, p2)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -1292,6 +1386,17 @@ def data_checks(state: dict) -> None:
 
     null_path = ROOT / state["signal_persistence_power_gate"]["null_distribution"]
     assert json_bytes(build_null_distribution(load_fold_series(ROOT))) == null_path.read_bytes()
+    from app.research.cycle_structure_lab import (
+        build_joint_design,
+        fidelity_report,
+        fit_models,
+        load_grids,
+    )
+
+    grids = load_grids(ROOT)
+    joint = build_joint_design(grids, fit_models(grids))
+    fidelity_path = ROOT / state["cycle_power_gate"]["null_fidelity_report"]
+    assert json_bytes(fidelity_report(grids, joint, ROOT)) == fidelity_path.read_bytes()
 
 
 def main() -> None:
@@ -1303,6 +1408,7 @@ def main() -> None:
     run([sys.executable, "scripts/check_numerical_environment.py"])
     run([sys.executable, "scripts/audit_statistical_evidence.py", "--check"])
     run([sys.executable, "scripts/audit_p1a_power_gate.py", "--check"])
+    run([sys.executable, "scripts/audit_p2_cycle_power_gate.py", "--check"])
     for command in (
         [sys.executable, "-m", "ruff", "check", "backend", "scripts"],
         [sys.executable, "-m", "ruff", "format", "--check", "backend", "scripts"],
