@@ -45,6 +45,7 @@
     "sealed_evaluations_completed",
     "paper_trades_completed",
     "champion_status",
+    "cycle_foundation",
     "forward_evidence",
     "real_money_authorized",
     "owner_decision_required",
@@ -183,6 +184,36 @@
     "champion_status": {
       "type": "string",
       "minLength": 1
+    },
+    "cycle_foundation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "primary_hypothesis_id",
+        "primary_structural_hypotheses", "maximum_diagnostics", "diagnostic_count",
+        "material_economic_hypotheses_executed", "actual_market_result_inspected",
+        "economic_strategy_created", "implemented_components", "power_target",
+        "source_boundary", "design", "protocol", "next_checkpoint"
+      ],
+      "properties": {
+        "version": {"const": "P2_CYCLE_FOUNDATION_V1"},
+        "status": {"const": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED"},
+        "primary_hypothesis_id": {"const": "BTC_TIME_CYCLE_STRUCTURE_V1"},
+        "primary_structural_hypotheses": {"const": 1},
+        "maximum_diagnostics": {"const": 2},
+        "diagnostic_count": {"type": "integer", "minimum": 0, "maximum": 2},
+        "material_economic_hypotheses_executed": {"const": 0},
+        "actual_market_result_inspected": {"const": false},
+        "economic_strategy_created": {"const": false},
+        "implemented_components": {"type": "array", "maxItems": 0},
+        "power_target": {"const": 0.8},
+        "source_boundary": {
+          "const": "docs/canonical/CYCLE_RESEARCH_SOURCE_BOUNDARY_V1.md"
+        },
+        "design": {"const": "research/design/BTC_TIME_CYCLE_STRUCTURE_V1_DESIGN.md"},
+        "protocol": {"const": "research/protocols/P2-CYCLE-FOUNDATION-V1.json"},
+        "next_checkpoint": {"const": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP"}
+      }
     },
     "forward_evidence": {
       "type": "string",
@@ -1007,7 +1038,8 @@
         "hypothesis_status": {
           "enum": [
             "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
-            "PREREGISTERED_NOT_EXECUTED"
+            "PREREGISTERED_NOT_EXECUTED",
+            "POWER_BLOCKED_NOT_EXECUTED"
           ]
         },
         "primary_horizon_hours": {"const": 120},

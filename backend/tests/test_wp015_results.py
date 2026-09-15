@@ -71,8 +71,10 @@ def test_wp015_records_and_state_are_safe() -> None:
 
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
-    assert state["latest_reviewed_checkpoint"] == "WP-017-RESEARCH-DIRECTOR-REVIEW"
-    assert state["latest_executor_checkpoint"] == "P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP"
+    assert state["latest_reviewed_checkpoint"] == "P1A-POWER-BLOCK-REVIEW"
+    assert state["latest_executor_checkpoint"] == (
+        "P1A-POWER-BLOCK-REVIEW+RESEARCH-ARCHITECTURE-SYNTHESIS-V1+P2-CYCLE-FOUNDATION-DESIGN"
+    )
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
     assert challenger["model_reconciliation"] == "PASS"
@@ -86,7 +88,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert "# CURRENT TASK — WP-015" in archived
-    assert "# CURRENT TASK — P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP" in current
+    assert "# CURRENT TASK — P1A-POWER-BLOCK-REVIEW" in current
     assert (ROOT / "tasks/archive/P0.1-DETECTABILITY-INFERENCE-AND-CI-PORTABILITY-FIX.md").is_file()
     assert (ROOT / "tasks/archive/WP-017-CFTC-LEVERAGED-POSITIONING-PREP.md").is_file()
     assert (ROOT / "tasks/archive/WP-016-PREP.md").is_file()

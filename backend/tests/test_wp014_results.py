@@ -126,8 +126,10 @@ def test_wp014_result_records_and_state_are_consistent_and_safe() -> None:
 
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
-    assert state["latest_reviewed_checkpoint"] == "WP-017-RESEARCH-DIRECTOR-REVIEW"
-    assert state["latest_executor_checkpoint"] == "P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP"
+    assert state["latest_reviewed_checkpoint"] == "P1A-POWER-BLOCK-REVIEW"
+    assert state["latest_executor_checkpoint"] == (
+        "P1A-POWER-BLOCK-REVIEW+RESEARCH-ARCHITECTURE-SYNTHESIS-V1+P2-CYCLE-FOUNDATION-DESIGN"
+    )
     challenger = state["shallow_nonlinear_challenger"]
     assert challenger["terminal_classification"] == "REJECT_COST_DOMINATED"
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 12

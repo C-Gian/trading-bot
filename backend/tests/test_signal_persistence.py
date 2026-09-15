@@ -440,7 +440,7 @@ def test_scientific_counters_are_untouched() -> None:
     assert state["real_money_authorized"] is False
     assert state["statistical_governance"]["known_discovery_family_size"] == 12
     gate = state["signal_persistence_power_gate"]
-    assert gate["hypothesis_status"] == "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED"
+    assert gate["hypothesis_status"] == "POWER_BLOCKED_NOT_EXECUTED"
     assert gate["preregistration_authorized"] is False
     assert gate["material_experiment_executed"] is False
     assert gate["power_gate_status"] == _gate()["power_gate_status"]

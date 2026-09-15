@@ -259,8 +259,10 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == "WP-017-RESEARCH-DIRECTOR-REVIEW"
-    assert state["latest_executor_checkpoint"] == ("P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP")
+    assert state["latest_reviewed_checkpoint"] == "P1A-POWER-BLOCK-REVIEW"
+    assert state["latest_executor_checkpoint"] == (
+        "P1A-POWER-BLOCK-REVIEW+RESEARCH-ARCHITECTURE-SYNTHESIS-V1+P2-CYCLE-FOUNDATION-DESIGN"
+    )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -335,7 +337,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == "RESEARCH_DIRECTOR_P1A_REDESIGN_DECISION"
+    assert state["next_recommended_work_package"] == "P2-CYCLE-FOUNDATION-POWER-GATE-PREP"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -913,6 +915,15 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-V1.json",
         "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-V1.md",
         "reports/checkpoints/P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE-PREP.md",
+        "reports/reviews/P1A-POWER-BLOCK-REVIEW.md",
+        "research/design/RESEARCH_ARCHITECTURE_SYNTHESIS_V1.md",
+        "docs/canonical/CYCLE_RESEARCH_SOURCE_BOUNDARY_V1.md",
+        "research/design/BTC_TIME_CYCLE_STRUCTURE_V1_DESIGN.md",
+        "research/protocols/P2-CYCLE-FOUNDATION-V1.json",
+        "research/memory/registry/directions/P2-CYCLE-FOUNDATION-DESIGN.json",
+        "decisions/ADR-0014-P2-CYCLE-FOUNDATION-BOUNDARY.md",
+        "reports/checkpoints/P1A-POWER-BLOCK-REVIEW-RESEARCH-ARCHITECTURE-SYNTHESIS-V1-P2-CYCLE-FOUNDATION-DESIGN.md",
+        "tasks/archive/P1A-POWER-BLOCK-REVIEW-RESEARCH-ARCHITECTURE-SYNTHESIS-V1-P2-CYCLE-FOUNDATION-DESIGN.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -991,9 +1002,60 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert p1a_state["raw_signal_count"] == p1a_gate["signal"]["raw_signal_count"]
     assert not p1a_state["material_experiment_executed"]
     assert not p1a_state["zero_shift_statistic_computed"]
+    assert p1a_state["hypothesis_status"] == "POWER_BLOCKED_NOT_EXECUTED"
+    assert p1a_state["hypothesis_status"] not in {"REJECT", "INCONCLUSIVE"}
+    assert p1a_gate["economic_threshold"]["P1A_INFORMATION_MESI_BPS"] == 24.0
+    assert round(p1a_gate["power"]["empirical_MDE_bps_per_event"], 6) == 285.640052
+    assert round(p1a_gate["power"]["power_at_MESI"], 8) == 0.01424888
     if p1a_state["power_gate_status"] != "READY_FOR_PREREGISTRATION":
         assert not p1a_state["preregistration_authorized"]
         assert not p1a_state["runner_candidate_registered"]
+    p2 = json.loads(
+        (ROOT / "research/protocols/P2-CYCLE-FOUNDATION-V1.json").read_text(encoding="utf-8")
+    )
+    p2_state = state["cycle_foundation"]
+    assert len(p2["primary_hypotheses"]) == p2["budget"]["primary_structural_hypotheses"] == 1
+    assert len(p2["diagnostics"]) <= p2["budget"]["maximum_diagnostics"] == 2
+    assert p2["budget"]["material_economic_hypotheses_executed"] == 0
+    assert not p2["actual_market_result_inspected"]
+    assert not p2["detectability"]["actual_market_result_available"]
+    assert p2["detectability"]["economic_mesi"] is None
+    assert p2["detectability"]["target_power"] == 0.8
+    assert not p2["economic_strategy_created"] and p2["implemented_components"] == []
+    assert p2_state["primary_hypothesis_id"] == "BTC_TIME_CYCLE_STRUCTURE_V1"
+    assert p2_state["diagnostic_count"] <= p2_state["maximum_diagnostics"] == 2
+    assert not p2_state["actual_market_result_inspected"]
+    assert not p2_state["economic_strategy_created"]
+    boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
+    for unsupported in (
+        "complete centering algorithm",
+        "universal swing-selection formula",
+        "universal swing-value formula",
+        "universal volume thresholds",
+        "complete raccordo algorithm",
+        "target algorithm",
+        "official executable code",
+    ):
+        line = next(line for line in boundary.splitlines() if f"| {unsupported} |" in line)
+        assert "| UNSPECIFIED |" in line
+    forbidden_cycle_modules = {
+        "cycle.py",
+        "cycle_swing.py",
+        "cycle_volume.py",
+        "cycle_inverse.py",
+        "cycle_vincolo.py",
+        "cycle_raccordo.py",
+        "cycle_target.py",
+        "cycle_trading.py",
+    }
+    assert not forbidden_cycle_modules.intersection(
+        path.name for path in (ROOT / "backend/app/research").glob("*.py")
+    )
+    assert state["experiments_completed"] == 26
+    assert state["statistical_governance"]["known_discovery_family_size"] == 12
+    assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
+    assert state["champion_status"] == "NONE"
+    assert state["real_money_authorized"] is False
     substrate = state["backtest_substrate"]
     assert (
         substrate["engine_version"],

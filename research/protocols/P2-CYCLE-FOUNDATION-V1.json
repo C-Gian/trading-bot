@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "version": "P2_CYCLE_FOUNDATION_V1",
+  "status": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
+  "hypothesis_scope": "STRUCTURAL_TIME_ONLY",
+  "primary_hypotheses": [
+    {
+      "hypothesis_id": "BTC_TIME_CYCLE_STRUCTURE_V1",
+      "question": "Does BTCUSDT exhibit repeatable or quasi-persistent cyclic timing structure beyond an appropriately dependence-preserving null?",
+      "economic": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "diagnostic_id": "QUASI_PERSISTENCE_BARTELS_V1",
+      "role": "NON_RESCUING_FROZEN_SELECTED_PERIOD_ONLY"
+    },
+    {
+      "diagnostic_id": "CROSS_FOLD_PERIOD_STABILITY_V1",
+      "role": "NON_RESCUING_DESCRIPTIVE"
+    }
+  ],
+  "budget": {
+    "primary_structural_hypotheses": 1,
+    "maximum_diagnostics": 2,
+    "material_economic_hypotheses_executed": 0
+  },
+  "data": {
+    "symbol": "BTCUSDT",
+    "source_manifest": "BTCUSDT-SPOT-1M-DEV-v1",
+    "source_resolution": "1m",
+    "derived_resolution": "4h",
+    "maximum_timestamp": "2024-12-31T23:59:00Z",
+    "sealed_queries": 0
+  },
+  "primary_method": {
+    "representation": "CONTIGUOUS_4H_CLOSE_TO_CLOSE_LOG_RETURN",
+    "detrending": "DIFFERENCING_PLUS_WITHIN_SEGMENT_INTERCEPT_ONLY",
+    "period_band_days": {
+      "minimum": 2,
+      "maximum": 90
+    },
+    "spectral_estimator": "FLOATING_MEAN_GENERALIZED_LOMB_SCARGLE",
+    "frequency_grid": "FOURIER_SPACING_OVERSAMPLING_4_CLIPPED_TO_FROZEN_BAND",
+    "null": "TRAINING_ONLY_AR_SIEVE_BIC_0_TO_42_PLUS_STATIONARY_RESIDUAL_BLOCK_BOOTSTRAP_EXPECTED_42",
+    "outer_folds": "DEVELOPMENT_WALK_FORWARD_V1_ANNUAL_2019_TO_2024",
+    "selection": "TRAINING_MAXIMUM_POWER_ONE_PERIOD_LONGER_PERIOD_TIE_BREAK",
+    "evaluation": "VALIDATION_POWER_AT_TRAINING_SELECTED_FREQUENCY_ONLY",
+    "alpha": 0.05,
+    "multiple_frequency_correction": "REPEAT_COMPLETE_SELECTION_INSIDE_EVERY_NULL_AND_SYNTHETIC_REPLICATE"
+  },
+  "detectability": {
+    "status": "DESIGNED_NOT_RUN",
+    "target_power": 0.8,
+    "null_replicates": 4999,
+    "synthetic_replicates_per_cell": 2000,
+    "seed": 20260915,
+    "injection_domain": "LOG_PRICE_THEN_DIFFERENCE_TO_4H_LOG_RETURN",
+    "period_days": [3, 7, 14, 30, 60],
+    "phase_grid_count": 16,
+    "effect_scale": "SNR_CYCLE_RMS_INJECTED_RETURN_OVER_TRAINING_RMS_NULL_INNOVATION",
+    "snr_grid": [0.0, 0.1, 0.25, 0.5, 0.75, 1.0],
+    "gate_snr": 0.5,
+    "gate_rule": "POWER_AT_LEAST_0_80_FOR_EVERY_FROZEN_CALIBRATION_PERIOD",
+    "economic_mesi": null,
+    "actual_market_result_available": false
+  },
+  "selection_evaluation_separation": "BINDING",
+  "implemented_components": [],
+  "excluded_components": [
+    "SWING",
+    "VOLUME",
+    "INVERSE",
+    "VINCOLO",
+    "RACCORDO",
+    "TARGET",
+    "CYCLE_BASED_TRADING"
+  ],
+  "economic_strategy_created": false,
+  "actual_market_result_inspected": false,
+  "source_boundary": "docs/canonical/CYCLE_RESEARCH_SOURCE_BOUNDARY_V1.md",
+  "design": "research/design/BTC_TIME_CYCLE_STRUCTURE_V1_DESIGN.md",
+  "next_checkpoint": "P2-CYCLE-FOUNDATION-POWER-GATE-PREP"
+}

@@ -13,3 +13,4 @@
 - [ADR-0011](ADR-0011-RESEARCH-RUNTIME-V2-BATCH.md) — prospective deterministic batch research runtime
 - [ADR-0012](ADR-0012-WP017-CFTC-LEVERAGED-POSITIONING.md) — CFTC leveraged-funds positioning as a point-in-time development context
 - [ADR-0013](ADR-0013-P1A-ALIGNED-SIGNAL-PERSISTENCE-POWER-GATE.md) — prospective power gate for ALIGNED 120h signal persistence
+- [ADR-0014](ADR-0014-P2-CYCLE-FOUNDATION-BOUNDARY.md) — P1A power block and P2 time-only cycle foundation

@@ -140,27 +140,24 @@ The previous default loop of acquiring a new source, testing a candidate, and mo
 another source is stopped. Future work separates statistical credibility, signal
 information, economic monetization/execution, and product validation.
 
-Next: `DESIGN_ALIGNED_SIGNAL_PERSISTENCE_V1`.
+P1A design and prospective power analysis are complete. Its frozen 24.0 bps/event MESI
+is not statistically resolvable with the available clustered BTC evidence: empirical MDE
+285.640052 bps/event and power 0.01424888. Research Director disposition is
+`POWER_BLOCKED_NOT_EXECUTED`, not market `REJECT` or `INCONCLUSIVE`. The true zero-shift
+120h ALIGNED outcome remains unavailable. No P1A rescue, tuning, alternate horizon,
+cross-section, or execution is authorized.
 
-P1A is a design question: **does an ALIGNED signal contain directional information that
-persists beyond the current 24-hour horizon?** It is not a stop/target rescue. Before any
-execution, P1A must:
+Next: `P2-CYCLE-FOUNDATION-POWER-GATE-PREP`.
 
-- use frozen ALIGNED raw signal timestamps;
-- separate informational events from one-position-at-a-time execution;
-- freeze an externally motivated primary horizon (120h is the current research
-  direction, not a preregistered choice);
-- measure raw event returns in price basis points rather than R;
-- use a matched/random timing control with the same horizon to distinguish signal from
-  market beta;
-- preregister a dependence method suited to irregular, overlapping or clustered events;
-- translate `ECONOMIC_SIGNIFICANCE_POLICY_V1` into the event metric before execution;
-- calculate MDE and power before execution;
-- treat low-resolution evidence as low resolution, not proof of no effect.
+P2 is one structural time-only hypothesis, `BTC_TIME_CYCLE_STRUCTURE_V1`, on a 4h context
+series derived from canonical BTCUSDT 1m development data. Its protocol freezes one
+primary, at most two non-rescuing diagnostics, a colored/dependent-noise null, synthetic
+cycle injection, multiple-frequency correction, chronological outer evaluation, and a
+target power of 0.80 before any actual cycle result may be exposed. It creates no trading
+rule and consumes no material economic hypothesis.
 
-Only if P1A supports persistent information may a distinct P1B be designed. P1B asks
-whether that information can be monetized under realistic execution, occupancy,
-turnover, costs, and risk. P1B is outside P0.
+After P2 cycle foundation is resolved, `RESEARCH-ARCHITECTURE-SYNTHESIS-V2` is mandatory
+before another hypothesis family may open automatically.
 
 ### Future cross-sectional replication
 
@@ -172,14 +169,16 @@ costs, a pooled primary endpoint, time/asset dependence treatment, and a prohibi
 selecting winners after observation. Cross-sectional research is not currently
 authorized; the product remains BTCUSDT spot V1.
 
-### Future cyclical research
+### Cycle research boundary
 
-A spectral null falsifies only the frozen periodicity hypothesis tested, not every idea
-within “Ciclica Evoluta.” Before any cyclic outcome is observed, freeze one material
-primary cycle hypothesis plus a finite number of preregistered diagnostics/ablations.
-Diagnostics cannot rescue a failed primary. A diagnostic-inspired successor is a new
-material hypothesis and consumes new search budget. Open-ended time, swing, volume,
-inverse, constraint, raccordo, or similar searches after observation are forbidden.
+`docs/canonical/CYCLE_RESEARCH_SOURCE_BOUNDARY_V1.md` distinguishes public concepts from
+project-reconstructed rules and executable detail that remains unspecified. A spectral
+null falsifies only the frozen timing representation tested, not every idea within
+“Ciclica Evoluta.” P2 opens time structure only. Swing, volume, inverse, vincolo,
+raccordo, target, and cycle-based trading remain closed. Diagnostics cannot rescue a
+failed primary. A diagnostic-inspired successor requires a new prospective hypothesis
+and search budget; any trading rule is a new `MATERIAL_ECONOMIC_HYPOTHESIS` with its own
+MESI and power gate.
 
 ### Future runtime engineering
 
