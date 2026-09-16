@@ -118,6 +118,13 @@ The park is an inherited reconciliation defect in a retired calibration panel, n
 demonstrated power failure of the gate-intensity design. That design is frozen and
 unmeasured, so a Research Director who reopens it starts from a clean preregistration.
 
+## Remote CI
+
+Exact-head CI SUCCESS on `f67830859d5c1de0c11986796074ffed898dd400`, run
+[`35061287144`](https://github.com/C-Gian/trading-bot/actions/runs/35061287144), branch
+`main`. Bound in `state/current_state.json` under `remote_ci.work_packages` and preserved
+in `reports/reviews/ALIGNED-GATE-INTENSITY-CI-EVIDENCE.json`.
+
 ## Accounting
 
 As a result-dependent descendant this consumed one adaptive decision and one

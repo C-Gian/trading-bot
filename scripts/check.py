@@ -31,6 +31,7 @@ P1A_VERIFIED_HEAD = "8d3286a29093e542ed2fdeff5c457666dca5ea66"
 P2_VERIFIED_HEAD = "15fd9361a16c78781650b8b5a1ecce7527200bb4"
 P2_CLOSURE_HEAD = "334b76670cb7ef06f1e6a960c1aae67ce79eaae5"
 CROSS_SECTION_HEAD = "922fb11100bce442a25435d8b661fe4380acf955"
+GATE_INTENSITY_HEAD = "f67830859d5c1de0c11986796074ffed898dd400"
 WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
@@ -581,6 +582,7 @@ def validate_research_views(state: dict) -> None:
         "P2-CYCLE-FOUNDATION-POWER-GATE-PREP",
         "P2-METHODOLOGY-BLOCK-CLOSURE",
         "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1",
+        "CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE-ALIGNED-GATE-INTENSITY-POWER-GATE-V1",
     }
     for work_package, expected_head in (
         ("WP-005", WP005_BASE_SUCCESSOR),
@@ -596,6 +598,10 @@ def validate_research_views(state: dict) -> None:
         ("P2-CYCLE-FOUNDATION-POWER-GATE-PREP", P2_VERIFIED_HEAD),
         ("P2-METHODOLOGY-BLOCK-CLOSURE", P2_CLOSURE_HEAD),
         ("CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1", CROSS_SECTION_HEAD),
+        (
+            "CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE-ALIGNED-GATE-INTENSITY-POWER-GATE-V1",
+            GATE_INTENSITY_HEAD,
+        ),
     ):
         record = remote[work_package]
         evidence = json.loads((ROOT / record["evidence"]).read_text(encoding="utf-8"))
@@ -1621,6 +1627,7 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1.md",
         "reports/checkpoints/CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE-ALIGNED-GATE-INTENSITY-POWER-GATE-V1.md",
         "tasks/archive/CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE-ALIGNED-GATE-INTENSITY-POWER-GATE-V1.md",
+        "reports/reviews/ALIGNED-GATE-INTENSITY-CI-EVIDENCE.json",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()

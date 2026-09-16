@@ -448,6 +448,12 @@
         "head": "922fb11100bce442a25435d8b661fe4380acf955",
         "run_id": 35031399384,
         "status": "SUCCESS"
+      },
+      "CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE-ALIGNED-GATE-INTENSITY-POWER-GATE-V1": {
+        "evidence": "reports/reviews/ALIGNED-GATE-INTENSITY-CI-EVIDENCE.json",
+        "head": "f67830859d5c1de0c11986796074ffed898dd400",
+        "run_id": 35061287144,
+        "status": "SUCCESS"
       }
     }
   },

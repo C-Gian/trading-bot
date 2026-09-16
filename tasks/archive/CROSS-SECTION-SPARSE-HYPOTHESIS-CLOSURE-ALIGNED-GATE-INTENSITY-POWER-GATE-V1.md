@@ -36,4 +36,7 @@ result-dependent descendant; completed experiments remain 26, known observed mat
 economic hypotheses remain 12, sealed queries 0, Champion `NONE`, real money false.
 Product remains BTCUSDT spot V1 with no multi-asset surface.
 
+Repository-standard validation passed on a clean tree and exact-head CI SUCCESS is
+recorded for `f67830859d5c1de0c11986796074ffed898dd400` (run `35061287144`).
+
 Next action: RESEARCH DIRECTOR REVIEW.
