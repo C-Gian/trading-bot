@@ -342,7 +342,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "RESEARCH-DIRECTOR-REVIEW-ALIGNED-DEVELOPMENT-PARK"
+        "RESEARCH-DIRECTOR-REVIEW-GATE-INTENSITY-CAUSAL-CORRECTION"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
