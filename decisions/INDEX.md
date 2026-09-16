@@ -23,3 +23,4 @@
 - [ADR-0021](ADR-0021-GATE-INTENSITY-CAUSAL-CORRECTION-AND-SUPPORT-BLOCK.md) — gate-intensity causal panel passes and the frozen support gate permanently parks ALIGNED development
 - [ADR-0022](ADR-0022-ALIGNED-FINAL-CLOSURE-AND-PROSPECTIVE-SHADOW-OBSERVER.md) — ALIGNED historical development closes and prospective automated shadow evidence begins
 - [ADR-0023](ADR-0023-PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-V1_1.md) — prospective shadow evidence gains verified build provenance, a single observer lease, and a tamper-evident audit chain
+- [ADR-0024](ADR-0024-PROSPECTIVE-COLLECTION-ARM-AND-OPERATING-POLICY.md) — prospective collection is armed and its operating policy fixes conduct until 20 completed shadow trades

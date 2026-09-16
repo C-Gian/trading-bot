@@ -68,10 +68,10 @@ def test_wp013_result_records_and_safety_state() -> None:
         assert result["trial_accounting"] == {"declared_budget": 4, "executed_trials": 4}
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
-    assert state["latest_executor_checkpoint"] == (
+    assert state["latest_executor_checkpoint"] == ("PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1")
+    assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1"
     )
-    assert state["latest_reviewed_checkpoint"] == "PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["paper_trades_completed"] == 0

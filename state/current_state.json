@@ -421,7 +421,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "PAUSED",
-  "latest_executor_checkpoint": "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1",
+  "latest_executor_checkpoint": "PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -429,12 +429,12 @@
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
     "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1",
+  "latest_reviewed_checkpoint": "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1",
   "max_holding_horizon": {
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-V1_1",
+  "next_recommended_work_package": "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -514,6 +514,48 @@
   "product_surface": "LOCAL_WEB_APP",
   "project_name": "Trading Bot",
   "project_phase": "STRATEGY_RESEARCH",
+  "prospective_collection": {
+    "activation_mode": "LOCAL_BACKEND_START_ONLY",
+    "early_review_conditions": [
+      "PERSISTENT_DEGRADED_OBSERVER",
+      "AUDIT_INTEGRITY_FAILURE",
+      "SUSPECTED_GENUINE_EVIDENCE_CORRUPTION",
+      "SEMANTIC_SOFTWARE_BUG",
+      "REAL_MONEY_BOUNDARY_PROPOSED"
+    ],
+    "evidence_version": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1",
+    "first_observation_requires": [
+      "VERIFIED_CLEAN_SCIENTIFIC_BUILD",
+      "SINGLE_OBSERVER_LEASE",
+      "HOURLY_BOUNDARY_STRICTLY_AFTER_DURABLE_ACTIVATION",
+      "DECISION_PERSISTED_WITHIN_300_SECONDS"
+    ],
+    "genuine_observations": 0,
+    "live_market_contacted": false,
+    "no_trade_observations_justify_adaptation": false,
+    "observer_version": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1",
+    "past_signal_backfill": false,
+    "production_observer_started": false,
+    "result_driven_adaptation_before_boundary": false,
+    "review_boundary_completed_shadow_trades": 20,
+    "review_boundary_proves_sufficiency": false,
+    "status": "ARMED_NOT_YET_OBSERVED",
+    "version": "PROSPECTIVE_EVIDENCE_LIVE_COLLECTION_ARM_V1"
+  },
+  "prospective_collection_operating_policy": {
+    "dirty_worktree_behavior": "UNVERIFIED_SCIENTIFIC_BUILD",
+    "engineering_sequence": [
+      "STOP_BACKEND_AND_OBSERVER",
+      "PRESERVE_EXISTING_EVIDENCE",
+      "MAKE_AND_VALIDATE_CHANGE",
+      "VERSION_EVIDENCE_SEMANTICS_IF_MATERIAL",
+      "RESTORE_CLEAN_WORKTREE",
+      "RESTART_PROSPECTIVELY"
+    ],
+    "missed_boundary_reconstruction": false,
+    "semantic_change_with_observer_running": false,
+    "version": "PROSPECTIVE_COLLECTION_OPERATING_POLICY_V1"
+  },
   "prospective_counters": {
     "prospective_long_signals": 0,
     "prospective_observation_hours": 0,
@@ -536,6 +578,7 @@
     "credentials": false,
     "entry_timing_rule": "STRICTLY_AFTER_DURABLE_INTENT_NEXT_1M_OPEN",
     "evidence_stage": "AUTOMATED_PROSPECTIVE_SHADOW_PAPER",
+    "evidence_status": "ACCEPTED_FOR_PROSPECTIVE_COLLECTION",
     "evidence_store": "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.json",
     "evidence_version": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1",
     "first_boundary_strictly_after_activation": true,
@@ -552,9 +595,10 @@
     "order_placement": false,
     "past_signal_backfill": false,
     "real_money": false,
+    "research_director_accepted": true,
     "single_observer_lease": true,
     "snapshot_and_audit_single_atomic_document": true,
-    "status": "IMPLEMENTED_EVIDENCE_READY_FOR_LOCAL_ACTIVATION",
+    "status": "ACCEPTED_EVIDENCE_READY",
     "stop_fraction": 0.02,
     "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
     "symbol": "BTCUSDT",
@@ -679,7 +723,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1",
+    "next_checkpoint": "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "PROSPECTIVE_EVIDENCE_COLLECTION",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",

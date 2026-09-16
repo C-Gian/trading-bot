@@ -264,10 +264,10 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == "PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
-    assert state["latest_executor_checkpoint"] == (
+    assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1"
     )
+    assert state["latest_executor_checkpoint"] == "PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1"
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -342,9 +342,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == (
-        "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-V1_1"
-    )
+    assert state["next_recommended_work_package"] == "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -826,9 +824,7 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["primary_next_direction"] == "PROSPECTIVE_EVIDENCE_COLLECTION"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == (
-        "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1"
-    )
+    assert architecture["next_checkpoint"] == "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1"
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -1314,6 +1310,9 @@ def prospective_shadow_observer_checks(state: dict) -> None:
     assert observer["maximum_hold_minutes"] == 1440
     assert observer["first_scientific_review_completed_trades"] == 20
     assert observer["manual_paper_store_unchanged"] is True
+    assert observer["status"] == "ACCEPTED_EVIDENCE_READY"
+    assert observer["evidence_status"] == "ACCEPTED_FOR_PROSPECTIVE_COLLECTION"
+    assert observer["research_director_accepted"] is True
     assert observer["observer_lease"] == LEASE_PATH
     assert observer["build_provenance_version"] == PROVENANCE_VERSION
     assert observer["verified_build_required_for_decision"] is True
@@ -1393,6 +1392,51 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         for path in paths
         for word in ("/order", "/account", "/balance", "/credential", "/withdraw")
     )
+    # The observer is armed but has observed nothing: no evidence or health store may
+    # exist in the repository, and no counter may have moved.
+    collection = state["prospective_collection"]
+    assert collection["status"] == "ARMED_NOT_YET_OBSERVED"
+    assert collection["observer_version"] == OBSERVER_VERSION
+    assert collection["evidence_version"] == EVIDENCE_VERSION
+    assert collection["activation_mode"] == "LOCAL_BACKEND_START_ONLY"
+    assert collection["production_observer_started"] is False
+    assert collection["live_market_contacted"] is False
+    assert collection["genuine_observations"] == 0
+    assert collection["past_signal_backfill"] is False
+    assert collection["review_boundary_completed_shadow_trades"] == 20
+    assert collection["review_boundary_proves_sufficiency"] is False
+    assert collection["result_driven_adaptation_before_boundary"] is False
+    assert collection["no_trade_observations_justify_adaptation"] is False
+    assert collection["first_observation_requires"] == [
+        "VERIFIED_CLEAN_SCIENTIFIC_BUILD",
+        "SINGLE_OBSERVER_LEASE",
+        "HOURLY_BOUNDARY_STRICTLY_AFTER_DURABLE_ACTIVATION",
+        "DECISION_PERSISTED_WITHIN_300_SECONDS",
+    ]
+    assert collection["early_review_conditions"] == [
+        "PERSISTENT_DEGRADED_OBSERVER",
+        "AUDIT_INTEGRITY_FAILURE",
+        "SUSPECTED_GENUINE_EVIDENCE_CORRUPTION",
+        "SEMANTIC_SOFTWARE_BUG",
+        "REAL_MONEY_BOUNDARY_PROPOSED",
+    ]
+    assert not (ROOT / EVIDENCE_STORE_PATH).exists()
+    assert not (ROOT / HEALTH_STORE_PATH).exists()
+
+    policy = state["prospective_collection_operating_policy"]
+    assert policy["version"] == "PROSPECTIVE_COLLECTION_OPERATING_POLICY_V1"
+    assert policy["semantic_change_with_observer_running"] is False
+    assert policy["dirty_worktree_behavior"] == UNVERIFIED_REASON
+    assert policy["missed_boundary_reconstruction"] is False
+    assert policy["engineering_sequence"] == [
+        "STOP_BACKEND_AND_OBSERVER",
+        "PRESERVE_EXISTING_EVIDENCE",
+        "MAKE_AND_VALIDATE_CHANGE",
+        "VERSION_EVIDENCE_SEMANTICS_IF_MATERIAL",
+        "RESTORE_CLEAN_WORKTREE",
+        "RESTART_PROSPECTIVELY",
+    ]
+
     assert state["experiments_completed"] == 26
     assert state["observed_material_historical_hypotheses"] == 12
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
@@ -1803,6 +1847,8 @@ def governance_checks(pre_experiment: bool) -> dict:
         "decisions/ADR-0023-PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-V1_1.md",
         "reports/checkpoints/PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1.md",
         "tasks/archive/PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1.md",
+        "decisions/ADR-0024-PROSPECTIVE-COLLECTION-ARM-AND-OPERATING-POLICY.md",
+        "reports/checkpoints/PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()

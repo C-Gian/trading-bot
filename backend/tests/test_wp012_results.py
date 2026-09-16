@@ -71,10 +71,10 @@ def test_wp012_result_records_preserve_governance() -> None:
 
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
-    assert state["latest_executor_checkpoint"] == (
+    assert state["latest_executor_checkpoint"] == ("PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1")
+    assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1"
     )
-    assert state["latest_reviewed_checkpoint"] == "PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
     assert state["regime_conditioned_challenger"]["research_director_verdict"] == "ACCEPTED"
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0

@@ -1,35 +1,48 @@
-# CURRENT TASK — PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1
+# CURRENT TASK — PROSPECTIVE-EVIDENCE-COLLECTION-V1_1
 
-Status: IMPLEMENTED_PENDING_RESEARCH_DIRECTOR_REVIEW
+Status: ACTIVE_COLLECTION_WAITING_FOR_FUTURE_EVIDENCE
 
-Starting HEAD: `c261a63ec13ac4d5d147f942cfebf33e55b12b25` on local `main`.
+Armed at HEAD `aa0f72d12e868ef7fff49ff29d4bef9a40bda720` on local `main`.
 
-The Research Director accepted `PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1` as software. That
-implementation produced zero genuine prospective observations, so its evidence contract
-is recorded `IMPLEMENTED_SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION` and preserved as
-implementation history. Nothing was migrated, because there was nothing to migrate.
+This is not an engineering work package. The repository is collecting automated
+prospective paper evidence under `FUTURE_SHADOW_PAPER_EVIDENCE_V1_1`, and its next state
+change is expected to come from elapsed time rather than from a commit.
 
-`FUTURE_SHADOW_PAPER_EVIDENCE_V1_1` and `PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1` harden
-evidence integrity before the first genuine observation. `BUILD_PROVENANCE_V1` identifies
-a scientific build by git HEAD, branch, clean worktree, the application, observer,
-strategy, execution and cost-model versions, and a manifest hashing the exact bytes of
-every semantic source the observer depends on, with the cost implementation resolved from
-the objects actually imported. Only a verified build may record a genuine decision; an
-unverified or dirty build evaluates no signal and yields a typed missed decision once the
-five-minute window closes.
+`PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1` is `ACCEPTED_EVIDENCE_READY` and collection is
+`ARMED_NOT_YET_OBSERVED`. The observer activates only when the local backend starts.
+Opening the backend is not itself an observation: a genuine one also requires a verified
+clean scientific build, the single observer lease, an hourly boundary strictly after
+durable activation, and durable persistence inside the frozen five-minute window. Missed
+boundaries are permanent and are never reconstructed.
 
-A single interprocess lease is acquired before activation and held for the observer's
-lifetime, so a second process cannot evaluate the market or write evidence and reports
-`ANOTHER_OBSERVER_INSTANCE_ACTIVE`. Every governed transition appends one immutable
-hash-linked audit event from an explicit `GENESIS`; the snapshot and chain share one
-atomically replaced document, the chain is validated before evidence is used, and
-integrity failure degrades the observer without rewriting anything.
+While collecting, semantic code changes are not made with the observer running. If
+engineering becomes necessary: stop the backend and observer, preserve existing evidence,
+make and validate the change, version evidence semantics if scientifically material,
+restore a clean worktree, then restart prospectively. A dirty worktree is expected to fail
+closed as `UNVERIFIED_SCIENTIFIC_BUILD`.
 
-ALIGNED, the execution geometry, the cost model, LONG/NO_TRADE semantics, manual paper V2,
-historical research, and the 20-completed-trade review boundary are unchanged. Tests are
-synthetic-clock and synthetic-feed only; the production observer was never deliberately
-started and no genuine future observation was created. Historical accounting remains 26
-experiments, 12 observed material historical hypotheses, zero sealed queries, Champion
-`NONE`, and real money false.
+ALIGNED, the execution geometry, the cost model, and the evidence contract are frozen.
+Historical discovery is `PAUSED`, ALIGNED development is
+`PARKED_DEVELOPMENT_SEARCH_EXHAUSTED`, Champion is `NONE`, and real money is false.
+Historical accounting remains 26 experiments, 12 observed material historical hypotheses,
+and zero sealed queries; prospective counters accumulate separately and are not historical
+experiments.
 
-Next action: RESEARCH DIRECTOR REVIEW.
+## Next Research Director review trigger
+
+20 completed automated shadow trades. This is a minimum freeze boundary, not proof that
+20 trades validate the strategy, and no result-driven strategy adaptation occurs before
+it.
+
+Earlier review only if:
+
+- the observer enters a persistent `DEGRADED` state;
+- audit integrity fails;
+- genuine evidence corruption is suspected;
+- a semantic software bug is discovered;
+- a real-money boundary is ever proposed.
+
+Ordinary `NO_TRADE` observations and a normal absence of LONG signals are not reasons to
+change the strategy.
+
+Next action: BEGIN PROSPECTIVE COLLECTION.

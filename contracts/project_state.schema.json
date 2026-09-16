@@ -36,6 +36,8 @@
     "aligned_development_closure",
     "superseded_prospective_evidence",
     "prospective_shadow_observer",
+    "prospective_collection",
+    "prospective_collection_operating_policy",
     "prospective_counters",
     "status",
     "product_surface",
@@ -156,7 +158,8 @@
         "maximum_decision_latency_seconds", "past_signal_backfill", "one_active_shadow_position",
         "entry_timing_rule", "ambiguous_fill_policy", "cost_model_version", "stop_fraction",
         "target_fraction", "maximum_hold_minutes", "first_scientific_review_completed_trades",
-        "manual_paper_store_unchanged", "build_provenance_version",
+        "manual_paper_store_unchanged", "evidence_status", "research_director_accepted",
+        "build_provenance_version",
         "verified_build_required_for_decision", "clean_worktree_required",
         "unverified_build_reason", "single_observer_lease", "contended_observer_reason",
         "audit_chain_version", "audit_chain_genesis", "audit_chain_keyed",
@@ -167,7 +170,9 @@
       ],
       "properties": {
         "version": {"const": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1"},
-        "status": {"const": "IMPLEMENTED_EVIDENCE_READY_FOR_LOCAL_ACTIVATION"},
+        "status": {"const": "ACCEPTED_EVIDENCE_READY"},
+        "evidence_status": {"const": "ACCEPTED_FOR_PROSPECTIVE_COLLECTION"},
+        "research_director_accepted": {"const": true},
         "evidence_version": {"const": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1"},
         "evidence_stage": {"const": "AUTOMATED_PROSPECTIVE_SHADOW_PAPER"},
         "initiation_mode": {"const": "AUTOMATED_RESEARCH_OBSERVER"},
@@ -206,6 +211,80 @@
         "credentials": {"const": false},
         "champion_status": {"const": "NONE"},
         "real_money": {"const": false}
+      }
+    },
+    "prospective_collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "observer_version", "evidence_version", "activation_mode",
+        "production_observer_started", "live_market_contacted", "genuine_observations",
+        "first_observation_requires", "past_signal_backfill",
+        "review_boundary_completed_shadow_trades", "review_boundary_proves_sufficiency",
+        "result_driven_adaptation_before_boundary",
+        "no_trade_observations_justify_adaptation", "early_review_conditions"
+      ],
+      "properties": {
+        "version": {"const": "PROSPECTIVE_EVIDENCE_LIVE_COLLECTION_ARM_V1"},
+        "status": {"const": "ARMED_NOT_YET_OBSERVED"},
+        "observer_version": {"const": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1"},
+        "evidence_version": {"const": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1"},
+        "activation_mode": {"const": "LOCAL_BACKEND_START_ONLY"},
+        "production_observer_started": {"const": false},
+        "live_market_contacted": {"const": false},
+        "genuine_observations": {"const": 0},
+        "first_observation_requires": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "VERIFIED_CLEAN_SCIENTIFIC_BUILD",
+            "SINGLE_OBSERVER_LEASE",
+            "HOURLY_BOUNDARY_STRICTLY_AFTER_DURABLE_ACTIVATION",
+            "DECISION_PERSISTED_WITHIN_300_SECONDS"
+          ]
+        },
+        "past_signal_backfill": {"const": false},
+        "review_boundary_completed_shadow_trades": {"const": 20},
+        "review_boundary_proves_sufficiency": {"const": false},
+        "result_driven_adaptation_before_boundary": {"const": false},
+        "no_trade_observations_justify_adaptation": {"const": false},
+        "early_review_conditions": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "PERSISTENT_DEGRADED_OBSERVER",
+            "AUDIT_INTEGRITY_FAILURE",
+            "SUSPECTED_GENUINE_EVIDENCE_CORRUPTION",
+            "SEMANTIC_SOFTWARE_BUG",
+            "REAL_MONEY_BOUNDARY_PROPOSED"
+          ]
+        }
+      }
+    },
+    "prospective_collection_operating_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "semantic_change_with_observer_running", "engineering_sequence",
+        "dirty_worktree_behavior", "missed_boundary_reconstruction"
+      ],
+      "properties": {
+        "version": {"const": "PROSPECTIVE_COLLECTION_OPERATING_POLICY_V1"},
+        "semantic_change_with_observer_running": {"const": false},
+        "engineering_sequence": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "STOP_BACKEND_AND_OBSERVER",
+            "PRESERVE_EXISTING_EVIDENCE",
+            "MAKE_AND_VALIDATE_CHANGE",
+            "VERSION_EVIDENCE_SEMANTICS_IF_MATERIAL",
+            "RESTORE_CLEAN_WORKTREE",
+            "RESTART_PROSPECTIVELY"
+          ]
+        },
+        "dirty_worktree_behavior": {"const": "UNVERIFIED_SCIENTIFIC_BUILD"},
+        "missed_boundary_reconstruction": {"const": false}
       }
     },
     "prospective_counters": {
@@ -743,7 +822,7 @@
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1"},
+        "next_checkpoint": {"const": "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},
