@@ -1098,6 +1098,9 @@ def gate_intensity_checks(state: dict) -> None:
         validate_shift_weeks,
     )
 
+    def canonical_text_sha256(path: Path) -> str:
+        return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
     record = state["gate_intensity_descendant"]
     sparse = state["cross_section_feasibility"]
     protocol = json.loads((ROOT / record["protocol"]).read_text(encoding="utf-8"))
@@ -1121,13 +1124,13 @@ def gate_intensity_checks(state: dict) -> None:
         assert artifact["ACTUAL_CROSS_SECTION_EFFECT_OBSERVED"] is False
 
     # Retired sparse evidence remains unchanged and continues to reconcile 3380 -> 3378.
-    assert sha256(ROOT / sparse["event_reconciliation_report"]) == (
+    assert canonical_text_sha256(ROOT / sparse["event_reconciliation_report"]) == (
         "cb81cd4f53cd1a3fb2de022492b647172693be462236de878e744264728e28c1"
     )
-    assert sha256(ROOT / sparse["placebo_report"]) == (
+    assert canonical_text_sha256(ROOT / sparse["placebo_report"]) == (
         "2173590eae9b289d220cdd772bdb558c42516f5ff23115103d7b08d0aafd6383"
     )
-    assert sha256(ROOT / sparse["power_gate_report"]) == (
+    assert canonical_text_sha256(ROOT / sparse["power_gate_report"]) == (
         "52487ac2b35fe8b6905b41e0c88f77326dce47b35040ee0bef22b345bbd39b71"
     )
     assert legacy["support_artifact_signals"] == 3380
@@ -1174,7 +1177,7 @@ def gate_intensity_checks(state: dict) -> None:
     assert SYNTHETIC_SLOPES_BPS_PER_GATE == (0.0, 4.0, 8.0, 16.0, 32.0)
 
     # The frozen family is read byte-identically; no replacement family was generated.
-    assert sha256(ROOT / record["randomization_report"]) == (
+    assert canonical_text_sha256(ROOT / record["randomization_report"]) == (
         "4c94c99248ca759c0843824107b9c4c4b6743b1c0aa4e47f02b7c0348b9f4592"
     )
     assert family["family_sha256"] == EXPECTED_RANDOMIZATION_FAMILY_SHA256

@@ -43,7 +43,8 @@ def read_json(relative: str) -> dict:
 
 
 def sha256(relative: str) -> str:
-    return hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+    content = (ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(content).hexdigest()
 
 
 # --- sparse cross-section closure ----------------------------------------------------

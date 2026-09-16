@@ -108,11 +108,9 @@ def _epochs(times: np.ndarray) -> list[tuple[int, int]]:
 
 
 def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+    # Git may materialize tracked text as LF or CRLF. Hash the canonical LF content so
+    # byte identity is stable across the Windows workstation and Linux CI checkout.
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def _row_keys(asset_index: np.ndarray, hours: np.ndarray) -> np.ndarray:
