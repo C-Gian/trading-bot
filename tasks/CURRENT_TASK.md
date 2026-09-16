@@ -32,4 +32,7 @@ multi-asset trading surface exists. Accounting is unchanged: 26 completed experi
 known observed material economic hypotheses, 0 sealed queries, 0 genuine completed paper
 trades, Champion `NONE`, real money false.
 
+Repository-standard validation passed on a clean tree and exact-head CI SUCCESS is
+recorded for `922fb11100bce442a25435d8b661fe4380acf955` (run `35031399384`).
+
 Next action: RESEARCH DIRECTOR REVIEW.

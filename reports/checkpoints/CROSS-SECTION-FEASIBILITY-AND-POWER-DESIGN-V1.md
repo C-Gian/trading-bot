@@ -93,6 +93,13 @@ was changed in response to the result. No second universe threshold was tried. N
 high-signal asset selection, category removal or per-asset rescue occurred. No sealed
 data was queried and no post-cutoff market data entered development.
 
+## Remote CI
+
+Exact-head CI SUCCESS on `922fb11100bce442a25435d8b661fe4380acf955`, run
+[`35031399384`](https://github.com/C-Gian/trading-bot/actions/runs/35031399384), branch
+`main`. Bound in `state/current_state.json` under `remote_ci.work_packages` and preserved
+in `reports/reviews/CROSS-SECTION-FEASIBILITY-AND-POWER-CI-EVIDENCE.json`.
+
 ## Product and accounting
 
 Product remains `BTCUSDT_SPOT_V1`; the cross-section is

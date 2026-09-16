@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "branch": "main",
+  "checkpoint": "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1",
+  "conclusion": "success",
+  "reviewed_head": "922fb11100bce442a25435d8b661fe4380acf955",
+  "run_id": 35031399384,
+  "status": "SUCCESS",
+  "run_url": "https://github.com/C-Gian/trading-bot/actions/runs/35031399384",
+  "starting_head": "2fa562877c2efd4bd022c157b0a6f38212df1380",
+  "commits": [
+    {
+      "sha": "cb13309b0e42a87fb139066efc4a9ef89db0dc14",
+      "subject": "Freeze the cross-sectional universe policy before any signal count"
+    },
+    {
+      "sha": "922fb11100bce442a25435d8b661fe4380acf955",
+      "subject": "Record the cross-sectional power block and placebo invalidation"
+    }
+  ],
+  "local_validation": {
+    "command": "python scripts/check.py",
+    "exit_code": 0,
+    "backend_tests": "850 passed",
+    "frontend_tests": "44 passed",
+    "statistical_audit": "PASS",
+    "p1a_power_gate_audit": "PASS",
+    "p2_cycle_power_gate_audit": "PASS",
+    "p2_cycle_null_v2_audit": "PASS",
+    "cross_section_checks": "PASS",
+    "data_mode_checks": "PASS",
+    "clean_tree": true
+  },
+  "ci_verification": {
+    "command": "uv run --frozen python scripts/check.py --no-data",
+    "cross_section_checks_executed": true,
+    "gate_inputs": [
+      "reports/cross_section/CROSS-SECTION-ARCHIVE-INVENTORY-V1.json",
+      "reports/cross_section/CROSS-SECTION-BTC-1H-EQUIVALENCE-V1.json",
+      "reports/cross_section/CROSS-SECTION-UNIVERSE-FEASIBILITY-V1.json",
+      "reports/cross_section/CROSS-SECTION-SIGNAL-SUPPORT-V1.json",
+      "reports/cross_section/CROSS-SECTION-SURVIVORSHIP-AUDIT-V1.json",
+      "reports/cross_section/CROSS-SECTION-PLACEBO-CALIBRATION-V1.json",
+      "reports/power/CROSS-SECTION-POWER-GATE-V1.json"
+    ]
+  },
+  "universe_policy_freeze": {
+    "commit": "cb13309b0e42a87fb139066efc4a9ef89db0dc14",
+    "frozen_before_any_cross_section_signal_count": true
+  },
+  "data_source": {
+    "provider": "Binance",
+    "market_type": "spot",
+    "dataset": "monthly_klines",
+    "interval": "1h",
+    "credentials_used": false,
+    "archive_symbols": 3710,
+    "usdt_quoted": 735,
+    "leveraged_tokens_excluded": 52,
+    "candidate_symbols": 683,
+    "symbols_with_development_archive": 486,
+    "monthly_objects": 17925,
+    "hourly_rows": 12886210,
+    "btc_identical_decisions": 49034,
+    "btc_both_decidable": 49034,
+    "btc_canonical_signals": 195,
+    "btc_archive_signals": 195,
+    "DATA_SOURCE_STATUS": "PASS"
+  },
+  "universe": {
+    "eligible_assets": 387,
+    "instrument_epochs": 390,
+    "decision_rows": 2556366,
+    "raw_signals": 3380,
+    "asset_clusters_with_events": 259,
+    "week_clusters_with_events": 184,
+    "occupancy_suppression_applied": false,
+    "UNIVERSE_FEASIBILITY_STATUS": "PASS",
+    "SURVIVORSHIP_STATUS": "PASS",
+    "CLUSTER_SUPPORT_STATUS": "PASS"
+  },
+  "inference_and_power": {
+    "cluster_dimensions": ["ASSET_INSTRUMENT_EPOCH", "UTC_CALENDAR_WEEK"],
+    "method": "TWO_WAY_CAMERON_GELBACH_MILLER_INCLUSION_EXCLUSION",
+    "DEPENDENCE_INFERENCE_STATUS": "PASS",
+    "placebo_replicates": 338,
+    "placebo_zero_shift_used": false,
+    "placebo_rejections_at_effective_alpha": 12,
+    "placebo_expected_rejections": 1.3,
+    "placebo_empirical_size": 0.03550295857988166,
+    "placebo_size_inflation_factor": 9.23076923076923,
+    "placebo_over_rejection_binomial_p": 1.2574200748095801e-08,
+    "PLACEBO_CALIBRATION_STATUS": "REDESIGN_REQUIRED",
+    "mesi_bps": 24.0,
+    "effective_alpha": 0.0038461538461538464,
+    "degrees_of_freedom": 183.0,
+    "design_standard_error_bps": 12.680466155873276,
+    "minimum_detectable_effect_bps": 44.87223602651074,
+    "power_at_MESI": 0.21167397651623476,
+    "target_power": 0.8,
+    "CROSS_SECTION_POWER_GATE_STATUS": "REDESIGN_REQUIRED"
+  },
+  "leakage": {
+    "zero_alignment_pooled_effect_computed": false,
+    "zero_alignment_t_computed": false,
+    "zero_alignment_p_computed": false,
+    "per_asset_real_effect_computed": false,
+    "cross_section_trading_verdict_emitted": false,
+    "sealed_data_queried": false,
+    "post_cutoff_data_used": false
+  },
+  "response_to_failure": {
+    "mesi_lowered": false,
+    "target_power_lowered": false,
+    "high_signal_assets_selected": false,
+    "categories_removed": false,
+    "aligned_altered": false,
+    "real_beta_inspected": false,
+    "second_universe_threshold_tested": false,
+    "another_liquidity_cutoff_added": false,
+    "another_horizon_used": false
+  },
+  "safety": {
+    "experiments_completed": 26,
+    "observed_material_hypotheses": 12,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "genuine_paper_trades_completed": 0,
+    "real_money_authorized": false,
+    "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
+    "cross_section_product_authorized": false,
+    "multi_asset_trading_implemented": false,
+    "preregistration_created": false
+  },
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false
+}
