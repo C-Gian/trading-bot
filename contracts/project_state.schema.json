@@ -301,7 +301,8 @@
       "additionalProperties": false,
       "required": [
         "version", "hypothesis_id", "parent_hypothesis_id", "status", "design", "protocol",
-        "score_report", "randomization_report", "power_gate_report", "power_gate_markdown",
+        "score_report", "randomization_report", "causal_panel_reconciliation",
+        "randomization_support_report", "power_gate_report", "power_gate_markdown",
         "decision_record", "final_authorized_descendant", "aligned_modified",
         "new_gate_parameters", "gate_weights", "panel_rows", "instrument_epochs",
         "rows_by_intensity", "aligned_equals_intensity_three",
@@ -312,33 +313,43 @@
         "randomization_maximum_shift_weeks", "randomization_zero_shift_present",
         "randomization_circular_wrap", "randomization_family_sha256",
         "randomization_support_status", "randomization_inference_status",
-        "event_reconciliation_status", "power_computed", "power_at_mesi",
+        "event_reconciliation_status", "causal_panel_rows", "causal_panel_removed_rows",
+        "causal_panel_intensity_three_events", "randomization_accepted_vectors",
+        "randomization_minimum_row_retention", "randomization_maximum_row_retention",
+        "randomization_minimum_asset_cluster_retention",
+        "randomization_maximum_asset_cluster_retention", "power_computed", "power_at_mesi",
         "minimum_detectable_effect_bps_per_gate", "power_gate_status",
         "aligned_development_family_status", "preregistration_authorized",
         "material_economic_hypotheses_executed", "zero_shift_effect_observed",
         "product_universe", "multi_asset_trading_implemented"
       ],
       "properties": {
-        "version": {"const": "ALIGNED_GATE_INTENSITY_POWER_V1"},
+        "version": {"const": "ALIGNED_GATE_INTENSITY_POWER_V1_1"},
         "hypothesis_id": {"const": "ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1"},
         "parent_hypothesis_id": {"const": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1"},
-        "status": {"const": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED"},
+        "status": {"const": "POWER_GATE_REDESIGN_REQUIRED_NOT_EXECUTED"},
         "design": {
           "const": "research/design/ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1_DESIGN.md"
         },
-        "protocol": {"const": "research/protocols/ALIGNED-GATE-INTENSITY-POWER-V1.json"},
+        "protocol": {"const": "research/protocols/ALIGNED-GATE-INTENSITY-POWER-V1_1.json"},
         "score_report": {"const": "reports/cross_section/GATE-INTENSITY-SCORE-V1.json"},
         "randomization_report": {
           "const": "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-FAMILY-V1.json"
         },
+        "causal_panel_reconciliation": {
+          "const": "reports/cross_section/CROSS-SECTION-GATE-INTENSITY-PANEL-RECONCILIATION-V1_1.json"
+        },
+        "randomization_support_report": {
+          "const": "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-SUPPORT-V1_1.json"
+        },
         "power_gate_report": {
-          "const": "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1.json"
+          "const": "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.json"
         },
         "power_gate_markdown": {
-          "const": "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1.md"
+          "const": "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.md"
         },
         "decision_record": {
-          "const": "decisions/ADR-0020-ALIGNED-GATE-INTENSITY-DESCENDANT.md"
+          "const": "decisions/ADR-0021-GATE-INTENSITY-CAUSAL-CORRECTION-AND-SUPPORT-BLOCK.md"
         },
         "final_authorized_descendant": {"const": true},
         "aligned_modified": {"const": false},
@@ -386,6 +397,14 @@
         "event_reconciliation_status": {
           "enum": ["PASS", "FAIL_CLOSED_NON_POINT_IN_TIME_PARTICIPATION_RULE"]
         },
+        "causal_panel_rows": {"type": "integer", "minimum": 1},
+        "causal_panel_removed_rows": {"type": "integer", "minimum": 0},
+        "causal_panel_intensity_three_events": {"type": "integer", "minimum": 0},
+        "randomization_accepted_vectors": {"type": "integer", "minimum": 0, "maximum": 1024},
+        "randomization_minimum_row_retention": {"type": "number", "minimum": 0, "maximum": 1},
+        "randomization_maximum_row_retention": {"type": "number", "minimum": 0, "maximum": 1},
+        "randomization_minimum_asset_cluster_retention": {"type": "number", "minimum": 0, "maximum": 1},
+        "randomization_maximum_asset_cluster_retention": {"type": "number", "minimum": 0, "maximum": 1},
         "power_computed": {"type": "boolean"},
         "power_at_mesi": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
         "minimum_detectable_effect_bps_per_gate": {

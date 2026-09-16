@@ -73,7 +73,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     assert state["experiments_completed"] == 26
     assert state["latest_reviewed_checkpoint"] == "CROSS-SECTION-SPARSE-POWER-BLOCK-REVIEW"
     assert state["latest_executor_checkpoint"] == (
-        "CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE-ALIGNED-GATE-INTENSITY-POWER-GATE-V1"
+        "GATE-INTENSITY-CAUSAL-CORRECTION-POWER-RESUME-V1_1"
     )
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
@@ -88,7 +88,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert "# CURRENT TASK — WP-015" in archived
-    assert ("# CURRENT TASK — CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE") in current
+    assert ("# CURRENT TASK — GATE-INTENSITY-CAUSAL-CORRECTION-POWER-RESUME-V1_1") in current
     assert (
         ROOT / "tasks/archive/"
         "P1A-POWER-BLOCK-REVIEW-RESEARCH-ARCHITECTURE-SYNTHESIS-V1-P2-CYCLE-FOUNDATION-DESIGN.md"

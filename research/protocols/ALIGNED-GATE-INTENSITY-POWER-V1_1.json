@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "protocol_id": "ALIGNED-GATE-INTENSITY-POWER-V1_1",
+  "hypothesis_id": "ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1",
+  "material_economic_hypothesis_changed": false,
+  "material_economic_hypotheses_executed": 0,
+  "status": "STOPPED_SUPPORT_REDIRECT_REQUIRED_NOT_EXECUTED",
+  "inherits_frozen_design": {
+    "protocol": "research/protocols/ALIGNED-GATE-INTENSITY-POWER-V1.json",
+    "protocol_sha256": "8ca433698c46aa9091da703692fdd6906907fb9da22de8e1addf981fbc4d770a",
+    "score_report": "reports/cross_section/GATE-INTENSITY-SCORE-V1.json",
+    "score_report_sha256": "f9df68db731a48511147bd635489f58fc6984538685d6c8be869dcac8e000ee5",
+    "randomization_family": "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-FAMILY-V1.json",
+    "randomization_artifact_sha256": "4c94c99248ca759c0843824107b9c4c4b6743b1c0aa4e47f02b7c0348b9f4592",
+    "randomization_family_sha256": "7e135af46a20c30d8c1f19e39d56b663254ab293b007c84a694437e82e8cf12d",
+    "vectors_regenerated": false
+  },
+  "causality_correction": {
+    "classification": "PRE_MEASUREMENT_PROTOCOL_VALIDITY_REPAIR",
+    "prior_executor_stop_correct": true,
+    "prior_true_gate_intensity_result_observed": false,
+    "prior_shifted_beta_observed": false,
+    "prior_power_observed": false,
+    "retired_rule": "epoch_decision_rows >= 504",
+    "retired_rule_used_by_v1_1_panel": false,
+    "whole_epoch_lifetime_requirement": false,
+    "future_survival_requirement": false,
+    "analysis_inclusion": [
+      "FROZEN_POINT_IN_TIME_UNIVERSE_ELIGIBILITY",
+      "GATE_INTENSITY_CAUSALLY_COMPUTABLE_AT_DECISION_TIME",
+      "FROZEN_24H_OUTCOME_RESOLVABLE"
+    ],
+    "reconciliation": "reports/cross_section/CROSS-SECTION-GATE-INTENSITY-PANEL-RECONCILIATION-V1_1.json"
+  },
+  "frozen_design_restatement": {
+    "score": "int(direction_pass) + int(breakout_pass) + int(participation_pass)",
+    "allowed_values": [0, 1, 2, 3],
+    "weights": [1, 1, 1],
+    "interactions": false,
+    "two_of_three_special_rule": false,
+    "individual_gate_hypotheses": false,
+    "asset_normalization": false,
+    "aligned_equivalence": "ALIGNED_SIGNAL == 1 IFF GATE_INTENSITY == 3",
+    "primary_coefficient": "beta_gate",
+    "outcome": "24H_FORWARD_LOG_PRICE_RETURN_BPS",
+    "mesi_bps_per_gate": 8.0,
+    "prospective_family_size": 13,
+    "effective_one_sided_alpha": 0.0038461538461538464,
+    "target_power": 0.8,
+    "primary_inference": "EMPIRICAL_RANDOMIZATION",
+    "analytic_cluster_role": "DIAGNOSTIC_ONLY"
+  },
+  "support_gate": {
+    "minimum_row_retention": 0.7,
+    "minimum_asset_cluster_retention": 0.8,
+    "required_year_coverage": 6,
+    "minimum_accepted_vectors": 512,
+    "thresholds_changed": false,
+    "report": "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-SUPPORT-V1_1.json",
+    "status": "REDESIGN_REQUIRED",
+    "accepted_vectors": 0,
+    "requested_vectors": 1024
+  },
+  "power": {
+    "synthetic_slopes_bps_per_gate": [0.0, 4.0, 8.0, 16.0, 32.0],
+    "zero_shift_forbidden": true,
+    "zero_alignment_beta_computed": false,
+    "shifted_betas_computed": false,
+    "synthetic_power_computed": false,
+    "status": "NOT_RUN_BLOCKED_BY_SUPPORT_GATE"
+  },
+  "terminal_gate": {
+    "EVENT_RECONCILIATION_STATUS": "PASS",
+    "RANDOMIZATION_SUPPORT_STATUS": "REDESIGN_REQUIRED",
+    "RANDOMIZATION_INFERENCE_STATUS": "NOT_RUN_BLOCKED",
+    "GATE_INTENSITY_POWER_GATE_STATUS": "REDESIGN_REQUIRED",
+    "ALIGNED_DEVELOPMENT_FAMILY_STATUS": "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED",
+    "report": "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.json"
+  },
+  "accounting": {
+    "experiments_completed": 26,
+    "observed_material_economic_hypotheses": 12,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "real_money_authorized": false,
+    "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED"
+  },
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false
+}

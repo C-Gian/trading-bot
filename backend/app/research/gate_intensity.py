@@ -82,6 +82,9 @@ MINIMUM_ACCEPTED_VECTORS = 512
 # --- family consequence (sections C, L) -----------------------------------------------
 FINAL_AUTHORIZED_DESCENDANT = True
 FAMILY_STATUS_ON_FAILURE = "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED"
+EXPECTED_RANDOMIZATION_FAMILY_SHA256 = (
+    "7e135af46a20c30d8c1f19e39d56b663254ab293b007c84a694437e82e8cf12d"
+)
 
 
 class ZeroShiftForbidden(ValueError):
@@ -170,6 +173,22 @@ def shift_family_digest(vectors: list[ShiftVector]) -> str:
         for vector in vectors
     )
     return hashlib.sha256(payload.encode()).hexdigest()
+
+
+def parse_frozen_shift_vectors(payload: dict[str, Any]) -> list[ShiftVector]:
+    """Read and validate the already-frozen family without regenerating it."""
+    vectors = [
+        ShiftVector(int(item["index"]), tuple(int(x) for x in item["weeks_by_year"])).validate()
+        for item in payload["vectors"]
+    ]
+    if [vector.index for vector in vectors] != list(range(len(vectors))):
+        raise ValueError("frozen randomization vector indices are not contiguous")
+    if len({vector.weeks_by_year for vector in vectors}) != len(vectors):
+        raise ValueError("frozen randomization family contains duplicate vectors")
+    digest = shift_family_digest(vectors)
+    if digest != payload["family_sha256"] or digest != EXPECTED_RANDOMIZATION_FAMILY_SHA256:
+        raise ValueError("frozen randomization family SHA-256 changed")
+    return vectors
 
 
 def gate_intensity(direction: bool, breakout: bool, participation: bool) -> int:

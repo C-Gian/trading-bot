@@ -1,19 +1,19 @@
-"""Sparse cross-section closure, event reconciliation, and the frozen gate-intensity design.
+"""Gate-intensity causal-panel correction, frozen support gate, and prospective power.
 
 Stages:
 
-    reconcile   prove the 3380 -> 3378 difference with a typed deterministic rule
-    design      build the frozen integer gate-intensity field and verify ALIGNED == (score 3)
-    freeze      materialize the deterministic calendar-synchronous randomization family
+    panel       build the V1_1 causal outcome panel and append-only reconciliation
+    support     evaluate the frozen 1024-vector geometry-only support gate
+    gate        assemble the V1_1 preregistration readiness gate
 
-No stage computes a true zero-shift effect. The support gate and the prospective power
-stages are deliberately absent from this script: they are blocked behind the frozen
-prerequisites recorded by `reconcile`.
+The historical V1 reconciliation and retired sparse placebo artifacts are never rewritten.
+No stage computes a true zero-shift effect.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from collections import Counter
@@ -45,29 +45,58 @@ from app.research.evaluation_protocol import HOUR_US
 from app.research.gate_intensity import (
     DEVELOPMENT_YEARS,
     EFFECTIVE_ALPHA,
+    EXPECTED_RANDOMIZATION_FAMILY_SHA256,
     FAMILY_STATUS_ON_FAILURE,
     HYPOTHESIS_ID,
     LEGAL_SHIFT_WEEKS,
     MAXIMUM_SHIFT_WEEKS,
+    MINIMUM_ACCEPTED_VECTORS,
+    MINIMUM_ASSET_CLUSTER_RETENTION,
+    MINIMUM_ROW_RETENTION,
     MINIMUM_SHIFT_WEEKS,
     PARENT_HYPOTHESIS_ID,
     PROSPECTIVE_FAMILY_SIZE,
     REQUESTED_REPLICATE_VECTORS,
+    REQUIRED_YEAR_COVERAGE,
     TARGET_POWER,
     TEST_SIDEDNESS,
+    WEEK_US,
     build_shift_vectors,
     design_summary,
     hour_year,
     mesi_bps_per_gate,
+    parse_frozen_shift_vectors,
     shift_family_digest,
 )
 
 EVENTS_PATH = "data/derived/BINANCE-SPOT-USDT-CROSSSECTION-EVENTS-DEV-v1.npz"
 INTENSITY_PATH = "data/derived/BINANCE-SPOT-USDT-GATE-INTENSITY-DEV-v1.npz"
 RECONCILIATION_PATH = "reports/cross_section/CROSS-SECTION-EVENT-RECONCILIATION-V1.json"
+CAUSAL_PANEL_PATH = "data/derived/BINANCE-SPOT-USDT-GATE-INTENSITY-CAUSAL-PANEL-DEV-v1_1.npz"
+RECONCILIATION_V1_1_PATH = (
+    "reports/cross_section/CROSS-SECTION-GATE-INTENSITY-PANEL-RECONCILIATION-V1_1.json"
+)
+SUPPORT_PATH = "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-SUPPORT-V1_1.json"
+POWER_PATH = "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.json"
+POWER_MARKDOWN_PATH = "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.md"
 SCORE_PATH = "reports/cross_section/GATE-INTENSITY-SCORE-V1.json"
 RANDOMIZATION_PATH = "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-FAMILY-V1.json"
 EQUIVALENCE_SAMPLE = 8
+KEY_STRIDE = 10_000_000
+FROZEN_RANDOMIZATION_ARTIFACT_SHA256 = (
+    "4c94c99248ca759c0843824107b9c4c4b6743b1c0aa4e47f02b7c0348b9f4592"
+)
+RETIRED_ARTIFACT_SHA256 = {
+    "reports/cross_section/CROSS-SECTION-EVENT-RECONCILIATION-V1.json": (
+        "cb81cd4f53cd1a3fb2de022492b647172693be462236de878e744264728e28c1"
+    ),
+    "reports/cross_section/CROSS-SECTION-PLACEBO-CALIBRATION-V1.json": (
+        "2173590eae9b289d220cdd772bdb558c42516f5ff23115103d7b08d0aafd6383"
+    ),
+    "reports/power/CROSS-SECTION-POWER-GATE-V1.json": (
+        "52487ac2b35fe8b6905b41e0c88f77326dce47b35040ee0bef22b345bbd39b71"
+    ),
+}
 
 
 def _epochs(times: np.ndarray) -> list[tuple[int, int]]:
@@ -76,6 +105,370 @@ def _epochs(times: np.ndarray) -> list[tuple[int, int]]:
     breaks = np.flatnonzero(np.diff(times) >= INSTRUMENT_EPOCH_GAP_HOURS * HOUR_US) + 1
     bounds = [0, *breaks.tolist(), len(times)]
     return [(bounds[i], bounds[i + 1]) for i in range(len(bounds) - 1)]
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _row_keys(asset_index: np.ndarray, hours: np.ndarray) -> np.ndarray:
+    return asset_index.astype(np.int64) * KEY_STRIDE + hours.astype(np.int64) // HOUR_US
+
+
+def _years(hours: np.ndarray) -> np.ndarray:
+    return hours.astype("datetime64[us]").astype("datetime64[Y]").astype(np.int64) + 1970
+
+
+def _distribution(values: list[float]) -> dict[str, float]:
+    array = np.asarray(values, dtype=np.float64)
+    quantiles = np.quantile(array, [0.0, 0.05, 0.25, 0.5, 0.75, 0.95, 1.0])
+    return {
+        name: float(value)
+        for name, value in zip(
+            ("minimum", "p05", "p25", "median", "p75", "p95", "maximum"),
+            quantiles,
+            strict=True,
+        )
+    }
+
+
+def _outcome_removal_reason(times: np.ndarray, opens: np.ndarray, closes: np.ndarray, hour: int):
+    horizon = hour + 24 * HOUR_US
+    start = int(np.searchsorted(times, hour, side="left"))
+    if start >= len(times) or int(times[start]) > horizon:
+        return "NO_ENTRY_BAR_AT_OR_AFTER_DECISION_WITHIN_24H"
+    end = int(np.searchsorted(times, horizon, side="left")) - 1
+    if end <= start:
+        return "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    if float(opens[start]) <= 0.0:
+        return "NONPOSITIVE_ENTRY_OPEN"
+    if float(closes[end]) <= 0.0:
+        return "NONPOSITIVE_TERMINAL_CLOSE"
+    raise ValueError("removed row satisfies the frozen outcome contract")
+
+
+def _load_frozen_family() -> tuple[dict[str, Any], list[Any]]:
+    path = ROOT / RANDOMIZATION_PATH
+    if _sha256(path) != FROZEN_RANDOMIZATION_ARTIFACT_SHA256:
+        raise ValueError("frozen randomization artifact bytes changed")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    vectors = parse_frozen_shift_vectors(payload)
+    if len(vectors) != REQUESTED_REPLICATE_VECTORS:
+        raise ValueError("frozen randomization vector count changed")
+    return payload, vectors
+
+
+def _verify_retired_artifacts_unchanged() -> dict[str, str]:
+    observed = {relative: _sha256(ROOT / relative) for relative in RETIRED_ARTIFACT_SHA256}
+    if observed != RETIRED_ARTIFACT_SHA256:
+        raise ValueError("a retired sparse V1 artifact changed")
+    return observed
+
+
+def stage_panel() -> int:
+    """Build the causal V1_1 panel directly from frozen intensity and outcome artifacts."""
+    retired_hashes = _verify_retired_artifacts_unchanged()
+    intensity = np.load(ROOT / INTENSITY_PATH, allow_pickle=False)
+    outcomes = np.load(ROOT / EVENTS_PATH, allow_pickle=False)
+    labels = [str(item) for item in intensity["labels"]]
+    if labels != [str(item) for item in outcomes["labels"]]:
+        raise ValueError("frozen intensity and outcome epoch labels differ")
+
+    base_keys = _row_keys(intensity["asset_index"], intensity["hours"])
+    outcome_keys = _row_keys(outcomes["asset_index"], outcomes["hours"])
+    base_locations = np.searchsorted(base_keys, outcome_keys)
+    if not np.array_equal(base_keys[base_locations], outcome_keys):
+        raise ValueError("frozen outcome panel is not a subset of the intensity field")
+    outcome_locations = np.searchsorted(outcome_keys, base_keys)
+    safe = np.minimum(outcome_locations, len(outcome_keys) - 1)
+    removed_mask = (outcome_locations >= len(outcome_keys)) | (outcome_keys[safe] != base_keys)
+    removed_indices = np.flatnonzero(removed_mask)
+
+    panel_score = intensity["score"][base_locations].astype(np.int8)
+    panel_signal = intensity["signal"][base_locations].astype(bool)
+    np.savez_compressed(
+        ROOT / CAUSAL_PANEL_PATH,
+        asset_index=outcomes["asset_index"].astype(np.int64),
+        hours=outcomes["hours"].astype(np.int64),
+        outcome=outcomes["outcome"].astype(np.float64),
+        score=panel_score,
+        signal=panel_signal,
+        truncated=outcomes["truncated"].astype(bool),
+        labels=intensity["labels"],
+    )
+
+    substrate = read_substrate(ROOT)
+    removed_rows: list[dict[str, Any]] = []
+    reasons: Counter[str] = Counter()
+    for row in removed_indices.tolist():
+        asset = int(intensity["asset_index"][row])
+        hour = int(intensity["hours"][row])
+        symbol = labels[asset].split("#", maxsplit=1)[0]
+        bars = substrate[symbol]
+        reason = _outcome_removal_reason(bars.open_time, bars.open, bars.close, hour)
+        reasons[reason] += 1
+        removed_rows.append(
+            {
+                "instrument_epoch": labels[asset],
+                "decision_hour": iso(hour),
+                "decision_hour_us": hour,
+                "gate_intensity": int(intensity["score"][row]),
+                "aligned_signal": bool(intensity["signal"][row]),
+                "removal_reason": reason,
+                "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+            }
+        )
+
+    base_assets = set(intensity["asset_index"].astype(int).tolist())
+    analysis_assets = set(outcomes["asset_index"].astype(int).tolist())
+    allowed_reasons = {
+        "NO_ENTRY_BAR_AT_OR_AFTER_DECISION_WITHIN_24H",
+        "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY",
+        "NONPOSITIVE_ENTRY_OPEN",
+        "NONPOSITIVE_TERMINAL_CLOSE",
+    }
+    status = (
+        "PASS"
+        if set(reasons) <= allowed_reasons and len(removed_rows) == sum(reasons.values())
+        else "FAIL"
+    )
+    report = {
+        "report_id": "CROSS-SECTION-GATE-INTENSITY-PANEL-RECONCILIATION-V1_1",
+        "protocol_implementation_version": "ALIGNED_GATE_INTENSITY_POWER_V1_1",
+        "hypothesis_id": HYPOTHESIS_ID,
+        "source": {
+            "frozen_intensity_field": INTENSITY_PATH,
+            "frozen_outcome_panel": EVENTS_PATH,
+            "causal_analysis_panel": CAUSAL_PANEL_PATH,
+        },
+        "causal_inclusion_rule": {
+            "point_in_time_universe_eligibility": True,
+            "gate_intensity_computable_at_decision_time": True,
+            "frozen_24h_outcome_resolvable": True,
+            "minimum_whole_epoch_lifetime": None,
+            "future_epoch_length_used": False,
+            "future_delisting_date_used": False,
+            "future_eligible_row_count_used": False,
+            "future_signal_count_used": False,
+            "future_survival_required": False,
+            "retired_504_row_filter_used": False,
+        },
+        "base_rows": len(base_keys),
+        "analysis_rows": len(outcome_keys),
+        "removed_rows": len(removed_rows),
+        "base_epochs": len(base_assets),
+        "analysis_epochs": len(analysis_assets),
+        "base_intensity_3_events": int((intensity["score"] == 3).sum()),
+        "analysis_intensity_3_events": int((panel_score == 3).sum()),
+        "events_removed": int((intensity["score"][removed_indices] == 3).sum()),
+        "clusters_removed": [labels[index] for index in sorted(base_assets - analysis_assets)],
+        "removal_reason_counts": dict(sorted(reasons.items())),
+        "removed_row_detail": removed_rows,
+        "every_removed_row_has_typed_reason": all(
+            row["removal_reason"] and row["reason_type"] for row in removed_rows
+        ),
+        "all_removals_are_frozen_outcome_contract_only": set(reasons) <= allowed_reasons,
+        "archive_ending_assets_retained_when_outcome_resolvable": True,
+        "historical_sparse_reconciliation_preserved": {
+            "support_events": 3380,
+            "retired_placebo_panel_events": 3378,
+            "artifacts_sha256": retired_hashes,
+        },
+        "score_unchanged": bool(np.array_equal(panel_signal, panel_score == 3)),
+        "MESI_BPS_PER_GATE": mesi_bps_per_gate(),
+        "EVENT_RECONCILIATION_STATUS": status,
+        "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": False,
+    }
+    assert_no_real_effect_leakage(report)
+    write_json(ROOT / RECONCILIATION_V1_1_PATH, report)
+    print(
+        json.dumps(
+            {
+                key: report[key]
+                for key in (
+                    "base_rows",
+                    "analysis_rows",
+                    "removed_rows",
+                    "base_epochs",
+                    "analysis_epochs",
+                    "base_intensity_3_events",
+                    "analysis_intensity_3_events",
+                    "events_removed",
+                    "clusters_removed",
+                    "removal_reason_counts",
+                    "EVENT_RECONCILIATION_STATUS",
+                )
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    return 0 if status == "PASS" else 1
+
+
+def _shifted_source(
+    base_keys: np.ndarray,
+    base_scores: np.ndarray,
+    destination_assets: np.ndarray,
+    destination_hours: np.ndarray,
+    year: int,
+    weeks: int,
+) -> tuple[np.ndarray, np.ndarray]:
+    source_hours = destination_hours - weeks * WEEK_US
+    same_year = _years(source_hours) == year
+    source_keys = _row_keys(destination_assets, source_hours)
+    locations = np.searchsorted(base_keys, source_keys)
+    safe = np.minimum(locations, len(base_keys) - 1)
+    valid = same_year & (locations < len(base_keys)) & (base_keys[safe] == source_keys)
+    return valid, base_scores[safe]
+
+
+def _support_pieces() -> tuple[dict[tuple[int, int], dict[str, Any]], dict[str, Any], list[Any]]:
+    reconciliation = json.loads((ROOT / RECONCILIATION_V1_1_PATH).read_text(encoding="utf-8"))
+    if reconciliation["EVENT_RECONCILIATION_STATUS"] != "PASS":
+        raise ValueError("causal-panel reconciliation did not pass")
+    family, vectors = _load_frozen_family()
+    intensity = np.load(ROOT / INTENSITY_PATH, allow_pickle=False)
+    outcomes = np.load(ROOT / EVENTS_PATH, allow_pickle=False)
+    base_keys = _row_keys(intensity["asset_index"], intensity["hours"])
+    years = _years(outcomes["hours"])
+    absolute_weeks = outcomes["hours"].astype(np.int64) // WEEK_US
+    unique_weeks, compact_weeks = np.unique(absolute_weeks, return_inverse=True)
+    asset_count = len(intensity["labels"])
+    pieces: dict[tuple[int, int], dict[str, Any]] = {}
+    for year in DEVELOPMENT_YEARS:
+        positions = np.flatnonzero(years == year)
+        assets = outcomes["asset_index"][positions].astype(np.int64)
+        hours = outcomes["hours"][positions].astype(np.int64)
+        for weeks in LEGAL_SHIFT_WEEKS:
+            valid, scores = _shifted_source(
+                base_keys, intensity["score"], assets, hours, year, weeks
+            )
+            kept = positions[valid]
+            pieces[(year, weeks)] = {
+                "positions": kept,
+                "scores": scores[valid].astype(np.int8),
+                "rows": int(valid.sum()),
+                "asset_present": np.bincount(assets[valid], minlength=asset_count).astype(bool),
+                "week_present": np.bincount(
+                    compact_weeks[kept], minlength=len(unique_weeks)
+                ).astype(bool),
+                "score_counts": np.bincount(scores[valid], minlength=4).astype(np.int64),
+            }
+    context = {
+        "asset_count": asset_count,
+        "week_count": len(unique_weeks),
+        "compact_weeks": compact_weeks,
+        "years": years,
+        "family": family,
+    }
+    return pieces, context, vectors
+
+
+def stage_support() -> int:
+    """Evaluate support using only eligibility geometry and the frozen score field."""
+    pieces, context, vectors = _support_pieces()
+    reconciliation = json.loads((ROOT / RECONCILIATION_V1_1_PATH).read_text(encoding="utf-8"))
+    base_rows = int(reconciliation["analysis_rows"])
+    base_assets = int(reconciliation["analysis_epochs"])
+    base_weeks = int(context["week_count"])
+    detail: list[dict[str, Any]] = []
+    row_retentions: list[float] = []
+    asset_retentions: list[float] = []
+    week_retentions: list[float] = []
+    for vector in vectors:
+        selected = [
+            pieces[(year, weeks)]
+            for year, weeks in zip(DEVELOPMENT_YEARS, vector.weeks_by_year, strict=True)
+        ]
+        rows = sum(piece["rows"] for piece in selected)
+        asset_count = int(np.logical_or.reduce([p["asset_present"] for p in selected]).sum())
+        week_count = int(np.logical_or.reduce([p["week_present"] for p in selected]).sum())
+        represented = sum(piece["rows"] > 0 for piece in selected)
+        row_retention = rows / base_rows
+        asset_retention = asset_count / base_assets
+        week_retention = week_count / base_weeks
+        accepted = (
+            row_retention >= MINIMUM_ROW_RETENTION
+            and asset_retention >= MINIMUM_ASSET_CLUSTER_RETENTION
+            and represented == REQUIRED_YEAR_COVERAGE
+        )
+        row_retentions.append(row_retention)
+        asset_retentions.append(asset_retention)
+        week_retentions.append(week_retention)
+        score_counts = sum(
+            (piece["score_counts"] for piece in selected), np.zeros(4, dtype=np.int64)
+        )
+        detail.append(
+            {
+                "vector_index": vector.index,
+                "weeks_by_year": vector.as_list(),
+                "design_rows": rows,
+                "row_retention": row_retention,
+                "asset_clusters": asset_count,
+                "asset_cluster_retention": asset_retention,
+                "week_clusters": week_count,
+                "week_cluster_retention": week_retention,
+                "years_represented": represented,
+                "score_counts": {str(i): int(score_counts[i]) for i in range(4)},
+                "accepted": accepted,
+            }
+        )
+    accepted = [item for item in detail if item["accepted"]]
+    status = "PASS" if len(accepted) >= MINIMUM_ACCEPTED_VECTORS else "REDESIGN_REQUIRED"
+    report = {
+        "report_id": "GATE-INTENSITY-RANDOMIZATION-SUPPORT-V1_1",
+        "method": context["family"]["method"],
+        "source_family_artifact": RANDOMIZATION_PATH,
+        "source_family_artifact_sha256": _sha256(ROOT / RANDOMIZATION_PATH),
+        "family_sha256": context["family"]["family_sha256"],
+        "expected_family_sha256": EXPECTED_RANDOMIZATION_FAMILY_SHA256,
+        "vectors_regenerated": False,
+        "requested_vectors": REQUESTED_REPLICATE_VECTORS,
+        "accepted_vectors": len(accepted),
+        "rejected_vectors": len(detail) - len(accepted),
+        "thresholds": {
+            "minimum_row_retention": MINIMUM_ROW_RETENTION,
+            "minimum_asset_cluster_retention": MINIMUM_ASSET_CLUSTER_RETENTION,
+            "required_year_coverage": REQUIRED_YEAR_COVERAGE,
+            "minimum_accepted_vectors": MINIMUM_ACCEPTED_VECTORS,
+        },
+        "base": {
+            "design_rows": base_rows,
+            "asset_clusters": base_assets,
+            "week_clusters": base_weeks,
+        },
+        "retention_distributions": {
+            "row_retention": _distribution(row_retentions),
+            "asset_cluster_retention": _distribution(asset_retentions),
+            "week_cluster_retention": _distribution(week_retentions),
+            "years_represented": _distribution(
+                [float(item["years_represented"]) for item in detail]
+            ),
+        },
+        "vectors": detail,
+        "RANDOMIZATION_SUPPORT_STATUS": status,
+        "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": False,
+    }
+    assert_no_real_effect_leakage(report)
+    write_json(ROOT / SUPPORT_PATH, report)
+    print(
+        json.dumps(
+            {
+                "accepted_vectors": len(accepted),
+                "requested_vectors": REQUESTED_REPLICATE_VECTORS,
+                "retention_distributions": report["retention_distributions"],
+                "RANDOMIZATION_SUPPORT_STATUS": status,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    return 0 if status == "PASS" else 1
 
 
 def _outcome_reconciliation() -> dict[str, Any]:
@@ -434,7 +827,7 @@ GATE_JSON = "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1.json"
 GATE_MARKDOWN = "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1.md"
 
 
-def stage_gate() -> int:
+def stage_gate_v1_history() -> int:
     """Assemble the gate from frozen prerequisites; blocked stages are recorded, not guessed."""
     reconciliation = json.loads((ROOT / RECONCILIATION_PATH).read_text(encoding="utf-8"))
     score = json.loads((ROOT / SCORE_PATH).read_text(encoding="utf-8"))
@@ -618,10 +1011,317 @@ def stage_gate() -> int:
     return 0
 
 
+def stage_gate() -> int:
+    """Assemble the append-only V1_1 gate after reconciliation, support and power."""
+    reconciliation = json.loads((ROOT / RECONCILIATION_V1_1_PATH).read_text(encoding="utf-8"))
+    support = json.loads((ROOT / SUPPORT_PATH).read_text(encoding="utf-8"))
+    score = json.loads((ROOT / SCORE_PATH).read_text(encoding="utf-8"))
+    family, _ = _load_frozen_family()
+    if support["RANDOMIZATION_SUPPORT_STATUS"] != "PASS":
+        prerequisites = {
+            "EVENT_RECONCILIATION_STATUS": reconciliation["EVENT_RECONCILIATION_STATUS"],
+            "RANDOMIZATION_SUPPORT_STATUS": support["RANDOMIZATION_SUPPORT_STATUS"],
+            "RANDOMIZATION_INFERENCE_STATUS": "NOT_RUN_BLOCKED",
+            "TAIL_RESOLUTION_STATUS": "NOT_RUN_BLOCKED",
+        }
+        gate = {
+            "report_id": "ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1",
+            "protocol_implementation_version": "ALIGNED_GATE_INTENSITY_POWER_V1_1",
+            "hypothesis_id": HYPOTHESIS_ID,
+            "parent_hypothesis_id": PARENT_HYPOTHESIS_ID,
+            "same_material_economic_hypothesis": True,
+            "new_material_economic_hypothesis_consumed": False,
+            "prior_stop": {
+                "executor_stop_correct": True,
+                "reason": "INHERITED_NON_POINT_IN_TIME_RETIRED_PLACEBO_PARTICIPATION_FILTER",
+                "true_gate_intensity_result_previously_observed": False,
+                "prior_power_previously_observed": False,
+            },
+            "frozen_design": design_summary(),
+            "causal_panel_reconciliation": {
+                key: reconciliation[key]
+                for key in (
+                    "base_rows",
+                    "analysis_rows",
+                    "removed_rows",
+                    "base_epochs",
+                    "analysis_epochs",
+                    "base_intensity_3_events",
+                    "analysis_intensity_3_events",
+                    "events_removed",
+                    "clusters_removed",
+                    "removal_reason_counts",
+                )
+            },
+            "score_field": {
+                "score_changed": False,
+                "rows_by_intensity": score["rows_by_intensity"],
+                "aligned_equals_intensity_three": score["aligned_equals_intensity_three"],
+                "mesi_bps_per_gate": mesi_bps_per_gate(),
+            },
+            "randomization_family": {
+                "source_artifact": RANDOMIZATION_PATH,
+                "artifact_sha256": _sha256(ROOT / RANDOMIZATION_PATH),
+                "family_sha256": family["family_sha256"],
+                "vectors_regenerated": False,
+                "requested_vectors": family["requested_vectors"],
+                "zero_shift_present": family["zero_shift_present"],
+            },
+            "support": {
+                "accepted_vectors": support["accepted_vectors"],
+                "requested_vectors": support["requested_vectors"],
+                "retention_distributions": support["retention_distributions"],
+            },
+            "power": {
+                "computed": False,
+                "reason": "BLOCKED_BY_FROZEN_RANDOMIZATION_SUPPORT_GATE",
+                "empirical_null_sd_bps_per_gate": None,
+                "critical_beta_bps_per_gate": None,
+                "minimum_detectable_effect_bps_per_gate": None,
+                "power_at_8_bps_per_gate": None,
+                "power_curve": None,
+            },
+            "prerequisite_gates": prerequisites,
+            "GATE_INTENSITY_POWER_GATE_STATUS": "REDESIGN_REQUIRED",
+            "ALIGNED_DEVELOPMENT_FAMILY_STATUS": FAMILY_STATUS_ON_FAILURE,
+            "preregistration_authorized": False,
+            "actual_market_hypothesis_executed": False,
+            "leakage_guard": {
+                "sparse_zero_alignment_beta_computed": False,
+                "gate_intensity_zero_shift_beta_computed": False,
+                "shifted_beta_computed": False,
+                "real_t_computed": False,
+                "real_p_computed": False,
+                "per_asset_real_effect_computed": False,
+                "sealed_data_queried": False,
+                "post_cutoff_data_used": False,
+            },
+            "safety": {
+                "experiments_completed": 26,
+                "observed_material_economic_hypotheses": 12,
+                "sealed_queries": 0,
+                "champion_status": "NONE",
+                "real_money_authorized": False,
+                "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
+            },
+            "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": False,
+        }
+        assert_no_real_effect_leakage(gate)
+        write_json(ROOT / POWER_PATH, gate)
+        rows = support["retention_distributions"]["row_retention"]
+        assets = support["retention_distributions"]["asset_cluster_retention"]
+        lines = [
+            "# ALIGNED gate-intensity causal correction and power gate V1_1",
+            "",
+            "Status: **REDESIGN_REQUIRED**",
+            "",
+            "The causal-panel correction passed, but none of the 1,024 byte-frozen",
+            "calendar-shift vectors met the unchanged support thresholds. The workflow",
+            "stopped before any shifted beta or synthetic power calculation.",
+            "",
+            "## Causal panel",
+            "",
+            f"- base rows: {reconciliation['base_rows']:,}",
+            f"- analysis rows: {reconciliation['analysis_rows']:,}",
+            f"- removed rows: {reconciliation['removed_rows']:,}",
+            f"- score-3 events removed: {reconciliation['events_removed']}",
+            f"- reconciliation: {reconciliation['EVENT_RECONCILIATION_STATUS']}",
+            "",
+            "## Frozen support gate",
+            "",
+            f"- accepted vectors: {support['accepted_vectors']} / {support['requested_vectors']}",
+            f"- row retention range: {rows['minimum']:.6f} .. {rows['maximum']:.6f}",
+            f"- asset-cluster retention range: {assets['minimum']:.6f} .. {assets['maximum']:.6f}",
+            "- all six development years represented: true for every vector",
+            "",
+            "Power was not computed. Historical ALIGNED development is permanently parked",
+            "unless a future Research Director explicitly reopens it.",
+            "",
+        ]
+        (ROOT / POWER_MARKDOWN_PATH).write_text("\n".join(lines), encoding="utf-8", newline="\n")
+        print(
+            json.dumps(
+                {
+                    "prerequisites": prerequisites,
+                    "GATE_INTENSITY_POWER_GATE_STATUS": "REDESIGN_REQUIRED",
+                    "ALIGNED_DEVELOPMENT_FAMILY_STATUS": FAMILY_STATUS_ON_FAILURE,
+                },
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
+    empirical = json.loads(
+        (ROOT / "reports/power/ALIGNED-GATE-INTENSITY-EMPIRICAL-POWER-V1_1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    power = empirical["empirical_power"]
+    prerequisites = {
+        "EVENT_RECONCILIATION_STATUS": reconciliation["EVENT_RECONCILIATION_STATUS"],
+        "RANDOMIZATION_SUPPORT_STATUS": support["RANDOMIZATION_SUPPORT_STATUS"],
+        "RANDOMIZATION_INFERENCE_STATUS": empirical["RANDOMIZATION_INFERENCE_STATUS"],
+        "TAIL_RESOLUTION_STATUS": (
+            "PASS" if power["tail_resolution_sufficient"] else "REDESIGN_REQUIRED"
+        ),
+    }
+    power_at_mesi = float(power["power_curve"]["8"])
+    ready = (
+        all(value == "PASS" for value in prerequisites.values()) and power_at_mesi >= TARGET_POWER
+    )
+    gate_status = "READY_FOR_PREREGISTRATION" if ready else "REDESIGN_REQUIRED"
+    family_status = (
+        "REOPENED_FOR_SINGLE_PRE_MEASUREMENT_CAUSALITY_CORRECTION"
+        if ready
+        else FAMILY_STATUS_ON_FAILURE
+    )
+    gate = {
+        "report_id": "ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1",
+        "protocol_implementation_version": "ALIGNED_GATE_INTENSITY_POWER_V1_1",
+        "hypothesis_id": HYPOTHESIS_ID,
+        "parent_hypothesis_id": PARENT_HYPOTHESIS_ID,
+        "same_material_economic_hypothesis": True,
+        "new_material_economic_hypothesis_consumed": False,
+        "prior_stop": {
+            "executor_stop_correct": True,
+            "reason": "INHERITED_NON_POINT_IN_TIME_RETIRED_PLACEBO_PARTICIPATION_FILTER",
+            "true_gate_intensity_result_previously_observed": False,
+            "prior_power_previously_observed": False,
+        },
+        "frozen_design": design_summary(),
+        "causal_panel_reconciliation": {
+            key: reconciliation[key]
+            for key in (
+                "base_rows",
+                "analysis_rows",
+                "removed_rows",
+                "base_epochs",
+                "analysis_epochs",
+                "base_intensity_3_events",
+                "analysis_intensity_3_events",
+                "events_removed",
+                "clusters_removed",
+                "removal_reason_counts",
+            )
+        },
+        "score_field": {
+            "score_changed": False,
+            "rows_by_intensity": score["rows_by_intensity"],
+            "aligned_equals_intensity_three": score["aligned_equals_intensity_three"],
+            "mesi_bps_per_gate": mesi_bps_per_gate(),
+        },
+        "randomization_family": {
+            "source_artifact": RANDOMIZATION_PATH,
+            "artifact_sha256": _sha256(ROOT / RANDOMIZATION_PATH),
+            "family_sha256": family["family_sha256"],
+            "vectors_regenerated": False,
+            "requested_vectors": family["requested_vectors"],
+            "zero_shift_present": family["zero_shift_present"],
+        },
+        "support": {
+            "accepted_vectors": support["accepted_vectors"],
+            "requested_vectors": support["requested_vectors"],
+            "retention_distributions": support["retention_distributions"],
+        },
+        "power": {
+            "computed": True,
+            "accepted_vectors": power["accepted_vectors"],
+            "empirical_null_sd_bps_per_gate": power["empirical_null_sd_bps_per_gate"],
+            "critical_beta_bps_per_gate": power["critical_beta_bps_per_gate"],
+            "minimum_detectable_effect_bps_per_gate": power[
+                "minimum_detectable_effect_bps_per_gate"
+            ],
+            "power_at_8_bps_per_gate": power_at_mesi,
+            "power_curve": power["power_curve"],
+            "minimum_attainable_randomization_p": power["minimum_attainable_randomization_p"],
+            "tail_resolution_sufficient": power["tail_resolution_sufficient"],
+            "target_power": TARGET_POWER,
+        },
+        "prerequisite_gates": prerequisites,
+        "GATE_INTENSITY_POWER_GATE_STATUS": gate_status,
+        "ALIGNED_DEVELOPMENT_FAMILY_STATUS": family_status,
+        "preregistration_authorized": False,
+        "actual_market_hypothesis_executed": False,
+        "leakage_guard": {
+            "sparse_zero_alignment_beta_computed": False,
+            "gate_intensity_zero_shift_beta_computed": False,
+            "real_t_computed": False,
+            "real_p_computed": False,
+            "per_asset_real_effect_computed": False,
+            "sealed_data_queried": False,
+            "post_cutoff_data_used": False,
+        },
+        "safety": {
+            "experiments_completed": 26,
+            "observed_material_economic_hypotheses": 12,
+            "sealed_queries": 0,
+            "champion_status": "NONE",
+            "real_money_authorized": False,
+            "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
+        },
+        "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": False,
+    }
+    assert_no_real_effect_leakage(gate)
+    write_json(ROOT / POWER_PATH, gate)
+    lines = [
+        "# ALIGNED gate-intensity causal correction and power gate V1_1",
+        "",
+        f"Status: **{gate_status}**",
+        "",
+        "The same frozen hypothesis was resumed after removing only the retired,",
+        "non-point-in-time 504-row placebo participation filter. The real zero-shift",
+        "gate-intensity coefficient was not computed.",
+        "",
+        "## Causal panel",
+        "",
+        f"- base rows: {reconciliation['base_rows']:,}",
+        f"- analysis rows: {reconciliation['analysis_rows']:,}",
+        f"- removed rows: {reconciliation['removed_rows']:,}",
+        (
+            f"- score-3 events: {reconciliation['base_intensity_3_events']:,} -> "
+            f"{reconciliation['analysis_intensity_3_events']:,}"
+        ),
+        f"- reconciliation: {reconciliation['EVENT_RECONCILIATION_STATUS']}",
+        "",
+        "## Support and power",
+        "",
+        f"- accepted vectors: {support['accepted_vectors']} / {support['requested_vectors']}",
+        f"- empirical null SD: {power['empirical_null_sd_bps_per_gate']:.6f} bps/gate",
+        f"- critical beta: {power['critical_beta_bps_per_gate']:.6f} bps/gate",
+        f"- MDE: {power['minimum_detectable_effect_bps_per_gate']:.6f} bps/gate",
+        f"- power at 8 bps/gate: {power_at_mesi:.6f}",
+        f"- tail resolution sufficient: {power['tail_resolution_sufficient']}",
+        "",
+        "Preregistration is not executed or authorized by this artifact; the next action",
+        "is Research Director review.",
+        "",
+    ]
+    (ROOT / POWER_MARKDOWN_PATH).write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    print(
+        json.dumps(
+            {
+                "prerequisites": prerequisites,
+                "power_at_8_bps_per_gate": power_at_mesi,
+                "GATE_INTENSITY_POWER_GATE_STATUS": gate_status,
+                "ALIGNED_DEVELOPMENT_FAMILY_STATUS": family_status,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    return 0 if ready else 1
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("stage", choices=("reconcile", "design", "freeze", "gate"))
+    parser.add_argument(
+        "stage", choices=("panel", "support", "gate", "reconcile", "design", "freeze")
+    )
     options = parser.parse_args()
+    if options.stage == "panel":
+        return stage_panel()
+    if options.stage == "support":
+        return stage_support()
     if options.stage == "reconcile":
         return stage_reconcile()
     if options.stage == "design":

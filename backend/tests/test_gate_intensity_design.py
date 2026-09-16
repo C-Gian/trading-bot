@@ -1,5 +1,6 @@
 """ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1 design invariants and leakage barriers."""
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -39,6 +40,10 @@ WEEK_HOURS = 7 * 24
 
 def read_json(relative: str) -> dict:
     return json.loads((ROOT / relative).read_text(encoding="utf-8"))
+
+
+def sha256(relative: str) -> str:
+    return hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
 
 
 # --- sparse cross-section closure ----------------------------------------------------
@@ -284,7 +289,7 @@ def test_zero_shift_beta_is_structurally_inaccessible() -> None:
 
 
 def test_gate_failure_parks_further_aligned_descendants() -> None:
-    gate = read_json("reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1.json")
+    gate = read_json("reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.json")
     record = read_json("state/current_state.json")["gate_intensity_descendant"]
     assert FAMILY_STATUS_ON_FAILURE == "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED"
     if gate["GATE_INTENSITY_POWER_GATE_STATUS"] != "READY_FOR_PREREGISTRATION":
@@ -293,6 +298,104 @@ def test_gate_failure_parks_further_aligned_descendants() -> None:
         assert gate["preregistration_authorized"] is False
         assert record["preregistration_authorized"] is False
     assert record["final_authorized_descendant"] is True
+
+
+def test_v1_1_causal_panel_uses_only_point_in_time_eligibility_and_outcome_resolution() -> None:
+    report = read_json(
+        "reports/cross_section/CROSS-SECTION-GATE-INTENSITY-PANEL-RECONCILIATION-V1_1.json"
+    )
+    rule = report["causal_inclusion_rule"]
+    assert rule["point_in_time_universe_eligibility"] is True
+    assert rule["gate_intensity_computable_at_decision_time"] is True
+    assert rule["frozen_24h_outcome_resolvable"] is True
+    assert rule["minimum_whole_epoch_lifetime"] is None
+    assert rule["retired_504_row_filter_used"] is False
+    assert rule["future_epoch_length_used"] is False
+    assert rule["future_delisting_date_used"] is False
+    assert rule["future_eligible_row_count_used"] is False
+    assert rule["future_signal_count_used"] is False
+    assert rule["future_survival_required"] is False
+    assert report["base_rows"] == 2_556_535
+    assert report["analysis_rows"] == 2_556_366
+    assert report["removed_rows"] == 169
+    assert report["base_epochs"] == report["analysis_epochs"] == 390
+    assert report["base_intensity_3_events"] == report["analysis_intensity_3_events"] == 3380
+    assert report["events_removed"] == 0
+    assert report["clusters_removed"] == []
+    assert report["every_removed_row_has_typed_reason"] is True
+    assert report["all_removals_are_frozen_outcome_contract_only"] is True
+    assert len(report["removed_row_detail"]) == report["removed_rows"]
+    assert all(item["removal_reason"] for item in report["removed_row_detail"])
+    assert all(
+        item["reason_type"] == "FROZEN_24H_OUTCOME_RESOLUTION"
+        for item in report["removed_row_detail"]
+    )
+    assert report["EVENT_RECONCILIATION_STATUS"] == "PASS"
+
+
+def test_retired_sparse_artifacts_and_3380_to_3378_history_are_immutable() -> None:
+    expected = {
+        "reports/cross_section/CROSS-SECTION-EVENT-RECONCILIATION-V1.json": (
+            "cb81cd4f53cd1a3fb2de022492b647172693be462236de878e744264728e28c1"
+        ),
+        "reports/cross_section/CROSS-SECTION-PLACEBO-CALIBRATION-V1.json": (
+            "2173590eae9b289d220cdd772bdb558c42516f5ff23115103d7b08d0aafd6383"
+        ),
+        "reports/power/CROSS-SECTION-POWER-GATE-V1.json": (
+            "52487ac2b35fe8b6905b41e0c88f77326dce47b35040ee0bef22b345bbd39b71"
+        ),
+    }
+    assert {path: sha256(path) for path in expected} == expected
+    legacy = read_json("reports/cross_section/CROSS-SECTION-EVENT-RECONCILIATION-V1.json")
+    assert legacy["support_artifact_signals"] == 3380
+    assert legacy["power_panel_signals"] == 3378
+    assert legacy["removed_signal_count"] == 2
+
+
+def test_frozen_family_was_not_regenerated_and_support_gate_is_terminal() -> None:
+    support = read_json("reports/cross_section/GATE-INTENSITY-RANDOMIZATION-SUPPORT-V1_1.json")
+    assert support["source_family_artifact_sha256"] == (
+        "4c94c99248ca759c0843824107b9c4c4b6743b1c0aa4e47f02b7c0348b9f4592"
+    )
+    assert support["family_sha256"] == (
+        "7e135af46a20c30d8c1f19e39d56b663254ab293b007c84a694437e82e8cf12d"
+    )
+    assert support["vectors_regenerated"] is False
+    assert support["thresholds"] == {
+        "minimum_row_retention": 0.7,
+        "minimum_asset_cluster_retention": 0.8,
+        "required_year_coverage": 6,
+        "minimum_accepted_vectors": 512,
+    }
+    assert support["accepted_vectors"] == 0
+    assert support["requested_vectors"] == 1024
+    assert support["retention_distributions"]["row_retention"]["maximum"] < 0.7
+    assert support["retention_distributions"]["years_represented"] == {
+        key: 6.0 for key in ("minimum", "p05", "p25", "median", "p75", "p95", "maximum")
+    }
+    assert support["RANDOMIZATION_SUPPORT_STATUS"] == "REDESIGN_REQUIRED"
+
+
+def test_v1_1_stopped_before_any_beta_or_power_and_permanently_parked() -> None:
+    protocol = read_json("research/protocols/ALIGNED-GATE-INTENSITY-POWER-V1_1.json")
+    gate = read_json("reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.json")
+    assert protocol["hypothesis_id"] == "ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1"
+    assert protocol["material_economic_hypothesis_changed"] is False
+    assert protocol["material_economic_hypotheses_executed"] == 0
+    assert protocol["power"]["synthetic_slopes_bps_per_gate"] == [0.0, 4.0, 8.0, 16.0, 32.0]
+    assert protocol["power"]["zero_shift_forbidden"] is True
+    assert protocol["power"]["zero_alignment_beta_computed"] is False
+    assert protocol["power"]["shifted_betas_computed"] is False
+    assert protocol["power"]["synthetic_power_computed"] is False
+    assert gate["power"]["computed"] is False
+    assert gate["power"]["empirical_null_sd_bps_per_gate"] is None
+    assert gate["power"]["critical_beta_bps_per_gate"] is None
+    assert gate["power"]["minimum_detectable_effect_bps_per_gate"] is None
+    assert gate["power"]["power_at_8_bps_per_gate"] is None
+    assert gate["prerequisite_gates"]["RANDOMIZATION_INFERENCE_STATUS"] == "NOT_RUN_BLOCKED"
+    assert gate["GATE_INTENSITY_POWER_GATE_STATUS"] == "REDESIGN_REQUIRED"
+    assert gate["ALIGNED_DEVELOPMENT_FAMILY_STATUS"] == ("PARKED_DEVELOPMENT_SEARCH_EXHAUSTED")
+    assert all(value is False for value in gate["leakage_guard"].values())
 
 
 # --- product and accounting ----------------------------------------------------------

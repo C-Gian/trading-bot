@@ -265,7 +265,7 @@ def validate_research_views(state: dict) -> None:
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
     assert state["latest_reviewed_checkpoint"] == ("CROSS-SECTION-SPARSE-POWER-BLOCK-REVIEW")
     assert state["latest_executor_checkpoint"] == (
-        "CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE-ALIGNED-GATE-INTENSITY-POWER-GATE-V1"
+        "GATE-INTENSITY-CAUSAL-CORRECTION-POWER-RESUME-V1_1"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
@@ -1075,10 +1075,11 @@ def _api_routes() -> list:
 
 
 def gate_intensity_checks(state: dict) -> None:
-    """The final ALIGNED descendant stays frozen, unmeasured and parked."""
+    """The V1_1 causal correction passes, then the immutable support gate parks the family."""
     from app.research.cross_section import assert_no_real_effect_leakage
     from app.research.gate_intensity import (
         EFFECTIVE_ALPHA,
+        EXPECTED_RANDOMIZATION_FAMILY_SHA256,
         GATE_INTENSITY_MESI_BPS_PER_GATE,
         GATE_WEIGHTS,
         LEGAL_SHIFT_WEEKS,
@@ -1087,152 +1088,137 @@ def gate_intensity_checks(state: dict) -> None:
         NEW_GATE_PARAMETERS,
         PROSPECTIVE_FAMILY_SIZE,
         REQUESTED_REPLICATE_VECTORS,
+        SYNTHETIC_SLOPES_BPS_PER_GATE,
         TARGET_POWER,
         ZeroShiftForbidden,
         aligned_from_intensity,
-        build_shift_vectors,
         gate_intensity,
         mesi_bps_per_gate,
-        shift_family_digest,
+        parse_frozen_shift_vectors,
         validate_shift_weeks,
     )
 
     record = state["gate_intensity_descendant"]
     sparse = state["cross_section_feasibility"]
     protocol = json.loads((ROOT / record["protocol"]).read_text(encoding="utf-8"))
+    frozen = json.loads(
+        (ROOT / "research/protocols/ALIGNED-GATE-INTENSITY-POWER-V1.json").read_text(
+            encoding="utf-8"
+        )
+    )
     gate = json.loads((ROOT / record["power_gate_report"]).read_text(encoding="utf-8"))
     score = json.loads((ROOT / record["score_report"]).read_text(encoding="utf-8"))
     family = json.loads((ROOT / record["randomization_report"]).read_text(encoding="utf-8"))
-    reconciliation = json.loads(
-        (ROOT / sparse["event_reconciliation_report"]).read_text(encoding="utf-8")
+    support = json.loads(
+        (ROOT / record["randomization_support_report"]).read_text(encoding="utf-8")
     )
-    for artifact in (gate, score, family, reconciliation):
+    reconciliation = json.loads(
+        (ROOT / record["causal_panel_reconciliation"]).read_text(encoding="utf-8")
+    )
+    legacy = json.loads((ROOT / sparse["event_reconciliation_report"]).read_text(encoding="utf-8"))
+    for artifact in (gate, score, family, support, reconciliation, legacy):
         assert_no_real_effect_leakage(artifact)
         assert artifact["ACTUAL_CROSS_SECTION_EFFECT_OBSERVED"] is False
 
-    # The sparse hypothesis closed without a market result and is not a rejection.
-    assert sparse["sparse_disposition"] == (
-        "POWER_BLOCKED_INFERENCE_CALIBRATION_FAILED_NOT_EXECUTED"
+    # Retired sparse evidence remains unchanged and continues to reconcile 3380 -> 3378.
+    assert sha256(ROOT / sparse["event_reconciliation_report"]) == (
+        "cb81cd4f53cd1a3fb2de022492b647172693be462236de878e744264728e28c1"
     )
-    assert sparse["sparse_disposition"] not in {"REJECT", "NOT_SUPPORTED", "INCONCLUSIVE"}
-    assert sparse["zero_alignment_effect_observed"] is False
-    assert sparse["power_gate_status"] == "REDESIGN_REQUIRED"
-    parent = protocol["parent_disposition"]
-    assert parent["is_reject"] is False
-    assert parent["is_inconclusive_market_evidence"] is False
-    assert parent["is_evidence_beta_not_positive"] is False
-    assert parent["zero_alignment_effect_observed"] is False
-    assert parent["same_hypothesis_inference_rescue_authorized"] is False
+    assert sha256(ROOT / sparse["placebo_report"]) == (
+        "2173590eae9b289d220cdd772bdb558c42516f5ff23115103d7b08d0aafd6383"
+    )
+    assert sha256(ROOT / sparse["power_gate_report"]) == (
+        "52487ac2b35fe8b6905b41e0c88f77326dce47b35040ee0bef22b345bbd39b71"
+    )
+    assert legacy["support_artifact_signals"] == 3380
+    assert legacy["power_panel_signals"] == 3378
+    assert legacy["removed_signal_count"] == 2
 
-    # The 3380 -> 3378 difference is fully and typed-deterministically accounted for.
-    assert reconciliation["arithmetic_reconciles"] is True
+    # V1_1 uses only frozen causal eligibility/intensity plus frozen outcome resolution.
+    causal = reconciliation["causal_inclusion_rule"]
+    assert causal["retired_504_row_filter_used"] is False
+    assert causal["minimum_whole_epoch_lifetime"] is None
+    assert causal["future_epoch_length_used"] is False
+    assert causal["future_delisting_date_used"] is False
+    assert causal["future_eligible_row_count_used"] is False
+    assert causal["future_signal_count_used"] is False
+    assert causal["future_survival_required"] is False
+    assert reconciliation["base_rows"] == 2_556_535
+    assert reconciliation["analysis_rows"] == 2_556_366
+    assert reconciliation["removed_rows"] == 169
+    assert reconciliation["base_epochs"] == reconciliation["analysis_epochs"] == 390
+    assert reconciliation["base_intensity_3_events"] == 3380
+    assert reconciliation["analysis_intensity_3_events"] == 3380
+    assert reconciliation["events_removed"] == 0
+    assert reconciliation["clusters_removed"] == []
     assert reconciliation["every_removed_row_has_typed_reason"] is True
-    assert reconciliation["support_artifact_signals"] == 3380
-    assert reconciliation["power_panel_signals"] == 3378
-    assert reconciliation["signal_difference"] == reconciliation["removed_signal_count"] == 2
-    assert reconciliation["asset_cluster_difference"] == 1
-    assert len(reconciliation["removed_signal_rows"]) == 2
-    assert reconciliation["removal_rule"]["discretionary"] is False
-    assert reconciliation["removal_rule"]["performance_dependent"] is False
-    outcome = reconciliation["outcome_availability_reconciliation"]
-    assert outcome["outcome_panel_is_strict_subset"] is True
-    assert outcome["signals_lost_to_outcome_requirement"] == 0
-    assert record["event_reconciliation_status"] == reconciliation["EVENT_RECONCILIATION_STATUS"]
+    assert reconciliation["all_removals_are_frozen_outcome_contract_only"] is True
+    assert reconciliation["EVENT_RECONCILIATION_STATUS"] == "PASS"
+    assert record["event_reconciliation_status"] == "PASS"
 
-    # The frozen integer score never acquires a parameter or a weight.
+    # Score, primary estimand, MESI and multiplicity are unchanged.
     assert GATE_WEIGHTS == (1, 1, 1) and NEW_GATE_PARAMETERS == 0
-    assert record["gate_weights"] == [1, 1, 1] and record["new_gate_parameters"] == 0
     assert gate_intensity(True, True, True) == 3 and aligned_from_intensity(3)
-    assert gate_intensity(False, False, False) == 0
-    assert not aligned_from_intensity(2) and not aligned_from_intensity(0)
-    assert set(score["rows_by_intensity"]) == {"0", "1", "2", "3"}
+    assert gate_intensity(False, False, False) == 0 and not aligned_from_intensity(2)
     assert score["aligned_equals_intensity_three"] is True
     assert score["intensity_is_integer_0_to_3"] is True
-    assert score["engine_decomposition_equivalent"] is True
     assert score["aligned_signal_count"] == score["intensity_three_count"] == 3380
-    assert record["aligned_modified"] is False
-    assert protocol["score"]["weighted"] is False
-    assert protocol["score"]["parameter_fitting"] is False
-    assert protocol["score"]["optimization"] is False
-    assert protocol["primary_estimand"]["count"] == 1
-    assert protocol["primary_estimand"]["nonlinear_score_model"] is False
-    assert protocol["primary_estimand"]["per_bucket_coefficients"] is False
-    assert protocol["primary_estimand"]["gate_interactions"] is False
+    assert frozen["score"]["weights"] == [1, 1, 1]
+    assert frozen["score"]["weighted"] is False
+    assert frozen["primary_estimand"]["coefficient"] == "beta_gate"
+    assert frozen["primary_estimand"]["count"] == 1
+    assert mesi_bps_per_gate() == GATE_INTENSITY_MESI_BPS_PER_GATE == 8.0
+    assert PROSPECTIVE_FAMILY_SIZE == 13 and record["prospective_family_size"] == 13
+    assert abs(EFFECTIVE_ALPHA - 0.05 / 13) < 1e-15
+    assert TARGET_POWER == 0.8
+    assert SYNTHETIC_SLOPES_BPS_PER_GATE == (0.0, 4.0, 8.0, 16.0, 32.0)
 
-    # Every legal displacement is a non-zero whole week inside the frozen band.
+    # The frozen family is read byte-identically; no replacement family was generated.
+    assert sha256(ROOT / record["randomization_report"]) == (
+        "4c94c99248ca759c0843824107b9c4c4b6743b1c0aa4e47f02b7c0348b9f4592"
+    )
+    assert family["family_sha256"] == EXPECTED_RANDOMIZATION_FAMILY_SHA256
+    assert len(parse_frozen_shift_vectors(family)) == REQUESTED_REPLICATE_VECTORS == 1024
+    assert family["zero_shift_present"] is False
+    assert family["circular_wrap"] is False
     assert MINIMUM_SHIFT_WEEKS == 2 and MAXIMUM_SHIFT_WEEKS == 13
     assert 0 not in LEGAL_SHIFT_WEEKS
-    assert all(MINIMUM_SHIFT_WEEKS <= abs(w) <= MAXIMUM_SHIFT_WEEKS for w in LEGAL_SHIFT_WEEKS)
     for forbidden in (0, 1, -1, 14, -14):
         try:
             validate_shift_weeks(forbidden)
         except ZeroShiftForbidden:
             continue
         raise AssertionError("an illegal calendar displacement was accepted")
-    assert family["zero_shift_present"] is False
-    assert family["all_years_covered"] is True
-    assert family["circular_wrap"] is False
-    assert family["unique_vectors"] == family["generated_vectors"]
-    assert family["requested_vectors"] == REQUESTED_REPLICATE_VECTORS == 1024
-    assert family["one_displacement_per_year_shared_by_all_assets"] is True
-    assert family["derived_from"] == "SEED_AND_CALENDAR_GEOMETRY_ONLY_NEVER_OUTCOMES"
-    assert (
-        shift_family_digest(build_shift_vectors(REQUESTED_REPLICATE_VECTORS))
-        == (family["family_sha256"])
-    )
-    assert family["family_sha256"] == record["randomization_family_sha256"]
+    assert support["vectors_regenerated"] is False
+    assert support["thresholds"] == {
+        "minimum_asset_cluster_retention": 0.8,
+        "minimum_accepted_vectors": 512,
+        "minimum_row_retention": 0.7,
+        "required_year_coverage": 6,
+    }
 
-    # Support thresholds and the inference rule were frozen before any measurement.
-    support = protocol["support_gate"]
-    assert support["minimum_row_retention"] == 0.7
-    assert support["minimum_asset_cluster_retention"] == 0.8
-    assert support["required_year_coverage"] == 6
-    assert support["minimum_accepted_vectors"] == 512
-    assert support["thresholds_fixed_before_power"] is True
-    assert support["inspects_performance"] is False
-    assert protocol["inference"]["primary"] == "EMPIRICAL_RANDOMIZATION"
-    assert protocol["inference"]["analytic_cluster_role"] == (
-        "DIAGNOSTIC_ONLY_NEVER_OVERRIDES_RANDOMIZATION"
-    )
-    assert protocol["inference"]["zero_shift_beta_computed"] is False
-    assert protocol["retired_placebo"]["reused_as_primary_randomization"] is False
-    assert protocol["retired_placebo"]["participation_rule_reintroduced"] is False
-
-    # Threshold, multiplicity and power targets are the frozen ones.
-    assert mesi_bps_per_gate() == GATE_INTENSITY_MESI_BPS_PER_GATE == 8.0
-    assert record["mesi_bps_per_gate"] == 8.0
-    assert PROSPECTIVE_FAMILY_SIZE == 13 and record["prospective_family_size"] == 13
-    assert abs(EFFECTIVE_ALPHA - 0.05 / 13) < 1e-15
-    assert abs(record["effective_alpha"] - 0.05 / 13) < 1e-15
-    assert TARGET_POWER == 0.8 and record["target_power"] == 0.8
-    assert protocol["economic_threshold"]["lowered_after_power"] is False
-
-    # No effect of any kind was measured, and the family parks on failure.
+    # No vector passed support, so inference and power remain inaccessible and unmeasured.
+    assert support["accepted_vectors"] == 0
+    assert support["requested_vectors"] == 1024
+    assert support["retention_distributions"]["row_retention"]["maximum"] < 0.7
+    assert support["retention_distributions"]["years_represented"]["minimum"] == 6.0
+    assert support["RANDOMIZATION_SUPPORT_STATUS"] == "REDESIGN_REQUIRED"
+    assert gate["prerequisite_gates"]["RANDOMIZATION_INFERENCE_STATUS"] == "NOT_RUN_BLOCKED"
     assert gate["power"]["computed"] is False
     assert gate["power"]["power_at_8_bps_per_gate"] is None
-    assert record["power_computed"] is False and record["power_at_mesi"] is None
-    assert record["zero_shift_effect_observed"] is False
     assert all(value is False for value in gate["leakage_guard"].values())
-    assert gate["preregistration_authorized"] is False
-    assert gate["actual_execution_authorized"] is False
-    assert record["preregistration_authorized"] is False
-    assert record["material_economic_hypotheses_executed"] == 0
-    expected = (
-        "READY_FOR_PREREGISTRATION"
-        if all(value == "PASS" for value in gate["prerequisite_gates"].values())
-        else "REDESIGN_REQUIRED"
-    )
-    assert gate["GATE_INTENSITY_POWER_GATE_STATUS"] == expected
-    assert record["power_gate_status"] == gate["GATE_INTENSITY_POWER_GATE_STATUS"]
-    if record["power_gate_status"] != "READY_FOR_PREREGISTRATION":
-        assert record["aligned_development_family_status"] == (
-            "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED"
-        )
-        assert gate["ALIGNED_DEVELOPMENT_FAMILY_STATUS"] == "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED"
+    assert gate["GATE_INTENSITY_POWER_GATE_STATUS"] == "REDESIGN_REQUIRED"
+    assert gate["ALIGNED_DEVELOPMENT_FAMILY_STATUS"] == ("PARKED_DEVELOPMENT_SEARCH_EXHAUSTED")
+    assert record["randomization_support_status"] == "REDESIGN_REQUIRED"
+    assert record["randomization_inference_status"] == "NOT_RUN_BLOCKED"
+    assert record["power_computed"] is False and record["power_at_mesi"] is None
+    assert record["aligned_development_family_status"] == ("PARKED_DEVELOPMENT_SEARCH_EXHAUSTED")
 
-    # Product and accounting are untouched by a design-only descendant.
+    # Same hypothesis and unchanged safety/accounting/product boundaries.
+    assert protocol["material_economic_hypothesis_changed"] is False
+    assert protocol["material_economic_hypotheses_executed"] == 0
+    assert record["material_economic_hypotheses_executed"] == 0
     assert record["product_universe"] == "BTCUSDT_SPOT_V1_UNCHANGED"
-    assert record["multi_asset_trading_implemented"] is False
     assert state["symbols"] == ["BTCUSDT"]
     assert state["experiments_completed"] == 26
     assert state["statistical_governance"]["known_discovery_family_size"] == 12
@@ -1628,6 +1614,14 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/checkpoints/CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE-ALIGNED-GATE-INTENSITY-POWER-GATE-V1.md",
         "tasks/archive/CROSS-SECTION-SPARSE-HYPOTHESIS-CLOSURE-ALIGNED-GATE-INTENSITY-POWER-GATE-V1.md",
         "reports/reviews/ALIGNED-GATE-INTENSITY-CI-EVIDENCE.json",
+        "research/protocols/ALIGNED-GATE-INTENSITY-POWER-V1_1.json",
+        "decisions/ADR-0021-GATE-INTENSITY-CAUSAL-CORRECTION-AND-SUPPORT-BLOCK.md",
+        "reports/cross_section/CROSS-SECTION-GATE-INTENSITY-PANEL-RECONCILIATION-V1_1.json",
+        "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-SUPPORT-V1_1.json",
+        "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.json",
+        "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.md",
+        "reports/checkpoints/GATE-INTENSITY-CAUSAL-CORRECTION-POWER-RESUME-V1_1.md",
+        "tasks/archive/GATE-INTENSITY-CAUSAL-CORRECTION-POWER-RESUME-V1_1.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()

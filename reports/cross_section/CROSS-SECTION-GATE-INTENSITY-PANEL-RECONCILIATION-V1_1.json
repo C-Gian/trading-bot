@@ -1,0 +1,1574 @@
+{
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false,
+  "EVENT_RECONCILIATION_STATUS": "PASS",
+  "MESI_BPS_PER_GATE": 8.0,
+  "all_removals_are_frozen_outcome_contract_only": true,
+  "analysis_epochs": 390,
+  "analysis_intensity_3_events": 3380,
+  "analysis_rows": 2556366,
+  "archive_ending_assets_retained_when_outcome_resolvable": true,
+  "base_epochs": 390,
+  "base_intensity_3_events": 3380,
+  "base_rows": 2556535,
+  "causal_inclusion_rule": {
+    "frozen_24h_outcome_resolvable": true,
+    "future_delisting_date_used": false,
+    "future_eligible_row_count_used": false,
+    "future_epoch_length_used": false,
+    "future_signal_count_used": false,
+    "future_survival_required": false,
+    "gate_intensity_computable_at_decision_time": true,
+    "minimum_whole_epoch_lifetime": null,
+    "point_in_time_universe_eligibility": true,
+    "retired_504_row_filter_used": false
+  },
+  "clusters_removed": [],
+  "events_removed": 0,
+  "every_removed_row_has_typed_reason": true,
+  "historical_sparse_reconciliation_preserved": {
+    "artifacts_sha256": {
+      "reports/cross_section/CROSS-SECTION-EVENT-RECONCILIATION-V1.json": "cb81cd4f53cd1a3fb2de022492b647172693be462236de878e744264728e28c1",
+      "reports/cross_section/CROSS-SECTION-PLACEBO-CALIBRATION-V1.json": "2173590eae9b289d220cdd772bdb558c42516f5ff23115103d7b08d0aafd6383",
+      "reports/power/CROSS-SECTION-POWER-GATE-V1.json": "52487ac2b35fe8b6905b41e0c88f77326dce47b35040ee0bef22b345bbd39b71"
+    },
+    "retired_placebo_panel_events": 3378,
+    "support_events": 3380
+  },
+  "hypothesis_id": "ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1",
+  "protocol_implementation_version": "ALIGNED_GATE_INTENSITY_POWER_V1_1",
+  "removal_reason_counts": {
+    "NO_ENTRY_BAR_AT_OR_AFTER_DECISION_WITHIN_24H": 1,
+    "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY": 168
+  },
+  "removed_row_detail": [
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "1000SATSUSDT#2023-12-12",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "1INCHUSDT#2020-12-25",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "1MBABYDOGEUSDT#2024-09-16",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "AAVEUSDT#2020-10-15",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ACTUSDT#2024-11-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ADAUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "AEVOUSDT#2024-03-13",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-07-01T02:00:00Z",
+      "decision_hour_us": 1719799200000000,
+      "gate_intensity": 1,
+      "instrument_epoch": "AGIXUSDT#2023-02-17",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "AGLDUSDT#2021-10-05",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ALGOUSDT#2019-06-22",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ALTUSDT#2024-01-25",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "AMPUSDT#2021-11-23",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 1,
+      "instrument_epoch": "APEUSDT#2022-03-17",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "APTUSDT#2022-10-19",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ARBUSDT#2023-03-23",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ARKMUSDT#2023-07-18",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ARUSDT#2021-05-14",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ASTRUSDT#2022-02-28",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 1,
+      "instrument_epoch": "ATOMUSDT#2019-04-29",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "AUCTIONUSDT#2021-10-29",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "AVAUSDT#2020-11-24",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "AVAXUSDT#2020-09-22",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "AXSUSDT#2020-11-04",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BBUSDT#2024-05-13",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BCHUSDT#2019-11-28",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BEAMXUSDT#2023-11-14",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BLURUSDT#2023-11-24",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BNBUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BOMEUSDT#2024-03-16",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BONKUSDT#2023-12-15",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BTCUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2022-01-17T03:00:00Z",
+      "decision_hour_us": 1642388400000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BTTUSDT#2019-01-31",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2023-12-15T04:00:00Z",
+      "decision_hour_us": 1702612800000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BUSDUSDT#2019-09-20",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2021-12-20T03:00:00Z",
+      "decision_hour_us": 1639969200000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "BZRXUSDT#2020-08-31",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "CAKEUSDT#2021-02-19",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "CELOUSDT#2021-01-05",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "CETUSUSDT#2024-11-06",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "CFXUSDT#2021-03-29",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "CHZUSDT#2019-09-06",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "COWUSDT#2024-11-06",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "CRVUSDT#2020-08-15",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "DASHUSDT#2019-03-28",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "DEGOUSDT#2021-03-10",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "DOGEUSDT#2019-07-05",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "DOGSUSDT#2024-08-26",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "DOTUSDT#2020-08-18",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "DYDXUSDT#2021-09-09",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "EGLDUSDT#2020-09-03",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "EIGENUSDT#2024-10-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ENAUSDT#2024-04-02",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ENSUSDT#2021-11-10",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "EOSUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2022-05-09T03:00:00Z",
+      "decision_hour_us": 1652065200000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "EPSUSDT#2021-04-02",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ETCUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ETHFIUSDT#2024-03-18",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ETHUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 2,
+      "instrument_epoch": "EURUSDT#2020-01-03",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "FDUSDUSDT#2023-07-26",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "FETUSDT#2019-02-28",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "FIDAUSDT#2021-09-30",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "FILUSDT#2020-10-15",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "FLOKIUSDT#2023-05-05",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "FTMUSDT#2019-06-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "FTTUSDT#2023-09-22",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "GALAUSDT#2021-09-13",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "GMTUSDT#2022-03-09",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "GRTUSDT#2020-12-17",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "HBARUSDT#2019-09-29",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "HMSTRUSDT#2024-09-26",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2022-10-14T02:00:00Z",
+      "decision_hour_us": 1665712800000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "HNTUSDT#2020-09-24",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ICPUSDT#2021-05-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "IDUSDT#2023-03-22",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "INJUSDT#2020-10-21",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "IOTAUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "IOUSDT#2024-06-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "JASMYUSDT#2021-11-22",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "JTOUSDT#2023-12-07",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "KAIAUSDT#2024-10-31",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "KDAUSDT#2022-03-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 1,
+      "instrument_epoch": "LDOUSDT#2022-05-09",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2020-10-12T02:00:00Z",
+      "decision_hour_us": 1602468000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "LENDUSDT#2020-05-15",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "LINKUSDT#2019-01-16",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "LPTUSDT#2021-05-28",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "LQTYUSDT#2023-02-28",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "LTCUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "LUMIAUSDT#2024-10-18",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2022-05-13T00:00:00Z",
+      "decision_hour_us": 1652400000000000,
+      "gate_intensity": 1,
+      "instrument_epoch": "LUNAUSDT#2020-08-21",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2022-05-13T01:00:00Z",
+      "decision_hour_us": 1652403600000000,
+      "gate_intensity": 1,
+      "instrument_epoch": "LUNAUSDT#2020-08-21",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_ENTRY_BAR_AT_OR_AFTER_DECISION_WITHIN_24H"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "LUNAUSDT#2020-08-21",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "LUNCUSDT#2022-09-09",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "MANAUSDT#2020-08-06",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "MANTAUSDT#2024-01-18",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "MASKUSDT#2021-05-25",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-09-10T02:00:00Z",
+      "decision_hour_us": 1725933600000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "MATICUSDT#2019-04-26",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "MEMEUSDT#2023-11-03",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "MINAUSDT#2021-08-10",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "MKRUSDT#2020-07-23",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "NEARUSDT#2020-10-14",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "NEIROUSDT#2024-09-16",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "NEOUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "NOTUSDT#2024-05-16",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "OMUSDT#2021-03-08",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ONEUSDT#2019-06-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "OPUSDT#2022-06-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ORDIUSDT#2023-11-07",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "PENDLEUSDT#2023-07-03",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "PEOPLEUSDT#2021-12-23",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "PEPEUSDT#2023-05-05",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "PIXELUSDT#2024-02-19",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "PNUTUSDT#2024-11-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "POLUSDT#2024-09-13",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "PORTALUSDT#2024-02-29",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "PYTHUSDT#2024-02-02",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "QNTUSDT#2021-07-29",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "RAYUSDT#2021-08-10",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "RENDERUSDT#2024-07-26",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-07-22T02:00:00Z",
+      "decision_hour_us": 1721613600000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "RNDRUSDT#2021-11-27",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 1,
+      "instrument_epoch": "RONINUSDT#2024-02-05",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ROSEUSDT#2020-11-19",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "RSRUSDT#2020-08-27",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "RUNEUSDT#2020-09-04",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SAGAUSDT#2024-04-09",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SANDUSDT#2020-08-14",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SCRUSDT#2024-10-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SEIUSDT#2023-08-15",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SHIBUSDT#2021-05-10",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SNXUSDT#2020-07-09",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SOLUSDT#2020-08-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SSVUSDT#2023-02-24",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "STRKUSDT#2024-02-20",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "STXUSDT#2019-10-25",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SUIUSDT#2023-05-03",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SUPERUSDT#2021-03-25",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "SUSHIUSDT#2020-09-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "TAOUSDT#2024-04-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "THETAUSDT#2019-04-10",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "THEUSDT#2024-11-27",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "TIAUSDT#2023-10-31",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "TONUSDT#2024-08-08",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "TRBUSDT#2020-08-29",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "TROYUSDT#2019-12-05",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "TRXUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "TURBOUSDT#2024-09-16",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2022-09-26T02:00:00Z",
+      "decision_hour_us": 1664157600000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "TUSDUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "UNIUSDT#2020-09-17",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2022-09-26T02:00:00Z",
+      "decision_hour_us": 1664157600000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "USDCUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "USDCUSDT#2023-03-11",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2022-05-13T00:00:00Z",
+      "decision_hour_us": 1652400000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "USTUSDT#2021-12-24",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "UTKUSDT#2020-10-02",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "VANRYUSDT#2023-12-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "VETUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "WBTCUSDT#2023-04-28",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "WIFUSDT#2024-03-05",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "WLDUSDT#2023-07-24",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "WUSDT#2024-04-03",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "XAIUSDT#2024-01-09",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "XLMUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-02-20T02:00:00Z",
+      "decision_hour_us": 1708394400000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "XMRUSDT#2019-03-15",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "XRPUSDT#2019-01-01",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "XTZUSDT#2019-09-24",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "XVGUSDT#2021-06-06",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 1,
+      "instrument_epoch": "YFIUSDT#2020-08-10",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "YGGUSDT#2021-09-24",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ZECUSDT#2019-03-21",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ZENUSDT#2020-07-06",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ZILUSDT#2019-02-19",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ZKUSDT#2024-06-17",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ZROUSDT#2024-06-20",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    },
+    {
+      "aligned_signal": false,
+      "decision_hour": "2024-12-31T23:00:00Z",
+      "decision_hour_us": 1735686000000000,
+      "gate_intensity": 0,
+      "instrument_epoch": "ZRXUSDT#2019-02-28",
+      "reason_type": "FROZEN_24H_OUTCOME_RESOLUTION",
+      "removal_reason": "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY"
+    }
+  ],
+  "removed_rows": 169,
+  "report_id": "CROSS-SECTION-GATE-INTENSITY-PANEL-RECONCILIATION-V1_1",
+  "score_unchanged": true,
+  "source": {
+    "causal_analysis_panel": "data/derived/BINANCE-SPOT-USDT-GATE-INTENSITY-CAUSAL-PANEL-DEV-v1_1.npz",
+    "frozen_intensity_field": "data/derived/BINANCE-SPOT-USDT-GATE-INTENSITY-DEV-v1.npz",
+    "frozen_outcome_panel": "data/derived/BINANCE-SPOT-USDT-CROSSSECTION-EVENTS-DEV-v1.npz"
+  }
+}

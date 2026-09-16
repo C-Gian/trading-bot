@@ -1,0 +1,204 @@
+{
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false,
+  "ALIGNED_DEVELOPMENT_FAMILY_STATUS": "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED",
+  "GATE_INTENSITY_POWER_GATE_STATUS": "REDESIGN_REQUIRED",
+  "actual_market_hypothesis_executed": false,
+  "causal_panel_reconciliation": {
+    "analysis_epochs": 390,
+    "analysis_intensity_3_events": 3380,
+    "analysis_rows": 2556366,
+    "base_epochs": 390,
+    "base_intensity_3_events": 3380,
+    "base_rows": 2556535,
+    "clusters_removed": [],
+    "events_removed": 0,
+    "removal_reason_counts": {
+      "NO_ENTRY_BAR_AT_OR_AFTER_DECISION_WITHIN_24H": 1,
+      "NO_SUBSEQUENT_TERMINAL_BAR_AFTER_ENTRY": 168
+    },
+    "removed_rows": 169
+  },
+  "frozen_design": {
+    "aligned_equivalence_rule": "ALIGNED_SIGNAL == 1 IFF GATE_INTENSITY == 3",
+    "aligned_modified": false,
+    "analytic_cluster_role": "DIAGNOSTIC_ONLY_NEVER_OVERRIDES_RANDOMIZATION",
+    "asset_specific_normalization": false,
+    "circular_wrap": false,
+    "continuous_rescaling": false,
+    "development_years": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "effective_alpha": 0.0038461538461538464,
+    "family_status_on_failure": "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED",
+    "final_authorized_descendant": true,
+    "fixed_effects": [
+      "ASSET",
+      "DECISION_TIME"
+    ],
+    "gate_intensity_values": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "gate_interactions": false,
+    "gate_names": [
+      "DIRECTION_PERSISTENCE",
+      "BREAKOUT",
+      "PARTICIPATION_VOLUME"
+    ],
+    "gate_weights": [
+      1,
+      1,
+      1
+    ],
+    "hypothesis_id": "ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1",
+    "maximum_shift_weeks": 13,
+    "mesi_bps_per_gate": 8.0,
+    "mesi_derivation": "ALIGNED_INFORMATION_MESI_24_BPS / 3_GATE_SPAN",
+    "minimum_accepted_vectors": 512,
+    "minimum_asset_cluster_retention": 0.8,
+    "minimum_row_retention": 0.7,
+    "minimum_shift_weeks": 2,
+    "new_gate_parameters": 0,
+    "nonlinear_score_model": false,
+    "outcome_horizon_hours": 24,
+    "outcome_metric": "FORWARD_LOG_PRICE_RETURN_BPS",
+    "parameter_fitting": false,
+    "parent_hypothesis_id": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1",
+    "per_bucket_coefficients": false,
+    "primary_claim": "BETA_GATE_GREATER_THAN_ZERO",
+    "primary_coefficient": "beta_gate",
+    "primary_count": 1,
+    "primary_inference": "EMPIRICAL_RANDOMIZATION",
+    "prospective_family_size": 13,
+    "randomization_method": "CALENDAR_SYNCHRONOUS_WHOLE_WEEK_YEAR_SHIFT_V1",
+    "randomization_seed": "ALIGNED_GATE_INTENSITY_CALENDAR_RANDOMIZATION_V1",
+    "requested_replicate_vectors": 1024,
+    "required_year_coverage": 6,
+    "score_definition": "GATE_INTENSITY = int(direction_pass) + int(breakout_pass) + int(participation_pass)",
+    "sidedness": "ONE_SIDED_POSITIVE",
+    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "synthetic_slopes_bps_per_gate": [
+      0.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0
+    ],
+    "target_power": 0.8,
+    "zero_shift_allowed": false
+  },
+  "hypothesis_id": "ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1",
+  "leakage_guard": {
+    "gate_intensity_zero_shift_beta_computed": false,
+    "per_asset_real_effect_computed": false,
+    "post_cutoff_data_used": false,
+    "real_p_computed": false,
+    "real_t_computed": false,
+    "sealed_data_queried": false,
+    "shifted_beta_computed": false,
+    "sparse_zero_alignment_beta_computed": false
+  },
+  "new_material_economic_hypothesis_consumed": false,
+  "parent_hypothesis_id": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1",
+  "power": {
+    "computed": false,
+    "critical_beta_bps_per_gate": null,
+    "empirical_null_sd_bps_per_gate": null,
+    "minimum_detectable_effect_bps_per_gate": null,
+    "power_at_8_bps_per_gate": null,
+    "power_curve": null,
+    "reason": "BLOCKED_BY_FROZEN_RANDOMIZATION_SUPPORT_GATE"
+  },
+  "preregistration_authorized": false,
+  "prerequisite_gates": {
+    "EVENT_RECONCILIATION_STATUS": "PASS",
+    "RANDOMIZATION_INFERENCE_STATUS": "NOT_RUN_BLOCKED",
+    "RANDOMIZATION_SUPPORT_STATUS": "REDESIGN_REQUIRED",
+    "TAIL_RESOLUTION_STATUS": "NOT_RUN_BLOCKED"
+  },
+  "prior_stop": {
+    "executor_stop_correct": true,
+    "prior_power_previously_observed": false,
+    "reason": "INHERITED_NON_POINT_IN_TIME_RETIRED_PLACEBO_PARTICIPATION_FILTER",
+    "true_gate_intensity_result_previously_observed": false
+  },
+  "protocol_implementation_version": "ALIGNED_GATE_INTENSITY_POWER_V1_1",
+  "randomization_family": {
+    "artifact_sha256": "4c94c99248ca759c0843824107b9c4c4b6743b1c0aa4e47f02b7c0348b9f4592",
+    "family_sha256": "7e135af46a20c30d8c1f19e39d56b663254ab293b007c84a694437e82e8cf12d",
+    "requested_vectors": 1024,
+    "source_artifact": "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-FAMILY-V1.json",
+    "vectors_regenerated": false,
+    "zero_shift_present": false
+  },
+  "report_id": "ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1",
+  "safety": {
+    "champion_status": "NONE",
+    "experiments_completed": 26,
+    "observed_material_economic_hypotheses": 12,
+    "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
+    "real_money_authorized": false,
+    "sealed_queries": 0
+  },
+  "same_material_economic_hypothesis": true,
+  "score_field": {
+    "aligned_equals_intensity_three": true,
+    "mesi_bps_per_gate": 8.0,
+    "rows_by_intensity": {
+      "0": 2210069,
+      "1": 293370,
+      "2": 49716,
+      "3": 3380
+    },
+    "score_changed": false
+  },
+  "support": {
+    "accepted_vectors": 0,
+    "requested_vectors": 1024,
+    "retention_distributions": {
+      "asset_cluster_retention": {
+        "maximum": 0.9128205128205128,
+        "median": 0.7384615384615385,
+        "minimum": 0.6205128205128205,
+        "p05": 0.6641025641025641,
+        "p25": 0.7025641025641025,
+        "p75": 0.7897435897435897,
+        "p95": 0.8508974358974356
+      },
+      "row_retention": {
+        "maximum": 0.6815866742086227,
+        "median": 0.5360838393250418,
+        "minimum": 0.4176498983322419,
+        "p05": 0.4644100844714724,
+        "p25": 0.5022212194967387,
+        "p75": 0.571597142193254,
+        "p95": 0.6248085563647772
+      },
+      "week_cluster_retention": {
+        "maximum": 0.8293650793650794,
+        "median": 0.7261904761904762,
+        "minimum": 0.6388888888888888,
+        "p05": 0.6785714285714286,
+        "p25": 0.7063492063492064,
+        "p75": 0.75,
+        "p95": 0.7777777777777778
+      },
+      "years_represented": {
+        "maximum": 6.0,
+        "median": 6.0,
+        "minimum": 6.0,
+        "p05": 6.0,
+        "p25": 6.0,
+        "p75": 6.0,
+        "p95": 6.0
+      }
+    }
+  }
+}
