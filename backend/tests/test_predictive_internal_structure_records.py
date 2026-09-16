@@ -19,7 +19,6 @@ from app.predictive.internal_structure import (
     NO_ADVANCE,
     PREREGISTRATION_PATH,
     REPORT_MARKDOWN_PATH,
-    RESERVED_EXPERIMENT_ID,
     SEARCH_PLAN_PATH,
     ExperimentError,
     admission,
@@ -29,6 +28,7 @@ from app.predictive.internal_structure import (
 )
 
 ROOT = Path(__file__).resolve().parents[2]
+RESERVED_EXPERIMENT_MODEL = "INTERNAL_HGBR_DUAL_HEAD_V1"
 
 
 def state() -> dict:
@@ -60,12 +60,20 @@ def test_the_admission_artifact_still_hashes_the_implementation_it_admitted():
     )
 
 
-def test_the_reserved_configuration_was_not_executed_and_is_still_scheduled():
-    assert not (ROOT / "research/experiments" / RESERVED_EXPERIMENT_ID).exists()
+def test_the_reserved_configuration_was_not_executed_by_this_checkpoint():
+    """An immutable fact about this checkpoint, not about the repository's current contents.
+
+    A later checkpoint may execute the reserved configuration; that never rewrites what
+    this one consumed.
+    """
     record = state()["predictive_internal_structure"]
     assert record["reserved_configuration"] == "INTERNAL_HGBR_DUAL_HEAD_V1"
     assert record["reserved_configuration_executed"] is False
+    assert record["stage1_configurations_consumed"] == 1
     assert record["stage1_configurations_remaining"] == 1
+    result = load_result(ROOT)
+    assert result["search_budget"]["configurations_executed"] == ["INTERNAL_LINEAR_DUAL_HEAD_V1"]
+    assert result["search_budget"]["configurations_reserved"] == [RESERVED_EXPERIMENT_MODEL]
 
 
 def test_the_negative_result_is_preserved_exactly_as_observed():

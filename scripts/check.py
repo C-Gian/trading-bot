@@ -41,6 +41,7 @@ WP006_EXPERIMENTS = {
 # stays the frozen historical count of the superseded cost-expectancy generation.
 PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD",
+    "EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD",
 }
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
@@ -1916,7 +1917,10 @@ def predictive_internal_structure_checks(state: dict) -> None:
     assert reserved["executed_in_checkpoint"] is None
     assert reserved["specification"]["executed_in_this_checkpoint"] is False
     assert reserved["specification"]["hyperparameter_search"] is False
-    assert not (ROOT / "research/experiments" / reserved["experiment_id"]).exists()
+    # The reserved configuration was not executed by *this* checkpoint. Once its own
+    # checkpoint executes it, `predictive_internal_nonlinear_checks` owns it instead.
+    assert reserved["experiment_id"] in PREDICTIVE_EXPERIMENTS
+    assert reserved["experiment_id"] != EXPERIMENT_ID
     assert plan["multiplicity"]["per_configuration_alpha"] == 0.025
     assert plan["multiplicity"]["familywise_alpha"] == 0.05
     assert prereg["inference"]["alpha"] == 0.025
@@ -1998,6 +2002,160 @@ def predictive_internal_structure_checks(state: dict) -> None:
         result_commit = git(
             "log", "--diff-filter=A", "--format=%H", "--", RESULT_PATH
         ).splitlines()[-1]
+        assert frozen_commit != result_commit, relative
+        run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
+
+
+def predictive_internal_nonlinear_checks(state: dict) -> None:
+    """The reserved Stage-1 configuration is frozen before it runs and closes the family."""
+    from app.predictive.internal_nonlinear import (
+        ADMISSION_PATH,
+        EXPERIMENT_ID,
+        PREREGISTRATION_PATH,
+        REPORT_JSON_PATH,
+        REPORT_MARKDOWN_PATH,
+        RESULT_PATH,
+        STAGE1_FAMILY_CLOSED,
+        admission,
+        admission_identity,
+        coverage_policy_decision,
+        preregistration,
+    )
+    from app.predictive.internal_structure import SEARCH_PLAN_PATH
+
+    prereg = json.loads((ROOT / PREREGISTRATION_PATH).read_text(encoding="utf-8"))
+    admitted = json.loads((ROOT / ADMISSION_PATH).read_text(encoding="utf-8"))
+    ruling = coverage_policy_decision()
+
+    assert prereg == preregistration()
+    assert admitted == admission(ROOT)
+    assert prereg["status"] == "PREREGISTERED"
+    assert admitted["status"] == "PASS"
+    assert admitted["market_results_observed"] == admitted["model_fits_executed"] == 0
+    assert admitted["sealed_queries"] == admitted["post_cutoff_access"] == 0
+    assert admitted["experiment_id"] == EXPERIMENT_ID
+
+    # The reserved configuration executes the plan it was frozen with, and closes it.
+    plan = json.loads((ROOT / SEARCH_PLAN_PATH).read_text(encoding="utf-8"))
+    reserved = plan["configurations"][1]
+    assert reserved["experiment_id"] == EXPERIMENT_ID
+    assert (
+        prereg["model"]["direction_base_parameters"]
+        == (reserved["specification"]["structural_parameters"])
+    )
+    assert prereg["budget"]["stage1_configurations_remaining_after_this_experiment"] == 0
+    assert prereg["budget"]["closes_stage1_family"] is True
+    assert prereg["inference"]["alpha"] == plan["multiplicity"]["per_configuration_alpha"]
+
+    # The Research Director's coverage ruling is recorded and weakens nothing.
+    assert prereg["coverage_policy_decision"] == ruling
+    assert admitted["coverage_policy_decision"] == ruling
+    assert ruling["option_taken"] == "OPTION_1_EXECUTE_UNCHANGED"
+    assert ruling["decided_before_any_hgbr_outer_evaluation_number"] is True
+    assert ruling["coverage_thresholds_changed"] is False
+    assert not ruling["gates_waived"]
+    assert not ruling["gates_reinterpreted"]
+    assert not ruling["gates_removed"]
+    assert ruling["all_advancement_conditions_all_must_hold"] is True
+    assert ruling["directional_result_may_rescue_formal_advancement"] is False
+    for rescue in (
+        "window_rule_rescue_authorized",
+        "gap_policy_rescue_authorized",
+        "threshold_rescue_authorized",
+        "feature_rescue_authorized",
+        "parameter_rescue_authorized",
+    ):
+        assert ruling[rescue] is False, rescue
+
+    for boundary in (prereg["boundaries"],):
+        assert boundary["external_information_family"] is False
+        assert boundary["post_cutoff_market_data"] is False
+        assert boundary["sealed_queries"] == 0
+        assert boundary["champion_created"] is False
+        assert boundary["real_money"] is False
+        assert boundary["third_stage1_model_family"] is False
+        assert boundary["linear_configuration_tuned_descendant"] is False
+
+    if not (ROOT / RESULT_PATH).exists():
+        assert not (ROOT / REPORT_JSON_PATH).exists()
+        assert not (ROOT / REPORT_MARKDOWN_PATH).exists()
+        assert "predictive_internal_nonlinear" not in state
+        return
+
+    from app.predictive.internal_nonlinear_report import validate_internal_nonlinear
+
+    findings = validate_internal_nonlinear(ROOT, data_available=False)
+    assert findings["status"] == "PASS"
+    assert findings["stage1_family_status"] == STAGE1_FAMILY_CLOSED
+    assert findings["coverage_policy_option"] == "OPTION_1_EXECUTE_UNCHANGED"
+
+    result = json.loads((ROOT / RESULT_PATH).read_text(encoding="utf-8"))
+    record = state["predictive_internal_nonlinear"]
+    pooled = result["candidate"]["pooled_directional"]
+    comparison = result["primary_comparison"]
+    paired = comparison["paired_interval"]
+    against_linear = result["linear_comparison"]
+
+    assert record["experiment_id"] == EXPERIMENT_ID == result["experiment_id"]
+    assert record["hypothesis_id"] == result["hypothesis_id"]
+    assert record["model_version"] == result["model_version"]
+    assert record["admission_identity_sha256"] == admission_identity(ROOT)
+    assert record["coverage_policy_option"] == ruling["option_taken"]
+    assert record["feature_count"] == result["features"]["count"] == 18
+    assert record["model_fits"] == result["model_fits"]["total"]
+    assert record["replay_model_fits"] == against_linear["replay_model_fits"]
+    assert record["eligible_decision_timestamps"] == pooled["eligible_decision_timestamps"]
+    assert (
+        record["actionable_directional_predictions"]
+        == (pooled["actionable_directional_predictions"])
+    )
+    assert record["abstentions"] == pooled["abstentions"]
+    assert record["candidate_win_rate"] == pooled["win_rate"]
+    assert record["candidate_coverage"] == pooled["coverage"]
+    assert record["brier_score"] == pooled["brier_score"]
+    assert (
+        record["magnitude_mae_percentage_points"]
+        == (result["candidate"]["pooled_magnitude"]["magnitude_mae_percentage_points"])
+    )
+    assert (
+        record["matched_always_up_win_rate"] == (comparison["pooled"]["matched_always_up_win_rate"])
+    )
+    assert record["primary_delta"] == comparison["pooled"]["delta"]
+    assert record["primary_delta_interval"] == paired["interval"]
+    assert record["primary_delta_alpha"] == paired["alpha"] == 0.025
+    assert record["fold_deltas"] == comparison["fold_deltas"]
+    assert record["fold_coverage"] == comparison["fold_coverage"]
+    assert record["failed_gates"] == result["advancement_gate"]["failed_conditions"]
+    assert record["terminal_classification"] == result["terminal_classification"]
+    assert (
+        record["linear_agreement_rate"]
+        == (against_linear["directional_agreement"]["agreement_rate"])
+    )
+    assert (
+        record["linear_independent_reconciliation"]
+        == (against_linear["independent_reconciliation"])
+    )
+    assert record["stage1_configurations_consumed"] == 2
+    assert record["stage1_configurations_remaining"] == 0
+    assert record["stage1_family_status"] == STAGE1_FAMILY_CLOSED
+    assert record["sealed_queries"] == 0 and record["real_money"] is False
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+
+    # A win rate is never recorded without its sample size and its coverage.
+    assert pooled["actionable_directional_predictions"] > 0
+    assert pooled["coverage"] is not None and pooled["win_rate"] is not None
+
+    # The executed linear checkpoint is untouched and still reproduces its own result.
+    assert against_linear["linear_results_changed"] is False
+    assert against_linear["classification"] == "DESCRIPTIVE_NOT_A_PREREGISTERED_TEST"
+    assert against_linear["replay_consumes_stage1_budget"] is False
+
+    # The preregistration is an ancestor of the result, in a strictly earlier commit.
+    result_commit = git("log", "--diff-filter=A", "--format=%H", "--", RESULT_PATH).splitlines()[-1]
+    for relative in (PREREGISTRATION_PATH, ADMISSION_PATH):
+        frozen_commit = git("log", "--diff-filter=A", "--format=%H", "--", relative).splitlines()[
+            -1
+        ]
         assert frozen_commit != result_commit, relative
         run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
 
@@ -2547,6 +2705,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     prediction_first_checks(state)
     predictive_baselines_checks(state)
     predictive_internal_structure_checks(state)
+    predictive_internal_nonlinear_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
