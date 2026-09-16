@@ -38,6 +38,7 @@
     "prospective_shadow_observer",
     "prospective_collection",
     "prospective_collection_operating_policy",
+    "prospective_runtime_provenance_fix",
     "prospective_counters",
     "status",
     "product_surface",
@@ -159,6 +160,8 @@
         "entry_timing_rule", "ambiguous_fill_policy", "cost_model_version", "stop_fraction",
         "target_fraction", "maximum_hold_minutes", "first_scientific_review_completed_trades",
         "manual_paper_store_unchanged", "evidence_status", "research_director_accepted",
+        "runtime_artifacts", "runtime_artifacts_are_generated_state",
+        "runtime_artifacts_tracked_by_git",
         "build_provenance_version",
         "verified_build_required_for_decision", "clean_worktree_required",
         "unverified_build_reason", "single_observer_lease", "contended_observer_reason",
@@ -173,6 +176,17 @@
         "status": {"const": "ACCEPTED_EVIDENCE_READY"},
         "evidence_status": {"const": "ACCEPTED_FOR_PROSPECTIVE_COLLECTION"},
         "research_director_accepted": {"const": true},
+        "runtime_artifacts_are_generated_state": {"const": true},
+        "runtime_artifacts_tracked_by_git": {"const": false},
+        "runtime_artifacts": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.json",
+            "data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1_1.json",
+            "data/paper/PROSPECTIVE_SHADOW_OBSERVER_V1_1.lease"
+          ]
+        },
         "evidence_version": {"const": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1"},
         "evidence_stage": {"const": "AUTOMATED_PROSPECTIVE_SHADOW_PAPER"},
         "initiation_mode": {"const": "AUTOMATED_RESEARCH_OBSERVER"},
@@ -218,7 +232,8 @@
       "additionalProperties": false,
       "required": [
         "version", "status", "observer_version", "evidence_version", "activation_mode",
-        "production_observer_started", "live_market_contacted", "genuine_observations",
+        "production_observer_activated", "first_activation_utc", "first_activation_outcome",
+        "observer_market_fetches", "evaluated_boundaries", "genuine_observations",
         "first_observation_requires", "past_signal_backfill",
         "review_boundary_completed_shadow_trades", "review_boundary_proves_sufficiency",
         "result_driven_adaptation_before_boundary",
@@ -230,8 +245,11 @@
         "observer_version": {"const": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1"},
         "evidence_version": {"const": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1"},
         "activation_mode": {"const": "LOCAL_BACKEND_START_ONLY"},
-        "production_observer_started": {"const": false},
-        "live_market_contacted": {"const": false},
+        "production_observer_activated": {"const": true},
+        "first_activation_utc": {"const": "2026-09-16T12:58:55.229177Z"},
+        "first_activation_outcome": {"const": "DEGRADED_UNVERIFIED_SCIENTIFIC_BUILD"},
+        "observer_market_fetches": {"const": 0},
+        "evaluated_boundaries": {"const": 0},
         "genuine_observations": {"const": 0},
         "first_observation_requires": {
           "type": "array",
@@ -285,6 +303,34 @@
         },
         "dirty_worktree_behavior": {"const": "UNVERIFIED_SCIENTIFIC_BUILD"},
         "missed_boundary_reconstruction": {"const": false}
+      }
+    },
+    "prospective_runtime_provenance_fix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "defect", "detected_by", "genuine_observations_lost",
+        "runtime_state_deleted", "runtime_state_committed", "semantic_manifest_weakened",
+        "worktree_clean_unconditional", "runtime_artifacts_ignored_by_git",
+        "runtime_artifacts_excluded_from_dirtiness", "index_mutation_in_runtime_code",
+        "staging_cause", "backfill_performed"
+      ],
+      "properties": {
+        "version": {"const": "PROSPECTIVE_RUNTIME_ARTIFACT_PROVENANCE_FIX_V1_1"},
+        "defect": {"const": "OBSERVER_RUNTIME_STORE_DIRTIED_ITS_OWN_BUILD_PROVENANCE"},
+        "detected_by": {"const": "OWNER_LOCAL_BACKEND_START"},
+        "genuine_observations_lost": {"const": 0},
+        "runtime_state_deleted": {"const": false},
+        "runtime_state_committed": {"const": false},
+        "semantic_manifest_weakened": {"const": false},
+        "worktree_clean_unconditional": {"const": false},
+        "runtime_artifacts_ignored_by_git": {"const": true},
+        "runtime_artifacts_excluded_from_dirtiness": {"const": true},
+        "index_mutation_in_runtime_code": {"const": false},
+        "staging_cause": {
+          "const": "EXTERNAL_LOCAL_GIT_INDEX_ACTION_NOT_REPOSITORY_CODE"
+        },
+        "backfill_performed": {"const": false}
       }
     },
     "prospective_counters": {

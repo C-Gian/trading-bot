@@ -57,6 +57,10 @@ EVIDENCE_STORE_PATH = "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.json"
 HEALTH_STORE_PATH = "data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1_1.json"
 LEASE_PATH = "data/paper/PROSPECTIVE_SHADOW_OBSERVER_V1_1.lease"
 
+# Durable state this observer generates inside the repository. It is never source, so
+# it must not count as a repository modification when the build identity is computed.
+RUNTIME_ARTIFACTS = frozenset({EVIDENCE_STORE_PATH, HEALTH_STORE_PATH, LEASE_PATH})
+
 # The superseded V1 implementation never recorded a genuine observation; its contract and
 # artifacts remain in the repository purely as implementation history.
 SUPERSEDED_EVIDENCE_VERSION = "FUTURE_SHADOW_PAPER_EVIDENCE_V1"
@@ -622,11 +626,17 @@ def default_build_identity() -> str:
 
 
 def _default_provenance() -> dict[str, Any]:
-    """The live repository build identity for this observer and evidence version."""
+    """The live repository build identity for this observer and evidence version.
+
+    The observer's own durable stores live inside the repository, so they are declared as
+    generated runtime state; changing them must never make the scientific build
+    unverified, while changing any semantic source still must.
+    """
     return provenance.repository_provenance(
         observer_version=OBSERVER_VERSION,
         evidence_version=EVIDENCE_VERSION,
         contract_path=EVIDENCE_CONTRACT,
+        runtime_artifacts=RUNTIME_ARTIFACTS,
     )
 
 
@@ -1563,6 +1573,7 @@ __all__ = [
     "OBSERVER_VERSION",
     "OPEN",
     "PENDING_ENTRY",
+    "RUNTIME_ARTIFACTS",
     "SUPERSEDED_EVIDENCE_STATUS",
     "SUPERSEDED_EVIDENCE_VERSION",
     "SUPPRESSED",

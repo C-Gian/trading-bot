@@ -27,6 +27,17 @@ ROOT = Path(__file__).resolve().parents[3]
 PROVENANCE_VERSION = "BUILD_PROVENANCE_V1"
 UNVERIFIED_REASON = "UNVERIFIED_SCIENTIFIC_BUILD"
 
+# Governed local runtime artifacts. ``data/paper/`` holds only generated durable state:
+# the manual paper ledger, the automated prospective evidence and health stores, and
+# their locks and staging files. No source, configuration or governance file lives there.
+#
+# These are normally invisible to ``git status`` because they are ignored, but an ignored
+# file that somehow reaches the index stops being ignored. The observer writes its own
+# health store inside the repository, so without this exclusion it would dirty its own
+# tree and invalidate its own build provenance the moment it activated.
+RUNTIME_ARTIFACT_DIRECTORY = "data/paper"
+RUNTIME_ARTIFACT_SUFFIXES = (".json", ".lock", ".lease", ".staging")
+
 # Semantic sources whose exact bytes define the observer's scientific behaviour.  The
 # cost implementation is resolved from the objects the observer actually imports rather
 # than from a hand-written path, so the manifest cannot drift from repository truth.
@@ -103,6 +114,39 @@ def aggregate_sha256(manifest: dict[str, str]) -> str:
     return hashlib.sha256(f"{PROVENANCE_VERSION}\n{payload}\n".encode()).hexdigest()
 
 
+def is_governed_runtime_artifact(path: str, runtime_artifacts: frozenset[str]) -> bool:
+    """Report whether a changed path is generated runtime state rather than source."""
+    normalised = path.replace("\\", "/").strip()
+    if normalised in runtime_artifacts:
+        return True
+    if not normalised.startswith(f"{RUNTIME_ARTIFACT_DIRECTORY}/"):
+        return False
+    return normalised.endswith(RUNTIME_ARTIFACT_SUFFIXES)
+
+
+def porcelain_paths(status: str) -> list[str]:
+    """Extract the changed paths from ``git status --porcelain`` output."""
+    paths: list[str] = []
+    for line in status.splitlines():
+        if len(line) <= 3:
+            continue
+        entry = line[3:].strip()
+        # A rename or copy reports "old -> new"; the destination decides the verdict.
+        if " -> " in entry:
+            entry = entry.split(" -> ", 1)[1]
+        paths.append(entry.strip().strip('"'))
+    return paths
+
+
+def semantic_changes(status: str, runtime_artifacts: frozenset[str] = frozenset()) -> list[str]:
+    """Changed paths that make the build unverified, excluding governed runtime state."""
+    return [
+        path
+        for path in porcelain_paths(status)
+        if not is_governed_runtime_artifact(path, runtime_artifacts)
+    ]
+
+
 def _git(*arguments: str) -> str | None:
     try:
         return subprocess.check_output(
@@ -113,13 +157,19 @@ def _git(*arguments: str) -> str | None:
 
 
 def repository_provenance(
-    *, observer_version: str, evidence_version: str, contract_path: str
+    *,
+    observer_version: str,
+    evidence_version: str,
+    contract_path: str,
+    runtime_artifacts: frozenset[str] = frozenset(),
 ) -> dict[str, Any]:
     """Capture the running build identity and decide whether it is scientifically usable."""
     head = _git("rev-parse", "HEAD")
     branch = _git("rev-parse", "--abbrev-ref", "HEAD")
     status = _git("status", "--porcelain")
-    worktree_clean = status == ""
+    # A failed git invocation is never treated as a clean tree.
+    dirty_paths = semantic_changes(status, runtime_artifacts) if status is not None else []
+    worktree_clean = status is not None and not dirty_paths
     try:
         manifest = semantic_manifest(contract_path)
         aggregate = aggregate_sha256(manifest)
@@ -134,6 +184,7 @@ def repository_provenance(
         "git_head": head,
         "git_branch": branch if branch not in {None, "HEAD"} else None,
         "worktree_clean": worktree_clean,
+        "unverified_paths": sorted(dirty_paths),
         "application_version": __version__,
         "observer_version": observer_version,
         "evidence_version": evidence_version,
@@ -172,14 +223,19 @@ def validate(provenance: dict[str, Any]) -> None:
 
 __all__ = [
     "PROVENANCE_VERSION",
+    "RUNTIME_ARTIFACT_DIRECTORY",
+    "RUNTIME_ARTIFACT_SUFFIXES",
     "UNVERIFIED_REASON",
     "ProvenanceError",
     "ProvenanceProvider",
     "aggregate_sha256",
     "cost_source_members",
+    "is_governed_runtime_artifact",
     "manifest_members",
+    "porcelain_paths",
     "provenance_identity",
     "repository_provenance",
+    "semantic_changes",
     "semantic_manifest",
     "validate",
 ]

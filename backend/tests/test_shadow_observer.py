@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import contextlib
 import hashlib
 import json
+import subprocess
 from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -20,8 +22,10 @@ from app.product.provenance import (
     PROVENANCE_VERSION,
     UNVERIFIED_REASON,
     aggregate_sha256,
+    is_governed_runtime_artifact,
     manifest_members,
     repository_provenance,
+    semantic_changes,
     semantic_manifest,
 )
 from app.product.shadow_observer import (
@@ -29,6 +33,7 @@ from app.product.shadow_observer import (
     CLOSED_STOP,
     CLOSED_TARGET,
     DATA_QUALITY_ERROR,
+    EVIDENCE_CONTRACT,
     EVIDENCE_STAGE,
     EVIDENCE_STORE_PATH,
     EVIDENCE_VERSION,
@@ -38,6 +43,7 @@ from app.product.shadow_observer import (
     MISSED_DECISION,
     OBSERVER_VERSION,
     OPEN,
+    RUNTIME_ARTIFACTS,
     SUPPRESSED,
     ProspectiveShadowObserver,
     ShadowEvidenceStore,
@@ -50,6 +56,22 @@ from app.research.local_runner import default_runner
 from fastapi.testclient import TestClient
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def _runtime_snapshot(path: Path) -> bytes | None:
+    """Exact bytes of a production runtime store, or None when it does not exist."""
+    return path.read_bytes() if path.is_file() else None
+
+
+def _git_ignores(path: str) -> bool:
+    return (
+        subprocess.run(
+            ["git", "check-ignore", "-q", path], cwd=ROOT, capture_output=True, check=False
+        ).returncode
+        == 0
+    )
+
+
 HOUR = timedelta(hours=1)
 MINUTE = timedelta(minutes=1)
 
@@ -562,9 +584,10 @@ def test_tests_cannot_write_the_production_observer_health_store() -> None:
         "missed_boundaries": 0,
         "real_money": False,
     }
+    before = _runtime_snapshot(ROOT / HEALTH_STORE_PATH)
     with pytest.raises(ShadowObserverError, match="production prospective evidence store"):
         store.save(health)
-    assert not (ROOT / HEALTH_STORE_PATH).exists()
+    assert _runtime_snapshot(ROOT / HEALTH_STORE_PATH) == before
 
 
 def test_synthetic_stores_outside_the_production_path_remain_usable(tmp_path: Path) -> None:
@@ -586,16 +609,24 @@ def test_testclient_lifespan_cannot_create_production_scientific_evidence() -> N
     assert observer.health_store.path == ROOT / HEALTH_STORE_PATH
     assert observer.lease is not None and observer.lease.path == ROOT / LEASE_PATH
 
+    health_before = _runtime_snapshot(ROOT / HEALTH_STORE_PATH)
     try:
         with TestClient(create_app(shadow_observer=observer)):
             pass
     except ShadowObserverError as exc:  # the guard may surface through the lifespan
         assert "production prospective evidence store" in str(exc)
     finally:
-        observer.stop()
+        # Stopping also writes health, so the same guard fires there; release the
+        # scientific lease directly so a real local backend is never locked out.
+        with contextlib.suppress(ShadowObserverError):
+            observer.stop()
+        if observer.lease is not None:
+            observer.lease.release()
 
+    # No genuine observation exists, and operational state a real run left behind is
+    # never touched by a test.
     assert not (ROOT / EVIDENCE_STORE_PATH).exists()
-    assert not (ROOT / HEALTH_STORE_PATH).exists()
+    assert _runtime_snapshot(ROOT / HEALTH_STORE_PATH) == health_before
 
 
 # --- BUILD_PROVENANCE_V1 ----------------------------------------------------------
@@ -1032,3 +1063,152 @@ def test_manual_paper_v2_is_untouched_by_the_hardening() -> None:
         hashlib.sha256(manual).hexdigest()
         == "1a219b66f88a66cb727cfc956aabe0edb15da287711ffe7a469a48011dd45025"
     )
+
+
+# --- runtime artifacts must not dirty the scientific build ------------------------
+
+
+def porcelain(*entries: str) -> str:
+    return "\n".join(entries)
+
+
+def test_observer_health_runtime_state_does_not_dirty_provenance() -> None:
+    """The observed bug: the observer wrote its own health store and unverified itself."""
+    status = porcelain(f"AM {HEALTH_STORE_PATH}")
+    assert semantic_changes(status, RUNTIME_ARTIFACTS) == []
+    assert is_governed_runtime_artifact(HEALTH_STORE_PATH, RUNTIME_ARTIFACTS)
+
+
+def test_scientific_evidence_runtime_json_does_not_dirty_provenance() -> None:
+    status = porcelain(f"?? {EVIDENCE_STORE_PATH}", f" M {EVIDENCE_STORE_PATH}")
+    assert semantic_changes(status, RUNTIME_ARTIFACTS) == []
+
+
+def test_lock_lease_and_staging_files_do_not_dirty_provenance() -> None:
+    status = porcelain(
+        f"?? {LEASE_PATH}",
+        f"?? {EVIDENCE_STORE_PATH}.lock",
+        f"?? {HEALTH_STORE_PATH}.lock",
+        "?? data/paper/tmp8ac21f.staging",
+        "?? data/paper/PAPER_TRADES_V2.json",
+    )
+    assert semantic_changes(status, RUNTIME_ARTIFACTS) == []
+
+
+def test_semantic_source_modification_does_invalidate_provenance() -> None:
+    for member in manifest_members(EVIDENCE_CONTRACT):
+        status = porcelain(f" M {member}")
+        assert semantic_changes(status, RUNTIME_ARTIFACTS) == [member], member
+
+
+def test_evidence_contract_modification_does_invalidate_provenance() -> None:
+    status = porcelain(f" M {EVIDENCE_CONTRACT}")
+    assert semantic_changes(status, RUNTIME_ARTIFACTS) == [EVIDENCE_CONTRACT]
+    assert not is_governed_runtime_artifact(EVIDENCE_CONTRACT, RUNTIME_ARTIFACTS)
+
+
+def test_arbitrary_unrelated_tracked_source_modification_still_invalidates() -> None:
+    unrelated = (
+        " M scripts/check.py",
+        " M backend/app/main.py",
+        " M state/current_state.json",
+        " M frontend/src/App.tsx",
+        "?? backend/app/product/rogue.py",
+        " M data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json",
+        " M .gitignore",
+    )
+    for entry in unrelated:
+        assert semantic_changes(porcelain(entry), RUNTIME_ARTIFACTS) == [entry[3:]], entry
+
+
+def test_renamed_source_is_judged_by_its_destination() -> None:
+    status = porcelain(f"R  docs/old.md -> {EVIDENCE_CONTRACT}")
+    assert semantic_changes(status, RUNTIME_ARTIFACTS) == [EVIDENCE_CONTRACT]
+
+
+def test_a_failed_git_invocation_is_never_a_clean_tree(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("app.product.provenance._git", lambda *_: None)
+    record = repository_provenance(
+        observer_version=OBSERVER_VERSION,
+        evidence_version=EVIDENCE_VERSION,
+        contract_path=EVIDENCE_CONTRACT,
+        runtime_artifacts=RUNTIME_ARTIFACTS,
+    )
+    assert record["worktree_clean"] is False
+    assert record["verified"] is False
+    assert record["unverified_reason"] == UNVERIFIED_REASON
+
+
+def test_the_real_observer_declares_its_runtime_artifacts() -> None:
+    assert RUNTIME_ARTIFACTS == {EVIDENCE_STORE_PATH, HEALTH_STORE_PATH, LEASE_PATH}
+    record = default_observer().build_provenance()
+    assert record["provenance_version"] == PROVENANCE_VERSION
+    assert "unverified_paths" in record
+    # Whatever the local tree looks like, no observer runtime store may be a reason.
+    assert not any(
+        is_governed_runtime_artifact(path, RUNTIME_ARTIFACTS) for path in record["unverified_paths"]
+    )
+
+
+def test_production_runtime_stores_are_ignored_and_untracked() -> None:
+    """Git-native protection: the runtime stores can never be offered for staging."""
+    runtime = (
+        EVIDENCE_STORE_PATH,
+        HEALTH_STORE_PATH,
+        LEASE_PATH,
+        MANUAL_STORE_PATH,
+        "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1.json",
+        "data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1.json",
+        "data/paper/anything.lock",
+        "data/paper/anything.staging",
+    )
+    for path in runtime:
+        assert _git_ignores(path), path
+
+    tracked = subprocess.run(
+        ["git", "ls-files", "data/paper/"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip()
+    assert tracked == "", tracked
+
+    # Source, contracts and governance must stay visible to Git.
+    for path in (
+        *manifest_members(EVIDENCE_CONTRACT),
+        "scripts/check.py",
+        "state/current_state.json",
+    ):
+        assert not _git_ignores(path), path
+
+
+def test_runtime_code_never_mutates_the_git_index() -> None:
+    forbidden = ("git add", "git commit", "git stash", "update-index", "write-tree")
+    for source in (ROOT / "backend" / "app").rglob("*.py"):
+        text = source.read_text(encoding="utf-8").lower()
+        for phrase in forbidden:
+            assert phrase not in text, f"{source}: {phrase}"
+        if source.name == "provenance.py":
+            # Provenance may only read repository state.
+            assert '"rev-parse"' in text or "rev-parse" in text
+            assert '"add"' not in text and '"commit"' not in text
+    dev = (ROOT / "scripts" / "dev.py").read_text(encoding="utf-8").lower()
+    assert "git" not in dev
+
+
+def test_prospective_runtime_fix_changes_no_scientific_state() -> None:
+    state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
+    assert state["experiments_completed"] == 26
+    assert state["observed_material_historical_hypotheses"] == 12
+    assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
+    assert state["champion_status"] == "NONE"
+    assert state["real_money_authorized"] is False
+    assert state["historical_discovery_status"] == "PAUSED"
+    assert state["prospective_counters"]["prospective_shadow_trades_completed"] == 0
+    observer = state["prospective_shadow_observer"]
+    assert observer["stop_fraction"] == 0.02
+    assert observer["target_fraction"] == 0.04
+    assert observer["maximum_hold_minutes"] == 1440
+    assert observer["cost_model_version"] == "BTCUSDT_SPOT_COST_V1"
+    assert observer["first_scientific_review_completed_trades"] == 20

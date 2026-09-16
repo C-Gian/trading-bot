@@ -421,7 +421,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "PAUSED",
-  "latest_executor_checkpoint": "PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1",
+  "latest_executor_checkpoint": "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -429,12 +429,12 @@
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
     "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1",
+  "latest_reviewed_checkpoint": "PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1",
   "max_holding_horizon": {
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1",
+  "next_recommended_work_package": "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-RUNTIME-PROVENANCE-FIX-V1_1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -523,7 +523,10 @@
       "SEMANTIC_SOFTWARE_BUG",
       "REAL_MONEY_BOUNDARY_PROPOSED"
     ],
+    "evaluated_boundaries": 0,
     "evidence_version": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1",
+    "first_activation_outcome": "DEGRADED_UNVERIFIED_SCIENTIFIC_BUILD",
+    "first_activation_utc": "2026-09-16T12:58:55.229177Z",
     "first_observation_requires": [
       "VERIFIED_CLEAN_SCIENTIFIC_BUILD",
       "SINGLE_OBSERVER_LEASE",
@@ -531,11 +534,11 @@
       "DECISION_PERSISTED_WITHIN_300_SECONDS"
     ],
     "genuine_observations": 0,
-    "live_market_contacted": false,
     "no_trade_observations_justify_adaptation": false,
+    "observer_market_fetches": 0,
     "observer_version": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1",
     "past_signal_backfill": false,
-    "production_observer_started": false,
+    "production_observer_activated": true,
     "result_driven_adaptation_before_boundary": false,
     "review_boundary_completed_shadow_trades": 20,
     "review_boundary_proves_sufficiency": false,
@@ -562,6 +565,21 @@
     "prospective_shadow_trades_completed": 0,
     "prospective_shadow_trades_open": 0,
     "prospective_suppressed_signals": 0
+  },
+  "prospective_runtime_provenance_fix": {
+    "backfill_performed": false,
+    "defect": "OBSERVER_RUNTIME_STORE_DIRTIED_ITS_OWN_BUILD_PROVENANCE",
+    "detected_by": "OWNER_LOCAL_BACKEND_START",
+    "genuine_observations_lost": 0,
+    "index_mutation_in_runtime_code": false,
+    "runtime_artifacts_excluded_from_dirtiness": true,
+    "runtime_artifacts_ignored_by_git": true,
+    "runtime_state_committed": false,
+    "runtime_state_deleted": false,
+    "semantic_manifest_weakened": false,
+    "staging_cause": "EXTERNAL_LOCAL_GIT_INDEX_ACTION_NOT_REPOSITORY_CODE",
+    "version": "PROSPECTIVE_RUNTIME_ARTIFACT_PROVENANCE_FIX_V1_1",
+    "worktree_clean_unconditional": false
   },
   "prospective_shadow_observer": {
     "ambiguous_fill_policy": "STOP_FIRST_V1",
@@ -596,6 +614,13 @@
     "past_signal_backfill": false,
     "real_money": false,
     "research_director_accepted": true,
+    "runtime_artifacts": [
+      "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.json",
+      "data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1_1.json",
+      "data/paper/PROSPECTIVE_SHADOW_OBSERVER_V1_1.lease"
+    ],
+    "runtime_artifacts_are_generated_state": true,
+    "runtime_artifacts_tracked_by_git": false,
     "single_observer_lease": true,
     "snapshot_and_audit_single_atomic_document": true,
     "status": "ACCEPTED_EVIDENCE_READY",

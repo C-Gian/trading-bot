@@ -264,10 +264,10 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == (
-        "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1"
+    assert state["latest_reviewed_checkpoint"] == "PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1"
+    assert state["latest_executor_checkpoint"] == (
+        "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == "PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1"
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -342,7 +342,9 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1"
+    assert state["next_recommended_work_package"] == (
+        "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-RUNTIME-PROVENANCE-FIX-V1_1"
+    )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -1236,6 +1238,7 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         UNVERIFIED_REASON,
         aggregate_sha256,
         manifest_members,
+        semantic_changes,
         semantic_manifest,
     )
     from app.product.shadow_observer import (
@@ -1247,6 +1250,7 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         LEASE_PATH,
         MAX_DECISION_LATENCY_SECONDS,
         OBSERVER_VERSION,
+        RUNTIME_ARTIFACTS,
         SUPERSEDED_EVIDENCE_STATUS,
         SUPERSEDED_EVIDENCE_VERSION,
     )
@@ -1399,8 +1403,13 @@ def prospective_shadow_observer_checks(state: dict) -> None:
     assert collection["observer_version"] == OBSERVER_VERSION
     assert collection["evidence_version"] == EVIDENCE_VERSION
     assert collection["activation_mode"] == "LOCAL_BACKEND_START_ONLY"
-    assert collection["production_observer_started"] is False
-    assert collection["live_market_contacted"] is False
+    # The Owner started the local backend once before the runtime-provenance fix: the
+    # observer activated, unverified its own build, and was stopped. It evaluated no
+    # boundary, fetched no market data, and produced no genuine observation.
+    assert collection["production_observer_activated"] is True
+    assert collection["first_activation_outcome"] == "DEGRADED_UNVERIFIED_SCIENTIFIC_BUILD"
+    assert collection["observer_market_fetches"] == 0
+    assert collection["evaluated_boundaries"] == 0
     assert collection["genuine_observations"] == 0
     assert collection["past_signal_backfill"] is False
     assert collection["review_boundary_completed_shadow_trades"] == 20
@@ -1420,8 +1429,40 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         "SEMANTIC_SOFTWARE_BUG",
         "REAL_MONEY_BOUNDARY_PROPOSED",
     ]
+    # No genuine observation exists yet.  The health store is operational state, not
+    # scientific evidence, so a real local backend run may legitimately have created it;
+    # neither store may ever be tracked by Git.
     assert not (ROOT / EVIDENCE_STORE_PATH).exists()
-    assert not (ROOT / HEALTH_STORE_PATH).exists()
+    for runtime in (EVIDENCE_STORE_PATH, HEALTH_STORE_PATH, LEASE_PATH):
+        assert not git("ls-files", runtime), runtime
+        assert (
+            subprocess.run(["git", "check-ignore", "-q", runtime], cwd=ROOT, check=False).returncode
+            == 0
+        ), runtime
+
+    fix = state["prospective_runtime_provenance_fix"]
+    assert fix["version"] == "PROSPECTIVE_RUNTIME_ARTIFACT_PROVENANCE_FIX_V1_1"
+    assert fix["genuine_observations_lost"] == 0
+    assert fix["runtime_state_deleted"] is False
+    assert fix["runtime_state_committed"] is False
+    assert fix["semantic_manifest_weakened"] is False
+    assert fix["worktree_clean_unconditional"] is False
+    assert fix["runtime_artifacts_ignored_by_git"] is True
+    assert fix["runtime_artifacts_excluded_from_dirtiness"] is True
+    assert fix["index_mutation_in_runtime_code"] is False
+    assert fix["backfill_performed"] is False
+    assert observer["runtime_artifacts"] == sorted(RUNTIME_ARTIFACTS)
+    assert observer["runtime_artifacts_are_generated_state"] is True
+    assert observer["runtime_artifacts_tracked_by_git"] is False
+
+    # Generated runtime state must never unverify the build; every semantic manifest
+    # member still must.
+    for runtime in (*RUNTIME_ARTIFACTS, "data/paper/x.lock", "data/paper/x.staging"):
+        assert semantic_changes(f"?? {runtime}", RUNTIME_ARTIFACTS) == [], runtime
+    for member in manifest_members(observer["contract"]):
+        assert semantic_changes(f" M {member}", RUNTIME_ARTIFACTS) == [member], member
+    for source in ("scripts/check.py", "state/current_state.json", "backend/app/main.py"):
+        assert semantic_changes(f" M {source}", RUNTIME_ARTIFACTS) == [source], source
 
     policy = state["prospective_collection_operating_policy"]
     assert policy["version"] == "PROSPECTIVE_COLLECTION_OPERATING_POLICY_V1"
@@ -1849,6 +1890,9 @@ def governance_checks(pre_experiment: bool) -> dict:
         "tasks/archive/PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1.md",
         "decisions/ADR-0024-PROSPECTIVE-COLLECTION-ARM-AND-OPERATING-POLICY.md",
         "reports/checkpoints/PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1.md",
+        "decisions/ADR-0025-RUNTIME-ARTIFACTS-ARE-NOT-SCIENTIFIC-BUILD-STATE.md",
+        "reports/checkpoints/PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1.md",
+        "tasks/archive/PROSPECTIVE-EVIDENCE-COLLECTION-V1_1.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()

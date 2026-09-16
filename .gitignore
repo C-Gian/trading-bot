@@ -3,7 +3,20 @@ data/canonical/
 data/derived/
 data/reports/*.json
 data/research_runs/
+# Local durable paper stores. data/paper/ holds only generated runtime state: the
+# manual paper ledger, the automated prospective evidence and health stores, and their
+# locks and staging files. None of it is source, configuration or governance. It must
+# stay untracked: the observer writes its own health store inside the repository, so a
+# tracked runtime file would make the observer dirty its own tree and invalidate its
+# own build provenance the moment it activates.
+data/paper/PAPER_TRADES_V2.json
+data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1.json
+data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.json
+data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1.json
+data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1_1.json
 data/paper/*.lock
+data/paper/*.staging
+data/paper/*.lease
 !data/reports/BTCUSDT-SPOT-1M-DEV-v1-gaps.json
 .venv/
 .tools/
@@ -16,4 +29,3 @@ frontend/dist/
 *.tsbuildinfo
 *.pyc
 *.egg-info/
-data/paper/*.lease
