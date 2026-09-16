@@ -36,8 +36,8 @@ const market = {
 };
 const prospectiveObserver = {
   status: 'ACTIVE', label: 'AUTOMATED PAPER RESEARCH — NO REAL MONEY',
-  observer_version: 'PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1',
-  evidence_version: 'FUTURE_SHADOW_PAPER_EVIDENCE_V1',
+  observer_version: 'PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1',
+  evidence_version: 'FUTURE_SHADOW_PAPER_EVIDENCE_V1_1',
   evidence_stage: 'AUTOMATED_PROSPECTIVE_SHADOW_PAPER',
   initiation_mode: 'AUTOMATED_RESEARCH_OBSERVER',
   strategy_version: 'ALIGNED_PARTICIPATION_CONTINUATION_V1',
@@ -49,6 +49,11 @@ const prospectiveObserver = {
   last_successful_market_fetch: '2026-03-05T11:00:15Z', current_error: null,
   missed_prospective_decisions: 2, raw_prospective_long_signals: 3,
   suppressed_long_signals: 1, open_shadow_trade: null, completed_shadow_trades: 4,
+  audit_chain_version: 'SHADOW_EVIDENCE_AUDIT_CHAIN_V1', audit_events: 9,
+  evidence_integrity: 'VALID', supersedes: 'FUTURE_SHADOW_PAPER_EVIDENCE_V1',
+  supersedes_status: 'IMPLEMENTED_SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION',
+  build_provenance_verified: true, build_provenance_sha256: 'abcdef0123456789'.repeat(4),
+  observer_lease_held: true,
   manual_evidence_included: false, order_placement: false, credentials: false, real_money: false,
 };
 
@@ -318,6 +323,32 @@ describe('osservatore prospettico', () => {
     expect(panel).toHaveTextContent('Shadow completati');
     expect(panel).toHaveTextContent('da 20 trade');
     expect(panel).toHaveTextContent('non è performance Champion');
+    expect(panel).toHaveTextContent('BUILD VERIFICATO');
+    expect(panel).toHaveTextContent('provenance abcdef012345…');
+    expect(panel).toHaveTextContent('Eventi audit');
+  });
+
+  it('segnala un ledger non valido senza mostrare conteggi scientifici', async () => {
+    mockApi({
+      'prospective-observer': {
+        ...prospectiveObserver,
+        status: 'DEGRADED',
+        evidence_integrity: 'INVALID',
+        build_provenance_verified: false,
+        current_error: 'EVIDENCE_INTEGRITY_VALIDATION_FAILED: audit chain link is broken at event 2',
+        missed_prospective_decisions: null,
+        raw_prospective_long_signals: null,
+        suppressed_long_signals: null,
+        completed_shadow_trades: null,
+        audit_events: null,
+      },
+    });
+    await dashboard();
+    const panel = await screen.findByRole('region', { name: 'Prospective Observer' });
+    expect(panel).toHaveTextContent('DEGRADED');
+    expect(panel).toHaveTextContent('LEDGER NON VALIDO');
+    expect(panel).toHaveTextContent('EVIDENCE_INTEGRITY_VALIDATION_FAILED');
+    expect(panel).not.toHaveTextContent('performance Champion confermata');
   });
 
   it('resta una lettura automatica e non avvia Analyze Market', async () => {

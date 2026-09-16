@@ -16,3 +16,4 @@ frontend/dist/
 *.tsbuildinfo
 *.pyc
 *.egg-info/
+data/paper/*.lease

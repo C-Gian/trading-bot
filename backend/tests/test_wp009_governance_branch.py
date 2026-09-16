@@ -157,7 +157,7 @@ def test_the_validator_never_touches_cutoff_or_sealed_state() -> None:
 def test_state_records_the_accepted_wp011_review() -> None:
     state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
     adaptive = state["adaptive_challenger"]
-    assert state["latest_reviewed_checkpoint"] == "ALIGNED-DEVELOPMENT-FINAL-CLOSURE"
+    assert state["latest_reviewed_checkpoint"] == "PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
     assert adaptive["research_director_verdict"] == "ACCEPTED"
     assert adaptive["terminal_classification"] == "REJECT_COST_DOMINATED"
     assert adaptive["ablation_terminal_classification"] == "INCONCLUSIVE"
@@ -171,7 +171,7 @@ def test_state_records_the_accepted_wp011_review() -> None:
     assert state["exogenous_acquisition_pause"]["wp009_finalized"] is False
     assert state["paper_trading"]["research_status"] == "PAPER_RESEARCH_CANDIDATE"
     assert state["next_recommended_work_package"] == (
-        "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
+        "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-V1_1"
     )
 
 

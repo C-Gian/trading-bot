@@ -22,6 +22,7 @@ from typing import Any
 from .. import __version__
 from ..backtest import COST_VERSION
 from ..backtest.models import Bar, CostModel, ExitReason
+from . import audit_chain, provenance
 from .analysis import (
     CHAMPION_STATUS,
     MAX_HOLD_MINUTES,
@@ -42,17 +43,27 @@ from .execution_v2 import (
     simulate_causal_paper,
 )
 from .market_feed import Kline, MarketFeedError, fetch_minutes
+from .observer_lease import CONTENDED_ERROR, ObserverLease
 from .platform_file_io import platform_file_operations
 
 ROOT = Path(__file__).resolve().parents[3]
 
-OBSERVER_VERSION = "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1"
-EVIDENCE_VERSION = "FUTURE_SHADOW_PAPER_EVIDENCE_V1"
-EVIDENCE_CONTRACT = "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1.md"
+OBSERVER_VERSION = "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1"
+EVIDENCE_VERSION = "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1"
+EVIDENCE_CONTRACT = "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md"
 EVIDENCE_STAGE = "AUTOMATED_PROSPECTIVE_SHADOW_PAPER"
 INITIATION_MODE = "AUTOMATED_RESEARCH_OBSERVER"
-EVIDENCE_STORE_PATH = "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1.json"
-HEALTH_STORE_PATH = "data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1.json"
+EVIDENCE_STORE_PATH = "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.json"
+HEALTH_STORE_PATH = "data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1_1.json"
+LEASE_PATH = "data/paper/PROSPECTIVE_SHADOW_OBSERVER_V1_1.lease"
+
+# The superseded V1 implementation never recorded a genuine observation; its contract and
+# artifacts remain in the repository purely as implementation history.
+SUPERSEDED_EVIDENCE_VERSION = "FUTURE_SHADOW_PAPER_EVIDENCE_V1"
+SUPERSEDED_EVIDENCE_STATUS = "IMPLEMENTED_SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION"
+
+UNVERIFIED_BUILD = provenance.UNVERIFIED_REASON
+INTEGRITY_ERROR = "EVIDENCE_INTEGRITY_VALIDATION_FAILED"
 SYMBOL = "BTCUSDT"
 MAX_DECISION_LATENCY = timedelta(minutes=5)
 MAX_DECISION_LATENCY_SECONDS = 300
@@ -217,8 +228,183 @@ class _DurableJsonStore:
                 staging.unlink(missing_ok=True)
 
 
+# Scientifically material fields only.  Bookkeeping such as reconciliation counters and
+# heartbeat stamps is deliberately excluded so that an audit event is appended when the
+# governed meaning of a record changes, and not merely because a tick touched it.
+_DECISION_GOVERNED_FIELDS = (
+    "decision_id",
+    "status",
+    "evidence_version",
+    "observer_version",
+    "strategy_version",
+    "feature_version",
+    "symbol",
+    "decision_boundary",
+    "observer_evaluation_time",
+    "durable_persistence_time",
+    "data_completeness_status",
+    "decision",
+    "direction_pass",
+    "breakout_pass",
+    "participation_pass",
+    "analysis_id",
+    "miss_reason",
+    "research_status",
+    "champion_status",
+    "build_provenance_sha256",
+    "real_money",
+)
+
+_TRADE_GOVERNED_FIELDS = (
+    "trade_id",
+    "decision_id",
+    "status",
+    "evidence_version",
+    "observer_version",
+    "strategy_version",
+    "symbol",
+    "direction",
+    "decision_boundary",
+    "intent_persisted_at",
+    "entry_not_before",
+    "entry_time",
+    "entry_price",
+    "stop_price",
+    "target_price",
+    "expiry_time",
+    "exit_time",
+    "exit_price",
+    "exit_reason",
+    "gross_return",
+    "net_return",
+    "r_multiple",
+    "holding_minutes",
+    "stop_fraction",
+    "target_fraction",
+    "max_hold_minutes",
+    "ambiguous_fill_policy",
+    "execution_model_version",
+    "cost_model_version",
+    "data_quality_status",
+    "reconciled_after_restart",
+    "build_provenance_sha256",
+    "real_money",
+)
+
+_DECISION_EVENT_TYPES = {
+    PERSISTING_DECISION: audit_chain.DECISION_PERSISTING,
+    OBSERVED: audit_chain.DECISION_OBSERVED,
+    MISSED_DECISION: audit_chain.DECISION_MISSED,
+    SUPPRESSED: audit_chain.LONG_SUPPRESSED,
+}
+
+_TRADE_EVENT_TYPES = {
+    PERSISTING_INTENT: audit_chain.INTENT_PERSISTING,
+    PENDING_ENTRY: audit_chain.INTENT_PERSISTED,
+    CLOSED_TARGET: audit_chain.TRADE_CLOSED,
+    CLOSED_STOP: audit_chain.TRADE_CLOSED,
+    CLOSED_EXPIRY: audit_chain.TRADE_CLOSED,
+    DATA_QUALITY_ERROR: audit_chain.TRADE_DATA_QUALITY_FAILED,
+}
+
+
+def _projection(record: dict[str, Any], fields: tuple[str, ...]) -> dict[str, Any]:
+    return {field: record.get(field) for field in fields}
+
+
+def decision_projection(decision: dict[str, Any]) -> dict[str, Any]:
+    return _projection(decision, _DECISION_GOVERNED_FIELDS)
+
+
+def trade_projection(trade: dict[str, Any]) -> dict[str, Any]:
+    return _projection(trade, _TRADE_GOVERNED_FIELDS)
+
+
+def _trade_event_type(chain: list[dict[str, Any]], trade: dict[str, Any]) -> str:
+    status = trade["status"]
+    if status == OPEN:
+        # The first time a trade is open it was entered; later governed changes while it
+        # remains open can only come from reconciling it against public bars.
+        if audit_chain.has_event_type(chain, trade["trade_id"], audit_chain.ENTRY_ESTABLISHED):
+            return audit_chain.TRADE_RECONCILED
+        return audit_chain.ENTRY_ESTABLISHED
+    return _TRADE_EVENT_TYPES[status]
+
+
+def synchronise_audit_chain(document: dict[str, Any], event_time: str) -> int:
+    """Append one immutable event for every governed state change in the snapshot."""
+    chain = document["audit_chain"]
+    appended = 0
+    for kind, records, project, event_type in (
+        (
+            "decision",
+            document["decisions"],
+            decision_projection,
+            lambda chain, record: _DECISION_EVENT_TYPES[record["status"]],
+        ),
+        ("trade", document["trades"], trade_projection, _trade_event_type),
+    ):
+        for record in records:
+            entity_id = record["decision_id"] if kind == "decision" else record["trade_id"]
+            payload = project(record)
+            latest = audit_chain.latest_event_for(chain, entity_id)
+            if latest is not None and latest["payload_digest"] == audit_chain.payload_digest(
+                payload
+            ):
+                continue
+            audit_chain.append_event(
+                chain,
+                event_type=event_type(chain, record),
+                entity_kind=kind,
+                entity_id=entity_id,
+                event_time=event_time,
+                payload=payload,
+            )
+            appended += 1
+    return appended
+
+
+def _validate_audit_integrity(document: dict[str, Any]) -> None:
+    """Validate the chain itself and that the snapshot agrees with its latest events."""
+    chain = document.get("audit_chain")
+    try:
+        audit_chain.validate_chain(chain)
+    except audit_chain.AuditChainError as exc:
+        raise ShadowObserverError(f"{INTEGRITY_ERROR}: {exc}") from exc
+    assert isinstance(chain, list)
+
+    governed: list[tuple[str, str, dict[str, Any]]] = [
+        *(
+            ("decision", decision["decision_id"], decision_projection(decision))
+            for decision in document["decisions"]
+        ),
+        *(("trade", trade["trade_id"], trade_projection(trade)) for trade in document["trades"]),
+    ]
+    entity_ids = {entity_id for _, entity_id, _ in governed}
+    for kind, entity_id, payload in governed:
+        latest = audit_chain.latest_event_for(chain, entity_id)
+        if latest is None:
+            raise ShadowObserverError(
+                f"{INTEGRITY_ERROR}: {kind} {entity_id} has no governed audit event"
+            )
+        if latest["payload_digest"] != audit_chain.payload_digest(payload):
+            raise ShadowObserverError(
+                f"{INTEGRITY_ERROR}: {kind} {entity_id} disagrees with its latest audit event"
+            )
+    for event in chain:
+        if event["entity_id"] not in entity_ids:
+            raise ShadowObserverError(
+                f"{INTEGRITY_ERROR}: audit event {event['sequence']} describes a deleted record"
+            )
+
+
 class ShadowEvidenceStore(_DurableJsonStore):
-    """Append-only decision and trade evidence, physically separate from manual V2."""
+    """Append-only decision and trade evidence, physically separate from manual V2.
+
+    The snapshot and its audit chain live in one document so a single durable replace
+    keeps them consistent; a crash can never leave the chain describing one state while
+    the snapshot describes another.
+    """
 
     def _empty(self) -> dict[str, Any]:
         return {
@@ -231,9 +417,14 @@ class ShadowEvidenceStore(_DurableJsonStore):
             "feature_version": PROSPECTIVE_FEATURES,
             "research_status": RESEARCH_STATUS,
             "champion_status": CHAMPION_STATUS,
+            "audit_chain_version": audit_chain.AUDIT_CHAIN_VERSION,
+            "supersedes": SUPERSEDED_EVIDENCE_VERSION,
+            "supersedes_status": SUPERSEDED_EVIDENCE_STATUS,
             "real_money": False,
+            "build_provenance": [],
             "decisions": [],
             "trades": [],
+            "audit_chain": [],
         }
 
     def load(self) -> dict[str, Any]:
@@ -244,6 +435,13 @@ class ShadowEvidenceStore(_DurableJsonStore):
 
     def save(self, document: dict[str, Any]) -> None:
         with self.locked():
+            self.validate(document)
+            self._write(document)
+
+    def commit(self, document: dict[str, Any], event_time: datetime) -> None:
+        """Append an audit event for every governed change, then durably replace once."""
+        with self.locked():
+            synchronise_audit_chain(document, _format(event_time))
             self.validate(document)
             self._write(document)
 
@@ -259,6 +457,9 @@ class ShadowEvidenceStore(_DurableJsonStore):
             "feature_version": PROSPECTIVE_FEATURES,
             "research_status": RESEARCH_STATUS,
             "champion_status": CHAMPION_STATUS,
+            "audit_chain_version": audit_chain.AUDIT_CHAIN_VERSION,
+            "supersedes": SUPERSEDED_EVIDENCE_VERSION,
+            "supersedes_status": SUPERSEDED_EVIDENCE_STATUS,
             "real_money": False,
         }
         if any(document.get(key) != value for key, value in expected.items()):
@@ -364,6 +565,9 @@ class ShadowEvidenceStore(_DurableJsonStore):
                 raise ShadowObserverError("completed shadow trade is missing its result")
         if len(trade_ids) != len(set(trade_ids)) or active > 1:
             raise ShadowObserverError("shadow ledger violates the one-position rule")
+        if not isinstance(document.get("build_provenance"), list):
+            raise ShadowObserverError("shadow evidence is missing its build provenance history")
+        _validate_audit_integrity(document)
 
 
 class ShadowHealthStore(_DurableJsonStore):
@@ -392,13 +596,17 @@ class ShadowHealthStore(_DurableJsonStore):
             or not isinstance(document.get("missed_boundaries"), int)
         ):
             raise ShadowObserverError("observer health store is invalid")
-        for field in (
-            "backend_start",
-            "observer_activation",
-            "last_heartbeat",
-            "next_expected_boundary",
-        ):
+        for field in ("backend_start", "last_heartbeat"):
             _parse(document.get(field))
+        # An observer that never activated — because a peer held the lease, or because its
+        # evidence failed integrity validation — records no activation instant and no next
+        # boundary, so those stay null rather than implying uptime that never happened.
+        activated = document.get("observer_activation") is not None
+        for field in ("observer_activation", "next_expected_boundary"):
+            if activated:
+                _parse(document.get(field))
+            elif document.get(field) is not None:
+                raise ShadowObserverError("inactive observer health cannot claim a boundary")
 
 
 def default_build_identity() -> str:
@@ -411,6 +619,15 @@ def default_build_identity() -> str:
         ).strip()
     except (OSError, subprocess.CalledProcessError):
         return f"trading-bot-{__version__}"
+
+
+def _default_provenance() -> dict[str, Any]:
+    """The live repository build identity for this observer and evidence version."""
+    return provenance.repository_provenance(
+        observer_version=OBSERVER_VERSION,
+        evidence_version=EVIDENCE_VERSION,
+        contract_path=EVIDENCE_CONTRACT,
+    )
 
 
 def _decision_id(boundary: datetime) -> str:
@@ -455,6 +672,8 @@ class ProspectiveShadowObserver:
         clock: Callable[[], datetime] | None = None,
         build_identity: str | None = None,
         heartbeat_seconds: int = HEARTBEAT_SECONDS,
+        provenance_provider: Callable[[], dict[str, Any]] | None = None,
+        lease: ObserverLease | None = None,
     ):
         self.evidence_store = evidence_store
         self.health_store = health_store
@@ -463,10 +682,40 @@ class ProspectiveShadowObserver:
         self.clock = clock or (lambda: datetime.now(UTC))
         self.build_identity = build_identity or default_build_identity()
         self.heartbeat_seconds = heartbeat_seconds
+        self.provenance_provider = provenance_provider or _default_provenance
+        self.lease = lease
         self._service_lock = threading.RLock()
         self._stop = threading.Event()
         self._thread: threading.Thread | None = None
         self._active = False
+
+    def build_provenance(self) -> dict[str, Any]:
+        """The current scientific build identity, never cached across a tick."""
+        return self.provenance_provider()
+
+    def _verified_provenance(self) -> dict[str, Any]:
+        """Return a usable build identity or fail closed with the governed reason."""
+        current = self.build_provenance()
+        try:
+            provenance.validate(current)
+        except provenance.ProvenanceError as exc:
+            raise ShadowObserverError(f"{UNVERIFIED_BUILD}: {exc}") from exc
+        return current
+
+    def _require_lease(self) -> None:
+        """Only the process owning the scientific lease may observe or record."""
+        if self.lease is None:
+            return
+        if not self.lease.acquire():
+            raise ShadowObserverError(CONTENDED_ERROR)
+
+    def _record_provenance(self, document: dict[str, Any], current: dict[str, Any]) -> str:
+        """Persist the manifest and aggregate SHA once per distinct build identity."""
+        identity = provenance.provenance_identity(current)
+        history = document["build_provenance"]
+        if not any(item.get("semantic_manifest_sha256") == identity for item in history):
+            history.append(current)
+        return identity
 
     def _new_health(self, now: datetime) -> dict[str, Any]:
         stamp = _format(now)
@@ -485,6 +734,9 @@ class ProspectiveShadowObserver:
             "next_expected_boundary": _format(_next_hour_strictly_after(now)),
             "missed_boundaries": 0,
             "current_error": None,
+            "build_provenance_verified": None,
+            "build_provenance_sha256": None,
+            "observer_lease_held": None,
             "real_money": False,
         }
 
@@ -518,10 +770,11 @@ class ProspectiveShadowObserver:
                     "research_status": RESEARCH_STATUS,
                     "champion_status": CHAMPION_STATUS,
                     "miss_reason": reason,
+                    "build_provenance_sha256": None,
                     "real_money": False,
                 }
             )
-            self.evidence_store.save(document)
+            self.evidence_store.commit(document, recorded_at)
             return True
 
     def _close_unentered_after_restart(self, now: datetime) -> int:
@@ -540,17 +793,35 @@ class ProspectiveShadowObserver:
                     )
                     changed += 1
             if changed:
-                self.evidence_store.save(document)
+                self.evidence_store.commit(document, now)
             return changed
 
     def activate(self, *, now: datetime | None = None) -> dict[str, Any]:
-        """Durably activate and account for downtime without evaluating past signals."""
+        """Durably activate and account for downtime without evaluating past signals.
+
+        Scientific activation requires exclusive ownership of the observer lease and
+        evidence whose audit chain still validates.  Either failure leaves the observer
+        degraded and inactive rather than quietly starting a second writer or continuing
+        on top of evidence that can no longer be trusted.
+        """
         moment = _utc(now or self.clock())
         with self._service_lock:
+            try:
+                self._require_lease()
+                self.evidence_store.load()
+            except ShadowObserverError as exc:
+                self._degrade_without_activating(moment, str(exc))
+                return self.overview()
             prior = self.health_store.load()
-            if prior is None:
+            # A health record left behind by a failed activation attempt records no
+            # activation instant, so it must not be treated as a restart with downtime.
+            previously_activated = (
+                prior is not None and prior.get("observer_activation") is not None
+            )
+            if not previously_activated:
                 health = self._new_health(moment)
             else:
+                assert prior is not None
                 health = dict(prior)
                 next_boundary = _parse(health["next_expected_boundary"])
                 while next_boundary <= _last_completed_hour(moment):
@@ -568,10 +839,41 @@ class ProspectiveShadowObserver:
                 )
                 health["activation_history"] = [*health["activation_history"], _format(moment)]
                 self._close_unentered_after_restart(moment)
+            current = self.build_provenance()
+            health["build_provenance_verified"] = bool(current.get("verified"))
+            health["build_provenance_sha256"] = current.get("semantic_manifest_sha256")
+            health["observer_lease_held"] = self.lease is None or self.lease.held
+            if not health["build_provenance_verified"]:
+                health.update(status="DEGRADED", current_error=UNVERIFIED_BUILD)
             self.health_store.save(health)
             self._active = True
-            self._reconcile_open_trades(moment, after_restart=prior is not None)
+            self._reconcile_open_trades(moment, after_restart=previously_activated)
             return self.overview()
+
+    def _degrade_without_activating(self, now: datetime, detail: str) -> None:
+        """Fail closed: never activate, and never rewrite evidence to make it validate."""
+        self._active = False
+        prior = self.health_store.load()
+        if prior is None:
+            # Nothing has ever activated here, so record the attempt without inventing an
+            # activation instant or any uptime that did not happen.
+            health = self._new_health(now)
+            health.update(
+                observer_activation=None,
+                initial_activation=None,
+                activation_history=[],
+                next_expected_boundary=None,
+            )
+        else:
+            health = dict(prior)
+        health.update(
+            status="DEGRADED",
+            backend_start=_format(now),
+            last_heartbeat=_format(now),
+            current_error=detail,
+            observer_lease_held=self.lease is None or self.lease.held,
+        )
+        self.health_store.save(health)
 
     def start(self) -> None:
         with self._service_lock:
@@ -603,9 +905,13 @@ class ProspectiveShadowObserver:
             health = self.health_store.load()
             if health is not None:
                 now = _utc(self.clock())
-                health.update(status="STOPPED", last_heartbeat=_format(now))
+                health.update(
+                    status="STOPPED", last_heartbeat=_format(now), observer_lease_held=False
+                )
                 self.health_store.save(health)
             self._active = False
+            if self.lease is not None:
+                self.lease.release()
 
     def _record_health_error(self, detail: str) -> None:
         with self._service_lock:
@@ -620,7 +926,11 @@ class ProspectiveShadowObserver:
             self.health_store.save(health)
 
     def _pending_decision(
-        self, analysis: dict[str, Any], boundary: datetime, now: datetime
+        self,
+        analysis: dict[str, Any],
+        boundary: datetime,
+        now: datetime,
+        provenance_sha: str,
     ) -> dict[str, Any]:
         features = analysis.get("features")
         if not isinstance(features, dict):
@@ -648,6 +958,7 @@ class ProspectiveShadowObserver:
             "research_status": RESEARCH_STATUS,
             "champion_status": CHAMPION_STATUS,
             "miss_reason": None,
+            "build_provenance_sha256": provenance_sha,
             "real_money": False,
         }
 
@@ -669,6 +980,7 @@ class ProspectiveShadowObserver:
             "code_build_identity": self.build_identity,
             "research_status": RESEARCH_STATUS,
             "champion_status": CHAMPION_STATUS,
+            "build_provenance_sha256": decision["build_provenance_sha256"],
             "symbol": SYMBOL,
             "direction": "LONG",
             "decision_boundary": decision["decision_boundary"],
@@ -725,10 +1037,15 @@ class ProspectiveShadowObserver:
         }
 
     def _persist_analysis(
-        self, analysis: dict[str, Any], boundary: datetime, evaluated_at: datetime
+        self,
+        analysis: dict[str, Any],
+        boundary: datetime,
+        evaluated_at: datetime,
+        current: dict[str, Any],
     ) -> dict[str, Any]:
         with self.evidence_store.locked():
             document = self.evidence_store.load()
+            provenance_sha = self._record_provenance(document, current)
             boundary_text = _format(boundary)
             existing = next(
                 (
@@ -740,14 +1057,14 @@ class ProspectiveShadowObserver:
             )
             if existing is not None:
                 return existing
-            decision = self._pending_decision(analysis, boundary, evaluated_at)
+            decision = self._pending_decision(analysis, boundary, evaluated_at, provenance_sha)
             active = any(trade["status"] in ACTIVE_TRADE_STATUSES for trade in document["trades"])
             trade: dict[str, Any] | None = None
             if decision["decision"] == "LONG" and not active:
                 trade = self._unarmed_trade(decision, analysis, evaluated_at)
                 document["trades"].append(trade)
             document["decisions"].append(decision)
-            self.evidence_store.save(document)
+            self.evidence_store.commit(document, evaluated_at)
 
             persisted_at = _utc(self.clock())
             if persisted_at > boundary + MAX_DECISION_LATENCY:
@@ -787,7 +1104,7 @@ class ProspectiveShadowObserver:
                         ),
                         last_update_time=_format(persisted_at),
                     )
-            self.evidence_store.save(document)
+            self.evidence_store.commit(document, persisted_at)
             return decision
 
     @staticmethod
@@ -821,15 +1138,50 @@ class ProspectiveShadowObserver:
             if trade_errors:
                 health.update(status="DEGRADED", current_error="; ".join(trade_errors))
 
+            # Verify the build and the lease once, before looking at the market at all, so
+            # an unusable build can never evaluate a signal that is relabelled afterwards.
+            gate_error: str | None = None
+            try:
+                self._require_lease()
+                current = self._verified_provenance()
+            except ShadowObserverError as exc:
+                gate_error = str(exc)
+                health.update(
+                    status="DEGRADED",
+                    current_error=gate_error,
+                    build_provenance_verified=False,
+                    observer_lease_held=self.lease is None or self.lease.held,
+                )
+            else:
+                health.update(
+                    build_provenance_verified=True,
+                    build_provenance_sha256=provenance.provenance_identity(current),
+                    observer_lease_held=True,
+                )
+
             next_boundary = _parse(health["next_expected_boundary"])
             while next_boundary <= _last_completed_hour(moment):
-                if moment > next_boundary + MAX_DECISION_LATENCY:
+                expired = moment > next_boundary + MAX_DECISION_LATENCY
+                if gate_error is not None:
+                    # The condition may still be repaired inside the five-minute window;
+                    # once it closes the boundary is permanently missed, typed by cause.
+                    if not expired:
+                        break
+                    reason = CONTENDED_ERROR if CONTENDED_ERROR in gate_error else UNVERIFIED_BUILD
+                    if self._mark_missed(next_boundary, reason, moment):
+                        health["missed_boundaries"] += 1
+                    health["last_missed_boundary"] = _format(next_boundary)
+                    next_boundary += HOUR
+                    health["next_expected_boundary"] = _format(next_boundary)
+                    continue
+                if expired:
                     if self._mark_missed(next_boundary, "DECISION_LATENCY_EXCEEDED", moment):
                         health["missed_boundaries"] += 1
                     health["last_missed_boundary"] = _format(next_boundary)
                     next_boundary += HOUR
                     health["next_expected_boundary"] = _format(next_boundary)
                     continue
+
                 try:
                     analysis = self.analyser(now=moment)
                 except Exception as exc:
@@ -843,7 +1195,7 @@ class ProspectiveShadowObserver:
                         ),
                     )
                     break
-                decision = self._persist_analysis(analysis, next_boundary, moment)
+                decision = self._persist_analysis(analysis, next_boundary, moment, current)
                 if decision["status"] == MISSED_DECISION:
                     health["missed_boundaries"] += 1
                     health["last_missed_boundary"] = _format(next_boundary)
@@ -1026,6 +1378,11 @@ class ProspectiveShadowObserver:
                         resolved, did_fetch = self._attempt_entry(trade, now)
                         fetched = fetched or did_fetch
                         if resolved["status"] == OPEN:
+                            # Entry is its own scientific fact: commit it before computing
+                            # any resolution, so the audit chain records the established
+                            # entry even when the same pass also closes the trade.
+                            document["trades"][index] = resolved
+                            self.evidence_store.commit(document, now)
                             resolved, did_fetch = self._advance_open(
                                 resolved, now, after_restart=after_restart
                             )
@@ -1050,11 +1407,16 @@ class ProspectiveShadowObserver:
                     document["trades"][index] = resolved
                     changed = True
             if changed:
-                self.evidence_store.save(document)
+                self.evidence_store.commit(document, now)
         return fetched, errors
 
     def overview(self) -> dict[str, Any]:
-        document = self.evidence_store.load()
+        try:
+            document = self.evidence_store.load()
+        except ShadowObserverError as exc:
+            # Evidence that no longer validates is never rewritten to make it readable;
+            # the surface reports the failure instead of presenting untrusted numbers.
+            return self._degraded_overview(str(exc))
         health = self.health_store.load()
         decisions = document["decisions"]
         trades = document["trades"]
@@ -1102,6 +1464,72 @@ class ProspectiveShadowObserver:
                 "prospective_shadow_trades_open": len(open_trades),
                 "prospective_shadow_trades_completed": len(completed),
             },
+            "audit_chain_version": audit_chain.AUDIT_CHAIN_VERSION,
+            "audit_events": len(document["audit_chain"]),
+            "evidence_integrity": "VALID",
+            "supersedes": SUPERSEDED_EVIDENCE_VERSION,
+            "supersedes_status": SUPERSEDED_EVIDENCE_STATUS,
+            "build_provenance_verified": (
+                health.get("build_provenance_verified") if health is not None else None
+            ),
+            "build_provenance_sha256": (
+                health.get("build_provenance_sha256") if health is not None else None
+            ),
+            "observer_lease_held": (
+                health.get("observer_lease_held") if health is not None else None
+            ),
+            "manual_evidence_included": False,
+            "historical_experiment_counted": False,
+            "order_placement": False,
+            "credentials": False,
+            "real_money": False,
+        }
+
+    def _degraded_overview(self, detail: str) -> dict[str, Any]:
+        """Report an unreadable or untrusted ledger without inventing scientific counts."""
+        health = None
+        try:
+            health = self.health_store.load()
+        except ShadowObserverError:
+            health = None
+        return {
+            "status": "DEGRADED",
+            "label": "AUTOMATED PAPER RESEARCH — NO REAL MONEY",
+            "observer_version": OBSERVER_VERSION,
+            "evidence_version": EVIDENCE_VERSION,
+            "evidence_stage": EVIDENCE_STAGE,
+            "initiation_mode": INITIATION_MODE,
+            "strategy_version": STRATEGY_VERSION,
+            "feature_version": PROSPECTIVE_FEATURES,
+            "research_status": RESEARCH_STATUS,
+            "champion_status": CHAMPION_STATUS,
+            "max_decision_latency_seconds": MAX_DECISION_LATENCY_SECONDS,
+            "first_scientific_review_completed_trades": FIRST_REVIEW_COMPLETED_TRADES,
+            "last_evaluated_hourly_boundary": None,
+            "last_heartbeat": health.get("last_heartbeat") if health is not None else None,
+            "next_expected_boundary": None,
+            "last_successful_market_fetch": None,
+            "current_error": detail,
+            "missed_prospective_decisions": None,
+            "raw_prospective_long_signals": None,
+            "suppressed_long_signals": None,
+            "open_shadow_trade": None,
+            "completed_shadow_trades": None,
+            "prospective_counters": None,
+            "audit_chain_version": audit_chain.AUDIT_CHAIN_VERSION,
+            "audit_events": None,
+            "evidence_integrity": "INVALID",
+            "supersedes": SUPERSEDED_EVIDENCE_VERSION,
+            "supersedes_status": SUPERSEDED_EVIDENCE_STATUS,
+            "build_provenance_verified": (
+                health.get("build_provenance_verified") if health is not None else None
+            ),
+            "build_provenance_sha256": (
+                health.get("build_provenance_sha256") if health is not None else None
+            ),
+            "observer_lease_held": (
+                health.get("observer_lease_held") if health is not None else None
+            ),
             "manual_evidence_included": False,
             "historical_experiment_counted": False,
             "order_placement": False,
@@ -1114,6 +1542,7 @@ def default_observer() -> ProspectiveShadowObserver:
     return ProspectiveShadowObserver(
         ShadowEvidenceStore(ROOT / EVIDENCE_STORE_PATH),
         ShadowHealthStore(ROOT / HEALTH_STORE_PATH),
+        lease=ObserverLease(ROOT / LEASE_PATH),
     )
 
 
@@ -1121,20 +1550,30 @@ __all__ = [
     "CLOSED_EXPIRY",
     "CLOSED_STOP",
     "CLOSED_TARGET",
+    "CONTENDED_ERROR",
     "DATA_QUALITY_ERROR",
     "EVIDENCE_STAGE",
     "EVIDENCE_STORE_PATH",
     "EVIDENCE_VERSION",
     "HEALTH_STORE_PATH",
     "INITIATION_MODE",
+    "INTEGRITY_ERROR",
+    "LEASE_PATH",
     "MISSED_DECISION",
     "OBSERVER_VERSION",
     "OPEN",
     "PENDING_ENTRY",
+    "SUPERSEDED_EVIDENCE_STATUS",
+    "SUPERSEDED_EVIDENCE_VERSION",
     "SUPPRESSED",
+    "UNVERIFIED_BUILD",
+    "ObserverLease",
     "ProspectiveShadowObserver",
     "ShadowEvidenceStore",
     "ShadowHealthStore",
     "ShadowObserverError",
+    "decision_projection",
     "default_observer",
+    "synchronise_audit_chain",
+    "trade_projection",
 ]

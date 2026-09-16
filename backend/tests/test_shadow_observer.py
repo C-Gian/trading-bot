@@ -1,17 +1,29 @@
-"""Synthetic-clock/feed tests for FUTURE_SHADOW_PAPER_EVIDENCE_V1."""
+"""Synthetic-clock/feed tests for FUTURE_SHADOW_PAPER_EVIDENCE_V1_1."""
 
 from __future__ import annotations
 
+import hashlib
 import json
+from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 import pytest
 from app.main import create_app
+from app.product import audit_chain
 from app.product.market_feed import Kline
+from app.product.observer_lease import CONTENDED_ERROR, ObserverLease
 from app.product.paper_v2 import EVIDENCE_VERSION as MANUAL_EVIDENCE_VERSION
 from app.product.paper_v2 import STORE_PATH as MANUAL_STORE_PATH
+from app.product.provenance import (
+    PROVENANCE_VERSION,
+    UNVERIFIED_REASON,
+    aggregate_sha256,
+    manifest_members,
+    repository_provenance,
+    semantic_manifest,
+)
 from app.product.shadow_observer import (
     CLOSED_EXPIRY,
     CLOSED_STOP,
@@ -21,6 +33,8 @@ from app.product.shadow_observer import (
     EVIDENCE_STORE_PATH,
     EVIDENCE_VERSION,
     HEALTH_STORE_PATH,
+    INTEGRITY_ERROR,
+    LEASE_PATH,
     MISSED_DECISION,
     OBSERVER_VERSION,
     OPEN,
@@ -30,6 +44,7 @@ from app.product.shadow_observer import (
     ShadowHealthStore,
     ShadowObserverError,
     default_observer,
+    trade_projection,
 )
 from app.research.local_runner import default_runner
 from fastapi.testclient import TestClient
@@ -99,11 +114,48 @@ def minute(
     return Kline(int(instant.timestamp() * 1000), high, low, close, 1.0, opened)
 
 
+SYNTHETIC_MANIFEST = {
+    "backend/app/product/shadow_observer.py": "11" * 32,
+    "backend/app/product/analysis.py": "22" * 32,
+    "backend/app/research/continuation.py": "33" * 32,
+    "backend/app/product/execution_v2.py": "44" * 32,
+    "backend/app/backtest/models.py": "55" * 32,
+    "backend/app/backtest/__init__.py": "66" * 32,
+    "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md": "77" * 32,
+}
+
+
+def synthetic_provenance(**overrides: Any) -> dict[str, Any]:
+    """A deterministic verified build identity; tests never shell out to git."""
+    manifest = dict(overrides.pop("semantic_manifest", SYNTHETIC_MANIFEST))
+    record = {
+        "provenance_version": PROVENANCE_VERSION,
+        "verified": True,
+        "unverified_reason": None,
+        "git_head": "a" * 40,
+        "git_branch": "main",
+        "worktree_clean": True,
+        "application_version": "synthetic",
+        "observer_version": OBSERVER_VERSION,
+        "evidence_version": EVIDENCE_VERSION,
+        "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+        "execution_version": "PAPER_EXECUTION_V2",
+        "cost_model_version": "BTCUSDT_SPOT_COST_V1",
+        "semantic_manifest": manifest,
+        "semantic_manifest_sha256": aggregate_sha256(manifest),
+    }
+    record.update(overrides)
+    return record
+
+
 def service(
     tmp_path: Path,
     clock: Clock,
     analysis: SyntheticAnalysis | None = None,
     feed: SyntheticMinuteFeed | None = None,
+    *,
+    provenance_provider: Callable[[], dict[str, Any]] | None = None,
+    lease: ObserverLease | None = None,
 ) -> ProspectiveShadowObserver:
     return ProspectiveShadowObserver(
         ShadowEvidenceStore(tmp_path / "shadow" / "evidence.json"),
@@ -113,6 +165,8 @@ def service(
         clock=clock,
         build_identity="synthetic-build",
         heartbeat_seconds=1,
+        provenance_provider=provenance_provider or synthetic_provenance,
+        lease=lease,
     )
 
 
@@ -485,20 +539,496 @@ def test_historical_aligned_family_is_final_and_no_descendant_is_runnable() -> N
     )
 
 
-def test_test_startup_cannot_write_the_production_prospective_store() -> None:
+def test_tests_cannot_write_the_production_v1_1_evidence_store() -> None:
+    store = ShadowEvidenceStore(ROOT / EVIDENCE_STORE_PATH)
+    assert store.path == ROOT / EVIDENCE_STORE_PATH
+    document = store.load()
+    with pytest.raises(ShadowObserverError, match="production prospective evidence store"):
+        store.save(document)
+    assert not (ROOT / EVIDENCE_STORE_PATH).exists()
+
+
+def test_tests_cannot_write_the_production_observer_health_store() -> None:
+    store = ShadowHealthStore(ROOT / HEALTH_STORE_PATH)
+    health: dict[str, Any] = {
+        "version": OBSERVER_VERSION,
+        "evidence_version": EVIDENCE_VERSION,
+        "status": "DEGRADED",
+        "backend_start": "2026-09-16T10:30:00Z",
+        "observer_activation": None,
+        "last_heartbeat": "2026-09-16T10:30:00Z",
+        "next_expected_boundary": None,
+        "activation_history": [],
+        "missed_boundaries": 0,
+        "real_money": False,
+    }
+    with pytest.raises(ShadowObserverError, match="production prospective evidence store"):
+        store.save(health)
+    assert not (ROOT / HEALTH_STORE_PATH).exists()
+
+
+def test_synthetic_stores_outside_the_production_path_remain_usable(tmp_path: Path) -> None:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    boundary = datetime(2026, 9, 16, 11, tzinfo=UTC)
+    clock = Clock(activation)
+    observer = service(tmp_path, clock, SyntheticAnalysis({boundary: "NO_TRADE"}))
+    activate_at(observer, activation)
+    observe(observer, clock, boundary)
+    assert observer.evidence_store.path.is_file()
+    assert observer.health_store.path.is_file()
+    assert len(observer.evidence_store.load()["decisions"]) == 1
+
+
+def test_testclient_lifespan_cannot_create_production_scientific_evidence() -> None:
     """The real wiring activates on backend start; a test run must never record evidence."""
     observer = default_observer()
     assert observer.evidence_store.path == ROOT / EVIDENCE_STORE_PATH
     assert observer.health_store.path == ROOT / HEALTH_STORE_PATH
+    assert observer.lease is not None and observer.lease.path == ROOT / LEASE_PATH
 
-    with pytest.raises(ShadowObserverError, match="production prospective evidence store"):
-        observer.activate(now=datetime(2026, 9, 16, 10, 30, tzinfo=UTC))
-
-    with (
-        pytest.raises(ShadowObserverError, match="production prospective evidence store"),
-        TestClient(create_app(shadow_observer=default_observer())),
-    ):
-        pass
+    try:
+        with TestClient(create_app(shadow_observer=observer)):
+            pass
+    except ShadowObserverError as exc:  # the guard may surface through the lifespan
+        assert "production prospective evidence store" in str(exc)
+    finally:
+        observer.stop()
 
     assert not (ROOT / EVIDENCE_STORE_PATH).exists()
     assert not (ROOT / HEALTH_STORE_PATH).exists()
+
+
+# --- BUILD_PROVENANCE_V1 ----------------------------------------------------------
+
+
+def test_dirty_worktree_cannot_emit_a_scientific_decision(tmp_path: Path) -> None:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    boundary = datetime(2026, 9, 16, 11, tzinfo=UTC)
+    clock = Clock(activation)
+    analysis = SyntheticAnalysis({boundary: "LONG"})
+    dirty = synthetic_provenance(worktree_clean=False)
+    observer = service(tmp_path, clock, analysis, provenance_provider=lambda: dirty)
+    activate_at(observer, activation)
+    observe(observer, clock, boundary)
+
+    assert analysis.calls == []
+    assert observer.evidence_store.load()["decisions"] == []
+    health = observer.health_store.load()
+    assert health is not None
+    assert health["status"] == "DEGRADED"
+    assert UNVERIFIED_REASON in health["current_error"]
+    assert health["build_provenance_verified"] is False
+
+
+def test_unverified_build_cannot_emit_a_scientific_decision(tmp_path: Path) -> None:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    boundary = datetime(2026, 9, 16, 11, tzinfo=UTC)
+    clock = Clock(activation)
+    analysis = SyntheticAnalysis({boundary: "LONG"})
+    unverified = synthetic_provenance(verified=False, unverified_reason=UNVERIFIED_REASON)
+    observer = service(tmp_path, clock, analysis, provenance_provider=lambda: unverified)
+    activate_at(observer, activation)
+    observe(observer, clock, boundary)
+
+    assert analysis.calls == []
+    assert observer.evidence_store.load()["decisions"] == []
+    assert observer.overview()["status"] == "DEGRADED"
+
+
+def test_unrepaired_unverified_build_becomes_a_typed_missed_decision(tmp_path: Path) -> None:
+    """The signal is never evaluated first and relabelled once the window closes."""
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    boundary = datetime(2026, 9, 16, 11, tzinfo=UTC)
+    clock = Clock(activation)
+    analysis = SyntheticAnalysis({boundary: "LONG"})
+    dirty = synthetic_provenance(worktree_clean=False)
+    observer = service(tmp_path, clock, analysis, provenance_provider=lambda: dirty)
+    activate_at(observer, activation)
+
+    observe(observer, clock, boundary, seconds_after=60)
+    assert observer.evidence_store.load()["decisions"] == []
+
+    clock.value = boundary + timedelta(minutes=6)
+    observer.tick(now=clock.value)
+    decisions = observer.evidence_store.load()["decisions"]
+    assert [item["status"] for item in decisions] == [MISSED_DECISION]
+    assert decisions[0]["miss_reason"] == UNVERIFIED_REASON
+    assert decisions[0]["decision"] is None
+    assert analysis.calls == []
+
+
+def test_clean_verified_build_records_and_persists_its_provenance(tmp_path: Path) -> None:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    boundary = datetime(2026, 9, 16, 11, tzinfo=UTC)
+    clock = Clock(activation)
+    observer = service(tmp_path, clock, SyntheticAnalysis({boundary: "NO_TRADE"}))
+    activate_at(observer, activation)
+    observe(observer, clock, boundary)
+
+    document = observer.evidence_store.load()
+    decision = document["decisions"][0]
+    assert decision["status"] != MISSED_DECISION
+    assert decision["decision"] == "NO_TRADE"
+
+    history = document["build_provenance"]
+    assert len(history) == 1
+    assert history[0]["verified"] is True
+    assert history[0]["git_head"] == "a" * 40
+    assert history[0]["worktree_clean"] is True
+    assert history[0]["semantic_manifest"] == SYNTHETIC_MANIFEST
+    assert decision["build_provenance_sha256"] == history[0]["semantic_manifest_sha256"]
+    assert observer.overview()["build_provenance_sha256"] == decision["build_provenance_sha256"]
+
+
+def test_semantic_source_change_changes_provenance_identity() -> None:
+    contract = "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md"
+    members = manifest_members(contract)
+    for required in (
+        "backend/app/product/shadow_observer.py",
+        "backend/app/product/analysis.py",
+        "backend/app/research/continuation.py",
+        "backend/app/product/execution_v2.py",
+        "backend/app/backtest/models.py",
+        "backend/app/backtest/__init__.py",
+        contract,
+    ):
+        assert required in members
+
+    manifest = semantic_manifest(contract)
+    assert set(manifest) == set(members)
+    baseline = aggregate_sha256(manifest)
+    assert aggregate_sha256(dict(manifest)) == baseline
+
+    for member in members:
+        altered = dict(manifest)
+        altered[member] = "00" * 32
+        assert aggregate_sha256(altered) != baseline
+
+
+def test_repository_provenance_reports_the_running_build() -> None:
+    record = repository_provenance(
+        observer_version=OBSERVER_VERSION,
+        evidence_version=EVIDENCE_VERSION,
+        contract_path="docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md",
+    )
+    assert record["provenance_version"] == PROVENANCE_VERSION
+    assert record["observer_version"] == OBSERVER_VERSION
+    assert record["strategy_version"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    assert record["cost_model_version"] == "BTCUSDT_SPOT_COST_V1"
+    assert record["semantic_manifest_sha256"] == aggregate_sha256(record["semantic_manifest"])
+    # Verification tracks the real tree, so this asserts the rule rather than a fixed value.
+    assert record["verified"] is (bool(record["git_head"]) and record["worktree_clean"])
+
+
+# --- single active observer lease -------------------------------------------------
+
+
+def test_only_one_process_level_observer_lease_can_be_owned(tmp_path: Path) -> None:
+    path = tmp_path / "observer.lease"
+    first = ObserverLease(path)
+    second = ObserverLease(path)
+    assert first.acquire() is True
+    assert first.held is True
+    assert second.acquire() is False
+    assert second.held is False
+
+    first.release()
+    assert first.held is False
+    assert second.acquire() is True
+    second.release()
+
+
+def test_losing_the_lease_prevents_scientific_activation(tmp_path: Path) -> None:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    boundary = datetime(2026, 9, 16, 11, tzinfo=UTC)
+    path = tmp_path / "observer.lease"
+    incumbent = ObserverLease(path)
+    assert incumbent.acquire() is True
+
+    clock = Clock(activation)
+    analysis = SyntheticAnalysis({boundary: "LONG"})
+    observer = service(tmp_path, clock, analysis, lease=ObserverLease(path))
+    overview = observer.activate(now=activation)
+
+    assert overview["status"] == "DEGRADED"
+    assert overview["current_error"] == CONTENDED_ERROR
+    health = observer.health_store.load()
+    assert health is not None
+    # A contended instance never invents an activation instant or any uptime.
+    assert health["observer_activation"] is None
+    assert health["activation_history"] == []
+    assert observer.evidence_store.load()["decisions"] == []
+
+    with pytest.raises(ShadowObserverError, match="not activated"):
+        observer.tick(now=boundary + timedelta(seconds=30))
+    assert analysis.calls == []
+    incumbent.release()
+
+
+def test_second_observer_does_not_duplicate_evaluation_or_evidence(tmp_path: Path) -> None:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    boundary = datetime(2026, 9, 16, 11, tzinfo=UTC)
+    path = tmp_path / "observer.lease"
+    clock = Clock(activation)
+
+    primary_analysis = SyntheticAnalysis({boundary: "NO_TRADE"})
+    primary = service(tmp_path, clock, primary_analysis, lease=ObserverLease(path))
+    activate_at(primary, activation)
+
+    duplicate_analysis = SyntheticAnalysis({boundary: "NO_TRADE"})
+    duplicate = service(tmp_path, clock, duplicate_analysis, lease=ObserverLease(path))
+    duplicate.activate(now=activation)
+
+    observe(primary, clock, boundary)
+    assert len(primary.evidence_store.load()["decisions"]) == 1
+    assert duplicate_analysis.calls == []
+    primary.stop()
+
+
+# --- tamper-evident audit chain ---------------------------------------------------
+
+
+def test_audit_genesis_and_chain_extension_are_valid(tmp_path: Path) -> None:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    clock = Clock(activation)
+    observer = service(
+        tmp_path,
+        clock,
+        SyntheticAnalysis(
+            {
+                datetime(2026, 9, 16, 11, tzinfo=UTC): "NO_TRADE",
+                datetime(2026, 9, 16, 12, tzinfo=UTC): "NO_TRADE",
+            }
+        ),
+    )
+    activate_at(observer, activation)
+    assert observer.evidence_store.load()["audit_chain"] == []
+
+    observe(observer, clock, datetime(2026, 9, 16, 11, tzinfo=UTC))
+    observe(observer, clock, datetime(2026, 9, 16, 12, tzinfo=UTC))
+
+    chain = observer.evidence_store.load()["audit_chain"]
+    assert [event["sequence"] for event in chain] == list(range(1, len(chain) + 1))
+    assert chain[0]["previous_event_hash"] == audit_chain.GENESIS_PREVIOUS_HASH
+    assert [event["event_type"] for event in chain][-1] == audit_chain.DECISION_OBSERVED
+    for earlier, later in zip(chain, chain[1:], strict=False):
+        assert later["previous_event_hash"] == earlier["event_hash"]
+    audit_chain.validate_chain(chain)
+
+
+def test_long_lifecycle_appends_each_governed_transition(tmp_path: Path) -> None:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    boundary = datetime(2026, 9, 16, 11, tzinfo=UTC)
+    entry = boundary + MINUTE
+    resolution = entry + MINUTE
+    clock = Clock(activation)
+    feed = SyntheticMinuteFeed(
+        [minute(entry), minute(resolution, high=110.0, low=99.0, close=105.0)]
+    )
+    observer = service(tmp_path, clock, SyntheticAnalysis({boundary: "LONG"}), feed)
+    activate_at(observer, activation)
+    observe(observer, clock, boundary)
+    clock.value = resolution + timedelta(minutes=2)
+    observer.tick(now=clock.value)
+
+    chain = observer.evidence_store.load()["audit_chain"]
+    types = [event["event_type"] for event in chain]
+    assert audit_chain.DECISION_OBSERVED in types
+    assert audit_chain.INTENT_PERSISTED in types
+    assert audit_chain.ENTRY_ESTABLISHED in types
+    assert audit_chain.TRADE_CLOSED in types
+    assert types.index(audit_chain.INTENT_PERSISTED) < types.index(audit_chain.ENTRY_ESTABLISHED)
+    assert types.index(audit_chain.ENTRY_ESTABLISHED) < types.index(audit_chain.TRADE_CLOSED)
+    audit_chain.validate_chain(chain)
+
+
+def _tamper(store: ShadowEvidenceStore, mutate: Callable[[dict[str, Any]], None]) -> None:
+    """Edit the durable file directly, exactly as a corrupting external write would."""
+    document = json.loads(store.path.read_text(encoding="utf-8"))
+    mutate(document)
+    store.path.write_text(json.dumps(document, indent=2), encoding="utf-8")
+
+
+def _observed_store(tmp_path: Path) -> ShadowEvidenceStore:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    clock = Clock(activation)
+    observer = service(
+        tmp_path,
+        clock,
+        SyntheticAnalysis(
+            {
+                datetime(2026, 9, 16, 11, tzinfo=UTC): "NO_TRADE",
+                datetime(2026, 9, 16, 12, tzinfo=UTC): "NO_TRADE",
+            }
+        ),
+    )
+    activate_at(observer, activation)
+    observe(observer, clock, datetime(2026, 9, 16, 11, tzinfo=UTC))
+    observe(observer, clock, datetime(2026, 9, 16, 12, tzinfo=UTC))
+    return observer.evidence_store
+
+
+def test_audit_payload_modification_is_detected(tmp_path: Path) -> None:
+    store = _observed_store(tmp_path)
+
+    def mutate(document: dict[str, Any]) -> None:
+        document["audit_chain"][0]["payload_digest"] = "00" * 32
+
+    _tamper(store, mutate)
+    with pytest.raises(ShadowObserverError, match=INTEGRITY_ERROR):
+        store.load()
+
+
+def test_audit_reordering_is_detected(tmp_path: Path) -> None:
+    store = _observed_store(tmp_path)
+
+    def mutate(document: dict[str, Any]) -> None:
+        chain = document["audit_chain"]
+        chain[0], chain[1] = chain[1], chain[0]
+
+    _tamper(store, mutate)
+    with pytest.raises(ShadowObserverError, match=INTEGRITY_ERROR):
+        store.load()
+
+
+def test_audit_deletion_is_detected(tmp_path: Path) -> None:
+    store = _observed_store(tmp_path)
+
+    def mutate(document: dict[str, Any]) -> None:
+        del document["audit_chain"][0]
+
+    _tamper(store, mutate)
+    with pytest.raises(ShadowObserverError, match=INTEGRITY_ERROR):
+        store.load()
+
+
+def test_duplicate_audit_sequence_is_detected(tmp_path: Path) -> None:
+    store = _observed_store(tmp_path)
+
+    def mutate(document: dict[str, Any]) -> None:
+        chain = document["audit_chain"]
+        chain.insert(1, dict(chain[0]))
+
+    _tamper(store, mutate)
+    with pytest.raises(ShadowObserverError, match=INTEGRITY_ERROR):
+        store.load()
+
+
+def test_snapshot_inconsistent_with_its_latest_event_is_detected(tmp_path: Path) -> None:
+    """A silent edit to the snapshot alone can no longer pass as genuine evidence."""
+    store = _observed_store(tmp_path)
+
+    def mutate(document: dict[str, Any]) -> None:
+        document["decisions"][0]["decision"] = "LONG"
+
+    _tamper(store, mutate)
+    with pytest.raises(ShadowObserverError, match=INTEGRITY_ERROR):
+        store.load()
+
+
+def test_deleted_snapshot_record_leaves_an_orphaned_event(tmp_path: Path) -> None:
+    store = _observed_store(tmp_path)
+
+    def mutate(document: dict[str, Any]) -> None:
+        del document["decisions"][0]
+
+    _tamper(store, mutate)
+    with pytest.raises(ShadowObserverError, match=INTEGRITY_ERROR):
+        store.load()
+
+
+def test_integrity_failure_fails_closed_without_rewriting_evidence(tmp_path: Path) -> None:
+    store = _observed_store(tmp_path)
+
+    def mutate(document: dict[str, Any]) -> None:
+        document["decisions"][0]["decision"] = "LONG"
+
+    _tamper(store, mutate)
+    corrupted = store.path.read_bytes()
+
+    clock = Clock(datetime(2026, 9, 16, 13, tzinfo=UTC))
+    analysis = SyntheticAnalysis({datetime(2026, 9, 16, 13, tzinfo=UTC): "LONG"})
+    observer = service(tmp_path, clock, analysis)
+    overview = observer.activate(now=clock.value)
+
+    assert overview["status"] == "DEGRADED"
+    assert overview["evidence_integrity"] == "INVALID"
+    assert INTEGRITY_ERROR in overview["current_error"]
+    assert overview["completed_shadow_trades"] is None
+    with pytest.raises(ShadowObserverError, match="not activated"):
+        observer.tick(now=clock.value)
+    assert analysis.calls == []
+    assert store.path.read_bytes() == corrupted
+
+
+def test_restart_preserves_the_audit_chain(tmp_path: Path) -> None:
+    store = _observed_store(tmp_path)
+    before = store.load()["audit_chain"]
+
+    restart = datetime(2026, 9, 16, 12, 30, tzinfo=UTC)
+    clock = Clock(restart)
+    restarted = service(tmp_path, clock)
+    activate_at(restarted, restart)
+
+    after = restarted.evidence_store.load()["audit_chain"]
+    assert after[: len(before)] == before
+    audit_chain.validate_chain(after)
+
+
+def test_snapshot_and_audit_chain_share_one_atomic_document(tmp_path: Path) -> None:
+    """A crash cannot leave the chain describing one state and the snapshot another."""
+    store = _observed_store(tmp_path)
+    document = json.loads(store.path.read_text(encoding="utf-8"))
+    assert {"decisions", "trades", "audit_chain"} <= set(document)
+    assert document["audit_chain_version"] == audit_chain.AUDIT_CHAIN_VERSION
+    assert not list(store.path.parent.glob("*.staging"))
+
+
+# --- frozen scientific semantics --------------------------------------------------
+
+
+def test_v1_1_changes_no_scientific_semantics(tmp_path: Path) -> None:
+    activation = datetime(2026, 9, 16, 10, 30, tzinfo=UTC)
+    boundary = datetime(2026, 9, 16, 11, tzinfo=UTC)
+    entry = boundary + MINUTE
+    clock = Clock(activation)
+    feed = SyntheticMinuteFeed([minute(entry)])
+    observer = service(tmp_path, clock, SyntheticAnalysis({boundary: "LONG"}), feed)
+    activate_at(observer, activation)
+    observe(observer, clock, boundary)
+    clock.value = entry + timedelta(minutes=2)
+    observer.tick(now=clock.value)
+
+    trade = observer.evidence_store.load()["trades"][0]
+    projection = trade_projection(trade)
+    assert projection["stop_fraction"] == 0.02
+    assert projection["target_fraction"] == 0.04
+    assert projection["max_hold_minutes"] == 1440
+    assert projection["ambiguous_fill_policy"] == "STOP_FIRST_V1"
+    assert projection["cost_model_version"] == "BTCUSDT_SPOT_COST_V1"
+    assert projection["direction"] == "LONG"
+    assert trade["entry_price"] == 100.0
+    assert trade["stop_price"] == 98.0
+    assert trade["target_price"] == 104.0
+    assert trade["leverage"] is False and trade["short"] is False
+    assert trade["order_placed"] is False and trade["real_money"] is False
+
+    overview = observer.overview()
+    assert overview["first_scientific_review_completed_trades"] == 20
+    assert overview["champion_status"] == "NONE"
+    assert overview["real_money"] is False
+    assert overview["supersedes"] == "FUTURE_SHADOW_PAPER_EVIDENCE_V1"
+    assert overview["supersedes_status"] == "IMPLEMENTED_SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION"
+
+
+def test_manual_paper_v2_is_untouched_by_the_hardening() -> None:
+    assert MANUAL_EVIDENCE_VERSION == "FUTURE_PAPER_EVIDENCE_V2"
+    assert MANUAL_STORE_PATH == "data/paper/PAPER_TRADES_V2.json"
+    assert EVIDENCE_STORE_PATH != MANUAL_STORE_PATH
+    assert HEALTH_STORE_PATH != MANUAL_STORE_PATH
+    assert LEASE_PATH != MANUAL_STORE_PATH
+    manual = (ROOT / "backend/app/product/paper_v2.py").read_bytes().replace(b"\r\n", b"\n")
+    assert (
+        hashlib.sha256(manual).hexdigest()
+        == "1a219b66f88a66cb727cfc956aabe0edb15da287711ffe7a469a48011dd45025"
+    )

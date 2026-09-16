@@ -264,9 +264,9 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == "ALIGNED-DEVELOPMENT-FINAL-CLOSURE"
+    assert state["latest_reviewed_checkpoint"] == "PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
     assert state["latest_executor_checkpoint"] == (
-        "ALIGNED-DEVELOPMENT-FINAL-CLOSURE-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
+        "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
@@ -343,7 +343,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
+        "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-V1_1"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
@@ -826,7 +826,9 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["primary_next_direction"] == "PROSPECTIVE_EVIDENCE_COLLECTION"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == "PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
+    assert architecture["next_checkpoint"] == (
+        "PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1"
+    )
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -1229,16 +1231,28 @@ def gate_intensity_checks(state: dict) -> None:
 def prospective_shadow_observer_checks(state: dict) -> None:
     """The forward observer is separate, causal, and cannot reopen historical ALIGNED."""
     from app.main import create_app
+    from app.product.audit_chain import AUDIT_CHAIN_VERSION, GENESIS_PREVIOUS_HASH
+    from app.product.observer_lease import CONTENDED_ERROR
     from app.product.paper_v2 import EVIDENCE_VERSION as MANUAL_EVIDENCE_VERSION
     from app.product.paper_v2 import STORE_PATH as MANUAL_STORE_PATH
+    from app.product.provenance import (
+        PROVENANCE_VERSION,
+        UNVERIFIED_REASON,
+        aggregate_sha256,
+        manifest_members,
+        semantic_manifest,
+    )
     from app.product.shadow_observer import (
         EVIDENCE_STAGE,
         EVIDENCE_STORE_PATH,
         EVIDENCE_VERSION,
         HEALTH_STORE_PATH,
         INITIATION_MODE,
+        LEASE_PATH,
         MAX_DECISION_LATENCY_SECONDS,
         OBSERVER_VERSION,
+        SUPERSEDED_EVIDENCE_STATUS,
+        SUPERSEDED_EVIDENCE_VERSION,
     )
     from app.research.local_runner import default_runner
 
@@ -1266,6 +1280,20 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         for candidate in candidates
     )
 
+    superseded = state["superseded_prospective_evidence"]
+    assert superseded == {
+        "version": SUPERSEDED_EVIDENCE_VERSION,
+        "observer_version": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1",
+        "software_status": "ACCEPTED",
+        "status": SUPERSEDED_EVIDENCE_STATUS,
+        "contract": "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1.md",
+        "real_observations": 0,
+        "evidence_migrated": False,
+        "preserved_as_implementation_history": True,
+    }
+    # The superseded contract stays in the repository as implementation history.
+    assert (ROOT / superseded["contract"]).is_file()
+
     observer = state["prospective_shadow_observer"]
     assert observer["version"] == OBSERVER_VERSION
     assert observer["evidence_version"] == EVIDENCE_VERSION
@@ -1286,6 +1314,40 @@ def prospective_shadow_observer_checks(state: dict) -> None:
     assert observer["maximum_hold_minutes"] == 1440
     assert observer["first_scientific_review_completed_trades"] == 20
     assert observer["manual_paper_store_unchanged"] is True
+    assert observer["observer_lease"] == LEASE_PATH
+    assert observer["build_provenance_version"] == PROVENANCE_VERSION
+    assert observer["verified_build_required_for_decision"] is True
+    assert observer["clean_worktree_required"] is True
+    assert observer["unverified_build_reason"] == UNVERIFIED_REASON
+    assert observer["single_observer_lease"] is True
+    assert observer["contended_observer_reason"] == CONTENDED_ERROR
+    assert observer["audit_chain_version"] == AUDIT_CHAIN_VERSION
+    assert observer["audit_chain_genesis"] == GENESIS_PREVIOUS_HASH
+    assert observer["audit_chain_keyed"] is False
+    assert observer["snapshot_and_audit_single_atomic_document"] is True
+    assert observer["integrity_validated_before_use"] is True
+    assert observer["integrity_failure_rewrites_evidence"] is False
+    assert len({EVIDENCE_STORE_PATH, HEALTH_STORE_PATH, LEASE_PATH, MANUAL_STORE_PATH}) == 4
+
+    # The semantic manifest binds the sources that define the observer's behaviour, and
+    # every member must move the aggregate identity when its bytes change.
+    manifest = semantic_manifest(observer["contract"])
+    members = manifest_members(observer["contract"])
+    for required in (
+        "backend/app/product/shadow_observer.py",
+        "backend/app/product/analysis.py",
+        "backend/app/research/continuation.py",
+        "backend/app/product/execution_v2.py",
+        "backend/app/backtest/models.py",
+        "backend/app/backtest/__init__.py",
+        observer["contract"],
+    ):
+        assert required in members, required
+    assert set(manifest) == set(members)
+    baseline = aggregate_sha256(manifest)
+    for member in members:
+        altered = {**manifest, member: "00" * 32}
+        assert aggregate_sha256(altered) != baseline
     assert observer["order_placement"] is observer["credentials"] is False
     assert observer["champion_status"] == "NONE" and observer["real_money"] is False
     assert MANUAL_EVIDENCE_VERSION == "FUTURE_PAPER_EVIDENCE_V2"
@@ -1310,8 +1372,13 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         "STOP_FIRST_V1",
         "20 completed automated shadow trades",
         "no credential, account, balance, or order endpoint",
+        "BUILD_PROVENANCE_V1",
+        "UNVERIFIED_SCIENTIFIC_BUILD",
+        "ANOTHER_OBSERVER_INSTANCE_ACTIVE",
+        "IMPLEMENTED_SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION",
+        "no secret key",
     ):
-        assert required in contract
+        assert required in contract, required
     assert state["prospective_counters"] == {
         "prospective_observation_hours": 0,
         "prospective_long_signals": 0,
@@ -1732,6 +1799,10 @@ def governance_checks(pre_experiment: bool) -> dict:
         "decisions/ADR-0022-ALIGNED-FINAL-CLOSURE-AND-PROSPECTIVE-SHADOW-OBSERVER.md",
         "reports/checkpoints/ALIGNED-DEVELOPMENT-FINAL-CLOSURE-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1.md",
         "tasks/archive/ALIGNED-DEVELOPMENT-FINAL-CLOSURE-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1.md",
+        "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md",
+        "decisions/ADR-0023-PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-V1_1.md",
+        "reports/checkpoints/PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1.md",
+        "tasks/archive/PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-HARDENING-V1_1.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()

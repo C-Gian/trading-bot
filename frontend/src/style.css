@@ -251,6 +251,8 @@ button:disabled {
 .observer-panel { display: grid; gap: var(--s5); padding: var(--s5); }
 .observer-strip { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); }
 .observer-label { display: block; margin-top: 4px; color: var(--accent-hi); font-family: var(--mono); font-size: 13px; letter-spacing: .04em; }
+.observer-integrity { padding: var(--s4); border: 1px solid var(--line); border-radius: var(--r-md); background: var(--ink-750); }
+.observer-provenance { display: block; margin-top: 4px; color: var(--text-2); font-family: var(--mono); font-size: 12px; }
 .observer-timegrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: hidden; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--line); gap: 1px; }
 .observer-timegrid > div { min-height: 84px; padding: var(--s4); background: var(--ink-750); }
 .observer-timegrid span, .observer-counts span { display: block; margin-bottom: 7px; color: var(--text-3); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }

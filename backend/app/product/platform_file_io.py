@@ -14,6 +14,7 @@ class PlatformFileIOError(RuntimeError):
 
 class _MsvcrtModule(Protocol):
     LK_LOCK: int
+    LK_NBLCK: int
     LK_UNLCK: int
 
     def locking(self, file_descriptor: int, mode: int, byte_count: int) -> None: ...
@@ -21,6 +22,7 @@ class _MsvcrtModule(Protocol):
 
 class _FcntlModule(Protocol):
     LOCK_EX: int
+    LOCK_NB: int
     LOCK_UN: int
 
     def flock(self, file_descriptor: int, operation: int) -> None: ...
@@ -70,6 +72,8 @@ class PlatformFileOperations(Protocol):
 
     def lock(self, file_descriptor: int) -> None: ...
 
+    def try_lock(self, file_descriptor: int) -> bool: ...
+
     def unlock(self, file_descriptor: int) -> None: ...
 
     def replace_durably(self, staging: Path, target: Path) -> None: ...
@@ -83,6 +87,14 @@ class WindowsFileOperations:
     def lock(self, file_descriptor: int) -> None:
         module = _load_msvcrt()
         module.locking(file_descriptor, module.LK_LOCK, 1)
+
+    def try_lock(self, file_descriptor: int) -> bool:
+        module = _load_msvcrt()
+        try:
+            module.locking(file_descriptor, module.LK_NBLCK, 1)
+        except OSError:
+            return False
+        return True
 
     def unlock(self, file_descriptor: int) -> None:
         module = _load_msvcrt()
@@ -106,6 +118,14 @@ class PosixFileOperations:
     def lock(self, file_descriptor: int) -> None:
         module = _load_fcntl()
         module.flock(file_descriptor, module.LOCK_EX)
+
+    def try_lock(self, file_descriptor: int) -> bool:
+        module = _load_fcntl()
+        try:
+            module.flock(file_descriptor, module.LOCK_EX | module.LOCK_NB)
+        except OSError:
+            return False
+        return True
 
     def unlock(self, file_descriptor: int) -> None:
         module = _load_fcntl()
