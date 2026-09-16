@@ -105,6 +105,35 @@
       "suite_hash": "ca71d3b8b64e3d4cc6d0dcbe1f4df7d96fa1979be6d9d8a957f59dbb9b9db819"
     }
   },
+  "build_provenance": {
+    "clean_worktree_required": true,
+    "evidence_migration_required": false,
+    "evidence_version": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1",
+    "frozen_member_exempt_from_clean_verdict": false,
+    "git_head_alone_identifies_build": false,
+    "manifest_member_count": 15,
+    "manifest_members": [
+      "backend/app/backtest/__init__.py",
+      "backend/app/backtest/models.py",
+      "backend/app/main.py",
+      "backend/app/product/__init__.py",
+      "backend/app/product/analysis.py",
+      "backend/app/product/audit_chain.py",
+      "backend/app/product/execution_v2.py",
+      "backend/app/product/features.py",
+      "backend/app/product/market_feed.py",
+      "backend/app/product/observer_lease.py",
+      "backend/app/product/platform_file_io.py",
+      "backend/app/product/provenance.py",
+      "backend/app/product/shadow_observer.py",
+      "backend/app/research/continuation.py",
+      "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md"
+    ],
+    "runtime_artifacts_affect_semantic_identity": false,
+    "supersedes": "BUILD_PROVENANCE_V1",
+    "supersedes_status": "SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION",
+    "version": "BUILD_PROVENANCE_V1_1"
+  },
   "canonical_resolution": "1m",
   "cftc_positioning_challenger": {
     "actual_model_fits": 10,
@@ -421,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "PAUSED",
-  "latest_executor_checkpoint": "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1",
+  "latest_executor_checkpoint": "PROSPECTIVE-BUILD-SEMANTIC-MANIFEST-CLOSURE-V1_1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -429,12 +458,12 @@
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
     "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1",
+  "latest_reviewed_checkpoint": "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1",
   "max_holding_horizon": {
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-RUNTIME-PROVENANCE-FIX-V1_1",
+  "next_recommended_work_package": "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -572,6 +601,7 @@
     "detected_by": "OWNER_LOCAL_BACKEND_START",
     "genuine_observations_lost": 0,
     "index_mutation_in_runtime_code": false,
+    "research_director_accepted": true,
     "runtime_artifacts_excluded_from_dirtiness": true,
     "runtime_artifacts_ignored_by_git": true,
     "runtime_state_committed": false,
@@ -587,7 +617,7 @@
     "audit_chain_keyed": false,
     "audit_chain_version": "SHADOW_EVIDENCE_AUDIT_CHAIN_V1",
     "automatic_local_backend_activation": true,
-    "build_provenance_version": "BUILD_PROVENANCE_V1",
+    "build_provenance_version": "BUILD_PROVENANCE_V1_1",
     "champion_status": "NONE",
     "clean_worktree_required": true,
     "contended_observer_reason": "ANOTHER_OBSERVER_INSTANCE_ACTIVE",

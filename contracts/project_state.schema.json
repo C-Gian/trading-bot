@@ -36,6 +36,7 @@
     "aligned_development_closure",
     "superseded_prospective_evidence",
     "prospective_shadow_observer",
+    "build_provenance",
     "prospective_collection",
     "prospective_collection_operating_policy",
     "prospective_runtime_provenance_fix",
@@ -194,7 +195,7 @@
         "evidence_store": {"const": "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.json"},
         "health_store": {"const": "data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1_1.json"},
         "observer_lease": {"const": "data/paper/PROSPECTIVE_SHADOW_OBSERVER_V1_1.lease"},
-        "build_provenance_version": {"const": "BUILD_PROVENANCE_V1"},
+        "build_provenance_version": {"const": "BUILD_PROVENANCE_V1_1"},
         "verified_build_required_for_decision": {"const": true},
         "clean_worktree_required": {"const": true},
         "unverified_build_reason": {"const": "UNVERIFIED_SCIENTIFIC_BUILD"},
@@ -305,10 +306,54 @@
         "missed_boundary_reconstruction": {"const": false}
       }
     },
+    "build_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "supersedes", "supersedes_status", "evidence_version",
+        "manifest_member_count", "manifest_members", "clean_worktree_required",
+        "git_head_alone_identifies_build", "frozen_member_exempt_from_clean_verdict",
+        "runtime_artifacts_affect_semantic_identity", "evidence_migration_required"
+      ],
+      "properties": {
+        "version": {"const": "BUILD_PROVENANCE_V1_1"},
+        "supersedes": {"const": "BUILD_PROVENANCE_V1"},
+        "supersedes_status": {"const": "SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION"},
+        "evidence_version": {"const": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1"},
+        "manifest_member_count": {"const": 15},
+        "manifest_members": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "backend/app/backtest/__init__.py",
+            "backend/app/backtest/models.py",
+            "backend/app/main.py",
+            "backend/app/product/__init__.py",
+            "backend/app/product/analysis.py",
+            "backend/app/product/audit_chain.py",
+            "backend/app/product/execution_v2.py",
+            "backend/app/product/features.py",
+            "backend/app/product/market_feed.py",
+            "backend/app/product/observer_lease.py",
+            "backend/app/product/platform_file_io.py",
+            "backend/app/product/provenance.py",
+            "backend/app/product/shadow_observer.py",
+            "backend/app/research/continuation.py",
+            "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md"
+          ]
+        },
+        "clean_worktree_required": {"const": true},
+        "git_head_alone_identifies_build": {"const": false},
+        "frozen_member_exempt_from_clean_verdict": {"const": false},
+        "runtime_artifacts_affect_semantic_identity": {"const": false},
+        "evidence_migration_required": {"const": false}
+      }
+    },
     "prospective_runtime_provenance_fix": {
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "research_director_accepted",
         "version", "defect", "detected_by", "genuine_observations_lost",
         "runtime_state_deleted", "runtime_state_committed", "semantic_manifest_weakened",
         "worktree_clean_unconditional", "runtime_artifacts_ignored_by_git",
@@ -316,6 +361,7 @@
         "staging_cause", "backfill_performed"
       ],
       "properties": {
+        "research_director_accepted": {"const": true},
         "version": {"const": "PROSPECTIVE_RUNTIME_ARTIFACT_PROVENANCE_FIX_V1_1"},
         "defect": {"const": "OBSERVER_RUNTIME_STORE_DIRTIED_ITS_OWN_BUILD_PROVENANCE"},
         "detected_by": {"const": "OWNER_LOCAL_BACKEND_START"},

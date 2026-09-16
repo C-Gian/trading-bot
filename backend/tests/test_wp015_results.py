@@ -71,9 +71,11 @@ def test_wp015_records_and_state_are_safe() -> None:
 
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
-    assert state["latest_reviewed_checkpoint"] == ("PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1")
-    assert state["latest_executor_checkpoint"] == (
+    assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
+    )
+    assert state["latest_executor_checkpoint"] == (
+        "PROSPECTIVE-BUILD-SEMANTIC-MANIFEST-CLOSURE-V1_1"
     )
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
@@ -88,8 +90,9 @@ def test_wp015_records_and_state_are_safe() -> None:
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert "# CURRENT TASK — WP-015" in archived
-    assert "# CURRENT TASK — PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1" in current
+    assert "# CURRENT TASK — PROSPECTIVE-EVIDENCE-COLLECTION-V1_1" in current
     assert (ROOT / "tasks/archive/PROSPECTIVE-EVIDENCE-COLLECTION-V1_1.md").is_file()
+    assert (ROOT / "tasks/archive/PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1.md").is_file()
     assert (
         ROOT / "tasks/archive/"
         "P1A-POWER-BLOCK-REVIEW-RESEARCH-ARCHITECTURE-SYNTHESIS-V1-P2-CYCLE-FOUNDATION-DESIGN.md"

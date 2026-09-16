@@ -264,9 +264,11 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == "PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1"
-    assert state["latest_executor_checkpoint"] == (
+    assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
+    )
+    assert state["latest_executor_checkpoint"] == (
+        "PROSPECTIVE-BUILD-SEMANTIC-MANIFEST-CLOSURE-V1_1"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
@@ -342,9 +344,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == (
-        "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-RUNTIME-PROVENANCE-FIX-V1_1"
-    )
+    assert state["next_recommended_work_package"] == "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -1235,6 +1235,8 @@ def prospective_shadow_observer_checks(state: dict) -> None:
     from app.product.paper_v2 import STORE_PATH as MANUAL_STORE_PATH
     from app.product.provenance import (
         PROVENANCE_VERSION,
+        SUPERSEDED_PROVENANCE_STATUS,
+        SUPERSEDED_PROVENANCE_VERSION,
         UNVERIFIED_REASON,
         aggregate_sha256,
         manifest_members,
@@ -1318,7 +1320,7 @@ def prospective_shadow_observer_checks(state: dict) -> None:
     assert observer["evidence_status"] == "ACCEPTED_FOR_PROSPECTIVE_COLLECTION"
     assert observer["research_director_accepted"] is True
     assert observer["observer_lease"] == LEASE_PATH
-    assert observer["build_provenance_version"] == PROVENANCE_VERSION
+    assert observer["build_provenance_version"] == PROVENANCE_VERSION == "BUILD_PROVENANCE_V1_1"
     assert observer["verified_build_required_for_decision"] is True
     assert observer["clean_worktree_required"] is True
     assert observer["unverified_build_reason"] == UNVERIFIED_REASON
@@ -1332,25 +1334,58 @@ def prospective_shadow_observer_checks(state: dict) -> None:
     assert observer["integrity_failure_rewrites_evidence"] is False
     assert len({EVIDENCE_STORE_PATH, HEALTH_STORE_PATH, LEASE_PATH, MANUAL_STORE_PATH}) == 4
 
-    # The semantic manifest binds the sources that define the observer's behaviour, and
+    # The frozen semantic closure is pinned: a member cannot silently disappear, and
     # every member must move the aggregate identity when its bytes change.
+    frozen = state["build_provenance"]
+    assert frozen["version"] == PROVENANCE_VERSION
+    assert frozen["supersedes"] == SUPERSEDED_PROVENANCE_VERSION == "BUILD_PROVENANCE_V1"
+    assert frozen["supersedes_status"] == SUPERSEDED_PROVENANCE_STATUS
+    assert frozen["evidence_version"] == EVIDENCE_VERSION
+    assert frozen["clean_worktree_required"] is True
+    assert frozen["git_head_alone_identifies_build"] is False
+    assert frozen["frozen_member_exempt_from_clean_verdict"] is False
+    assert frozen["runtime_artifacts_affect_semantic_identity"] is False
+    assert frozen["evidence_migration_required"] is False
+
+    expected_members = [
+        "backend/app/backtest/__init__.py",
+        "backend/app/backtest/models.py",
+        "backend/app/main.py",
+        "backend/app/product/__init__.py",
+        "backend/app/product/analysis.py",
+        "backend/app/product/audit_chain.py",
+        "backend/app/product/execution_v2.py",
+        "backend/app/product/features.py",
+        "backend/app/product/market_feed.py",
+        "backend/app/product/observer_lease.py",
+        "backend/app/product/platform_file_io.py",
+        "backend/app/product/provenance.py",
+        "backend/app/product/shadow_observer.py",
+        "backend/app/research/continuation.py",
+        "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md",
+    ]
     manifest = semantic_manifest(observer["contract"])
     members = manifest_members(observer["contract"])
-    for required in (
-        "backend/app/product/shadow_observer.py",
-        "backend/app/product/analysis.py",
-        "backend/app/research/continuation.py",
-        "backend/app/product/execution_v2.py",
-        "backend/app/backtest/models.py",
-        "backend/app/backtest/__init__.py",
-        observer["contract"],
-    ):
-        assert required in members, required
+    assert sorted(members) == expected_members == frozen["manifest_members"]
+    assert len(members) == frozen["manifest_member_count"] == 15
     assert set(manifest) == set(members)
+    for required in expected_members:
+        assert (ROOT / required).is_file(), required
+
     baseline = aggregate_sha256(manifest)
+    identities = {baseline}
     for member in members:
         altered = {**manifest, member: "00" * 32}
-        assert aggregate_sha256(altered) != baseline
+        identity = aggregate_sha256(altered)
+        assert identity not in identities, member
+        identities.add(identity)
+        reduced = {k: v for k, v in manifest.items() if k != member}
+        assert aggregate_sha256(reduced) != baseline, member
+
+    # A frozen member is never exempted as runtime state, whatever the path rules say.
+    protected = frozenset(members)
+    for member in members:
+        assert semantic_changes(f" M {member}", protected, protected) == [member], member
     assert observer["order_placement"] is observer["credentials"] is False
     assert observer["champion_status"] == "NONE" and observer["real_money"] is False
     assert MANUAL_EVIDENCE_VERSION == "FUTURE_PAPER_EVIDENCE_V2"
@@ -1891,6 +1926,8 @@ def governance_checks(pre_experiment: bool) -> dict:
         "decisions/ADR-0024-PROSPECTIVE-COLLECTION-ARM-AND-OPERATING-POLICY.md",
         "reports/checkpoints/PROSPECTIVE-EVIDENCE-LIVE-COLLECTION-ARM-V1.md",
         "decisions/ADR-0025-RUNTIME-ARTIFACTS-ARE-NOT-SCIENTIFIC-BUILD-STATE.md",
+        "reports/checkpoints/PROSPECTIVE-BUILD-SEMANTIC-MANIFEST-CLOSURE-V1_1.md",
+        "tasks/archive/PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1.md",
         "reports/checkpoints/PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1.md",
         "tasks/archive/PROSPECTIVE-EVIDENCE-COLLECTION-V1_1.md",
     ]

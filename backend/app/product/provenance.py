@@ -24,7 +24,9 @@ from .execution_v2 import PAPER_EXECUTION_VERSION
 
 ROOT = Path(__file__).resolve().parents[3]
 
-PROVENANCE_VERSION = "BUILD_PROVENANCE_V1"
+PROVENANCE_VERSION = "BUILD_PROVENANCE_V1_1"
+SUPERSEDED_PROVENANCE_VERSION = "BUILD_PROVENANCE_V1"
+SUPERSEDED_PROVENANCE_STATUS = "SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION"
 UNVERIFIED_REASON = "UNVERIFIED_SCIENTIFIC_BUILD"
 
 # Governed local runtime artifacts. ``data/paper/`` holds only generated durable state:
@@ -38,14 +40,37 @@ UNVERIFIED_REASON = "UNVERIFIED_SCIENTIFIC_BUILD"
 RUNTIME_ARTIFACT_DIRECTORY = "data/paper"
 RUNTIME_ARTIFACT_SUFFIXES = (".json", ".lock", ".lease", ".staging")
 
-# Semantic sources whose exact bytes define the observer's scientific behaviour.  The
-# cost implementation is resolved from the objects the observer actually imports rather
-# than from a hand-written path, so the manifest cannot drift from repository truth.
+# The bounded code closure whose exact bytes can materially change the signal, the live
+# input, causal execution, costs, prospective admissibility, evidence integrity, or the
+# observer lifecycle.  It is deliberately bounded: frontend, governance and reporting
+# files are excluded because they cannot alter any of those.
+#
+# The cost implementation is resolved from the objects the observer actually imports
+# rather than from a hand-written path, so the manifest cannot drift from repository
+# truth, and the evidence contract is appended by ``manifest_members``.
 _DECLARED_MANIFEST_MEMBERS = (
-    "backend/app/product/shadow_observer.py",
+    # Observer lifecycle wiring: decides when an observer exists at all.
+    "backend/app/main.py",
+    # Declares PRODUCT_ANALYSIS_VERSION, stamped into every analysis result.
+    "backend/app/product/__init__.py",
+    # The signal.
     "backend/app/product/analysis.py",
+    "backend/app/product/features.py",
     "backend/app/research/continuation.py",
+    # Live public input and its completion semantics.
+    "backend/app/product/market_feed.py",
+    # Causal paper execution.
     "backend/app/product/execution_v2.py",
+    # The observer itself.
+    "backend/app/product/shadow_observer.py",
+    # Prospective admissibility: whether an observation counts as a verified build.
+    "backend/app/product/provenance.py",
+    # Evidence integrity.
+    "backend/app/product/audit_chain.py",
+    # Single-observer scientific ownership.
+    "backend/app/product/observer_lease.py",
+    # Durability and locking primitives underneath every durable write.
+    "backend/app/product/platform_file_io.py",
 )
 
 
@@ -114,9 +139,19 @@ def aggregate_sha256(manifest: dict[str, str]) -> str:
     return hashlib.sha256(f"{PROVENANCE_VERSION}\n{payload}\n".encode()).hexdigest()
 
 
-def is_governed_runtime_artifact(path: str, runtime_artifacts: frozenset[str]) -> bool:
-    """Report whether a changed path is generated runtime state rather than source."""
+def is_governed_runtime_artifact(
+    path: str,
+    runtime_artifacts: frozenset[str],
+    protected: frozenset[str] = frozenset(),
+) -> bool:
+    """Report whether a changed path is generated runtime state rather than source.
+
+    A frozen semantic manifest member is never exempt, whatever the runtime patterns say,
+    so no future path rule can hide a change to the code that defines the science.
+    """
     normalised = path.replace("\\", "/").strip()
+    if normalised in protected:
+        return False
     if normalised in runtime_artifacts:
         return True
     if not normalised.startswith(f"{RUNTIME_ARTIFACT_DIRECTORY}/"):
@@ -138,12 +173,16 @@ def porcelain_paths(status: str) -> list[str]:
     return paths
 
 
-def semantic_changes(status: str, runtime_artifacts: frozenset[str] = frozenset()) -> list[str]:
+def semantic_changes(
+    status: str,
+    runtime_artifacts: frozenset[str] = frozenset(),
+    protected: frozenset[str] = frozenset(),
+) -> list[str]:
     """Changed paths that make the build unverified, excluding governed runtime state."""
     return [
         path
         for path in porcelain_paths(status)
-        if not is_governed_runtime_artifact(path, runtime_artifacts)
+        if not is_governed_runtime_artifact(path, runtime_artifacts, protected)
     ]
 
 
@@ -166,19 +205,26 @@ def repository_provenance(
     """Capture the running build identity and decide whether it is scientifically usable."""
     head = _git("rev-parse", "HEAD")
     branch = _git("rev-parse", "--abbrev-ref", "HEAD")
-    status = _git("status", "--porcelain")
-    # A failed git invocation is never treated as a clean tree.
-    dirty_paths = semantic_changes(status, runtime_artifacts) if status is not None else []
-    worktree_clean = status is not None and not dirty_paths
     try:
         manifest = semantic_manifest(contract_path)
         aggregate = aggregate_sha256(manifest)
     except ProvenanceError:
         manifest, aggregate = {}, None
 
+    status = _git("status", "--porcelain")
+    # A failed git invocation is never treated as a clean tree, and a change to any frozen
+    # manifest member always counts.
+    protected = frozenset(manifest)
+    dirty_paths = (
+        semantic_changes(status, runtime_artifacts, protected) if status is not None else []
+    )
+    worktree_clean = status is not None and not dirty_paths
+
     verified = bool(head) and worktree_clean and aggregate is not None
     return {
         "provenance_version": PROVENANCE_VERSION,
+        "supersedes": SUPERSEDED_PROVENANCE_VERSION,
+        "supersedes_status": SUPERSEDED_PROVENANCE_STATUS,
         "verified": verified,
         "unverified_reason": None if verified else UNVERIFIED_REASON,
         "git_head": head,
@@ -225,6 +271,8 @@ __all__ = [
     "PROVENANCE_VERSION",
     "RUNTIME_ARTIFACT_DIRECTORY",
     "RUNTIME_ARTIFACT_SUFFIXES",
+    "SUPERSEDED_PROVENANCE_STATUS",
+    "SUPERSEDED_PROVENANCE_VERSION",
     "UNVERIFIED_REASON",
     "ProvenanceError",
     "ProvenanceProvider",

@@ -20,7 +20,10 @@ from app.product.paper_v2 import EVIDENCE_VERSION as MANUAL_EVIDENCE_VERSION
 from app.product.paper_v2 import STORE_PATH as MANUAL_STORE_PATH
 from app.product.provenance import (
     PROVENANCE_VERSION,
+    SUPERSEDED_PROVENANCE_STATUS,
+    SUPERSEDED_PROVENANCE_VERSION,
     UNVERIFIED_REASON,
+    ProvenanceError,
     aggregate_sha256,
     is_governed_runtime_artifact,
     manifest_members,
@@ -28,6 +31,7 @@ from app.product.provenance import (
     semantic_changes,
     semantic_manifest,
 )
+from app.product.provenance import validate as provenance_validate
 from app.product.shadow_observer import (
     CLOSED_EXPIRY,
     CLOSED_STOP,
@@ -1212,3 +1216,185 @@ def test_prospective_runtime_fix_changes_no_scientific_state() -> None:
     assert observer["maximum_hold_minutes"] == 1440
     assert observer["cost_model_version"] == "BTCUSDT_SPOT_COST_V1"
     assert observer["first_scientific_review_completed_trades"] == 20
+
+
+# --- BUILD_PROVENANCE_V1_1 frozen semantic manifest --------------------------------
+
+# The bounded code closure that can materially change the signal, the live input, causal
+# execution, costs, prospective admissibility, evidence integrity, or the observer
+# lifecycle. Pinned so a member cannot silently disappear from the identity.
+FROZEN_MANIFEST_MEMBERS = frozenset(
+    {
+        "backend/app/main.py",
+        "backend/app/product/__init__.py",
+        "backend/app/product/analysis.py",
+        "backend/app/product/features.py",
+        "backend/app/research/continuation.py",
+        "backend/app/product/market_feed.py",
+        "backend/app/product/execution_v2.py",
+        "backend/app/product/shadow_observer.py",
+        "backend/app/product/provenance.py",
+        "backend/app/product/audit_chain.py",
+        "backend/app/product/observer_lease.py",
+        "backend/app/product/platform_file_io.py",
+        "backend/app/backtest/models.py",
+        "backend/app/backtest/__init__.py",
+        "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md",
+    }
+)
+
+
+def test_no_genuine_observation_exists_before_manifest_closure() -> None:
+    assert not (ROOT / EVIDENCE_STORE_PATH).exists()
+    state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
+    assert state["prospective_collection"]["genuine_observations"] == 0
+    assert state["prospective_counters"] == {
+        "prospective_observation_hours": 0,
+        "prospective_long_signals": 0,
+        "prospective_suppressed_signals": 0,
+        "prospective_shadow_trades_open": 0,
+        "prospective_shadow_trades_completed": 0,
+    }
+
+
+def test_build_provenance_v1_1_is_required_and_v1_is_superseded() -> None:
+    assert PROVENANCE_VERSION == "BUILD_PROVENANCE_V1_1"
+    assert SUPERSEDED_PROVENANCE_VERSION == "BUILD_PROVENANCE_V1"
+    assert SUPERSEDED_PROVENANCE_STATUS == "SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION"
+
+    record = default_observer().build_provenance()
+    assert record["provenance_version"] == "BUILD_PROVENANCE_V1_1"
+    assert record["supersedes"] == "BUILD_PROVENANCE_V1"
+    assert record["supersedes_status"] == "SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION"
+
+    # A record written under the superseded version is no longer admissible.
+    stale = synthetic_provenance(provenance_version="BUILD_PROVENANCE_V1")
+    with pytest.raises(ProvenanceError, match="unsupported build provenance version"):
+        provenance_validate(stale)
+
+    contract = (ROOT / EVIDENCE_CONTRACT).read_text(encoding="utf-8")
+    assert "BUILD_PROVENANCE_V1_1" in contract
+    assert "SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION" in contract
+
+
+def test_the_semantic_manifest_member_set_is_pinned() -> None:
+    """A required member cannot silently disappear from the scientific identity."""
+    members = manifest_members(EVIDENCE_CONTRACT)
+    assert set(members) == FROZEN_MANIFEST_MEMBERS
+    assert len(members) == len(FROZEN_MANIFEST_MEMBERS) == 15
+    assert set(semantic_manifest(EVIDENCE_CONTRACT)) == FROZEN_MANIFEST_MEMBERS
+    for member in FROZEN_MANIFEST_MEMBERS:
+        assert (ROOT / member).is_file(), member
+
+
+@pytest.mark.parametrize(
+    "member",
+    [
+        "backend/app/product/provenance.py",
+        "backend/app/product/audit_chain.py",
+        "backend/app/product/observer_lease.py",
+        "backend/app/product/platform_file_io.py",
+        "backend/app/product/features.py",
+        "backend/app/product/market_feed.py",
+        "backend/app/main.py",
+    ],
+)
+def test_integrity_and_input_dependencies_are_manifest_members(member: str) -> None:
+    assert member in manifest_members(EVIDENCE_CONTRACT)
+
+
+def test_changing_each_manifest_member_changes_the_aggregate_identity() -> None:
+    """Identity must not rest on git HEAD alone: every member's bytes move the SHA."""
+    manifest = semantic_manifest(EVIDENCE_CONTRACT)
+    baseline = aggregate_sha256(manifest)
+    seen = set()
+    for member in manifest:
+        altered = {**manifest, member: "00" * 32}
+        identity = aggregate_sha256(altered)
+        assert identity != baseline, member
+        assert identity not in seen, member
+        seen.add(identity)
+    assert len(seen) == len(FROZEN_MANIFEST_MEMBERS)
+
+    # Dropping a member must also move the identity, not merely altering one.
+    for member in manifest:
+        reduced = {key: value for key, value in manifest.items() if key != member}
+        assert aggregate_sha256(reduced) != baseline, member
+
+
+def test_the_provenance_version_itself_binds_the_aggregate() -> None:
+    manifest = semantic_manifest(EVIDENCE_CONTRACT)
+    payload = "\n".join(f"{m}:{d}" for m, d in sorted(manifest.items()))
+    under_v1 = hashlib.sha256(f"BUILD_PROVENANCE_V1\n{payload}\n".encode()).hexdigest()
+    assert aggregate_sha256(manifest) != under_v1
+
+
+def test_a_frozen_manifest_member_is_never_exempted_as_runtime_state() -> None:
+    """No runtime path rule may hide a change to the code that defines the science."""
+    protected = frozenset(manifest_members(EVIDENCE_CONTRACT))
+    # Pretend a future rule wrongly lists every member as a runtime artifact.
+    hostile = frozenset(protected)
+    for member in protected:
+        status = f" M {member}"
+        assert semantic_changes(status, hostile, protected) == [member], member
+        assert not is_governed_runtime_artifact(member, hostile, protected), member
+
+
+def test_runtime_artifacts_still_do_not_affect_the_clean_verdict() -> None:
+    protected = frozenset(manifest_members(EVIDENCE_CONTRACT))
+    runtime = (
+        EVIDENCE_STORE_PATH,
+        HEALTH_STORE_PATH,
+        LEASE_PATH,
+        MANUAL_STORE_PATH,
+        "data/paper/anything.lock",
+        "data/paper/anything.lease",
+        "data/paper/tmp1234.staging",
+    )
+    for path in runtime:
+        assert semantic_changes(f"?? {path}", RUNTIME_ARTIFACTS, protected) == [], path
+        assert semantic_changes(f" M {path}", RUNTIME_ARTIFACTS, protected) == [], path
+
+
+def test_arbitrary_tracked_source_outside_runtime_state_still_unverifies() -> None:
+    protected = frozenset(manifest_members(EVIDENCE_CONTRACT))
+    outside = (
+        "scripts/check.py",
+        "state/current_state.json",
+        "frontend/src/App.tsx",
+        "contracts/project_state.schema.json",
+        "backend/app/product/paper_v2.py",
+        "backend/app/research/local_runner.py",
+        "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json",
+        ".gitignore",
+    )
+    for path in outside:
+        assert semantic_changes(f" M {path}", RUNTIME_ARTIFACTS, protected) == [path], path
+
+
+def test_manifest_closure_changed_no_scientific_semantics() -> None:
+    state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
+    observer = state["prospective_shadow_observer"]
+    assert observer["strategy_version"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    assert observer["stop_fraction"] == 0.02
+    assert observer["target_fraction"] == 0.04
+    assert observer["maximum_hold_minutes"] == 1440
+    assert observer["ambiguous_fill_policy"] == "STOP_FIRST_V1"
+    assert observer["cost_model_version"] == "BTCUSDT_SPOT_COST_V1"
+    assert observer["entry_timing_rule"] == "STRICTLY_AFTER_DURABLE_INTENT_NEXT_1M_OPEN"
+    assert observer["first_scientific_review_completed_trades"] == 20
+    assert observer["evidence_version"] == "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1"
+    assert state["experiments_completed"] == 26
+    assert state["observed_material_historical_hypotheses"] == 12
+    assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
+    assert state["champion_status"] == "NONE"
+    assert state["real_money_authorized"] is False
+
+
+def test_manual_paper_v2_still_byte_frozen_after_closure() -> None:
+    manual = (ROOT / "backend/app/product/paper_v2.py").read_bytes().replace(b"\r\n", b"\n")
+    assert (
+        hashlib.sha256(manual).hexdigest()
+        == "1a219b66f88a66cb727cfc956aabe0edb15da287711ffe7a469a48011dd45025"
+    )
+    assert "backend/app/product/paper_v2.py" not in manifest_members(EVIDENCE_CONTRACT)

@@ -24,13 +24,25 @@ LONG/NO_TRADE decision rule, and the 20-trade review boundary are all unchanged.
 
 ## Verified build provenance
 
-A scientific build is not identified by a commit alone. `BUILD_PROVENANCE_V1` records the
-git HEAD, the branch where available, whether the worktree was clean, the application,
-observer, strategy, execution, and cost-model versions, and a manifest that hashes the
-exact bytes of every semantic source the observer depends on: the observer, the analysis
-and continuation modules, the causal execution engine, the governed cost implementation
-resolved from the objects actually imported, and this contract. The manifest and its
+A scientific build is not identified by a commit alone. `BUILD_PROVENANCE_V1_1` records
+the git HEAD, the branch where available, whether the worktree was clean, the
+application, observer, strategy, execution, and cost-model versions, and a manifest that
+hashes the exact bytes of the bounded code closure that can materially change the signal,
+the live input, causal execution, costs, prospective admissibility, evidence integrity,
+or the observer lifecycle.
+
+That closure is the observer application wiring, the product package version, the
+analysis, prospective feature and continuation modules, the public market feed, the
+causal execution engine, the observer itself, the provenance, audit-chain, observer-lease
+and durable file-io modules, the governed cost implementation resolved from the objects
+actually imported, and this contract. Frontend, governance and reporting files are
+deliberately excluded because they cannot alter any of those. The manifest and its
 aggregate SHA256 are persisted with the evidence.
+
+`BUILD_PROVENANCE_V1` is `SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION`: its manifest was
+incomplete, it recorded no genuine observation, and nothing is migrated. A frozen
+manifest member is never exempted from the clean-worktree verdict, whatever runtime path
+rules apply; only generated local state under `data/paper/` is exempt.
 
 A genuine prospective decision may be recorded only under a verified build. For local
 repository execution this requires a clean worktree and a resolvable HEAD. If the build
