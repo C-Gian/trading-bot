@@ -33,6 +33,7 @@
     "primary_research_phase",
     "predictive_research_objective",
     "predictive_baselines",
+    "predictive_internal_structure",
     "legacy_research_generation",
     "historical_discovery_status",
     "observed_material_historical_hypotheses",
@@ -226,9 +227,9 @@
           }
         },
         "win_rate_target_declared": {"const": false},
-        "predictor_trained": {"const": false},
-        "predictive_experiments_completed": {"const": 0},
-        "predictive_results_observed": {"const": false},
+        "predictor_trained": {"type": "boolean"},
+        "predictive_experiments_completed": {"type": "integer", "minimum": 0},
+        "predictive_results_observed": {"type": "boolean"},
         "leverage_or_short_authorized": {"const": false},
         "real_money_authorized": {"const": false}
       }
@@ -313,6 +314,98 @@
         "sealed_queries": {"const": 0},
         "candidate_created": {"const": false},
         "baseline_promoted": {"const": false},
+        "champion_status": {"const": "NONE"},
+        "real_money": {"const": false}
+      }
+    },
+    "predictive_internal_structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "classification", "experiment_id", "hypothesis_id",
+        "model_version", "model_family", "search_plan", "preregistration", "admission",
+        "admission_identity_sha256", "result_json", "report_json", "report_markdown",
+        "checkpoint_report", "feature_set_version", "feature_count",
+        "feature_vectors_unavailable", "model_fits", "eligible_decision_timestamps",
+        "actionable_directional_predictions", "abstentions", "candidate_win_rate",
+        "candidate_coverage", "candidate_win_rate_interval", "brier_score",
+        "magnitude_mae_percentage_points", "magnitude_match_mean", "matched_control",
+        "matched_always_up_win_rate", "primary_delta", "primary_delta_interval",
+        "primary_delta_alpha", "primary_delta_method", "minimum_important_effect",
+        "fold_deltas", "fold_coverage", "failed_gates", "terminal_classification",
+        "stage1_configurations_planned", "stage1_configurations_consumed",
+        "stage1_configurations_remaining", "reserved_configuration",
+        "reserved_configuration_executed", "hyperparameter_search", "threshold_search",
+        "post_result_tuning", "deterministic_replay", "sealed_queries", "champion_status",
+        "real_money"
+      ],
+      "properties": {
+        "version": {"const": "PREDICTIVE_INTERNAL_STRUCTURE_V1"},
+        "status": {"const": "COMPLETE"},
+        "classification": {"const": "PREDICTIVE_EXPERIMENT_RESULT"},
+        "experiment_id": {"const": "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD"},
+        "hypothesis_id": {"const": "H-PRED-INT-001"},
+        "model_version": {"const": "INTERNAL_LINEAR_DUAL_HEAD_V1"},
+        "model_family": {"const": "PREDICTIVE_STAGE1_INTERNAL_MODEL_FAMILY_V1"},
+        "search_plan": {
+          "const": "research/protocols/PREDICTIVE-STAGE1-INTERNAL-SEARCH-PLAN-V1.json"
+        },
+        "preregistration": {
+          "const":
+            "research/experiments/EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD/preregistration.json"
+        },
+        "admission": {
+          "const": "reports/validation/PREDICTIVE-INTERNAL-STRUCTURE-V1-ADMISSION.json"
+        },
+        "admission_identity_sha256": {"$ref": "#/$defs/sha256"},
+        "result_json": {
+          "const": "research/experiments/EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD/result.json"
+        },
+        "report_json": {"const": "reports/research/PREDICTIVE-INTERNAL-STRUCTURE-V1.json"},
+        "report_markdown": {"const": "reports/research/PREDICTIVE-INTERNAL-STRUCTURE-V1.md"},
+        "checkpoint_report": {
+          "const": "reports/checkpoints/PREDICTIVE-INTERNAL-STRUCTURE-V1.md"
+        },
+        "feature_set_version": {"const": "PREDICTIVE_INTERNAL_CAUSAL_FEATURES_V1"},
+        "feature_count": {"const": 18},
+        "feature_vectors_unavailable": {"type": "integer", "minimum": 0},
+        "model_fits": {"type": "integer", "minimum": 1},
+        "eligible_decision_timestamps": {"type": "integer", "minimum": 1},
+        "actionable_directional_predictions": {"type": "integer", "minimum": 1},
+        "abstentions": {"type": "integer", "minimum": 0},
+        "candidate_win_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "candidate_coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "candidate_win_rate_interval": {
+          "type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2
+        },
+        "brier_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "magnitude_mae_percentage_points": {"type": "number", "minimum": 0},
+        "magnitude_match_mean": {"type": "number", "minimum": -100, "maximum": 100},
+        "matched_control": {"const": "ALWAYS_UP"},
+        "matched_always_up_win_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "primary_delta": {"type": "number", "minimum": -1, "maximum": 1},
+        "primary_delta_interval": {
+          "type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2
+        },
+        "primary_delta_alpha": {"const": 0.025},
+        "primary_delta_method": {"const": "PAIRED_FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP"},
+        "minimum_important_effect": {"const": 0.015},
+        "fold_deltas": {"type": "object", "additionalProperties": {"type": "number"}},
+        "fold_coverage": {"type": "object", "additionalProperties": {"type": "number"}},
+        "failed_gates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "terminal_classification": {
+          "enum": ["ADVANCE_INTERNAL_LINEAR_V1", "NO_ADVANCE_INTERNAL_LINEAR_V1"]
+        },
+        "stage1_configurations_planned": {"const": 2},
+        "stage1_configurations_consumed": {"const": 1},
+        "stage1_configurations_remaining": {"const": 1},
+        "reserved_configuration": {"const": "INTERNAL_HGBR_DUAL_HEAD_V1"},
+        "reserved_configuration_executed": {"const": false},
+        "hyperparameter_search": {"const": false},
+        "threshold_search": {"const": false},
+        "post_result_tuning": {"const": false},
+        "deterministic_replay": {"const": "PASS_BYTE_IDENTICAL"},
+        "sealed_queries": {"const": 0},
         "champion_status": {"const": "NONE"},
         "real_money": {"const": false}
       }
@@ -1222,7 +1315,7 @@
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "PREDICTIVE-INTERNAL-STRUCTURE-V1"},
+        "next_checkpoint": {"const": "PREDICTIVE-INTERNAL-NONLINEAR-V1"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

@@ -88,13 +88,19 @@ def test_state_declares_one_prediction_first_objective() -> None:
     assert objective["canonical_resolution"] == "1m"
 
 
-def test_this_checkpoint_trained_nothing_and_observed_no_predictive_result() -> None:
+def test_the_objective_matches_the_committed_predictive_experiments() -> None:
+    """Whether a predictor exists is a fact about the records, not a claim state may make."""
     objective = STATE["predictive_research_objective"]
-    assert objective["predictor_trained"] is False
-    assert objective["predictive_results_observed"] is False
-    assert objective["predictive_experiments_completed"] == 0
+    executed = sorted(
+        path.parent.name for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+    )
+    assert objective["predictor_trained"] is bool(executed)
+    assert objective["predictive_results_observed"] is bool(executed)
+    assert objective["predictive_experiments_completed"] == len(executed)
+    # No win-rate target is declared before evidence establishes what is feasible, and the
+    # first observed result did not create one.
     assert objective["win_rate_target_declared"] is False
-    assert not list((ROOT / "research/experiments").glob("*PREDICT*"))
+    # The superseded generation's count is frozen and never absorbs a predictive experiment.
     assert STATE["experiments_completed"] == 26
     assert STATE["champion_status"] == "NONE"
     assert STATE["real_money_authorized"] is False
@@ -200,7 +206,11 @@ def test_the_superseded_generation_is_preserved_not_rewritten() -> None:
     assert legacy["transfers_as_predictive_evidence"] is False
     assert legacy["experiments_preserved"] == STATE["experiments_completed"] == 26
     assert legacy["champion_status"] == "NONE"
-    results = list((ROOT / "research/experiments").glob("*/result.json"))
+    results = [
+        path
+        for path in (ROOT / "research/experiments").glob("*/result.json")
+        if not path.parent.name.startswith("EXP-PRED-")
+    ]
     assert len(results) == 26
 
 
@@ -351,13 +361,14 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
 
 def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> None:
     """The rebaseline handed off to the foundation, which has since been executed."""
-    assert STATE["next_recommended_work_package"] == "PREDICTIVE-INTERNAL-STRUCTURE-V1"
-    assert STATE["research_architecture"]["next_checkpoint"] == ("PREDICTIVE-INTERNAL-STRUCTURE-V1")
+    assert STATE["next_recommended_work_package"] == "PREDICTIVE-INTERNAL-NONLINEAR-V1"
+    assert STATE["research_architecture"]["next_checkpoint"] == ("PREDICTIVE-INTERNAL-NONLINEAR-V1")
     task = _text("tasks/CURRENT_TASK.md")
-    assert task.startswith("# CURRENT TASK — PREDICTIVE-INTERNAL-STRUCTURE-V1")
+    assert task.startswith("# CURRENT TASK — PREDICTIVE-INTERNAL-NONLINEAR-V1")
     for archived in (
         "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md",
         "tasks/archive/PREDICTIVE-BASELINES-V1.md",
+        "tasks/archive/PREDICTIVE-INTERNAL-STRUCTURE-V1.md",
     ):
         assert (ROOT / archived).is_file(), archived
     foundation = _text("tasks/archive/PREDICTIVE-BASELINES-V1.md")

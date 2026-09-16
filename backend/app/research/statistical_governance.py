@@ -386,7 +386,13 @@ def build_repository_ledger(root: Path = ROOT) -> dict[str, Any]:
         "control_experiment_id"
     ]
     observed.add(str(control_id))
-    result_paths = sorted((root / "research/experiments").glob("*/result.json"))
+    # The historical ledger covers the superseded cost-expectancy generation only. The
+    # prediction-first generation keeps its own search budget and never enters this count.
+    result_paths = sorted(
+        path
+        for path in (root / "research/experiments").glob("*/result.json")
+        if not path.parent.name.startswith("EXP-PRED-")
+    )
     observed_profiles = (
         sum(int(_json(path)["trial_accounting"]["executed_trials"]) for path in result_paths) + 4
     )  # WP017's matched control is embedded in the single counted result.
