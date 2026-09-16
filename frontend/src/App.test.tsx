@@ -34,6 +34,23 @@ const market = {
     { open_time: '2026-03-05T11:00:00Z', open: 50000, high: 51000, low: 49500, close: 50800 },
   ],
 };
+const prospectiveObserver = {
+  status: 'ACTIVE', label: 'AUTOMATED PAPER RESEARCH — NO REAL MONEY',
+  observer_version: 'PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1',
+  evidence_version: 'FUTURE_SHADOW_PAPER_EVIDENCE_V1',
+  evidence_stage: 'AUTOMATED_PROSPECTIVE_SHADOW_PAPER',
+  initiation_mode: 'AUTOMATED_RESEARCH_OBSERVER',
+  strategy_version: 'ALIGNED_PARTICIPATION_CONTINUATION_V1',
+  feature_version: 'PROSPECTIVE_PAPER_FEATURES_V1', research_status: 'PAPER_RESEARCH_CANDIDATE',
+  champion_status: 'NONE', max_decision_latency_seconds: 300,
+  first_scientific_review_completed_trades: 20,
+  last_evaluated_hourly_boundary: '2026-03-05T11:00:00Z',
+  last_heartbeat: '2026-03-05T11:00:15Z', next_expected_boundary: '2026-03-05T12:00:00Z',
+  last_successful_market_fetch: '2026-03-05T11:00:15Z', current_error: null,
+  missed_prospective_decisions: 2, raw_prospective_long_signals: 3,
+  suppressed_long_signals: 1, open_shadow_trade: null, completed_shadow_trades: 4,
+  manual_evidence_included: false, order_placement: false, credentials: false, real_money: false,
+};
 
 const noTradeReview = JSON.stringify({
   bundle_version: 'DASHBOARD_ANALYSIS_REVIEW_BUNDLE_V1',
@@ -226,6 +243,7 @@ function mockApi(overrides: Record<string, unknown> = {}, queues: Record<string,
     'research/experiments': experiments,
     'product/market/recent': market,
     'paper-trades/statistics': emptyStats,
+    'prospective-observer': prospectiveObserver,
     'paper-trades/lifecycle': { updated: 0, trades: [], errors: [] },
     'product/analysis': noTrade,
     'paper-trades': emptyPaper,
@@ -234,7 +252,7 @@ function mockApi(overrides: Record<string, unknown> = {}, queues: Record<string,
   };
   const order = [
     'system/health', 'research/status', 'research/experiments', 'product/market/recent',
-    'paper-trades/statistics', 'paper-trades/lifecycle', 'product/analysis', 'paper-trades',
+    'paper-trades/statistics', 'prospective-observer', 'paper-trades/lifecycle', 'product/analysis', 'paper-trades',
     'research/runner',
   ];
   vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
@@ -286,6 +304,31 @@ describe('mercato', () => {
 });
 
 // ── analisi ───────────────────────────────────────────────────────────────
+
+describe('osservatore prospettico', () => {
+  it('mostra stato, downtime, contatori e il confine di review senza confonderli con Champion', async () => {
+    mockApi();
+    await dashboard();
+    const panel = await screen.findByRole('region', { name: 'Prospective Observer' });
+    expect(panel).toHaveTextContent('AUTOMATED PAPER RESEARCH · NO REAL MONEY');
+    expect(panel).toHaveTextContent('ACTIVE');
+    expect(panel).toHaveTextContent('Decisioni perse · downtime visibile');
+    expect(panel).toHaveTextContent('LONG prospettici');
+    expect(panel).toHaveTextContent('LONG soppressi');
+    expect(panel).toHaveTextContent('Shadow completati');
+    expect(panel).toHaveTextContent('da 20 trade');
+    expect(panel).toHaveTextContent('non è performance Champion');
+  });
+
+  it('resta una lettura automatica e non avvia Analyze Market', async () => {
+    const calls = mockApi();
+    await dashboard();
+    await screen.findByRole('region', { name: 'Prospective Observer' });
+    expect(calls.some(call => call.url.includes('prospective-observer'))).toBe(true);
+    expect(calls.every(call => call.method === 'GET')).toBe(true);
+    expect(calls.some(call => call.url.includes('product/analysis'))).toBe(false);
+  });
+});
 
 describe('analisi', () => {
   it('non analizza automaticamente all’avvio', async () => {

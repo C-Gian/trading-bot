@@ -21,3 +21,4 @@
 - [ADR-0019](ADR-0019-CROSS-SECTION-FEASIBILITY-AND-POWER.md) — the frozen cross-sectional design is placebo-invalidated and power-blocked
 - [ADR-0020](ADR-0020-ALIGNED-GATE-INTENSITY-DESCENDANT.md) — sparse cross-section closes power-blocked and ALIGNED development parks
 - [ADR-0021](ADR-0021-GATE-INTENSITY-CAUSAL-CORRECTION-AND-SUPPORT-BLOCK.md) — gate-intensity causal panel passes and the frozen support gate permanently parks ALIGNED development
+- [ADR-0022](ADR-0022-ALIGNED-FINAL-CLOSURE-AND-PROSPECTIVE-SHADOW-OBSERVER.md) — ALIGNED historical development closes and prospective automated shadow evidence begins

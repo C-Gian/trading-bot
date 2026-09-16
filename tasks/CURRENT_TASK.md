@@ -1,37 +1,35 @@
-# CURRENT TASK — GATE-INTENSITY-CAUSAL-CORRECTION-POWER-RESUME-V1_1
+# CURRENT TASK — ALIGNED-DEVELOPMENT-FINAL-CLOSURE-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1
 
-Status: COMPLETED_NEGATIVE_SUPPORT_GATE_PENDING_RESEARCH_DIRECTOR_REVIEW
+Status: IMPLEMENTED_PENDING_RESEARCH_DIRECTOR_REVIEW
 
-Starting HEAD: `29cf69364335dcc28193b711ecd941beb1bcd838` on local `main`.
+Starting HEAD: `9559cab8cfd6a2bc0e42d1bd864cea04e187100f` on local `main`.
 
-The same `ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1` hypothesis was reopened only for the
-pre-measurement causality correction authorized by the Research Director. No second
-material economic hypothesis was created.
+The Research Director accepted final historical ALIGNED closure at
+`PARKED_DEVELOPMENT_SEARCH_EXHAUSTED`. The causal correction passed, frozen support
+accepted 0/1,024 vectors, power was not run, and neither real cross-sectional coefficient
+was observed. This is not a rejection of market performance. Historical discovery is
+paused and no further ALIGNED historical descendant is runnable.
 
-The new causal panel starts directly from the frozen 2,556,535-row intensity field and
-uses only point-in-time universe eligibility, causal score computability, and the frozen
-24-hour outcome-resolution contract. It contains 2,556,366 rows across all 390 epochs.
-Exactly 169 rows have typed outcome-resolution removals; zero score-3 events and zero
-clusters are lost. The retired `epoch_decision_rows >= 504` rule is absent, future
-survival is not required, and `EVENT_RECONCILIATION_STATUS = PASS`.
+Primary research is now `PROSPECTIVE_EVIDENCE_COLLECTION`. The new automated observer
+uses the separate `FUTURE_SHADOW_PAPER_EVIDENCE_V1` ledger and separate operational
+health store. It activates with the local backend, admits only hourly boundaries strictly
+after activation, permanently records downtime/late boundaries as missed, and never
+backfills signals.
 
-The V1 sparse artifacts remain byte-unchanged, including their historical 3,380 to 3,378
-event reconciliation. The score and 8.0 bps/gate MESI are unchanged. The existing 1,024
-calendar-shift vectors were read from the byte-frozen artifact, not regenerated, and the
-family SHA remains `7e135af46a20c30d8c1f19e39d56b663254ab293b007c84a694437e82e8cf12d`.
+Sound NO_TRADE and LONG decisions are durable prospective observations. LONG commits a
+shadow intent before any entry observation; entry is the first completed one-minute open
+strictly after durable intent persistence. Only one shadow position may be active, with
+concurrent LONG observations retained and suppressed. Already-entered trades can
+reconcile after restart under the frozen STOP_FIRST, 2%/4%/1,440-minute geometry and
+BTCUSDT cost model. Pending entries and missed decisions cannot reconcile.
 
-The frozen support gate failed: 0 of 1,024 vectors passed. Row retention ranged from
-41.764990% to 68.158667%, never reaching the unchanged 70% threshold. Asset/instrument
-cluster retention ranged from 62.051282% to 91.282051%; all six development years were
-represented for every vector. `RANDOMIZATION_SUPPORT_STATUS = REDESIGN_REQUIRED`.
+The compact UI surfaces observer health, heartbeat, next boundary, downtime, raw and
+suppressed LONG counts, open shadow state, and completed count under the explicit label
+`AUTOMATED PAPER RESEARCH — NO REAL MONEY`. Manual Analyze Market and manual paper V2 are
+unchanged.
 
-The checkpoint stopped before empirical randomization or synthetic power. No shifted
-beta, zero-alignment beta, t/p statistic, per-asset performance, empirical null SD,
-critical beta, MDE, or power value was computed.
-`GATE_INTENSITY_POWER_GATE_STATUS = REDESIGN_REQUIRED` and
-`ALIGNED_DEVELOPMENT_FAMILY_STATUS = PARKED_DEVELOPMENT_SEARCH_EXHAUSTED`.
-
-Accounting remains 26 experiments, 12 observed material economic hypotheses, zero
-sealed queries, Champion `NONE`, and real money false. Product remains BTCUSDT spot V1.
+Tests use synthetic clocks and feeds only. They create no genuine future observation.
+Historical accounting remains 26 experiments, 12 observed material historical
+hypotheses, zero sealed queries, Champion `NONE`, and real money false.
 
 Next action: RESEARCH DIRECTOR REVIEW.

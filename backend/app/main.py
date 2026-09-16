@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Callable
+from contextlib import asynccontextmanager
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -23,6 +24,19 @@ from .product.paper_v2 import (
     create_from_analysis,
     listing,
     update_lifecycle,
+)
+from .product.shadow_observer import (
+    EVIDENCE_STAGE as SHADOW_EVIDENCE_STAGE,
+)
+from .product.shadow_observer import (
+    EVIDENCE_VERSION as SHADOW_EVIDENCE_VERSION,
+)
+from .product.shadow_observer import (
+    INITIATION_MODE as SHADOW_INITIATION_MODE,
+)
+from .product.shadow_observer import (
+    OBSERVER_VERSION,
+    default_observer,
 )
 from .product.statistics import statistics
 from .research.checkpoint_views import budget_view, experiment_view
@@ -62,8 +76,19 @@ def create_app(
     lifecycle: Callable[[Any], dict] = update_lifecycle,
     market_view: Callable[[], dict] = recent_candles,
     research_runner: LocalResearchRunner | None = None,
+    shadow_observer: Any | None = None,
 ) -> FastAPI:
-    application = FastAPI(title="Trading Bot", version=__version__)
+    @asynccontextmanager
+    async def lifespan(_: FastAPI):
+        if shadow_observer is not None:
+            shadow_observer.start()
+        try:
+            yield
+        finally:
+            if shadow_observer is not None:
+                shadow_observer.stop()
+
+    application = FastAPI(title="Trading Bot", version=__version__, lifespan=lifespan)
     application.add_middleware(
         CORSMiddleware,
         allow_origins=["http://localhost:5173"],
@@ -259,6 +284,33 @@ def create_app(
         """Counts over genuine persisted paper trades only; never backtest performance."""
         return statistics(trades)
 
+    @application.get("/api/v1/product/prospective-observer")
+    def prospective_observer_status():
+        """Read-only automated shadow-paper status; never triggers an evaluation."""
+        if shadow_observer is not None:
+            return shadow_observer.overview()
+        return {
+            "status": "STOPPED",
+            "label": "AUTOMATED PAPER RESEARCH — NO REAL MONEY",
+            "observer_version": OBSERVER_VERSION,
+            "evidence_version": SHADOW_EVIDENCE_VERSION,
+            "evidence_stage": SHADOW_EVIDENCE_STAGE,
+            "initiation_mode": SHADOW_INITIATION_MODE,
+            "strategy_version": STRATEGY_VERSION,
+            "last_evaluated_hourly_boundary": None,
+            "last_heartbeat": None,
+            "next_expected_boundary": None,
+            "missed_prospective_decisions": 0,
+            "raw_prospective_long_signals": 0,
+            "suppressed_long_signals": 0,
+            "open_shadow_trade": None,
+            "completed_shadow_trades": 0,
+            "manual_evidence_included": False,
+            "order_placement": False,
+            "credentials": False,
+            "real_money": False,
+        }
+
     @application.post("/api/v1/product/paper-trades/lifecycle")
     def advance_paper_trades(repo: StateRepository = Depends(state_repository)):
         """Explicit lifecycle update only; nothing advances in the background."""
@@ -270,6 +322,6 @@ def create_app(
     return application
 
 
-app = create_app()
+app = create_app(shadow_observer=default_observer())
 
 __all__ = ["COST_VERSION", "ENGINE_VERSION", "EXECUTION_VERSION", "app", "create_app"]

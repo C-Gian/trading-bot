@@ -246,14 +246,42 @@ button:disabled {
 .research-failure { display: flex; flex-direction: column; gap: var(--s3); color: var(--neg); }
 .research-details { padding: 0; }
 
+/* ── Prospective observer ───────────────────────────────────────────── */
+
+.observer-panel { display: grid; gap: var(--s5); padding: var(--s5); }
+.observer-strip { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); }
+.observer-label { display: block; margin-top: 4px; color: var(--accent-hi); font-family: var(--mono); font-size: 13px; letter-spacing: .04em; }
+.observer-timegrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: hidden; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--line); gap: 1px; }
+.observer-timegrid > div { min-height: 84px; padding: var(--s4); background: var(--ink-750); }
+.observer-timegrid span, .observer-counts span { display: block; margin-bottom: 7px; color: var(--text-3); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.observer-timegrid strong { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--text-2); }
+.observer-timegrid .observer-alert { box-shadow: inset 2px 0 var(--neg); background: var(--neg-soft); }
+.observer-timegrid .observer-alert strong { color: var(--neg); font-size: 20px; }
+.observer-counts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s4); }
+.observer-counts > div { padding-left: var(--s4); border-left: 1px solid var(--line-strong); }
+.observer-counts strong { font-size: 22px; font-weight: 620; }
+.observer-trade { display: grid; grid-template-columns: minmax(180px, .7fr) minmax(0, 2fr); gap: var(--s5); padding: var(--s4); border: 1px solid var(--accent-line); border-radius: var(--r-md); background: linear-gradient(105deg, var(--accent-soft), transparent 60%); }
+.observer-trade > div strong { display: block; margin-top: 5px; color: var(--pos); }
+.observer-trade dl { display: grid; grid-template-columns: repeat(4, minmax(110px, 1fr)); gap: var(--s3); margin: 0; }
+.observer-trade dl div { display: grid; gap: 3px; }
+.observer-trade dt { color: var(--text-3); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.observer-trade dd { margin: 0; color: var(--text-2); font-family: var(--mono); font-size: 12px; }
+.observer-idle { padding: var(--s4); border: 1px dashed var(--line-strong); border-radius: var(--r-md); color: var(--text-3); font-size: 13px; }
+.observer-error { color: var(--neg); font-size: 13px; }
+.observer-meta { color: var(--text-3); font-family: var(--mono); font-size: 11px; }
+
 @media (max-width: 900px) {
   .research-grid { grid-template-columns: 1fr; }
+  .observer-timegrid, .observer-counts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .observer-trade { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
   .research-results-grid { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
   .research-actions { align-items: stretch; flex-direction: column; }
   .research-history-item { grid-template-columns: 1fr; }
   .research-history-actions { align-items: flex-start; }
+  .observer-strip { align-items: flex-start; flex-direction: column; }
+  .observer-timegrid, .observer-counts, .observer-trade dl { grid-template-columns: 1fr; }
 }
 
 /* ── Surfaces ──────────────────────────────────────────────────────────── */

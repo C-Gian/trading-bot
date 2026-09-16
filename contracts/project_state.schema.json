@@ -30,6 +30,12 @@
     "schema_version",
     "project_name",
     "project_phase",
+    "primary_research_phase",
+    "historical_discovery_status",
+    "observed_material_historical_hypotheses",
+    "aligned_development_closure",
+    "prospective_shadow_observer",
+    "prospective_counters",
     "status",
     "product_surface",
     "research_market",
@@ -78,6 +84,108 @@
         "BASELINE_RESEARCH",
         "STRATEGY_RESEARCH"
       ]
+    },
+    "primary_research_phase": {
+      "const": "PROSPECTIVE_EVIDENCE_COLLECTION"
+    },
+    "historical_discovery_status": {
+      "const": "PAUSED"
+    },
+    "observed_material_historical_hypotheses": {
+      "const": 12
+    },
+    "aligned_development_closure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "research_director_accepted",
+        "aligned_development_family_status",
+        "causal_panel_correction_status",
+        "frozen_calendar_randomization_support_status",
+        "accepted_randomization_vectors",
+        "requested_randomization_vectors",
+        "empirical_power_executed",
+        "real_gate_intensity_beta_observed",
+        "real_sparse_cross_section_beta_observed",
+        "historical_descendant_search_authorized",
+        "market_performance_rejected"
+      ],
+      "properties": {
+        "version": {"const": "ALIGNED_DEVELOPMENT_FINAL_CLOSURE_V1"},
+        "research_director_accepted": {"const": true},
+        "aligned_development_family_status": {"const": "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED"},
+        "causal_panel_correction_status": {"const": "PASS"},
+        "frozen_calendar_randomization_support_status": {"const": "FAIL"},
+        "accepted_randomization_vectors": {"const": 0},
+        "requested_randomization_vectors": {"const": 1024},
+        "empirical_power_executed": {"const": false},
+        "real_gate_intensity_beta_observed": {"const": false},
+        "real_sparse_cross_section_beta_observed": {"const": false},
+        "historical_descendant_search_authorized": {"const": false},
+        "market_performance_rejected": {"const": false}
+      }
+    },
+    "prospective_shadow_observer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "evidence_version", "evidence_stage", "initiation_mode",
+        "contract", "evidence_store", "health_store", "strategy_version", "symbol",
+        "automatic_local_backend_activation", "first_boundary_strictly_after_activation",
+        "maximum_decision_latency_seconds", "past_signal_backfill", "one_active_shadow_position",
+        "entry_timing_rule", "ambiguous_fill_policy", "cost_model_version", "stop_fraction",
+        "target_fraction", "maximum_hold_minutes", "first_scientific_review_completed_trades",
+        "manual_paper_store_unchanged", "order_placement", "credentials", "champion_status",
+        "real_money"
+      ],
+      "properties": {
+        "version": {"const": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1"},
+        "status": {"const": "IMPLEMENTED_READY_FOR_LOCAL_ACTIVATION"},
+        "evidence_version": {"const": "FUTURE_SHADOW_PAPER_EVIDENCE_V1"},
+        "evidence_stage": {"const": "AUTOMATED_PROSPECTIVE_SHADOW_PAPER"},
+        "initiation_mode": {"const": "AUTOMATED_RESEARCH_OBSERVER"},
+        "contract": {"const": "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1.md"},
+        "evidence_store": {"const": "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1.json"},
+        "health_store": {"const": "data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1.json"},
+        "strategy_version": {"const": "ALIGNED_PARTICIPATION_CONTINUATION_V1"},
+        "symbol": {"const": "BTCUSDT"},
+        "automatic_local_backend_activation": {"const": true},
+        "first_boundary_strictly_after_activation": {"const": true},
+        "maximum_decision_latency_seconds": {"const": 300},
+        "past_signal_backfill": {"const": false},
+        "one_active_shadow_position": {"const": true},
+        "entry_timing_rule": {"const": "STRICTLY_AFTER_DURABLE_INTENT_NEXT_1M_OPEN"},
+        "ambiguous_fill_policy": {"const": "STOP_FIRST_V1"},
+        "cost_model_version": {"const": "BTCUSDT_SPOT_COST_V1"},
+        "stop_fraction": {"const": 0.02},
+        "target_fraction": {"const": 0.04},
+        "maximum_hold_minutes": {"const": 1440},
+        "first_scientific_review_completed_trades": {"const": 20},
+        "manual_paper_store_unchanged": {"const": true},
+        "order_placement": {"const": false},
+        "credentials": {"const": false},
+        "champion_status": {"const": "NONE"},
+        "real_money": {"const": false}
+      }
+    },
+    "prospective_counters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prospective_observation_hours",
+        "prospective_long_signals",
+        "prospective_suppressed_signals",
+        "prospective_shadow_trades_open",
+        "prospective_shadow_trades_completed"
+      ],
+      "properties": {
+        "prospective_observation_hours": {"const": 0},
+        "prospective_long_signals": {"const": 0},
+        "prospective_suppressed_signals": {"const": 0},
+        "prospective_shadow_trades_open": {"const": 0},
+        "prospective_shadow_trades_completed": {"const": 0}
+      }
     },
     "status": {
       "enum": [
@@ -592,11 +700,11 @@
           "minItems": 3,
           "maxItems": 3
         },
-        "primary_next_direction": {"const": "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN"},
-        "secondary_parallel_direction": {"const": "PROSPECTIVE_PAPER_EVIDENCE_CONTINUES"},
+        "primary_next_direction": {"const": "PROSPECTIVE_EVIDENCE_COLLECTION"},
+        "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1"},
+        "next_checkpoint": {"const": "PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

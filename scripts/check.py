@@ -264,9 +264,9 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == ("CROSS-SECTION-SPARSE-POWER-BLOCK-REVIEW")
+    assert state["latest_reviewed_checkpoint"] == "ALIGNED-DEVELOPMENT-FINAL-CLOSURE"
     assert state["latest_executor_checkpoint"] == (
-        "GATE-INTENSITY-CAUSAL-CORRECTION-POWER-RESUME-V1_1"
+        "ALIGNED-DEVELOPMENT-FINAL-CLOSURE-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
     )
     assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
@@ -343,7 +343,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "RESEARCH-DIRECTOR-REVIEW-GATE-INTENSITY-CAUSAL-CORRECTION"
+        "RESEARCH-DIRECTOR-REVIEW-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
@@ -816,22 +816,17 @@ def p2_closure_checks(state: dict) -> None:
     ):
         assert not list((ROOT / directory).glob(pattern)), f"a Null V3 artifact appeared: {pattern}"
 
-    # The cycle family is parked and hands over to a design-only successor checkpoint.
+    # The cycle family remains parked after its design-only successor completed; the
+    # repository has now advanced to prospective evidence collection.
     assert closure["family_status"] == "PARKED_METHODOLOGY_BLOCKED"
     assert architecture["cycle_research"] == "PARKED_METHODOLOGY_BLOCKED"
     assert state["cycle_foundation"]["next_checkpoint"] == (
         "NONE_CYCLE_FAMILY_PARKED_METHODOLOGY_BLOCKED"
     )
-    assert architecture["primary_next_direction"] == "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN"
-    assert architecture["secondary_parallel_direction"] == "PROSPECTIVE_PAPER_EVIDENCE_CONTINUES"
+    assert architecture["primary_next_direction"] == "PROSPECTIVE_EVIDENCE_COLLECTION"
+    assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == "CROSS-SECTION-FEASIBILITY-AND-POWER-DESIGN-V1"
-    # The declared successor is honoured either by still being next, or by having run.
-    successor = architecture["next_checkpoint"]
-    assert (
-        state["next_recommended_work_package"] == successor
-        or (ROOT / f"reports/checkpoints/{successor}.md").is_file()
-    )
+    assert architecture["next_checkpoint"] == "PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1"
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -1226,6 +1221,113 @@ def gate_intensity_checks(state: dict) -> None:
     assert state["symbols"] == ["BTCUSDT"]
     assert state["experiments_completed"] == 26
     assert state["statistical_governance"]["known_discovery_family_size"] == 12
+    assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
+    assert state["champion_status"] == "NONE"
+    assert state["real_money_authorized"] is False
+
+
+def prospective_shadow_observer_checks(state: dict) -> None:
+    """The forward observer is separate, causal, and cannot reopen historical ALIGNED."""
+    from app.main import create_app
+    from app.product.paper_v2 import EVIDENCE_VERSION as MANUAL_EVIDENCE_VERSION
+    from app.product.paper_v2 import STORE_PATH as MANUAL_STORE_PATH
+    from app.product.shadow_observer import (
+        EVIDENCE_STAGE,
+        EVIDENCE_STORE_PATH,
+        EVIDENCE_VERSION,
+        HEALTH_STORE_PATH,
+        INITIATION_MODE,
+        MAX_DECISION_LATENCY_SECONDS,
+        OBSERVER_VERSION,
+    )
+    from app.research.local_runner import default_runner
+
+    closure = state["aligned_development_closure"]
+    assert closure == {
+        "version": "ALIGNED_DEVELOPMENT_FINAL_CLOSURE_V1",
+        "research_director_accepted": True,
+        "aligned_development_family_status": "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED",
+        "causal_panel_correction_status": "PASS",
+        "frozen_calendar_randomization_support_status": "FAIL",
+        "accepted_randomization_vectors": 0,
+        "requested_randomization_vectors": 1024,
+        "empirical_power_executed": False,
+        "real_gate_intensity_beta_observed": False,
+        "real_sparse_cross_section_beta_observed": False,
+        "historical_descendant_search_authorized": False,
+        "market_performance_rejected": False,
+    }
+    assert state["primary_research_phase"] == "PROSPECTIVE_EVIDENCE_COLLECTION"
+    assert state["historical_discovery_status"] == "PAUSED"
+    candidates = default_runner().overview()["candidates"]
+    assert not any(
+        candidate["runnable"]
+        and any(token in candidate["candidate_id"] for token in ("ALIGNED", "GATE_INTENSITY"))
+        for candidate in candidates
+    )
+
+    observer = state["prospective_shadow_observer"]
+    assert observer["version"] == OBSERVER_VERSION
+    assert observer["evidence_version"] == EVIDENCE_VERSION
+    assert observer["evidence_stage"] == EVIDENCE_STAGE
+    assert observer["initiation_mode"] == INITIATION_MODE
+    assert observer["evidence_store"] == EVIDENCE_STORE_PATH
+    assert observer["health_store"] == HEALTH_STORE_PATH
+    assert EVIDENCE_STORE_PATH != HEALTH_STORE_PATH != MANUAL_STORE_PATH
+    assert observer["maximum_decision_latency_seconds"] == MAX_DECISION_LATENCY_SECONDS == 300
+    assert observer["first_boundary_strictly_after_activation"] is True
+    assert observer["past_signal_backfill"] is False
+    assert observer["one_active_shadow_position"] is True
+    assert observer["entry_timing_rule"] == "STRICTLY_AFTER_DURABLE_INTENT_NEXT_1M_OPEN"
+    assert observer["ambiguous_fill_policy"] == "STOP_FIRST_V1"
+    assert observer["cost_model_version"] == "BTCUSDT_SPOT_COST_V1"
+    assert observer["stop_fraction"] == 0.02
+    assert observer["target_fraction"] == 0.04
+    assert observer["maximum_hold_minutes"] == 1440
+    assert observer["first_scientific_review_completed_trades"] == 20
+    assert observer["manual_paper_store_unchanged"] is True
+    assert observer["order_placement"] is observer["credentials"] is False
+    assert observer["champion_status"] == "NONE" and observer["real_money"] is False
+    assert MANUAL_EVIDENCE_VERSION == "FUTURE_PAPER_EVIDENCE_V2"
+
+    def normalized_hash(relative: str) -> str:
+        content = (ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+        return hashlib.sha256(content).hexdigest()
+
+    assert normalized_hash("backend/app/product/paper_v2.py") == (
+        "1a219b66f88a66cb727cfc956aabe0edb15da287711ffe7a469a48011dd45025"
+    )
+    assert normalized_hash("backend/app/product/execution_v2.py") == (
+        "913246a584152444497b2f4d03ccbe0156909bfa22006cb13ffada1650c22be0"
+    )
+    assert normalized_hash("docs/contracts/FUTURE_PAPER_EVIDENCE_V2.md") == (
+        "d8c500d9c374dd732e615550e51e3b5d6e129307b1d0b23afe3d3cb3822dd3be"
+    )
+    contract = (ROOT / observer["contract"]).read_text(encoding="utf-8")
+    for required in (
+        "MISSED_PROSPECTIVE_DECISION",
+        "LONG_SIGNAL_SUPPRESSED_ACTIVE_SHADOW_POSITION",
+        "STOP_FIRST_V1",
+        "20 completed automated shadow trades",
+        "no credential, account, balance, or order endpoint",
+    ):
+        assert required in contract
+    assert state["prospective_counters"] == {
+        "prospective_observation_hours": 0,
+        "prospective_long_signals": 0,
+        "prospective_suppressed_signals": 0,
+        "prospective_shadow_trades_open": 0,
+        "prospective_shadow_trades_completed": 0,
+    }
+    paths = {str(getattr(route, "path", "")).lower() for route in create_app().routes}
+    assert "/api/v1/product/prospective-observer" in paths
+    assert not any(
+        word in path
+        for path in paths
+        for word in ("/order", "/account", "/balance", "/credential", "/withdraw")
+    )
+    assert state["experiments_completed"] == 26
+    assert state["observed_material_historical_hypotheses"] == 12
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["champion_status"] == "NONE"
     assert state["real_money_authorized"] is False
@@ -1626,6 +1728,10 @@ def governance_checks(pre_experiment: bool) -> dict:
         "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1_1.md",
         "reports/checkpoints/GATE-INTENSITY-CAUSAL-CORRECTION-POWER-RESUME-V1_1.md",
         "tasks/archive/GATE-INTENSITY-CAUSAL-CORRECTION-POWER-RESUME-V1_1.md",
+        "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1.md",
+        "decisions/ADR-0022-ALIGNED-FINAL-CLOSURE-AND-PROSPECTIVE-SHADOW-OBSERVER.md",
+        "reports/checkpoints/ALIGNED-DEVELOPMENT-FINAL-CLOSURE-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1.md",
+        "tasks/archive/ALIGNED-DEVELOPMENT-FINAL-CLOSURE-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -1733,6 +1839,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     p2_closure_checks(state)
     cross_section_checks(state)
     gate_intensity_checks(state)
+    prospective_shadow_observer_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",

@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
-  Analysis, ExperimentPayload, Health, PaperListing, PaperStatistics, Research,
+  Analysis, ExperimentPayload, Health, PaperListing, PaperStatistics, ProspectiveObserver as ProspectiveObserverState, Research,
   ResearchRunnerPayload, ResearchRun, ResearchRunnerCandidate,
   advancePaperTrades, analyseMarket, createPaperTrade, readPaperStatistics, readPaperTrades, request,
-  readResearchRunner, readResearchRun, startResearchRun,
+  readProspectiveObserver, readResearchRunner, readResearchRun, startResearchRun,
 } from './api';
 import { MarketHero, PlanLines } from './MarketHero';
 import { Decision } from './Decision';
@@ -11,6 +11,7 @@ import { ActiveTrade } from './ActiveTrade';
 import { Performance, TradeHistory } from './Performance';
 import { Market } from './Market';
 import { ResearchCandidatePicker } from './ResearchCandidatePicker';
+import { ProspectiveObserver } from './ProspectiveObserver';
 import { Advanced, Badge, Empty, KeyValues, Section } from './ui';
 import { refusalCopy } from './format';
 
@@ -171,6 +172,7 @@ export function App() {
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [paper, setPaper] = useState<PaperListing | null>(null);
   const [stats, setStats] = useState<PaperStatistics | null>(null);
+  const [observer, setObserver] = useState<ProspectiveObserverState | null>(null);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [runner, setRunner] = useState<ResearchRunnerPayload | null>(null);
@@ -184,6 +186,7 @@ export function App() {
     request<ExperimentPayload>('/api/v1/research/experiments').then(setExperiments).catch(() => setExperiments(null));
     readPaperTrades().then(setPaper).catch(() => setPaper(null));
     readPaperStatistics().then(setStats).catch(() => setStats(null));
+    readProspectiveObserver().then(setObserver).catch(() => setObserver(null));
     readResearchRunner().then(payload => {
       setRunner(payload);
       setRun(payload.current_or_last_run ?? null);
@@ -194,6 +197,13 @@ export function App() {
           : payload.candidates.find(item => item.runnable && item.run_type === 'NEW_EXPERIMENT')?.candidate_id ?? null,
       );
     }).catch(() => setRunner(null));
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      readProspectiveObserver().then(setObserver).catch(() => setObserver(null));
+    }, 30_000);
+    return () => window.clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -324,6 +334,7 @@ export function App() {
               />
             </div>
             {active && <ActiveTrade trade={active} busy={busy} onUpdate={update} />}
+            <ProspectiveObserver observer={observer} />
             <Performance stats={stats} />
             <TradeHistory trades={history} />
             <p className="footnote">
