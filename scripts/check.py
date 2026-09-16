@@ -267,10 +267,8 @@ def validate_research_views(state: dict) -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == (
-        "PROSPECTIVE-BUILD-SEMANTIC-MANIFEST-CLOSURE-V1_1"
-    )
-    assert state["project_phase"] == "STRATEGY_RESEARCH" and not state["owner_decision_required"]
+    assert state["latest_executor_checkpoint"] == "PREDICTIVE-RESEARCH-REBASELINE-V1"
+    assert state["project_phase"] == "PREDICTIVE_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
     from app.research.wp016 import preflight as wp016_preflight
@@ -344,7 +342,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1"
+    assert state["next_recommended_work_package"] == "PREDICTIVE-BASELINES-V1"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -823,10 +821,10 @@ def p2_closure_checks(state: dict) -> None:
     assert state["cycle_foundation"]["next_checkpoint"] == (
         "NONE_CYCLE_FAMILY_PARKED_METHODOLOGY_BLOCKED"
     )
-    assert architecture["primary_next_direction"] == "PROSPECTIVE_EVIDENCE_COLLECTION"
+    assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V1"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1"
+    assert architecture["next_checkpoint"] == "PREDICTIVE-BASELINES-V1"
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -1273,8 +1271,10 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         "historical_descendant_search_authorized": False,
         "market_performance_rejected": False,
     }
-    assert state["primary_research_phase"] == "PROSPECTIVE_EVIDENCE_COLLECTION"
-    assert state["historical_discovery_status"] == "PAUSED"
+    assert state["primary_research_phase"] == "PREDICTIVE_FOUNDATION"
+    assert state["historical_discovery_status"] == (
+        "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE"
+    )
     candidates = default_runner().overview()["candidates"]
     assert not any(
         candidate["runnable"]
@@ -1417,8 +1417,9 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         "no secret key",
     ):
         assert required in contract, required
+    # One genuine observed boundary exists. It produced no LONG signal and no shadow trade.
     assert state["prospective_counters"] == {
-        "prospective_observation_hours": 0,
+        "prospective_observation_hours": 1,
         "prospective_long_signals": 0,
         "prospective_suppressed_signals": 0,
         "prospective_shadow_trades_open": 0,
@@ -1431,10 +1432,9 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         for path in paths
         for word in ("/order", "/account", "/balance", "/credential", "/withdraw")
     )
-    # The observer is armed but has observed nothing: no evidence or health store may
-    # exist in the repository, and no counter may have moved.
+    # Collection is suspended by the Owner's objective pivot after one genuine observation.
     collection = state["prospective_collection"]
-    assert collection["status"] == "ARMED_NOT_YET_OBSERVED"
+    assert collection["status"] == "SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT"
     assert collection["observer_version"] == OBSERVER_VERSION
     assert collection["evidence_version"] == EVIDENCE_VERSION
     assert collection["activation_mode"] == "LOCAL_BACKEND_START_ONLY"
@@ -1443,9 +1443,9 @@ def prospective_shadow_observer_checks(state: dict) -> None:
     # boundary, fetched no market data, and produced no genuine observation.
     assert collection["production_observer_activated"] is True
     assert collection["first_activation_outcome"] == "DEGRADED_UNVERIFIED_SCIENTIFIC_BUILD"
-    assert collection["observer_market_fetches"] == 0
-    assert collection["evaluated_boundaries"] == 0
-    assert collection["genuine_observations"] == 0
+    assert collection["observer_market_fetches"] == 1
+    assert collection["evaluated_boundaries"] == 1
+    assert collection["genuine_observations"] == 1
     assert collection["past_signal_backfill"] is False
     assert collection["review_boundary_completed_shadow_trades"] == 20
     assert collection["review_boundary_proves_sufficiency"] is False
@@ -1464,10 +1464,10 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         "SEMANTIC_SOFTWARE_BUG",
         "REAL_MONEY_BOUNDARY_PROPOSED",
     ]
-    # No genuine observation exists yet.  The health store is operational state, not
-    # scientific evidence, so a real local backend run may legitimately have created it;
-    # neither store may ever be tracked by Git.
-    assert not (ROOT / EVIDENCE_STORE_PATH).exists()
+    # Genuine evidence now exists. The runtime stores remain generated local state and are
+    # still never tracked by Git; the preserved copies under research/prospective/ carry the
+    # evidence into the audit trail, and prospective_observer_suspension_checks proves the
+    # copies and the recorded accounting still agree.
     for runtime in (EVIDENCE_STORE_PATH, HEALTH_STORE_PATH, LEASE_PATH):
         assert not git("ls-files", runtime), runtime
         assert (
@@ -1517,6 +1517,211 @@ def prospective_shadow_observer_checks(state: dict) -> None:
     assert state["observed_material_historical_hypotheses"] == 12
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["champion_status"] == "NONE"
+    assert state["real_money_authorized"] is False
+
+
+def prospective_observer_suspension_checks(state: dict) -> None:
+    """Automatic ALIGNED collection stopped, and its genuine evidence survives verbatim."""
+    from app.main import create_app
+    from app.product.shadow_observer import (
+        AUTOMATIC_COLLECTION_ENABLED,
+        AUTOMATIC_COLLECTION_STATUS,
+        EVIDENCE_STORE_PATH,
+        FINAL_DISPOSITION_PATH,
+        PRESERVED_EVIDENCE_PATH,
+    )
+
+    record = state["prospective_observer_suspension"]
+    disposition = json.loads((ROOT / record["disposition_record"]).read_text(encoding="utf-8"))
+
+    # The suspension is a code fact, not only a declaration: ``main`` constructs no observer.
+    assert AUTOMATIC_COLLECTION_ENABLED is False
+    assert (
+        AUTOMATIC_COLLECTION_STATUS
+        == record["disposition"]
+        == ("SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT")
+    )
+    assert PRESERVED_EVIDENCE_PATH == record["preserved_evidence"]
+    assert FINAL_DISPOSITION_PATH == record["disposition_record"]
+    default_surface = create_app().routes
+    assert any(
+        "/api/v1/product/prospective-observer" == str(getattr(route, "path", ""))
+        for route in default_surface
+    )
+    source = (ROOT / "backend/app/main.py").read_text(encoding="utf-8")
+    assert "default_observer() if AUTOMATIC_COLLECTION_ENABLED else None" in source
+
+    # The implementation is preserved, not deleted, and so is the superseded contract.
+    for preserved in (
+        "backend/app/product/shadow_observer.py",
+        "backend/app/product/observer_lease.py",
+        "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.md",
+    ):
+        assert (ROOT / preserved).is_file(), preserved
+
+    # The recorded accounting is exactly what the preserved evidence says, and the runtime
+    # store, if this checkout has one, has not diverged from the preserved copy.
+    run([sys.executable, "scripts/finalize_prospective_observer.py", "--check"])
+    for field in (
+        "decision_records",
+        "genuine_observations",
+        "observed_decisions",
+        "missed_decisions",
+        "observed_decision_outcomes",
+        "raw_prospective_long_signals",
+        "shadow_trades_open",
+        "shadow_trades_completed",
+        "audit_chain_events",
+        "audit_chain_integrity",
+        "review_boundary_reached",
+        "scientific_conclusion",
+    ):
+        assert record[field] == disposition[field], field
+    assert record["genuine_observations"] == 1 and record["missed_decisions"] == 2
+    assert record["shadow_trades_completed"] == record["raw_prospective_long_signals"] == 0
+    assert record["scientific_conclusion"] == "INSUFFICIENT_PROSPECTIVE_EVIDENCE_NO_CONCLUSION"
+
+    # Nothing was backfilled, rewritten or deleted, and no Champion was created by it.
+    for forbidden in (
+        "evidence_backfilled",
+        "evidence_rewritten",
+        "runtime_store_deleted",
+        "implementation_deleted",
+        "automatic_collection_on_main",
+        "review_boundary_reached",
+        "real_money",
+    ):
+        assert record[forbidden] is False, forbidden
+    assert record["champion_status"] == "NONE"
+
+    # The preserved evidence is the genuine ledger, byte-for-byte.
+    preserved = json.loads((ROOT / record["preserved_evidence"]).read_text(encoding="utf-8"))
+    assert preserved["version"] == record["evidence_version"]
+    assert preserved["observer_version"] == record["observer_version"]
+    assert preserved["real_money"] is False and preserved["champion_status"] == "NONE"
+    assert len(preserved["decisions"]) == record["decision_records"]
+    assert len(preserved["trades"]) == record["shadow_trades_completed"] == 0
+    assert len(preserved["audit_chain"]) == record["audit_chain_events"]
+    # The preserved copies are tracked evidence; the runtime stores never are.
+    for tracked in (record["preserved_evidence"], record["preserved_health"]):
+        assert git("ls-files", tracked), tracked
+    assert not git("ls-files", EVIDENCE_STORE_PATH)
+
+
+def prediction_first_checks(state: dict) -> None:
+    """The Owner-authorized predictive objective is declared once and trains nothing."""
+    objective = state["predictive_research_objective"]
+    legacy = state["legacy_research_generation"]
+    constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
+    contract = (ROOT / objective["evaluation_contract"]).read_text(encoding="utf-8")
+    roadmap = (ROOT / objective["source_roadmap"]).read_text(encoding="utf-8")
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+
+    assert constitution.replace("\r\n", "\n").startswith(
+        "# Trading Bot — Scientific Constitution\n\nVersion 2.0 — prediction-first\n"
+    )
+    assert objective["constitution_version"] == "2.0"
+    assert (ROOT / objective["adr"]).is_file()
+
+    # The frozen target, and the fact that this checkpoint trains nothing.
+    assert objective["symbol"] == "BTCUSDT" and state["symbols"] == ["BTCUSDT"]
+    assert objective["canonical_resolution"] == state["canonical_resolution"] == "1m"
+    assert objective["decision_cadence"] == state["signal_timeframe"] == "1h"
+    assert objective["primary_horizon"] == "24h"
+    assert objective["prediction_target"] == "r_24h = log(close[t+24h] / close[t])"
+    assert objective["direction_truth"]["UP"] == "r_24h > 0"
+    assert objective["direction_truth"]["DOWN"] == "r_24h < 0"
+    assert "COUNTED_EXPLICITLY" in objective["direction_truth"]["NEUTRAL"]
+    assert objective["predictor_trained"] is False
+    assert objective["predictive_results_observed"] is False
+    assert objective["predictive_experiments_completed"] == 0
+    assert objective["leverage_or_short_authorized"] is False
+    assert objective["real_money_authorized"] is False
+    assert state["directions"] == ["LONG", "NO_TRADE"]
+    assert state["product_analysis"]["possible_outputs"] == ["NO_TRADE", "LONG"]
+    assert state["product_analysis"]["leverage_or_short"] is False
+
+    # Win rate is primary and is never alone; probability and strength stay distinct.
+    assert objective["primary_metric"] == "ACTIONABLE_DIRECTIONAL_WIN_RATE"
+    assert objective["primary_metric_reported_alone"] is False
+    assert objective["win_rate_target_declared"] is False
+    assert objective["strength_is_probability"] is False
+    assert "PERCENTILE_RANK" in objective["strength_definition"]
+    assert "CALIBRATED_PROBABILITY" in objective["probability_definition"]
+    assert set(objective["mandatory_companion_metrics"]) >= {
+        "PREDICTION_COVERAGE",
+        "CALIBRATION_BRIER_AND_RELIABILITY_TABLE",
+        "MAGNITUDE_MAE_SIGNED_24H_RETURN",
+        "DIRECTIONAL_BASELINE_COMPARISON",
+        "DEPENDENCE_AWARE_WIN_RATE_UNCERTAINTY_INTERVAL",
+    }
+    assert objective["required_baselines"] == [
+        "TRAINING_UP_BASE_RATE",
+        "ALWAYS_UP",
+        "PREVIOUS_24H_SIGN_PERSISTENCE",
+        "ZERO_RETURN_MAGNITUDE",
+    ]
+
+    # The magnitude diagnostic is bounded, symmetric and has a deterministic zero rule.
+    diagnostic = objective["magnitude_match_diagnostic"]
+    assert diagnostic["range"] == [-100, 100] and diagnostic["symmetric"] is True
+    assert (
+        "floored" in diagnostic["formula"]
+        and "EXCLUDED_AND_COUNTED" in (diagnostic["near_zero_rule"])
+    )
+
+    # Economics are downstream, and reference capital is display-only.
+    economic = objective["economic_layer"]
+    assert (
+        economic["separation"] == "PREDICTION -> DECISION_POLICY -> ECONOMIC_EXECUTION_SIMULATION"
+    )
+    assert economic["costs_in_primary_prediction_scoring"] is False
+    assert economic["costs_mandatory_for_economic_claims"] is True
+    assert economic["prediction_quality_depends_on_economics"] is False
+    assert economic["reference_capital_role"] == "DISPLAY_SCENARIO_ASSUMPTION_ONLY"
+    assert (
+        economic["reference_capital_eur"]
+        == (state["owner_economic_policy"]["reference_capital_eur"])
+    )
+
+    # The canonical documents actually carry the frozen contract.
+    for required in (
+        "actionable directional win rate",
+        "coverage = actionable_directional_predictions / eligible_decision_timestamps",
+        "Brier score",
+        "TRAINING_UP_BASE_RATE",
+        "PREVIOUS_24H_SIGN_PERSISTENCE",
+        "ZERO_RETURN_MAGNITUDE",
+        "moving-block bootstrap",
+        "PREDICTION LAYER  ->  DECISION / POLICY LAYER  ->  ECONOMIC / EXECUTION SIMULATION",
+    ):
+        assert required in contract, required
+    for required in ("Admission rule", "point-in-time", "Narrative plausibility"):
+        assert required in roadmap, required
+    assert "Directional win rate is a primary human-facing metric" in agents
+
+    # The superseded generation is preserved, not rewritten, and is not the new target.
+    assert legacy["name"] == "COST_EXPECTANCY_RESEARCH_GENERATION_V1"
+    assert legacy["disposition"] == "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE"
+    assert legacy["results_rewritten"] is False
+    assert legacy["negative_results_preserved"] is True
+    assert legacy["aligned_historical_results_changed"] is False
+    assert legacy["transfers_as_predictive_evidence"] is False
+    assert legacy["aligned_role"] == "HISTORICAL_PAPER_BASELINE_NOT_CHAMPION"
+    assert legacy["experiments_preserved"] == state["experiments_completed"] == 26
+    assert legacy["observed_material_historical_hypotheses"] == 12
+    assert legacy["champion_status"] == state["champion_status"] == "NONE"
+    assert legacy["archive_branch"] == "archive/cost-expectancy-v1"
+    run(["git", "merge-base", "--is-ancestor", legacy["archive_head"], "HEAD"])
+    assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    assert state["product_analysis"]["strategy_version"] == (
+        "ALIGNED_PARTICIPATION_CONTINUATION_V1"
+    )
+
+    # A rebaseline is not an experiment: no predictive result and no sealed query exist.
+    assert not list((ROOT / "research/experiments").glob("*PREDICT*"))
+    assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
+    assert state["adaptive_search"]["sealed_queries"] == 0
     assert state["real_money_authorized"] is False
 
 
@@ -1930,6 +2135,14 @@ def governance_checks(pre_experiment: bool) -> dict:
         "tasks/archive/PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1.md",
         "reports/checkpoints/PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1.md",
         "tasks/archive/PROSPECTIVE-EVIDENCE-COLLECTION-V1_1.md",
+        "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
+        "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md",
+        "docs/canonical/PREDICTIVE_SOURCE_ROADMAP_V1.md",
+        "research/prospective/PROSPECTIVE-ALIGNED-SHADOW-EVIDENCE-FINAL-V1_1.json",
+        "research/prospective/PROSPECTIVE-ALIGNED-OBSERVER-HEALTH-FINAL-V1_1.json",
+        "research/prospective/PROSPECTIVE-ALIGNED-OBSERVER-FINAL-DISPOSITION-V1.json",
+        "reports/checkpoints/PREDICTIVE-RESEARCH-REBASELINE-V1.md",
+        "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -1951,9 +2164,18 @@ def governance_checks(pre_experiment: bool) -> dict:
     constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
     baseline_normalized = baseline.replace("\r\n", "\n").rstrip()
     constitution_normalized = constitution.replace("\r\n", "\n")
-    assert constitution_normalized.startswith(baseline_normalized + "\n\n")
+    # Version 2.0 is Owner-authorized (ADR-0026). The superseded Version 1.0 is never
+    # deleted: the seeded baseline, and every section appended to it during the superseded
+    # generation, must still appear verbatim inside the document.
+    assert constitution_normalized.startswith(
+        "# Trading Bot — Scientific Constitution\n\nVersion 2.0 — prediction-first\n"
+    )
+    assert baseline_normalized in constitution_normalized
+    assert "## Appendix A — superseded Version 1.0, preserved verbatim" in constitution_normalized
     assert "## Selection/evaluation separation" in constitution_normalized
     assert "## Future power gate" in constitution_normalized
+    assert "## Predictive evaluation rules" in constitution_normalized
+    assert "## Prediction and economics are separate layers" in constitution_normalized
     assert git("branch", "--show-current") == "main" or (
         git("branch", "--show-current") == "" and os.environ.get("CLEAN_CHECKOUT") == "1"
     )
@@ -2038,6 +2260,8 @@ def governance_checks(pre_experiment: bool) -> dict:
     cross_section_checks(state)
     gate_intensity_checks(state)
     prospective_shadow_observer_checks(state)
+    prospective_observer_suspension_checks(state)
+    prediction_first_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",

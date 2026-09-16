@@ -30,17 +30,30 @@ No approved setup is currently valid.
 ### Case B
 
 ```text
-LONG BTCUSDT
+BTCUSDT — 24h forecast
 
-Signal time
-Entry
-Stop loss
-Take profit / exit rule
-Expiry
-Strategy version
+Direction            UP | DOWN | UNCERTAIN
+Probability          calibrated, that the declared direction is correct
+Strength             0-100 magnitude scale, NOT a probability
+Expected move        signed %, and approximate quote-currency move
+Uncertainty          coverage, sample size, context
+Predictor version
+
+Action               LONG | NO_TRADE   (paper only)
 ```
 
-Confidence appears only if it has a calibrated meaning.
+The forecast and the action are two separate blocks. The action never restates the
+forecast, and the forecast is never re-derived from the action.
+
+If the action is `LONG`, the paper plan follows underneath: signal time, entry, stop loss,
+take profit / exit rule, expiry, strategy version.
+
+Probability appears only when it is empirically calibrated. Strength is always labelled as
+magnitude and never as probability. An uncalibrated model score is never displayed as a
+probability.
+
+Until an approved predictor exists, the surface says so rather than displaying a
+placeholder number.
 
 Never display fake precision.
 
@@ -87,7 +100,19 @@ Failed and losing trades must remain visible.
 
 ## Page 4 — Strategy Statistics
 
-Owner-friendly statistics:
+Prediction quality and trade economics are separate sections and are never mixed into one
+headline number.
+
+Predictive quality (the prediction layer) reports, per
+[`PREDICTIVE_EVALUATION_CONTRACT_V1.md`](PREDICTIVE_EVALUATION_CONTRACT_V1.md):
+- actionable directional win rate, always shown with sample size and coverage;
+- calibration: Brier score and a reliability table;
+- magnitude error (MAE) and the signed magnitude-match diagnostic;
+- comparison against the predeclared baselines;
+- a dependence-aware uncertainty interval;
+- a breakdown by chronological fold, including unfavourable ones.
+
+Trade economics (the economic layer) reports:
 - net expectancy in R;
 - cumulative paper P&L in R;
 - profit factor;

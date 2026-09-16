@@ -66,6 +66,19 @@ RUNTIME_ARTIFACTS = frozenset({EVIDENCE_STORE_PATH, HEALTH_STORE_PATH, LEASE_PAT
 SUPERSEDED_EVIDENCE_VERSION = "FUTURE_SHADOW_PAPER_EVIDENCE_V1"
 SUPERSEDED_EVIDENCE_STATUS = "IMPLEMENTED_SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION"
 
+# ADR-0026. This observer measures the superseded ALIGNED cost/net-expectancy objective,
+# so the Owner's prediction-first pivot ends its automatic collection on ``main``. The
+# implementation is preserved unmodified as legacy prospective infrastructure and its
+# genuine evidence is preserved verbatim under ``research/prospective/``; nothing here is
+# deleted, backfilled or rewritten. ``main`` simply never constructs a running observer,
+# so no further boundary is evaluated and no further evidence can be created.
+AUTOMATIC_COLLECTION_ENABLED = False
+AUTOMATIC_COLLECTION_STATUS = "SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT"
+PRESERVED_EVIDENCE_PATH = "research/prospective/PROSPECTIVE-ALIGNED-SHADOW-EVIDENCE-FINAL-V1_1.json"
+FINAL_DISPOSITION_PATH = (
+    "research/prospective/PROSPECTIVE-ALIGNED-OBSERVER-FINAL-DISPOSITION-V1.json"
+)
+
 UNVERIFIED_BUILD = provenance.UNVERIFIED_REASON
 INTEGRITY_ERROR = "EVIDENCE_INTEGRITY_VALIDATION_FAILED"
 SYMBOL = "BTCUSDT"
@@ -1557,6 +1570,8 @@ def default_observer() -> ProspectiveShadowObserver:
 
 
 __all__ = [
+    "AUTOMATIC_COLLECTION_ENABLED",
+    "AUTOMATIC_COLLECTION_STATUS",
     "CLOSED_EXPIRY",
     "CLOSED_STOP",
     "CLOSED_TARGET",
@@ -1565,6 +1580,7 @@ __all__ = [
     "EVIDENCE_STAGE",
     "EVIDENCE_STORE_PATH",
     "EVIDENCE_VERSION",
+    "FINAL_DISPOSITION_PATH",
     "HEALTH_STORE_PATH",
     "INITIATION_MODE",
     "INTEGRITY_ERROR",
@@ -1573,6 +1589,7 @@ __all__ = [
     "OBSERVER_VERSION",
     "OPEN",
     "PENDING_ENTRY",
+    "PRESERVED_EVIDENCE_PATH",
     "RUNTIME_ARTIFACTS",
     "SUPERSEDED_EVIDENCE_STATUS",
     "SUPERSEDED_EVIDENCE_VERSION",

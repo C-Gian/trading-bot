@@ -555,8 +555,10 @@ def test_historical_aligned_family_is_final_and_no_descendant_is_runnable() -> N
         "historical_descendant_search_authorized": False,
         "market_performance_rejected": False,
     }
-    assert state["primary_research_phase"] == "PROSPECTIVE_EVIDENCE_COLLECTION"
-    assert state["historical_discovery_status"] == "PAUSED"
+    assert state["primary_research_phase"] == "PREDICTIVE_FOUNDATION"
+    assert state["historical_discovery_status"] == (
+        "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE"
+    )
     candidates = default_runner().overview()["candidates"]
     assert not any(
         candidate["runnable"]
@@ -568,10 +570,13 @@ def test_historical_aligned_family_is_final_and_no_descendant_is_runnable() -> N
 def test_tests_cannot_write_the_production_v1_1_evidence_store() -> None:
     store = ShadowEvidenceStore(ROOT / EVIDENCE_STORE_PATH)
     assert store.path == ROOT / EVIDENCE_STORE_PATH
+    before = _runtime_snapshot(ROOT / EVIDENCE_STORE_PATH)
     document = store.load()
     with pytest.raises(ShadowObserverError, match="production prospective evidence store"):
         store.save(document)
-    assert not (ROOT / EVIDENCE_STORE_PATH).exists()
+    # Genuine evidence may exist in a real local checkout; a test must never create,
+    # extend or alter it.
+    assert _runtime_snapshot(ROOT / EVIDENCE_STORE_PATH) == before
 
 
 def test_tests_cannot_write_the_production_observer_health_store() -> None:
@@ -614,6 +619,7 @@ def test_testclient_lifespan_cannot_create_production_scientific_evidence() -> N
     assert observer.lease is not None and observer.lease.path == ROOT / LEASE_PATH
 
     health_before = _runtime_snapshot(ROOT / HEALTH_STORE_PATH)
+    evidence_before = _runtime_snapshot(ROOT / EVIDENCE_STORE_PATH)
     try:
         with TestClient(create_app(shadow_observer=observer)):
             pass
@@ -627,9 +633,8 @@ def test_testclient_lifespan_cannot_create_production_scientific_evidence() -> N
         if observer.lease is not None:
             observer.lease.release()
 
-    # No genuine observation exists, and operational state a real run left behind is
-    # never touched by a test.
-    assert not (ROOT / EVIDENCE_STORE_PATH).exists()
+    # Evidence and operational state a real run left behind are never touched by a test.
+    assert _runtime_snapshot(ROOT / EVIDENCE_STORE_PATH) == evidence_before
     assert _runtime_snapshot(ROOT / HEALTH_STORE_PATH) == health_before
 
 
@@ -1208,7 +1213,9 @@ def test_prospective_runtime_fix_changes_no_scientific_state() -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["champion_status"] == "NONE"
     assert state["real_money_authorized"] is False
-    assert state["historical_discovery_status"] == "PAUSED"
+    assert state["historical_discovery_status"] == (
+        "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE"
+    )
     assert state["prospective_counters"]["prospective_shadow_trades_completed"] == 0
     observer = state["prospective_shadow_observer"]
     assert observer["stop_fraction"] == 0.02
@@ -1244,12 +1251,15 @@ FROZEN_MANIFEST_MEMBERS = frozenset(
 )
 
 
-def test_no_genuine_observation_exists_before_manifest_closure() -> None:
-    assert not (ROOT / EVIDENCE_STORE_PATH).exists()
+def test_the_one_genuine_observation_is_recorded_and_produced_no_trade() -> None:
+    """Collection stopped after exactly one observed boundary, and it opened nothing."""
     state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
-    assert state["prospective_collection"]["genuine_observations"] == 0
+    collection = state["prospective_collection"]
+    assert collection["status"] == "SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT"
+    assert collection["genuine_observations"] == 1
+    assert collection["evaluated_boundaries"] == collection["observer_market_fetches"] == 1
     assert state["prospective_counters"] == {
-        "prospective_observation_hours": 0,
+        "prospective_observation_hours": 1,
         "prospective_long_signals": 0,
         "prospective_suppressed_signals": 0,
         "prospective_shadow_trades_open": 0,

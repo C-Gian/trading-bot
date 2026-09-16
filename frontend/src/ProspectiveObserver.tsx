@@ -36,6 +36,8 @@ export function ProspectiveObserver({ observer }: { observer: ObserverState | nu
   const status = observer?.status ?? 'STOPPED';
   const trade = observer?.open_shadow_trade ?? null;
   const provenance = observer?.build_provenance_sha256 ?? null;
+  const collection = observer?.automatic_collection ?? null;
+  const suspended = collection != null && collection !== 'ACTIVE';
   return (
     <Section title="Prospective Observer" label="Prospective Observer" hint="Evidenza futura automatizzata">
       <div className="observer-panel">
@@ -46,6 +48,13 @@ export function ProspectiveObserver({ observer }: { observer: ObserverState | nu
           </div>
           <Badge tone={statusTone(status)}>{status}</Badge>
         </div>
+
+        {suspended && (
+          <p className="observer-idle" role="status">
+            Raccolta prospettica automatica sospesa · {collection}. Evidenza genuina preservata
+            invariata; nessun nuovo confine viene valutato.
+          </p>
+        )}
 
         <div className="observer-strip observer-integrity">
           <div>

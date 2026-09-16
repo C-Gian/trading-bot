@@ -1,5 +1,14 @@
 # Trading Bot — Roadmap
 
+Phases 0-3 describe the substrate, which is generation-independent and stands unchanged.
+
+Phases 4-7 were written for the superseded cost-adjusted strategy-selection generation
+`COST_EXPECTANCY_RESEARCH_GENERATION_V1`. They are preserved as the historical plan of that
+generation and are not the current plan. The Owner-authorized prediction-first programme is
+Phase P below; see [ADR-0026](../../decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md),
+[`PREDICTIVE_EVALUATION_CONTRACT_V1.md`](PREDICTIVE_EVALUATION_CONTRACT_V1.md) and
+[`PREDICTIVE_SOURCE_ROADMAP_V1.md`](PREDICTIVE_SOURCE_ROADMAP_V1.md).
+
 ## Phase 0 — Scientific + engineering foundation
 
 Create:
@@ -62,8 +71,9 @@ Prospectively research:
 - volume;
 - combinations after component ablations.
 
-Primary objective:
-robust net expectancy after costs.
+Primary objective of that generation:
+robust net expectancy after costs. Superseded by the prediction-first objective; the
+results it produced remain valid answers to the question it asked.
 
 ## Phase 5 — Locked evaluation
 
@@ -252,3 +262,26 @@ faster independent reconciliation, and removal of duplicate safe computations.
 `RESEARCH_RUNTIME_V2_BATCH` remains immutable for experiments already bound to it. V3
 must demonstrate numerical and scientific equivalence before any future candidate uses
 it. Runtime V3 is not implemented in P0.
+
+## Phase P — Prediction-first research generation
+
+The current programme. Staged, and each stage gates the next.
+
+- **P0 — Predictive foundation.** Deterministic 24h labels and the frozen evaluation
+  implementation, then simple chronological baselines. Proves label causality and
+  evaluation correctness before any model complexity. No external information family.
+- **P1 — Internal-structure predictor.** First candidate predictors on internal price,
+  volume and volatility structure, scored against the predeclared baselines with coverage,
+  calibration, magnitude error and dependence-aware intervals.
+- **P2 — Calibration and coverage policy.** Turn a raw score into a calibrated probability
+  and a defensible abstention rule; establish the strength percentile reference.
+- **P3 — Staged information families.** One preregistered incremental-information
+  experiment per family, in the order and under the conditions of
+  [`PREDICTIVE_SOURCE_ROADMAP_V1.md`](PREDICTIVE_SOURCE_ROADMAP_V1.md).
+- **P4 — Prospective predictive evidence.** Forward-collected predictions scored by the
+  same frozen contract. Prospective evidence outranks any historical holdout.
+- **P5 — Economic layer.** Only once a predictor is credible: policy, costs, sizing and
+  execution simulation, reported separately from prediction quality.
+
+Sealed evaluation and the real-capital gate are unchanged and remain later, Owner-gated
+steps. No stage may be skipped because an earlier one looked promising.

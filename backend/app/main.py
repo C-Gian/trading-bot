@@ -26,6 +26,12 @@ from .product.paper_v2 import (
     update_lifecycle,
 )
 from .product.shadow_observer import (
+    AUTOMATIC_COLLECTION_ENABLED,
+    AUTOMATIC_COLLECTION_STATUS,
+    OBSERVER_VERSION,
+    default_observer,
+)
+from .product.shadow_observer import (
     EVIDENCE_STAGE as SHADOW_EVIDENCE_STAGE,
 )
 from .product.shadow_observer import (
@@ -33,10 +39,6 @@ from .product.shadow_observer import (
 )
 from .product.shadow_observer import (
     INITIATION_MODE as SHADOW_INITIATION_MODE,
-)
-from .product.shadow_observer import (
-    OBSERVER_VERSION,
-    default_observer,
 )
 from .product.statistics import statistics
 from .research.checkpoint_views import budget_view, experiment_view
@@ -98,6 +100,10 @@ def create_app(
     repository = StateRepository(state_path)
     trades = paper_store or PaperTradeStore(Path(__file__).resolve().parents[2] / STORE_PATH)
     local_runner = research_runner or default_runner()
+    # ADR-0026: automatic ALIGNED prospective collection is suspended on ``main``. An
+    # explicitly injected observer — tests, or a future Owner-authorized revival — reports
+    # its own live status instead of the suspension.
+    collection_status = "ACTIVE" if shadow_observer is not None else AUTOMATIC_COLLECTION_STATUS
 
     def state_repository() -> StateRepository:
         return repository
@@ -288,8 +294,9 @@ def create_app(
     def prospective_observer_status():
         """Read-only automated shadow-paper status; never triggers an evaluation."""
         if shadow_observer is not None:
-            return shadow_observer.overview()
+            return {**shadow_observer.overview(), "automatic_collection": collection_status}
         return {
+            "automatic_collection": collection_status,
             "status": "STOPPED",
             "label": "AUTOMATED PAPER RESEARCH — NO REAL MONEY",
             "observer_version": OBSERVER_VERSION,
@@ -322,6 +329,10 @@ def create_app(
     return application
 
 
-app = create_app(shadow_observer=default_observer())
+# ADR-0026. Automated ALIGNED prospective collection is SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT:
+# the observer measures the superseded cost/net-expectancy objective, so ``main`` no longer
+# constructs one. ``default_observer`` is preserved as legacy infrastructure and stays
+# importable for tests and any future Owner-authorized revival.
+app = create_app(shadow_observer=default_observer() if AUTOMATIC_COLLECTION_ENABLED else None)
 
 __all__ = ["COST_VERSION", "ENGINE_VERSION", "EXECUTION_VERSION", "app", "create_app"]

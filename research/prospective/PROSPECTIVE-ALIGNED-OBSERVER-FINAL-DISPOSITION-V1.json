@@ -1,0 +1,63 @@
+{
+  "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
+  "audit_chain_events": 4,
+  "audit_chain_integrity": "VALID",
+  "audit_chain_version": "SHADOW_EVIDENCE_AUDIT_CHAIN_V1",
+  "automatic_collection_on_main": false,
+  "build_provenance_verified": true,
+  "build_provenance_version": "BUILD_PROVENANCE_V1_1",
+  "champion_status": "NONE",
+  "code_build_identity": "01c629e81f4434034da60acc6a79c4be3cdbde19",
+  "decision_records": 3,
+  "disposition": "SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT",
+  "evidence_backfilled": false,
+  "evidence_rewritten": false,
+  "evidence_stage": "AUTOMATED_PROSPECTIVE_SHADOW_PAPER",
+  "evidence_version": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1",
+  "final_activation_utc": "2026-09-16T14:26:06.651487Z",
+  "final_heartbeat_utc": "2026-09-16T15:23:17.936994Z",
+  "final_observer_status": "STOPPED",
+  "first_activation_utc": "2026-09-16T12:58:55.229177Z",
+  "genuine_observations": 1,
+  "implementation_deleted": false,
+  "miss_reasons": [
+    "BACKEND_DOWNTIME"
+  ],
+  "missed_boundaries": [
+    "2026-09-16T13:00:00Z",
+    "2026-09-16T14:00:00Z"
+  ],
+  "missed_decisions": 2,
+  "observed_boundaries": [
+    "2026-09-16T15:00:00Z"
+  ],
+  "observed_decision_outcomes": {
+    "LONG": 0,
+    "NO_TRADE": 1
+  },
+  "observed_decisions": 1,
+  "observer_version": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1",
+  "preserved_evidence": {
+    "path": "research/prospective/PROSPECTIVE-ALIGNED-SHADOW-EVIDENCE-FINAL-V1_1.json",
+    "runtime_source": "data/paper/FUTURE_SHADOW_PAPER_EVIDENCE_V1_1.json",
+    "sha256": "c4d69f3acd5a8a80ddf94738e7ecbb79be455923459f5c91bf4e0b3ba5306a1e"
+  },
+  "preserved_health": {
+    "path": "research/prospective/PROSPECTIVE-ALIGNED-OBSERVER-HEALTH-FINAL-V1_1.json",
+    "runtime_source": "data/paper/PROSPECTIVE_SHADOW_OBSERVER_HEALTH_V1_1.json",
+    "sha256": "beee49524fe7d651adc589541e0500b7d473468f6c90e96d1b8e5c177cd29e4b"
+  },
+  "prospective_observation_hours": 1,
+  "raw_prospective_long_signals": 0,
+  "real_money": false,
+  "reason": "OWNER_AUTHORIZED_PREDICTION_FIRST_OBJECTIVE",
+  "review_boundary_completed_shadow_trades": 20,
+  "review_boundary_reached": false,
+  "runtime_store_deleted": false,
+  "scientific_conclusion": "INSUFFICIENT_PROSPECTIVE_EVIDENCE_NO_CONCLUSION",
+  "shadow_trades_completed": 0,
+  "shadow_trades_open": 0,
+  "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+  "suppressed_decisions": 0,
+  "version": "PROSPECTIVE_ALIGNED_OBSERVER_SUSPENSION_V1"
+}

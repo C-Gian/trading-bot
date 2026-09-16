@@ -31,6 +31,8 @@
     "project_name",
     "project_phase",
     "primary_research_phase",
+    "predictive_research_objective",
+    "legacy_research_generation",
     "historical_discovery_status",
     "observed_material_historical_hypotheses",
     "aligned_development_closure",
@@ -41,6 +43,7 @@
     "prospective_collection_operating_policy",
     "prospective_runtime_provenance_fix",
     "prospective_counters",
+    "prospective_observer_suspension",
     "status",
     "product_surface",
     "research_market",
@@ -87,14 +90,172 @@
         "FOUNDATION_DATA",
         "BACKTEST_SUBSTRATE",
         "BASELINE_RESEARCH",
-        "STRATEGY_RESEARCH"
+        "STRATEGY_RESEARCH",
+        "PREDICTIVE_RESEARCH"
       ]
     },
     "primary_research_phase": {
-      "const": "PROSPECTIVE_EVIDENCE_COLLECTION"
+      "enum": [
+        "PROSPECTIVE_EVIDENCE_COLLECTION",
+        "PREDICTIVE_FOUNDATION"
+      ]
+    },
+    "predictive_research_objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "authorized_by", "authorization_date", "adr", "constitution_version",
+        "research_generation", "objective", "symbol", "canonical_resolution",
+        "decision_cadence", "primary_horizon", "prediction_target", "direction_truth",
+        "evaluation_contract", "source_roadmap", "primary_metric",
+        "primary_metric_reported_alone", "mandatory_companion_metrics",
+        "required_baselines", "probability_definition", "strength_definition",
+        "strength_is_probability", "magnitude_match_diagnostic", "economic_layer",
+        "win_rate_target_declared", "predictor_trained",
+        "predictive_experiments_completed", "predictive_results_observed",
+        "leverage_or_short_authorized", "real_money_authorized"
+      ],
+      "properties": {
+        "version": {"const": "PREDICTION_FIRST_RESEARCH_OBJECTIVE_V1"},
+        "authorized_by": {"const": "OWNER"},
+        "authorization_date": {"const": "2026-09-16"},
+        "adr": {"const": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md"},
+        "constitution_version": {"const": "2.0"},
+        "research_generation": {"const": "PREDICTIVE_RESEARCH_GENERATION_V1"},
+        "objective": {
+          "const": "STATISTICALLY_CREDIBLE_BTCUSDT_DIRECTION_PROBABILITY_AND_MAGNITUDE_FORECAST"
+        },
+        "symbol": {"const": "BTCUSDT"},
+        "canonical_resolution": {"const": "1m"},
+        "decision_cadence": {"const": "1h"},
+        "primary_horizon": {"const": "24h"},
+        "prediction_target": {"const": "r_24h = log(close[t+24h] / close[t])"},
+        "direction_truth": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["UP", "DOWN", "NEUTRAL"],
+          "properties": {
+            "UP": {"const": "r_24h > 0"},
+            "DOWN": {"const": "r_24h < 0"},
+            "NEUTRAL": {
+              "const": "r_24h == 0 EXCLUDED_FROM_DIRECTIONAL_SCORING_COUNTED_EXPLICITLY"
+            }
+          }
+        },
+        "evaluation_contract": {"const": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md"},
+        "source_roadmap": {"const": "docs/canonical/PREDICTIVE_SOURCE_ROADMAP_V1.md"},
+        "primary_metric": {"const": "ACTIONABLE_DIRECTIONAL_WIN_RATE"},
+        "primary_metric_reported_alone": {"const": false},
+        "mandatory_companion_metrics": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "PREDICTION_COVERAGE",
+            "SAMPLE_SIZE_AND_CHRONOLOGICAL_DISTRIBUTION",
+            "CALIBRATION_BRIER_AND_RELIABILITY_TABLE",
+            "MAGNITUDE_MAE_SIGNED_24H_RETURN",
+            "SIGNED_MAGNITUDE_MATCH_DIAGNOSTIC",
+            "DIRECTIONAL_BASELINE_COMPARISON",
+            "DEPENDENCE_AWARE_WIN_RATE_UNCERTAINTY_INTERVAL",
+            "PERFORMANCE_BY_CHRONOLOGICAL_FOLD"
+          ]
+        },
+        "required_baselines": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "TRAINING_UP_BASE_RATE",
+            "ALWAYS_UP",
+            "PREVIOUS_24H_SIGN_PERSISTENCE",
+            "ZERO_RETURN_MAGNITUDE"
+          ]
+        },
+        "probability_definition": {
+          "const": "CALIBRATED_PROBABILITY_DECLARED_DIRECTION_CORRECT_AT_PRIMARY_HORIZON"
+        },
+        "strength_definition": {
+          "const": "TRAINING_ONLY_PERCENTILE_RANK_OF_PREDICTED_ABSOLUTE_24H_MOVE_0_100"
+        },
+        "strength_is_probability": {"const": false},
+        "magnitude_match_diagnostic": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["version", "formula", "range", "symmetric", "near_zero_rule"],
+          "properties": {
+            "version": {"const": "SIGNED_MAGNITUDE_MATCH_V1"},
+            "formula": {
+              "const": "100 * sign_agreement * min(|p|,|a|) / max(|p|,|a|), both floored at 1e-4"
+            },
+            "range": {
+              "type": "array",
+              "prefixItems": [{"const": -100}, {"const": 100}],
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "symmetric": {"const": true},
+            "near_zero_rule": {
+              "const": "NEAR_ZERO_BOTH__NEUTRAL_REALIZED__ABSTAINED_MAGNITUDE__EXCLUDED_AND_COUNTED"
+            }
+          }
+        },
+        "economic_layer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "separation", "costs_in_primary_prediction_scoring",
+            "costs_mandatory_for_economic_claims", "reference_capital_eur",
+            "reference_capital_role", "prediction_quality_depends_on_economics"
+          ],
+          "properties": {
+            "separation": {
+              "const": "PREDICTION -> DECISION_POLICY -> ECONOMIC_EXECUTION_SIMULATION"
+            },
+            "costs_in_primary_prediction_scoring": {"const": false},
+            "costs_mandatory_for_economic_claims": {"const": true},
+            "reference_capital_eur": {"const": 5000},
+            "reference_capital_role": {"const": "DISPLAY_SCENARIO_ASSUMPTION_ONLY"},
+            "prediction_quality_depends_on_economics": {"const": false}
+          }
+        },
+        "win_rate_target_declared": {"const": false},
+        "predictor_trained": {"const": false},
+        "predictive_experiments_completed": {"const": 0},
+        "predictive_results_observed": {"const": false},
+        "leverage_or_short_authorized": {"const": false},
+        "real_money_authorized": {"const": false}
+      }
+    },
+    "legacy_research_generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name", "disposition", "adr", "archive_branch", "archive_head",
+        "experiments_preserved", "observed_material_historical_hypotheses",
+        "results_rewritten", "negative_results_preserved", "aligned_role",
+        "aligned_historical_results_changed", "champion_status",
+        "transfers_as_predictive_evidence"
+      ],
+      "properties": {
+        "name": {"const": "COST_EXPECTANCY_RESEARCH_GENERATION_V1"},
+        "disposition": {"const": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE"},
+        "adr": {"const": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md"},
+        "archive_branch": {"const": "archive/cost-expectancy-v1"},
+        "archive_head": {"const": "01c629e81f4434034da60acc6a79c4be3cdbde19"},
+        "experiments_preserved": {"const": 26},
+        "observed_material_historical_hypotheses": {"const": 12},
+        "results_rewritten": {"const": false},
+        "negative_results_preserved": {"const": true},
+        "aligned_role": {"const": "HISTORICAL_PAPER_BASELINE_NOT_CHAMPION"},
+        "aligned_historical_results_changed": {"const": false},
+        "champion_status": {"const": "NONE"},
+        "transfers_as_predictive_evidence": {"const": false}
+      }
     },
     "historical_discovery_status": {
-      "const": "PAUSED"
+      "enum": [
+        "PAUSED",
+        "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE"
+      ]
     },
     "observed_material_historical_hypotheses": {
       "const": 12
@@ -242,16 +403,16 @@
       ],
       "properties": {
         "version": {"const": "PROSPECTIVE_EVIDENCE_LIVE_COLLECTION_ARM_V1"},
-        "status": {"const": "ARMED_NOT_YET_OBSERVED"},
+        "status": {"const": "SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT"},
         "observer_version": {"const": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1"},
         "evidence_version": {"const": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1"},
         "activation_mode": {"const": "LOCAL_BACKEND_START_ONLY"},
         "production_observer_activated": {"const": true},
         "first_activation_utc": {"const": "2026-09-16T12:58:55.229177Z"},
         "first_activation_outcome": {"const": "DEGRADED_UNVERIFIED_SCIENTIFIC_BUILD"},
-        "observer_market_fetches": {"const": 0},
-        "evaluated_boundaries": {"const": 0},
-        "genuine_observations": {"const": 0},
+        "observer_market_fetches": {"const": 1},
+        "evaluated_boundaries": {"const": 1},
+        "genuine_observations": {"const": 1},
         "first_observation_requires": {
           "type": "array",
           "items": {"type": "string"},
@@ -379,6 +540,61 @@
         "backfill_performed": {"const": false}
       }
     },
+    "prospective_observer_suspension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "disposition", "adr", "observer_version", "evidence_version",
+        "automatic_collection_on_main", "implementation_deleted", "runtime_store_deleted",
+        "evidence_backfilled", "evidence_rewritten", "preserved_evidence",
+        "preserved_health", "disposition_record", "decision_records",
+        "genuine_observations", "observed_decisions", "missed_decisions",
+        "observed_decision_outcomes", "raw_prospective_long_signals",
+        "shadow_trades_open", "shadow_trades_completed", "audit_chain_events",
+        "audit_chain_integrity", "review_boundary_reached", "scientific_conclusion",
+        "champion_status", "real_money"
+      ],
+      "properties": {
+        "version": {"const": "PROSPECTIVE_ALIGNED_OBSERVER_SUSPENSION_V1"},
+        "disposition": {"const": "SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT"},
+        "adr": {"const": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md"},
+        "observer_version": {"const": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1"},
+        "evidence_version": {"const": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1"},
+        "automatic_collection_on_main": {"const": false},
+        "implementation_deleted": {"const": false},
+        "runtime_store_deleted": {"const": false},
+        "evidence_backfilled": {"const": false},
+        "evidence_rewritten": {"const": false},
+        "preserved_evidence": {
+          "const": "research/prospective/PROSPECTIVE-ALIGNED-SHADOW-EVIDENCE-FINAL-V1_1.json"
+        },
+        "preserved_health": {
+          "const": "research/prospective/PROSPECTIVE-ALIGNED-OBSERVER-HEALTH-FINAL-V1_1.json"
+        },
+        "disposition_record": {
+          "const": "research/prospective/PROSPECTIVE-ALIGNED-OBSERVER-FINAL-DISPOSITION-V1.json"
+        },
+        "decision_records": {"const": 3},
+        "genuine_observations": {"const": 1},
+        "observed_decisions": {"const": 1},
+        "missed_decisions": {"const": 2},
+        "observed_decision_outcomes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["LONG", "NO_TRADE"],
+          "properties": {"LONG": {"const": 0}, "NO_TRADE": {"const": 1}}
+        },
+        "raw_prospective_long_signals": {"const": 0},
+        "shadow_trades_open": {"const": 0},
+        "shadow_trades_completed": {"const": 0},
+        "audit_chain_events": {"const": 4},
+        "audit_chain_integrity": {"const": "VALID"},
+        "review_boundary_reached": {"const": false},
+        "scientific_conclusion": {"const": "INSUFFICIENT_PROSPECTIVE_EVIDENCE_NO_CONCLUSION"},
+        "champion_status": {"const": "NONE"},
+        "real_money": {"const": false}
+      }
+    },
     "prospective_counters": {
       "type": "object",
       "additionalProperties": false,
@@ -390,7 +606,7 @@
         "prospective_shadow_trades_completed"
       ],
       "properties": {
-        "prospective_observation_hours": {"const": 0},
+        "prospective_observation_hours": {"const": 1},
         "prospective_long_signals": {"const": 0},
         "prospective_suppressed_signals": {"const": 0},
         "prospective_shadow_trades_open": {"const": 0},
@@ -910,11 +1126,11 @@
           "minItems": 3,
           "maxItems": 3
         },
-        "primary_next_direction": {"const": "PROSPECTIVE_EVIDENCE_COLLECTION"},
+        "primary_next_direction": {"const": "PREDICTIVE_RESEARCH_GENERATION_V1"},
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1"},
+        "next_checkpoint": {"const": "PREDICTIVE-BASELINES-V1"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

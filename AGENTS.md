@@ -2,14 +2,24 @@
 
 ## Mission
 
-Trading Bot is a research-first BTCUSDT spot trading system.
+Trading Bot is a research-first BTCUSDT prediction system.
 
 The Owner delegates quantitative research direction, product/technical architecture,
 implementation coordination, experiment interpretation, and routine technical choices
 to ChatGPT as Research Director. Coding agents are implementation executors.
 
-The scientific objective is robust positive net expectancy after realistic costs and
-execution assumptions, not a target hit rate.
+The scientific objective is a statistically credible BTCUSDT predictor that estimates
+future price direction, calibrated probability, and expected movement magnitude over
+explicitly declared horizons.
+
+Prediction quality is evaluated independently of capital size, exchange fees, leverage,
+slippage, network costs and position sizing. Economic execution is a downstream layer: it
+may translate a prediction into a paper decision, but it never defines whether the
+underlying market prediction was correct.
+
+Directional win rate is a primary human-facing metric and is never interpreted alone. It
+is always reported with sample size and coverage, alongside calibration, magnitude error,
+predeclared baselines and dependence-aware uncertainty.
 
 Real money is forbidden unless a future explicit Owner gate authorizes it.
 
@@ -33,6 +43,10 @@ Use one source for each kind of truth.
   `governance/SCIENTIFIC_CONSTITUTION.md`
 - Stable product/technical canon:
   `docs/canonical/`
+- How a prediction is defined, scored and reported:
+  `docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md`
+- Which information families may enter, and on what conditions:
+  `docs/canonical/PREDICTIVE_SOURCE_ROADMAP_V1.md`
 - Current machine-readable project state:
   `state/current_state.json`
 - Active autonomous work package:
@@ -81,9 +95,19 @@ historical rationale.
 - Results are never rewritten after observation.
 - Material strategy changes require a new strategy/experiment version.
 - Signals/features may use only information available at signal time.
-- Transaction costs and execution assumptions are mandatory once backtesting begins.
+- Transaction costs and execution assumptions are mandatory for any claim of economic or
+  trading profitability, and are not part of the primary scoring of a pure prediction
+  experiment.
 - Ambiguous fills must be handled conservatively.
 - Standard random K-fold is forbidden for overlapping financial time-series labels.
+- Every reported win rate is paired with sample size and prediction coverage.
+- Probabilistic predictions are evaluated for calibration; magnitude is scored separately.
+- Every metric is compared against predeclared chronological baselines with a
+  dependence-aware uncertainty interval.
+- A win rate obtained by trivial abstention, class imbalance or selective reporting is not
+  predictive success.
+- Uncalibrated model scores are never presented as probabilities, and magnitude strength is
+  never presented as a probability.
 - Trial count/adaptive search must be tracked.
 - Sealed evaluation data must be inaccessible to research agents.
 - Exposed holdout data loses sealed status.

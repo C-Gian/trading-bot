@@ -25,3 +25,4 @@
 - [ADR-0023](ADR-0023-PROSPECTIVE-SHADOW-EVIDENCE-INTEGRITY-V1_1.md) — prospective shadow evidence gains verified build provenance, a single observer lease, and a tamper-evident audit chain
 - [ADR-0024](ADR-0024-PROSPECTIVE-COLLECTION-ARM-AND-OPERATING-POLICY.md) — prospective collection is armed and its operating policy fixes conduct until 20 completed shadow trades
 - [ADR-0025](ADR-0025-RUNTIME-ARTIFACTS-ARE-NOT-SCIENTIFIC-BUILD-STATE.md) — observer runtime stores are generated local state and can no longer unverify their own build
+- [ADR-0026](ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md) — Owner-authorized prediction-first objective supersedes cost-adjusted strategy selection and suspends the ALIGNED prospective observer

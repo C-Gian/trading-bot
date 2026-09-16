@@ -1,0 +1,23 @@
+{
+  "activation_history": [
+    "2026-09-16T12:58:55.229177Z",
+    "2026-09-16T14:26:06.651487Z"
+  ],
+  "backend_start": "2026-09-16T14:26:06.651487Z",
+  "build_provenance_sha256": "6c34a05c7fb199ffd65063030425a268124317a8171efd9ba52e4f563bb78ae3",
+  "build_provenance_verified": true,
+  "current_error": null,
+  "evidence_version": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1",
+  "initial_activation": "2026-09-16T12:58:55.229177Z",
+  "last_evaluated_boundary": "2026-09-16T15:00:00Z",
+  "last_heartbeat": "2026-09-16T15:23:17.936994Z",
+  "last_missed_boundary": "2026-09-16T14:00:00Z",
+  "last_successful_market_fetch": "2026-09-16T15:00:11.217025Z",
+  "missed_boundaries": 2,
+  "next_expected_boundary": "2026-09-16T16:00:00Z",
+  "observer_activation": "2026-09-16T14:26:06.651487Z",
+  "observer_lease_held": false,
+  "real_money": false,
+  "status": "STOPPED",
+  "version": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1"
+}

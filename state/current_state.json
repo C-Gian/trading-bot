@@ -449,8 +449,8 @@
     "version": "ALIGNED_GATE_INTENSITY_POWER_V1_1",
     "zero_shift_effect_observed": false
   },
-  "historical_discovery_status": "PAUSED",
-  "latest_executor_checkpoint": "PROSPECTIVE-BUILD-SEMANTIC-MANIFEST-CLOSURE-V1_1",
+  "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
+  "latest_executor_checkpoint": "PREDICTIVE-RESEARCH-REBASELINE-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -459,11 +459,26 @@
     "terminal_classification": "REJECT"
   },
   "latest_reviewed_checkpoint": "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1",
+  "legacy_research_generation": {
+    "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
+    "aligned_historical_results_changed": false,
+    "aligned_role": "HISTORICAL_PAPER_BASELINE_NOT_CHAMPION",
+    "archive_branch": "archive/cost-expectancy-v1",
+    "archive_head": "01c629e81f4434034da60acc6a79c4be3cdbde19",
+    "champion_status": "NONE",
+    "disposition": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
+    "experiments_preserved": 26,
+    "name": "COST_EXPECTANCY_RESEARCH_GENERATION_V1",
+    "negative_results_preserved": true,
+    "observed_material_historical_hypotheses": 12,
+    "results_rewritten": false,
+    "transfers_as_predictive_evidence": false
+  },
   "max_holding_horizon": {
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1",
+  "next_recommended_work_package": "PREDICTIVE-BASELINES-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -518,7 +533,73 @@
     "surface": "AVAILABLE",
     "timestamp_translation_used": false
   },
-  "primary_research_phase": "PROSPECTIVE_EVIDENCE_COLLECTION",
+  "predictive_research_objective": {
+    "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
+    "authorization_date": "2026-09-16",
+    "authorized_by": "OWNER",
+    "canonical_resolution": "1m",
+    "constitution_version": "2.0",
+    "decision_cadence": "1h",
+    "direction_truth": {
+      "DOWN": "r_24h < 0",
+      "NEUTRAL": "r_24h == 0 EXCLUDED_FROM_DIRECTIONAL_SCORING_COUNTED_EXPLICITLY",
+      "UP": "r_24h > 0"
+    },
+    "economic_layer": {
+      "costs_in_primary_prediction_scoring": false,
+      "costs_mandatory_for_economic_claims": true,
+      "prediction_quality_depends_on_economics": false,
+      "reference_capital_eur": 5000,
+      "reference_capital_role": "DISPLAY_SCENARIO_ASSUMPTION_ONLY",
+      "separation": "PREDICTION -> DECISION_POLICY -> ECONOMIC_EXECUTION_SIMULATION"
+    },
+    "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md",
+    "leverage_or_short_authorized": false,
+    "magnitude_match_diagnostic": {
+      "formula": "100 * sign_agreement * min(|p|,|a|) / max(|p|,|a|), both floored at 1e-4",
+      "near_zero_rule": "NEAR_ZERO_BOTH__NEUTRAL_REALIZED__ABSTAINED_MAGNITUDE__EXCLUDED_AND_COUNTED",
+      "range": [
+        -100,
+        100
+      ],
+      "symmetric": true,
+      "version": "SIGNED_MAGNITUDE_MATCH_V1"
+    },
+    "mandatory_companion_metrics": [
+      "PREDICTION_COVERAGE",
+      "SAMPLE_SIZE_AND_CHRONOLOGICAL_DISTRIBUTION",
+      "CALIBRATION_BRIER_AND_RELIABILITY_TABLE",
+      "MAGNITUDE_MAE_SIGNED_24H_RETURN",
+      "SIGNED_MAGNITUDE_MATCH_DIAGNOSTIC",
+      "DIRECTIONAL_BASELINE_COMPARISON",
+      "DEPENDENCE_AWARE_WIN_RATE_UNCERTAINTY_INTERVAL",
+      "PERFORMANCE_BY_CHRONOLOGICAL_FOLD"
+    ],
+    "objective": "STATISTICALLY_CREDIBLE_BTCUSDT_DIRECTION_PROBABILITY_AND_MAGNITUDE_FORECAST",
+    "prediction_target": "r_24h = log(close[t+24h] / close[t])",
+    "predictive_experiments_completed": 0,
+    "predictive_results_observed": false,
+    "predictor_trained": false,
+    "primary_horizon": "24h",
+    "primary_metric": "ACTIONABLE_DIRECTIONAL_WIN_RATE",
+    "primary_metric_reported_alone": false,
+    "probability_definition": "CALIBRATED_PROBABILITY_DECLARED_DIRECTION_CORRECT_AT_PRIMARY_HORIZON",
+    "real_money_authorized": false,
+    "required_baselines": [
+      "TRAINING_UP_BASE_RATE",
+      "ALWAYS_UP",
+      "PREVIOUS_24H_SIGN_PERSISTENCE",
+      "ZERO_RETURN_MAGNITUDE"
+    ],
+    "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+    "source_roadmap": "docs/canonical/PREDICTIVE_SOURCE_ROADMAP_V1.md",
+    "strength_definition": "TRAINING_ONLY_PERCENTILE_RANK_OF_PREDICTED_ABSOLUTE_24H_MOVE_0_100",
+    "strength_is_probability": false,
+    "symbol": "BTCUSDT",
+    "version": "PREDICTION_FIRST_RESEARCH_OBJECTIVE_V1",
+    "win_rate_target_declared": false
+  },
+  "primary_research_phase": "PREDICTIVE_FOUNDATION",
   "product_analysis": {
     "champion_status": "NONE",
     "credentials": false,
@@ -542,7 +623,7 @@
   },
   "product_surface": "LOCAL_WEB_APP",
   "project_name": "Trading Bot",
-  "project_phase": "STRATEGY_RESEARCH",
+  "project_phase": "PREDICTIVE_RESEARCH",
   "prospective_collection": {
     "activation_mode": "LOCAL_BACKEND_START_ONLY",
     "early_review_conditions": [
@@ -552,7 +633,7 @@
       "SEMANTIC_SOFTWARE_BUG",
       "REAL_MONEY_BOUNDARY_PROPOSED"
     ],
-    "evaluated_boundaries": 0,
+    "evaluated_boundaries": 1,
     "evidence_version": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1",
     "first_activation_outcome": "DEGRADED_UNVERIFIED_SCIENTIFIC_BUILD",
     "first_activation_utc": "2026-09-16T12:58:55.229177Z",
@@ -562,16 +643,16 @@
       "HOURLY_BOUNDARY_STRICTLY_AFTER_DURABLE_ACTIVATION",
       "DECISION_PERSISTED_WITHIN_300_SECONDS"
     ],
-    "genuine_observations": 0,
+    "genuine_observations": 1,
     "no_trade_observations_justify_adaptation": false,
-    "observer_market_fetches": 0,
+    "observer_market_fetches": 1,
     "observer_version": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1",
     "past_signal_backfill": false,
     "production_observer_activated": true,
     "result_driven_adaptation_before_boundary": false,
     "review_boundary_completed_shadow_trades": 20,
     "review_boundary_proves_sufficiency": false,
-    "status": "ARMED_NOT_YET_OBSERVED",
+    "status": "SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT",
     "version": "PROSPECTIVE_EVIDENCE_LIVE_COLLECTION_ARM_V1"
   },
   "prospective_collection_operating_policy": {
@@ -590,10 +671,42 @@
   },
   "prospective_counters": {
     "prospective_long_signals": 0,
-    "prospective_observation_hours": 0,
+    "prospective_observation_hours": 1,
     "prospective_shadow_trades_completed": 0,
     "prospective_shadow_trades_open": 0,
     "prospective_suppressed_signals": 0
+  },
+  "prospective_observer_suspension": {
+    "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
+    "audit_chain_events": 4,
+    "audit_chain_integrity": "VALID",
+    "automatic_collection_on_main": false,
+    "champion_status": "NONE",
+    "decision_records": 3,
+    "disposition": "SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT",
+    "disposition_record": "research/prospective/PROSPECTIVE-ALIGNED-OBSERVER-FINAL-DISPOSITION-V1.json",
+    "evidence_backfilled": false,
+    "evidence_rewritten": false,
+    "evidence_version": "FUTURE_SHADOW_PAPER_EVIDENCE_V1_1",
+    "genuine_observations": 1,
+    "implementation_deleted": false,
+    "missed_decisions": 2,
+    "observed_decision_outcomes": {
+      "LONG": 0,
+      "NO_TRADE": 1
+    },
+    "observed_decisions": 1,
+    "observer_version": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1",
+    "preserved_evidence": "research/prospective/PROSPECTIVE-ALIGNED-SHADOW-EVIDENCE-FINAL-V1_1.json",
+    "preserved_health": "research/prospective/PROSPECTIVE-ALIGNED-OBSERVER-HEALTH-FINAL-V1_1.json",
+    "raw_prospective_long_signals": 0,
+    "real_money": false,
+    "review_boundary_reached": false,
+    "runtime_store_deleted": false,
+    "scientific_conclusion": "INSUFFICIENT_PROSPECTIVE_EVIDENCE_NO_CONCLUSION",
+    "shadow_trades_completed": 0,
+    "shadow_trades_open": 0,
+    "version": "PROSPECTIVE_ALIGNED_OBSERVER_SUSPENSION_V1"
   },
   "prospective_runtime_provenance_fix": {
     "backfill_performed": false,
@@ -778,9 +891,9 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "PROSPECTIVE-EVIDENCE-COLLECTION-V1_1",
+    "next_checkpoint": "PREDICTIVE-BASELINES-V1",
     "paper_strategy_semantics_changed": false,
-    "primary_next_direction": "PROSPECTIVE_EVIDENCE_COLLECTION",
+    "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V1",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
     "secondary_parallel_direction": "HISTORICAL_DISCOVERY_PAUSED",
     "version": "RESEARCH_ARCHITECTURE_SYNTHESIS_V2"
