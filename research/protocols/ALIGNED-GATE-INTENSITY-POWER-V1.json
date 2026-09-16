@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "protocol_id": "ALIGNED-GATE-INTENSITY-POWER-V1",
+  "hypothesis_id": "ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1",
+  "parent_hypothesis_id": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1",
+  "status": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED",
+  "design": "research/design/ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1_DESIGN.md",
+  "final_authorized_aligned_descendant": true,
+  "material_economic_hypotheses": 1,
+  "material_economic_hypotheses_executed": 0,
+  "parent_disposition": {
+    "hypothesis_id": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1",
+    "status": "POWER_BLOCKED_INFERENCE_CALIBRATION_FAILED_NOT_EXECUTED",
+    "mesi_bps_per_event": 24.0,
+    "minimum_detectable_effect_bps": 44.872236,
+    "power_at_mesi": 0.211674,
+    "target_power": 0.8,
+    "placebo_empirical_size": 0.0355,
+    "placebo_nominal_size": 0.0038461538461538464,
+    "is_reject": false,
+    "is_inconclusive_market_evidence": false,
+    "is_evidence_beta_not_positive": false,
+    "zero_alignment_effect_observed": false,
+    "same_hypothesis_inference_rescue_authorized": false,
+    "review": "reports/reviews/CROSS-SECTION-SPARSE-POWER-BLOCK-REVIEW.md"
+  },
+  "score": {
+    "definition": "GATE_INTENSITY = int(direction_pass) + int(breakout_pass) + int(participation_pass)",
+    "gates": ["DIRECTION_PERSISTENCE", "BREAKOUT", "PARTICIPATION_VOLUME"],
+    "allowed_values": [0, 1, 2, 3],
+    "weights": [1, 1, 1],
+    "weighted": false,
+    "continuous_rescaling": false,
+    "asset_specific_normalization": false,
+    "new_thresholds": 0,
+    "new_gate_parameters": 0,
+    "parameter_fitting": false,
+    "optimization": false,
+    "aligned_equivalence_rule": "ALIGNED_SIGNAL == 1 IFF GATE_INTENSITY == 3",
+    "aligned_modified": false,
+    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "verification_report": "reports/cross_section/GATE-INTENSITY-SCORE-V1.json"
+  },
+  "future_outcome": {
+    "horizon_hours": 24,
+    "metric": "FORWARD_LOG_PRICE_RETURN_BPS",
+    "start_rule": "NEXT_COMPLETED_TRADABLE_HOURLY_OPEN_AFTER_DECISION",
+    "terminal_rule": "LATEST_LEGITIMATE_TRADABLE_PRICE_AT_OR_BEFORE_PLUS_24H",
+    "terminal_interpolation": false,
+    "changed_from_parent": false
+  },
+  "primary_estimand": {
+    "count": 1,
+    "coefficient": "beta_gate",
+    "specification": "Y(i,t) = asset_fe + decision_time_fe + beta_gate * GATE_INTENSITY(i,t) + error(i,t)",
+    "fixed_effects": ["ASSET", "DECISION_TIME"],
+    "claim": "BETA_GATE_GREATER_THAN_ZERO",
+    "unit": "BPS_PER_ADDITIONAL_SATISFIED_GATE",
+    "nonlinear_score_model": false,
+    "per_bucket_coefficients": false,
+    "gate_interactions": false,
+    "per_asset_winner_selection": false,
+    "evaluated_at_true_alignment": false
+  },
+  "economic_threshold": {
+    "GATE_INTENSITY_MESI_BPS_PER_GATE": 8.0,
+    "derivation": "ALIGNED_INFORMATION_MESI_24_BPS / 3_GATE_SPAN",
+    "necessary_relevance_threshold": true,
+    "claims_product_return": false,
+    "lowered_after_power": false
+  },
+  "retired_placebo": {
+    "method": "PER_ASSET_POSITION_SHIFT",
+    "retired_for_inference": true,
+    "reasons": [
+      "SAME_POSITION_SHIFT_IMPLIED_DIFFERENT_CALENDAR_SHIFTS_BY_ASSET",
+      "CROSS_ASSET_SYNCHRONY_NOT_PRESERVED",
+      "SHIFT_RANGE_CONSTRAINED_BY_SHORTEST_PARTICIPANT",
+      "CALIBRATION_FAILED_MATERIALLY"
+    ],
+    "reused_as_primary_randomization": false,
+    "participation_rule_reintroduced": false
+  },
+  "randomization": {
+    "method": "CALENDAR_SYNCHRONOUS_WHOLE_WEEK_YEAR_SHIFT_V1",
+    "seed": "ALIGNED_GATE_INTENSITY_CALENDAR_RANDOMIZATION_V1",
+    "development_years": [2019, 2020, 2021, 2022, 2023, 2024],
+    "unit": "WHOLE_UTC_WEEK",
+    "one_common_signed_displacement_per_year": true,
+    "shared_by_all_assets_within_year": true,
+    "minimum_shift_weeks": 2,
+    "maximum_shift_weeks": 13,
+    "zero_shift_allowed": false,
+    "circular_wrap": false,
+    "requires_eligibility_at_source_and_destination": true,
+    "requested_vectors": 1024,
+    "outcome_independent_construction": true,
+    "preserves_cross_asset_synchrony": true,
+    "preserves_hour_of_week_structure": true,
+    "preserves_year_regime_membership": true,
+    "preserves_asset_identity": true,
+    "family_report": "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-FAMILY-V1.json",
+    "family_sha256": "7e135af46a20c30d8c1f19e39d56b663254ab293b007c84a694437e82e8cf12d"
+  },
+  "support_gate": {
+    "minimum_row_retention": 0.7,
+    "minimum_asset_cluster_retention": 0.8,
+    "required_year_coverage": 6,
+    "minimum_accepted_vectors": 512,
+    "inspects_performance": false,
+    "thresholds_fixed_before_power": true,
+    "loosening_allowed": false,
+    "second_shift_family_allowed": false
+  },
+  "inference": {
+    "primary": "EMPIRICAL_RANDOMIZATION",
+    "analytic_cluster_role": "DIAGNOSTIC_ONLY_NEVER_OVERRIDES_RANDOMIZATION",
+    "zero_shift_beta_computed": false,
+    "prospective_family_size": 13,
+    "familywise_alpha": 0.05,
+    "effective_alpha": 0.0038461538461538464,
+    "sidedness": "ONE_SIDED_POSITIVE",
+    "critical_value_rule": "CONSERVATIVE_EMPIRICAL_ORDER_STATISTIC"
+  },
+  "power": {
+    "target_power": 0.8,
+    "mesi_bps_per_gate": 8.0,
+    "synthetic_slopes_bps_per_gate": [0.0, 4.0, 8.0, 16.0, 32.0],
+    "injection_on_non_zero_shifted_designs_only": true,
+    "requires_exact_additive_recovery": true,
+    "true_zero_alignment_covariance_computed": false
+  },
+  "gate": {
+    "keys": [
+      "DATA_SOURCE_STATUS",
+      "UNIVERSE_FEASIBILITY_STATUS",
+      "SURVIVORSHIP_STATUS",
+      "EVENT_RECONCILIATION_STATUS",
+      "RANDOMIZATION_SUPPORT_STATUS",
+      "RANDOMIZATION_INFERENCE_STATUS"
+    ],
+    "pass_status": "READY_FOR_PREREGISTRATION",
+    "fail_status": "REDESIGN_REQUIRED",
+    "on_fail_forbidden": [
+      "CHANGE_THE_SCORE",
+      "WEIGHT_GATES",
+      "TEST_TWO_OF_THREE",
+      "TEST_INDIVIDUAL_GATES",
+      "ADD_INTERACTIONS",
+      "ALTER_HORIZON",
+      "ALTER_UNIVERSE",
+      "LOWER_MESI",
+      "LOWER_POWER",
+      "TRY_ANOTHER_PLACEBO"
+    ],
+    "on_fail_family_status": "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED"
+  },
+  "product": {
+    "product_universe": "BTCUSDT_SPOT_V1",
+    "cross_section_role": "SCIENTIFIC_RESEARCH_INFRASTRUCTURE",
+    "multi_asset_trading": false,
+    "multi_asset_analyze_market": false,
+    "position_allocation": false,
+    "exchange_orders": false,
+    "real_capital": false
+  },
+  "accounting": {
+    "experiments_completed": 26,
+    "observed_material_economic_hypotheses": 12,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "real_money_authorized": false
+  },
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false
+}

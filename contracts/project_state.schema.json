@@ -48,6 +48,7 @@
     "cycle_foundation",
     "cycle_family_closure",
     "cross_section_feasibility",
+    "gate_intensity_descendant",
     "research_architecture",
     "cycle_null_v2",
     "forward_evidence",
@@ -295,6 +296,114 @@
         "actual_market_primary_result_observed": {"const": false}
       }
     },
+    "gate_intensity_descendant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "hypothesis_id", "parent_hypothesis_id", "status", "design", "protocol",
+        "score_report", "randomization_report", "power_gate_report", "power_gate_markdown",
+        "decision_record", "final_authorized_descendant", "aligned_modified",
+        "new_gate_parameters", "gate_weights", "panel_rows", "instrument_epochs",
+        "rows_by_intensity", "aligned_equals_intensity_three",
+        "intensity_is_integer_0_to_3", "engine_decomposition_equivalent",
+        "mesi_bps_per_gate", "prospective_family_size", "effective_alpha", "target_power",
+        "randomization_method", "randomization_requested_vectors",
+        "randomization_unique_vectors", "randomization_minimum_shift_weeks",
+        "randomization_maximum_shift_weeks", "randomization_zero_shift_present",
+        "randomization_circular_wrap", "randomization_family_sha256",
+        "randomization_support_status", "randomization_inference_status",
+        "event_reconciliation_status", "power_computed", "power_at_mesi",
+        "minimum_detectable_effect_bps_per_gate", "power_gate_status",
+        "aligned_development_family_status", "preregistration_authorized",
+        "material_economic_hypotheses_executed", "zero_shift_effect_observed",
+        "product_universe", "multi_asset_trading_implemented"
+      ],
+      "properties": {
+        "version": {"const": "ALIGNED_GATE_INTENSITY_POWER_V1"},
+        "hypothesis_id": {"const": "ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1"},
+        "parent_hypothesis_id": {"const": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1"},
+        "status": {"const": "DESIGNED_NOT_PREREGISTERED_NOT_EXECUTED"},
+        "design": {
+          "const": "research/design/ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1_DESIGN.md"
+        },
+        "protocol": {"const": "research/protocols/ALIGNED-GATE-INTENSITY-POWER-V1.json"},
+        "score_report": {"const": "reports/cross_section/GATE-INTENSITY-SCORE-V1.json"},
+        "randomization_report": {
+          "const": "reports/cross_section/GATE-INTENSITY-RANDOMIZATION-FAMILY-V1.json"
+        },
+        "power_gate_report": {
+          "const": "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1.json"
+        },
+        "power_gate_markdown": {
+          "const": "reports/power/ALIGNED-GATE-INTENSITY-POWER-GATE-V1.md"
+        },
+        "decision_record": {
+          "const": "decisions/ADR-0020-ALIGNED-GATE-INTENSITY-DESCENDANT.md"
+        },
+        "final_authorized_descendant": {"const": true},
+        "aligned_modified": {"const": false},
+        "new_gate_parameters": {"const": 0},
+        "gate_weights": {
+          "type": "array",
+          "prefixItems": [{"const": 1}, {"const": 1}, {"const": 1}],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "panel_rows": {"type": "integer", "minimum": 1},
+        "instrument_epochs": {"type": "integer", "minimum": 1},
+        "rows_by_intensity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["0", "1", "2", "3"],
+          "properties": {
+            "0": {"type": "integer", "minimum": 0},
+            "1": {"type": "integer", "minimum": 0},
+            "2": {"type": "integer", "minimum": 0},
+            "3": {"type": "integer", "minimum": 0}
+          }
+        },
+        "aligned_equals_intensity_three": {"const": true},
+        "intensity_is_integer_0_to_3": {"const": true},
+        "engine_decomposition_equivalent": {"const": true},
+        "mesi_bps_per_gate": {"const": 8.0},
+        "prospective_family_size": {"const": 13},
+        "effective_alpha": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.05},
+        "target_power": {"const": 0.8},
+        "randomization_method": {"const": "CALENDAR_SYNCHRONOUS_WHOLE_WEEK_YEAR_SHIFT_V1"},
+        "randomization_requested_vectors": {"const": 1024},
+        "randomization_unique_vectors": {"type": "integer", "minimum": 1},
+        "randomization_minimum_shift_weeks": {"const": 2},
+        "randomization_maximum_shift_weeks": {"const": 13},
+        "randomization_zero_shift_present": {"const": false},
+        "randomization_circular_wrap": {"const": false},
+        "randomization_family_sha256": {"$ref": "#/$defs/sha256"},
+        "randomization_support_status": {
+          "enum": ["PASS", "REDESIGN_REQUIRED", "NOT_RUN", "NOT_RUN_BLOCKED"]
+        },
+        "randomization_inference_status": {
+          "enum": ["PASS", "REDESIGN_REQUIRED", "NOT_RUN", "NOT_RUN_BLOCKED"]
+        },
+        "event_reconciliation_status": {
+          "enum": ["PASS", "FAIL_CLOSED_NON_POINT_IN_TIME_PARTICIPATION_RULE"]
+        },
+        "power_computed": {"type": "boolean"},
+        "power_at_mesi": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "minimum_detectable_effect_bps_per_gate": {
+          "type": ["number", "null"], "exclusiveMinimum": 0
+        },
+        "power_gate_status": {
+          "enum": ["READY_FOR_PREREGISTRATION", "REDESIGN_REQUIRED"]
+        },
+        "aligned_development_family_status": {
+          "enum": ["ACTIVE", "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED"]
+        },
+        "preregistration_authorized": {"const": false},
+        "material_economic_hypotheses_executed": {"const": 0},
+        "zero_shift_effect_observed": {"const": false},
+        "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
+        "multi_asset_trading_implemented": {"const": false}
+      }
+    },
     "cross_section_feasibility": {
       "type": "object",
       "additionalProperties": false,
@@ -317,7 +426,9 @@
         "material_economic_hypotheses_executed", "zero_alignment_effect_observed",
         "aligned_modified", "product_universe", "cross_section_product_authorized",
         "multi_asset_trading_implemented", "decision_record",
-        "universe_thresholds_frozen", "universe_policy_frozen_commit"
+        "universe_thresholds_frozen", "universe_policy_frozen_commit",
+        "sparse_disposition", "sparse_review", "event_reconciliation_report",
+        "event_reconciliation_status"
       ],
       "properties": {
         "version": {"const": "CROSS_SECTION_FEASIBILITY_AND_POWER_V1"},
@@ -398,7 +509,19 @@
           "const": "decisions/ADR-0019-CROSS-SECTION-FEASIBILITY-AND-POWER.md"
         },
         "universe_thresholds_frozen": {"const": true},
-        "universe_policy_frozen_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+        "universe_policy_frozen_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "sparse_disposition": {
+          "const": "POWER_BLOCKED_INFERENCE_CALIBRATION_FAILED_NOT_EXECUTED"
+        },
+        "sparse_review": {
+          "const": "reports/reviews/CROSS-SECTION-SPARSE-POWER-BLOCK-REVIEW.md"
+        },
+        "event_reconciliation_report": {
+          "const": "reports/cross_section/CROSS-SECTION-EVENT-RECONCILIATION-V1.json"
+        },
+        "event_reconciliation_status": {
+          "enum": ["PASS", "FAIL_CLOSED_NON_POINT_IN_TIME_PARTICIPATION_RULE"]
+        }
       }
     },
     "cycle_family_closure": {

@@ -1,0 +1,412 @@
+{
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false,
+  "EVENT_RECONCILIATION_STATUS": "FAIL_CLOSED_NON_POINT_IN_TIME_PARTICIPATION_RULE",
+  "arithmetic_reconciles": true,
+  "asset_cluster_difference": 1,
+  "every_removed_row_has_typed_reason": true,
+  "excluded_epoch_detail": [
+    {
+      "decision_rows": 408,
+      "epoch": "ACAUSDT#2022-01-25",
+      "first_decision": "2022-04-22T00:00:00Z",
+      "last_decision": "2024-12-21T23:00:00Z",
+      "signals": 0,
+      "symbol": "ACAUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 479,
+      "epoch": "ACTUSDT#2024-11-11",
+      "first_decision": "2024-12-12T00:00:00Z",
+      "last_decision": "2024-12-31T22:00:00Z",
+      "signals": 0,
+      "symbol": "ACTUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 239,
+      "epoch": "AGLDUSDT#2021-10-05",
+      "first_decision": "2021-11-05T00:00:00Z",
+      "last_decision": "2024-12-31T22:00:00Z",
+      "signals": 0,
+      "symbol": "AGLDUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 387,
+      "epoch": "AIONUSDT#2020-02-19",
+      "first_decision": "2021-04-06T00:00:00Z",
+      "last_decision": "2021-05-27T23:00:00Z",
+      "signals": 0,
+      "symbol": "AIONUSDT",
+      "symbol_archive_ends_before_window_end": true,
+      "symbol_archive_last_month": "2023-02"
+    },
+    {
+      "decision_rows": 480,
+      "epoch": "ATMUSDT#2020-12-30",
+      "first_decision": "2021-05-27T00:00:00Z",
+      "last_decision": "2021-06-15T23:00:00Z",
+      "signals": 0,
+      "symbol": "ATMUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 95,
+      "epoch": "AVAUSDT#2020-11-24",
+      "first_decision": "2024-12-28T00:00:00Z",
+      "last_decision": "2024-12-31T22:00:00Z",
+      "signals": 0,
+      "symbol": "AVAUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 48,
+      "epoch": "BALUSDT#2020-08-11",
+      "first_decision": "2021-05-26T00:00:00Z",
+      "last_decision": "2021-05-27T23:00:00Z",
+      "signals": 0,
+      "symbol": "BALUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 288,
+      "epoch": "CHESSUSDT#2021-10-22",
+      "first_decision": "2021-12-13T00:00:00Z",
+      "last_decision": "2021-12-24T23:00:00Z",
+      "signals": 0,
+      "symbol": "CHESSUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 392,
+      "epoch": "DEXEUSDT#2021-07-23",
+      "first_decision": "2021-09-13T00:00:00Z",
+      "last_decision": "2021-09-29T07:00:00Z",
+      "signals": 0,
+      "symbol": "DEXEUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 384,
+      "epoch": "EURIUSDT#2024-08-28",
+      "first_decision": "2024-09-28T00:00:00Z",
+      "last_decision": "2024-10-13T23:00:00Z",
+      "signals": 0,
+      "symbol": "EURIUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 24,
+      "epoch": "FISUSDT#2021-03-03",
+      "first_decision": "2021-09-13T00:00:00Z",
+      "last_decision": "2021-09-13T23:00:00Z",
+      "signals": 0,
+      "symbol": "FISUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 144,
+      "epoch": "FORTHUSDT#2021-04-23",
+      "first_decision": "2021-05-26T00:00:00Z",
+      "last_decision": "2021-05-31T23:00:00Z",
+      "signals": 0,
+      "symbol": "FORTHUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 192,
+      "epoch": "IQUSDT#2023-09-22",
+      "first_decision": "2024-03-18T00:00:00Z",
+      "last_decision": "2024-03-25T23:00:00Z",
+      "signals": 0,
+      "symbol": "IQUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 96,
+      "epoch": "JUVUSDT#2020-12-21",
+      "first_decision": "2021-05-26T00:00:00Z",
+      "last_decision": "2021-05-30T23:00:00Z",
+      "signals": 0,
+      "symbol": "JUVUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 168,
+      "epoch": "METISUSDT#2024-03-11",
+      "first_decision": "2024-12-07T00:00:00Z",
+      "last_decision": "2024-12-13T23:00:00Z",
+      "signals": 0,
+      "symbol": "METISUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 339,
+      "epoch": "MFTUSDT#2019-08-27",
+      "first_decision": "2021-04-06T00:00:00Z",
+      "last_decision": "2021-04-20T02:00:00Z",
+      "signals": 0,
+      "symbol": "MFTUSDT",
+      "symbol_archive_ends_before_window_end": true,
+      "symbol_archive_last_month": "2023-01"
+    },
+    {
+      "decision_rows": 456,
+      "epoch": "ONGUSDT#2019-02-16",
+      "first_decision": "2024-04-26T00:00:00Z",
+      "last_decision": "2024-05-14T23:00:00Z",
+      "signals": 0,
+      "symbol": "ONGUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 72,
+      "epoch": "OOKIUSDT#2021-12-24",
+      "first_decision": "2022-02-21T00:00:00Z",
+      "last_decision": "2022-02-23T23:00:00Z",
+      "signals": 0,
+      "symbol": "OOKIUSDT",
+      "symbol_archive_ends_before_window_end": true,
+      "symbol_archive_last_month": "2024-11"
+    },
+    {
+      "decision_rows": 339,
+      "epoch": "PERLUSDT#2019-08-26",
+      "first_decision": "2021-04-06T00:00:00Z",
+      "last_decision": "2021-04-20T02:00:00Z",
+      "signals": 0,
+      "symbol": "PERLUSDT",
+      "symbol_archive_ends_before_window_end": true,
+      "symbol_archive_last_month": "2023-12"
+    },
+    {
+      "decision_rows": 72,
+      "epoch": "PHAUSDT#2021-06-25",
+      "first_decision": "2022-11-11T00:00:00Z",
+      "last_decision": "2022-11-13T23:00:00Z",
+      "signals": 0,
+      "symbol": "PHAUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 435,
+      "epoch": "PNTUSDT#2020-06-22",
+      "first_decision": "2021-04-06T00:00:00Z",
+      "last_decision": "2021-05-29T23:00:00Z",
+      "signals": 0,
+      "symbol": "PNTUSDT",
+      "symbol_archive_ends_before_window_end": true,
+      "symbol_archive_last_month": "2024-04"
+    },
+    {
+      "decision_rows": 479,
+      "epoch": "PNUTUSDT#2024-11-11",
+      "first_decision": "2024-12-12T00:00:00Z",
+      "last_decision": "2024-12-31T22:00:00Z",
+      "signals": 0,
+      "symbol": "PNUTUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 96,
+      "epoch": "PORTOUSDT#2021-11-16",
+      "first_decision": "2022-09-16T00:00:00Z",
+      "last_decision": "2022-09-27T23:00:00Z",
+      "signals": 0,
+      "symbol": "PORTOUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 264,
+      "epoch": "PROSUSDT#2023-01-27",
+      "first_decision": "2024-11-20T00:00:00Z",
+      "last_decision": "2024-11-30T23:00:00Z",
+      "signals": 0,
+      "symbol": "PROSUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 264,
+      "epoch": "PUNDIXUSDT#2021-04-09",
+      "first_decision": "2021-05-26T00:00:00Z",
+      "last_decision": "2021-06-05T23:00:00Z",
+      "signals": 0,
+      "symbol": "PUNDIXUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 230,
+      "epoch": "RIFUSDT#2021-01-07",
+      "first_decision": "2023-03-15T00:00:00Z",
+      "last_decision": "2023-03-24T13:00:00Z",
+      "signals": 2,
+      "symbol": "RIFUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 432,
+      "epoch": "SCRTUSDT#2022-01-21",
+      "first_decision": "2024-12-03T00:00:00Z",
+      "last_decision": "2024-12-20T23:00:00Z",
+      "signals": 0,
+      "symbol": "SCRTUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 168,
+      "epoch": "STPTUSDT#2020-03-25",
+      "first_decision": "2021-10-30T00:00:00Z",
+      "last_decision": "2023-10-20T23:00:00Z",
+      "signals": 0,
+      "symbol": "STPTUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 95,
+      "epoch": "THEUSDT#2024-11-27",
+      "first_decision": "2024-12-28T00:00:00Z",
+      "last_decision": "2024-12-31T22:00:00Z",
+      "signals": 0,
+      "symbol": "THEUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 263,
+      "epoch": "UTKUSDT#2020-10-02",
+      "first_decision": "2021-05-26T00:00:00Z",
+      "last_decision": "2024-12-31T22:00:00Z",
+      "signals": 0,
+      "symbol": "UTKUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 264,
+      "epoch": "VIDTUSDT#2021-09-09",
+      "first_decision": "2024-09-10T00:00:00Z",
+      "last_decision": "2024-09-20T23:00:00Z",
+      "signals": 0,
+      "symbol": "VIDTUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 459,
+      "epoch": "VITEUSDT#2019-12-13",
+      "first_decision": "2021-04-06T00:00:00Z",
+      "last_decision": "2021-05-30T23:00:00Z",
+      "signals": 0,
+      "symbol": "VITEUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 99,
+      "epoch": "WANUSDT#2019-08-27",
+      "first_decision": "2021-04-14T00:00:00Z",
+      "last_decision": "2021-04-20T02:00:00Z",
+      "signals": 0,
+      "symbol": "WANUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 168,
+      "epoch": "WINGUSDT#2020-09-16",
+      "first_decision": "2022-08-21T00:00:00Z",
+      "last_decision": "2022-08-27T23:00:00Z",
+      "signals": 0,
+      "symbol": "WINGUSDT",
+      "symbol_archive_ends_before_window_end": false,
+      "symbol_archive_last_month": "2024-12"
+    },
+    {
+      "decision_rows": 192,
+      "epoch": "WTCUSDT#2020-04-07",
+      "first_decision": "2021-04-07T00:00:00Z",
+      "last_decision": "2021-04-14T23:00:00Z",
+      "signals": 0,
+      "symbol": "WTCUSDT",
+      "symbol_archive_ends_before_window_end": true,
+      "symbol_archive_last_month": "2023-12"
+    }
+  ],
+  "excluded_epochs": 35,
+  "excluded_epochs_with_in_window_delisting": 6,
+  "finding": "The difference is fully explained by one typed deterministic rule and every removed row is enumerated. The rule input is the epoch's total decision-row count over the whole development window, which is not knowable at decision time, and for 6 excluded epochs it is co-determined by in-window delisting. The rule is therefore not point-in-time and is inadmissible as a design filter. It never touched the frozen universe, the frozen signal counts, or any market result, and it is retired together with the placebo that required it.",
+  "outcome_availability_reconciliation": {
+    "difference": 169,
+    "epochs_identical": true,
+    "evaluated": true,
+    "intensity_field_rows": 2556535,
+    "intensity_signals": 3380,
+    "outcome_panel_is_strict_subset": true,
+    "outcome_panel_rows": 2556366,
+    "outcome_panel_signals": 3380,
+    "rule": "OUTCOME_PANEL_REQUIRES_A_VALID_24H_FORWARD_RETURN",
+    "signals_lost_to_outcome_requirement": 0
+  },
+  "power_panel_asset_clusters": 258,
+  "power_panel_signals": 3378,
+  "removal_rule": {
+    "applies_to": "PLACEBO_CALIBRATION_PANEL_ONLY",
+    "changed_frozen_signal_counts": false,
+    "changed_frozen_universe": false,
+    "constant": 504,
+    "discretionary": false,
+    "expression": "epoch_decision_rows < 504",
+    "name": "EPOCH_DECISION_ROWS_BELOW_PLACEBO_MINIMUM_POSITIONS",
+    "origin": "RETIRED_POSITION_SHIFT_PLACEBO_PARTICIPATION_REQUIREMENT",
+    "performance_dependent": false,
+    "point_in_time": false,
+    "whole_sample_input": true
+  },
+  "removed_asset_clusters": [
+    "RIFUSDT#2021-01-07"
+  ],
+  "removed_signal_count": 2,
+  "removed_signal_rows": [
+    {
+      "decision_hour": "2023-03-17T12:00:00Z",
+      "decision_hour_us": 1679054400000000,
+      "epoch": "RIFUSDT#2021-01-07",
+      "removal_rule": "EPOCH_DECISION_ROWS_BELOW_PLACEBO_MINIMUM_POSITIONS"
+    },
+    {
+      "decision_hour": "2023-03-17T15:00:00Z",
+      "decision_hour_us": 1679065200000000,
+      "epoch": "RIFUSDT#2021-01-07",
+      "removal_rule": "EPOCH_DECISION_ROWS_BELOW_PLACEBO_MINIMUM_POSITIONS"
+    }
+  ],
+  "report_id": "CROSS-SECTION-EVENT-RECONCILIATION-V1",
+  "signal_difference": 2,
+  "support_artifact_asset_clusters": 259,
+  "support_artifact_signals": 3380,
+  "survival_linked": true
+}

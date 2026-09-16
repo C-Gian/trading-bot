@@ -204,7 +204,31 @@ MESI, power target, universe threshold, liquidity cutoff, horizon or ALIGNED par
 may be changed by an executor in response; the next move belongs to the Research
 Director.
 
-Next: `RESEARCH-DIRECTOR-REVIEW-CROSS-SECTION-POWER-BLOCK`.
+`ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1` is closed
+`POWER_BLOCKED_INFERENCE_CALIBRATION_FAILED_NOT_EXECUTED`: not `REJECT`, not
+`INCONCLUSIVE` market evidence, and not evidence that `beta <= 0`. No same-hypothesis
+inference rescue is authorized.
+
+The 3,380 to 3,378 signal difference between the frozen support artifact and the power
+panel is reconciled exactly to one typed rule — `epoch_decision_rows < 504`, the
+participation requirement of the retired position-shift placebo — which removed 35
+epochs, of which one carried the two missing events. That rule's input is a whole-sample
+epoch length, so `EVENT_RECONCILIATION_STATUS = FAIL_CLOSED_NON_POINT_IN_TIME_PARTICIPATION_RULE`.
+
+One final ALIGNED development descendant, `ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1`, is
+frozen: the unweighted integer score `int(direction) + int(breakout) + int(participation)`
+over the unchanged gates, verified to satisfy `ALIGNED == (score == 3)` on 2,556,535 rows,
+with one primary `beta_gate`, 8.0 bps/gate MESI, alpha `0.05/13`, target power `0.80`, and
+a new calendar-synchronous whole-week randomization family of 1,024 unique vectors.
+
+Because the reconciliation prerequisite failed closed, the randomization support gate and
+the prospective power stages were not run. `GATE_INTENSITY_POWER_GATE_STATUS =
+REDESIGN_REQUIRED` and therefore `ALIGNED_DEVELOPMENT_FAMILY_STATUS =
+PARKED_DEVELOPMENT_SEARCH_EXHAUSTED`. The park is an inherited bookkeeping defect, not a
+demonstrated power failure of the gate-intensity design, which remains frozen and
+unmeasured for a Research Director who chooses to reopen it.
+
+Next: `RESEARCH-DIRECTOR-REVIEW-ALIGNED-DEVELOPMENT-PARK`.
 
 ### Cycle research boundary
 

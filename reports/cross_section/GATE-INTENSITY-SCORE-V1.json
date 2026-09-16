@@ -1,0 +1,200 @@
+{
+  "ACTUAL_CROSS_SECTION_EFFECT_OBSERVED": false,
+  "aligned_equals_intensity_three": true,
+  "aligned_signal_count": 3380,
+  "design": {
+    "aligned_equivalence_rule": "ALIGNED_SIGNAL == 1 IFF GATE_INTENSITY == 3",
+    "aligned_modified": false,
+    "analytic_cluster_role": "DIAGNOSTIC_ONLY_NEVER_OVERRIDES_RANDOMIZATION",
+    "asset_specific_normalization": false,
+    "circular_wrap": false,
+    "continuous_rescaling": false,
+    "development_years": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "effective_alpha": 0.0038461538461538464,
+    "family_status_on_failure": "PARKED_DEVELOPMENT_SEARCH_EXHAUSTED",
+    "final_authorized_descendant": true,
+    "fixed_effects": [
+      "ASSET",
+      "DECISION_TIME"
+    ],
+    "gate_intensity_values": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "gate_interactions": false,
+    "gate_names": [
+      "DIRECTION_PERSISTENCE",
+      "BREAKOUT",
+      "PARTICIPATION_VOLUME"
+    ],
+    "gate_weights": [
+      1,
+      1,
+      1
+    ],
+    "hypothesis_id": "ALIGNED_GATE_INTENSITY_COMMON_EFFECT_V1",
+    "maximum_shift_weeks": 13,
+    "mesi_bps_per_gate": 8.0,
+    "mesi_derivation": "ALIGNED_INFORMATION_MESI_24_BPS / 3_GATE_SPAN",
+    "minimum_accepted_vectors": 512,
+    "minimum_asset_cluster_retention": 0.8,
+    "minimum_row_retention": 0.7,
+    "minimum_shift_weeks": 2,
+    "new_gate_parameters": 0,
+    "nonlinear_score_model": false,
+    "outcome_horizon_hours": 24,
+    "outcome_metric": "FORWARD_LOG_PRICE_RETURN_BPS",
+    "parameter_fitting": false,
+    "parent_hypothesis_id": "ALIGNED_COMMON_CROSS_SECTION_EFFECT_V1",
+    "per_bucket_coefficients": false,
+    "primary_claim": "BETA_GATE_GREATER_THAN_ZERO",
+    "primary_coefficient": "beta_gate",
+    "primary_count": 1,
+    "primary_inference": "EMPIRICAL_RANDOMIZATION",
+    "prospective_family_size": 13,
+    "randomization_method": "CALENDAR_SYNCHRONOUS_WHOLE_WEEK_YEAR_SHIFT_V1",
+    "randomization_seed": "ALIGNED_GATE_INTENSITY_CALENDAR_RANDOMIZATION_V1",
+    "requested_replicate_vectors": 1024,
+    "required_year_coverage": 6,
+    "score_definition": "GATE_INTENSITY = int(direction_pass) + int(breakout_pass) + int(participation_pass)",
+    "sidedness": "ONE_SIDED_POSITIVE",
+    "strategy_version": "ALIGNED_PARTICIPATION_CONTINUATION_V1",
+    "synthetic_slopes_bps_per_gate": [
+      0.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0
+    ],
+    "target_power": 0.8,
+    "zero_shift_allowed": false
+  },
+  "engine_decomposition_equivalence": [
+    {
+      "hours": 8520,
+      "identical_aligned": true,
+      "identical_breakout": true,
+      "identical_direction": true,
+      "identical_participation": true,
+      "symbol": "1000SATSUSDT"
+    },
+    {
+      "hours": 7243,
+      "identical_aligned": true,
+      "identical_breakout": true,
+      "identical_direction": true,
+      "identical_participation": true,
+      "symbol": "1INCHUSDT"
+    },
+    {
+      "hours": 1824,
+      "identical_aligned": true,
+      "identical_breakout": true,
+      "identical_direction": true,
+      "identical_participation": true,
+      "symbol": "1MBABYDOGEUSDT"
+    },
+    {
+      "hours": 22298,
+      "identical_aligned": true,
+      "identical_breakout": true,
+      "identical_direction": true,
+      "identical_participation": true,
+      "symbol": "AAVEUSDT"
+    },
+    {
+      "hours": 408,
+      "identical_aligned": true,
+      "identical_breakout": true,
+      "identical_direction": true,
+      "identical_participation": true,
+      "symbol": "ACAUSDT"
+    },
+    {
+      "hours": 2520,
+      "identical_aligned": true,
+      "identical_breakout": true,
+      "identical_direction": true,
+      "identical_participation": true,
+      "symbol": "ACEUSDT"
+    },
+    {
+      "hours": 2390,
+      "identical_aligned": true,
+      "identical_breakout": true,
+      "identical_direction": true,
+      "identical_participation": true,
+      "symbol": "ACHUSDT"
+    },
+    {
+      "hours": 480,
+      "identical_aligned": true,
+      "identical_breakout": true,
+      "identical_direction": true,
+      "identical_participation": true,
+      "symbol": "ACTUSDT"
+    }
+  ],
+  "engine_decomposition_equivalent": true,
+  "epochs_match_frozen_panel": true,
+  "instrument_epochs": 390,
+  "intensity_is_integer_0_to_3": true,
+  "intensity_three_count": 3380,
+  "mesi_bps_per_gate": 8.0,
+  "panel_rows": 2556535,
+  "report_id": "GATE-INTENSITY-SCORE-V1",
+  "rows_by_intensity": {
+    "0": 2210069,
+    "1": 293370,
+    "2": 49716,
+    "3": 3380
+  },
+  "rows_by_intensity_by_year": {
+    "2019": {
+      "0": 37669,
+      "1": 5161,
+      "2": 967,
+      "3": 87
+    },
+    "2020": {
+      "0": 83400,
+      "1": 12234,
+      "2": 2302,
+      "3": 205
+    },
+    "2021": {
+      "0": 475523,
+      "1": 55989,
+      "2": 10827,
+      "3": 656
+    },
+    "2022": {
+      "0": 553356,
+      "1": 66365,
+      "2": 10241,
+      "3": 514
+    },
+    "2023": {
+      "0": 337844,
+      "1": 49710,
+      "2": 8576,
+      "3": 697
+    },
+    "2024": {
+      "0": 722277,
+      "1": 103911,
+      "2": 16803,
+      "3": 1221
+    }
+  },
+  "zero_shift_effect_computed": false
+}

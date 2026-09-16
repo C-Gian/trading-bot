@@ -674,6 +674,112 @@ def aligned_grid(bars: SymbolBars) -> tuple[np.ndarray, np.ndarray]:
     return grid_times[selected], emits[selected]
 
 
+def aligned_gate_grid(
+    bars: SymbolBars,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """The same frozen evaluation, decomposed into its three existing gates.
+
+    This is a pure decomposition of `aligned_grid`: identical windows, identical
+    thresholds, no new parameter. It returns the decidable hours together with the
+    direction/persistence, breakout and participation gate outcomes and the ALIGNED
+    emission, so a gate-intensity score can be formed without touching the strategy.
+    """
+    hours, emits = aligned_grid(bars)
+    if len(bars) == 0:
+        empty = np.zeros(0, dtype=bool)
+        return hours, empty, empty, empty, emits
+    source = feature_source(bars)
+    direction = np.zeros(len(hours), dtype=bool)
+    breakout = np.zeros(len(hours), dtype=bool)
+    participation = np.zeros(len(hours), dtype=bool)
+    for position, hour in enumerate(hours.tolist()):
+        feature = source.at(int(hour))
+        direction[position] = feature.persistent_up
+        breakout[position] = feature.breakout
+        participation[position] = feature.participation
+    return hours, direction, breakout, participation, emits
+
+
+def aligned_gate_grid_vectorized(
+    bars: SymbolBars,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Vectorized gate decomposition; verified against `aligned_gate_grid` on real data."""
+    if len(bars) == 0:
+        empty_time = np.zeros(0, dtype=np.int64)
+        empty = np.zeros(0, dtype=bool)
+        return empty_time, empty, empty, empty, empty
+    first, last = int(bars.open_time[0]), int(bars.open_time[-1])
+    size = (last - first) // HOUR_US + 1
+    position = (bars.open_time - first) // HOUR_US
+    present = np.zeros(size, dtype=np.float64)
+    high = np.zeros(size, dtype=np.float64)
+    close = np.zeros(size, dtype=np.float64)
+    volume = np.zeros(size, dtype=np.float64)
+    present[position] = 1.0
+    high[position] = bars.high
+    close[position] = bars.close
+    volume[position] = bars.volume
+    masked_high = np.where(present > 0, high, -np.inf)
+
+    presence_25 = _rolling_sum(present, HOURLY_WINDOW)
+    breakout_max = _rolling_max(masked_high, BREAKOUT_HOURS)
+    volume_24 = _rolling_sum(volume, BREAKOUT_HOURS)
+    hours_index = np.arange(size, dtype=np.int64)
+    latest = hours_index - 1
+    baseline_end = hours_index - 2
+    valid_hourly = (latest >= 0) & (baseline_end >= BREAKOUT_HOURS - 1)
+    valid_hourly &= np.where(
+        latest >= 0, presence_25[np.clip(latest, 0, size - 1)] == HOURLY_WINDOW, False
+    )
+    reference = np.where(latest >= 0, close[np.clip(latest, 0, size - 1)], np.nan)
+    latest_volume = np.where(latest >= 0, volume[np.clip(latest, 0, size - 1)], np.nan)
+    prior_high = np.where(
+        baseline_end >= 0, breakout_max[np.clip(baseline_end, 0, size - 1)], np.inf
+    )
+    baseline_volume = np.where(
+        baseline_end >= 0, volume_24[np.clip(baseline_end, 0, size - 1)], np.nan
+    )
+    volume_mean = baseline_volume / BREAKOUT_HOURS
+    breakout = valid_hourly & (reference > prior_high)
+    participation = (
+        valid_hourly & (volume_mean > 0) & (latest_volume >= VOLUME_MULTIPLIER * volume_mean)
+    )
+
+    grid_times = first + hours_index * HOUR_US
+    bucket_of = grid_times // FOUR_HOUR_US
+    first_bucket = int(bucket_of[0])
+    bucket_count = int(bucket_of[-1]) - first_bucket + 1
+    bucket_index = (bucket_of - first_bucket).astype(np.int64)
+    hours_in_bucket = np.bincount(bucket_index, weights=present, minlength=bucket_count)
+    complete = (hours_in_bucket == 4).astype(np.float64)
+    last_close = np.zeros(bucket_count, dtype=np.float64)
+    last_close[bucket_index[present > 0]] = close[present > 0]
+    increments = np.diff(last_close, prepend=last_close[0])
+    complete_run = _rolling_sum(complete, CONTEXT_BARS)
+    up_sum = _rolling_sum(np.maximum(increments, 0.0), CONTEXT_INCREMENTS)
+    down_sum = _rolling_sum(np.maximum(-increments, 0.0), CONTEXT_INCREMENTS)
+    last_bucket = bucket_index - 1
+    valid_context = last_bucket >= CONTEXT_BARS - 1
+    safe_bucket = np.clip(last_bucket, 0, bucket_count - 1)
+    valid_context &= complete_run[safe_bucket] == CONTEXT_BARS
+    up_total, down_total = up_sum[safe_bucket], down_sum[safe_bucket]
+    direction = valid_context & (up_total + down_total > 0)
+    direction &= up_total >= UP_TO_DOWN_RATIO * down_total
+
+    computable = valid_hourly & valid_context
+    previous = np.concatenate(([False], computable[:-1]))
+    decidable = computable & previous
+    emits = decidable & breakout & direction & participation
+    selected = np.flatnonzero(decidable)
+    return (
+        grid_times[selected],
+        direction[selected],
+        breakout[selected],
+        participation[selected],
+        emits[selected],
+    )
+
+
 def verify_aligned_equivalence(bars: SymbolBars, hours: np.ndarray) -> dict[str, Any]:
     """Confirm the vectorized gates equal the frozen engine bar-for-bar on real data."""
     source = feature_source(bars)
