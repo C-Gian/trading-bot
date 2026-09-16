@@ -6,6 +6,7 @@ import json
 import os
 import subprocess
 import sys
+import traceback
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -2053,4 +2054,20 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as error:
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            frame = traceback.extract_tb(error.__traceback__)[-1]
+            try:
+                source = Path(frame.filename).resolve().relative_to(ROOT).as_posix()
+            except ValueError:
+                source = Path(frame.filename).name
+            detail = str(error).replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+            if not detail:
+                detail = type(error).__name__
+            print(
+                f"::error file={source},line={frame.lineno},title=Repository validation failed::{detail}",
+                flush=True,
+            )
+        raise
