@@ -78,7 +78,7 @@ def test_the_only_material_rule_replacement_is_the_hit_rate_rule() -> None:
 def test_state_declares_one_prediction_first_objective() -> None:
     objective = STATE["predictive_research_objective"]
     assert STATE["project_phase"] == "PREDICTIVE_RESEARCH"
-    assert STATE["primary_research_phase"] == "PREDICTIVE_FOUNDATION"
+    assert STATE["primary_research_phase"] == "PREDICTIVE_MODELLING"
     assert objective["authorized_by"] == "OWNER"
     assert objective["constitution_version"] == "2.0"
     assert objective["research_generation"] == "PREDICTIVE_RESEARCH_GENERATION_V1"
@@ -349,10 +349,17 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
     assert "Do not ingest all families at once." in roadmap
 
 
-def test_the_next_checkpoint_is_the_bounded_predictive_foundation() -> None:
-    assert STATE["next_recommended_work_package"] == "PREDICTIVE-BASELINES-V1"
-    assert STATE["research_architecture"]["next_checkpoint"] == "PREDICTIVE-BASELINES-V1"
+def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> None:
+    """The rebaseline handed off to the foundation, which has since been executed."""
+    assert STATE["next_recommended_work_package"] == "PREDICTIVE-INTERNAL-STRUCTURE-V1"
+    assert STATE["research_architecture"]["next_checkpoint"] == ("PREDICTIVE-INTERNAL-STRUCTURE-V1")
     task = _text("tasks/CURRENT_TASK.md")
-    assert task.startswith("# CURRENT TASK — PREDICTIVE-BASELINES-V1")
-    assert "Do not train a predictor." in task
-    assert (ROOT / "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md").is_file()
+    assert task.startswith("# CURRENT TASK — PREDICTIVE-INTERNAL-STRUCTURE-V1")
+    for archived in (
+        "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md",
+        "tasks/archive/PREDICTIVE-BASELINES-V1.md",
+    ):
+        assert (ROOT / archived).is_file(), archived
+    foundation = _text("tasks/archive/PREDICTIVE-BASELINES-V1.md")
+    assert "Do not train a predictor." in foundation
+    assert STATE["predictive_baselines"]["status"] == "COMPLETE"

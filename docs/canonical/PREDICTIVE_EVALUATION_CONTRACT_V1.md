@@ -12,6 +12,12 @@ has been observed.
 It does not authorize an experiment. It does not train anything. Machine-readable current
 state lives only in `state/current_state.json`.
 
+**Amendment A1 (2026-09-16)** corrects a pre-result incoherence in §4 and §5 before any
+predictive or baseline number was computed on market data. It is recorded in full in §11
+and in [ADR-0027](../../decisions/ADR-0027-BASELINE-PROBABILITY-SEMANTICS-AND-METRIC-APPLICABILITY.md).
+The amended text below is the contract; the original §4/§5 wording it replaces is quoted
+verbatim in §11.
+
 ## 1. Frozen predictive target
 
 | Item | Value |
@@ -118,13 +124,27 @@ be replaced by a more favourable alternative after results are observed.
 2. **Sample size and chronological distribution** — eligible timestamps, actionable
    predictions, abstentions, `NEUTRAL` truths, and inadmissible-label exclusions, each
    broken down by chronological fold so a result cannot rest on one short period.
-3. **Calibration** — Brier score over the declared-direction probability, plus a reliability
+3. **Calibration** — mandatory for every predictor that declares a `probability`, and
+   only for those. Brier score over the declared-direction probability, plus a reliability
    table with fixed predeclared probability bins
    `[0.0,0.1), [0.1,0.2), …, [0.9,1.0]`, reporting per bin: count, mean predicted
    probability, empirical frequency correct. Bins are never merged or re-cut after results.
-4. **Magnitude error** — MAE of the signed 24h return prediction, reported in percentage
-   points and in basis points, over the admissible-label set. Median absolute error is
-   reported alongside as a robustness companion.
+
+   A **deterministic directional predictor** declares `probability: null` and is reported
+   with the explicit flag `PROBABILITY_NOT_DECLARED`. It is never assigned an invented,
+   imputed or default probability, and never receives a Brier score or a reliability table.
+   Fabricating a probability in order to fill a required field would manufacture a
+   calibration result out of nothing, which is exactly what the calibration requirement
+   exists to prevent. A missing probability is reported as missing.
+
+   Declaring no probability is not a way to escape calibration. Any predictor whose output
+   is used as a confidence, a ranking, a threshold or a sizing input **is** probabilistic
+   and must be calibrated and scored here.
+4. **Magnitude error** — mandatory for every predictor that declares
+   `expected_return_pct`, and only for those. MAE of the signed 24h return prediction,
+   reported in percentage points and in basis points, over the admissible-label set.
+   Median absolute error is reported alongside as a robustness companion. A predictor that
+   declares no magnitude is flagged `MAGNITUDE_NOT_DECLARED` and reports neither.
 5. **Signed magnitude-match diagnostic** — §6.
 6. **Directional baseline comparison** — §5, each baseline scored on the identical eligible
    universe.
@@ -133,18 +153,67 @@ be replaced by a more favourable alternative after results are observed.
    including unfavourable ones. Post-result threshold rescue, fold selection, fold
    re-cutting and coverage re-tuning are forbidden.
 
+**Applicability.** A metric is mandatory exactly when the quantity it scores is declared.
+Items 1, 2, 6, 7 and 8 apply to every predictor that declares a direction. Item 3 applies
+to every predictor that declares a probability. Items 4 and 5 apply to every predictor that
+declares a magnitude. Which quantities a predictor declares is fixed before results are
+observed, and a predictor may never drop a declared quantity afterwards to avoid the metric
+that scores it.
+
 ## 5. Required naive baselines
 
 At minimum, and on the identical eligible universe as the model:
 
-| Baseline | Definition |
-| --- | --- |
-| `TRAINING_UP_BASE_RATE` | always predicts the majority direction of the training set, with constant probability equal to the training-set empirical UP base rate |
-| `ALWAYS_UP` | always predicts `UP` |
-| `PREVIOUS_24H_SIGN_PERSISTENCE` | predicts the sign of the trailing realized 24h return ending at the decision timestamp |
-| `ZERO_RETURN_MAGNITUDE` | predicts `r_hat_24h = 0` for every timestamp; a magnitude baseline only, with no directional claim |
+| Baseline | Declares | Definition |
+| --- | --- | --- |
+| `TRAINING_UP_BASE_RATE` | direction + probability | constant prediction fitted on the fold's chronological training portion only (§5.1) |
+| `ALWAYS_UP` | direction only | always predicts `UP` |
+| `PREVIOUS_24H_SIGN_PERSISTENCE` | direction only | predicts the sign of the trailing realized 24h return ending at the decision timestamp |
+| `ZERO_RETURN_MAGNITUDE` | magnitude only | predicts `r_hat_24h = 0` for every timestamp; no directional claim |
 
 Baselines use only information available at the decision timestamp, exactly like the model.
+
+### 5.1 `TRAINING_UP_BASE_RATE`
+
+Its probability must mean the same thing as every other probability in this contract:
+`P(the declared direction is correct)`. It is therefore constructed as:
+
+1. compute `p_up` **exclusively** on the fold's chronological training portion, as
+   `UP_labels / (UP_labels + DOWN_labels)`; `NEUTRAL` labels are excluded from `p_up` and
+   counted separately;
+2. declare the majority direction of that training portion;
+3. if the declared direction is `UP`, `probability = p_up`;
+4. if the declared direction is `DOWN`, `probability = 1 - p_up`;
+5. **tie rule**, preregistered and deterministic: if `p_up >= 0.5` the declared direction is
+   `UP`, otherwise `DOWN`. An exact tie therefore declares `UP` with `probability = 0.5`.
+
+Consequently `probability >= 0.5` always, and it is always the probability that the
+*declared* direction is correct — never the probability of `UP` irrespective of what was
+declared. This baseline is scored for calibration like any other probabilistic predictor.
+
+No part of the evaluation portion of a fold may enter `p_up`, the majority vote, or the tie
+break.
+
+### 5.2 Deterministic directional baselines
+
+`ALWAYS_UP` and `PREVIOUS_24H_SIGN_PERSISTENCE` are deterministic. They declare a direction
+and nothing else: `probability: null`, `PROBABILITY_NOT_DECLARED`, and no magnitude. They
+are reported with win rate, coverage and sample accounting, and with the dependence-aware
+uncertainty interval. They receive **no** Brier score and **no** reliability table, because
+they assert no probability, and inventing one — 1.0, 0.5, or the base rate — would
+fabricate a calibration result that the baseline never claimed.
+
+`PREVIOUS_24H_SIGN_PERSISTENCE` abstains when the trailing 24h return is unavailable or
+exactly zero. Abstentions lower its coverage; they are never silently dropped.
+
+### 5.3 The magnitude-only baseline
+
+`ZERO_RETURN_MAGNITUDE` declares a magnitude and no direction: `MAGNITUDE_DECLARED`,
+`DIRECTION_NOT_DECLARED`. It reports MAE and median absolute error and is excluded from win
+rate, coverage and calibration. Because its predicted magnitude is identically zero, every
+record falls under the `ABSTAINED_MAGNITUDE` rule of §6 and its signed magnitude-match
+aggregate is undefined by construction; the exclusion count is reported in full rather than
+suppressed.
 
 A model is **not** scientifically interesting merely because its win rate exceeds 50%. It
 must beat the relevant predeclared baselines with credible out-of-sample evidence and
@@ -255,3 +324,49 @@ that no approved predictor exists rather than displaying a placeholder number.
 - Claiming economic profitability from prediction-layer evidence.
 - Declaring a win-rate target before evidence establishes feasibility.
 - Using any information not available at the decision timestamp.
+
+## 11. Amendment A1 — baseline probability semantics and metric applicability
+
+Recorded 2026-09-16, **before** any predictive or baseline number was computed on market
+data, and therefore before any result this contract governs was observed. See
+[ADR-0027](../../decisions/ADR-0027-BASELINE-PROBABILITY-SEMANTICS-AND-METRIC-APPLICABILITY.md).
+
+### What was wrong
+
+The original §5 defined `TRAINING_UP_BASE_RATE` as:
+
+> always predicts the majority direction of the training set, with constant probability
+> equal to the training-set empirical UP base rate
+
+Those two clauses contradict each other whenever the training majority is `DOWN`. If
+`p_up = 0.45`, the baseline declares `DOWN` while carrying `probability = 0.45` — which
+reads as a 45% chance that `DOWN` is correct, when the construction actually implies 55%.
+Everywhere else this contract defines `probability` as `P(declared direction correct)`, so
+the original wording would have fed a systematically inverted probability into the Brier
+score and the reliability table, and the resulting miscalibration would have been an
+artifact of the definition rather than a property of the market.
+
+The original §4 compounded it by making calibration and magnitude metrics unconditional for
+"every predictive result". Applied literally to `ALWAYS_UP` or
+`PREVIOUS_24H_SIGN_PERSISTENCE` — which assert no probability at all — it would have forced
+an invented probability purely to fill a required field, and produced a Brier score for a
+claim nobody made.
+
+### What changed
+
+- §5.1 fixes the construction: `p_up` from the fold's training portion only, majority
+  direction declared, `probability = p_up` when `UP` is declared and `1 - p_up` when `DOWN`
+  is declared, with the deterministic preregistered tie rule `p_up >= 0.5 -> UP`.
+  `probability` is now always `P(declared direction correct)`.
+- §5.2 records `ALWAYS_UP` and `PREVIOUS_24H_SIGN_PERSISTENCE` as deterministic directional
+  baselines: `probability: null`, `PROBABILITY_NOT_DECLARED`, no Brier, no reliability
+  table, reported with win rate, coverage, sample accounting and uncertainty.
+- §5.3 records `ZERO_RETURN_MAGNITUDE` as magnitude-only.
+- §4 makes each metric mandatory exactly when the quantity it scores is declared, and
+  forbids dropping a declared quantity after results to escape its metric.
+
+### What did not change
+
+No metric was weakened or removed. The primary metric, the mandatory companion set, the
+baselines themselves, the magnitude diagnostic, the uncertainty treatment and the layer
+separation are unchanged. Nothing here makes any predictor easier to pass.

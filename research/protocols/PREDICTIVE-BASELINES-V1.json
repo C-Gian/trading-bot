@@ -1,0 +1,155 @@
+{
+  "version": "PREDICTIVE_BASELINES_V1",
+  "status": "FROZEN_BEFORE_OBSERVATION",
+  "checkpoint": "PREDICTIVE-BASELINES-V1",
+  "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+  "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md",
+  "evaluation_contract_amendment": "A1",
+  "decision_records": [
+    "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
+    "decisions/ADR-0027-BASELINE-PROBABILITY-SEMANTICS-AND-METRIC-APPLICABILITY.md"
+  ],
+  "purpose": "Freeze labels, folds, eligibility and scoring before any baseline number is computed on market data. This protocol is not an experiment preregistration: it tests no predictive hypothesis and produces no candidate.",
+  "model_fits": 0,
+  "sealed_queries": 0,
+  "predictive_hypothesis_tested": false,
+  "candidate_created": false,
+  "target": {
+    "symbol": "BTCUSDT",
+    "market": "crypto_spot",
+    "canonical_resolution": "1m",
+    "decision_cadence": "1h",
+    "horizon_hours": 24,
+    "label": "r_24h = log(close[T + 24h] / close[T])",
+    "direction_truth": {
+      "UP": "r_24h > 0",
+      "DOWN": "r_24h < 0",
+      "NEUTRAL": "r_24h == 0, excluded from directional scoring and counted explicitly"
+    },
+    "path_dependent": false
+  },
+  "decision_grid": {
+    "definition": "Every hourly instant T from the first to the last canonical hourly bar open time, inclusive. T indexes the closed 1h bar [T, T+1h); the decision is taken at that bar's close and the decision price is close[T].",
+    "information_cutoff": "NO_BAR_WITH_OPEN_TIME_AFTER_T",
+    "source": {
+      "manifest": "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json",
+      "manifest_content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+      "hourly_artifact": "data/derived/BTCUSDT-1h.parquet",
+      "hourly_artifact_sha256": "9e1a11f0ea02764b4f91facabf294b4f7390ce1f6b89ac50ab2bfae4395b75b4",
+      "development_cutoff": "2024-12-31T23:59:00Z",
+      "post_cutoff_data_used": false
+    }
+  },
+  "admissibility": {
+    "rule": "A decision instant yields an admissible label only when the decision bar and the bar exactly 24h later both exist, are complete, and carry strictly positive closes. Canonical gaps are never interpolated and no nearest-bar substitution is permitted.",
+    "exclusion_taxonomy_ordered": [
+      "DECISION_BAR_MISSING",
+      "DECISION_BAR_INCOMPLETE",
+      "HORIZON_BAR_BEYOND_COVERAGE",
+      "HORIZON_BAR_MISSING",
+      "HORIZON_BAR_INCOMPLETE",
+      "NON_POSITIVE_PRICE"
+    ],
+    "exclusions_are_mutually_exclusive": true,
+    "every_exclusion_typed_and_counted": true,
+    "interpolation_across_gaps": false
+  },
+  "folds": {
+    "design": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD",
+    "random_k_fold": false,
+    "evaluation_folds": [
+      {"fold": "2019", "start": "2019-01-01T00:00:00Z", "end": "2020-01-01T00:00:00Z"},
+      {"fold": "2020", "start": "2020-01-01T00:00:00Z", "end": "2021-01-01T00:00:00Z"},
+      {"fold": "2021", "start": "2021-01-01T00:00:00Z", "end": "2022-01-01T00:00:00Z"},
+      {"fold": "2022", "start": "2022-01-01T00:00:00Z", "end": "2023-01-01T00:00:00Z"},
+      {"fold": "2023", "start": "2023-01-01T00:00:00Z", "end": "2024-01-01T00:00:00Z"},
+      {"fold": "2024", "start": "2024-01-01T00:00:00Z", "end": "2025-01-01T00:00:00Z"}
+    ],
+    "warmup_training_block": {
+      "start": "2017-08-17T04:00:00Z",
+      "end": "2019-01-01T00:00:00Z",
+      "evaluated": false,
+      "reason": "Provides the first fold's training portion; never scored."
+    },
+    "purge_embargo_hours": 24,
+    "training_membership_rule": "T + horizon_hours + purge_embargo_hours <= fold_start",
+    "evaluation_membership_rule": "fold_start <= T and T + horizon_hours <= fold_end",
+    "rationale": "Training labels end at least one embargo before the fold opens, and evaluation labels close before the fold ends, so no label window crosses a fold boundary in either direction.",
+    "eligible_universe": "The admissible labels assigned to an evaluation fold by the evaluation membership rule. It is identical for every baseline; baselines differ only in how often they abstain."
+  },
+  "scoring": {
+    "primary_metric": "ACTIONABLE_DIRECTIONAL_WIN_RATE",
+    "coverage": "actionable_directional_predictions / eligible_decision_timestamps",
+    "neutral_truth_handling": "EXCLUDED_FROM_WIN_RATE_NUMERATOR_AND_DENOMINATOR_AND_COUNTED",
+    "reliability_bin_edges": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+    "reliability_final_bin_closed": true,
+    "magnitude_match_epsilon": 0.0001,
+    "magnitude_match_range": [-100, 100],
+    "magnitude_units_reported": ["percentage_points", "basis_points"]
+  },
+  "uncertainty": {
+    "primary_method": "MOVING_BLOCK_BOOTSTRAP",
+    "block_length_hours": 48,
+    "block_length_rationale": "Two label horizons, so a block spans the full overlap structure of 24h labels sampled hourly.",
+    "replicates": 10000,
+    "seed": 20260916,
+    "alpha": 0.05,
+    "interval": "PERCENTILE_95",
+    "naive_wilson_reported": true,
+    "naive_wilson_role": "OPTIMISTIC_INDEPENDENCE_ASSUMING_REFERENCE_NEVER_HEADLINE"
+  },
+  "baselines": [
+    {
+      "name": "TRAINING_UP_BASE_RATE",
+      "declares": ["direction", "probability"],
+      "direction_rule": "Declare the majority direction of the fold's chronological training portion.",
+      "p_up_rule": "UP_labels / (UP_labels + DOWN_labels) over the fold's training portion only; NEUTRAL excluded and counted.",
+      "probability_rule": "probability = p_up when UP is declared, 1 - p_up when DOWN is declared; always P(declared direction correct).",
+      "tie_rule": "p_up >= 0.5 declares UP; an exact tie declares UP at probability 0.5.",
+      "evaluation_portion_used_in_fit": false,
+      "calibration_scored": true,
+      "magnitude_scored": false
+    },
+    {
+      "name": "ALWAYS_UP",
+      "declares": ["direction"],
+      "direction_rule": "Always UP.",
+      "probability": null,
+      "probability_flag": "PROBABILITY_NOT_DECLARED",
+      "calibration_scored": false,
+      "magnitude_scored": false
+    },
+    {
+      "name": "PREVIOUS_24H_SIGN_PERSISTENCE",
+      "declares": ["direction"],
+      "direction_rule": "Declare the sign of log(close[T] / close[T - 24h]).",
+      "abstention_rule": "Abstain when the bar at T - 24h is missing or incomplete, or when the trailing return is exactly zero. Abstentions lower coverage and are counted.",
+      "probability": null,
+      "probability_flag": "PROBABILITY_NOT_DECLARED",
+      "calibration_scored": false,
+      "magnitude_scored": false
+    },
+    {
+      "name": "ZERO_RETURN_MAGNITUDE",
+      "declares": ["magnitude"],
+      "magnitude_rule": "r_hat_24h = 0 for every eligible timestamp.",
+      "direction_flag": "DIRECTION_NOT_DECLARED",
+      "calibration_scored": false,
+      "magnitude_scored": true,
+      "magnitude_match_note": "Every record falls under ABSTAINED_MAGNITUDE by construction; the aggregate is undefined and the exclusion count is reported in full."
+    }
+  ],
+  "boundaries": {
+    "model_fit": false,
+    "parameter_search": false,
+    "new_information_family": false,
+    "external_data": false,
+    "sealed_query": false,
+    "post_cutoff_market_data": false,
+    "champion_created": false,
+    "real_money": false,
+    "baseline_promoted_to_candidate": false,
+    "thresholds_tuned_after_observation": false
+  },
+  "revision_policy": "Frozen before any baseline number was computed on market data. A defect found in labels or scoring may be fixed and re-run, because no predictive hypothesis is under test; a change to folds, eligibility, bins, block length, seed or baseline definitions after observation is forbidden and would require a new protocol version."
+}

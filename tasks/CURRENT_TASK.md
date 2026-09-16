@@ -1,129 +1,85 @@
-# CURRENT TASK — PREDICTIVE-BASELINES-V1
+# CURRENT TASK — PREDICTIVE-INTERNAL-STRUCTURE-V1
 
-Status: ACTIVE_PREDICTIVE_FOUNDATION
+Status: ACTIVE_PREDICTIVE_MODELLING
 
-Predecessor: `PREDICTIVE-RESEARCH-REBASELINE-V1`
-(see `reports/checkpoints/PREDICTIVE-RESEARCH-REBASELINE-V1.md`).
+Predecessor: `PREDICTIVE-BASELINES-V1`
+(see `reports/checkpoints/PREDICTIVE-BASELINES-V1.md`).
 
-Owner authorization: the prediction-first objective is Owner-authorized in
-`decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md` and
-`governance/SCIENTIFIC_CONSTITUTION.md` Version 2.0.
+Governing documents: `governance/SCIENTIFIC_CONSTITUTION.md` Version 2.0,
+`docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md` as amended by Amendment A1
+(`decisions/ADR-0027-...`), and `docs/canonical/PREDICTIVE_SOURCE_ROADMAP_V1.md` Stage 1.
 
-This is the first implementation checkpoint of `PREDICTIVE_RESEARCH_GENERATION_V1`. It is a
-foundation, not a model. It must prove that labels are causal and that the evaluation
-implementation is correct **before** any model complexity and before any external
-information family.
+This is the first checkpoint that may fit a predictor. It answers one question: does anything
+in BTCUSDT's own price, volume and volatility structure predict the frozen 24h target better
+than the baselines already recorded?
 
-Do not train a predictor. Do not admit a new information family. Do not inspect sealed
-post-cutoff BTCUSDT market data. Do not authorize real money.
+The bar is `ALWAYS_UP` at **0.5262**, not 0.5. Beating a coin is not a result.
 
 ## 1. Scope
 
-Implement, under `backend/app/predictive/`:
+- Stage 1 information only: internal price/return structure, volume/liquidity/volatility, and
+  technical/microstructure features already governed by existing contracts. No Stage 2+ family.
+- Features must be computed from bars with open time `<= T` and must pass the existing
+  look-ahead guard in `app.predictive.labels.assert_causal`.
+- Reuse the frozen substrate unchanged: `app.predictive.labels`, `folds`, `evaluation`,
+  `baselines`. If a defect is found in them, fix it and re-run everything, including the
+  baseline report — but a *change of design* to those modules is a new protocol version.
+- Any tuning happens strictly inside a fold's training portion. The evaluation portion is
+  unseen until candidate freeze.
 
-1. **Deterministic label construction** for the frozen target in
-   `docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md` §1:
-   `r_24h = log(close[t+24h] / close[t])` at 1h closed-bar UTC decision timestamps over the
-   canonical 1m development dataset, strictly within the development cutoff.
-   - eligibility, admissibility and `NEUTRAL` handling exactly as §1 specifies;
-   - every exclusion typed and counted; no silent drop;
-   - no interpolation across canonical gaps.
-2. **The evaluation implementation** for §3–§7: win rate, coverage, sample accounting,
-   Brier score and the fixed-bin reliability table, magnitude MAE and median absolute
-   error, the signed magnitude-match diagnostic with its deterministic zero rules, the
-   dependence-aware moving-block bootstrap interval, and per-fold reporting.
-3. **The four required baselines** of §5, scored on the identical eligible universe:
-   `TRAINING_UP_BASE_RATE`, `ALWAYS_UP`, `PREVIOUS_24H_SIGN_PERSISTENCE`,
-   `ZERO_RETURN_MAGNITUDE`.
-4. **Chronological folds** with purge and embargo of at least the label horizon on both
-   sides of every boundary. Standard random K-fold remains forbidden.
+## 2. Preregistration
 
-## 2. Causality proof obligations
+This checkpoint **does** produce a predictive claim, so it requires a preregistration under
+`research/experiments/<experiment_id>/` before execution, declaring:
 
-The checkpoint is not complete unless the following are proven by deterministic tests, not
-asserted in prose:
+- the hypothesis and the single primary metric;
+- the feature set and how each feature is causally computed;
+- the model family and its hyperparameters, or the search space and its trial budget;
+- the minimum important effect in the primary metric, relative to `ALWAYS_UP`;
+- multiplicity-family membership and search-budget consumption;
+- the abstention/coverage policy, fixed before results.
 
-- a label at decision timestamp `t` uses no bar at or before `t` other than `close[t]`, and
-  no bar after `t + 24h`;
-- shifting the input series forward in time changes the label set in exactly the expected
-  way, and shifting it backward is detected;
-- a feature computed at `t` from a deliberately leaked future bar is caught by an explicit
-  look-ahead guard;
-- the last admissible decision timestamp is exactly one horizon before the end of the
-  canonical coverage, and timestamps after it are excluded and counted;
-- canonical gaps produce inadmissible labels rather than interpolated ones;
-- a `NEUTRAL` truth is never counted as a win and never silently dropped.
+Freeze it before any evaluation-fold number is observed.
 
-## 3. Evaluation-correctness proof obligations
+## 3. Mandatory reporting
 
-Prove the scorer on synthetic fixtures with known answers before it touches market data:
+Everything in `PREDICTIVE_EVALUATION_CONTRACT_V1` §4, with each metric applying exactly when
+the quantity it scores is declared. At minimum: win rate with sample size and coverage,
+calibration if a probability is declared, magnitude MAE and the signed magnitude-match
+diagnostic if a magnitude is declared, comparison against all four baselines on the identical
+eligible universe, the dependence-aware interval, and every fold including unfavourable ones.
 
-- a perfect predictor scores win rate 1.0 with coverage 1.0;
-- an always-wrong predictor scores 0.0;
-- a predictor that abstains everywhere but one correct timestamp scores win rate 1.0 with
-  near-zero coverage, and the report makes that visible;
-- Brier score and the reliability table reproduce hand-computed values on a fixture;
-- the magnitude-match diagnostic returns `+100` on exact match, `+10` on a ten-times miss in
-  either direction, the negative of that on a wrong direction, and excludes-and-counts each
-  of the three near-zero classes;
-- the moving-block bootstrap interval is wider than the naive Wilson interval on
-  deliberately overlapping labels;
-- every baseline is scored on the identical eligible universe as the model under test.
+A candidate that beats 0.5 but not `ALWAYS_UP` is reported as not interesting, not as an edge.
 
-## 4. Preregistration
+## 4. Boundaries
 
-This checkpoint produces no predictive claim, so it needs no experiment preregistration.
-It must, however, freeze in a protocol record under `research/protocols/`:
-
-- the fold boundaries and the purge/embargo width;
-- the moving-block bootstrap block length;
-- the reliability-table bin edges;
-- the eligible-universe definition.
-
-These are declared before any baseline number is observed on market data, and are not
-revised afterwards.
-
-## 5. What may be observed
-
-Baseline numbers on development-period data may be observed and recorded. They are
-reference points, not a result: no baseline is a candidate, no baseline is promoted, and no
-Champion is created. Record them as a baseline report, not as an experiment result.
-
-If a baseline reveals a defect in labels or scoring, fix the defect and re-run; that is not
-a result-dependent adaptation because no predictive hypothesis is under test.
-
-## 6. Boundaries
-
-- No model fit of any kind. No sklearn estimator, no optimizer, no hyperparameter search.
-- No new information family; internal canonical price data only.
-- No sealed query. No post-cutoff market data.
-- No change to any historical experiment record or terminal classification.
-- No change to the frozen ALIGNED strategy semantics.
-- The prospective ALIGNED observer stays `SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT`; its
-  preserved evidence stays byte-identical.
+- Stage 1 internal data only; no external or post-cutoff data; no sealed query.
+- No change to the frozen labels, folds, bins, block length, seed or baseline definitions.
+- No re-cutting folds, no coverage re-tuning, no threshold rescue after results.
+- The `PREVIOUS_24H_SIGN_PERSISTENCE` sub-50% observation may **not** be inverted into a
+  strategy; it is a recorded observation, and acting on it is result-driven adaptation.
+- The prospective ALIGNED observer stays `SUSPENDED_BY_OWNER_OBJECTIVE_PIVOT` with its
+  preserved evidence byte-identical.
 - Champion remains `NONE`; real money remains `false`.
 
-## 7. Artifacts
+## 5. Artifacts
 
-At minimum:
-
-- `backend/app/predictive/` implementation modules;
-- `backend/tests/` covering every obligation in §2 and §3;
-- `research/protocols/PREDICTIVE-BASELINES-V1.json`;
-- a baseline report under `reports/research/`;
+- preregistration, trials and result under `research/experiments/<experiment_id>/`;
+- implementation under `backend/app/predictive/`;
+- tests covering feature causality and the new scoring paths;
+- a comparison report under `reports/research/`;
 - `state/current_state.json` updated once;
-- one checkpoint report under `reports/checkpoints/PREDICTIVE-BASELINES-V1.md`;
-- an ADR only if a material design decision is taken;
-- `tasks/CURRENT_TASK.md` updated at completion to the next checkpoint.
+- `reports/checkpoints/PREDICTIVE-INTERNAL-STRUCTURE-V1.md`;
+- an ADR only for a material design decision;
+- `tasks/CURRENT_TASK.md` updated at completion.
 
-## 8. Validation
+## 6. Validation
 
 - backend tests PASS;
 - frontend validation PASS if touched;
 - `check.py --no-data` PASS;
 - ruff / format / mypy PASS;
 - no sealed queries;
-- no model fit;
 - Champion `NONE`;
 - real money `false`;
 - working tree clean;
@@ -134,10 +90,9 @@ At minimum:
 
 Return only:
 
-`PREDICTIVE BASELINES V1: PASS|PARTIAL|FAIL`
+`PREDICTIVE INTERNAL STRUCTURE V1: PASS|PARTIAL|FAIL`
 
-Then concise fields: Starting HEAD, Ending HEAD, Labels implemented, Eligible timestamps,
-Admissible labels, NEUTRAL count, Excluded-and-counted breakdown, Causality proofs,
-Evaluation-correctness proofs, Baseline win rates with coverage, Baseline magnitude MAE,
-Fold design, Model fits, Sealed queries, Champion, Real money, Validation, Exact-head CI,
-Next action.
+Then concise fields: Starting HEAD, Ending HEAD, Hypothesis, Preregistration, Feature set,
+Model family, Model fits, Win rate with coverage, Calibration, Magnitude error, Baseline
+comparison, Uncertainty interval, Per-fold results, Terminal classification, Sealed queries,
+Champion, Real money, Validation, Exact-head CI, Next action.

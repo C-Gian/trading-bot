@@ -267,7 +267,7 @@ def validate_research_views(state: dict) -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == "PREDICTIVE-RESEARCH-REBASELINE-V1"
+    assert state["latest_executor_checkpoint"] == "PREDICTIVE-BASELINES-V1"
     assert state["project_phase"] == "PREDICTIVE_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -342,7 +342,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == "PREDICTIVE-BASELINES-V1"
+    assert state["next_recommended_work_package"] == "PREDICTIVE-INTERNAL-STRUCTURE-V1"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -824,7 +824,7 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V1"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == "PREDICTIVE-BASELINES-V1"
+    assert architecture["next_checkpoint"] == "PREDICTIVE-INTERNAL-STRUCTURE-V1"
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -1271,7 +1271,7 @@ def prospective_shadow_observer_checks(state: dict) -> None:
         "historical_descendant_search_authorized": False,
         "market_performance_rejected": False,
     }
-    assert state["primary_research_phase"] == "PREDICTIVE_FOUNDATION"
+    assert state["primary_research_phase"] == "PREDICTIVE_MODELLING"
     assert state["historical_discovery_status"] == (
         "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE"
     )
@@ -1621,6 +1621,7 @@ def prediction_first_checks(state: dict) -> None:
         "# Trading Bot — Scientific Constitution\n\nVersion 2.0 — prediction-first\n"
     )
     assert objective["constitution_version"] == "2.0"
+    assert objective["evaluation_contract_amendments"] == ["A1"]
     assert (ROOT / objective["adr"]).is_file()
 
     # The frozen target, and the fact that this checkpoint trains nothing.
@@ -1698,6 +1699,18 @@ def prediction_first_checks(state: dict) -> None:
         assert required in contract, required
     for required in ("Admission rule", "point-in-time", "Narrative plausibility"):
         assert required in roadmap, required
+    for required in (
+        "Amendment A1",
+        "## 11. Amendment A1",
+        "PROBABILITY_NOT_DECLARED",
+        "probability = p_up` when `UP` is declared",
+        "p_up >= 0.5` the declared direction is",
+        "No metric was weakened or removed",
+    ):
+        assert required in contract, required
+    assert (
+        ROOT / "decisions/ADR-0027-BASELINE-PROBABILITY-SEMANTICS-AND-METRIC-APPLICABILITY.md"
+    ).is_file()
     assert "Directional win rate is a primary human-facing metric" in agents
 
     # The superseded generation is preserved, not rewritten, and is not the new target.
@@ -1723,6 +1736,120 @@ def prediction_first_checks(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["adaptive_search"]["sealed_queries"] == 0
     assert state["real_money_authorized"] is False
+
+
+def predictive_baselines_checks(state: dict) -> None:
+    """The foundation is frozen, proven and recorded as a reference, never as a result."""
+    from app.predictive.baselines import BASELINE_NAMES, DECLARATIONS
+    from app.predictive.report import load_report, validate_report
+
+    record = state["predictive_baselines"]
+    protocol = json.loads((ROOT / record["protocol"]).read_text(encoding="utf-8"))
+    report = load_report(ROOT)
+
+    # The protocol was frozen before observation and authorizes nothing.
+    assert protocol["status"] == "FROZEN_BEFORE_OBSERVATION"
+    assert protocol["predictive_hypothesis_tested"] is False
+    assert protocol["candidate_created"] is False
+    assert protocol["model_fits"] == protocol["sealed_queries"] == 0
+    assert protocol["evaluation_contract_amendment"] == record["evaluation_contract_amendment"]
+    assert record["protocol_frozen_before_observation"] is True
+    assert (ROOT / record["report_json"]).is_file()
+    assert (ROOT / record["report_markdown"]).is_file()
+    assert (ROOT / record["adr"]).is_file()
+
+    # The report is internally consistent and still matches the frozen protocol.
+    assert validate_report(ROOT, data_available=False)["status"] == "PASS"
+    assert report["classification"] == "BASELINE_REFERENCE_REPORT_NOT_AN_EXPERIMENT_RESULT"
+    assert record["classification"] == "BASELINE_REFERENCE_NOT_AN_EXPERIMENT_RESULT"
+
+    # State mirrors the report exactly; the report is the truth.
+    labels, folds = report["labels"], report["folds"]
+    assert record["grid_decision_instants"] == labels["grid_decision_instants"]
+    assert record["admissible_labels"] == labels["admissible_labels"]
+    assert record["excluded_labels"] == labels["excluded_total"]
+    assert record["neutral_truths"] == labels["direction_counts"]["NEUTRAL"]
+    assert record["eligible_decision_timestamps"] == folds["eligible_decision_timestamps"]
+    assert record["folds"] == len(folds["by_fold"]) == 6
+    assert record["fold_design"] == folds["design"] == "EXPANDING_CHRONOLOGICAL_WALK_FORWARD"
+    assert record["purge_embargo_hours"] == folds["purge_embargo_hours"] == 24
+    assert folds["random_k_fold"] is False
+    bootstrap = report["scoring"]["bootstrap"]
+    assert record["bootstrap_block_length_hours"] == bootstrap["block_length_hours"]
+    assert record["bootstrap_replicates"] == bootstrap["replicates"]
+    assert record["bootstrap_seed"] == bootstrap["seed"]
+
+    # Accounting closes: nothing was silently dropped from any denominator.
+    assert (
+        labels["admissible_labels"] + labels["excluded_total"] == (labels["grid_decision_instants"])
+    )
+    assert sum(labels["exclusions"].values()) == labels["excluded_total"]
+    assert sum(labels["direction_counts"].values()) == labels["admissible_labels"]
+    assert (
+        folds["eligible_decision_timestamps"] + sum(folds["admissible_not_assigned"].values())
+        == labels["admissible_labels"]
+    )
+
+    # Amendment A1 applicability holds for every baseline on the identical universe.
+    assert set(report["baselines"]) == set(BASELINE_NAMES) == set(record["baseline_win_rates"])
+    for name, scored in report["baselines"].items():
+        pooled = scored["pooled"]
+        assert scored["declares"] == DECLARATIONS[name], name
+        assert pooled["eligible_decision_timestamps"] == record["eligible_decision_timestamps"]
+        assert record["baseline_win_rates"][name] == pooled["win_rate"], name
+        assert record["baseline_coverage"][name] == pooled["coverage"], name
+        if DECLARATIONS[name]["probability"]:
+            assert pooled["brier_score"] is not None and pooled["reliability_table"]
+            for fold in scored["by_fold"].values():
+                fit = fold["fit"]
+                expected = fit["p_up"] if fit["declared_direction"] == "UP" else 1 - fit["p_up"]
+                assert abs(fit["probability"] - expected) < 1e-12
+                assert fit["probability"] >= 0.5
+        else:
+            assert pooled["brier_score"] is None and pooled["reliability_table"] is None
+        if not DECLARATIONS[name]["direction"]:
+            assert pooled["win_rate"] is None and pooled["coverage"] is None
+        else:
+            block = pooled["win_rate_interval_moving_block"]
+            naive = pooled["win_rate_interval_naive_wilson_optimistic_reference"]
+            assert block[1] - block[0] > naive[1] - naive[0], name
+
+    assert (
+        record["directional_reference_bar"]
+        == (report["baselines"]["ALWAYS_UP"]["pooled"]["win_rate"])
+    )
+    assert (
+        record["training_up_base_rate_brier"]
+        == (report["baselines"]["TRAINING_UP_BASE_RATE"]["pooled"]["brier_score"])
+    )
+
+    # A foundation checkpoint fits nothing and promotes nothing.
+    assert record["model_fits"] == record["sealed_queries"] == 0
+    assert report["boundaries"]["model_fits"] == report["boundaries"]["sealed_queries"] == 0
+    assert report["boundaries"]["parameter_search"] is False
+    assert record["candidate_created"] is record["baseline_promoted"] is False
+    assert record["real_money"] is False and record["champion_status"] == "NONE"
+    assert state["predictive_research_objective"]["predictor_trained"] is False
+    assert state["predictive_research_objective"]["win_rate_target_declared"] is False
+    assert state["champion_status"] == "NONE" and state["real_money_authorized"] is False
+
+    # No estimator or optimizer entered the predictive package. The guard matches
+    # import and call syntax, so prose about optimizers cannot trip it.
+    predictive = "\n".join(
+        path.read_text(encoding="utf-8") for path in (ROOT / "backend/app/predictive").rglob("*.py")
+    )
+    for forbidden in (
+        "import sklearn",
+        "from sklearn",
+        "import optuna",
+        "scipy.optimize",
+        "GridSearch",
+        "RandomizedSearch",
+        ".fit(",
+        "fit_transform",
+        "minimize(",
+    ):
+        assert forbidden not in predictive, forbidden
 
 
 def dataset_scope_checks() -> None:
@@ -2143,6 +2270,12 @@ def governance_checks(pre_experiment: bool) -> dict:
         "research/prospective/PROSPECTIVE-ALIGNED-OBSERVER-FINAL-DISPOSITION-V1.json",
         "reports/checkpoints/PREDICTIVE-RESEARCH-REBASELINE-V1.md",
         "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md",
+        "decisions/ADR-0027-BASELINE-PROBABILITY-SEMANTICS-AND-METRIC-APPLICABILITY.md",
+        "research/protocols/PREDICTIVE-BASELINES-V1.json",
+        "reports/research/PREDICTIVE-BASELINES-V1.json",
+        "reports/research/PREDICTIVE-BASELINES-V1.md",
+        "reports/checkpoints/PREDICTIVE-BASELINES-V1.md",
+        "tasks/archive/PREDICTIVE-BASELINES-V1.md",
     ]
     assert all((ROOT / x).is_file() for x in required)
     wp009_governance_checks()
@@ -2262,6 +2395,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     prospective_shadow_observer_checks(state)
     prospective_observer_suspension_checks(state)
     prediction_first_checks(state)
+    predictive_baselines_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -2544,6 +2678,9 @@ def data_checks(state: dict) -> None:
     joint = build_joint_design(grids, fit_models(grids))
     fidelity_path = ROOT / state["cycle_power_gate"]["null_fidelity_report"]
     assert json_bytes(fidelity_report(grids, joint, ROOT)) == fidelity_path.read_bytes()
+    from app.predictive.report import validate_report as validate_predictive_baselines
+
+    assert validate_predictive_baselines(ROOT, data_available=True)["data_replayed"] is True
     from app.research.cycle_structure_v2_lab import block_support_report, build_donors
 
     donors = build_donors(grids)

@@ -555,7 +555,7 @@ def test_historical_aligned_family_is_final_and_no_descendant_is_runnable() -> N
         "historical_descendant_search_authorized": False,
         "market_performance_rejected": False,
     }
-    assert state["primary_research_phase"] == "PREDICTIVE_FOUNDATION"
+    assert state["primary_research_phase"] == "PREDICTIVE_MODELLING"
     assert state["historical_discovery_status"] == (
         "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE"
     )

@@ -32,6 +32,7 @@
     "project_phase",
     "primary_research_phase",
     "predictive_research_objective",
+    "predictive_baselines",
     "legacy_research_generation",
     "historical_discovery_status",
     "observed_material_historical_hypotheses",
@@ -97,7 +98,8 @@
     "primary_research_phase": {
       "enum": [
         "PROSPECTIVE_EVIDENCE_COLLECTION",
-        "PREDICTIVE_FOUNDATION"
+        "PREDICTIVE_FOUNDATION",
+        "PREDICTIVE_MODELLING"
       ]
     },
     "predictive_research_objective": {
@@ -106,6 +108,7 @@
       "required": [
         "version", "authorized_by", "authorization_date", "adr", "constitution_version",
         "research_generation", "objective", "symbol", "canonical_resolution",
+        "evaluation_contract_amendments",
         "decision_cadence", "primary_horizon", "prediction_target", "direction_truth",
         "evaluation_contract", "source_roadmap", "primary_metric",
         "primary_metric_reported_alone", "mandatory_companion_metrics",
@@ -143,6 +146,11 @@
           }
         },
         "evaluation_contract": {"const": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md"},
+        "evaluation_contract_amendments": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": ["A1"]
+        },
         "source_roadmap": {"const": "docs/canonical/PREDICTIVE_SOURCE_ROADMAP_V1.md"},
         "primary_metric": {"const": "ACTIONABLE_DIRECTIONAL_WIN_RATE"},
         "primary_metric_reported_alone": {"const": false},
@@ -223,6 +231,90 @@
         "predictive_results_observed": {"const": false},
         "leverage_or_short_authorized": {"const": false},
         "real_money_authorized": {"const": false}
+      }
+    },
+    "predictive_baselines": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "classification", "protocol",
+        "protocol_frozen_before_observation", "report_json", "report_markdown",
+        "evaluation_contract_amendment", "adr", "grid_decision_instants",
+        "admissible_labels", "excluded_labels", "neutral_truths",
+        "eligible_decision_timestamps", "folds", "fold_design", "purge_embargo_hours",
+        "bootstrap_block_length_hours", "bootstrap_replicates", "bootstrap_seed",
+        "baseline_win_rates", "baseline_coverage", "directional_reference_bar",
+        "training_up_base_rate_brier", "zero_return_magnitude_mae_percentage_points",
+        "training_majority_direction_by_fold", "tie_rule_exercised",
+        "down_majority_branch_exercised", "model_fits", "sealed_queries",
+        "candidate_created", "baseline_promoted", "champion_status", "real_money"
+      ],
+      "properties": {
+        "version": {"const": "PREDICTIVE_BASELINES_V1"},
+        "status": {"const": "COMPLETE"},
+        "classification": {"const": "BASELINE_REFERENCE_NOT_AN_EXPERIMENT_RESULT"},
+        "protocol": {"const": "research/protocols/PREDICTIVE-BASELINES-V1.json"},
+        "protocol_frozen_before_observation": {"const": true},
+        "report_json": {"const": "reports/research/PREDICTIVE-BASELINES-V1.json"},
+        "report_markdown": {"const": "reports/research/PREDICTIVE-BASELINES-V1.md"},
+        "evaluation_contract_amendment": {"const": "A1"},
+        "adr": {
+          "const": "decisions/ADR-0027-BASELINE-PROBABILITY-SEMANTICS-AND-METRIC-APPLICABILITY.md"
+        },
+        "grid_decision_instants": {"type": "integer", "minimum": 1},
+        "admissible_labels": {"type": "integer", "minimum": 1},
+        "excluded_labels": {"type": "integer", "minimum": 0},
+        "neutral_truths": {"type": "integer", "minimum": 0},
+        "eligible_decision_timestamps": {"type": "integer", "minimum": 1},
+        "folds": {"const": 6},
+        "fold_design": {"const": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD"},
+        "purge_embargo_hours": {"const": 24},
+        "bootstrap_block_length_hours": {"const": 48},
+        "bootstrap_replicates": {"const": 10000},
+        "bootstrap_seed": {"const": 20260916},
+        "baseline_win_rates": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "TRAINING_UP_BASE_RATE", "ALWAYS_UP", "PREVIOUS_24H_SIGN_PERSISTENCE",
+            "ZERO_RETURN_MAGNITUDE"
+          ],
+          "properties": {
+            "TRAINING_UP_BASE_RATE": {"type": "number", "minimum": 0, "maximum": 1},
+            "ALWAYS_UP": {"type": "number", "minimum": 0, "maximum": 1},
+            "PREVIOUS_24H_SIGN_PERSISTENCE": {"type": "number", "minimum": 0, "maximum": 1},
+            "ZERO_RETURN_MAGNITUDE": {"type": "null"}
+          }
+        },
+        "baseline_coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "TRAINING_UP_BASE_RATE", "ALWAYS_UP", "PREVIOUS_24H_SIGN_PERSISTENCE",
+            "ZERO_RETURN_MAGNITUDE"
+          ],
+          "properties": {
+            "TRAINING_UP_BASE_RATE": {"type": "number", "minimum": 0, "maximum": 1},
+            "ALWAYS_UP": {"type": "number", "minimum": 0, "maximum": 1},
+            "PREVIOUS_24H_SIGN_PERSISTENCE": {"type": "number", "minimum": 0, "maximum": 1},
+            "ZERO_RETURN_MAGNITUDE": {"type": "null"}
+          }
+        },
+        "directional_reference_bar": {"type": "number", "minimum": 0, "maximum": 1},
+        "training_up_base_rate_brier": {"type": "number", "minimum": 0, "maximum": 1},
+        "zero_return_magnitude_mae_percentage_points": {"type": "number", "minimum": 0},
+        "training_majority_direction_by_fold": {
+          "type": "object",
+          "additionalProperties": {"enum": ["UP", "DOWN"]}
+        },
+        "tie_rule_exercised": {"type": "boolean"},
+        "down_majority_branch_exercised": {"type": "boolean"},
+        "model_fits": {"const": 0},
+        "sealed_queries": {"const": 0},
+        "candidate_created": {"const": false},
+        "baseline_promoted": {"const": false},
+        "champion_status": {"const": "NONE"},
+        "real_money": {"const": false}
       }
     },
     "legacy_research_generation": {
@@ -1130,7 +1222,7 @@
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "PREDICTIVE-BASELINES-V1"},
+        "next_checkpoint": {"const": "PREDICTIVE-INTERNAL-STRUCTURE-V1"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

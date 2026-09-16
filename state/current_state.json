@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "PREDICTIVE-RESEARCH-REBASELINE-V1",
+  "latest_executor_checkpoint": "PREDICTIVE-BASELINES-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "PREDICTIVE-BASELINES-V1",
+  "next_recommended_work_package": "PREDICTIVE-INTERNAL-STRUCTURE-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -533,6 +533,59 @@
     "surface": "AVAILABLE",
     "timestamp_translation_used": false
   },
+  "predictive_baselines": {
+    "admissible_labels": 64323,
+    "adr": "decisions/ADR-0027-BASELINE-PROBABILITY-SEMANTICS-AND-METRIC-APPLICABILITY.md",
+    "baseline_coverage": {
+      "ALWAYS_UP": 0.9999617700468317,
+      "PREVIOUS_24H_SIGN_PERSISTENCE": 0.9984516868966835,
+      "TRAINING_UP_BASE_RATE": 0.9999617700468317,
+      "ZERO_RETURN_MAGNITUDE": null
+    },
+    "baseline_promoted": false,
+    "baseline_win_rates": {
+      "ALWAYS_UP": 0.5261789612524611,
+      "PREVIOUS_24H_SIGN_PERSISTENCE": 0.4666500746640119,
+      "TRAINING_UP_BASE_RATE": 0.5261789612524611,
+      "ZERO_RETURN_MAGNITUDE": null
+    },
+    "bootstrap_block_length_hours": 48,
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20260916,
+    "candidate_created": false,
+    "champion_status": "NONE",
+    "classification": "BASELINE_REFERENCE_NOT_AN_EXPERIMENT_RESULT",
+    "directional_reference_bar": 0.5261789612524611,
+    "down_majority_branch_exercised": false,
+    "eligible_decision_timestamps": 52315,
+    "evaluation_contract_amendment": "A1",
+    "excluded_labels": 329,
+    "fold_design": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD",
+    "folds": 6,
+    "grid_decision_instants": 64652,
+    "model_fits": 0,
+    "neutral_truths": 5,
+    "protocol": "research/protocols/PREDICTIVE-BASELINES-V1.json",
+    "protocol_frozen_before_observation": true,
+    "purge_embargo_hours": 24,
+    "real_money": false,
+    "report_json": "reports/research/PREDICTIVE-BASELINES-V1.json",
+    "report_markdown": "reports/research/PREDICTIVE-BASELINES-V1.md",
+    "sealed_queries": 0,
+    "status": "COMPLETE",
+    "tie_rule_exercised": false,
+    "training_majority_direction_by_fold": {
+      "2019": "UP",
+      "2020": "UP",
+      "2021": "UP",
+      "2022": "UP",
+      "2023": "UP",
+      "2024": "UP"
+    },
+    "training_up_base_rate_brier": 0.2497220450654606,
+    "version": "PREDICTIVE_BASELINES_V1",
+    "zero_return_magnitude_mae_percentage_points": 2.263505023739181
+  },
   "predictive_research_objective": {
     "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
     "authorization_date": "2026-09-16",
@@ -554,6 +607,9 @@
       "separation": "PREDICTION -> DECISION_POLICY -> ECONOMIC_EXECUTION_SIMULATION"
     },
     "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md",
+    "evaluation_contract_amendments": [
+      "A1"
+    ],
     "leverage_or_short_authorized": false,
     "magnitude_match_diagnostic": {
       "formula": "100 * sign_agreement * min(|p|,|a|) / max(|p|,|a|), both floored at 1e-4",
@@ -599,7 +655,7 @@
     "version": "PREDICTION_FIRST_RESEARCH_OBJECTIVE_V1",
     "win_rate_target_declared": false
   },
-  "primary_research_phase": "PREDICTIVE_FOUNDATION",
+  "primary_research_phase": "PREDICTIVE_MODELLING",
   "product_analysis": {
     "champion_status": "NONE",
     "credentials": false,
@@ -891,7 +947,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "PREDICTIVE-BASELINES-V1",
+    "next_checkpoint": "PREDICTIVE-INTERNAL-STRUCTURE-V1",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V1",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
