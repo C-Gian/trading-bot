@@ -204,11 +204,44 @@ class RunStore:
     def acquire(self, run_id: str) -> None:
         with self._mutex:
             try:
-                descriptor = os.open(self.lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+                descriptor = self._create_lock()
             except FileExistsError as exc:
-                raise RunConflictError("another local research run is active") from exc
+                if not self._stale_lock_reclaimed():
+                    raise RunConflictError("another local research run is active") from exc
+                try:
+                    descriptor = self._create_lock()
+                except FileExistsError as retry:
+                    raise RunConflictError("another local research run is active") from retry
             with os.fdopen(descriptor, "w", encoding="ascii") as handle:
                 json.dump({"schema_version": 1, "run_id": run_id, "owner_pid": os.getpid()}, handle)
+
+    def _create_lock(self) -> int:
+        return os.open(self.lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+
+    def _stale_lock_reclaimed(self) -> bool:
+        """Report whether a lock that guards nothing was cleared, so acquisition may retry.
+
+        A run publishes its terminal record before the executing thread releases the lock,
+        so a caller that legitimately observed COMPLETED or FAILED must not be refused by
+        the few instructions still to run.  Only a lock whose owning run already reached a
+        terminal status is reclaimed; a live run still conflicts.
+        """
+        if not self.lock_path.is_file():
+            return True
+        try:
+            owner_run_id, _ = self._lock_identity()
+        except OSError:
+            return False
+        if not owner_run_id:
+            return False
+        try:
+            record = self.read(owner_run_id)
+        except RunNotFoundError:
+            return False
+        if record.get("status") not in TERMINAL_STATUSES:
+            return False
+        self.lock_path.unlink(missing_ok=True)
+        return True
 
     def release(self, run_id: str) -> None:
         with self._mutex:

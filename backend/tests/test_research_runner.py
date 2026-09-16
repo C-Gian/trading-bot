@@ -505,3 +505,64 @@ def test_synthetic_runner_never_mutates_scientific_state(tmp_path: Path) -> None
     assert state.read_bytes() == before
     assert not (tmp_path / "data/sealed").exists()
     assert not (tmp_path / "data/paper").exists()
+
+
+FIRST_RUN = "a" * 32
+SECOND_RUN = "b" * 32
+
+
+def test_a_lock_left_by_an_already_terminal_run_does_not_block_the_next_run(
+    tmp_path: Path,
+) -> None:
+    """Observing COMPLETED or FAILED must be enough to start again.
+
+    The executing thread publishes its terminal record before it releases the lock, so a
+    caller that polled until terminal could otherwise lose a race against those last
+    instructions.
+    """
+    store = RunStore(tmp_path / "runs")
+    store.acquire(FIRST_RUN)
+    store.write(
+        {
+            "run_id": FIRST_RUN,
+            "status": "FAILED",
+            "stage": "FAILED",
+            "started_at": "2026-09-16T10:00:00Z",
+            "finished_at": "2026-09-16T10:00:01Z",
+        }
+    )
+
+    # The lock is still physically present, exactly as it is in the race window.
+    assert store.lock_path.is_file()
+    store.acquire(SECOND_RUN)
+    assert store.lock_path.is_file()
+    assert store._lock_identity()[0] == SECOND_RUN
+
+
+def test_a_lock_held_by_a_live_non_terminal_run_still_conflicts(tmp_path: Path) -> None:
+    store = RunStore(tmp_path / "runs")
+    store.acquire(FIRST_RUN)
+    store.write(
+        {
+            "run_id": FIRST_RUN,
+            "status": "RUNNING",
+            "stage": "FIT",
+            "started_at": "2026-09-16T10:00:00Z",
+            "finished_at": None,
+        }
+    )
+
+    with pytest.raises(RunConflictError, match="another local research run is active"):
+        store.acquire(SECOND_RUN)
+    assert store._lock_identity()[0] == FIRST_RUN
+
+
+def test_repeated_failing_runs_release_their_lock_without_a_race(tmp_path: Path) -> None:
+    def failing(_context: RunContext) -> dict[str, Any]:
+        raise ValueError("synthetic failure")
+
+    service = runner(tmp_path, failing)
+    for _ in range(5):
+        run = service.start("FIXED_REPRODUCTION")
+        record = wait_terminal(service, run["run_id"])
+        assert record["stage"] == "FAILED"
