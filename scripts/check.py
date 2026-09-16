@@ -37,6 +37,20 @@ WP006_EXPERIMENTS = {
     "EXP-ALG-010-PULLBACK-RECOVERY-CORE": 4,
     "EXP-ALG-011-PULLBACK-RECOVERY-CONFIRM": 4,
 }
+# The prediction-first generation keeps its own experiment accounting. `experiments_completed`
+# stays the frozen historical count of the superseded cost-expectancy generation.
+PREDICTIVE_EXPERIMENTS = {
+    "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD",
+}
+# The frozen predictive foundation: it fits nothing, and the guard below proves it.
+PREDICTIVE_FOUNDATION_MODULES = (
+    "__init__.py",
+    "baselines.py",
+    "evaluation.py",
+    "folds.py",
+    "labels.py",
+    "report.py",
+)
 PREDECESSOR = "60ab3141862da74028763e2df72ac3c88b63b5a8"
 SEED = "c6c526124945aa1624118bd7ee6aef9ae5c011b2"
 CUTOFF = datetime(2024, 12, 31, 23, 59, tzinfo=UTC)
@@ -128,6 +142,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP015_EXPERIMENTS.values())
         | set(WP016_EXPERIMENTS.values())
         | set(WP017_EXPERIMENTS.values())
+        | PREDICTIVE_EXPERIMENTS
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
     assert len(results) == state["experiments_completed"] == 26
@@ -1633,9 +1648,14 @@ def prediction_first_checks(state: dict) -> None:
     assert objective["direction_truth"]["UP"] == "r_24h > 0"
     assert objective["direction_truth"]["DOWN"] == "r_24h < 0"
     assert "COUNTED_EXPLICITLY" in objective["direction_truth"]["NEUTRAL"]
-    assert objective["predictor_trained"] is False
-    assert objective["predictive_results_observed"] is False
-    assert objective["predictive_experiments_completed"] == 0
+    # Whether a predictor has been trained is a fact about the committed experiment
+    # records, not a claim state may make on its own.
+    executed = sorted(
+        path.parent.name for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+    )
+    assert objective["predictor_trained"] is bool(executed)
+    assert objective["predictive_results_observed"] is bool(executed)
+    assert objective["predictive_experiments_completed"] == len(executed)
     assert objective["leverage_or_short_authorized"] is False
     assert objective["real_money_authorized"] is False
     assert state["directions"] == ["LONG", "NO_TRADE"]
@@ -1731,8 +1751,13 @@ def prediction_first_checks(state: dict) -> None:
         "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     )
 
-    # A rebaseline is not an experiment: no predictive result and no sealed query exist.
-    assert not list((ROOT / "research/experiments").glob("*PREDICT*"))
+    # The predictive generation owns its own experiment directories and nothing else, and
+    # no predictive experiment may appear without the state that records it.
+    assert {
+        path.name
+        for path in (ROOT / "research/experiments").iterdir()
+        if path.is_dir() and path.name.startswith("EXP-PRED-")
+    } <= PREDICTIVE_EXPERIMENTS
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["adaptive_search"]["sealed_queries"] == 0
     assert state["real_money_authorized"] is False
@@ -1829,14 +1854,15 @@ def predictive_baselines_checks(state: dict) -> None:
     assert report["boundaries"]["parameter_search"] is False
     assert record["candidate_created"] is record["baseline_promoted"] is False
     assert record["real_money"] is False and record["champion_status"] == "NONE"
-    assert state["predictive_research_objective"]["predictor_trained"] is False
     assert state["predictive_research_objective"]["win_rate_target_declared"] is False
     assert state["champion_status"] == "NONE" and state["real_money_authorized"] is False
 
-    # No estimator or optimizer entered the predictive package. The guard matches
-    # import and call syntax, so prose about optimizers cannot trip it.
-    predictive = "\n".join(
-        path.read_text(encoding="utf-8") for path in (ROOT / "backend/app/predictive").rglob("*.py")
+    # No estimator or search entered the *foundation*. The labels, folds, scorer and naive
+    # baselines still fit nothing; a later modelling module inside the same package may fit
+    # a preregistered candidate, and carries its own checkpoint guard instead.
+    foundation = "\n".join(
+        (ROOT / "backend/app/predictive" / name).read_text(encoding="utf-8")
+        for name in PREDICTIVE_FOUNDATION_MODULES
     )
     for forbidden in (
         "import sklearn",
@@ -1849,7 +1875,131 @@ def predictive_baselines_checks(state: dict) -> None:
         "fit_transform",
         "minimize(",
     ):
-        assert forbidden not in predictive, forbidden
+        assert forbidden not in foundation, forbidden
+
+
+def predictive_internal_structure_checks(state: dict) -> None:
+    """The first predictive experiment is frozen before it runs, and closes after it ran."""
+    from app.predictive.internal_structure import (
+        ADMISSION_PATH,
+        EXPERIMENT_ID,
+        PREREGISTRATION_PATH,
+        REPORT_JSON_PATH,
+        REPORT_MARKDOWN_PATH,
+        RESULT_PATH,
+        SEARCH_PLAN_PATH,
+        admission,
+        admission_identity,
+        preregistration,
+        search_plan,
+    )
+
+    plan = json.loads((ROOT / SEARCH_PLAN_PATH).read_text(encoding="utf-8"))
+    prereg = json.loads((ROOT / PREREGISTRATION_PATH).read_text(encoding="utf-8"))
+    admitted = json.loads((ROOT / ADMISSION_PATH).read_text(encoding="utf-8"))
+
+    # The frozen records still say what the code says, and the admission artifact still
+    # hashes the exact implementation bytes it admitted.
+    assert plan == search_plan()
+    assert prereg == preregistration()
+    assert admitted == admission(ROOT)
+    assert plan["status"] == "FROZEN_BEFORE_OBSERVATION"
+    assert prereg["status"] == "PREREGISTERED"
+    assert admitted["status"] == "PASS"
+    assert admitted["market_results_observed"] == admitted["model_fits_executed"] == 0
+    assert admitted["sealed_queries"] == admitted["post_cutoff_access"] == 0
+    assert admitted["experiment_id"] == EXPERIMENT_ID
+
+    # Exactly two Stage-1 configurations; the reserved one is frozen and not executed here.
+    assert plan["family_size"] == 2 and len(plan["configurations"]) == 2
+    reserved = plan["configurations"][1]
+    assert reserved["executed_in_checkpoint"] is None
+    assert reserved["specification"]["executed_in_this_checkpoint"] is False
+    assert reserved["specification"]["hyperparameter_search"] is False
+    assert not (ROOT / "research/experiments" / reserved["experiment_id"]).exists()
+    assert plan["multiplicity"]["per_configuration_alpha"] == 0.025
+    assert plan["multiplicity"]["familywise_alpha"] == 0.05
+    assert prereg["inference"]["alpha"] == 0.025
+    assert prereg["primary_effect"]["minimum_important_effect"] == 0.015
+    assert "INVERSION_OR_NEGATION_OF_PREVIOUS_24H_SIGN_PERSISTENCE" in plan["forbidden"]
+    for boundary in (plan["boundaries"], prereg["boundaries"]):
+        assert boundary["external_information_family"] is False
+        assert boundary["post_cutoff_market_data"] is False
+        assert boundary["sealed_queries"] == 0
+        assert boundary["champion_created"] is False
+        assert boundary["real_money"] is False
+
+    if not (ROOT / RESULT_PATH).exists():
+        # Frozen, not yet executed: no candidate number may exist anywhere.
+        assert not (ROOT / REPORT_JSON_PATH).exists()
+        assert not (ROOT / REPORT_MARKDOWN_PATH).exists()
+        assert "predictive_internal_structure" not in state
+        return
+
+    from app.predictive.internal_report import validate_internal_structure
+
+    findings = validate_internal_structure(ROOT, data_available=False)
+    assert findings["status"] == "PASS"
+    assert findings["stage1_configurations_consumed"] == 1
+
+    result = json.loads((ROOT / RESULT_PATH).read_text(encoding="utf-8"))
+    record = state["predictive_internal_structure"]
+    pooled = result["candidate"]["pooled_directional"]
+    comparison = result["primary_comparison"]
+    paired = comparison["paired_interval"]
+
+    # State mirrors the committed result exactly; the result is the truth.
+    assert record["experiment_id"] == EXPERIMENT_ID == result["experiment_id"]
+    assert record["hypothesis_id"] == result["hypothesis_id"]
+    assert record["model_version"] == result["model_version"]
+    assert record["admission_identity_sha256"] == admission_identity(ROOT)
+    assert record["feature_count"] == result["features"]["count"] == 18
+    assert record["model_fits"] == result["model_fits"]["total"]
+    assert record["eligible_decision_timestamps"] == pooled["eligible_decision_timestamps"]
+    assert (
+        record["actionable_directional_predictions"]
+        == (pooled["actionable_directional_predictions"])
+    )
+    assert record["abstentions"] == pooled["abstentions"]
+    assert record["candidate_win_rate"] == pooled["win_rate"]
+    assert record["candidate_coverage"] == pooled["coverage"]
+    assert record["brier_score"] == pooled["brier_score"]
+    assert (
+        record["magnitude_mae_percentage_points"]
+        == (result["candidate"]["pooled_magnitude"]["magnitude_mae_percentage_points"])
+    )
+    assert (
+        record["matched_always_up_win_rate"] == comparison["pooled"]["matched_always_up_win_rate"]
+    )
+    assert record["primary_delta"] == comparison["pooled"]["delta"]
+    assert record["primary_delta_interval"] == paired["interval"]
+    assert record["primary_delta_alpha"] == paired["alpha"] == 0.025
+    assert record["minimum_important_effect"] == comparison["minimum_important_effect"]
+    assert record["fold_deltas"] == comparison["fold_deltas"]
+    assert record["fold_coverage"] == comparison["fold_coverage"]
+    assert record["failed_gates"] == result["advancement_gate"]["failed_conditions"]
+    assert record["terminal_classification"] == result["terminal_classification"]
+    assert record["stage1_configurations_consumed"] == 1
+    assert record["stage1_configurations_remaining"] == 1
+    assert record["reserved_configuration_executed"] is False
+    assert record["sealed_queries"] == 0 and record["real_money"] is False
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+
+    # A win rate is never recorded without its sample size and its coverage.
+    assert pooled["actionable_directional_predictions"] > 0
+    assert pooled["coverage"] is not None and pooled["win_rate"] is not None
+    assert pooled["win_rate_interval_moving_block"][0] < pooled["win_rate_interval_moving_block"][1]
+
+    # The preregistration is an ancestor of the result, in a strictly earlier commit.
+    for relative in (SEARCH_PLAN_PATH, PREREGISTRATION_PATH, ADMISSION_PATH):
+        frozen_commit = git("log", "--diff-filter=A", "--format=%H", "--", relative).splitlines()[
+            -1
+        ]
+        result_commit = git(
+            "log", "--diff-filter=A", "--format=%H", "--", RESULT_PATH
+        ).splitlines()[-1]
+        assert frozen_commit != result_commit, relative
+        run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
 
 
 def dataset_scope_checks() -> None:
@@ -2396,6 +2546,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     prospective_observer_suspension_checks(state)
     prediction_first_checks(state)
     predictive_baselines_checks(state)
+    predictive_internal_structure_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -2446,7 +2597,11 @@ def governance_checks(pre_experiment: bool) -> dict:
     assert sealed_scope["authorized_queries"] == sealed_scope["consumed_queries"] == 0
     assert sealed_scope["dataset_state"] == "RESERVED_NOT_ACQUIRED"
     assert not list((ROOT / "research/sealed/allocations").glob("*.json"))
-    results = list((ROOT / "research/experiments").glob("*/result.json"))
+    results = [
+        path
+        for path in (ROOT / "research/experiments").glob("*/result.json")
+        if path.parent.name not in PREDICTIVE_EXPERIMENTS
+    ]
     if pre_experiment:
         assert state["experiments_completed"] == 0 and not results
     else:

@@ -1,0 +1,121 @@
+{
+  "baseline_protocol": "research/protocols/PREDICTIVE-BASELINES-V1.json",
+  "boundaries": {
+    "champion_created": false,
+    "external_information_family": false,
+    "post_cutoff_market_data": false,
+    "real_money": false,
+    "sealed_queries": 0
+  },
+  "budget": {
+    "consumed_by_this_checkpoint": 1,
+    "planned_model_configurations": 2,
+    "remaining_after_this_checkpoint": 1
+  },
+  "checkpoint": "PREDICTIVE-INTERNAL-STRUCTURE-V1",
+  "configurations": [
+    {
+      "executed_in_checkpoint": "PREDICTIVE-INTERNAL-STRUCTURE-V1",
+      "experiment_id": "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD",
+      "model_version": "INTERNAL_LINEAR_DUAL_HEAD_V1",
+      "order": 1,
+      "specification": {
+        "calibration_embargo_hours": 48,
+        "calibration_estimator": "LogisticRegression",
+        "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+        "calibration_parameters": {
+          "fit_intercept": true,
+          "max_iter": 2000,
+          "penalty": null,
+          "solver": "lbfgs",
+          "tol": 1e-08
+        },
+        "calibration_split_fraction": 0.8,
+        "decision_rule": "DECLARE_UP_WHEN_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_TIES_UP",
+        "direction_base_estimator": "LogisticRegression",
+        "direction_base_parameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "fit_intercept": true,
+          "max_iter": 2000,
+          "penalty": "l2",
+          "solver": "lbfgs",
+          "tol": 1e-08
+        },
+        "direction_input_scaling": "STANDARD_SCALER_FITTED_ON_BASE_FIT_ROWS_ONLY",
+        "family": "PREDICTIVE_STAGE1_INTERNAL_MODEL_FAMILY_V1",
+        "hyperparameter_search": false,
+        "magnitude_estimator": "Ridge",
+        "magnitude_input_scaling": "STANDARD_SCALER_FITTED_ON_ALL_FEATURE_VALID_TRAINING_ROWS",
+        "magnitude_parameters": {
+          "alpha": 1.0,
+          "fit_intercept": true
+        },
+        "magnitude_target": "r_24h",
+        "magnitude_target_clipping": false,
+        "model_version": "INTERNAL_LINEAR_DUAL_HEAD_V1",
+        "probability_rule": "EXPOSE_P_DECLARED_DIRECTION_CORRECT",
+        "probability_threshold_searched": false,
+        "sklearn_version": "1.7.2",
+        "strength_rule": "TRAINING_ONLY_INCLUSIVE_PERCENTILE_RANK_OF_ABSOLUTE_PREDICTED_RETURN"
+      }
+    },
+    {
+      "executed_in_checkpoint": null,
+      "experiment_id": "EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD",
+      "model_version": "INTERNAL_HGBR_DUAL_HEAD_V1",
+      "order": 2,
+      "scheduling_rule": "Scheduled for the next checkpoint and executed regardless of the linear result, unless an integrity or software defect blocks it.",
+      "specification": {
+        "action_rule": "IDENTICAL_TO_INTERNAL_LINEAR_DUAL_HEAD_V1",
+        "calibration_procedure": "TRAINING_ONLY_PLATT_ON_RAW_SCORE",
+        "calibration_split": "IDENTICAL_TO_INTERNAL_LINEAR_DUAL_HEAD_V1",
+        "direction_estimator": "HistGradientBoostingClassifier",
+        "executed_in_this_checkpoint": false,
+        "family": "PREDICTIVE_STAGE1_INTERNAL_MODEL_FAMILY_V1",
+        "feature_set": "IDENTICAL_TO_INTERNAL_LINEAR_DUAL_HEAD_V1",
+        "feature_validity_rules": "IDENTICAL_TO_INTERNAL_LINEAR_DUAL_HEAD_V1",
+        "folds": "IDENTICAL_TO_INTERNAL_LINEAR_DUAL_HEAD_V1",
+        "hyperparameter_search": false,
+        "magnitude_estimator": "HistGradientBoostingRegressor",
+        "magnitude_loss": "squared_error",
+        "model_version": "INTERNAL_HGBR_DUAL_HEAD_V1",
+        "scoring_semantics": "IDENTICAL_TO_INTERNAL_LINEAR_DUAL_HEAD_V1",
+        "sklearn_version": "1.7.2",
+        "structural_parameters": {
+          "early_stopping": false,
+          "l2_regularization": 1.0,
+          "learning_rate": 0.05,
+          "max_bins": 255,
+          "max_iter": 200,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 50,
+          "random_state": 20260916
+        }
+      }
+    }
+  ],
+  "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md",
+  "evaluation_contract_amendment": "A1",
+  "family": "PREDICTIVE_STAGE1_INTERNAL_MODEL_FAMILY_V1",
+  "family_size": 2,
+  "forbidden": [
+    "THIRD_STAGE1_MODEL_FAMILY",
+    "PARAMETER_RESCUE",
+    "THRESHOLD_RESCUE",
+    "FEATURE_REDESIGN",
+    "POST_RESULT_DESCENDANT_OF_A_FAILED_CONFIGURATION",
+    "INVERSION_OR_NEGATION_OF_PREVIOUS_24H_SIGN_PERSISTENCE"
+  ],
+  "multiplicity": {
+    "correction": "BONFERRONI",
+    "familywise_alpha": 0.05,
+    "interval_mass_per_configuration": 0.975,
+    "per_configuration_alpha": 0.025
+  },
+  "purpose": "Freeze the complete Stage-1 internal model family before the first configuration is executed, so neither configuration can be influenced by the other's result.",
+  "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+  "source_roadmap_stage": "STAGE_1_INTERNAL_MARKET_STRUCTURE",
+  "status": "FROZEN_BEFORE_OBSERVATION",
+  "version": "PREDICTIVE_STAGE1_INTERNAL_SEARCH_PLAN_V1"
+}
