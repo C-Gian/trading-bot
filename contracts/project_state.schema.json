@@ -34,6 +34,7 @@
     "predictive_research_objective",
     "predictive_baselines",
     "predictive_internal_structure",
+    "predictive_internal_nonlinear",
     "legacy_research_generation",
     "historical_discovery_status",
     "observed_material_historical_hypotheses",
@@ -401,6 +402,114 @@
         "stage1_configurations_remaining": {"const": 1},
         "reserved_configuration": {"const": "INTERNAL_HGBR_DUAL_HEAD_V1"},
         "reserved_configuration_executed": {"const": false},
+        "hyperparameter_search": {"const": false},
+        "threshold_search": {"const": false},
+        "post_result_tuning": {"const": false},
+        "deterministic_replay": {"const": "PASS_BYTE_IDENTICAL"},
+        "sealed_queries": {"const": 0},
+        "champion_status": {"const": "NONE"},
+        "real_money": {"const": false}
+      }
+    },
+    "predictive_internal_nonlinear": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "classification", "experiment_id", "hypothesis_id",
+        "model_version", "model_family", "search_plan", "preregistration", "admission",
+        "admission_identity_sha256", "result_json", "report_json", "report_markdown",
+        "checkpoint_report", "coverage_policy_option", "coverage_policy_decided_by",
+        "coverage_gates_waived", "coverage_thresholds_changed", "feature_set_version",
+        "feature_count", "feature_vectors_unavailable", "model_fits", "replay_model_fits",
+        "eligible_decision_timestamps", "actionable_directional_predictions", "abstentions",
+        "candidate_win_rate", "candidate_coverage", "candidate_win_rate_interval",
+        "brier_score", "magnitude_mae_percentage_points", "magnitude_match_mean",
+        "matched_control", "matched_always_up_win_rate", "primary_delta",
+        "primary_delta_interval", "primary_delta_alpha", "primary_delta_method",
+        "minimum_important_effect", "fold_deltas", "fold_coverage", "failed_gates",
+        "terminal_classification", "linear_experiment_id",
+        "linear_terminal_classification", "linear_agreement_rate",
+        "linear_independent_reconciliation", "linear_comparison_classification",
+        "stage1_configurations_planned", "stage1_configurations_consumed",
+        "stage1_configurations_remaining", "stage1_family_status", "hyperparameter_search",
+        "threshold_search", "post_result_tuning", "deterministic_replay", "sealed_queries",
+        "champion_status", "real_money"
+      ],
+      "properties": {
+        "version": {"const": "PREDICTIVE_INTERNAL_NONLINEAR_V1"},
+        "status": {"const": "COMPLETE"},
+        "classification": {"const": "PREDICTIVE_EXPERIMENT_RESULT"},
+        "experiment_id": {"const": "EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD"},
+        "hypothesis_id": {"const": "H-PRED-INT-002"},
+        "model_version": {"const": "INTERNAL_HGBR_DUAL_HEAD_V1"},
+        "model_family": {"const": "PREDICTIVE_STAGE1_INTERNAL_MODEL_FAMILY_V1"},
+        "search_plan": {
+          "const": "research/protocols/PREDICTIVE-STAGE1-INTERNAL-SEARCH-PLAN-V1.json"
+        },
+        "preregistration": {
+          "const":
+            "research/experiments/EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD/preregistration.json"
+        },
+        "admission": {
+          "const": "reports/validation/PREDICTIVE-INTERNAL-NONLINEAR-V1-ADMISSION.json"
+        },
+        "admission_identity_sha256": {"$ref": "#/$defs/sha256"},
+        "result_json": {
+          "const": "research/experiments/EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD/result.json"
+        },
+        "report_json": {"const": "reports/research/PREDICTIVE-INTERNAL-NONLINEAR-V1.json"},
+        "report_markdown": {"const": "reports/research/PREDICTIVE-INTERNAL-NONLINEAR-V1.md"},
+        "checkpoint_report": {
+          "const": "reports/checkpoints/PREDICTIVE-INTERNAL-NONLINEAR-V1.md"
+        },
+        "coverage_policy_option": {"const": "OPTION_1_EXECUTE_UNCHANGED"},
+        "coverage_policy_decided_by": {"const": "RESEARCH_DIRECTOR"},
+        "coverage_gates_waived": {"const": false},
+        "coverage_thresholds_changed": {"const": false},
+        "feature_set_version": {"const": "PREDICTIVE_INTERNAL_CAUSAL_FEATURES_V1"},
+        "feature_count": {"const": 18},
+        "feature_vectors_unavailable": {"type": "integer", "minimum": 0},
+        "model_fits": {"type": "integer", "minimum": 1},
+        "replay_model_fits": {"type": "integer", "minimum": 0},
+        "eligible_decision_timestamps": {"type": "integer", "minimum": 1},
+        "actionable_directional_predictions": {"type": "integer", "minimum": 1},
+        "abstentions": {"type": "integer", "minimum": 0},
+        "candidate_win_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "candidate_coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "candidate_win_rate_interval": {
+          "type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2
+        },
+        "brier_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "magnitude_mae_percentage_points": {"type": "number", "minimum": 0},
+        "magnitude_match_mean": {"type": "number", "minimum": -100, "maximum": 100},
+        "matched_control": {"const": "ALWAYS_UP"},
+        "matched_always_up_win_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "primary_delta": {"type": "number", "minimum": -1, "maximum": 1},
+        "primary_delta_interval": {
+          "type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2
+        },
+        "primary_delta_alpha": {"const": 0.025},
+        "primary_delta_method": {"const": "PAIRED_FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP"},
+        "minimum_important_effect": {"const": 0.015},
+        "fold_deltas": {"type": "object", "additionalProperties": {"type": "number"}},
+        "fold_coverage": {"type": "object", "additionalProperties": {"type": "number"}},
+        "failed_gates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "terminal_classification": {
+          "enum": ["ADVANCE_INTERNAL_HGBR_V1", "NO_ADVANCE_INTERNAL_HGBR_V1"]
+        },
+        "linear_experiment_id": {"const": "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD"},
+        "linear_terminal_classification": {"const": "NO_ADVANCE_INTERNAL_LINEAR_V1"},
+        "linear_agreement_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "linear_independent_reconciliation": {"const": "PASS"},
+        "linear_comparison_classification": {
+          "const": "DESCRIPTIVE_NOT_A_PREREGISTERED_TEST"
+        },
+        "stage1_configurations_planned": {"const": 2},
+        "stage1_configurations_consumed": {"const": 2},
+        "stage1_configurations_remaining": {"const": 0},
+        "stage1_family_status": {
+          "const": "CLOSED_BOTH_PREDECLARED_CONFIGURATIONS_EXECUTED"
+        },
         "hyperparameter_search": {"const": false},
         "threshold_search": {"const": false},
         "post_result_tuning": {"const": false},
@@ -1315,7 +1424,7 @@
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "PREDICTIVE-INTERNAL-NONLINEAR-V1"},
+        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_STAGE_1_CLOSURE"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},
