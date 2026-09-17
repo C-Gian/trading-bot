@@ -35,6 +35,7 @@
     "predictive_baselines",
     "predictive_internal_structure",
     "predictive_internal_nonlinear",
+    "predictive_stage1_disposition",
     "legacy_research_generation",
     "historical_discovery_status",
     "observed_material_historical_hypotheses",
@@ -517,6 +518,34 @@
         "sealed_queries": {"const": 0},
         "champion_status": {"const": "NONE"},
         "real_money": {"const": false}
+      }
+    },
+    "predictive_stage1_disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "decided_by", "review_verdict", "family", "family_disposition",
+        "linear_experiment_id", "linear_sealed_eligibility", "hgbr_experiment_id",
+        "hgbr_sealed_eligibility", "canonical_hourly_gap_repaired", "contiguity_rule_relaxed",
+        "substrate_disposition", "stage1_results_changed", "stage2_opened",
+        "stage2_first_family"
+      ],
+      "properties": {
+        "version": {"const": "PREDICTIVE_STAGE1_CLOSURE_V1"},
+        "decided_by": {"const": "RESEARCH_DIRECTOR"},
+        "review_verdict": {"const": "ACCEPTED"},
+        "family": {"const": "PREDICTIVE_STAGE1_INTERNAL_MODEL_FAMILY_V1"},
+        "family_disposition": {"const": "REJECTED_DEVELOPMENT_NO_SEALED"},
+        "linear_experiment_id": {"const": "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD"},
+        "linear_sealed_eligibility": {"const": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT"},
+        "hgbr_experiment_id": {"const": "EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD"},
+        "hgbr_sealed_eligibility": {"const": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT"},
+        "canonical_hourly_gap_repaired": {"const": false},
+        "contiguity_rule_relaxed": {"const": false},
+        "substrate_disposition": {"const": "DEFERRED_SUBSTRATE_DEBT_NOT_A_RESCUE_PATH"},
+        "stage1_results_changed": {"const": false},
+        "stage2_opened": {"const": true},
+        "stage2_first_family": {"const": "PREDICTIVE_STAGE2_SETTLED_FUNDING_FAMILY_V1"}
       }
     },
     "legacy_research_generation": {
@@ -1424,7 +1453,7 @@
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_STAGE_1_CLOSURE"},
+        "next_checkpoint": {"const": "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

@@ -1,0 +1,148 @@
+{
+  "baseline_protocol": "research/protocols/PREDICTIVE-BASELINES-V1.json",
+  "both_configurations_executed_in_one_work_package": true,
+  "boundaries": {
+    "champion_created": false,
+    "external_information_family_beyond_settled_funding": false,
+    "post_cutoff_market_data": false,
+    "real_money": false,
+    "sealed_queries": 0
+  },
+  "budget": {
+    "consumed_by_this_checkpoint": 2,
+    "planned_model_configurations": 2,
+    "remaining_after_this_checkpoint": 0
+  },
+  "checkpoint": "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1",
+  "configurations": [
+    {
+      "experiment_id": "EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD",
+      "model_version": "FUNDING_LINEAR_DUAL_HEAD_V1",
+      "order": 1,
+      "specification": {
+        "calibration_embargo_hours": 48,
+        "calibration_estimator": "LogisticRegression",
+        "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+        "calibration_parameters": {
+          "fit_intercept": true,
+          "max_iter": 2000,
+          "penalty": null,
+          "solver": "lbfgs",
+          "tol": 1e-08
+        },
+        "calibration_split_fraction": 0.8,
+        "decision_rule": "DECLARE_UP_WHEN_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_TIES_UP",
+        "direction_base_estimator": "LogisticRegression",
+        "direction_base_parameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "fit_intercept": true,
+          "max_iter": 2000,
+          "penalty": "l2",
+          "solver": "lbfgs",
+          "tol": 1e-08
+        },
+        "direction_input_scaling": "STANDARD_SCALER_FITTED_ON_BASE_FIT_ROWS_ONLY",
+        "family": "PREDICTIVE_STAGE2_SETTLED_FUNDING_FAMILY_V1",
+        "hyperparameter_search": false,
+        "magnitude_estimator": "Ridge",
+        "magnitude_input_scaling": "STANDARD_SCALER_FITTED_ON_ALL_SOURCE_VALID_TRAINING_ROWS",
+        "magnitude_loss": null,
+        "magnitude_parameters": {
+          "alpha": 1.0,
+          "fit_intercept": true
+        },
+        "magnitude_target": "r_24h",
+        "magnitude_target_clipping": false,
+        "model_version": "FUNDING_LINEAR_DUAL_HEAD_V1",
+        "probability_rule": "EXPOSE_P_DECLARED_DIRECTION_CORRECT",
+        "probability_threshold_searched": false,
+        "selective_abstention_beyond_source_availability": false,
+        "sklearn_version": "1.7.2",
+        "strength_rule": "TRAINING_ONLY_INCLUSIVE_PERCENTILE_RANK_OF_ABSOLUTE_PREDICTED_RETURN"
+      }
+    },
+    {
+      "experiment_id": "EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD",
+      "model_version": "FUNDING_HGBR_DUAL_HEAD_V1",
+      "order": 2,
+      "specification": {
+        "calibration_embargo_hours": 48,
+        "calibration_estimator": "LogisticRegression",
+        "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+        "calibration_parameters": {
+          "fit_intercept": true,
+          "max_iter": 2000,
+          "penalty": null,
+          "solver": "lbfgs",
+          "tol": 1e-08
+        },
+        "calibration_split_fraction": 0.8,
+        "decision_rule": "DECLARE_UP_WHEN_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_TIES_UP",
+        "direction_base_estimator": "HistGradientBoostingClassifier",
+        "direction_base_parameters": {
+          "early_stopping": false,
+          "l2_regularization": 1.0,
+          "learning_rate": 0.05,
+          "max_bins": 255,
+          "max_iter": 200,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 50,
+          "random_state": 20260916
+        },
+        "direction_input_scaling": "NONE_NOT_REQUIRED",
+        "family": "PREDICTIVE_STAGE2_SETTLED_FUNDING_FAMILY_V1",
+        "hyperparameter_search": false,
+        "magnitude_estimator": "HistGradientBoostingRegressor",
+        "magnitude_input_scaling": "NONE_NOT_REQUIRED",
+        "magnitude_loss": "squared_error",
+        "magnitude_parameters": {
+          "early_stopping": false,
+          "l2_regularization": 1.0,
+          "learning_rate": 0.05,
+          "max_bins": 255,
+          "max_iter": 200,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 50,
+          "random_state": 20260916
+        },
+        "magnitude_target": "r_24h",
+        "magnitude_target_clipping": false,
+        "model_version": "FUNDING_HGBR_DUAL_HEAD_V1",
+        "probability_rule": "EXPOSE_P_DECLARED_DIRECTION_CORRECT",
+        "probability_threshold_searched": false,
+        "selective_abstention_beyond_source_availability": false,
+        "sklearn_version": "1.7.2",
+        "strength_rule": "TRAINING_ONLY_INCLUSIVE_PERCENTILE_RANK_OF_ABSOLUTE_PREDICTED_RETURN"
+      }
+    }
+  ],
+  "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md",
+  "evaluation_contract_amendment": "A1",
+  "family": "PREDICTIVE_STAGE2_SETTLED_FUNDING_FAMILY_V1",
+  "family_size": 2,
+  "forbidden": [
+    "THIRD_STAGE2_FUNDING_MODEL",
+    "HYPERPARAMETER_SEARCH",
+    "THRESHOLD_SEARCH",
+    "FEATURE_SEARCH",
+    "POST_HOC_WINNER_SELECTION_BETWEEN_A_AND_B",
+    "STAGE1_RESCUE_OR_REDESIGN",
+    "CANONICAL_HOURLY_GAP_REPAIR",
+    "OPEN_INTEREST_BASIS_POSITION_RATIO_CFTC_MACRO_NEWS_ONCHAIN_ADMISSION",
+    "INVERSION_OR_NEGATION_OF_PREVIOUS_24H_SIGN_PERSISTENCE"
+  ],
+  "multiplicity": {
+    "correction": "BONFERRONI",
+    "familywise_alpha": 0.05,
+    "interval_mass_per_configuration": 0.975,
+    "per_configuration_alpha": 0.025
+  },
+  "predictive_source_contract": "docs/contracts/PREDICTIVE_SETTLED_FUNDING_STRUCTURE_V1.md",
+  "purpose": "Freeze the complete Stage-2 settled-funding model family before either configuration is executed, so neither can be influenced by the other's result.",
+  "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+  "result_dependent_early_stop": false,
+  "source_roadmap_stage": "STAGE_2_DERIVATIVES_AND_POSITIONING",
+  "status": "FROZEN_BEFORE_OBSERVATION",
+  "version": "PREDICTIVE_STAGE2_SETTLED_FUNDING_SEARCH_PLAN_V1"
+}

@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_STAGE_1_CLOSURE",
+  "next_recommended_work_package": "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -822,6 +822,23 @@
     "version": "PREDICTION_FIRST_RESEARCH_OBJECTIVE_V1",
     "win_rate_target_declared": false
   },
+  "predictive_stage1_disposition": {
+    "canonical_hourly_gap_repaired": false,
+    "contiguity_rule_relaxed": false,
+    "decided_by": "RESEARCH_DIRECTOR",
+    "family": "PREDICTIVE_STAGE1_INTERNAL_MODEL_FAMILY_V1",
+    "family_disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+    "hgbr_experiment_id": "EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD",
+    "hgbr_sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+    "linear_experiment_id": "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD",
+    "linear_sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+    "review_verdict": "ACCEPTED",
+    "stage1_results_changed": false,
+    "stage2_first_family": "PREDICTIVE_STAGE2_SETTLED_FUNDING_FAMILY_V1",
+    "stage2_opened": true,
+    "substrate_disposition": "DEFERRED_SUBSTRATE_DEBT_NOT_A_RESCUE_PATH",
+    "version": "PREDICTIVE_STAGE1_CLOSURE_V1"
+  },
   "primary_research_phase": "PREDICTIVE_MODELLING",
   "product_analysis": {
     "champion_status": "NONE",
@@ -1114,7 +1131,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_STAGE_1_CLOSURE",
+    "next_checkpoint": "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V1",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",

@@ -42,6 +42,8 @@ WP006_EXPERIMENTS = {
 PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD",
     "EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD",
+    "EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD",
+    "EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD",
 }
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
@@ -358,7 +360,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == "RESEARCH_DIRECTOR_REVIEW_STAGE_1_CLOSURE"
+    assert state["next_recommended_work_package"] == "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -840,7 +842,7 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V1"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == "RESEARCH_DIRECTOR_REVIEW_STAGE_1_CLOSURE"
+    assert architecture["next_checkpoint"] == "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1"
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -2160,6 +2162,161 @@ def predictive_internal_nonlinear_checks(state: dict) -> None:
         run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
 
 
+def predictive_settled_funding_checks(state: dict) -> None:
+    """The Stage-2 settled-funding family is frozen before it runs and closes on two results."""
+    from app.predictive.settled_funding import (
+        ADMISSION_PATH,
+        CONFIGURATION_ORDER,
+        EVALUATION_FOLDS,
+        EXPERIMENT_IDS,
+        FAMILY,
+        FAMILY_REJECTED,
+        FAMILY_SIZE,
+        NOT_ELIGIBLE,
+        REPORT_JSON_PATH,
+        REPORT_MARKDOWN_PATH,
+        SEARCH_PLAN_PATH,
+        admission,
+        admission_identity,
+        preregistration,
+        preregistration_path,
+        result_path,
+        search_plan,
+        stage1_disposition,
+        trials_path,
+    )
+
+    plan = json.loads((ROOT / SEARCH_PLAN_PATH).read_text(encoding="utf-8"))
+    admitted = json.loads((ROOT / ADMISSION_PATH).read_text(encoding="utf-8"))
+    disposition = stage1_disposition()
+
+    assert plan == search_plan()
+    assert admitted == admission(ROOT)
+    assert plan["status"] == "FROZEN_BEFORE_OBSERVATION"
+    assert admitted["status"] == "PASS"
+    assert admitted["market_results_observed"] == admitted["model_fits_executed"] == 0
+    assert admitted["sealed_queries"] == admitted["post_cutoff_access"] == 0
+    assert plan["family_size"] == FAMILY_SIZE == 2
+    assert plan["result_dependent_early_stop"] is False
+    assert plan["multiplicity"]["per_configuration_alpha"] == 0.025
+    for model_version in CONFIGURATION_ORDER:
+        committed = json.loads(
+            (ROOT / preregistration_path(model_version)).read_text(encoding="utf-8")
+        )
+        assert committed == preregistration(model_version)
+        assert committed["status"] == "PREREGISTERED"
+        assert committed["inference"]["alpha"] == 0.025
+        assert committed["primary_effect"]["minimum_important_effect"] == 0.015
+        assert committed["boundaries"]["sealed_queries"] == 0
+        assert committed["boundaries"]["additional_information_family"] is False
+        assert committed["boundaries"]["canonical_hourly_gap_repair"] is False
+        assert committed["boundaries"]["stage1_rescue_or_redesign"] is False
+        assert committed["historical_wp015_results_used_as_evidence"] is False
+
+    # The Research Director's Stage-1 closure is recorded and does not rewrite the results.
+    assert admitted["stage1_disposition"] == disposition
+    assert disposition["family_disposition"] == FAMILY_REJECTED
+    assert disposition["linear_sealed_eligibility"] == NOT_ELIGIBLE
+    assert disposition["hgbr_sealed_eligibility"] == NOT_ELIGIBLE
+    assert disposition["canonical_hourly_gap_repaired"] is False
+    assert disposition["contiguity_rule_relaxed"] is False
+    assert disposition["stage1_results_changed"] is False
+    stage1_state = state["predictive_stage1_disposition"]
+    assert stage1_state["family_disposition"] == disposition["family_disposition"]
+    assert stage1_state["linear_sealed_eligibility"] == disposition["linear_sealed_eligibility"]
+    assert stage1_state["hgbr_sealed_eligibility"] == disposition["hgbr_sealed_eligibility"]
+    assert stage1_state["substrate_disposition"] == disposition["substrate_disposition"]
+    # The two executed Stage-1 records keep exactly the classifications they were given.
+    assert state["predictive_internal_structure"]["terminal_classification"] == (
+        "NO_ADVANCE_INTERNAL_LINEAR_V1"
+    )
+    assert state["predictive_internal_nonlinear"]["terminal_classification"] == (
+        "NO_ADVANCE_INTERNAL_HGBR_V1"
+    )
+
+    # The source is the admitted canonical funding artifact, read point-in-time.
+    source = admitted["source"]
+    manifest = json.loads((ROOT / source["manifest"]).read_text(encoding="utf-8"))
+    assert source["canonical_file_sha256"] == manifest["canonical"]["file_sha256"]
+    assert source["fields_read"] == ["funding_time", "funding_rate"]
+    assert source["availability_rule"] == "FUNDING_TIME_STRICTLY_BEFORE_DECISION_INSTANT"
+    assert source["interpolation"] is False and source["forward_fill"] is False
+    assert source["post_cutoff_records"] == 0
+    assert (ROOT / source["predictive_contract"]).is_file()
+    assert source["predictive_contract"] != source["historical_contract"]
+
+    executed = [
+        model_version
+        for model_version in CONFIGURATION_ORDER
+        if (ROOT / result_path(model_version)).exists()
+    ]
+    if not executed:
+        assert not (ROOT / REPORT_JSON_PATH).exists()
+        assert not (ROOT / REPORT_MARKDOWN_PATH).exists()
+        assert "predictive_stage2_settled_funding" not in state
+        return
+    assert len(executed) == FAMILY_SIZE, "both configurations must be executed together"
+
+    from app.predictive.settled_funding_report import validate_settled_funding
+
+    findings = validate_settled_funding(ROOT, data_available=False)
+    assert findings["status"] == "PASS"
+
+    result = json.loads((ROOT / REPORT_JSON_PATH).read_text(encoding="utf-8"))
+    record = state["predictive_stage2_settled_funding"]
+    assert record["family"] == FAMILY == result["family"]
+    assert record["admission_identity_sha256"] == admission_identity(ROOT)
+    assert record["family_disposition"] == result["family_disposition"]["disposition"]
+    assert record["configurations_consumed"] == FAMILY_SIZE
+    assert record["configurations_remaining"] == 0
+    assert record["evaluation_folds"] == list(EVALUATION_FOLDS)
+    assert record["model_fits"] == sum(
+        result["configurations"][name]["model_fits"]["total"] for name in CONFIGURATION_ORDER
+    )
+    assert record["sealed_queries"] == 0 and record["real_money"] is False
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+    for model_version in CONFIGURATION_ORDER:
+        configuration = result["configurations"][model_version]
+        experiment = EXPERIMENT_IDS[model_version]
+        pooled = configuration["candidate"]["pooled_directional"]
+        entry = record["configurations"][experiment]
+        assert entry["model_version"] == model_version
+        assert entry["terminal_classification"] == configuration["terminal_classification"]
+        assert entry["candidate_win_rate"] == pooled["win_rate"]
+        assert entry["candidate_coverage"] == pooled["coverage"]
+        assert entry["primary_delta"] == configuration["primary_comparison"]["pooled_delta"]
+        assert (
+            entry["primary_delta_interval"]
+            == (configuration["primary_comparison"]["paired_interval"]["interval"])
+        )
+        assert entry["failed_gates"] == configuration["advancement_gate"]["failed_conditions"]
+        assert (
+            entry["sealed_eligibility"]
+            == (result["family_disposition"]["sealed_eligibility"][experiment])
+        )
+        # A win rate is never recorded without its sample size and its coverage.
+        assert pooled["actionable_directional_predictions"] > 0
+        assert pooled["coverage"] is not None and pooled["win_rate"] is not None
+        assert (ROOT / trials_path(model_version)).is_file()
+
+    # Every frozen record is an ancestor of every result, in a strictly earlier commit.
+    frozen_commits = [
+        git("log", "--diff-filter=A", "--format=%H", "--", relative).splitlines()[-1]
+        for relative in (
+            SEARCH_PLAN_PATH,
+            ADMISSION_PATH,
+            *(preregistration_path(name) for name in CONFIGURATION_ORDER),
+        )
+    ]
+    for model_version in CONFIGURATION_ORDER:
+        result_commit = git(
+            "log", "--diff-filter=A", "--format=%H", "--", result_path(model_version)
+        ).splitlines()[-1]
+        for frozen_commit in frozen_commits:
+            assert frozen_commit != result_commit
+            run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
+
+
 def dataset_scope_checks() -> None:
     """Metadata/inventory admission also runs in a checkout with no installed market data."""
     from app.research.continuation_lab import MANIFEST_SHA256
@@ -2706,6 +2863,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_baselines_checks(state)
     predictive_internal_structure_checks(state)
     predictive_internal_nonlinear_checks(state)
+    predictive_settled_funding_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
