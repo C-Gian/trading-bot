@@ -3190,6 +3190,7 @@ def data_checks(state: dict) -> None:
     attention_path = ROOT / "data/manifests/WIKIMEDIA-BITCOIN-PAGEVIEWS-DEV-v1.json"
     cftc_path = ROOT / "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json"
     cross_path = ROOT / "data/manifests/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.json"
+    open_interest_path = ROOT / "data/manifests/BTCUSDT-USDM-OPEN-INTEREST-DEV-v1.json"
     assert set((ROOT / "data/manifests").glob("*.json")) == {
         path,
         flow_path,
@@ -3198,6 +3199,7 @@ def data_checks(state: dict) -> None:
         attention_path,
         cftc_path,
         cross_path,
+        open_interest_path,
     }
     manifest = validate_json(path, schema)
     flow_manifest = json.loads(flow_path.read_text(encoding="utf-8"))
