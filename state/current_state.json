@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1",
+  "latest_executor_checkpoint": "PREDICTIVE-STAGE2-OPEN-INTEREST-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "PREDICTIVE-STAGE2-OPEN-INTEREST-V1",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_STAGE_2_OPEN_INTEREST_CLOSURE",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -800,7 +800,7 @@
     ],
     "objective": "STATISTICALLY_CREDIBLE_BTCUSDT_DIRECTION_PROBABILITY_AND_MAGNITUDE_FORECAST",
     "prediction_target": "r_24h = log(close[t+24h] / close[t])",
-    "predictive_experiments_completed": 4,
+    "predictive_experiments_completed": 6,
     "predictive_results_observed": true,
     "predictor_trained": true,
     "primary_horizon": "24h",
@@ -838,6 +838,144 @@
     "stage2_opened": true,
     "substrate_disposition": "DEFERRED_SUBSTRATE_DEBT_NOT_A_RESCUE_PATH",
     "version": "PREDICTIVE_STAGE1_CLOSURE_V1"
+  },
+  "predictive_stage2_open_interest": {
+    "admission": "reports/validation/PREDICTIVE-STAGE2-OPEN-INTEREST-V1-ADMISSION.json",
+    "admission_identity_sha256": "5d55d1efb66dc9291282c5e185f03bcf30a1e6b2489510e5a4bcb624e0094d5b",
+    "advancing_configurations": [],
+    "base_rate_control_fits": 3,
+    "calibration_control": "TRAINING_UP_BASE_RATE",
+    "champion_status": "NONE",
+    "checkpoint_report": "reports/checkpoints/PREDICTIVE-STAGE2-OPEN-INTEREST-V1.md",
+    "classification": "PREDICTIVE_EXPERIMENT_RESULT",
+    "configurations": {
+      "EXP-PRED-005-OPEN-INTEREST-LINEAR-DUAL-HEAD": {
+        "abstentions": 259,
+        "actionable_directional_predictions": 25970,
+        "brier_score": 0.2518943700135177,
+        "candidate_coverage": 0.9900876858558902,
+        "candidate_win_rate": 0.48459761262995765,
+        "failed_gates": [
+          "POOLED_DELTA_VERSUS_MATCHED_ALWAYS_UP_AT_LEAST_MESI",
+          "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+          "WIN_RATE_AT_LEAST_MATCHED_TRAINING_BASE_RATE",
+          "BRIER_AT_MOST_MATCHED_TRAINING_BASE_RATE_BRIER",
+          "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE"
+        ],
+        "fold_coverage": {
+          "2022": 0.9961085040631796,
+          "2023": 0.9942745906332303,
+          "2024": 0.9799086757990868
+        },
+        "fold_deltas": {
+          "2022": 0.0055153395380903025,
+          "2023": -0.053552919497869444,
+          "2024": -0.024347623485554526
+        },
+        "hypothesis_id": "H-PRED-OI-001",
+        "magnitude_mae_percentage_points": 1.93582170198189,
+        "matched_always_up_win_rate": 0.508702348864074,
+        "matched_base_rate_brier_score": 0.2513853231946086,
+        "matched_base_rate_win_rate": 0.508702348864074,
+        "model_fits": 9,
+        "model_version": "OPEN_INTEREST_LINEAR_DUAL_HEAD_V1",
+        "preregistration": "research/experiments/EXP-PRED-005-OPEN-INTEREST-LINEAR-DUAL-HEAD/preregistration.json",
+        "primary_delta": -0.024104736234116297,
+        "primary_delta_interval": [
+          -0.05233569211461035,
+          0.007896710775157474
+        ],
+        "result_json": "research/experiments/EXP-PRED-005-OPEN-INTEREST-LINEAR-DUAL-HEAD/result.json",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+        "terminal_classification": "NO_ADVANCE_OPEN_INTEREST_LINEAR_V1"
+      },
+      "EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD": {
+        "abstentions": 259,
+        "actionable_directional_predictions": 25970,
+        "brier_score": 0.25140965636754,
+        "candidate_coverage": 0.9900876858558902,
+        "candidate_win_rate": 0.5051597997689642,
+        "failed_gates": [
+          "POOLED_DELTA_VERSUS_MATCHED_ALWAYS_UP_AT_LEAST_MESI",
+          "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+          "WIN_RATE_AT_LEAST_MATCHED_TRAINING_BASE_RATE",
+          "BRIER_AT_MOST_MATCHED_TRAINING_BASE_RATE_BRIER"
+        ],
+        "fold_coverage": {
+          "2022": 0.9961085040631796,
+          "2023": 0.9942745906332303,
+          "2024": 0.9799086757990868
+        },
+        "fold_deltas": {
+          "2022": 0.0338963575778467,
+          "2023": -0.053552919497869444,
+          "2024": 0.00908667287977638
+        },
+        "hypothesis_id": "H-PRED-OI-002",
+        "magnitude_mae_percentage_points": 2.01718111821405,
+        "matched_always_up_win_rate": 0.508702348864074,
+        "matched_base_rate_brier_score": 0.2513853231946086,
+        "matched_base_rate_win_rate": 0.508702348864074,
+        "model_fits": 9,
+        "model_version": "OPEN_INTEREST_HGBR_DUAL_HEAD_V1",
+        "preregistration": "research/experiments/EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD/preregistration.json",
+        "primary_delta": -0.0035425490951097593,
+        "primary_delta_interval": [
+          -0.032554664595914176,
+          0.02983207464661578
+        ],
+        "result_json": "research/experiments/EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD/result.json",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+        "terminal_classification": "NO_ADVANCE_OPEN_INTEREST_HGBR_V1"
+      }
+    },
+    "configurations_consumed": 2,
+    "configurations_planned": 2,
+    "configurations_remaining": 0,
+    "deterministic_replay": "PASS_BYTE_IDENTICAL",
+    "eligible_decision_timestamps": 26230,
+    "excluded_candidate_folds": [
+      "2020",
+      "2021"
+    ],
+    "family": "PREDICTIVE_STAGE2_OPEN_INTEREST_MODEL_FAMILY_V1",
+    "family_disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+    "feature_count": 6,
+    "feature_set_version": "PREDICTIVE_OPEN_INTEREST_FEATURES_V1",
+    "hyperparameter_search": false,
+    "included_fold_count": 3,
+    "included_folds": [
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "information_family": "BTCUSDT_USDM_PERPETUAL_OPEN_INTEREST",
+    "matched_control": "ALWAYS_UP",
+    "maximum_state_age_seconds": 600,
+    "minimum_important_effect": 0.015,
+    "model_fits": 18,
+    "paired_bootstrap_seed": 20260917,
+    "per_configuration_alpha": 0.025,
+    "post_hoc_winner_selected": false,
+    "post_result_tuning": false,
+    "predictive_contract": "docs/contracts/PREDICTIVE_OPEN_INTEREST_STRUCTURE_V1.md",
+    "real_money": false,
+    "report_json": "reports/research/PREDICTIVE-STAGE2-OPEN-INTEREST-V1.json",
+    "report_markdown": "reports/research/PREDICTIVE-STAGE2-OPEN-INTEREST-V1.md",
+    "required_non_negative_folds": 2,
+    "sealed_queries": 0,
+    "search_plan": "research/protocols/PREDICTIVE-STAGE2-OPEN-INTEREST-SEARCH-PLAN-V1.json",
+    "source_archive_days": 1583,
+    "source_audit": "reports/validation/PREDICTIVE-STAGE2-OPEN-INTEREST-V1-SOURCE-AUDIT.json",
+    "source_audit_status": "SOURCE_GATES_PASSED",
+    "source_cadence_seconds": 300,
+    "source_canonical_sha256": "1050081fe37dabca539fa0c4543adfe802251d8a03026ec9b949bd025e0bb8b6",
+    "source_manifest": "data/manifests/BTCUSDT-USDM-OPEN-INTEREST-DEV-v1.json",
+    "source_records": 455273,
+    "source_roadmap_stage": "STAGE_2_DERIVATIVES_AND_POSITIONING",
+    "status": "COMPLETE",
+    "threshold_search": false,
+    "version": "PREDICTIVE_STAGE2_OPEN_INTEREST_V1"
   },
   "predictive_stage2_settled_funding": {
     "admission": "reports/validation/PREDICTIVE-STAGE2-SETTLED-FUNDING-V1-ADMISSION.json",
@@ -1269,7 +1407,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "PREDICTIVE-STAGE2-OPEN-INTEREST-V1",
+    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_STAGE_2_OPEN_INTEREST_CLOSURE",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V1",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",

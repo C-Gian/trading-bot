@@ -1,0 +1,68 @@
+[
+  {
+    "calibration_boundary_index": 9031,
+    "calibration_boundary_open_time": 1632682800,
+    "direction_base_fit_rows": 8984,
+    "direction_calibration_rows": 2258,
+    "direction_rows_dropped_to_calibration_embargo": 47,
+    "evaluation_rows_source_eligible": 8703,
+    "evaluation_rows_source_unavailable": 34,
+    "fold": "2022",
+    "magnitude_training_rows": 11289,
+    "model_fits": {
+      "direction_base": 1,
+      "direction_calibration": 1,
+      "magnitude": 1
+    },
+    "model_version": "OPEN_INTEREST_HGBR_DUAL_HEAD_V1",
+    "strength_reference_rows": 11289,
+    "training_labels": 38000,
+    "training_rows_neutral_excluded_from_direction": 0,
+    "training_rows_source_eligible": 11289,
+    "training_rows_source_unavailable": 26711
+  },
+  {
+    "calibration_boundary_index": 16012,
+    "calibration_boundary_open_time": 1657951200,
+    "direction_base_fit_rows": 15965,
+    "direction_calibration_rows": 4003,
+    "direction_rows_dropped_to_calibration_embargo": 47,
+    "evaluation_rows_source_eligible": 8683,
+    "evaluation_rows_source_unavailable": 50,
+    "fold": "2023",
+    "magnitude_training_rows": 20015,
+    "model_fits": {
+      "direction_base": 1,
+      "direction_calibration": 1,
+      "magnitude": 1
+    },
+    "model_version": "OPEN_INTEREST_HGBR_DUAL_HEAD_V1",
+    "strength_reference_rows": 20015,
+    "training_labels": 46760,
+    "training_rows_neutral_excluded_from_direction": 0,
+    "training_rows_source_eligible": 20015,
+    "training_rows_source_unavailable": 26745
+  },
+  {
+    "calibration_boundary_index": 22976,
+    "calibration_boundary_open_time": 1683036000,
+    "direction_base_fit_rows": 22929,
+    "direction_calibration_rows": 5745,
+    "direction_rows_dropped_to_calibration_embargo": 47,
+    "evaluation_rows_source_eligible": 8585,
+    "evaluation_rows_source_unavailable": 175,
+    "fold": "2024",
+    "magnitude_training_rows": 28721,
+    "model_fits": {
+      "direction_base": 1,
+      "direction_calibration": 1,
+      "magnitude": 1
+    },
+    "model_version": "OPEN_INTEREST_HGBR_DUAL_HEAD_V1",
+    "strength_reference_rows": 28721,
+    "training_labels": 55516,
+    "training_rows_neutral_excluded_from_direction": 0,
+    "training_rows_source_eligible": 28721,
+    "training_rows_source_unavailable": 26795
+  }
+]

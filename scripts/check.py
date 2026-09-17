@@ -287,7 +287,7 @@ def validate_research_views(state: dict) -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1"
+    assert state["latest_executor_checkpoint"] == "PREDICTIVE-STAGE2-OPEN-INTEREST-V1"
     assert state["project_phase"] == "PREDICTIVE_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -362,7 +362,9 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == "PREDICTIVE-STAGE2-OPEN-INTEREST-V1"
+    assert state["next_recommended_work_package"] == (
+        "RESEARCH_DIRECTOR_REVIEW_STAGE_2_OPEN_INTEREST_CLOSURE"
+    )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -844,7 +846,9 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V1"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == "PREDICTIVE-STAGE2-OPEN-INTEREST-V1"
+    assert architecture["next_checkpoint"] == (
+        "RESEARCH_DIRECTOR_REVIEW_STAGE_2_OPEN_INTEREST_CLOSURE"
+    )
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -3395,6 +3399,18 @@ def data_checks(state: dict) -> None:
     assert (
         funding["family_disposition"]
         == state["predictive_stage2_settled_funding"]["family_disposition"]
+    )
+    from app.predictive.open_interest_report import validate_open_interest
+
+    open_interest = validate_open_interest(ROOT, data_available=True)
+    assert open_interest["data_replayed"] is True and open_interest["status"] == "PASS"
+    assert (
+        open_interest["family_disposition"]
+        == state["predictive_stage2_open_interest"]["family_disposition"]
+    )
+    assert (
+        open_interest["included_folds"]
+        == (state["predictive_stage2_open_interest"]["included_folds"])
     )
     from app.research.cycle_structure_v2_lab import block_support_report, build_donors
 
