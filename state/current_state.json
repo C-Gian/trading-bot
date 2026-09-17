@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "PREDICTIVE-INTERNAL-NONLINEAR-V1",
+  "latest_executor_checkpoint": "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_STAGE_2_CLOSURE",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -800,7 +800,7 @@
     ],
     "objective": "STATISTICALLY_CREDIBLE_BTCUSDT_DIRECTION_PROBABILITY_AND_MAGNITUDE_FORECAST",
     "prediction_target": "r_24h = log(close[t+24h] / close[t])",
-    "predictive_experiments_completed": 2,
+    "predictive_experiments_completed": 4,
     "predictive_results_observed": true,
     "predictor_trained": true,
     "primary_horizon": "24h",
@@ -838,6 +838,144 @@
     "stage2_opened": true,
     "substrate_disposition": "DEFERRED_SUBSTRATE_DEBT_NOT_A_RESCUE_PATH",
     "version": "PREDICTIVE_STAGE1_CLOSURE_V1"
+  },
+  "predictive_stage2_settled_funding": {
+    "admission": "reports/validation/PREDICTIVE-STAGE2-SETTLED-FUNDING-V1-ADMISSION.json",
+    "admission_identity_sha256": "562d2db613df5bb5b3d7a33416d55f3043ea184934e996c009fe89ec73d2adac",
+    "advancing_configurations": [],
+    "champion_status": "NONE",
+    "checkpoint_report": "reports/checkpoints/PREDICTIVE-STAGE2-SETTLED-FUNDING-V1.md",
+    "classification": "PREDICTIVE_EXPERIMENT_RESULT",
+    "configurations": {
+      "EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD": {
+        "abstentions": 0,
+        "actionable_directional_predictions": 43641,
+        "always_up_delta": -0.04152058843747852,
+        "brier_score": 0.2584399369807298,
+        "candidate_coverage": 0.9999770862930205,
+        "candidate_win_rate": 0.48550674824133266,
+        "failed_gates": [
+          "POOLED_PRIMARY_DELTA_AT_LEAST_MESI",
+          "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+          "POOLED_DELTA_VERSUS_MATCHED_ALWAYS_UP_ABOVE_ZERO",
+          "AT_LEAST_4_OF_5_FOLD_PRIMARY_DELTAS_NON_NEGATIVE",
+          "POOLED_BRIER_AT_MOST_MATCHED_CONTROL_BRIER"
+        ],
+        "fold_coverage": {
+          "2020": 1.0,
+          "2021": 1.0,
+          "2022": 1.0,
+          "2023": 1.0,
+          "2024": 0.9998858447488584
+        },
+        "fold_deltas": {
+          "2020": 0.009870308734075517,
+          "2021": -0.00022991148407858208,
+          "2022": 0.002975849834039146,
+          "2023": -0.052788274361616816,
+          "2024": -0.0061650873387373295
+        },
+        "magnitude_mae_percentage_points": 2.293830005882277,
+        "matched_always_up_win_rate": 0.5270273366788112,
+        "matched_control_brier_score": 0.25458262177409774,
+        "matched_control_win_rate": 0.4947870122132857,
+        "model_fits": 15,
+        "model_version": "FUNDING_LINEAR_DUAL_HEAD_V1",
+        "preregistration": "research/experiments/EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD/preregistration.json",
+        "primary_delta": -0.009280263971953029,
+        "primary_delta_interval": [
+          -0.029627424906288887,
+          0.01262968953710742
+        ],
+        "result_json": "research/experiments/EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD/result.json",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+        "terminal_classification": "NO_ADVANCE_FUNDING_LINEAR_V1"
+      },
+      "EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD": {
+        "abstentions": 0,
+        "actionable_directional_predictions": 43641,
+        "always_up_delta": -0.03288192296235187,
+        "brier_score": 0.26184588251285906,
+        "candidate_coverage": 0.9999770862930205,
+        "candidate_win_rate": 0.4941454137164593,
+        "failed_gates": [
+          "POOLED_PRIMARY_DELTA_AT_LEAST_MESI",
+          "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+          "POOLED_DELTA_VERSUS_MATCHED_ALWAYS_UP_ABOVE_ZERO",
+          "AT_LEAST_4_OF_5_FOLD_PRIMARY_DELTAS_NON_NEGATIVE",
+          "POOLED_BRIER_AT_MOST_MATCHED_CONTROL_BRIER"
+        ],
+        "fold_coverage": {
+          "2020": 1.0,
+          "2021": 1.0,
+          "2022": 1.0,
+          "2023": 1.0,
+          "2024": 0.9998858447488584
+        },
+        "fold_deltas": {
+          "2020": 0.013428210719614364,
+          "2021": 0.0,
+          "2022": 0.003204761359734465,
+          "2023": -0.015458605290278205,
+          "2024": -0.004338394793926281
+        },
+        "magnitude_mae_percentage_points": 2.4702491448463726,
+        "matched_always_up_win_rate": 0.5270273366788112,
+        "matched_control_brier_score": 0.25458262177409774,
+        "matched_control_win_rate": 0.4947870122132857,
+        "model_fits": 15,
+        "model_version": "FUNDING_HGBR_DUAL_HEAD_V1",
+        "preregistration": "research/experiments/EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD/preregistration.json",
+        "primary_delta": -0.0006415984968263788,
+        "primary_delta_interval": [
+          -0.017666499230876313,
+          0.0173837713305287
+        ],
+        "result_json": "research/experiments/EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD/result.json",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+        "terminal_classification": "NO_ADVANCE_FUNDING_HGBR_V1"
+      }
+    },
+    "configurations_consumed": 2,
+    "configurations_planned": 2,
+    "configurations_remaining": 0,
+    "deterministic_replay": "PASS_BYTE_IDENTICAL",
+    "eligible_decision_timestamps": 43642,
+    "evaluation_folds": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "family": "PREDICTIVE_STAGE2_SETTLED_FUNDING_FAMILY_V1",
+    "family_disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+    "feature_count": 5,
+    "feature_set_version": "PREDICTIVE_SETTLED_FUNDING_FEATURES_V1",
+    "hyperparameter_search": false,
+    "hypothesis_id": "H-PRED-FUND-001",
+    "information_family": "SETTLED_BTCUSDT_USDM_PERPETUAL_FUNDING",
+    "matched_control": "MATCHED_TRAINING_UP_BASE_RATE",
+    "matched_control_fits": 5,
+    "minimum_important_effect": 0.015,
+    "model_fits": 30,
+    "per_configuration_alpha": 0.025,
+    "post_hoc_winner_selected": false,
+    "post_result_tuning": false,
+    "predictive_contract": "docs/contracts/PREDICTIVE_SETTLED_FUNDING_STRUCTURE_V1.md",
+    "real_money": false,
+    "report_json": "reports/research/PREDICTIVE-STAGE2-SETTLED-FUNDING-V1.json",
+    "report_markdown": "reports/research/PREDICTIVE-STAGE2-SETTLED-FUNDING-V1.md",
+    "sealed_queries": 0,
+    "search_plan": "research/protocols/PREDICTIVE-STAGE2-SETTLED-FUNDING-SEARCH-PLAN-V1.json",
+    "source_canonical_sha256": "bab36514c4b8ff9fe1f64e9148f19adfd448021747f032dce05e1b45a35eceef",
+    "source_manifest": "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json",
+    "source_records": 5819,
+    "source_roadmap_stage": "STAGE_2_DERIVATIVES_AND_POSITIONING",
+    "status": "COMPLETE",
+    "threshold_search": false,
+    "version": "PREDICTIVE_STAGE2_SETTLED_FUNDING_V1",
+    "warmup_only_fold": "2019"
   },
   "primary_research_phase": "PREDICTIVE_MODELLING",
   "product_analysis": {
@@ -1131,7 +1269,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1",
+    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_STAGE_2_CLOSURE",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V1",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",

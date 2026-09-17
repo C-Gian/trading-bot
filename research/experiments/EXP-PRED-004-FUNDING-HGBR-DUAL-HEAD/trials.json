@@ -1,0 +1,112 @@
+[
+  {
+    "calibration_boundary_index": 2064,
+    "calibration_boundary_open_time": 1575810000,
+    "direction_base_fit_rows": 2017,
+    "direction_calibration_rows": 516,
+    "direction_rows_dropped_to_calibration_embargo": 47,
+    "evaluation_rows_source_eligible": 8713,
+    "evaluation_rows_source_unavailable": 0,
+    "fold": "2020",
+    "magnitude_training_rows": 2580,
+    "model_fits": {
+      "direction_base": 1,
+      "direction_calibration": 1,
+      "magnitude": 1
+    },
+    "model_version": "FUNDING_HGBR_DUAL_HEAD_V1",
+    "strength_reference_rows": 2580,
+    "training_labels": 20542,
+    "training_rows_neutral_excluded_from_direction": 0,
+    "training_rows_source_eligible": 2580,
+    "training_rows_source_unavailable": 17962
+  },
+  {
+    "calibration_boundary_index": 9052,
+    "calibration_boundary_open_time": 1601096400,
+    "direction_base_fit_rows": 9005,
+    "direction_calibration_rows": 2264,
+    "direction_rows_dropped_to_calibration_embargo": 47,
+    "evaluation_rows_source_eligible": 8699,
+    "evaluation_rows_source_unavailable": 0,
+    "fold": "2021",
+    "magnitude_training_rows": 11316,
+    "model_fits": {
+      "direction_base": 1,
+      "direction_calibration": 1,
+      "magnitude": 1
+    },
+    "model_version": "FUNDING_HGBR_DUAL_HEAD_V1",
+    "strength_reference_rows": 11316,
+    "training_labels": 29278,
+    "training_rows_neutral_excluded_from_direction": 0,
+    "training_rows_source_eligible": 11316,
+    "training_rows_source_unavailable": 17962
+  },
+  {
+    "calibration_boundary_index": 16030,
+    "calibration_boundary_open_time": 1626346800,
+    "direction_base_fit_rows": 15983,
+    "direction_calibration_rows": 4008,
+    "direction_rows_dropped_to_calibration_embargo": 47,
+    "evaluation_rows_source_eligible": 8737,
+    "evaluation_rows_source_unavailable": 0,
+    "fold": "2022",
+    "magnitude_training_rows": 20038,
+    "model_fits": {
+      "direction_base": 1,
+      "direction_calibration": 1,
+      "magnitude": 1
+    },
+    "model_version": "FUNDING_HGBR_DUAL_HEAD_V1",
+    "strength_reference_rows": 20038,
+    "training_labels": 38000,
+    "training_rows_neutral_excluded_from_direction": 0,
+    "training_rows_source_eligible": 20038,
+    "training_rows_source_unavailable": 17962
+  },
+  {
+    "calibration_boundary_index": 23038,
+    "calibration_boundary_open_time": 1651626000,
+    "direction_base_fit_rows": 22991,
+    "direction_calibration_rows": 5760,
+    "direction_rows_dropped_to_calibration_embargo": 47,
+    "evaluation_rows_source_eligible": 8733,
+    "evaluation_rows_source_unavailable": 0,
+    "fold": "2023",
+    "magnitude_training_rows": 28798,
+    "model_fits": {
+      "direction_base": 1,
+      "direction_calibration": 1,
+      "magnitude": 1
+    },
+    "model_version": "FUNDING_HGBR_DUAL_HEAD_V1",
+    "strength_reference_rows": 28798,
+    "training_labels": 46760,
+    "training_rows_neutral_excluded_from_direction": 0,
+    "training_rows_source_eligible": 28798,
+    "training_rows_source_unavailable": 17962
+  },
+  {
+    "calibration_boundary_index": 30043,
+    "calibration_boundary_open_time": 1676844000,
+    "direction_base_fit_rows": 29996,
+    "direction_calibration_rows": 7511,
+    "direction_rows_dropped_to_calibration_embargo": 47,
+    "evaluation_rows_source_eligible": 8760,
+    "evaluation_rows_source_unavailable": 0,
+    "fold": "2024",
+    "magnitude_training_rows": 37554,
+    "model_fits": {
+      "direction_base": 1,
+      "direction_calibration": 1,
+      "magnitude": 1
+    },
+    "model_version": "FUNDING_HGBR_DUAL_HEAD_V1",
+    "strength_reference_rows": 37554,
+    "training_labels": 55516,
+    "training_rows_neutral_excluded_from_direction": 0,
+    "training_rows_source_eligible": 37554,
+    "training_rows_source_unavailable": 17962
+  }
+]

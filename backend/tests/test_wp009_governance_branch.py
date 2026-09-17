@@ -172,7 +172,7 @@ def test_state_records_the_accepted_wp011_review() -> None:
     assert state["real_money_authorized"] is False
     assert state["exogenous_acquisition_pause"]["wp009_finalized"] is False
     assert state["paper_trading"]["research_status"] == "PAPER_RESEARCH_CANDIDATE"
-    assert state["next_recommended_work_package"] == "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1"
+    assert state["next_recommended_work_package"] == "RESEARCH_DIRECTOR_REVIEW_STAGE_2_CLOSURE"
 
 
 def test_the_sealed_table_keeps_both_wp011_candidates_ineligible() -> None:

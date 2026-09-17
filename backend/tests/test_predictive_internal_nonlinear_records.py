@@ -94,7 +94,17 @@ def test_the_stage1_family_is_closed_with_nothing_reserved():
     ]
     assert budget["family_status"] == STAGE1_FAMILY_CLOSED
     assert record["stage1_family_status"] == STAGE1_FAMILY_CLOSED
-    assert state()["predictive_research_objective"]["predictive_experiments_completed"] == 2
+    # Both Stage-1 experiments exist and are complete. The generation-wide counter is a
+    # different fact, and later families legitimately raise it; it is checked elsewhere.
+    stage1_results = sorted(
+        path.parent.name
+        for path in (ROOT / "research/experiments").glob("EXP-PRED-00[12]-*/result.json")
+    )
+    assert stage1_results == [
+        "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD",
+        "EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD",
+    ]
+    assert state()["predictive_research_objective"]["predictive_experiments_completed"] >= 2
 
 
 def test_the_linear_checkpoint_was_replayed_reconciled_and_left_unchanged():

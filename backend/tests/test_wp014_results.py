@@ -129,7 +129,7 @@ def test_wp014_result_records_and_state_are_consistent_and_safe() -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == "PREDICTIVE-INTERNAL-NONLINEAR-V1"
+    assert state["latest_executor_checkpoint"] == "PREDICTIVE-STAGE2-SETTLED-FUNDING-V1"
     challenger = state["shallow_nonlinear_challenger"]
     assert challenger["terminal_classification"] == "REJECT_COST_DOMINATED"
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 12
