@@ -1,0 +1,216 @@
+{
+  "boundaries": {
+    "champion_created": false,
+    "post_cutoff_access": 0,
+    "real_money": false,
+    "sealed_queries": 0
+  },
+  "cadence": {
+    "checks": {
+      "COMPLETE_DAY_IS_288_RECORDS": true,
+      "DECLARED_FIVE_MINUTE": true,
+      "EVERY_RECORD_ON_THE_FIVE_MINUTE_GRID": true,
+      "MAJORITY_OF_THE_SPAN_IS_PRESENT": true
+    },
+    "expected_records_over_span": 455904,
+    "gap_count": 155,
+    "missing_records": 631,
+    "passed": true,
+    "records": 455273
+  },
+  "checkpoint": "PREDICTIVE-STAGE2-OPEN-INTEREST-V1",
+  "coverage": {
+    "admissible_eligible_timestamps": 26230,
+    "admissible_fold_count": 3,
+    "admissible_folds": [
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "by_fold": {
+      "2020": {
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_PRIOR_SOURCE_HISTORY": false,
+          "COVERAGE_AT_LEAST_0_95": false
+        },
+        "coverage": 0.3205554917938712,
+        "eligible_decision_timestamps": 8713,
+        "included": false,
+        "prior_source_history_days": 0.0,
+        "source_valid_timestamps": 2793,
+        "source_valid_training_rows": 0,
+        "unavailable_by_reason": {
+          "NO_PRIOR_OPEN_INTEREST_RECORD": 5845,
+          "OPEN_INTEREST_STATE_TOO_STALE": 75
+        }
+      },
+      "2021": {
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_PRIOR_SOURCE_HISTORY": false,
+          "COVERAGE_AT_LEAST_0_95": true
+        },
+        "coverage": 0.9767789401080584,
+        "eligible_decision_timestamps": 8699,
+        "included": false,
+        "prior_source_history_days": 122.0,
+        "source_valid_timestamps": 8497,
+        "source_valid_training_rows": 2769,
+        "unavailable_by_reason": {
+          "NON_POSITIVE_OPEN_INTEREST": 25,
+          "OPEN_INTEREST_STATE_TOO_STALE": 177
+        }
+      },
+      "2022": {
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_PRIOR_SOURCE_HISTORY": true,
+          "COVERAGE_AT_LEAST_0_95": true
+        },
+        "coverage": 0.9961085040631796,
+        "eligible_decision_timestamps": 8737,
+        "included": true,
+        "prior_source_history_days": 487.0,
+        "source_valid_timestamps": 8703,
+        "source_valid_training_rows": 11289,
+        "unavailable_by_reason": {
+          "NON_POSITIVE_OPEN_INTEREST": 34
+        }
+      },
+      "2023": {
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_PRIOR_SOURCE_HISTORY": true,
+          "COVERAGE_AT_LEAST_0_95": true
+        },
+        "coverage": 0.9942745906332303,
+        "eligible_decision_timestamps": 8733,
+        "included": true,
+        "prior_source_history_days": 852.0,
+        "source_valid_timestamps": 8683,
+        "source_valid_training_rows": 20015,
+        "unavailable_by_reason": {
+          "NON_POSITIVE_OPEN_INTEREST": 50
+        }
+      },
+      "2024": {
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_PRIOR_SOURCE_HISTORY": true,
+          "COVERAGE_AT_LEAST_0_95": true
+        },
+        "coverage": 0.9800228310502284,
+        "eligible_decision_timestamps": 8760,
+        "included": true,
+        "prior_source_history_days": 1217.0,
+        "source_valid_timestamps": 8585,
+        "source_valid_training_rows": 28721,
+        "unavailable_by_reason": {
+          "NON_POSITIVE_OPEN_INTEREST": 140,
+          "OPEN_INTEREST_STATE_TOO_STALE": 35
+        }
+      }
+    },
+    "candidate_folds": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "candidate_predictions_inspected": false,
+    "canonical_six_fold_eligible_total": 52315,
+    "fold_selection_rule": "DETERMINISTIC_SOURCE_QUALITY_ONLY",
+    "gate": {
+      "AT_LEAST_20000_ELIGIBLE_TIMESTAMPS": true,
+      "AT_LEAST_3_ADMISSIBLE_FOLDS": true
+    },
+    "passed": true,
+    "return_values_inspected": false
+  },
+  "family": "PREDICTIVE_STAGE2_OPEN_INTEREST_MODEL_FAMILY_V1",
+  "provenance": {
+    "checks": {
+      "CREDENTIAL_FREE": true,
+      "DEVELOPMENT_CEILING_DECLARED": true,
+      "EVERY_DAY_CHECKSUM_VERIFIED": true,
+      "EVERY_RATIO_FIELD_EXCLUDED": true,
+      "EXACT_DUPLICATES_COLLAPSED_UNDER_A_DECLARED_POLICY": true,
+      "NON_POSITIVE_QUANTITIES_ACCOUNTED": true,
+      "NO_CONFLICTING_DUPLICATE": true,
+      "NO_DUPLICATE_TIMESTAMP": true,
+      "NO_POST_CUTOFF_RECORD": true,
+      "NO_RECONSTRUCTION_OR_BACKFILL": true,
+      "NO_REST_SNAPSHOT_HISTORY": true,
+      "NO_THIRD_PARTY_VENDOR": true,
+      "OFFICIAL_ARCHIVE_CLASS": true,
+      "ONLY_ADMITTED_COLUMNS": true,
+      "OPEN_INTEREST_VALUE_EXCLUDED": true,
+      "STRICTLY_INCREASING": true
+    },
+    "exact_duplicate_rows_collapsed": 75255,
+    "non_positive_quantities": 448,
+    "passed": true
+  },
+  "record_type": "PREDICTIVE_SOURCE_AUDIT_V1",
+  "schema_version": 1,
+  "semantics": {
+    "argument": "The archive publishes one record per five-minute boundary stamped with the boundary it measures, so create_time is a measurement timestamp. The as-of rule takes only records strictly before the decision instant and no older than ten minutes, so the newest usable record is normally stamped T-5m. A look-ahead would require the archive's publication lag to exceed five minutes.",
+    "checks": {
+      "AS_OF_RULE_BOUNDS_STALENESS": true,
+      "AS_OF_RULE_IS_STRICTLY_PRIOR": true,
+      "NO_INTERPOLATION_OR_FORWARD_FILL": true,
+      "RECORDS_ALIGN_TO_THE_CADENCE_GRID": true,
+      "RECORD_TIMESTAMP_IS_A_MEASUREMENT_STAMP": true,
+      "RESIDUAL_PUBLICATION_LAG_DISCLOSED": true,
+      "STALENESS_BOUND_EXCEEDS_ONE_CADENCE": true
+    },
+    "passed": true,
+    "residual_assumption": "The archive documents the measurement timestamp but not a separate publication lag. That residual assumption is recorded rather than hidden, and is restated in the contract and in every experiment admitted under it."
+  },
+  "source": {
+    "archive_days": 1583,
+    "archive_index_sha256": "1ac32f8ccd27614b1fb679a22ae0880b2cf1fd2a651d03701c4adb9d5b76c9ff",
+    "availability_rule": "CREATE_TIME_STRICTLY_BEFORE_DECISION_INSTANT",
+    "cadence_seconds": 300,
+    "canonical_artifact": "data/derived/BTCUSDT-USDM-open-interest-5m-v1.parquet",
+    "canonical_file_sha256": "1050081fe37dabca539fa0c4543adfe802251d8a03026ec9b949bd025e0bb8b6",
+    "credential_free": true,
+    "development_ceiling": "2024-12-31T23:59:59.999Z",
+    "fields_read": [
+      "create_time",
+      "sum_open_interest"
+    ],
+    "first_record": "2020-09-01T00:00:00Z",
+    "forbidden_fields": [
+      "sum_open_interest_value",
+      "count_toptrader_long_short_ratio",
+      "sum_toptrader_long_short_ratio",
+      "count_long_short_ratio",
+      "sum_taker_long_short_vol_ratio"
+    ],
+    "forward_fill": false,
+    "interpolation": false,
+    "last_record": "2024-12-31T23:55:00Z",
+    "manifest": "data/manifests/BTCUSDT-USDM-OPEN-INTEREST-DEV-v1.json",
+    "manifest_id": "BTCUSDT-USDM-OPEN-INTEREST-DEV-v1",
+    "maximum_state_age_seconds": 600,
+    "official_checksums_verified": 1583,
+    "open_interest_value_admitted": false,
+    "post_cutoff_records": 0,
+    "predictive_contract": "docs/contracts/PREDICTIVE_OPEN_INTEREST_STRUCTURE_V1.md",
+    "reconstructed_or_backfilled": false,
+    "records": 455273,
+    "rest_snapshot_history_used": false,
+    "source": "BINANCE_USDM_FUTURES_OFFICIAL_PUBLIC_DATA_ARCHIVE",
+    "source_class": "OFFICIAL_BINANCE_PUBLIC_DATA_ARCHIVE",
+    "third_party_vendor_used": false,
+    "version": "BINANCE_USDM_OPEN_INTEREST_METRICS_V1"
+  },
+  "status": "SOURCE_GATES_PASSED",
+  "target_bearing_model_fitted": false,
+  "thresholds": {
+    "development_ceiling_seconds": 1735689599,
+    "fold_coverage": 0.95,
+    "maximum_state_age_seconds": 600,
+    "minimum_admissible_folds": 3,
+    "minimum_eligible_timestamps": 20000,
+    "minimum_training_history_days": 180
+  }
+}

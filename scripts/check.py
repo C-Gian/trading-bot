@@ -44,6 +44,8 @@ PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD",
     "EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD",
     "EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD",
+    "EXP-PRED-005-OPEN-INTEREST-LINEAR-DUAL-HEAD",
+    "EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD",
 }
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
@@ -360,7 +362,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == "RESEARCH_DIRECTOR_REVIEW_STAGE_2_CLOSURE"
+    assert state["next_recommended_work_package"] == "PREDICTIVE-STAGE2-OPEN-INTEREST-V1"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -842,7 +844,7 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V1"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == "RESEARCH_DIRECTOR_REVIEW_STAGE_2_CLOSURE"
+    assert architecture["next_checkpoint"] == "PREDICTIVE-STAGE2-OPEN-INTEREST-V1"
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -2317,6 +2319,185 @@ def predictive_settled_funding_checks(state: dict) -> None:
             run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
 
 
+def predictive_open_interest_checks(state: dict) -> None:
+    """The Stage-2 open-interest family is source-audited, frozen, then closed on two results."""
+    from app.predictive.open_interest import (
+        ADMISSION_PATH,
+        CONFIGURATION_ORDER,
+        EXPERIMENT_IDS,
+        FAMILY,
+        FAMILY_REJECTED,
+        FAMILY_SIZE,
+        NOT_ELIGIBLE,
+        PAIRED_SEED,
+        REPORT_JSON_PATH,
+        REPORT_MARKDOWN_PATH,
+        SEARCH_PLAN_PATH,
+        admission,
+        admission_identity,
+        director_decisions,
+        preregistration,
+        preregistration_path,
+        required_non_negative_folds,
+        result_path,
+        search_plan,
+        trials_path,
+    )
+    from app.predictive.open_interest_audit import AUDIT_PATH, PASS
+
+    audit = json.loads((ROOT / AUDIT_PATH).read_text(encoding="utf-8"))
+    plan = json.loads((ROOT / SEARCH_PLAN_PATH).read_text(encoding="utf-8"))
+    admitted = json.loads((ROOT / ADMISSION_PATH).read_text(encoding="utf-8"))
+    decisions = director_decisions()
+
+    # The source audit is a pre-result artifact and decides the folds on source quality only.
+    assert audit["status"] == PASS
+    assert audit["target_bearing_model_fitted"] is False
+    assert audit["coverage"]["return_values_inspected"] is False
+    assert audit["coverage"]["candidate_predictions_inspected"] is False
+    assert audit["coverage"]["fold_selection_rule"] == "DETERMINISTIC_SOURCE_QUALITY_ONLY"
+    assert audit["provenance"]["passed"] and audit["semantics"]["passed"]
+    assert audit["cadence"]["passed"] and audit["coverage"]["passed"]
+    assert audit["boundaries"]["sealed_queries"] == audit["boundaries"]["post_cutoff_access"] == 0
+    included = audit["coverage"]["admissible_folds"]
+    assert len(included) >= 3 and audit["coverage"]["admissible_eligible_timestamps"] >= 20_000
+
+    # The admitted source is the official archive and nothing else.
+    source = admitted["source"]
+    manifest = json.loads((ROOT / source["manifest"]).read_text(encoding="utf-8"))
+    assert source["canonical_file_sha256"] == manifest["canonical"]["file_sha256"]
+    assert source["source_class"] == "OFFICIAL_BINANCE_PUBLIC_DATA_ARCHIVE"
+    assert source["credential_free"] is True
+    assert source["third_party_vendor_used"] is False
+    assert source["rest_snapshot_history_used"] is False
+    assert source["reconstructed_or_backfilled"] is False
+    assert source["fields_read"] == ["create_time", "sum_open_interest"]
+    assert source["open_interest_value_admitted"] is False
+    assert source["cadence_seconds"] == 300
+    assert source["maximum_state_age_seconds"] == 600
+    assert source["post_cutoff_records"] == 0
+    assert source["official_checksums_verified"] == source["archive_days"]
+    assert (ROOT / source["predictive_contract"]).is_file()
+
+    assert plan == search_plan()
+    assert admitted == admission(ROOT)
+    assert plan["status"] == "FROZEN_BEFORE_OBSERVATION"
+    assert admitted["status"] == "PASS"
+    assert admitted["market_results_observed"] == admitted["model_fits_executed"] == 0
+    assert admitted["sealed_queries"] == admitted["post_cutoff_access"] == 0
+    assert admitted["included_folds"] == included
+    assert admitted["director_decisions"] == decisions
+    assert plan["family_size"] == FAMILY_SIZE == 2
+    assert plan["result_dependent_early_stop"] is False
+    assert plan["multiplicity"]["per_configuration_alpha"] == 0.025
+    assert plan["inference"]["seed"] == PAIRED_SEED == 20260917
+    for model_version in CONFIGURATION_ORDER:
+        committed = json.loads(
+            (ROOT / preregistration_path(model_version)).read_text(encoding="utf-8")
+        )
+        assert committed == preregistration(model_version, ROOT)
+        assert committed["status"] == "PREREGISTERED"
+        assert committed["evaluation_design"]["included_folds"] == included
+        assert committed["evaluation_design"]["fold_selection_used_return_values"] is False
+        assert committed["features"]["stage1_or_funding_features_combined"] is False
+        assert committed["features"]["price_derived_feature_present"] is False
+        assert committed["boundaries"]["sealed_queries"] == 0
+        assert committed["boundaries"]["stage1_substrate_repair"] is False
+
+    # The frozen Research Director decisions are recorded and rescue nothing.
+    assert decisions["generation_continues"] is True
+    assert decisions["target_or_horizon_changed"] is False
+    assert decisions["canonical_hourly_gap_repaired"] is False
+    assert decisions["contiguity_rule_relaxed"] is False
+    assert decisions["basis_authorized"] is False
+    assert decisions["rejected_family_results_immutable"] is True
+    assert decisions["rejected_family_sealed_eligibility"] is False
+
+    # Every prior predictive family keeps the classification it was given.
+    assert state["predictive_internal_structure"]["terminal_classification"] == (
+        "NO_ADVANCE_INTERNAL_LINEAR_V1"
+    )
+    assert state["predictive_internal_nonlinear"]["terminal_classification"] == (
+        "NO_ADVANCE_INTERNAL_HGBR_V1"
+    )
+    assert state["predictive_stage2_settled_funding"]["family_disposition"] == FAMILY_REJECTED
+    assert state["predictive_stage1_disposition"]["family_disposition"] == FAMILY_REJECTED
+
+    executed = [
+        model_version
+        for model_version in CONFIGURATION_ORDER
+        if (ROOT / result_path(model_version)).exists()
+    ]
+    if not executed:
+        assert not (ROOT / REPORT_JSON_PATH).exists()
+        assert not (ROOT / REPORT_MARKDOWN_PATH).exists()
+        assert "predictive_stage2_open_interest" not in state
+        return
+    assert len(executed) == FAMILY_SIZE, "both configurations must be executed together"
+
+    from app.predictive.open_interest_report import validate_open_interest
+
+    findings = validate_open_interest(ROOT, data_available=False)
+    assert findings["status"] == "PASS"
+    assert findings["included_folds"] == included
+
+    result = json.loads((ROOT / REPORT_JSON_PATH).read_text(encoding="utf-8"))
+    record = state["predictive_stage2_open_interest"]
+    assert record["family"] == FAMILY == result["family"]
+    assert record["admission_identity_sha256"] == admission_identity(ROOT)
+    assert record["family_disposition"] == result["family_disposition"]["disposition"]
+    assert record["included_folds"] == included
+    assert record["source_audit_status"] == PASS
+    assert record["configurations_consumed"] == FAMILY_SIZE
+    assert record["configurations_remaining"] == 0
+    assert record["required_non_negative_folds"] == required_non_negative_folds(len(included))
+    assert record["sealed_queries"] == 0 and record["real_money"] is False
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+    for model_version in CONFIGURATION_ORDER:
+        configuration = result["configurations"][model_version]
+        experiment = EXPERIMENT_IDS[model_version]
+        pooled = configuration["candidate"]["pooled_directional"]
+        entry = record["configurations"][experiment]
+        assert entry["model_version"] == model_version
+        assert entry["terminal_classification"] == configuration["terminal_classification"]
+        assert entry["candidate_win_rate"] == pooled["win_rate"]
+        assert entry["candidate_coverage"] == pooled["coverage"]
+        assert entry["primary_delta"] == configuration["primary_comparison"]["pooled_delta"]
+        assert (
+            entry["primary_delta_interval"]
+            == (configuration["primary_comparison"]["paired_interval"]["interval"])
+        )
+        assert entry["failed_gates"] == configuration["advancement_gate"]["failed_conditions"]
+        assert (
+            entry["sealed_eligibility"]
+            == (result["family_disposition"]["sealed_eligibility"][experiment])
+        )
+        assert pooled["actionable_directional_predictions"] > 0
+        assert pooled["coverage"] is not None and pooled["win_rate"] is not None
+        assert (ROOT / trials_path(model_version)).is_file()
+    if record["family_disposition"] == FAMILY_REJECTED:
+        for entry in record["configurations"].values():
+            assert entry["sealed_eligibility"] == NOT_ELIGIBLE
+
+    # Every frozen record, and the source audit, precede every result.
+    frozen_commits = [
+        git("log", "--diff-filter=A", "--format=%H", "--", relative).splitlines()[-1]
+        for relative in (
+            AUDIT_PATH,
+            SEARCH_PLAN_PATH,
+            ADMISSION_PATH,
+            *(preregistration_path(name) for name in CONFIGURATION_ORDER),
+        )
+    ]
+    for model_version in CONFIGURATION_ORDER:
+        result_commit = git(
+            "log", "--diff-filter=A", "--format=%H", "--", result_path(model_version)
+        ).splitlines()[-1]
+        for frozen_commit in frozen_commits:
+            assert frozen_commit != result_commit
+            run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
+
+
 def dataset_scope_checks() -> None:
     """Metadata/inventory admission also runs in a checkout with no installed market data."""
     from app.research.continuation_lab import MANIFEST_SHA256
@@ -2331,10 +2512,20 @@ def dataset_scope_checks() -> None:
     exogenous = ROOT / "data/manifests/EXOGENOUS-CONTEXT-DEV-v1.json"
     cftc = ROOT / "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json"
     cross_section = ROOT / "data/manifests/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.json"
+    open_interest = ROOT / "data/manifests/BTCUSDT-USDM-OPEN-INTEREST-DEV-v1.json"
     # The GDELT and combined-context manifests only exist once WP-009 is finalized; a
     # paused WP-009 must not be asked for them, and must not carry them either.
     wp009_final = gdelt.is_file() or exogenous.is_file()
-    expected = {approved, order_flow, alfred, funding, attention, cftc, cross_section}
+    expected = {
+        approved,
+        order_flow,
+        alfred,
+        funding,
+        attention,
+        cftc,
+        cross_section,
+        open_interest,
+    }
     if wp009_final:
         expected |= {gdelt, exogenous}
     assert set((ROOT / "data/manifests").glob("*.json")) == expected
@@ -2350,6 +2541,16 @@ def dataset_scope_checks() -> None:
     raw |= {ROOT / item["path"] for item in cftc_manifest["raw_archives"]}
     cross_manifest = json.loads(cross_section.read_text(encoding="utf-8"))
     raw |= cross_section_raw_objects(cross_manifest)
+    open_interest_manifest = json.loads(open_interest.read_text(encoding="utf-8"))
+    # Official Binance daily metrics objects, each one pinned by its own checksum entry.
+    raw |= {
+        ROOT
+        / (
+            f"{open_interest_manifest['raw_root']}/"
+            f"{open_interest_manifest['symbol']}-metrics-{item['day']}.zip"
+        )
+        for item in open_interest_manifest["archive"]["day_index"]
+    }
     assert set((ROOT / "data/raw").rglob("*.zip")) <= raw
     alfred_manifest = json.loads(alfred.read_text(encoding="utf-8"))
     funding_manifest = json.loads(funding.read_text(encoding="utf-8"))
@@ -2364,6 +2565,7 @@ def dataset_scope_checks() -> None:
         ROOT / attention_manifest["canonical"]["path"],
         ROOT / cftc_manifest["canonical"]["path"],
         ROOT / cross_manifest["substrate"]["path"],
+        ROOT / open_interest_manifest["canonical"]["path"],
     }
     if wp009_final:
         approved_parquet |= {
@@ -2864,6 +3066,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_internal_structure_checks(state)
     predictive_internal_nonlinear_checks(state)
     predictive_settled_funding_checks(state)
+    predictive_open_interest_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -3009,7 +3212,21 @@ def data_checks(state: dict) -> None:
     cftc_raw = {ROOT / x["path"] for x in cftc_manifest["raw_archives"]}
     cross_manifest = json.loads(cross_path.read_text(encoding="utf-8"))
     cross_raw = cross_section_raw_objects(cross_manifest)
-    assert set((ROOT / "data/raw").rglob("*.zip")) == raw | cftc_raw | cross_raw
+    open_interest_manifest = json.loads(
+        (ROOT / "data/manifests/BTCUSDT-USDM-OPEN-INTEREST-DEV-v1.json").read_text(encoding="utf-8")
+    )
+    # Every official daily metrics object, re-verified against the checksum the archive
+    # itself published for it.
+    open_interest_raw = set()
+    for item in open_interest_manifest["archive"]["day_index"]:
+        archive_path = ROOT / (
+            f"{open_interest_manifest['raw_root']}/"
+            f"{open_interest_manifest['symbol']}-metrics-{item['day']}.zip"
+        )
+        assert sha256(archive_path) == item["official_checksum_sha256"], archive_path.name
+        assert item["day"] <= "2024-12-31", "post-cutoff open-interest archive day"
+        open_interest_raw.add(archive_path)
+    assert set((ROOT / "data/raw").rglob("*.zip")) == raw | cftc_raw | cross_raw | open_interest_raw
     assert all(
         "BTCUSDT" in p.name and not any(f"-{y}-" in p.name for y in range(2025, 2100)) for p in raw
     )
@@ -3037,6 +3254,7 @@ def data_checks(state: dict) -> None:
             )
         ),
         ROOT / cross_manifest["substrate"]["path"],
+        ROOT / open_interest_manifest["canonical"]["path"],
     }
     assert (
         set((ROOT / "data/canonical").rglob("*.parquet"))

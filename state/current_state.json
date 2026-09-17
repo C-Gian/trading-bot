@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_STAGE_2_CLOSURE",
+  "next_recommended_work_package": "PREDICTIVE-STAGE2-OPEN-INTEREST-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -1269,7 +1269,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_STAGE_2_CLOSURE",
+    "next_checkpoint": "PREDICTIVE-STAGE2-OPEN-INTEREST-V1",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V1",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
