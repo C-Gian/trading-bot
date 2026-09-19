@@ -1,0 +1,315 @@
+{
+  "boundaries": {
+    "champion_created": false,
+    "post_cutoff_access": 0,
+    "real_money": false,
+    "sealed_queries": 0
+  },
+  "checkpoint": "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1",
+  "coverage": {
+    "admissible_eligible_timestamps": 43642,
+    "admissible_fold_count": 5,
+    "admissible_folds": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "by_fold": {
+      "2019": {
+        "causal_pre_fold_history_days": 0.0,
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_CAUSAL_PRE_FOLD_HISTORY": false,
+          "COVERAGE_AT_LEAST_0_95": false
+        },
+        "coverage": 0.812060417387294,
+        "eligible_decision_timestamps": 8673,
+        "included": false,
+        "source_feature_available_timestamps": 7043,
+        "source_feature_available_training_rows": 0
+      },
+      "2020": {
+        "causal_pre_fold_history_days": 299.5833333333333,
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_CAUSAL_PRE_FOLD_HISTORY": true,
+          "COVERAGE_AT_LEAST_0_95": true
+        },
+        "coverage": 0.9957534718237117,
+        "eligible_decision_timestamps": 8713,
+        "included": true,
+        "source_feature_available_timestamps": 8676,
+        "source_feature_available_training_rows": 7019
+      },
+      "2021": {
+        "causal_pre_fold_history_days": 665.5833333333334,
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_CAUSAL_PRE_FOLD_HISTORY": true,
+          "COVERAGE_AT_LEAST_0_95": true
+        },
+        "coverage": 0.9966662834808598,
+        "eligible_decision_timestamps": 8699,
+        "included": true,
+        "source_feature_available_timestamps": 8670,
+        "source_feature_available_training_rows": 15718
+      },
+      "2022": {
+        "causal_pre_fold_history_days": 1030.5833333333333,
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_CAUSAL_PRE_FOLD_HISTORY": true,
+          "COVERAGE_AT_LEAST_0_95": true
+        },
+        "coverage": 1.0,
+        "eligible_decision_timestamps": 8737,
+        "included": true,
+        "source_feature_available_timestamps": 8737,
+        "source_feature_available_training_rows": 24411
+      },
+      "2023": {
+        "causal_pre_fold_history_days": 1395.5833333333333,
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_CAUSAL_PRE_FOLD_HISTORY": true,
+          "COVERAGE_AT_LEAST_0_95": true
+        },
+        "coverage": 0.9996564754379939,
+        "eligible_decision_timestamps": 8733,
+        "included": true,
+        "source_feature_available_timestamps": 8730,
+        "source_feature_available_training_rows": 33171
+      },
+      "2024": {
+        "causal_pre_fold_history_days": 1760.5833333333333,
+        "conditions": {
+          "AT_LEAST_180_DAYS_OF_CAUSAL_PRE_FOLD_HISTORY": true,
+          "COVERAGE_AT_LEAST_0_95": true
+        },
+        "coverage": 1.0,
+        "eligible_decision_timestamps": 8760,
+        "included": true,
+        "source_feature_available_timestamps": 8760,
+        "source_feature_available_training_rows": 41924
+      }
+    },
+    "candidate_folds": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "candidate_predictions_inspected": false,
+    "canonical_six_fold_eligible_total": 52315,
+    "first_source_feature_available_instant": 1551952800,
+    "fold_selection_rule": "DETERMINISTIC_SOURCE_AVAILABILITY_ONLY",
+    "gate": {
+      "AT_LEAST_40000_ELIGIBLE_TIMESTAMPS": true,
+      "AT_LEAST_5_ADMISSIBLE_FOLDS": true
+    },
+    "labels_inspected": false,
+    "passed": true,
+    "return_values_inspected": false,
+    "unavailability_by_reason": {
+      "DECISION_INSTANT_OUTSIDE_SOURCE_SPAN": 12061,
+      "INSUFFICIENT_POINT_IN_TIME_UNIVERSE": 1531,
+      "NON_FINITE_CROSS_ASSET_FEATURE": 0
+    }
+  },
+  "family": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_FAMILY_V1",
+  "provenance": {
+    "admitted_non_target_symbols": 485,
+    "archive_rows_rejected_before_the_substrate": {
+      "duplicate_rows": 2232,
+      "invalid_rows": 1,
+      "off_grid_rows": 43,
+      "out_of_window_rows": 11933
+    },
+    "archive_symbols": 3710,
+    "checks": {
+      "CREDENTIAL_FREE": true,
+      "EVERY_REJECTED_ARCHIVE_ROW_IS_COUNTED": true,
+      "EVERY_SUBSTRATE_SYMBOL_IS_IN_WINDOW": true,
+      "HOURLY_INTERVAL": true,
+      "LEVERAGED_TOKENS_EXCLUDED_BY_THE_FROZEN_RULE": true,
+      "NO_LEVERAGED_TOKEN_SURVIVES_IN_THE_SUBSTRATE": true,
+      "OFFICIAL_BINANCE_SPOT_ARCHIVE": true,
+      "PREDICTION_TARGET_IS_IN_THE_SUBSTRATE_AND_INADMISSIBLE_HERE": true,
+      "SUBSTRATE_HASH_DECLARED": true,
+      "SUBSTRATE_ROW_TOTAL_MATCHES_THE_PER_SYMBOL_RECORDS": true,
+      "UNIVERSE_FROM_ARCHIVE_EVIDENCE_NOT_CURRENT_EXCHANGE_INFO": true,
+      "USDT_QUOTED_ONLY": true
+    },
+    "fields_read": [
+      "symbol",
+      "open_time",
+      "close"
+    ],
+    "forbidden_fields": [
+      "open",
+      "high",
+      "low",
+      "volume",
+      "quote_volume"
+    ],
+    "leveraged_tokens_excluded": 52,
+    "passed": true,
+    "substrate_hourly_rows": 12886210,
+    "substrate_symbols_with_rows": 486,
+    "usdt_quoted_symbols": 735
+  },
+  "record_type": "PREDICTIVE_SOURCE_AUDIT_V1",
+  "schema_version": 1,
+  "semantics": {
+    "argument": "A spot hourly bar stamped `t` closes at `t + 1h`, so the frozen decision instant `T` indexes the bar that has just closed and `close[T]` is knowable at `T`. Every endpoint a feature vector reads is one of `T`, `T-1h`, `T-24h` and `T-168h`, all at or before `T`, on the same official archive the BTC target already uses. Membership is decided bar by bar from what that asset has actually been observed to have by `T`, which the endpoint-only probe below demonstrates rather than asserts.",
+    "checks": {
+      "AT_LEAST_ONE_PROBE_IS_AVAILABLE": true,
+      "DEVELOPMENT_CEILING_RESPECTED": true,
+      "EQUAL_WEIGHTED_CROSS_SECTION": true,
+      "EVERY_ENDPOINT_IS_AT_OR_BEFORE_THE_DECISION_INSTANT": true,
+      "FOUR_ENDPOINT_BARS_REQUIRED_FROM_THE_SAME_ASSET": true,
+      "NO_BAR_AFTER_THE_DECISION_INSTANT_ENTERS_A_FEATURE": true,
+      "NO_FUTURE_SURVIVAL_FILTER": true,
+      "NO_LEVERAGED_TOKEN_IN_THE_PANEL": true,
+      "NO_MARKET_CAP_FUTURE_VOLUME_OR_SURVIVOR_WEIGHTING": true,
+      "NO_WHOLE_SAMPLE_PARTICIPATION_THRESHOLD": true,
+      "ONLY_THE_FOUR_ENDPOINT_BARS_ENTER_A_FEATURE": true,
+      "PREDICTION_TARGET_ABSENT_FROM_THE_PANEL": true,
+      "RETIRED_504_ROW_PARTICIPATION_RULE_NOT_REVIVED": true
+    },
+    "endpoint_only_panel_rows_per_asset": 4,
+    "panel_first_open_time": 1546300800,
+    "panel_last_open_time": 1735686000,
+    "panel_symbols": 485,
+    "passed": true,
+    "probes": [
+      {
+        "available": false,
+        "instant": 1546905600,
+        "reason": "INSUFFICIENT_POINT_IN_TIME_UNIVERSE"
+      },
+      {
+        "available": true,
+        "column_permutation_reproduces_the_vector": true,
+        "endpoint_only_panel_reproduces_the_vector": true,
+        "instant": 1578441600,
+        "point_in_time_universe": 86
+      },
+      {
+        "available": true,
+        "column_permutation_reproduces_the_vector": true,
+        "endpoint_only_panel_reproduces_the_vector": true,
+        "instant": 1610064000,
+        "point_in_time_universe": 187
+      },
+      {
+        "available": true,
+        "column_permutation_reproduces_the_vector": true,
+        "endpoint_only_panel_reproduces_the_vector": true,
+        "instant": 1641600000,
+        "point_in_time_universe": 308
+      },
+      {
+        "available": true,
+        "column_permutation_reproduces_the_vector": true,
+        "endpoint_only_panel_reproduces_the_vector": true,
+        "instant": 1673136000,
+        "point_in_time_universe": 317
+      },
+      {
+        "available": true,
+        "column_permutation_reproduces_the_vector": true,
+        "endpoint_only_panel_reproduces_the_vector": true,
+        "instant": 1704672000,
+        "point_in_time_universe": 363
+      }
+    ],
+    "residual_assumption": "The substrate is a monthly archive reconstruction of an hourly grid, so a bar the archive never published is simply absent rather than late: absence removes that asset from that instant instead of admitting a stale or reconstructed value. That is the conservative direction, and it is what makes abstention, not imputation, the only failure mode of this source.",
+    "retired_participation_row_rule": 504
+  },
+  "source": {
+    "archive_base": "https://s3-ap-northeast-1.amazonaws.com/data.binance.vision",
+    "archive_prefix": "data/spot/monthly/klines",
+    "credential_free": true,
+    "cross_sectional_weighting": "EQUAL_WEIGHTED",
+    "development_ceiling": "2024-12-31T23:59:00Z",
+    "endpoint_offsets_hours": [
+      168,
+      24,
+      1,
+      0
+    ],
+    "fields_read": [
+      "symbol",
+      "open_time",
+      "close"
+    ],
+    "forbidden_fields": [
+      "open",
+      "high",
+      "low",
+      "volume",
+      "quote_volume"
+    ],
+    "forward_fill": false,
+    "future_survival_filter": false,
+    "historical_cross_section_results_imported": false,
+    "interpolation": false,
+    "interval": "1h",
+    "leveraged_tokens_excluded": 52,
+    "manifest": "data/manifests/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.json",
+    "manifest_id": "BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1",
+    "market_type": "spot",
+    "minimum_point_in_time_universe": 30,
+    "monthly_objects": 17925,
+    "nearest_bar_substitution": false,
+    "objects_sha256": "1eec7887257c5c6c8494d95a33fb550b1198f19b00cd1c1fcbc0240acefd7cb0",
+    "predictive_contract": "docs/contracts/PREDICTIVE_CROSS_ASSET_BREADTH_CONTEXT_V1.md",
+    "provider": "Binance",
+    "quote_asset": "USDT",
+    "reconstructed_or_backfilled": false,
+    "required_endpoint_bars": 4,
+    "retired_504_row_participation_rule_revived": false,
+    "source": "BINANCE_SPOT_OFFICIAL_PUBLIC_DATA_ARCHIVE",
+    "substrate_artifact": "data/derived/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.parquet",
+    "substrate_file_sha256": "03ce79ae7a60090e066c947f2c2c0891ec19abb667d1d23c435b3e37cccb5147",
+    "substrate_hourly_rows": 12886210,
+    "substrate_symbols_with_rows": 486,
+    "target_symbol_excluded_from_cross_section": true,
+    "third_party_vendor_used": false,
+    "universe_derivation": "HISTORICAL_ARCHIVE_EVIDENCE_NOT_CURRENT_EXCHANGE_INFO",
+    "universe_recomputed_point_in_time": true,
+    "version": "BINANCE_SPOT_USDT_1H_CROSSSECTION_V1",
+    "whole_sample_participation_threshold": false
+  },
+  "status": "SOURCE_GATES_PASSED",
+  "target_bearing_model_fitted": false,
+  "thresholds": {
+    "development_ceiling": "2024-12-31T23:59:00Z",
+    "development_ceiling_seconds": 1735689540,
+    "fold_coverage": 0.95,
+    "minimum_admissible_folds": 5,
+    "minimum_eligible_timestamps": 40000,
+    "minimum_point_in_time_universe": 30,
+    "minimum_training_history_days": 180
+  },
+  "unavailability_taxonomy": [
+    "DECISION_INSTANT_OUTSIDE_SOURCE_SPAN",
+    "INSUFFICIENT_POINT_IN_TIME_UNIVERSE",
+    "NON_FINITE_CROSS_ASSET_FEATURE"
+  ],
+  "universe": {
+    "checks": {
+      "MINIMUM_UNIVERSE_IS_THIRTY": true,
+      "THE_MINIMUM_IS_REACHED_SOMEWHERE": true,
+      "THE_PANEL_CAN_EXCEED_THE_MINIMUM": true
+    },
+    "decision_instants_measured": 64323,
+    "instants_reaching_the_minimum": 50731,
+    "maximum_point_in_time_universe_observed": 387,
+    "median_point_in_time_universe": 216,
+    "minimum_point_in_time_universe_observed": 0,
+    "minimum_universe": 30,
+    "passed": true,
+    "universe_size_is_a_model_feature": false
+  }
+}

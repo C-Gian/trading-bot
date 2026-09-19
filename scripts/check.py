@@ -46,6 +46,8 @@ PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD",
     "EXP-PRED-005-OPEN-INTEREST-LINEAR-DUAL-HEAD",
     "EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD",
+    "EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR",
+    "EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR",
 }
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
@@ -362,9 +364,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_2_OPEN_INTEREST_CLOSURE"
-    )
+    assert state["next_recommended_work_package"] == "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1"
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -846,9 +846,7 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V1"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_2_OPEN_INTEREST_CLOSURE"
-    )
+    assert architecture["next_checkpoint"] == "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1"
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -2502,6 +2500,222 @@ def predictive_open_interest_checks(state: dict) -> None:
             run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
 
 
+def predictive_cross_asset_checks(state: dict) -> None:
+    """The Stage-3 cross-asset family is source-audited, frozen, then closed on two results."""
+    from app.predictive.cross_asset import (
+        ABSOLUTE_REFERENCE,
+        ADMISSION_PATH,
+        CONFIGURATION_ORDER,
+        EXPERIMENT_IDS,
+        FAMILY,
+        FAMILY_REJECTED,
+        FAMILY_SIZE,
+        MATCHED_CONTROL,
+        NOT_ELIGIBLE,
+        PAIRED_SEED,
+        REPORT_JSON_PATH,
+        REPORT_MARKDOWN_PATH,
+        SEARCH_PLAN_PATH,
+        admission,
+        admission_identity,
+        director_decisions,
+        preregistration,
+        preregistration_path,
+        required_non_negative_folds,
+        result_path,
+        search_plan,
+        trials_path,
+    )
+    from app.predictive.cross_asset_audit import AUDIT_PATH, PASS
+
+    audit = json.loads((ROOT / AUDIT_PATH).read_text(encoding="utf-8"))
+    plan = json.loads((ROOT / SEARCH_PLAN_PATH).read_text(encoding="utf-8"))
+    admitted = json.loads((ROOT / ADMISSION_PATH).read_text(encoding="utf-8"))
+    decisions = director_decisions()
+
+    # The source audit is a pre-result artifact and decides the folds on availability only.
+    assert audit["status"] == PASS
+    assert audit["target_bearing_model_fitted"] is False
+    assert audit["coverage"]["return_values_inspected"] is False
+    assert audit["coverage"]["labels_inspected"] is False
+    assert audit["coverage"]["candidate_predictions_inspected"] is False
+    assert audit["coverage"]["fold_selection_rule"] == "DETERMINISTIC_SOURCE_AVAILABILITY_ONLY"
+    assert audit["provenance"]["passed"] and audit["semantics"]["passed"]
+    assert audit["universe"]["passed"] and audit["coverage"]["passed"]
+    assert audit["boundaries"]["sealed_queries"] == audit["boundaries"]["post_cutoff_access"] == 0
+    included = audit["coverage"]["admissible_folds"]
+    assert len(included) >= 5 and audit["coverage"]["admissible_eligible_timestamps"] >= 40_000
+
+    # Point-in-time semantics are demonstrated on the real panel, not merely asserted.
+    probes = [probe for probe in audit["semantics"]["probes"] if probe["available"]]
+    assert probes, "the point-in-time audit exercised no usable probe"
+    for probe in probes:
+        assert probe["endpoint_only_panel_reproduces_the_vector"] is True
+        assert probe["column_permutation_reproduces_the_vector"] is True
+        assert probe["point_in_time_universe"] >= 30
+    for name in (
+        "NO_FUTURE_SURVIVAL_FILTER",
+        "NO_WHOLE_SAMPLE_PARTICIPATION_THRESHOLD",
+        "RETIRED_504_ROW_PARTICIPATION_RULE_NOT_REVIVED",
+        "NO_MARKET_CAP_FUTURE_VOLUME_OR_SURVIVOR_WEIGHTING",
+        "PREDICTION_TARGET_ABSENT_FROM_THE_PANEL",
+        "NO_LEVERAGED_TOKEN_IN_THE_PANEL",
+    ):
+        assert audit["semantics"]["checks"][name] is True, name
+
+    # The admitted source is the already-governed official archive and nothing else.
+    source = admitted["source"]
+    manifest = json.loads((ROOT / source["manifest"]).read_text(encoding="utf-8"))
+    assert source["substrate_file_sha256"] == manifest["substrate"]["sha256"]
+    assert source["provider"] == "Binance" and source["market_type"] == "spot"
+    assert source["interval"] == "1h" and source["quote_asset"] == "USDT"
+    assert source["credential_free"] is True
+    assert source["third_party_vendor_used"] is False
+    assert source["reconstructed_or_backfilled"] is False
+    assert source["historical_cross_section_results_imported"] is False
+    assert source["target_symbol_excluded_from_cross_section"] is True
+    assert source["future_survival_filter"] is False
+    assert source["whole_sample_participation_threshold"] is False
+    assert source["retired_504_row_participation_rule_revived"] is False
+    assert source["cross_sectional_weighting"] == "EQUAL_WEIGHTED"
+    assert source["minimum_point_in_time_universe"] == 30
+    assert source["required_endpoint_bars"] == 4
+    assert source["fields_read"] == ["symbol", "open_time", "close"]
+    assert (ROOT / source["predictive_contract"]).is_file()
+
+    assert plan == search_plan()
+    assert admitted == admission(ROOT)
+    assert plan["status"] == "FROZEN_BEFORE_OBSERVATION"
+    assert plan["declares"] == {"direction": True, "probability": True, "magnitude": False}
+    assert admitted["status"] == "PASS"
+    assert admitted["market_results_observed"] == admitted["model_fits_executed"] == 0
+    assert admitted["sealed_queries"] == admitted["post_cutoff_access"] == 0
+    assert admitted["included_folds"] == included
+    assert admitted["director_decisions"] == decisions
+    assert plan["family_size"] == FAMILY_SIZE == 2
+    assert plan["result_dependent_early_stop"] is False
+    assert plan["multiplicity"]["per_configuration_alpha"] == 0.025
+    assert plan["inference"]["seed"] == PAIRED_SEED == 20260919
+    assert MATCHED_CONTROL == "TRAINING_UP_BASE_RATE"
+    assert ABSOLUTE_REFERENCE == "ALWAYS_UP"
+    for model_version in CONFIGURATION_ORDER:
+        committed = json.loads(
+            (ROOT / preregistration_path(model_version)).read_text(encoding="utf-8")
+        )
+        assert committed == preregistration(model_version, ROOT)
+        assert committed["status"] == "PREREGISTERED"
+        assert committed["evaluation_design"]["included_folds"] == included
+        assert committed["evaluation_design"]["fold_selection_used_return_values"] is False
+        assert committed["features"]["rejected_family_features_combined"] is False
+        assert committed["features"]["btc_price_or_return_feature_present"] is False
+        assert committed["features"]["universe_size_is_a_feature"] is False
+        assert committed["model"]["declares_magnitude"] is False
+        assert committed["target"]["symbol"] == "BTCUSDT"
+        assert committed["target"]["cross_assets_are_context_only"] is True
+        assert committed["boundaries"]["sealed_queries"] == 0
+        assert committed["boundaries"]["stage1_substrate_repair"] is False
+        assert committed["boundaries"]["prediction_target_universe_expanded"] is False
+
+    # The frozen Research Director decisions are recorded and rescue nothing.
+    assert decisions["generation_continues"] is True
+    assert decisions["target_or_horizon_changed"] is False
+    assert decisions["canonical_hourly_gap_repaired"] is False
+    assert decisions["contiguity_rule_relaxed"] is False
+    assert decisions["basis_authorized"] is False
+    assert decisions["basis_disposition"] == "DEFERRED_NOT_REJECTED"
+    assert decisions["magnitude_declared"] is False
+    assert decisions["cross_assets_are_context_only"] is True
+    assert decisions["rejected_family_results_immutable"] is True
+    assert decisions["rejected_family_sealed_eligibility"] is False
+
+    # Every prior predictive family keeps the classification it was given.
+    assert state["predictive_internal_structure"]["terminal_classification"] == (
+        "NO_ADVANCE_INTERNAL_LINEAR_V1"
+    )
+    assert state["predictive_internal_nonlinear"]["terminal_classification"] == (
+        "NO_ADVANCE_INTERNAL_HGBR_V1"
+    )
+    assert state["predictive_stage2_settled_funding"]["family_disposition"] == FAMILY_REJECTED
+    assert state["predictive_stage2_open_interest"]["family_disposition"] == FAMILY_REJECTED
+    assert state["predictive_stage1_disposition"]["family_disposition"] == FAMILY_REJECTED
+
+    executed = [
+        model_version
+        for model_version in CONFIGURATION_ORDER
+        if (ROOT / result_path(model_version)).exists()
+    ]
+    if not executed:
+        assert not (ROOT / REPORT_JSON_PATH).exists()
+        assert not (ROOT / REPORT_MARKDOWN_PATH).exists()
+        assert "predictive_stage3_cross_asset_breadth" not in state
+        return
+    assert len(executed) == FAMILY_SIZE, "both configurations must be executed together"
+
+    from app.predictive.cross_asset_report import validate_cross_asset
+
+    findings = validate_cross_asset(ROOT, data_available=False)
+    assert findings["status"] == "PASS"
+    assert findings["included_folds"] == included
+
+    result = json.loads((ROOT / REPORT_JSON_PATH).read_text(encoding="utf-8"))
+    record = state["predictive_stage3_cross_asset_breadth"]
+    assert record["family"] == FAMILY == result["family"]
+    assert record["admission_identity_sha256"] == admission_identity(ROOT)
+    assert record["family_disposition"] == result["family_disposition"]["disposition"]
+    assert record["included_folds"] == included
+    assert record["source_audit_status"] == PASS
+    assert record["configurations_consumed"] == FAMILY_SIZE
+    assert record["configurations_remaining"] == 0
+    assert record["required_non_negative_folds"] == required_non_negative_folds(len(included))
+    assert record["magnitude_declared"] is False
+    assert record["sealed_queries"] == 0 and record["real_money"] is False
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+    for model_version in CONFIGURATION_ORDER:
+        configuration = result["configurations"][model_version]
+        experiment = EXPERIMENT_IDS[model_version]
+        pooled = configuration["candidate"]["pooled_directional"]
+        entry = record["configurations"][experiment]
+        assert entry["model_version"] == model_version
+        assert entry["terminal_classification"] == configuration["terminal_classification"]
+        assert entry["candidate_win_rate"] == pooled["win_rate"]
+        assert entry["candidate_coverage"] == pooled["coverage"]
+        assert entry["primary_delta"] == configuration["primary_comparison"]["pooled_delta"]
+        assert (
+            entry["primary_delta_interval"]
+            == (configuration["primary_comparison"]["paired_interval"]["interval"])
+        )
+        assert entry["failed_gates"] == configuration["advancement_gate"]["failed_conditions"]
+        assert (
+            entry["sealed_eligibility"]
+            == (result["family_disposition"]["sealed_eligibility"][experiment])
+        )
+        assert pooled["actionable_directional_predictions"] > 0
+        assert pooled["coverage"] is not None and pooled["win_rate"] is not None
+        assert pooled["magnitude_flag"] == "MAGNITUDE_NOT_DECLARED"
+        assert (ROOT / trials_path(model_version)).is_file()
+    if record["family_disposition"] == FAMILY_REJECTED:
+        for entry in record["configurations"].values():
+            assert entry["sealed_eligibility"] == NOT_ELIGIBLE
+
+    # Every frozen record, and the source audit, precede every result.
+    frozen_commits = [
+        git("log", "--diff-filter=A", "--format=%H", "--", relative).splitlines()[-1]
+        for relative in (
+            AUDIT_PATH,
+            SEARCH_PLAN_PATH,
+            ADMISSION_PATH,
+            *(preregistration_path(name) for name in CONFIGURATION_ORDER),
+        )
+    ]
+    for model_version in CONFIGURATION_ORDER:
+        result_commit = git(
+            "log", "--diff-filter=A", "--format=%H", "--", result_path(model_version)
+        ).splitlines()[-1]
+        for frozen_commit in frozen_commits:
+            assert frozen_commit != result_commit
+            run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
+
+
 def dataset_scope_checks() -> None:
     """Metadata/inventory admission also runs in a checkout with no installed market data."""
     from app.research.continuation_lab import MANIFEST_SHA256
@@ -3071,6 +3285,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_internal_nonlinear_checks(state)
     predictive_settled_funding_checks(state)
     predictive_open_interest_checks(state)
+    predictive_cross_asset_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -3414,6 +3629,19 @@ def data_checks(state: dict) -> None:
         open_interest["included_folds"]
         == (state["predictive_stage2_open_interest"]["included_folds"])
     )
+    from app.predictive.cross_asset_report import validate_cross_asset
+
+    if (ROOT / "reports/research/PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1.json").is_file():
+        cross_asset = validate_cross_asset(ROOT, data_available=True)
+        assert cross_asset["data_replayed"] is True and cross_asset["status"] == "PASS"
+        assert (
+            cross_asset["family_disposition"]
+            == state["predictive_stage3_cross_asset_breadth"]["family_disposition"]
+        )
+        assert (
+            cross_asset["included_folds"]
+            == state["predictive_stage3_cross_asset_breadth"]["included_folds"]
+        )
     from app.research.cycle_structure_v2_lab import block_support_report, build_donors
 
     donors = build_donors(grids)

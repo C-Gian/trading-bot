@@ -361,17 +361,12 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
 
 def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> None:
     """The rebaseline handed off to the foundation, which has since been executed."""
-    assert (
-        STATE["next_recommended_work_package"]
-        == "RESEARCH_DIRECTOR_REVIEW_STAGE_2_OPEN_INTEREST_CLOSURE"
-    )
+    assert STATE["next_recommended_work_package"] == "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1"
     assert STATE["research_architecture"]["next_checkpoint"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_2_OPEN_INTEREST_CLOSURE"
+        "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1"
     )
     task = _text("tasks/CURRENT_TASK.md")
-    assert task.startswith(
-        "# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-STAGE-2-OPEN-INTEREST-CLOSURE"
-    )
+    assert task.startswith("# CURRENT TASK — PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1")
     for archived in (
         "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md",
         "tasks/archive/PREDICTIVE-BASELINES-V1.md",

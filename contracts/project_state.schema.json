@@ -1727,7 +1727,7 @@
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_STAGE_2_OPEN_INTEREST_CLOSURE"},
+        "next_checkpoint": {"const": "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

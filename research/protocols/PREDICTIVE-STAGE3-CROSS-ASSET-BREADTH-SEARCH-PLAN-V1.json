@@ -1,0 +1,170 @@
+{
+  "baseline_protocol": "research/protocols/PREDICTIVE-BASELINES-V1.json",
+  "both_configurations_executed_in_one_work_package": true,
+  "boundaries": {
+    "additional_information_family": false,
+    "champion_created": false,
+    "post_cutoff_market_data": false,
+    "real_money": false,
+    "sealed_queries": 0
+  },
+  "budget": {
+    "consumed_by_this_checkpoint": 2,
+    "planned_model_configurations": 2,
+    "remaining_after_this_checkpoint": 0
+  },
+  "checkpoint": "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1",
+  "configurations": [
+    {
+      "experiment_id": "EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR",
+      "hypothesis_id": "H-PRED-XB-001",
+      "model_version": "CROSS_ASSET_BREADTH_LINEAR_V1",
+      "order": 1,
+      "specification": {
+        "abstention_only_on_source_or_feature_validity": true,
+        "calibration_embargo_hours": 48,
+        "calibration_estimator": "LogisticRegression",
+        "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+        "calibration_rows": "TRAINING_ONLY",
+        "calibration_split_fraction": 0.8,
+        "decision_rule": "DECLARE_UP_WHEN_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_TIES_UP",
+        "declares_direction": true,
+        "declares_magnitude": false,
+        "declares_probability": true,
+        "direction_base_estimator": "LogisticRegression",
+        "direction_base_parameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "fit_intercept": true,
+          "max_iter": 2000,
+          "penalty": "l2",
+          "solver": "lbfgs",
+          "tol": 1e-08
+        },
+        "direction_input_scaling": "STANDARD_SCALER_FITTED_ON_BASE_FIT_ROWS_ONLY",
+        "family": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_FAMILY_V1",
+        "hyperparameter_search": false,
+        "model_version": "CROSS_ASSET_BREADTH_LINEAR_V1",
+        "probability_rule": "EXPOSE_P_DECLARED_DIRECTION_CORRECT",
+        "probability_threshold_searched": false,
+        "sklearn_version": "1.7.2"
+      }
+    },
+    {
+      "experiment_id": "EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR",
+      "hypothesis_id": "H-PRED-XB-002",
+      "model_version": "CROSS_ASSET_BREADTH_HGBR_V1",
+      "order": 2,
+      "specification": {
+        "abstention_only_on_source_or_feature_validity": true,
+        "calibration_embargo_hours": 48,
+        "calibration_estimator": "LogisticRegression",
+        "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+        "calibration_rows": "TRAINING_ONLY",
+        "calibration_split_fraction": 0.8,
+        "decision_rule": "DECLARE_UP_WHEN_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_TIES_UP",
+        "declares_direction": true,
+        "declares_magnitude": false,
+        "declares_probability": true,
+        "direction_base_estimator": "HistGradientBoostingClassifier",
+        "direction_base_parameters": {
+          "early_stopping": false,
+          "l2_regularization": 1.0,
+          "learning_rate": 0.05,
+          "max_bins": 255,
+          "max_iter": 200,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 50,
+          "random_state": 20260917
+        },
+        "direction_input_scaling": "NONE_NOT_REQUIRED",
+        "family": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_FAMILY_V1",
+        "hyperparameter_search": false,
+        "model_version": "CROSS_ASSET_BREADTH_HGBR_V1",
+        "probability_rule": "EXPOSE_P_DECLARED_DIRECTION_CORRECT",
+        "probability_threshold_searched": false,
+        "sklearn_version": "1.7.2"
+      }
+    }
+  ],
+  "declares": {
+    "direction": true,
+    "magnitude": false,
+    "probability": true
+  },
+  "director_decisions": {
+    "admission_rationale": "Crypto-market breadth is orthogonal to everything already tested: it is neither BTC's own structure, nor its derivatives carry, nor its positioning quantity, and it is available at the BTC decision instant from an already-governed official source.",
+    "admitted_family": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_FAMILY_V1",
+    "admitted_source": "BINANCE_SPOT_USDT_CROSS_SECTIONAL_BREADTH",
+    "basis_authorized": false,
+    "basis_disposition": "DEFERRED_NOT_REJECTED",
+    "basis_rationale": "After null results from settled funding (a carry/price channel) and open interest (a positioning-quantity channel), the expected incremental information from a third derivatives/carry series is lower than the value of testing an orthogonal cross-asset channel.",
+    "canonical_hourly_gap_repaired": false,
+    "contiguity_rule_relaxed": false,
+    "cross_assets_are_context_only": true,
+    "decided_by": "RESEARCH_DIRECTOR",
+    "decision_id": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_ADMISSION_V1",
+    "generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+    "generation_continues": true,
+    "incremental_control_omitted": true,
+    "incremental_control_rationale": "No predictive family has been admitted, so an incremental control over an admitted feature set would be information-free.",
+    "magnitude_declared": false,
+    "magnitude_disposition": "REINTRODUCED_ONLY_AFTER_A_SOURCE_FAMILY_EARNS_DIRECTIONAL_ADMISSION",
+    "product_target_unchanged": "BTCUSDT",
+    "rejected_configurations_before_this_family": 6,
+    "rejected_families_disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+    "rejected_families_unchanged": [
+      "PREDICTIVE_STAGE1_INTERNAL_MODEL_FAMILY_V1",
+      "PREDICTIVE_STAGE2_SETTLED_FUNDING_FAMILY_V1",
+      "PREDICTIVE_STAGE2_OPEN_INTEREST_MODEL_FAMILY_V1"
+    ],
+    "rejected_family_results_immutable": true,
+    "rejected_family_sealed_eligibility": false,
+    "stage1_substrate_disposition": "DEFERRED_SUBSTRATE_DEBT_NOT_A_RESCUE_PATH",
+    "target_change_disposition": "DEFERRED_WOULD_OPEN_A_NEW_RESEARCH_GENERATION",
+    "target_or_horizon_changed": false
+  },
+  "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md",
+  "evaluation_contract_amendment": "A1",
+  "family": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_FAMILY_V1",
+  "family_size": 2,
+  "forbidden": [
+    "THIRD_STAGE3_CROSS_ASSET_MODEL",
+    "HYPERPARAMETER_SEARCH",
+    "THRESHOLD_SEARCH",
+    "FEATURE_SEARCH",
+    "FEATURE_REDESIGN",
+    "RESULT_DEPENDENT_EARLY_STOP",
+    "POST_HOC_WINNER_SELECTION",
+    "COMBINING_BREADTH_WITH_REJECTED_STAGE1_FUNDING_OR_OPEN_INTEREST_FEATURES",
+    "IMPORTING_HISTORICAL_CROSS_SECTION_RESEARCH_RESULTS",
+    "BASIS_CFTC_MACRO_CALENDAR_NEWS_SENTIMENT_ONCHAIN_ADMISSION",
+    "STAGE1_SUBSTRATE_REPAIR",
+    "ASSET_UNIVERSE_EXPANSION_OF_THE_PREDICTION_TARGET",
+    "FUTURE_SURVIVAL_FILTER_OR_WHOLE_SAMPLE_PARTICIPATION_THRESHOLD",
+    "INVERSION_OR_NEGATION_OF_PREVIOUS_24H_SIGN_PERSISTENCE"
+  ],
+  "inference": {
+    "block_length_hours": 48,
+    "method": "PAIRED_FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP",
+    "replicate_chunk": 500,
+    "replicates": 10000,
+    "seed": 20260919,
+    "seed_is_new_for_this_family": true
+  },
+  "multiplicity": {
+    "correction": "BONFERRONI",
+    "familywise_alpha": 0.05,
+    "interval_mass_per_configuration": 0.975,
+    "per_configuration_alpha": 0.025
+  },
+  "predictive_source_contract": "docs/contracts/PREDICTIVE_CROSS_ASSET_BREADTH_CONTEXT_V1.md",
+  "purpose": "Freeze the complete Stage-3 cross-asset breadth model family before either configuration is executed, so neither can be influenced by the other's result.",
+  "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+  "result_dependent_early_stop": false,
+  "root_hypothesis_id": "H-PRED-XB-001",
+  "source_roadmap_family": "CROSS_ASSET_CONTEXT",
+  "source_roadmap_stage": "STAGE_3_CROSS_ASSET_AND_MACRO_CONTEXT",
+  "status": "FROZEN_BEFORE_OBSERVATION",
+  "version": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_SEARCH_PLAN_V1"
+}
