@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "PREDICTIVE-STAGE2-OPEN-INTEREST-V1",
+  "latest_executor_checkpoint": "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_CROSS_ASSET_BREADTH_CLOSURE",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -800,7 +800,7 @@
     ],
     "objective": "STATISTICALLY_CREDIBLE_BTCUSDT_DIRECTION_PROBABILITY_AND_MAGNITUDE_FORECAST",
     "prediction_target": "r_24h = log(close[t+24h] / close[t])",
-    "predictive_experiments_completed": 6,
+    "predictive_experiments_completed": 8,
     "predictive_results_observed": true,
     "predictor_trained": true,
     "primary_horizon": "24h",
@@ -1115,6 +1115,160 @@
     "version": "PREDICTIVE_STAGE2_SETTLED_FUNDING_V1",
     "warmup_only_fold": "2019"
   },
+  "predictive_stage3_cross_asset_breadth": {
+    "absolute_reference": "ALWAYS_UP",
+    "admission": "reports/validation/PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1-ADMISSION.json",
+    "admission_identity_sha256": "f2f893d2dc08a392f78c9b026101a0a699681cf563d330a8f0aea78af2d7187d",
+    "advancing_configurations": [],
+    "base_rate_control_fits": 5,
+    "champion_status": "NONE",
+    "checkpoint_report": "reports/checkpoints/PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1.md",
+    "classification": "PREDICTIVE_EXPERIMENT_RESULT",
+    "configurations": {
+      "EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR": {
+        "abstentions": 69,
+        "actionable_directional_predictions": 43572,
+        "brier_score": 0.2561488997697722,
+        "candidate_coverage": 0.9983960405114339,
+        "candidate_win_rate": 0.4930459928394382,
+        "failed_gates": [
+          "POOLED_DELTA_VERSUS_MATCHED_TRAINING_BASE_RATE_AT_LEAST_MESI",
+          "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+          "WIN_RATE_AT_LEAST_MATCHED_ALWAYS_UP",
+          "BRIER_AT_MOST_MATCHED_TRAINING_BASE_RATE_BRIER",
+          "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE"
+        ],
+        "fold_coverage": {
+          "2020": 0.9957534718237117,
+          "2021": 0.9966662834808598,
+          "2022": 1.0,
+          "2023": 0.9996564754379939,
+          "2024": 0.9998858447488584
+        },
+        "fold_deltas": {
+          "2020": -0.16113416320885204,
+          "2021": 0.005074971164936604,
+          "2022": 0.03685475563694629,
+          "2023": -0.03493699885452467,
+          "2024": -0.01529855006279257
+        },
+        "hypothesis_id": "H-PRED-XB-001",
+        "matched_always_up_win_rate": 0.5268062058202515,
+        "matched_base_rate_brier_score": 0.24998507138007886,
+        "matched_base_rate_win_rate": 0.5268062058202515,
+        "model_fits": 10,
+        "model_version": "CROSS_ASSET_BREADTH_LINEAR_V1",
+        "preregistration": "research/experiments/EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR/preregistration.json",
+        "primary_delta": -0.03376021298081333,
+        "primary_delta_interval": [
+          -0.05967513751039774,
+          -0.007140756553767315
+        ],
+        "result_json": "research/experiments/EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR/result.json",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+        "terminal_classification": "NO_ADVANCE_CROSS_ASSET_BREADTH_LINEAR_V1"
+      },
+      "EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR": {
+        "abstentions": 69,
+        "actionable_directional_predictions": 43572,
+        "brier_score": 0.25634220756274645,
+        "candidate_coverage": 0.9983960405114339,
+        "candidate_win_rate": 0.48815753236023135,
+        "failed_gates": [
+          "POOLED_DELTA_VERSUS_MATCHED_TRAINING_BASE_RATE_AT_LEAST_MESI",
+          "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+          "WIN_RATE_AT_LEAST_MATCHED_ALWAYS_UP",
+          "BRIER_AT_MOST_MATCHED_TRAINING_BASE_RATE_BRIER",
+          "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE"
+        ],
+        "fold_coverage": {
+          "2020": 0.9957534718237117,
+          "2021": 0.9966662834808598,
+          "2022": 1.0,
+          "2023": 0.9996564754379939,
+          "2024": 0.9998858447488584
+        },
+        "fold_deltas": {
+          "2020": -0.15514061779621952,
+          "2021": -0.0029988465974624123,
+          "2022": 0.02575254664072335,
+          "2023": -0.052348224513173,
+          "2024": -0.009133462724055241
+        },
+        "hypothesis_id": "H-PRED-XB-002",
+        "matched_always_up_win_rate": 0.5268062058202515,
+        "matched_base_rate_brier_score": 0.24998507138007886,
+        "matched_base_rate_win_rate": 0.5268062058202515,
+        "model_fits": 10,
+        "model_version": "CROSS_ASSET_BREADTH_HGBR_V1",
+        "preregistration": "research/experiments/EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR/preregistration.json",
+        "primary_delta": -0.038648673460020155,
+        "primary_delta_interval": [
+          -0.061632971298499026,
+          -0.01477861038958282
+        ],
+        "result_json": "research/experiments/EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR/result.json",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+        "terminal_classification": "NO_ADVANCE_CROSS_ASSET_BREADTH_HGBR_V1"
+      }
+    },
+    "configurations_consumed": 2,
+    "configurations_planned": 2,
+    "configurations_remaining": 0,
+    "cross_sectional_weighting": "EQUAL_WEIGHTED",
+    "deterministic_replay": "PASS_BYTE_IDENTICAL",
+    "eligible_decision_timestamps": 43642,
+    "excluded_candidate_folds": [
+      "2019"
+    ],
+    "family": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_FAMILY_V1",
+    "family_disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+    "feature_count": 8,
+    "feature_set_version": "PREDICTIVE_CROSS_ASSET_BREADTH_FEATURES_V1",
+    "future_survival_filter": false,
+    "hyperparameter_search": false,
+    "included_fold_count": 5,
+    "included_folds": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "information_family": "BINANCE_SPOT_USDT_CROSS_SECTIONAL_BREADTH",
+    "magnitude_declared": false,
+    "matched_control": "TRAINING_UP_BASE_RATE",
+    "median_point_in_time_universe": 322,
+    "minimum_important_effect": 0.015,
+    "minimum_point_in_time_universe": 30,
+    "model_fits": 20,
+    "paired_bootstrap_seed": 20260919,
+    "panel_symbols": 485,
+    "per_configuration_alpha": 0.025,
+    "post_hoc_winner_selected": false,
+    "post_result_tuning": false,
+    "predictive_contract": "docs/contracts/PREDICTIVE_CROSS_ASSET_BREADTH_CONTEXT_V1.md",
+    "real_money": false,
+    "report_json": "reports/research/PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1.json",
+    "report_markdown": "reports/research/PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1.md",
+    "required_endpoint_bars": 4,
+    "required_non_negative_folds": 4,
+    "root_hypothesis_id": "H-PRED-XB-001",
+    "sealed_queries": 0,
+    "search_plan": "research/protocols/PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-SEARCH-PLAN-V1.json",
+    "source_audit": "reports/validation/PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1-SOURCE-AUDIT.json",
+    "source_audit_status": "SOURCE_GATES_PASSED",
+    "source_manifest": "data/manifests/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.json",
+    "source_monthly_objects": 17925,
+    "source_roadmap_stage": "STAGE_3_CROSS_ASSET_AND_MACRO_CONTEXT",
+    "source_substrate_hourly_rows": 12886210,
+    "source_substrate_sha256": "03ce79ae7a60090e066c947f2c2c0891ec19abb667d1d23c435b3e37cccb5147",
+    "status": "COMPLETE",
+    "target_symbol_excluded_from_cross_section": true,
+    "threshold_search": false,
+    "version": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_V1",
+    "whole_sample_participation_threshold": false
+  },
   "primary_research_phase": "PREDICTIVE_MODELLING",
   "product_analysis": {
     "champion_status": "NONE",
@@ -1407,7 +1561,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1",
+    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_CROSS_ASSET_BREADTH_CLOSURE",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V1",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
