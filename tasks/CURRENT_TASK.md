@@ -1,49 +1,55 @@
-# CURRENT TASK — OWNER-DATA-ACCESS-DECISION-ONCHAIN-PIT
+# CURRENT TASK — IMPLEMENT-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1
 
-Status: BLOCKED_OWNER_DECISION_NO_EXECUTION_AUTHORIZED
+Status: ACTIVE_IMPLEMENTATION_ONLY_NO_EXECUTION
 
-Research Director review completed in:
-`decisions/ADR-0031-V2-INTERNAL-CLOSURE-AND-ONCHAIN-PIT-ALLOCATION.md`.
+Read only:
+- `AGENTS.md`;
+- `decisions/ADR-0032-OWNER-SELECTS-NO-COST-PUBLIC-DATA-PATH.md`;
+- `research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md`;
+- the smallest existing predictive/source modules needed for implementation.
 
-## Current state
+## Implement
 
-- `PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1` accepted as
-  `REJECTED_DEVELOPMENT_NO_SEALED`.
-- further internal-structure work parked;
-- Stage-1 substrate debt remains deferred, not a rescue path;
-- next preferred mechanism is BTC exchange reserve / inflow / outflow using strictly
-  point-in-time historical entity labels;
-- no new model family is authorized yet.
+Implement the frozen public taker-flow horizon foundation exactly as specified.
 
-## Blocker
+Required code/artifacts:
+- official Binance spot + USD-M BTCUSDT 1m kline downloader/acquisition path for 2020-2024;
+- checksum/source manifest support;
+- deterministic parser and hourly feature builder;
+- exact 3 frozen features;
+- exact 24h/4h/1h targets and annual 2021-2024 fold construction;
+- exact fixed logistic + training-only Platt pipeline;
+- exact Brier/control/bootstrap qualification scorer;
+- deterministic tests/fixtures covering source parsing, maker/taker arithmetic, timestamp causality, missing-minute failure, folds/purge, bootstrap and horizon selection;
+- a single Owner-facing command for source acquisition;
+- a single Owner-facing command for the foundation run/validation;
+- result/report writers, but DO NOT create result-bearing artifacts yet;
+- update any lightweight task metadata needed to make the two Owner commands discoverable.
 
-The preferred source class currently requires credentialed/commercial point-in-time data unless
-an equivalent free source is proven.
+## Do not execute
 
-No agent work is useful until the Owner chooses the data-access branch.
+Do NOT:
+- download the full 2020-2024 dataset;
+- run the foundation experiment;
+- run full test suites or `scripts/check.py`;
+- create market result artifacts;
+- alter the frozen protocol;
+- add features/models/horizons;
+- use post-cutoff/sealed data;
+- git add/commit/push/pull;
+- inspect/poll GitHub CI.
 
-### Branch A — recommended scientific path
+You may run only trivial syntax/import checks if absolutely necessary to finish coding; otherwise leave execution to the Owner.
 
-Authorize evaluation/acquisition of professional or trial point-in-time on-chain access
-sufficient to obtain BTC exchange balance/inflow/outflow history through 2024-12-31.
+## Stop condition
 
-No purchase may occur until the Owner explicitly approves the actual vendor and price.
+When code is ready, stop and return only:
 
-### Branch B — no-cost path
+`CODE_READY`
 
-Decline paid/credentialed data. Research Director will open a public-data horizon/source
-foundation checkpoint instead, most likely using exchange-native order-flow/lead-lag information
-at horizons supported by the literature rather than forcing it into 24h.
-
-## Boundaries
-
-Until the Owner decides:
-
-- do not fit a model;
-- do not create another V2 family;
-- do not buy or activate a subscription/trial;
-- do not request/store credentials;
-- do not weaken point-in-time standards;
-- sealed queries remain 0;
-- Champion remains NONE;
-- real money remains false.
+then:
+- changed_files: <count>
+- acquire_command: <one PowerShell command>
+- run_command: <one PowerShell command>
+- expected_outputs: <paths>
+- notes: <only if manual prerequisite exists>
