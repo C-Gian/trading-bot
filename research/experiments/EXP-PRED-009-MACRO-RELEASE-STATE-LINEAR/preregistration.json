@@ -1,0 +1,356 @@
+{
+  "advancement_gate": {
+    "all_must_hold": true,
+    "conditions": [
+      {
+        "name": "POOLED_COVERAGE_AT_LEAST_0_95",
+        "threshold": 0.95
+      },
+      {
+        "name": "EVERY_INCLUDED_FOLD_COVERAGE_AT_LEAST_0_90",
+        "threshold": 0.9
+      },
+      {
+        "name": "POOLED_DELTA_VERSUS_MATCHED_TRAINING_BASE_RATE_AT_LEAST_MESI",
+        "threshold": 0.015
+      },
+      {
+        "name": "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+        "threshold": 0.0
+      },
+      {
+        "name": "WIN_RATE_AT_LEAST_MATCHED_ALWAYS_UP",
+        "threshold": "MATCHED_ALWAYS_UP_WIN_RATE"
+      },
+      {
+        "name": "BRIER_AT_MOST_MATCHED_TRAINING_BASE_RATE_BRIER",
+        "threshold": "MATCHED_TRAINING_BASE_RATE_BRIER"
+      },
+      {
+        "name": "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE",
+        "threshold": 4
+      }
+    ],
+    "fail_classification": "NO_ADVANCE_MACRO_RELEASE_STATE_LINEAR_V1",
+    "pass_classification": "ADVANCE_MACRO_RELEASE_STATE_LINEAR_V1",
+    "pass_meaning": "ELIGIBLE_FOR_RESEARCH_DIRECTOR_SEALED_REVIEW",
+    "post_result_tuning_authorized": false,
+    "sealed_query_authorized_on_pass": false,
+    "secondary_metric_may_rescue_primary_gate": false
+  },
+  "baseline_protocol": "research/protocols/PREDICTIVE-BASELINES-V1.json",
+  "boundaries": {
+    "additional_information_family": false,
+    "champion_created": false,
+    "combined_with_rejected_families": false,
+    "historical_results_changed": false,
+    "post_cutoff_market_data": false,
+    "post_hoc_winner_selection": false,
+    "predecessor_records_modified": false,
+    "previous_24h_sign_persistence_inverted": false,
+    "real_money": false,
+    "sealed_queries": 0,
+    "stage1_substrate_repair": false
+  },
+  "budget": {
+    "executed_regardless_of_the_other_result": true,
+    "family_configurations_consumed_by_this_experiment": 1,
+    "family_configurations_planned": 2,
+    "feature_search": false,
+    "hyperparameter_search": false,
+    "source_semantics_versions_consumed": 1,
+    "threshold_search": false
+  },
+  "checkpoint": "PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1",
+  "controls": {
+    "absolute_reference": "ALWAYS_UP",
+    "beating_0_5_or_a_weak_control_is_not_usefulness": true,
+    "descriptive": [
+      "PREVIOUS_24H_SIGN_PERSISTENCE"
+    ],
+    "persistence_inverted": false,
+    "primary": "TRAINING_UP_BASE_RATE",
+    "primary_semantics": "AMENDMENT_A1_TRAINING_ONLY_REFIT_PER_FOLD",
+    "scored_on": "IDENTICAL_CANDIDATE_ACTIONABLE_NON_NEUTRAL_TIMESTAMPS"
+  },
+  "created_at_utc": "2026-09-21T00:00:00Z",
+  "director_decisions": {
+    "admission_rationale": "The predecessor never produced a market result: it stopped on a source-design defect in which one freshness concept was applied to every release frequency, so a legitimate latest-known monthly release was judged stale between publications. Correcting the release-state semantics tests the same orthogonal macro channel on the same hash-pinned substrate, without touching the frozen scientific design.",
+    "admitted_family": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1",
+    "admitted_source": "ALFRED_STRICT_VINTAGE_US_MACRO_RELEASE_STATE",
+    "basis_disposition": "DEFERRED",
+    "current_revised_fred_substitution": false,
+    "decided_by": "RESEARCH_DIRECTOR",
+    "decision_id": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_ADMISSION_V1",
+    "feature_search": false,
+    "generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+    "generation_continues": true,
+    "incremental_control_omitted": true,
+    "incremental_control_rationale": "No predictive family has been admitted, so an incremental control over an admitted feature set would be information-free.",
+    "interpolation_or_future_vintage": false,
+    "labels_folds_scorer_mesi_or_advancement_changed": false,
+    "magnitude_declared": false,
+    "magnitude_disposition": "DEFERRED_UNTIL_A_FAMILY_EARNS_DIRECTIONAL_ADMISSION",
+    "predecessor_checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+    "predecessor_disposition": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+    "predecessor_reclassified_as_market_evidence": false,
+    "predecessor_records_modified": false,
+    "prior_executed_configurations": 8,
+    "prior_executed_configurations_unchanged": true,
+    "prior_results_changed": false,
+    "rejected_families_disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+    "rejected_families_unchanged": [
+      "PREDICTIVE_STAGE1_INTERNAL_MODEL_FAMILY_V1",
+      "PREDICTIVE_STAGE2_SETTLED_FUNDING_FAMILY_V1",
+      "PREDICTIVE_STAGE2_OPEN_INTEREST_MODEL_FAMILY_V1",
+      "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_FAMILY_V1"
+    ],
+    "rejected_family_features_combined": false,
+    "sealed_btc_access": false,
+    "source_semantics_remediation_consumed": 1,
+    "source_semantics_remediations_authorized": 1,
+    "stage1_substrate_disposition": "DEFERRED_SUBSTRATE_DEBT_NOT_A_RESCUE_PATH",
+    "target": "BTCUSDT_SPOT_24H_TERMINAL_DIRECTION",
+    "target_or_horizon_changed": false,
+    "third_macro_source_redesign_authorized": false,
+    "threshold_search": false
+  },
+  "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md",
+  "evaluation_contract_amendment": "A1",
+  "evaluation_design": {
+    "design": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD",
+    "fold_boundaries": [
+      {
+        "end": "2021-01-01T00:00:00Z",
+        "fold": "2020",
+        "start": "2020-01-01T00:00:00Z"
+      },
+      {
+        "end": "2022-01-01T00:00:00Z",
+        "fold": "2021",
+        "start": "2021-01-01T00:00:00Z"
+      },
+      {
+        "end": "2023-01-01T00:00:00Z",
+        "fold": "2022",
+        "start": "2022-01-01T00:00:00Z"
+      },
+      {
+        "end": "2024-01-01T00:00:00Z",
+        "fold": "2023",
+        "start": "2023-01-01T00:00:00Z"
+      },
+      {
+        "end": "2025-01-01T00:00:00Z",
+        "fold": "2024",
+        "start": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "fold_selection": "PRE_RESULT_SOURCE_AUDIT_DETERMINISTIC",
+    "fold_selection_used_return_values": false,
+    "folds_recut": false,
+    "included_fold_count": 5,
+    "included_folds": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "outer_evaluation_used_in_fitting": false,
+    "purge_embargo_hours": 24,
+    "random_k_fold": false,
+    "source_gate": {
+      "fold_coverage": 0.9,
+      "minimum_admissible_folds": 5,
+      "minimum_training_history_days": 365,
+      "pooled_coverage": 0.95
+    },
+    "training": "EXPANDING_CHRONOLOGICAL_STRICTLY_BEFORE_THE_FOLD"
+  },
+  "experiment_id": "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR",
+  "experiment_version": 1,
+  "family": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1",
+  "features": {
+    "btc_price_or_return_feature_present": false,
+    "clipping_winsorization_or_rank_transform": false,
+    "count": 13,
+    "feature_selection": false,
+    "identical_quantities_and_order_to_v1": true,
+    "ordered_names": [
+      "DFF_LEVEL",
+      "DFF_DELTA_30D",
+      "DGS10_LEVEL",
+      "DGS10_DELTA_30D",
+      "T10Y2Y_LEVEL",
+      "T10Y2Y_DELTA_30D",
+      "LOG_VIX_LEVEL",
+      "VIX_LOG_CHANGE_5D",
+      "NFCI_LEVEL",
+      "NFCI_DELTA_28D",
+      "WALCL_LOG_CHANGE_28D",
+      "CPI_YOY_LOG_CHANGE",
+      "UNRATE_DELTA_3M"
+    ],
+    "rejected_family_features_combined": false,
+    "supersedes": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V1",
+    "unavailability_taxonomy": [
+      "DFF_CURRENT_RELEASE_STATE_UNAVAILABLE",
+      "DGS10_CURRENT_RELEASE_STATE_UNAVAILABLE",
+      "T10Y2Y_CURRENT_RELEASE_STATE_UNAVAILABLE",
+      "VIXCLS_CURRENT_RELEASE_STATE_UNAVAILABLE",
+      "NFCI_CURRENT_RELEASE_STATE_UNAVAILABLE",
+      "WALCL_CURRENT_RELEASE_STATE_UNAVAILABLE",
+      "CPIAUCSL_CURRENT_RELEASE_STATE_UNAVAILABLE",
+      "UNRATE_CURRENT_RELEASE_STATE_UNAVAILABLE",
+      "DFF_30D_HISTORICAL_ANCHOR_UNAVAILABLE",
+      "DGS10_30D_HISTORICAL_ANCHOR_UNAVAILABLE",
+      "T10Y2Y_30D_HISTORICAL_ANCHOR_UNAVAILABLE",
+      "VIXCLS_5D_HISTORICAL_ANCHOR_UNAVAILABLE",
+      "NFCI_28D_HISTORICAL_ANCHOR_UNAVAILABLE",
+      "WALCL_28D_HISTORICAL_ANCHOR_UNAVAILABLE",
+      "CPIAUCSL_12M_EXACT_ANCHOR_UNAVAILABLE",
+      "UNRATE_3M_EXACT_ANCHOR_UNAVAILABLE",
+      "VIXCLS_NON_POSITIVE_LEVEL",
+      "WALCL_NON_POSITIVE_LEVEL",
+      "CPIAUCSL_NON_POSITIVE_LEVEL",
+      "NON_FINITE_MACRO_FEATURE"
+    ],
+    "unavailable_evaluation_row": "NEUTRAL_UNCERTAIN_ABSTENTION_COUNTED",
+    "unavailable_training_row": "EXCLUDED_FROM_FITTING_COUNTED",
+    "version": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V2"
+  },
+  "hypothesis": "Strict point-in-time U.S. macro and financial-condition release state, read with persistent current-release semantics and available at the BTC hourly decision instant, contains out-of-sample information about the frozen BTCUSDT spot 24h terminal direction beyond an information-free chronological base-rate control.",
+  "hypothesis_class": "MATERIAL_PREDICTIVE_HYPOTHESIS",
+  "hypothesis_id": "H-PRED-MACRO-003",
+  "inference": {
+    "abstentions_compressed_into_adjacency": false,
+    "alpha": 0.025,
+    "block_length_hours": 48,
+    "blocks_cross_fold_boundaries": false,
+    "familywise_alpha": 0.05,
+    "interval": "CENTRAL_97_5_PERCENT_PERCENTILE",
+    "method": "PAIRED_FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP",
+    "multiplicity_correction": "BONFERRONI",
+    "replicate_chunk": 500,
+    "replicates": 10000,
+    "seed": 20260921
+  },
+  "mandatory_reporting": [
+    "DIRECTIONAL_WIN_RATE_WITH_SAMPLE_SIZE_AND_COVERAGE",
+    "BRIER_SCORE_AND_FIXED_BIN_RELIABILITY_TABLE",
+    "CHRONOLOGICAL_PER_FOLD_RESULTS",
+    "MATCHED_AND_CANONICAL_BASELINE_COMPARISONS",
+    "TYPED_SOURCE_UNAVAILABILITY_ACCOUNTING"
+  ],
+  "model": {
+    "abstention_only_on_source_or_feature_validity": true,
+    "calibration_embargo_hours": 48,
+    "calibration_estimator": "LogisticRegression",
+    "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+    "calibration_penalty": null,
+    "calibration_rows": "TRAINING_ONLY",
+    "calibration_split_fraction": 0.8,
+    "decision_rule": "DECLARE_UP_WHEN_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_TIES_UP",
+    "declares_direction": true,
+    "declares_magnitude": false,
+    "declares_probability": true,
+    "direction_base_estimator": "LogisticRegression",
+    "direction_base_parameters": {
+      "C": 1.0,
+      "class_weight": null,
+      "fit_intercept": true,
+      "max_iter": 2000,
+      "penalty": "l2",
+      "solver": "lbfgs",
+      "tol": 1e-08
+    },
+    "direction_input_scaling": "STANDARD_SCALER_FITTED_ON_BASE_FIT_ROWS_ONLY",
+    "family": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1",
+    "hyperparameter_search": false,
+    "magnitude_estimator": null,
+    "model_version": "MACRO_RELEASE_STATE_LINEAR_V1",
+    "probability_rule": "EXPOSE_P_DECLARED_DIRECTION_CORRECT",
+    "probability_threshold_searched": false,
+    "sklearn_version": "1.7.2"
+  },
+  "model_version": "MACRO_RELEASE_STATE_LINEAR_V1",
+  "predecessor": {
+    "checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+    "configurations_consumed": 0,
+    "disposition": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+    "family": "PREDICTIVE_STAGE3_MACRO_VINTAGE_FAMILY_V1",
+    "model_fits": 0,
+    "outer_predictions": 0,
+    "reclassified": false,
+    "records_modified": false
+  },
+  "primary_effect": {
+    "definition": "candidate actionable directional win rate - matched TRAINING_UP_BASE_RATE win rate on the exact candidate-actionable timestamps",
+    "matched_control": "TRAINING_UP_BASE_RATE",
+    "minimum_important_effect": 0.015,
+    "minimum_important_effect_units": "ABSOLUTE_WIN_RATE_POINTS"
+  },
+  "record_type": "PREDICTIVE_EXPERIMENT_PREREGISTRATION_V1",
+  "reliability_bin_edges": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+  "root_hypothesis_id": "H-PRED-MACRO-003",
+  "schema_version": 1,
+  "search_plan": "research/protocols/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-SEARCH-PLAN-V1.json",
+  "search_plan_configuration_order": 1,
+  "source": {
+    "current_revised_substitution": false,
+    "current_state_expiry_relative_to_decision_time": false,
+    "current_state_rule": "GREATEST_OBSERVATION_DATE_IN_THE_AS_OF_T_SNAPSHOT",
+    "information_family": "ALFRED_STRICT_VINTAGE_US_MACRO_RELEASE_STATE",
+    "interpolation": false,
+    "manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+    "nearest_future_substitution": false,
+    "post_2024_vintages": 0,
+    "predecessor_predictive_contract": "docs/contracts/PREDICTIVE_MACRO_VINTAGE_CONTEXT_V1.md",
+    "predictive_contract": "docs/contracts/PREDICTIVE_MACRO_RELEASE_STATE_V1.md",
+    "series": [
+      "DFF",
+      "DGS10",
+      "T10Y2Y",
+      "VIXCLS",
+      "NFCI",
+      "WALCL",
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "source_audit": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-SOURCE-AUDIT.json",
+    "source_audit_status": "SOURCE_GATES_PASSED",
+    "source_cadence_integrity_passed": true,
+    "source_cadence_limit_days": {
+      "DAILY": 10,
+      "MONTHLY": 70,
+      "WEEKLY": 21
+    }
+  },
+  "source_roadmap_family": "MACRO_AND_FINANCIAL_CONDITIONS_CONTEXT",
+  "source_roadmap_stage": "STAGE_3_CROSS_ASSET_AND_MACRO_CONTEXT",
+  "status": "PREREGISTERED",
+  "target": {
+    "canonical_resolution": "1m",
+    "decision_cadence": "1h",
+    "horizon_hours": 24,
+    "label": "r_24h = log(close[T + 24h] / close[T])",
+    "market": "crypto_spot",
+    "path_dependent": false,
+    "symbol": "BTCUSDT",
+    "target_or_horizon_changed": false
+  }
+}

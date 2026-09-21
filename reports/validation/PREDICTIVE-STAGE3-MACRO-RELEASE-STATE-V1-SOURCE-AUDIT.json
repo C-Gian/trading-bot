@@ -1,0 +1,423 @@
+{
+  "block_classifications": {
+    "coverage": "BLOCKED_MACRO_RELEASE_STATE_SOURCE_COVERAGE_V1",
+    "family_disposition_if_blocked": "PARKED_SOURCE_DESIGN_EXHAUSTED_NO_MARKET_RESULT",
+    "integrity": "BLOCKED_MACRO_RELEASE_STATE_SOURCE_INTEGRITY_V1",
+    "semantics": "BLOCKED_MACRO_RELEASE_STATE_SOURCE_SEMANTICS_V1"
+  },
+  "boundaries": {
+    "btc_outcomes_read_for_gate": false,
+    "champion_created": false,
+    "model_predictions_read_for_gate": false,
+    "post_cutoff_access": 0,
+    "predecessor_records_modified": false,
+    "real_money": false,
+    "sealed_queries": 0
+  },
+  "checkpoint": "PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1",
+  "coverage": {
+    "admissible_fold_count": 5,
+    "admissible_folds": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "btc_close_column_loaded": false,
+    "btc_direction_labels_inspected": false,
+    "btc_return_values_inspected": false,
+    "by_fold": {
+      "2019": {
+        "causal_feature_valid_history_days": 81.0,
+        "conditions": {
+          "AT_LEAST_365_CALENDAR_DAYS_OF_FEATURE_VALID_HISTORY": false,
+          "SOURCE_FEATURE_COVERAGE_AT_LEAST_0_90": true
+        },
+        "coverage": 1.0,
+        "eligible_decision_timestamps": 8673,
+        "included": false,
+        "source_feature_available_timestamps": 8673,
+        "source_feature_available_training_rows": 1875
+      },
+      "2020": {
+        "causal_feature_valid_history_days": 446.0,
+        "conditions": {
+          "AT_LEAST_365_CALENDAR_DAYS_OF_FEATURE_VALID_HISTORY": true,
+          "SOURCE_FEATURE_COVERAGE_AT_LEAST_0_90": true
+        },
+        "coverage": 1.0,
+        "eligible_decision_timestamps": 8713,
+        "included": true,
+        "source_feature_available_timestamps": 8713,
+        "source_feature_available_training_rows": 10571
+      },
+      "2021": {
+        "causal_feature_valid_history_days": 812.0,
+        "conditions": {
+          "AT_LEAST_365_CALENDAR_DAYS_OF_FEATURE_VALID_HISTORY": true,
+          "SOURCE_FEATURE_COVERAGE_AT_LEAST_0_90": true
+        },
+        "coverage": 1.0,
+        "eligible_decision_timestamps": 8699,
+        "included": true,
+        "source_feature_available_timestamps": 8699,
+        "source_feature_available_training_rows": 19307
+      },
+      "2022": {
+        "causal_feature_valid_history_days": 1177.0,
+        "conditions": {
+          "AT_LEAST_365_CALENDAR_DAYS_OF_FEATURE_VALID_HISTORY": true,
+          "SOURCE_FEATURE_COVERAGE_AT_LEAST_0_90": true
+        },
+        "coverage": 1.0,
+        "eligible_decision_timestamps": 8737,
+        "included": true,
+        "source_feature_available_timestamps": 8737,
+        "source_feature_available_training_rows": 28029
+      },
+      "2023": {
+        "causal_feature_valid_history_days": 1542.0,
+        "conditions": {
+          "AT_LEAST_365_CALENDAR_DAYS_OF_FEATURE_VALID_HISTORY": true,
+          "SOURCE_FEATURE_COVERAGE_AT_LEAST_0_90": true
+        },
+        "coverage": 1.0,
+        "eligible_decision_timestamps": 8733,
+        "included": true,
+        "source_feature_available_timestamps": 8733,
+        "source_feature_available_training_rows": 36789
+      },
+      "2024": {
+        "causal_feature_valid_history_days": 1907.0,
+        "conditions": {
+          "AT_LEAST_365_CALENDAR_DAYS_OF_FEATURE_VALID_HISTORY": true,
+          "SOURCE_FEATURE_COVERAGE_AT_LEAST_0_90": true
+        },
+        "coverage": 1.0,
+        "eligible_decision_timestamps": 8760,
+        "included": true,
+        "source_feature_available_timestamps": 8760,
+        "source_feature_available_training_rows": 45545
+      }
+    },
+    "candidate_folds": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "candidate_predictions_inspected": false,
+    "excluded_candidate_folds": [
+      "2019"
+    ],
+    "first_source_feature_available_instant": 1539302400,
+    "fold_selection_rule": "TIMESTAMPS_AND_SOURCE_VALIDITY_ONLY",
+    "gate": {
+      "AT_LEAST_5_SOURCE_ADMISSIBLE_FOLDS": true,
+      "POOLED_SOURCE_FEATURE_COVERAGE_AT_LEAST_0_95": true
+    },
+    "passed": true,
+    "pooled_eligible_timestamps": 43642,
+    "pooled_source_feature_available_timestamps": 43642,
+    "pooled_source_feature_coverage": 1.0,
+    "unavailability_by_reason": {
+      "CPIAUCSL_12M_EXACT_ANCHOR_UNAVAILABLE": 8597,
+      "CPIAUCSL_CURRENT_RELEASE_STATE_UNAVAILABLE": 1186,
+      "CPIAUCSL_NON_POSITIVE_LEVEL": 0,
+      "DFF_30D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "DFF_CURRENT_RELEASE_STATE_UNAVAILABLE": 44,
+      "DGS10_30D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "DGS10_CURRENT_RELEASE_STATE_UNAVAILABLE": 0,
+      "NFCI_28D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "NFCI_CURRENT_RELEASE_STATE_UNAVAILABLE": 120,
+      "NON_FINITE_MACRO_FEATURE": 0,
+      "T10Y2Y_30D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "T10Y2Y_CURRENT_RELEASE_STATE_UNAVAILABLE": 0,
+      "UNRATE_3M_EXACT_ANCHOR_UNAVAILABLE": 0,
+      "UNRATE_CURRENT_RELEASE_STATE_UNAVAILABLE": 0,
+      "VIXCLS_5D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "VIXCLS_CURRENT_RELEASE_STATE_UNAVAILABLE": 0,
+      "VIXCLS_NON_POSITIVE_LEVEL": 0,
+      "WALCL_28D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "WALCL_CURRENT_RELEASE_STATE_UNAVAILABLE": 24,
+      "WALCL_NON_POSITIVE_LEVEL": 0
+    }
+  },
+  "family": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1",
+  "predecessor_checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+  "predecessor_disposition": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+  "predecessor_reclassified": false,
+  "provenance": {
+    "catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+    "checks": {
+      "CANONICAL_FILE_HASH_VERIFIED": true,
+      "CATALOG_HASH_MATCHES_MANIFEST": true,
+      "CURRENT_REVISED_SUBSTITUTION_FORBIDDEN": true,
+      "EXACT_EIGHT_SERIES_IN_FROZEN_ORDER": true,
+      "MANIFEST_ID_MATCHES": true,
+      "NEXT_DAY_AVAILABILITY_RULE": true,
+      "NO_CREDENTIAL_REQUIRED": true,
+      "NO_INTERPOLATION": true,
+      "NO_POST_2024_VINTAGES": true,
+      "SAME_SUBSTRATE_AS_THE_BLOCKED_PREDECESSOR": true,
+      "SOURCE_FAMILY_IS_ALFRED": true
+    },
+    "manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+    "passed": true,
+    "records": 70882,
+    "series": [
+      "DFF",
+      "DGS10",
+      "T10Y2Y",
+      "VIXCLS",
+      "NFCI",
+      "WALCL",
+      "CPIAUCSL",
+      "UNRATE"
+    ]
+  },
+  "record_type": "PREDICTIVE_SOURCE_AUDIT_V1",
+  "schema_version": 1,
+  "semantics": {
+    "checks": {
+      "ADDING_LATER_VINTAGE_CANNOT_CHANGE_EARLIER_FEATURE_VECTOR": true,
+      "ALL_13_FEATURES_PRESENT_IN_FROZEN_ORDER": true,
+      "A_FUTURE_MONTHLY_RELEASE_BECOMES_CURRENT_ONCE_AVAILABLE": true,
+      "A_FUTURE_MONTHLY_RELEASE_IS_INVISIBLE_BEFORE_AVAILABILITY": true,
+      "A_LATER_REVISION_OF_A_HISTORICAL_MONTH_IS_NOT_READ": true,
+      "A_LATEST_KNOWN_MONTHLY_RELEASE_PERSISTS_BETWEEN_RELEASES": true,
+      "CURRENT_LEVEL_HAS_NO_EXPIRY_RELATIVE_TO_DECISION_TIME": true,
+      "EVERY_ASOF_SNAPSHOT_MATCHES_INDEPENDENT_RESCAN": true,
+      "EXACT_MONTH_ANCHORS_COME_FROM_THE_SAME_ASOF_T_SNAPSHOT": true,
+      "HISTORICAL_TOLERANCES_MEASURED_AGAINST_THE_INTENDED_ANCHOR": true,
+      "LATER_VINTAGE_BECOMES_VISIBLE_ONLY_AFTER_AVAILABILITY": true,
+      "NO_INTERPOLATION_OR_NEAREST_FUTURE_SUBSTITUTION": true
+    },
+    "current_revised_values_loaded": false,
+    "exact_month_anchor_checks": 48,
+    "exact_month_anchor_mismatches": 0,
+    "exact_month_anchor_revision_distinguishing_cases": 25,
+    "feature_set_version": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V2",
+    "independent_snapshot_checks": 192,
+    "independent_snapshot_mismatches": 0,
+    "interpolation_used": false,
+    "monthly_persistence_probe_hours": 481,
+    "passed": true,
+    "probe_instants": [
+      1547553600,
+      1555329600,
+      1563192000,
+      1571140800,
+      1579089600,
+      1586952000,
+      1594814400,
+      1602763200,
+      1610712000,
+      1618488000,
+      1626350400,
+      1634299200,
+      1642248000,
+      1650024000,
+      1657886400,
+      1665835200,
+      1673784000,
+      1681560000,
+      1689422400,
+      1697371200,
+      1705320000,
+      1713182400,
+      1721044800,
+      1728993600
+    ],
+    "synthetic_future_monthly_observation": "2022-01-01",
+    "synthetic_later_vintage_observation": "2022-01-13",
+    "synthetic_later_vintage_probe": 1642248000
+  },
+  "source": {
+    "availability_rule": "NEXT_CALENDAR_DAY_00_00_UTC_AFTER_VINTAGE_START",
+    "catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+    "catalog_id": "ALFRED_SERIES_CATALOG_V1",
+    "catalog_sha256": "cfc08c40c669770a144210026b81326379e50e7d61e770d3d4b40baf5e94b8b1",
+    "current_revised_substitution": false,
+    "current_state_expiry_relative_to_decision_time": false,
+    "current_state_rule": "GREATEST_OBSERVATION_DATE_IN_THE_AS_OF_T_SNAPSHOT",
+    "development_ceiling": "2024-12-31T23:59:00Z",
+    "exact_month_anchors": {
+      "CPIAUCSL_12M_EXACT": 12,
+      "UNRATE_3M_EXACT": 3
+    },
+    "forward_filled_observation_dates": false,
+    "historical_anchor_offset_days": {
+      "DFF_30D": 30,
+      "DGS10_30D": 30,
+      "NFCI_28D": 28,
+      "T10Y2Y_30D": 30,
+      "VIXCLS_5D": 5,
+      "WALCL_28D": 28
+    },
+    "historical_anchor_tolerance_days": {
+      "DFF_30D": 7,
+      "DGS10_30D": 7,
+      "NFCI_28D": 14,
+      "T10Y2Y_30D": 7,
+      "VIXCLS_5D": 7,
+      "WALCL_28D": 14
+    },
+    "interpolation": false,
+    "manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+    "manifest_id": "ALFRED-MACRO-CONTEXT-DEV-v1",
+    "manifest_sha256": "ae6d4acb0d2e6c2122d1e830b23390dbf18f83f614de0a7278e4fdd59ddab7d5",
+    "nearest_future_substitution": false,
+    "point_in_time_contract": "docs/contracts/POINT_IN_TIME_EXOGENOUS_DATA_V1.md",
+    "post_2024_vintages": 0,
+    "predecessor_predictive_contract": "docs/contracts/PREDICTIVE_MACRO_VINTAGE_CONTEXT_V1.md",
+    "predictive_contract": "docs/contracts/PREDICTIVE_MACRO_RELEASE_STATE_V1.md",
+    "release_state_version": "MACRO_RELEASE_STATE_V1",
+    "series": [
+      "DFF",
+      "DGS10",
+      "T10Y2Y",
+      "VIXCLS",
+      "NFCI",
+      "WALCL",
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "source_cadence_limit_days": {
+      "DAILY": 10,
+      "MONTHLY": 70,
+      "WEEKLY": 21
+    },
+    "source_family": "ALFRED",
+    "substrate_artifact": "data/derived/ALFRED-macro-context-v1.parquet",
+    "substrate_file_sha256": "448f1ea80252ce5fbc7f1982c41540dc71852c3a4e2fbf1a1357fd1ed9c877dd",
+    "substrate_logical_sha256": "98257605fc61c68bf4e32992c2c7dbb7c7440f65d0d25cabbdb5e5ded794745d",
+    "substrate_rows": 70882,
+    "version": "ALFRED_MACRO_CONTEXT_V1"
+  },
+  "source_cadence_integrity": {
+    "by_series": {
+      "CPIAUCSL": {
+        "first_observation_date": "2017-09-01",
+        "frequency": "MONTHLY",
+        "last_observation_date": "2024-11-01",
+        "maximum_allowed_gap_days": 70,
+        "maximum_observation_gap_days": 31,
+        "observation_dates": 87,
+        "passed": true
+      },
+      "DFF": {
+        "first_observation_date": "2017-08-17",
+        "frequency": "DAILY",
+        "last_observation_date": "2024-12-30",
+        "maximum_allowed_gap_days": 10,
+        "maximum_observation_gap_days": 1,
+        "observation_dates": 2693,
+        "passed": true
+      },
+      "DGS10": {
+        "first_observation_date": "2017-08-17",
+        "frequency": "DAILY",
+        "last_observation_date": "2024-12-30",
+        "maximum_allowed_gap_days": 10,
+        "maximum_observation_gap_days": 4,
+        "observation_dates": 1842,
+        "passed": true
+      },
+      "NFCI": {
+        "first_observation_date": "2017-08-18",
+        "frequency": "WEEKLY",
+        "last_observation_date": "2024-12-20",
+        "maximum_allowed_gap_days": 21,
+        "maximum_observation_gap_days": 7,
+        "observation_dates": 384,
+        "passed": true
+      },
+      "T10Y2Y": {
+        "first_observation_date": "2017-08-17",
+        "frequency": "DAILY",
+        "last_observation_date": "2024-12-31",
+        "maximum_allowed_gap_days": 10,
+        "maximum_observation_gap_days": 4,
+        "observation_dates": 1843,
+        "passed": true
+      },
+      "UNRATE": {
+        "first_observation_date": "2017-09-01",
+        "frequency": "MONTHLY",
+        "last_observation_date": "2024-11-01",
+        "maximum_allowed_gap_days": 70,
+        "maximum_observation_gap_days": 31,
+        "observation_dates": 87,
+        "passed": true
+      },
+      "VIXCLS": {
+        "first_observation_date": "2017-08-17",
+        "frequency": "DAILY",
+        "last_observation_date": "2024-12-31",
+        "maximum_allowed_gap_days": 10,
+        "maximum_observation_gap_days": 4,
+        "observation_dates": 1874,
+        "passed": true
+      },
+      "WALCL": {
+        "first_observation_date": "2017-08-23",
+        "frequency": "WEEKLY",
+        "last_observation_date": "2024-12-25",
+        "maximum_allowed_gap_days": 21,
+        "maximum_observation_gap_days": 7,
+        "observation_dates": 384,
+        "passed": true
+      }
+    },
+    "limits": {
+      "DAILY": 10,
+      "MONTHLY": 70,
+      "WEEKLY": 21
+    },
+    "passed": true,
+    "semantics": "SOURCE_RELEASE_CALENDAR_INTEGRITY_NOT_A_PER_DECISION_EXPIRY_RULE"
+  },
+  "source_redesigns_authorized_in_generation": 1,
+  "source_redesigns_consumed_by_this_checkpoint": 1,
+  "source_semantics_version": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V2",
+  "status": "SOURCE_GATES_PASSED",
+  "target_bearing_model_fitted": false,
+  "thresholds": {
+    "development_ceiling_seconds": 1735689540,
+    "fold_coverage": 0.9,
+    "minimum_admissible_folds": 5,
+    "minimum_training_history_days": 365,
+    "pooled_source_feature_coverage": 0.95,
+    "source_cadence_limit_days": {
+      "DAILY": 10,
+      "MONTHLY": 70,
+      "WEEKLY": 21
+    }
+  },
+  "unavailability_taxonomy": [
+    "DFF_CURRENT_RELEASE_STATE_UNAVAILABLE",
+    "DGS10_CURRENT_RELEASE_STATE_UNAVAILABLE",
+    "T10Y2Y_CURRENT_RELEASE_STATE_UNAVAILABLE",
+    "VIXCLS_CURRENT_RELEASE_STATE_UNAVAILABLE",
+    "NFCI_CURRENT_RELEASE_STATE_UNAVAILABLE",
+    "WALCL_CURRENT_RELEASE_STATE_UNAVAILABLE",
+    "CPIAUCSL_CURRENT_RELEASE_STATE_UNAVAILABLE",
+    "UNRATE_CURRENT_RELEASE_STATE_UNAVAILABLE",
+    "DFF_30D_HISTORICAL_ANCHOR_UNAVAILABLE",
+    "DGS10_30D_HISTORICAL_ANCHOR_UNAVAILABLE",
+    "T10Y2Y_30D_HISTORICAL_ANCHOR_UNAVAILABLE",
+    "VIXCLS_5D_HISTORICAL_ANCHOR_UNAVAILABLE",
+    "NFCI_28D_HISTORICAL_ANCHOR_UNAVAILABLE",
+    "WALCL_28D_HISTORICAL_ANCHOR_UNAVAILABLE",
+    "CPIAUCSL_12M_EXACT_ANCHOR_UNAVAILABLE",
+    "UNRATE_3M_EXACT_ANCHOR_UNAVAILABLE",
+    "VIXCLS_NON_POSITIVE_LEVEL",
+    "WALCL_NON_POSITIVE_LEVEL",
+    "CPIAUCSL_NON_POSITIVE_LEVEL",
+    "NON_FINITE_MACRO_FEATURE"
+  ]
+}
