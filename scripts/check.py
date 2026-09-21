@@ -50,6 +50,8 @@ PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR",
     "EXP-PRED-007-MACRO-VINTAGE-LINEAR",
     "EXP-PRED-008-MACRO-VINTAGE-HGBR",
+    "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR",
+    "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR",
 }
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
@@ -291,7 +293,7 @@ def validate_research_views(state: dict) -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1"
+    assert state["latest_executor_checkpoint"] == ("PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1")
     assert state["project_phase"] == "PREDICTIVE_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -367,7 +369,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK"
+        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
@@ -851,7 +853,7 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
     assert architecture["next_checkpoint"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK"
+        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE"
     )
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
@@ -2780,7 +2782,131 @@ def predictive_macro_vintage_checks(state: dict) -> None:
     assert record["model_fits"] == record["outer_predictions_observed"] == 0
     assert record["configurations_consumed"] == 0
     assert record["prior_predictive_configurations_unchanged"] == 8
-    assert state["predictive_research_objective"]["predictive_experiments_completed"] == 8
+    assert record["sealed_queries"] == 0 and record["real_money"] is False
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+
+
+def predictive_macro_release_state_checks(state: dict) -> None:
+    """The one authorized macro source remediation executed, closed and preserved its parent."""
+    from app.predictive.internal_structure import content_hash
+    from app.predictive.macro_release_state import (
+        ADMISSION_PATH,
+        CONFIGURATION_ORDER,
+        EXPERIMENT_IDS,
+        FAMILY_SIZE,
+        NOT_ELIGIBLE,
+        PREDECESSOR_RECORDS,
+        PRIOR_EXPERIMENT_RESULTS,
+        REPORT_JSON_PATH,
+        SEARCH_PLAN_PATH,
+        admission,
+        admission_identity,
+        preregistration,
+        preregistration_path,
+        required_non_negative_folds,
+        search_plan,
+    )
+    from app.predictive.macro_release_state_audit import (
+        AUDIT_PATH,
+        MINIMUM_ADMISSIBLE_FOLDS,
+        POOLED_COVERAGE_GATE,
+    )
+    from app.predictive.macro_release_state_audit import PASS as SOURCE_PASS
+    from app.predictive.macro_release_state_report import validate_macro_release_state
+    from app.predictive.macro_release_state_residual import DISPOSITION as RESIDUAL_DISPOSITION
+    from app.predictive.macro_release_state_residual import FINDING_ID, RESIDUAL_PATH
+
+    audit = json.loads((ROOT / AUDIT_PATH).read_text(encoding="utf-8"))
+    assert audit["status"] == SOURCE_PASS
+    assert audit["target_bearing_model_fitted"] is False
+    assert audit["predecessor_reclassified"] is False
+    assert audit["provenance"]["passed"] and audit["semantics"]["passed"]
+    assert audit["source_cadence_integrity"]["passed"] is True
+    for series in audit["source_cadence_integrity"]["by_series"].values():
+        assert series["maximum_observation_gap_days"] <= series["maximum_allowed_gap_days"]
+    coverage = audit["coverage"]
+    assert coverage["passed"] is True
+    assert len(coverage["admissible_folds"]) >= MINIMUM_ADMISSIBLE_FOLDS
+    assert coverage["pooled_source_feature_coverage"] >= POOLED_COVERAGE_GATE
+    for key in (
+        "btc_close_column_loaded",
+        "btc_return_values_inspected",
+        "btc_direction_labels_inspected",
+        "candidate_predictions_inspected",
+    ):
+        assert coverage[key] is False, key
+
+    assert json.loads((ROOT / SEARCH_PLAN_PATH).read_text(encoding="utf-8")) == search_plan()
+    committed_admission = json.loads((ROOT / ADMISSION_PATH).read_text(encoding="utf-8"))
+    assert committed_admission == admission(ROOT)
+    assert committed_admission["status"] == "PASS"
+    assert committed_admission["execution_authorized"] is True
+    assert committed_admission["model_fits_executed"] == 0
+    assert committed_admission["market_results_observed"] == 0
+    assert committed_admission["source_semantics_versions_consumed"] == 1
+    assert set(committed_admission["prior_experiment_result_sha256"]) == set(
+        PRIOR_EXPERIMENT_RESULTS
+    )
+    assert set(committed_admission["predecessor_record_sha256"]) == set(PREDECESSOR_RECORDS)
+    for relative, digest in committed_admission["predecessor_record_sha256"].items():
+        assert content_hash(ROOT / relative) == digest, relative
+    for relative, digest in committed_admission["prior_experiment_result_sha256"].items():
+        assert content_hash(ROOT / relative) == digest, relative
+    for model_version in CONFIGURATION_ORDER:
+        committed = json.loads(
+            (ROOT / preregistration_path(model_version)).read_text(encoding="utf-8")
+        )
+        assert committed == preregistration(model_version, ROOT)
+        assert committed["status"] == "PREREGISTERED"
+        experiment = EXPERIMENT_IDS[model_version]
+        assert (ROOT / f"research/experiments/{experiment}/result.json").is_file()
+        assert (ROOT / f"research/experiments/{experiment}/trials.json").is_file()
+
+    findings = validate_macro_release_state(ROOT)
+    assert findings["status"] == "PASS"
+    result = json.loads((ROOT / REPORT_JSON_PATH).read_text(encoding="utf-8"))
+
+    residual = json.loads((ROOT / RESIDUAL_PATH).read_text(encoding="utf-8"))
+    assert residual["finding_id"] == FINDING_ID
+    assert residual["disposition"] == RESIDUAL_DISPOSITION
+    assert residual["interpretation"]["result_rewritten"] is False
+    assert residual["interpretation"]["family_re_executed"] is False
+    assert residual["interpretation"]["third_source_semantics_created"] is False
+    assert residual["interpretation"]["coverage_gate_changed"] is False
+    assert residual["boundaries"]["btc_outcomes_read"] is False
+    assert residual["boundaries"]["committed_result_modified"] is False
+
+    record = state["predictive_stage3_macro_release_state"]
+    assert record["admission_identity_sha256"] == admission_identity(ROOT)
+    assert record["included_folds"] == result["folds"]["included_folds"]
+    assert record["family_disposition"] == result["family_disposition"]["disposition"]
+    assert record["configurations_consumed"] == FAMILY_SIZE
+    assert record["configurations_remaining"] == 0
+    assert record["source_semantics_versions_remaining"] == 0
+    assert record["predecessor_reclassified"] is False
+    assert record["required_non_negative_folds"] == required_non_negative_folds(
+        len(record["included_folds"])
+    )
+    assert record["residual_source_finding"] == RESIDUAL_PATH
+    assert record["residual_source_finding_disposition"] == RESIDUAL_DISPOSITION
+    assert set(record["configurations"]) == set(EXPERIMENT_IDS.values())
+    for model_version in CONFIGURATION_ORDER:
+        configuration = result["configurations"][model_version]
+        summary = record["configurations"][EXPERIMENT_IDS[model_version]]
+        assert summary["terminal_classification"] == configuration["terminal_classification"]
+        assert (
+            summary["candidate_win_rate"]
+            == (configuration["candidate"]["pooled_directional"]["win_rate"])
+        )
+        assert summary["primary_delta"] == configuration["primary_comparison"]["pooled_delta"]
+        if not record["advancing_configurations"]:
+            assert summary["sealed_eligibility"] == NOT_ELIGIBLE
+    executed = sorted(
+        path.parent.name for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+    )
+    assert len(executed) == 10
+    assert state["predictive_research_objective"]["predictive_experiments_completed"] == 10
+    assert record["prior_predictive_configurations_unchanged"] == 8
     assert record["sealed_queries"] == 0 and record["real_money"] is False
     assert record["champion_status"] == state["champion_status"] == "NONE"
 
@@ -3356,6 +3482,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_open_interest_checks(state)
     predictive_cross_asset_checks(state)
     predictive_macro_vintage_checks(state)
+    predictive_macro_release_state_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -3717,6 +3844,27 @@ def data_checks(state: dict) -> None:
     from app.predictive.macro_vintage_audit import run_source_audit
 
     assert canonical_bytes(run_source_audit(ROOT)) == (ROOT / MACRO_AUDIT_PATH).read_bytes()
+    from app.predictive.macro_release_state_audit import AUDIT_PATH as RELEASE_AUDIT_PATH
+    from app.predictive.macro_release_state_audit import (
+        run_source_audit as run_release_state_audit,
+    )
+    from app.predictive.macro_release_state_report import validate_macro_release_state
+    from app.predictive.macro_release_state_residual import RESIDUAL_PATH, residual_finding
+
+    assert (
+        canonical_bytes(run_release_state_audit(ROOT)) == (ROOT / RELEASE_AUDIT_PATH).read_bytes()
+    )
+    assert canonical_bytes(residual_finding(ROOT)) == (ROOT / RESIDUAL_PATH).read_bytes()
+    release_state = validate_macro_release_state(ROOT, data_available=True)
+    assert release_state["data_replayed"] is True and release_state["status"] == "PASS"
+    assert (
+        release_state["family_disposition"]
+        == state["predictive_stage3_macro_release_state"]["family_disposition"]
+    )
+    assert (
+        release_state["included_folds"]
+        == state["predictive_stage3_macro_release_state"]["included_folds"]
+    )
     from app.research.cycle_structure_v2_lab import block_support_report, build_donors
 
     donors = build_donors(grids)

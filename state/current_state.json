@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+  "latest_executor_checkpoint": "PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -800,7 +800,7 @@
     ],
     "objective": "STATISTICALLY_CREDIBLE_BTCUSDT_DIRECTION_PROBABILITY_AND_MAGNITUDE_FORECAST",
     "prediction_target": "r_24h = log(close[t+24h] / close[t])",
-    "predictive_experiments_completed": 8,
+    "predictive_experiments_completed": 10,
     "predictive_results_observed": true,
     "predictor_trained": true,
     "primary_horizon": "24h",
@@ -1269,6 +1269,190 @@
     "version": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_V1",
     "whole_sample_participation_threshold": false
   },
+  "predictive_stage3_macro_release_state": {
+    "absolute_reference": "ALWAYS_UP",
+    "admission": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-ADMISSION.json",
+    "admission_identity_sha256": "10ac482089f40b8dc446188ae2abb9634b9914d6e5dc85f64e453890f5ab3cea",
+    "advancing_configurations": [],
+    "base_rate_control_fits": 5,
+    "candidate_fold_coverage": {
+      "2019": 1.0,
+      "2020": 1.0,
+      "2021": 1.0,
+      "2022": 1.0,
+      "2023": 1.0,
+      "2024": 1.0
+    },
+    "champion_status": "NONE",
+    "checkpoint_report": "reports/checkpoints/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1.md",
+    "classification": "PREDICTIVE_EXPERIMENT_RESULT",
+    "configurations": {
+      "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR": {
+        "model_version": "MACRO_RELEASE_STATE_LINEAR_V1",
+        "hypothesis_id": "H-PRED-MACRO-003",
+        "preregistration": "research/experiments/EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR/preregistration.json",
+        "result_json": "research/experiments/EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR/result.json",
+        "trials_json": "research/experiments/EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR/trials.json",
+        "model_fits": 10,
+        "actionable_directional_predictions": 43641,
+        "abstentions": 0,
+        "candidate_win_rate": 0.4824362411493779,
+        "candidate_coverage": 0.9999770862930205,
+        "brier_score": 0.28259673855263845,
+        "matched_base_rate_win_rate": 0.5270273366788112,
+        "matched_base_rate_brier_score": 0.25004440083550017,
+        "matched_always_up_win_rate": 0.5270273366788112,
+        "primary_delta": -0.0445910955294333,
+        "primary_delta_interval": [
+          -0.06747907935547162,
+          -0.019643005592936084
+        ],
+        "fold_deltas": {
+          "2020": -0.15918742109491568,
+          "2021": -0.010805839751695578,
+          "2022": 0.0,
+          "2023": -0.052788274361616816,
+          "2024": -0.0004566731362027898
+        },
+        "fold_coverage": {
+          "2020": 1.0,
+          "2021": 1.0,
+          "2022": 1.0,
+          "2023": 1.0,
+          "2024": 0.9998858447488584
+        },
+        "failed_gates": [
+          "POOLED_DELTA_VERSUS_MATCHED_TRAINING_BASE_RATE_AT_LEAST_MESI",
+          "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+          "WIN_RATE_AT_LEAST_MATCHED_ALWAYS_UP",
+          "BRIER_AT_MOST_MATCHED_TRAINING_BASE_RATE_BRIER",
+          "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE"
+        ],
+        "terminal_classification": "NO_ADVANCE_MACRO_RELEASE_STATE_LINEAR_V1",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT"
+      },
+      "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR": {
+        "model_version": "MACRO_RELEASE_STATE_HGBR_V1",
+        "hypothesis_id": "H-PRED-MACRO-004",
+        "preregistration": "research/experiments/EXP-PRED-010-MACRO-RELEASE-STATE-HGBR/preregistration.json",
+        "result_json": "research/experiments/EXP-PRED-010-MACRO-RELEASE-STATE-HGBR/result.json",
+        "trials_json": "research/experiments/EXP-PRED-010-MACRO-RELEASE-STATE-HGBR/trials.json",
+        "model_fits": 10,
+        "actionable_directional_predictions": 43641,
+        "abstentions": 0,
+        "candidate_win_rate": 0.4813592722439907,
+        "candidate_coverage": 0.9999770862930205,
+        "brier_score": 0.2565466439042169,
+        "matched_base_rate_win_rate": 0.5270273366788112,
+        "matched_base_rate_brier_score": 0.25004440083550017,
+        "matched_always_up_win_rate": 0.5270273366788112,
+        "primary_delta": -0.045668064434820466,
+        "primary_delta_interval": [
+          -0.06926707190297264,
+          -0.020972283065217978
+        ],
+        "fold_deltas": {
+          "2020": -0.16148284173074717,
+          "2021": 0.0,
+          "2022": -0.008240814925031481,
+          "2023": -0.05885720829039276,
+          "2024": 0.0
+        },
+        "fold_coverage": {
+          "2020": 1.0,
+          "2021": 1.0,
+          "2022": 1.0,
+          "2023": 1.0,
+          "2024": 0.9998858447488584
+        },
+        "failed_gates": [
+          "POOLED_DELTA_VERSUS_MATCHED_TRAINING_BASE_RATE_AT_LEAST_MESI",
+          "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+          "WIN_RATE_AT_LEAST_MATCHED_ALWAYS_UP",
+          "BRIER_AT_MOST_MATCHED_TRAINING_BASE_RATE_BRIER",
+          "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE"
+        ],
+        "terminal_classification": "NO_ADVANCE_MACRO_RELEASE_STATE_HGBR_V1",
+        "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT"
+      }
+    },
+    "configurations_consumed": 2,
+    "configurations_planned": 2,
+    "configurations_remaining": 0,
+    "current_revised_substitution": false,
+    "current_state_expiry_relative_to_decision_time": false,
+    "deterministic_replay": "PASS_BYTE_IDENTICAL",
+    "eligible_decision_timestamps": 43642,
+    "excluded_candidate_folds": [
+      "2019"
+    ],
+    "experiment_ids": [
+      "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR",
+      "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR"
+    ],
+    "family": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1",
+    "family_disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+    "feature_count": 13,
+    "feature_search": false,
+    "feature_set_version": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V2",
+    "hyperparameter_search": false,
+    "included_fold_count": 5,
+    "included_folds": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "information_family": "ALFRED_STRICT_VINTAGE_US_MACRO_RELEASE_STATE",
+    "interpolation": false,
+    "macro_source_design_closed": true,
+    "magnitude_declared": false,
+    "matched_control": "TRAINING_UP_BASE_RATE",
+    "minimum_important_effect": 0.015,
+    "model_fits": 20,
+    "paired_bootstrap_seed": 20260921,
+    "per_configuration_alpha": 0.025,
+    "pooled_source_feature_coverage": 1.0,
+    "post_2024_vintages": 0,
+    "post_hoc_winner_selected": false,
+    "post_result_tuning": false,
+    "predecessor_checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+    "predecessor_disposition": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+    "predecessor_reclassified": false,
+    "predecessor_records_unchanged": true,
+    "predictive_contract": "docs/contracts/PREDICTIVE_MACRO_RELEASE_STATE_V1.md",
+    "preregistration_sha256": {
+      "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR": "8ef79eb705265f2ad60ef64f96a6a8d5607261a3127c9f385291a8c3e5b24473",
+      "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR": "a25a392cc550c116c46ec5acf70efb294f5526a63e1bbd9eaf33b2b9e35243f1"
+    },
+    "prior_predictive_configurations_unchanged": 8,
+    "real_money": false,
+    "report_json": "reports/research/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1.json",
+    "report_markdown": "reports/research/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1.md",
+    "required_non_negative_folds": 4,
+    "residual_source_finding": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-RESIDUAL-SOURCE-FINDING.json",
+    "residual_source_finding_disposition": "RECORDED_NOT_REPAIRED_REFERRED_TO_RESEARCH_DIRECTOR",
+    "root_hypothesis_id": "H-PRED-MACRO-003",
+    "sealed_queries": 0,
+    "search_plan": "research/protocols/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-SEARCH-PLAN-V1.json",
+    "search_plan_sha256": "20c337d7c76fc5d77962a78fcb8fc5313d1a1ac11f78145ae942379d5bb28501",
+    "source_audit": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-SOURCE-AUDIT.json",
+    "source_audit_sha256": "1139b274b37734b60547adb41c6fb4c2ef2669178c46e5703cf5e18a237d414f",
+    "source_audit_status": "SOURCE_GATES_PASSED",
+    "source_cadence_integrity": "PASS",
+    "source_catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+    "source_catalog_sha256": "cfc08c40c669770a144210026b81326379e50e7d61e770d3d4b40baf5e94b8b1",
+    "source_manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+    "source_roadmap_stage": "STAGE_3_CROSS_ASSET_AND_MACRO_CONTEXT",
+    "source_semantics_versions_authorized": 1,
+    "source_semantics_versions_consumed": 1,
+    "source_semantics_versions_remaining": 0,
+    "source_substrate_sha256": "448f1ea80252ce5fbc7f1982c41540dc71852c3a4e2fbf1a1357fd1ed9c877dd",
+    "status": "COMPLETE",
+    "threshold_search": false,
+    "version": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_V1"
+  },
   "predictive_stage3_macro_vintage": {
     "admission": "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-ADMISSION.json",
     "admission_identity_sha256": "e87b4ae3870852fa6485e04cb0b9e2b7c9e6a5c58e4bc71d511563fdc8e6a809",
@@ -1614,7 +1798,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK",
+    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V1",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",

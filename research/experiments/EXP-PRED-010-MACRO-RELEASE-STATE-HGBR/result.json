@@ -1,0 +1,2279 @@
+{
+  "admission": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-ADMISSION.json",
+  "base_rate_control_fits": {
+    "by_fold": {
+      "2020": {
+        "declared_direction": "UP",
+        "p_up": 0.5079004636200208,
+        "probability": 0.5079004636200208,
+        "tie_rule_applied": false,
+        "training_down_labels": 5201,
+        "training_neutral_labels_excluded": 2,
+        "training_up_labels": 5368
+      },
+      "2021": {
+        "declared_direction": "UP",
+        "p_up": 0.5393939393939394,
+        "probability": 0.5393939393939394,
+        "tie_rule_applied": false,
+        "training_down_labels": 8892,
+        "training_neutral_labels_excluded": 2,
+        "training_up_labels": 10413
+      },
+      "2022": {
+        "declared_direction": "UP",
+        "p_up": 0.5345559638919614,
+        "probability": 0.5345559638919614,
+        "tie_rule_applied": false,
+        "training_down_labels": 13045,
+        "training_neutral_labels_excluded": 2,
+        "training_up_labels": 14982
+      },
+      "2023": {
+        "declared_direction": "UP",
+        "p_up": 0.5189333188354581,
+        "probability": 0.5189333188354581,
+        "tie_rule_applied": false,
+        "training_down_labels": 17697,
+        "training_neutral_labels_excluded": 2,
+        "training_up_labels": 19090
+      },
+      "2024": {
+        "declared_direction": "UP",
+        "p_up": 0.5200140526535362,
+        "probability": 0.5200140526535362,
+        "tie_rule_applied": false,
+        "training_down_labels": 21860,
+        "training_neutral_labels_excluded": 2,
+        "training_up_labels": 23683
+      }
+    },
+    "classification": "COUNTED_TRAINING_BASE_RATE_NOT_A_MODEL_FIT",
+    "control": "TRAINING_UP_BASE_RATE",
+    "fits": 5
+  },
+  "baseline_context": {
+    "classification": "BASELINE_REFERENCE_REPORT_NOT_AN_EXPERIMENT_RESULT",
+    "note": "SIX_FOLD_FULL_UNIVERSE_NOT_THE_MACRO_ADMISSIBLE_UNIVERSE",
+    "pooled": {
+      "ALWAYS_UP": {
+        "coverage": 0.9999617700468317,
+        "win_rate": 0.5261789612524611
+      },
+      "PREVIOUS_24H_SIGN_PERSISTENCE": {
+        "coverage": 0.9984516868966835,
+        "win_rate": 0.4666500746640119
+      },
+      "TRAINING_UP_BASE_RATE": {
+        "coverage": 0.9999617700468317,
+        "win_rate": 0.5261789612524611
+      },
+      "ZERO_RETURN_MAGNITUDE": {
+        "coverage": null,
+        "win_rate": null
+      }
+    },
+    "reference_bar": 0.5261789612524611,
+    "results_changed": false,
+    "source": "reports/research/PREDICTIVE-BASELINES-V1.json"
+  },
+  "boundaries": {
+    "additional_information_family": false,
+    "baselines_v1_results_changed": false,
+    "champion_created": false,
+    "combined_with_rejected_families": false,
+    "coverage_gate_lowered_after_observation": false,
+    "current_revised_macro_data": false,
+    "historical_results_changed": false,
+    "interpolation_or_future_vintage": false,
+    "outer_evaluation_used_in_fitting": false,
+    "post_cutoff_market_data": false,
+    "post_hoc_winner_selection": false,
+    "post_result_tuning": false,
+    "predecessor_reclassified": false,
+    "predecessor_records_modified": false,
+    "previous_24h_sign_persistence_inverted": false,
+    "real_money": false,
+    "sealed_queries": 0,
+    "stage1_substrate_repair": false,
+    "third_macro_source_redesign": false
+  },
+  "classification": "PREDICTIVE_EXPERIMENT_RESULT",
+  "configuration": {
+    "absolute_reference_comparison": {
+      "candidate_at_least_reference": false,
+      "control": "ALWAYS_UP",
+      "delta_versus_always_up": -0.045668064434820466,
+      "matched_win_rate": 0.5270273366788112,
+      "note": "AN_ABSOLUTE_FLOOR_NOT_THE_PRIMARY_EFFECT"
+    },
+    "advancement_gate": {
+      "all_must_hold": true,
+      "conditions": {
+        "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE": {
+          "observed": 2,
+          "passed": false,
+          "threshold": 4
+        },
+        "BRIER_AT_MOST_MATCHED_TRAINING_BASE_RATE_BRIER": {
+          "observed": 0.2565466439042169,
+          "passed": false,
+          "threshold": 0.25004440083550017
+        },
+        "EVERY_INCLUDED_FOLD_COVERAGE_AT_LEAST_0_90": {
+          "observed": 0.9998858447488584,
+          "passed": true,
+          "threshold": 0.9
+        },
+        "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO": {
+          "observed": -0.06926707190297264,
+          "passed": false,
+          "threshold": 0.0
+        },
+        "POOLED_COVERAGE_AT_LEAST_0_95": {
+          "observed": 0.9999770862930205,
+          "passed": true,
+          "threshold": 0.95
+        },
+        "POOLED_DELTA_VERSUS_MATCHED_TRAINING_BASE_RATE_AT_LEAST_MESI": {
+          "observed": -0.045668064434820466,
+          "passed": false,
+          "threshold": 0.015
+        },
+        "WIN_RATE_AT_LEAST_MATCHED_ALWAYS_UP": {
+          "observed": 0.4813592722439907,
+          "passed": false,
+          "threshold": 0.5270273366788112
+        }
+      },
+      "failed_conditions": [
+        "POOLED_DELTA_VERSUS_MATCHED_TRAINING_BASE_RATE_AT_LEAST_MESI",
+        "PAIRED_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+        "WIN_RATE_AT_LEAST_MATCHED_ALWAYS_UP",
+        "BRIER_AT_MOST_MATCHED_TRAINING_BASE_RATE_BRIER",
+        "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE"
+      ],
+      "included_fold_count": 5,
+      "required_non_negative_folds": 4,
+      "secondary_metric_used_to_rescue": false,
+      "terminal_classification": "NO_ADVANCE_MACRO_RELEASE_STATE_HGBR_V1"
+    },
+    "calibration_comparison": {
+      "candidate_brier_at_most_control": false,
+      "candidate_brier_score": 0.2565466439042169,
+      "control": "TRAINING_UP_BASE_RATE",
+      "matched_brier_score": 0.25004440083550017
+    },
+    "candidate": {
+      "by_fold": {
+        "2020": {
+          "controls": {
+            "ALWAYS_UP": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8713,
+              "brier_score": null,
+              "correct_directional_predictions": 5060,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8713,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.5807414208653736,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.5447033168828188,
+                0.617123837943303
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.570347181437879,
+                0.591064495790257
+              ]
+            },
+            "PREVIOUS_24H_SIGN_PERSISTENCE": {
+              "abstentions": 24,
+              "actionable_directional_predictions": 8689,
+              "brier_score": null,
+              "correct_directional_predictions": 4124,
+              "coverage": 0.9972454952370022,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8713,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.4746230866612959,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.4444671423639084,
+                0.5044337668316261
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.46413700648995293,
+                0.4851315954868478
+              ]
+            },
+            "TRAINING_UP_BASE_RATE": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8713,
+              "brier_score": 0.2487866280090316,
+              "correct_directional_predictions": 5060,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": true,
+              "eligible_decision_timestamps": 8713,
+              "fit": {
+                "declared_direction": "UP",
+                "p_up": 0.5079004636200208,
+                "probability": 0.5079004636200208,
+                "tie_rule_applied": false,
+                "training_down_labels": 5201,
+                "training_neutral_labels_excluded": 2,
+                "training_up_labels": 5368
+              },
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "reliability_table": [
+                {
+                  "bin": "[0.0,0.1)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.1,0.2)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.2,0.3)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.3,0.4)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.4,0.5)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.5,0.6)",
+                  "count": 8713,
+                  "empirical_frequency_correct": 0.5807414208653736,
+                  "mean_predicted_probability": 0.5079004636199947
+                },
+                {
+                  "bin": "[0.6,0.7)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.7,0.8)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.8,0.9)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.9,1.0]",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                }
+              ],
+              "win_rate": 0.5807414208653736,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.5447033168828188,
+                0.617123837943303
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.570347181437879,
+                0.591064495790257
+              ]
+            }
+          },
+          "delta_versus_always_up": -0.16148284173074717,
+          "delta_versus_training_base_rate": -0.16148284173074717,
+          "directional": {
+            "abstentions": 0,
+            "actionable_directional_predictions": 8713,
+            "brier_score": 0.2640850890243859,
+            "correct_directional_predictions": 3653,
+            "coverage": 1.0,
+            "declared_side_on_neutral_truth": 0,
+            "declares_direction": true,
+            "declares_magnitude": false,
+            "declares_probability": true,
+            "eligible_decision_timestamps": 8713,
+            "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+            "magnitude_mae_percentage_points": null,
+            "magnitude_match_mean": null,
+            "neutral_truths": 0,
+            "reliability_table": [
+              {
+                "bin": "[0.0,0.1)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.1,0.2)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.2,0.3)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.3,0.4)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.4,0.5)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.5,0.6)",
+                "count": 8689,
+                "empirical_frequency_correct": 0.42030153067096326,
+                "mean_predicted_probability": 0.5617709232882362
+              },
+              {
+                "bin": "[0.6,0.7)",
+                "count": 24,
+                "empirical_frequency_correct": 0.041666666666666664,
+                "mean_predicted_probability": 0.6063170596992348
+              },
+              {
+                "bin": "[0.7,0.8)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.8,0.9)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.9,1.0]",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              }
+            ],
+            "win_rate": 0.41925857913462644,
+            "win_rate_interval_block_length_hours": 48,
+            "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+            "win_rate_interval_moving_block": [
+              0.3828761620566969,
+              0.45529668311718124
+            ],
+            "win_rate_interval_naive_wilson_optimistic_reference": [
+              0.40893550420974306,
+              0.42965281856212106
+            ]
+          },
+          "fit": {
+            "calibration_boundary_index": 8455,
+            "calibration_boundary_open_time": 1570014000,
+            "direction_base_fit_rows": 8408,
+            "direction_calibration_rows": 2114,
+            "direction_rows_dropped_to_calibration_embargo": 47,
+            "evaluation_rows_source_eligible": 8713,
+            "evaluation_rows_source_unavailable": 0,
+            "fold": "2020",
+            "model_fits": {
+              "direction_base": 1,
+              "direction_calibration": 1
+            },
+            "model_version": "MACRO_RELEASE_STATE_HGBR_V1",
+            "training_labels": 20542,
+            "training_rows_neutral_excluded_from_direction": 2,
+            "training_rows_source_eligible": 10571,
+            "training_rows_source_unavailable": 9971
+          },
+          "matched_universe": {
+            "records": 8713,
+            "share_of_eligible": 1.0
+          }
+        },
+        "2021": {
+          "controls": {
+            "ALWAYS_UP": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8699,
+              "brier_score": null,
+              "correct_directional_predictions": 4539,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8699,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.5217841131164501,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.483388895275319,
+                0.557883090010346
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.5112796734658279,
+                0.5322693216288567
+              ]
+            },
+            "PREVIOUS_24H_SIGN_PERSISTENCE": {
+              "abstentions": 19,
+              "actionable_directional_predictions": 8680,
+              "brier_score": null,
+              "correct_directional_predictions": 4059,
+              "coverage": 0.997815840901253,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8699,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.4676267281105991,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.44078341013824884,
+                0.49377880184331796
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.4571468248563128,
+                0.47813527320304977
+              ]
+            },
+            "TRAINING_UP_BASE_RATE": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8699,
+              "brier_score": 0.24983555839724594,
+              "correct_directional_predictions": 4539,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": true,
+              "eligible_decision_timestamps": 8699,
+              "fit": {
+                "declared_direction": "UP",
+                "p_up": 0.5393939393939394,
+                "probability": 0.5393939393939394,
+                "tie_rule_applied": false,
+                "training_down_labels": 8892,
+                "training_neutral_labels_excluded": 2,
+                "training_up_labels": 10413
+              },
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "reliability_table": [
+                {
+                  "bin": "[0.0,0.1)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.1,0.2)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.2,0.3)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.3,0.4)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.4,0.5)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.5,0.6)",
+                  "count": 8699,
+                  "empirical_frequency_correct": 0.5217841131164501,
+                  "mean_predicted_probability": 0.5393939393939664
+                },
+                {
+                  "bin": "[0.6,0.7)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.7,0.8)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.8,0.9)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.9,1.0]",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                }
+              ],
+              "win_rate": 0.5217841131164501,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.483388895275319,
+                0.557883090010346
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.5112796734658279,
+                0.5322693216288567
+              ]
+            }
+          },
+          "delta_versus_always_up": 0.0,
+          "delta_versus_training_base_rate": 0.0,
+          "directional": {
+            "abstentions": 0,
+            "actionable_directional_predictions": 8699,
+            "brier_score": 0.25958415119411743,
+            "correct_directional_predictions": 4539,
+            "coverage": 1.0,
+            "declared_side_on_neutral_truth": 0,
+            "declares_direction": true,
+            "declares_magnitude": false,
+            "declares_probability": true,
+            "eligible_decision_timestamps": 8699,
+            "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+            "magnitude_mae_percentage_points": null,
+            "magnitude_match_mean": null,
+            "neutral_truths": 0,
+            "reliability_table": [
+              {
+                "bin": "[0.0,0.1)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.1,0.2)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.2,0.3)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.3,0.4)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.4,0.5)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.5,0.6)",
+                "count": 24,
+                "empirical_frequency_correct": 0.125,
+                "mean_predicted_probability": 0.5972558133592121
+              },
+              {
+                "bin": "[0.6,0.7)",
+                "count": 8675,
+                "empirical_frequency_correct": 0.5228818443804034,
+                "mean_predicted_probability": 0.6224880156037698
+              },
+              {
+                "bin": "[0.7,0.8)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.8,0.9)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.9,1.0]",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              }
+            ],
+            "win_rate": 0.5217841131164501,
+            "win_rate_interval_block_length_hours": 48,
+            "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+            "win_rate_interval_moving_block": [
+              0.483388895275319,
+              0.557883090010346
+            ],
+            "win_rate_interval_naive_wilson_optimistic_reference": [
+              0.5112796734658279,
+              0.5322693216288567
+            ]
+          },
+          "fit": {
+            "calibration_boundary_index": 15444,
+            "calibration_boundary_open_time": 1595347200,
+            "direction_base_fit_rows": 15397,
+            "direction_calibration_rows": 3861,
+            "direction_rows_dropped_to_calibration_embargo": 47,
+            "evaluation_rows_source_eligible": 8699,
+            "evaluation_rows_source_unavailable": 0,
+            "fold": "2021",
+            "model_fits": {
+              "direction_base": 1,
+              "direction_calibration": 1
+            },
+            "model_version": "MACRO_RELEASE_STATE_HGBR_V1",
+            "training_labels": 29278,
+            "training_rows_neutral_excluded_from_direction": 2,
+            "training_rows_source_eligible": 19307,
+            "training_rows_source_unavailable": 9971
+          },
+          "matched_universe": {
+            "records": 8699,
+            "share_of_eligible": 1.0
+          }
+        },
+        "2022": {
+          "controls": {
+            "ALWAYS_UP": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8737,
+              "brier_score": null,
+              "correct_directional_predictions": 4099,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8737,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.4691541719125558,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.4317271374613712,
+                0.5072679409408264
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.4587057495004279,
+                0.47962970681241085
+              ]
+            },
+            "PREVIOUS_24H_SIGN_PERSISTENCE": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8737,
+              "brier_score": null,
+              "correct_directional_predictions": 4095,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8737,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.4686963488611652,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.4396245850978597,
+                0.5016596085612911
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.4582487250418662,
+                0.47917148757988304
+              ]
+            },
+            "TRAINING_UP_BASE_RATE": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8737,
+              "brier_score": 0.25332592928372366,
+              "correct_directional_predictions": 4099,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": true,
+              "eligible_decision_timestamps": 8737,
+              "fit": {
+                "declared_direction": "UP",
+                "p_up": 0.5345559638919614,
+                "probability": 0.5345559638919614,
+                "tie_rule_applied": false,
+                "training_down_labels": 13045,
+                "training_neutral_labels_excluded": 2,
+                "training_up_labels": 14982
+              },
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "reliability_table": [
+                {
+                  "bin": "[0.0,0.1)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.1,0.2)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.2,0.3)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.3,0.4)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.4,0.5)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.5,0.6)",
+                  "count": 8737,
+                  "empirical_frequency_correct": 0.4691541719125558,
+                  "mean_predicted_probability": 0.5345559638918602
+                },
+                {
+                  "bin": "[0.6,0.7)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.7,0.8)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.8,0.9)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.9,1.0]",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                }
+              ],
+              "win_rate": 0.4691541719125558,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.4317271374613712,
+                0.5072679409408264
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.4587057495004279,
+                0.47962970681241085
+              ]
+            }
+          },
+          "delta_versus_always_up": -0.008240814925031481,
+          "delta_versus_training_base_rate": -0.008240814925031481,
+          "directional": {
+            "abstentions": 0,
+            "actionable_directional_predictions": 8737,
+            "brier_score": 0.2588178927027165,
+            "correct_directional_predictions": 4027,
+            "coverage": 1.0,
+            "declared_side_on_neutral_truth": 0,
+            "declares_direction": true,
+            "declares_magnitude": false,
+            "declares_probability": true,
+            "eligible_decision_timestamps": 8737,
+            "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+            "magnitude_mae_percentage_points": null,
+            "magnitude_match_mean": null,
+            "neutral_truths": 0,
+            "reliability_table": [
+              {
+                "bin": "[0.0,0.1)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.1,0.2)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.2,0.3)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.3,0.4)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.4,0.5)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.5,0.6)",
+                "count": 6649,
+                "empirical_frequency_correct": 0.4539028425327117,
+                "mean_predicted_probability": 0.5421926785864788
+              },
+              {
+                "bin": "[0.6,0.7)",
+                "count": 2088,
+                "empirical_frequency_correct": 0.48323754789272033,
+                "mean_predicted_probability": 0.6268969032172744
+              },
+              {
+                "bin": "[0.7,0.8)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.8,0.9)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.9,1.0]",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              }
+            ],
+            "win_rate": 0.46091335698752434,
+            "win_rate_interval_block_length_hours": 48,
+            "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+            "win_rate_interval_moving_block": [
+              0.4241701957193545,
+              0.4965090992331464
+            ],
+            "win_rate_interval_naive_wilson_optimistic_reference": [
+              0.4504806625013812,
+              0.47138040737184494
+            ]
+          },
+          "fit": {
+            "calibration_boundary_index": 22421,
+            "calibration_boundary_open_time": 1620594000,
+            "direction_base_fit_rows": 22374,
+            "direction_calibration_rows": 5606,
+            "direction_rows_dropped_to_calibration_embargo": 47,
+            "evaluation_rows_source_eligible": 8737,
+            "evaluation_rows_source_unavailable": 0,
+            "fold": "2022",
+            "model_fits": {
+              "direction_base": 1,
+              "direction_calibration": 1
+            },
+            "model_version": "MACRO_RELEASE_STATE_HGBR_V1",
+            "training_labels": 38000,
+            "training_rows_neutral_excluded_from_direction": 2,
+            "training_rows_source_eligible": 28029,
+            "training_rows_source_unavailable": 9971
+          },
+          "matched_universe": {
+            "records": 8737,
+            "share_of_eligible": 1.0
+          }
+        },
+        "2023": {
+          "controls": {
+            "ALWAYS_UP": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8733,
+              "brier_score": null,
+              "correct_directional_predictions": 4597,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8733,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.5263941371808084,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.48745849078209097,
+                0.5606320851940914
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.5159128091809098,
+                0.5368522549641623
+              ]
+            },
+            "PREVIOUS_24H_SIGN_PERSISTENCE": {
+              "abstentions": 2,
+              "actionable_directional_predictions": 8731,
+              "brier_score": null,
+              "correct_directional_predictions": 4003,
+              "coverage": 0.9997709836253292,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8733,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.4584812736227236,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.4292749971366396,
+                0.4891793608979498
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.44805019486762204,
+                0.46894887106643973
+              ]
+            },
+            "TRAINING_UP_BASE_RATE": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8733,
+              "brier_score": 0.24935901333284602,
+              "correct_directional_predictions": 4597,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": true,
+              "eligible_decision_timestamps": 8733,
+              "fit": {
+                "declared_direction": "UP",
+                "p_up": 0.5189333188354581,
+                "probability": 0.5189333188354581,
+                "tie_rule_applied": false,
+                "training_down_labels": 17697,
+                "training_neutral_labels_excluded": 2,
+                "training_up_labels": 19090
+              },
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "reliability_table": [
+                {
+                  "bin": "[0.0,0.1)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.1,0.2)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.2,0.3)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.3,0.4)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.4,0.5)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.5,0.6)",
+                  "count": 8733,
+                  "empirical_frequency_correct": 0.5263941371808084,
+                  "mean_predicted_probability": 0.5189333188354779
+                },
+                {
+                  "bin": "[0.6,0.7)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.7,0.8)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.8,0.9)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.9,1.0]",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                }
+              ],
+              "win_rate": 0.5263941371808084,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.48745849078209097,
+                0.5606320851940914
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.5159128091809098,
+                0.5368522549641623
+              ]
+            }
+          },
+          "delta_versus_always_up": -0.05885720829039276,
+          "delta_versus_training_base_rate": -0.05885720829039276,
+          "directional": {
+            "abstentions": 0,
+            "actionable_directional_predictions": 8733,
+            "brier_score": 0.25149804115078306,
+            "correct_directional_predictions": 4083,
+            "coverage": 1.0,
+            "declared_side_on_neutral_truth": 0,
+            "declares_direction": true,
+            "declares_magnitude": false,
+            "declares_probability": true,
+            "eligible_decision_timestamps": 8733,
+            "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+            "magnitude_mae_percentage_points": null,
+            "magnitude_match_mean": null,
+            "neutral_truths": 0,
+            "reliability_table": [
+              {
+                "bin": "[0.0,0.1)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.1,0.2)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.2,0.3)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.3,0.4)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.4,0.5)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.5,0.6)",
+                "count": 8733,
+                "empirical_frequency_correct": 0.46753692889041565,
+                "mean_predicted_probability": 0.5191545267416651
+              },
+              {
+                "bin": "[0.6,0.7)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.7,0.8)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.8,0.9)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.9,1.0]",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              }
+            ],
+            "win_rate": 0.46753692889041565,
+            "win_rate_interval_block_length_hours": 48,
+            "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+            "win_rate_interval_moving_block": [
+              0.4308914462384061,
+              0.5002891331730218
+            ],
+            "win_rate_interval_naive_wilson_optimistic_reference": [
+              0.4570889793874421,
+              0.4780134254493128
+            ]
+          },
+          "fit": {
+            "calibration_boundary_index": 29429,
+            "calibration_boundary_open_time": 1645873200,
+            "direction_base_fit_rows": 29382,
+            "direction_calibration_rows": 7358,
+            "direction_rows_dropped_to_calibration_embargo": 47,
+            "evaluation_rows_source_eligible": 8733,
+            "evaluation_rows_source_unavailable": 0,
+            "fold": "2023",
+            "model_fits": {
+              "direction_base": 1,
+              "direction_calibration": 1
+            },
+            "model_version": "MACRO_RELEASE_STATE_HGBR_V1",
+            "training_labels": 46760,
+            "training_rows_neutral_excluded_from_direction": 2,
+            "training_rows_source_eligible": 36789,
+            "training_rows_source_unavailable": 9971
+          },
+          "matched_universe": {
+            "records": 8733,
+            "share_of_eligible": 1.0
+          }
+        },
+        "2024": {
+          "controls": {
+            "ALWAYS_UP": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8759,
+              "brier_score": null,
+              "correct_directional_predictions": 4705,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8759,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.5371617764584998,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.4992550519465692,
+                0.5736956273547209
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.5267056584511997,
+                0.5475853124695057
+              ]
+            },
+            "PREVIOUS_24H_SIGN_PERSISTENCE": {
+              "abstentions": 1,
+              "actionable_directional_predictions": 8758,
+              "brier_score": null,
+              "correct_directional_predictions": 4126,
+              "coverage": 0.9998858317159494,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": false,
+              "eligible_decision_timestamps": 8759,
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "probability_flag": "PROBABILITY_NOT_DECLARED",
+              "reliability_table": null,
+              "win_rate": 0.4711121260561772,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.4405115323133135,
+                0.5014843571591687
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.46067290546065454,
+                0.4815766773036396
+              ]
+            },
+            "TRAINING_UP_BASE_RATE": {
+              "abstentions": 0,
+              "actionable_directional_predictions": 8759,
+              "brier_score": 0.24891304680215492,
+              "correct_directional_predictions": 4705,
+              "coverage": 1.0,
+              "declared_side_on_neutral_truth": 0,
+              "declares_direction": true,
+              "declares_magnitude": false,
+              "declares_probability": true,
+              "eligible_decision_timestamps": 8759,
+              "fit": {
+                "declared_direction": "UP",
+                "p_up": 0.5200140526535362,
+                "probability": 0.5200140526535362,
+                "tie_rule_applied": false,
+                "training_down_labels": 21860,
+                "training_neutral_labels_excluded": 2,
+                "training_up_labels": 23683
+              },
+              "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+              "magnitude_mae_percentage_points": null,
+              "magnitude_match_mean": null,
+              "neutral_truths": 0,
+              "reliability_table": [
+                {
+                  "bin": "[0.0,0.1)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.1,0.2)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.2,0.3)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.3,0.4)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.4,0.5)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.5,0.6)",
+                  "count": 8759,
+                  "empirical_frequency_correct": 0.5371617764584998,
+                  "mean_predicted_probability": 0.5200140526535035
+                },
+                {
+                  "bin": "[0.6,0.7)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.7,0.8)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.8,0.9)",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                },
+                {
+                  "bin": "[0.9,1.0]",
+                  "count": 0,
+                  "empirical_frequency_correct": null,
+                  "mean_predicted_probability": null
+                }
+              ],
+              "win_rate": 0.5371617764584998,
+              "win_rate_interval_block_length_hours": 48,
+              "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+              "win_rate_interval_moving_block": [
+                0.4992550519465692,
+                0.5736956273547209
+              ],
+              "win_rate_interval_naive_wilson_optimistic_reference": [
+                0.5267056584511997,
+                0.5475853124695057
+              ]
+            }
+          },
+          "delta_versus_always_up": 0.0,
+          "delta_versus_training_base_rate": 0.0,
+          "directional": {
+            "abstentions": 0,
+            "actionable_directional_predictions": 8759,
+            "brier_score": 0.24879916118320677,
+            "correct_directional_predictions": 4705,
+            "coverage": 0.9998858447488584,
+            "declared_side_on_neutral_truth": 1,
+            "declares_direction": true,
+            "declares_magnitude": false,
+            "declares_probability": true,
+            "eligible_decision_timestamps": 8760,
+            "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+            "magnitude_mae_percentage_points": null,
+            "magnitude_match_mean": null,
+            "neutral_truths": 1,
+            "reliability_table": [
+              {
+                "bin": "[0.0,0.1)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.1,0.2)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.2,0.3)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.3,0.4)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.4,0.5)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.5,0.6)",
+                "count": 8759,
+                "empirical_frequency_correct": 0.5371617764584998,
+                "mean_predicted_probability": 0.523344983701539
+              },
+              {
+                "bin": "[0.6,0.7)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.7,0.8)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.8,0.9)",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              },
+              {
+                "bin": "[0.9,1.0]",
+                "count": 0,
+                "empirical_frequency_correct": null,
+                "mean_predicted_probability": null
+              }
+            ],
+            "win_rate": 0.5371617764584998,
+            "win_rate_interval_block_length_hours": 48,
+            "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+            "win_rate_interval_moving_block": [
+              0.4992550519465692,
+              0.5736956273547209
+            ],
+            "win_rate_interval_naive_wilson_optimistic_reference": [
+              0.5267056584511997,
+              0.5475853124695057
+            ]
+          },
+          "fit": {
+            "calibration_boundary_index": 36434,
+            "calibration_boundary_open_time": 1671091200,
+            "direction_base_fit_rows": 36387,
+            "direction_calibration_rows": 9109,
+            "direction_rows_dropped_to_calibration_embargo": 47,
+            "evaluation_rows_source_eligible": 8760,
+            "evaluation_rows_source_unavailable": 0,
+            "fold": "2024",
+            "model_fits": {
+              "direction_base": 1,
+              "direction_calibration": 1
+            },
+            "model_version": "MACRO_RELEASE_STATE_HGBR_V1",
+            "training_labels": 55516,
+            "training_rows_neutral_excluded_from_direction": 2,
+            "training_rows_source_eligible": 45545,
+            "training_rows_source_unavailable": 9971
+          },
+          "matched_universe": {
+            "records": 8759,
+            "share_of_eligible": 0.9998858447488584
+          }
+        }
+      },
+      "pooled_directional": {
+        "abstentions": 0,
+        "actionable_directional_predictions": 43641,
+        "brier_score": 0.2565466439042169,
+        "correct_directional_predictions": 21007,
+        "coverage": 0.9999770862930205,
+        "declared_side_on_neutral_truth": 1,
+        "declares_direction": true,
+        "declares_magnitude": false,
+        "declares_probability": true,
+        "eligible_decision_timestamps": 43642,
+        "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+        "magnitude_mae_percentage_points": null,
+        "magnitude_match_mean": null,
+        "neutral_truths": 1,
+        "reliability_table": [
+          {
+            "bin": "[0.0,0.1)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "count": 32854,
+            "empirical_frequency_correct": 0.4705971875570707,
+            "mean_predicted_probability": 0.5362621296088907
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "count": 10787,
+            "empirical_frequency_correct": 0.5141373875961806,
+            "mean_predicted_probability": 0.6233054490324612
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.9,1.0]",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          }
+        ],
+        "win_rate": 0.4813592722439907,
+        "win_rate_interval_block_length_hours": 48,
+        "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+        "win_rate_interval_moving_block": [
+          0.4645854815425861,
+          0.49781169084118143
+        ],
+        "win_rate_interval_naive_wilson_optimistic_reference": [
+          0.4766733227346083,
+          0.4860485031303088
+        ]
+      }
+    },
+    "controls": {
+      "ALWAYS_UP": {
+        "abstentions": 0,
+        "actionable_directional_predictions": 43641,
+        "brier_score": null,
+        "correct_directional_predictions": 23000,
+        "coverage": 1.0,
+        "declared_side_on_neutral_truth": 0,
+        "declares_direction": true,
+        "declares_magnitude": false,
+        "declares_probability": false,
+        "eligible_decision_timestamps": 43641,
+        "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+        "magnitude_mae_percentage_points": null,
+        "magnitude_match_mean": null,
+        "neutral_truths": 0,
+        "probability_flag": "PROBABILITY_NOT_DECLARED",
+        "reliability_table": null,
+        "win_rate": 0.5270273366788112,
+        "win_rate_interval_block_length_hours": 48,
+        "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+        "win_rate_interval_moving_block": [
+          0.5102764602094362,
+          0.5440067826126808
+        ],
+        "win_rate_interval_naive_wilson_optimistic_reference": [
+          0.5223409643905229,
+          0.5317089512730667
+        ]
+      },
+      "PREVIOUS_24H_SIGN_PERSISTENCE": {
+        "abstentions": 46,
+        "actionable_directional_predictions": 43595,
+        "brier_score": null,
+        "correct_directional_predictions": 20407,
+        "coverage": 0.9989459453266424,
+        "declared_side_on_neutral_truth": 0,
+        "declares_direction": true,
+        "declares_magnitude": false,
+        "declares_probability": false,
+        "eligible_decision_timestamps": 43641,
+        "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+        "magnitude_mae_percentage_points": null,
+        "magnitude_match_mean": null,
+        "neutral_truths": 0,
+        "probability_flag": "PROBABILITY_NOT_DECLARED",
+        "reliability_table": null,
+        "win_rate": 0.46810414038307147,
+        "win_rate_interval_block_length_hours": 48,
+        "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+        "win_rate_interval_moving_block": [
+          0.4548222273196467,
+          0.4815231104484459
+        ],
+        "win_rate_interval_naive_wilson_optimistic_reference": [
+          0.4634231841505126,
+          0.47279071725265515
+        ]
+      },
+      "TRAINING_UP_BASE_RATE": {
+        "abstentions": 0,
+        "actionable_directional_predictions": 43641,
+        "brier_score": 0.25004440083550017,
+        "correct_directional_predictions": 23000,
+        "coverage": 1.0,
+        "declared_side_on_neutral_truth": 0,
+        "declares_direction": true,
+        "declares_magnitude": false,
+        "declares_probability": true,
+        "eligible_decision_timestamps": 43641,
+        "magnitude_flag": "MAGNITUDE_NOT_DECLARED",
+        "magnitude_mae_percentage_points": null,
+        "magnitude_match_mean": null,
+        "neutral_truths": 0,
+        "reliability_table": [
+          {
+            "bin": "[0.0,0.1)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.1,0.2)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.2,0.3)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.3,0.4)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.4,0.5)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.5,0.6)",
+            "count": 43641,
+            "empirical_frequency_correct": 0.5270273366788112,
+            "mean_predicted_probability": 0.5241536132403367
+          },
+          {
+            "bin": "[0.6,0.7)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.7,0.8)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.8,0.9)",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          },
+          {
+            "bin": "[0.9,1.0]",
+            "count": 0,
+            "empirical_frequency_correct": null,
+            "mean_predicted_probability": null
+          }
+        ],
+        "win_rate": 0.5270273366788112,
+        "win_rate_interval_block_length_hours": 48,
+        "win_rate_interval_method": "MOVING_BLOCK_BOOTSTRAP",
+        "win_rate_interval_moving_block": [
+          0.5102764602094362,
+          0.5440067826126808
+        ],
+        "win_rate_interval_naive_wilson_optimistic_reference": [
+          0.5223409643905229,
+          0.5317089512730667
+        ]
+      }
+    },
+    "experiment_id": "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR",
+    "hypothesis_id": "H-PRED-MACRO-004",
+    "matched_universe": {
+      "definition": "CANDIDATE_ACTIONABLE_NON_NEUTRAL_TIMESTAMPS",
+      "records": 43641,
+      "share_of_eligible": 0.9999770862930205
+    },
+    "model": {
+      "abstention_only_on_source_or_feature_validity": true,
+      "calibration_embargo_hours": 48,
+      "calibration_estimator": "LogisticRegression",
+      "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+      "calibration_penalty": null,
+      "calibration_rows": "TRAINING_ONLY",
+      "calibration_split_fraction": 0.8,
+      "decision_rule": "DECLARE_UP_WHEN_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_TIES_UP",
+      "declares_direction": true,
+      "declares_magnitude": false,
+      "declares_probability": true,
+      "direction_base_estimator": "HistGradientBoostingClassifier",
+      "direction_base_parameters": {
+        "early_stopping": false,
+        "l2_regularization": 1.0,
+        "learning_rate": 0.05,
+        "max_bins": 255,
+        "max_iter": 200,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 50,
+        "random_state": 20260921
+      },
+      "direction_input_scaling": "NONE_NOT_REQUIRED",
+      "family": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1",
+      "hyperparameter_search": false,
+      "magnitude_estimator": null,
+      "model_version": "MACRO_RELEASE_STATE_HGBR_V1",
+      "probability_rule": "EXPOSE_P_DECLARED_DIRECTION_CORRECT",
+      "probability_threshold_searched": false,
+      "sklearn_version": "1.7.2"
+    },
+    "model_fits": {
+      "direction_base": 5,
+      "direction_calibration": 5,
+      "total": 10
+    },
+    "model_version": "MACRO_RELEASE_STATE_HGBR_V1",
+    "primary_comparison": {
+      "candidate_win_rate": 0.4813592722439907,
+      "definition": "candidate actionable directional win rate - matched TRAINING_UP_BASE_RATE win rate on candidate-actionable, non-NEUTRAL timestamps",
+      "fold_coverage": {
+        "2020": 1.0,
+        "2021": 1.0,
+        "2022": 1.0,
+        "2023": 1.0,
+        "2024": 0.9998858447488584
+      },
+      "fold_deltas": {
+        "2020": -0.16148284173074717,
+        "2021": 0.0,
+        "2022": -0.008240814925031481,
+        "2023": -0.05885720829039276,
+        "2024": 0.0
+      },
+      "matched_base_rate_win_rate": 0.5270273366788112,
+      "matched_control": "TRAINING_UP_BASE_RATE",
+      "minimum_important_effect": 0.015,
+      "paired_interval": {
+        "abstentions_compressed_into_adjacency": false,
+        "alpha": 0.025,
+        "block_length_hours": 48,
+        "blocks_cross_fold_boundaries": false,
+        "candidate_win_rate": 0.4813592722439907,
+        "delta": -0.045668064434820466,
+        "fold_geometry": {
+          "2020": {
+            "block_start_positions": 8714,
+            "blocks_per_replicate": 183,
+            "effective_block_hours": 48,
+            "records": 8713,
+            "timeline_hours": 8761
+          },
+          "2021": {
+            "block_start_positions": 8690,
+            "blocks_per_replicate": 183,
+            "effective_block_hours": 48,
+            "records": 8699,
+            "timeline_hours": 8737
+          },
+          "2022": {
+            "block_start_positions": 8690,
+            "blocks_per_replicate": 183,
+            "effective_block_hours": 48,
+            "records": 8737,
+            "timeline_hours": 8737
+          },
+          "2023": {
+            "block_start_positions": 8690,
+            "blocks_per_replicate": 183,
+            "effective_block_hours": 48,
+            "records": 8733,
+            "timeline_hours": 8737
+          },
+          "2024": {
+            "block_start_positions": 8713,
+            "blocks_per_replicate": 183,
+            "effective_block_hours": 48,
+            "records": 8759,
+            "timeline_hours": 8760
+          }
+        },
+        "interval": [
+          -0.06926707190297264,
+          -0.020972283065217978
+        ],
+        "interval_lower_bound_above_zero": false,
+        "interval_mass": 0.975,
+        "matched_baseline_win_rate": 0.5270273366788112,
+        "method": "PAIRED_FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP",
+        "paired_records": 43641,
+        "replicates": 10000,
+        "seed": 20260921
+      },
+      "pooled_delta": -0.045668064434820466
+    },
+    "terminal_classification": "NO_ADVANCE_MACRO_RELEASE_STATE_HGBR_V1"
+  },
+  "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md",
+  "evaluation_contract_amendment": "A1",
+  "experiment_id": "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR",
+  "family": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1",
+  "family_disposition": {
+    "advancing_configurations": [],
+    "champion_created": false,
+    "configurations_executed": [
+      "MACRO_RELEASE_STATE_LINEAR_V1",
+      "MACRO_RELEASE_STATE_HGBR_V1"
+    ],
+    "descendant_tuned": false,
+    "disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+    "family": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1",
+    "macro_source_design_closed": true,
+    "post_hoc_winner_selected": false,
+    "prospective_observer_created": false,
+    "sealed_eligibility": {
+      "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+      "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT"
+    },
+    "sealed_queried": false
+  },
+  "features": {
+    "available_vectors": 54352,
+    "btc_price_or_return_feature_present": false,
+    "clipping_winsorization_or_rank_transform": false,
+    "combined_with_rejected_families": false,
+    "count": 13,
+    "feature_selection": false,
+    "identical_quantities_and_order_to_v1": true,
+    "ordered_names": [
+      "DFF_LEVEL",
+      "DFF_DELTA_30D",
+      "DGS10_LEVEL",
+      "DGS10_DELTA_30D",
+      "T10Y2Y_LEVEL",
+      "T10Y2Y_DELTA_30D",
+      "LOG_VIX_LEVEL",
+      "VIX_LOG_CHANGE_5D",
+      "NFCI_LEVEL",
+      "NFCI_DELTA_28D",
+      "WALCL_LOG_CHANGE_28D",
+      "CPI_YOY_LOG_CHANGE",
+      "UNRATE_DELTA_3M"
+    ],
+    "supersedes": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V1",
+    "unavailability_by_reason": {
+      "CPIAUCSL_12M_EXACT_ANCHOR_UNAVAILABLE": 8597,
+      "CPIAUCSL_CURRENT_RELEASE_STATE_UNAVAILABLE": 1186,
+      "CPIAUCSL_NON_POSITIVE_LEVEL": 0,
+      "DFF_30D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "DFF_CURRENT_RELEASE_STATE_UNAVAILABLE": 44,
+      "DGS10_30D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "DGS10_CURRENT_RELEASE_STATE_UNAVAILABLE": 0,
+      "NFCI_28D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "NFCI_CURRENT_RELEASE_STATE_UNAVAILABLE": 120,
+      "NON_FINITE_MACRO_FEATURE": 0,
+      "T10Y2Y_30D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "T10Y2Y_CURRENT_RELEASE_STATE_UNAVAILABLE": 0,
+      "UNRATE_3M_EXACT_ANCHOR_UNAVAILABLE": 0,
+      "UNRATE_CURRENT_RELEASE_STATE_UNAVAILABLE": 0,
+      "VIXCLS_5D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "VIXCLS_CURRENT_RELEASE_STATE_UNAVAILABLE": 0,
+      "VIXCLS_NON_POSITIVE_LEVEL": 0,
+      "WALCL_28D_HISTORICAL_ANCHOR_UNAVAILABLE": 0,
+      "WALCL_CURRENT_RELEASE_STATE_UNAVAILABLE": 24,
+      "WALCL_NON_POSITIVE_LEVEL": 0
+    },
+    "unavailable_vectors": 9971,
+    "version": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V2"
+  },
+  "folds": {
+    "canonical_six_fold_eligible_total": 52315,
+    "design": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD",
+    "eligible_decision_timestamps": 43642,
+    "excluded_candidate_folds": [
+      "2019"
+    ],
+    "fold_selection": "PRE_RESULT_SOURCE_AUDIT_DETERMINISTIC",
+    "fold_selection_used_return_values": false,
+    "included_fold_count": 5,
+    "included_folds": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "purge_embargo_hours": 24,
+    "random_k_fold": false,
+    "recut": false
+  },
+  "hypothesis_id": "H-PRED-MACRO-004",
+  "labels": {
+    "admissible_labels": 64323,
+    "direction_counts": {
+      "DOWN": 30681,
+      "NEUTRAL": 5,
+      "UP": 33637
+    },
+    "excluded_total": 329,
+    "exclusions": {
+      "DECISION_BAR_INCOMPLETE": 31,
+      "DECISION_BAR_MISSING": 127,
+      "HORIZON_BAR_BEYOND_COVERAGE": 24,
+      "HORIZON_BAR_INCOMPLETE": 29,
+      "HORIZON_BAR_MISSING": 118,
+      "NON_POSITIVE_PRICE": 0
+    },
+    "first_grid_instant": 1502942400,
+    "grid_decision_instants": 64652,
+    "last_grid_instant": 1735686000
+  },
+  "predecessor": {
+    "checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+    "configurations_consumed": 0,
+    "disposition": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+    "family": "PREDICTIVE_STAGE3_MACRO_VINTAGE_FAMILY_V1",
+    "model_fits": 0,
+    "outer_predictions": 0,
+    "reclassified": false,
+    "records_modified": false
+  },
+  "preregistration": "research/experiments/EXP-PRED-010-MACRO-RELEASE-STATE-HGBR/preregistration.json",
+  "release_state_accounting": {
+    "by_series": {
+      "CPIAUCSL": {
+        "maximum_current_release_age_days": 75,
+        "measured_timestamps": 43642,
+        "median_current_release_age_days": 57,
+        "minimum_current_release_age_days": 38
+      },
+      "DFF": {
+        "maximum_current_release_age_days": 6,
+        "measured_timestamps": 43642,
+        "median_current_release_age_days": 2,
+        "minimum_current_release_age_days": 2
+      },
+      "DGS10": {
+        "maximum_current_release_age_days": 6,
+        "measured_timestamps": 43642,
+        "median_current_release_age_days": 2,
+        "minimum_current_release_age_days": 2
+      },
+      "NFCI": {
+        "maximum_current_release_age_days": 27,
+        "measured_timestamps": 43642,
+        "median_current_release_age_days": 9,
+        "minimum_current_release_age_days": 6
+      },
+      "T10Y2Y": {
+        "maximum_current_release_age_days": 5,
+        "measured_timestamps": 43642,
+        "median_current_release_age_days": 1,
+        "minimum_current_release_age_days": 1
+      },
+      "UNRATE": {
+        "maximum_current_release_age_days": 70,
+        "measured_timestamps": 43642,
+        "median_current_release_age_days": 50,
+        "minimum_current_release_age_days": 32
+      },
+      "VIXCLS": {
+        "maximum_current_release_age_days": 6,
+        "measured_timestamps": 43642,
+        "median_current_release_age_days": 1,
+        "minimum_current_release_age_days": -2
+      },
+      "WALCL": {
+        "maximum_current_release_age_days": 12,
+        "measured_timestamps": 43642,
+        "median_current_release_age_days": 5,
+        "minimum_current_release_age_days": 2
+      }
+    },
+    "current_release_age_is_a_model_feature": false,
+    "definition": "DECISION_DATE_MINUS_CURRENT_KNOWN_OBSERVATION_DATE",
+    "predecessor_rejected_a_current_level_on_this_age": true,
+    "this_contract_rejects_a_current_level_on_this_age": false
+  },
+  "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+  "root_hypothesis_id": "H-PRED-MACRO-003",
+  "scoring": {
+    "calibration_embargo_hours": 48,
+    "calibration_split_fraction": 0.8,
+    "magnitude_declared": false,
+    "paired_interval": {
+      "alpha": 0.025,
+      "block_length_hours": 48,
+      "method": "PAIRED_FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP",
+      "replicates": 10000,
+      "seed": 20260921
+    },
+    "reliability_bin_edges": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ]
+  },
+  "search_budget": {
+    "configurations_consumed": 2,
+    "configurations_executed": [
+      "MACRO_RELEASE_STATE_LINEAR_V1",
+      "MACRO_RELEASE_STATE_HGBR_V1"
+    ],
+    "configurations_planned": 2,
+    "configurations_remaining": 0,
+    "family": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1",
+    "feature_search": false,
+    "hyperparameter_search": false,
+    "result_dependent_early_stop": false,
+    "result_dependent_forks": 0,
+    "source_semantics_versions_authorized": 1,
+    "source_semantics_versions_consumed": 1,
+    "source_semantics_versions_remaining": 0,
+    "threshold_search": false
+  },
+  "search_plan": "research/protocols/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-SEARCH-PLAN-V1.json",
+  "source": {
+    "availability_rule": "NEXT_CALENDAR_DAY_00_00_UTC_AFTER_VINTAGE_START",
+    "catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+    "catalog_id": "ALFRED_SERIES_CATALOG_V1",
+    "catalog_sha256": "cfc08c40c669770a144210026b81326379e50e7d61e770d3d4b40baf5e94b8b1",
+    "current_revised_substitution": false,
+    "current_state_expiry_relative_to_decision_time": false,
+    "current_state_rule": "GREATEST_OBSERVATION_DATE_IN_THE_AS_OF_T_SNAPSHOT",
+    "development_ceiling": "2024-12-31T23:59:00Z",
+    "exact_month_anchors": {
+      "CPIAUCSL_12M_EXACT": 12,
+      "UNRATE_3M_EXACT": 3
+    },
+    "forward_filled_observation_dates": false,
+    "historical_anchor_offset_days": {
+      "DFF_30D": 30,
+      "DGS10_30D": 30,
+      "NFCI_28D": 28,
+      "T10Y2Y_30D": 30,
+      "VIXCLS_5D": 5,
+      "WALCL_28D": 28
+    },
+    "historical_anchor_tolerance_days": {
+      "DFF_30D": 7,
+      "DGS10_30D": 7,
+      "NFCI_28D": 14,
+      "T10Y2Y_30D": 7,
+      "VIXCLS_5D": 7,
+      "WALCL_28D": 14
+    },
+    "interpolation": false,
+    "manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+    "manifest_id": "ALFRED-MACRO-CONTEXT-DEV-v1",
+    "manifest_sha256": "ae6d4acb0d2e6c2122d1e830b23390dbf18f83f614de0a7278e4fdd59ddab7d5",
+    "nearest_future_substitution": false,
+    "point_in_time_contract": "docs/contracts/POINT_IN_TIME_EXOGENOUS_DATA_V1.md",
+    "post_2024_vintages": 0,
+    "predecessor_predictive_contract": "docs/contracts/PREDICTIVE_MACRO_VINTAGE_CONTEXT_V1.md",
+    "predictive_contract": "docs/contracts/PREDICTIVE_MACRO_RELEASE_STATE_V1.md",
+    "release_state_version": "MACRO_RELEASE_STATE_V1",
+    "series": [
+      "DFF",
+      "DGS10",
+      "T10Y2Y",
+      "VIXCLS",
+      "NFCI",
+      "WALCL",
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "source_cadence_limit_days": {
+      "DAILY": 10,
+      "MONTHLY": 70,
+      "WEEKLY": 21
+    },
+    "source_family": "ALFRED",
+    "substrate_artifact": "data/derived/ALFRED-macro-context-v1.parquet",
+    "substrate_file_sha256": "448f1ea80252ce5fbc7f1982c41540dc71852c3a4e2fbf1a1357fd1ed9c877dd",
+    "substrate_logical_sha256": "98257605fc61c68bf4e32992c2c7dbb7c7440f65d0d25cabbdb5e5ded794745d",
+    "substrate_rows": 70882,
+    "version": "ALFRED_MACRO_CONTEXT_V1"
+  },
+  "source_audit": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-SOURCE-AUDIT.json",
+  "source_cadence_integrity": {
+    "by_series": {
+      "CPIAUCSL": {
+        "first_observation_date": "2017-09-01",
+        "frequency": "MONTHLY",
+        "last_observation_date": "2024-11-01",
+        "maximum_allowed_gap_days": 70,
+        "maximum_observation_gap_days": 31,
+        "observation_dates": 87,
+        "passed": true
+      },
+      "DFF": {
+        "first_observation_date": "2017-08-17",
+        "frequency": "DAILY",
+        "last_observation_date": "2024-12-30",
+        "maximum_allowed_gap_days": 10,
+        "maximum_observation_gap_days": 1,
+        "observation_dates": 2693,
+        "passed": true
+      },
+      "DGS10": {
+        "first_observation_date": "2017-08-17",
+        "frequency": "DAILY",
+        "last_observation_date": "2024-12-30",
+        "maximum_allowed_gap_days": 10,
+        "maximum_observation_gap_days": 4,
+        "observation_dates": 1842,
+        "passed": true
+      },
+      "NFCI": {
+        "first_observation_date": "2017-08-18",
+        "frequency": "WEEKLY",
+        "last_observation_date": "2024-12-20",
+        "maximum_allowed_gap_days": 21,
+        "maximum_observation_gap_days": 7,
+        "observation_dates": 384,
+        "passed": true
+      },
+      "T10Y2Y": {
+        "first_observation_date": "2017-08-17",
+        "frequency": "DAILY",
+        "last_observation_date": "2024-12-31",
+        "maximum_allowed_gap_days": 10,
+        "maximum_observation_gap_days": 4,
+        "observation_dates": 1843,
+        "passed": true
+      },
+      "UNRATE": {
+        "first_observation_date": "2017-09-01",
+        "frequency": "MONTHLY",
+        "last_observation_date": "2024-11-01",
+        "maximum_allowed_gap_days": 70,
+        "maximum_observation_gap_days": 31,
+        "observation_dates": 87,
+        "passed": true
+      },
+      "VIXCLS": {
+        "first_observation_date": "2017-08-17",
+        "frequency": "DAILY",
+        "last_observation_date": "2024-12-31",
+        "maximum_allowed_gap_days": 10,
+        "maximum_observation_gap_days": 4,
+        "observation_dates": 1874,
+        "passed": true
+      },
+      "WALCL": {
+        "first_observation_date": "2017-08-23",
+        "frequency": "WEEKLY",
+        "last_observation_date": "2024-12-25",
+        "maximum_allowed_gap_days": 21,
+        "maximum_observation_gap_days": 7,
+        "observation_dates": 384,
+        "passed": true
+      }
+    },
+    "limits": {
+      "DAILY": 10,
+      "MONTHLY": 70,
+      "WEEKLY": 21
+    },
+    "passed": true,
+    "semantics": "SOURCE_RELEASE_CALENDAR_INTEGRITY_NOT_A_PER_DECISION_EXPIRY_RULE"
+  },
+  "terminal_classification": "NO_ADVANCE_MACRO_RELEASE_STATE_HGBR_V1",
+  "version": "PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1"
+}

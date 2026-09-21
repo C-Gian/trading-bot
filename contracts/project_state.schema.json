@@ -40,6 +40,7 @@
     "predictive_stage2_open_interest",
     "predictive_stage3_cross_asset_breadth",
     "predictive_stage3_macro_vintage",
+    "predictive_stage3_macro_release_state",
     "legacy_research_generation",
     "historical_discovery_status",
     "observed_material_historical_hypotheses",
@@ -1402,6 +1403,661 @@
         }
       }
     },
+    "predictive_stage3_macro_release_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "classification",
+        "family",
+        "root_hypothesis_id",
+        "source_roadmap_stage",
+        "information_family",
+        "search_plan",
+        "search_plan_sha256",
+        "admission",
+        "admission_identity_sha256",
+        "source_audit",
+        "source_audit_sha256",
+        "source_audit_status",
+        "source_cadence_integrity",
+        "report_json",
+        "report_markdown",
+        "checkpoint_report",
+        "residual_source_finding",
+        "residual_source_finding_disposition",
+        "predictive_contract",
+        "predecessor_checkpoint",
+        "predecessor_disposition",
+        "predecessor_reclassified",
+        "predecessor_records_unchanged",
+        "source_manifest",
+        "source_catalog",
+        "source_catalog_sha256",
+        "source_substrate_sha256",
+        "current_revised_substitution",
+        "post_2024_vintages",
+        "interpolation",
+        "current_state_expiry_relative_to_decision_time",
+        "feature_set_version",
+        "feature_count",
+        "magnitude_declared",
+        "candidate_fold_coverage",
+        "included_folds",
+        "included_fold_count",
+        "excluded_candidate_folds",
+        "pooled_source_feature_coverage",
+        "eligible_decision_timestamps",
+        "required_non_negative_folds",
+        "matched_control",
+        "absolute_reference",
+        "base_rate_control_fits",
+        "model_fits",
+        "minimum_important_effect",
+        "per_configuration_alpha",
+        "paired_bootstrap_seed",
+        "experiment_ids",
+        "preregistration_sha256",
+        "configurations",
+        "family_disposition",
+        "advancing_configurations",
+        "post_hoc_winner_selected",
+        "macro_source_design_closed",
+        "configurations_planned",
+        "configurations_consumed",
+        "configurations_remaining",
+        "source_semantics_versions_authorized",
+        "source_semantics_versions_consumed",
+        "source_semantics_versions_remaining",
+        "hyperparameter_search",
+        "threshold_search",
+        "feature_search",
+        "post_result_tuning",
+        "deterministic_replay",
+        "prior_predictive_configurations_unchanged",
+        "sealed_queries",
+        "champion_status",
+        "real_money"
+      ],
+      "properties": {
+        "version": {
+          "const": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_V1"
+        },
+        "status": {
+          "const": "COMPLETE"
+        },
+        "classification": {
+          "const": "PREDICTIVE_EXPERIMENT_RESULT"
+        },
+        "family": {
+          "const": "PREDICTIVE_STAGE3_MACRO_RELEASE_STATE_FAMILY_V1"
+        },
+        "root_hypothesis_id": {
+          "const": "H-PRED-MACRO-003"
+        },
+        "source_roadmap_stage": {
+          "const": "STAGE_3_CROSS_ASSET_AND_MACRO_CONTEXT"
+        },
+        "information_family": {
+          "const": "ALFRED_STRICT_VINTAGE_US_MACRO_RELEASE_STATE"
+        },
+        "search_plan": {
+          "const": "research/protocols/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-SEARCH-PLAN-V1.json"
+        },
+        "search_plan_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "admission": {
+          "const": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-ADMISSION.json"
+        },
+        "admission_identity_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_audit": {
+          "const": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-SOURCE-AUDIT.json"
+        },
+        "source_audit_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_audit_status": {
+          "const": "SOURCE_GATES_PASSED"
+        },
+        "source_cadence_integrity": {
+          "const": "PASS"
+        },
+        "report_json": {
+          "const": "reports/research/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1.json"
+        },
+        "report_markdown": {
+          "const": "reports/research/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1.md"
+        },
+        "checkpoint_report": {
+          "const": "reports/checkpoints/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1.md"
+        },
+        "residual_source_finding": {
+          "const": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-RESIDUAL-SOURCE-FINDING.json"
+        },
+        "residual_source_finding_disposition": {
+          "const": "RECORDED_NOT_REPAIRED_REFERRED_TO_RESEARCH_DIRECTOR"
+        },
+        "predictive_contract": {
+          "const": "docs/contracts/PREDICTIVE_MACRO_RELEASE_STATE_V1.md"
+        },
+        "predecessor_checkpoint": {
+          "const": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1"
+        },
+        "predecessor_disposition": {
+          "const": "BLOCKED_MACRO_SOURCE_COVERAGE_V1"
+        },
+        "predecessor_reclassified": {
+          "const": false
+        },
+        "predecessor_records_unchanged": {
+          "const": true
+        },
+        "source_manifest": {
+          "const": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json"
+        },
+        "source_catalog": {
+          "const": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json"
+        },
+        "source_catalog_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_substrate_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "current_revised_substitution": {
+          "const": false
+        },
+        "post_2024_vintages": {
+          "const": 0
+        },
+        "interpolation": {
+          "const": false
+        },
+        "current_state_expiry_relative_to_decision_time": {
+          "const": false
+        },
+        "feature_set_version": {
+          "const": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V2"
+        },
+        "feature_count": {
+          "const": 13
+        },
+        "magnitude_declared": {
+          "const": false
+        },
+        "candidate_fold_coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023",
+            "2024"
+          ],
+          "properties": {
+            "2019": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "2020": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "2021": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "2022": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "2023": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "2024": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "included_folds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 5,
+          "uniqueItems": true
+        },
+        "included_fold_count": {
+          "type": "integer",
+          "minimum": 5
+        },
+        "excluded_candidate_folds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pooled_source_feature_coverage": {
+          "type": "number",
+          "minimum": 0.95,
+          "maximum": 1
+        },
+        "eligible_decision_timestamps": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "required_non_negative_folds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "matched_control": {
+          "const": "TRAINING_UP_BASE_RATE"
+        },
+        "absolute_reference": {
+          "const": "ALWAYS_UP"
+        },
+        "base_rate_control_fits": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "model_fits": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minimum_important_effect": {
+          "const": 0.015
+        },
+        "per_configuration_alpha": {
+          "const": 0.025
+        },
+        "paired_bootstrap_seed": {
+          "const": 20260921
+        },
+        "experiment_ids": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR",
+              "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR"
+            ]
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "preregistration_sha256": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/sha256"
+          },
+          "required": [
+            "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR",
+            "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR"
+          ]
+        },
+        "configurations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR",
+            "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR"
+          ],
+          "properties": {
+            "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "model_version",
+                "hypothesis_id",
+                "preregistration",
+                "result_json",
+                "trials_json",
+                "model_fits",
+                "actionable_directional_predictions",
+                "abstentions",
+                "candidate_win_rate",
+                "candidate_coverage",
+                "brier_score",
+                "matched_base_rate_win_rate",
+                "matched_base_rate_brier_score",
+                "matched_always_up_win_rate",
+                "primary_delta",
+                "primary_delta_interval",
+                "fold_deltas",
+                "fold_coverage",
+                "failed_gates",
+                "terminal_classification",
+                "sealed_eligibility"
+              ],
+              "properties": {
+                "model_version": {
+                  "enum": [
+                    "MACRO_RELEASE_STATE_LINEAR_V1",
+                    "MACRO_RELEASE_STATE_HGBR_V1"
+                  ]
+                },
+                "hypothesis_id": {
+                  "enum": [
+                    "H-PRED-MACRO-003",
+                    "H-PRED-MACRO-004"
+                  ]
+                },
+                "preregistration": {
+                  "type": "string"
+                },
+                "result_json": {
+                  "type": "string"
+                },
+                "trials_json": {
+                  "type": "string"
+                },
+                "model_fits": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "actionable_directional_predictions": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "abstentions": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "candidate_win_rate": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "candidate_coverage": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "brier_score": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "matched_base_rate_win_rate": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "matched_base_rate_brier_score": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "matched_always_up_win_rate": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "primary_delta": {
+                  "type": "number",
+                  "minimum": -1,
+                  "maximum": 1
+                },
+                "primary_delta_interval": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "fold_deltas": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "fold_coverage": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "failed_gates": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "terminal_classification": {
+                  "enum": [
+                    "ADVANCE_MACRO_RELEASE_STATE_LINEAR_V1",
+                    "NO_ADVANCE_MACRO_RELEASE_STATE_LINEAR_V1",
+                    "ADVANCE_MACRO_RELEASE_STATE_HGBR_V1",
+                    "NO_ADVANCE_MACRO_RELEASE_STATE_HGBR_V1"
+                  ]
+                },
+                "sealed_eligibility": {
+                  "enum": [
+                    "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+                    "ELIGIBLE_FOR_RESEARCH_DIRECTOR_SEALED_REVIEW"
+                  ]
+                }
+              }
+            },
+            "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "model_version",
+                "hypothesis_id",
+                "preregistration",
+                "result_json",
+                "trials_json",
+                "model_fits",
+                "actionable_directional_predictions",
+                "abstentions",
+                "candidate_win_rate",
+                "candidate_coverage",
+                "brier_score",
+                "matched_base_rate_win_rate",
+                "matched_base_rate_brier_score",
+                "matched_always_up_win_rate",
+                "primary_delta",
+                "primary_delta_interval",
+                "fold_deltas",
+                "fold_coverage",
+                "failed_gates",
+                "terminal_classification",
+                "sealed_eligibility"
+              ],
+              "properties": {
+                "model_version": {
+                  "enum": [
+                    "MACRO_RELEASE_STATE_LINEAR_V1",
+                    "MACRO_RELEASE_STATE_HGBR_V1"
+                  ]
+                },
+                "hypothesis_id": {
+                  "enum": [
+                    "H-PRED-MACRO-003",
+                    "H-PRED-MACRO-004"
+                  ]
+                },
+                "preregistration": {
+                  "type": "string"
+                },
+                "result_json": {
+                  "type": "string"
+                },
+                "trials_json": {
+                  "type": "string"
+                },
+                "model_fits": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "actionable_directional_predictions": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "abstentions": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "candidate_win_rate": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "candidate_coverage": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "brier_score": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "matched_base_rate_win_rate": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "matched_base_rate_brier_score": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "matched_always_up_win_rate": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "primary_delta": {
+                  "type": "number",
+                  "minimum": -1,
+                  "maximum": 1
+                },
+                "primary_delta_interval": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "fold_deltas": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "fold_coverage": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "failed_gates": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "terminal_classification": {
+                  "enum": [
+                    "ADVANCE_MACRO_RELEASE_STATE_LINEAR_V1",
+                    "NO_ADVANCE_MACRO_RELEASE_STATE_LINEAR_V1",
+                    "ADVANCE_MACRO_RELEASE_STATE_HGBR_V1",
+                    "NO_ADVANCE_MACRO_RELEASE_STATE_HGBR_V1"
+                  ]
+                },
+                "sealed_eligibility": {
+                  "enum": [
+                    "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+                    "ELIGIBLE_FOR_RESEARCH_DIRECTOR_SEALED_REVIEW"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "family_disposition": {
+          "enum": [
+            "REJECTED_DEVELOPMENT_NO_SEALED",
+            "ADVANCE_TO_RESEARCH_DIRECTOR_REVIEW"
+          ]
+        },
+        "advancing_configurations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "post_hoc_winner_selected": {
+          "const": false
+        },
+        "macro_source_design_closed": {
+          "const": true
+        },
+        "configurations_planned": {
+          "const": 2
+        },
+        "configurations_consumed": {
+          "const": 2
+        },
+        "configurations_remaining": {
+          "const": 0
+        },
+        "source_semantics_versions_authorized": {
+          "const": 1
+        },
+        "source_semantics_versions_consumed": {
+          "const": 1
+        },
+        "source_semantics_versions_remaining": {
+          "const": 0
+        },
+        "hyperparameter_search": {
+          "const": false
+        },
+        "threshold_search": {
+          "const": false
+        },
+        "feature_search": {
+          "const": false
+        },
+        "post_result_tuning": {
+          "const": false
+        },
+        "deterministic_replay": {
+          "const": "PASS_BYTE_IDENTICAL"
+        },
+        "prior_predictive_configurations_unchanged": {
+          "const": 8
+        },
+        "sealed_queries": {
+          "const": 0
+        },
+        "champion_status": {
+          "const": "NONE"
+        },
+        "real_money": {
+          "const": false
+        }
+      }
+    },
     "legacy_research_generation": {
       "type": "object",
       "additionalProperties": false,
@@ -2307,7 +2963,7 @@
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK"},
+        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

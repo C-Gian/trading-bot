@@ -145,7 +145,7 @@ def test_both_configurations_were_executed_and_the_family_closed():
         assert (ROOT / result_path(model_version)).is_file()
         trials = json.loads((ROOT / trials_path(model_version)).read_text(encoding="utf-8"))
         assert [item["fold"] for item in trials] == included
-    assert state()["predictive_research_objective"]["predictive_experiments_completed"] == 8
+    assert state()["predictive_research_objective"]["predictive_experiments_completed"] == 10
     assert record["paired_bootstrap_seed"] == PAIRED_SEED == 20260919
 
 

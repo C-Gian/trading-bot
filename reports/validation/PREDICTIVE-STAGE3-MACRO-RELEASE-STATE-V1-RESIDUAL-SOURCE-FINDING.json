@@ -1,0 +1,465 @@
+{
+  "boundaries": {
+    "btc_outcomes_read": false,
+    "committed_result_modified": false,
+    "model_predictions_read": false,
+    "predecessor_records_modified": false,
+    "real_money": false,
+    "sealed_queries": 0
+  },
+  "checkpoint": "PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1",
+  "defect": {
+    "affected_series": [
+      "VIXCLS"
+    ],
+    "description": "An admitted substrate row whose observation_date is later than its own vintage_start, so the conservative availability_time precedes the calendar day the observation describes.",
+    "maximum_lead_days": 3,
+    "rows": [
+      {
+        "availability_time": "2018-10-06T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2018-10-08",
+        "series_id": "VIXCLS",
+        "vintage_start": "2018-10-05"
+      },
+      {
+        "availability_time": "2022-05-28T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2022-05-30",
+        "series_id": "VIXCLS",
+        "vintage_start": "2022-05-27"
+      },
+      {
+        "availability_time": "2022-06-18T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2022-06-20",
+        "series_id": "VIXCLS",
+        "vintage_start": "2022-06-17"
+      },
+      {
+        "availability_time": "2022-07-02T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2022-07-04",
+        "series_id": "VIXCLS",
+        "vintage_start": "2022-07-01"
+      },
+      {
+        "availability_time": "2022-09-03T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2022-09-05",
+        "series_id": "VIXCLS",
+        "vintage_start": "2022-09-02"
+      },
+      {
+        "availability_time": "2022-11-24T00:00:00Z",
+        "lead_days": 1,
+        "observation_date": "2022-11-24",
+        "series_id": "VIXCLS",
+        "vintage_start": "2022-11-23"
+      },
+      {
+        "availability_time": "2023-01-14T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2023-01-16",
+        "series_id": "VIXCLS",
+        "vintage_start": "2023-01-13"
+      },
+      {
+        "availability_time": "2023-02-18T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2023-02-20",
+        "series_id": "VIXCLS",
+        "vintage_start": "2023-02-17"
+      },
+      {
+        "availability_time": "2023-05-27T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2023-05-29",
+        "series_id": "VIXCLS",
+        "vintage_start": "2023-05-26"
+      },
+      {
+        "availability_time": "2023-06-17T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2023-06-19",
+        "series_id": "VIXCLS",
+        "vintage_start": "2023-06-16"
+      },
+      {
+        "availability_time": "2023-07-04T00:00:00Z",
+        "lead_days": 1,
+        "observation_date": "2023-07-04",
+        "series_id": "VIXCLS",
+        "vintage_start": "2023-07-03"
+      },
+      {
+        "availability_time": "2023-09-02T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2023-09-04",
+        "series_id": "VIXCLS",
+        "vintage_start": "2023-09-01"
+      },
+      {
+        "availability_time": "2023-11-23T00:00:00Z",
+        "lead_days": 1,
+        "observation_date": "2023-11-23",
+        "series_id": "VIXCLS",
+        "vintage_start": "2023-11-22"
+      },
+      {
+        "availability_time": "2024-01-13T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2024-01-15",
+        "series_id": "VIXCLS",
+        "vintage_start": "2024-01-12"
+      },
+      {
+        "availability_time": "2024-02-17T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2024-02-19",
+        "series_id": "VIXCLS",
+        "vintage_start": "2024-02-16"
+      },
+      {
+        "availability_time": "2024-05-25T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2024-05-27",
+        "series_id": "VIXCLS",
+        "vintage_start": "2024-05-24"
+      },
+      {
+        "availability_time": "2024-06-19T00:00:00Z",
+        "lead_days": 1,
+        "observation_date": "2024-06-19",
+        "series_id": "VIXCLS",
+        "vintage_start": "2024-06-18"
+      },
+      {
+        "availability_time": "2024-07-04T00:00:00Z",
+        "lead_days": 1,
+        "observation_date": "2024-07-04",
+        "series_id": "VIXCLS",
+        "vintage_start": "2024-07-03"
+      },
+      {
+        "availability_time": "2024-08-31T00:00:00Z",
+        "lead_days": 3,
+        "observation_date": "2024-09-02",
+        "series_id": "VIXCLS",
+        "vintage_start": "2024-08-30"
+      },
+      {
+        "availability_time": "2024-11-28T00:00:00Z",
+        "lead_days": 1,
+        "observation_date": "2024-11-28",
+        "series_id": "VIXCLS",
+        "vintage_start": "2024-11-27"
+      }
+    ],
+    "substrate_rows": 20
+  },
+  "disposition": "RECORDED_NOT_REPAIRED_REFERRED_TO_RESEARCH_DIRECTOR",
+  "exposure": {
+    "evaluation_decision_instants": 43642,
+    "evaluation_instances": [
+      {
+        "current_observation_date": "2022-05-30",
+        "decision_date": "2022-05-28",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2022-05-30",
+        "decision_date": "2022-05-29",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2022-06-20",
+        "decision_date": "2022-06-18",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2022-06-20",
+        "decision_date": "2022-06-19",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2022-07-04",
+        "decision_date": "2022-07-02",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2022-07-04",
+        "decision_date": "2022-07-03",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2022-09-05",
+        "decision_date": "2022-09-03",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2022-09-05",
+        "decision_date": "2022-09-04",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-01-16",
+        "decision_date": "2023-01-14",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-01-16",
+        "decision_date": "2023-01-15",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-02-20",
+        "decision_date": "2023-02-18",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-02-20",
+        "decision_date": "2023-02-19",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-05-29",
+        "decision_date": "2023-05-27",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-05-29",
+        "decision_date": "2023-05-28",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-06-19",
+        "decision_date": "2023-06-17",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-06-19",
+        "decision_date": "2023-06-18",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-09-04",
+        "decision_date": "2023-09-02",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2023-09-04",
+        "decision_date": "2023-09-03",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2024-01-15",
+        "decision_date": "2024-01-13",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2024-01-15",
+        "decision_date": "2024-01-14",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2024-02-19",
+        "decision_date": "2024-02-17",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2024-02-19",
+        "decision_date": "2024-02-18",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2024-05-27",
+        "decision_date": "2024-05-25",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2024-05-27",
+        "decision_date": "2024-05-26",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2024-09-02",
+        "decision_date": "2024-08-31",
+        "decision_instants": 24,
+        "lead_days": 2,
+        "series_id": "VIXCLS"
+      },
+      {
+        "current_observation_date": "2024-09-02",
+        "decision_date": "2024-09-01",
+        "decision_instants": 24,
+        "lead_days": 1,
+        "series_id": "VIXCLS"
+      }
+    ],
+    "evaluation_instants_affected": 624,
+    "evaluation_instants_by_series": {
+      "CPIAUCSL": 0,
+      "DFF": 0,
+      "DGS10": 0,
+      "NFCI": 0,
+      "T10Y2Y": 0,
+      "UNRATE": 0,
+      "VIXCLS": 624,
+      "WALCL": 0
+    },
+    "evaluation_share_affected": 0.014298153155217451,
+    "included_folds": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "training_decision_instants": 55516,
+    "training_instants_affected": 480,
+    "training_instants_by_series": {
+      "CPIAUCSL": 0,
+      "DFF": 0,
+      "DGS10": 0,
+      "NFCI": 0,
+      "T10Y2Y": 0,
+      "UNRATE": 0,
+      "VIXCLS": 480,
+      "WALCL": 0
+    },
+    "training_share_affected": 0.008646156063116939
+  },
+  "finding_id": "MACRO_RELEASE_STATE_FUTURE_DATED_OBSERVATION_V1",
+  "found": "AFTER_EXECUTION_AND_AFTER_BOTH_CONFIGURATIONS_WERE_REJECTED",
+  "interpretation": {
+    "both_configurations_rejected": true,
+    "coverage_gate_changed": false,
+    "direction": "A_LOOKAHEAD_CAN_ONLY_FLATTER_A_CANDIDATE",
+    "family_re_executed": false,
+    "negative_result_weakened_by_the_defect": false,
+    "requires_research_director_decision": true,
+    "result_rewritten": false,
+    "third_source_semantics_created": false
+  },
+  "record_type": "PREDICTIVE_RESIDUAL_SOURCE_FINDING_V1",
+  "schema_version": 1,
+  "semantics_interaction": {
+    "introduced_by_this_checkpoint": true,
+    "present_in_the_frozen_contract_text": true,
+    "v1_could_use_a_future_dated_observation_as_current": false,
+    "v1_current_anchor_rule": "LATEST_OBSERVATION_ON_OR_BEFORE_THE_DECISION_DATE",
+    "v2_current_state_rule": "GREATEST_OBSERVATION_DATE_IN_THE_AS_OF_T_SNAPSHOT",
+    "v2_requires_observation_date_at_or_before_decision_date": false
+  },
+  "source": {
+    "availability_rule": "NEXT_CALENDAR_DAY_00_00_UTC_AFTER_VINTAGE_START",
+    "catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+    "catalog_id": "ALFRED_SERIES_CATALOG_V1",
+    "catalog_sha256": "cfc08c40c669770a144210026b81326379e50e7d61e770d3d4b40baf5e94b8b1",
+    "current_revised_substitution": false,
+    "current_state_expiry_relative_to_decision_time": false,
+    "current_state_rule": "GREATEST_OBSERVATION_DATE_IN_THE_AS_OF_T_SNAPSHOT",
+    "development_ceiling": "2024-12-31T23:59:00Z",
+    "exact_month_anchors": {
+      "CPIAUCSL_12M_EXACT": 12,
+      "UNRATE_3M_EXACT": 3
+    },
+    "forward_filled_observation_dates": false,
+    "historical_anchor_offset_days": {
+      "DFF_30D": 30,
+      "DGS10_30D": 30,
+      "NFCI_28D": 28,
+      "T10Y2Y_30D": 30,
+      "VIXCLS_5D": 5,
+      "WALCL_28D": 28
+    },
+    "historical_anchor_tolerance_days": {
+      "DFF_30D": 7,
+      "DGS10_30D": 7,
+      "NFCI_28D": 14,
+      "T10Y2Y_30D": 7,
+      "VIXCLS_5D": 7,
+      "WALCL_28D": 14
+    },
+    "interpolation": false,
+    "manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+    "manifest_id": "ALFRED-MACRO-CONTEXT-DEV-v1",
+    "manifest_sha256": "ae6d4acb0d2e6c2122d1e830b23390dbf18f83f614de0a7278e4fdd59ddab7d5",
+    "nearest_future_substitution": false,
+    "point_in_time_contract": "docs/contracts/POINT_IN_TIME_EXOGENOUS_DATA_V1.md",
+    "post_2024_vintages": 0,
+    "predecessor_predictive_contract": "docs/contracts/PREDICTIVE_MACRO_VINTAGE_CONTEXT_V1.md",
+    "predictive_contract": "docs/contracts/PREDICTIVE_MACRO_RELEASE_STATE_V1.md",
+    "release_state_version": "MACRO_RELEASE_STATE_V1",
+    "series": [
+      "DFF",
+      "DGS10",
+      "T10Y2Y",
+      "VIXCLS",
+      "NFCI",
+      "WALCL",
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "source_cadence_limit_days": {
+      "DAILY": 10,
+      "MONTHLY": 70,
+      "WEEKLY": 21
+    },
+    "source_family": "ALFRED",
+    "substrate_artifact": "data/derived/ALFRED-macro-context-v1.parquet",
+    "substrate_file_sha256": "448f1ea80252ce5fbc7f1982c41540dc71852c3a4e2fbf1a1357fd1ed9c877dd",
+    "substrate_logical_sha256": "98257605fc61c68bf4e32992c2c7dbb7c7440f65d0d25cabbdb5e5ded794745d",
+    "substrate_rows": 70882,
+    "version": "ALFRED_MACRO_CONTEXT_V1"
+  }
+}

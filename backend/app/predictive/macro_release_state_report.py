@@ -141,7 +141,7 @@ def build_markdown(result: dict[str, Any]) -> str:
     lines.append("")
     lines.append("| series | frequency | observation dates | max gap (days) | limit | passed |")
     lines.append("| --- | --- | --- | --- | --- | --- |")
-    for name, record in integrity["by_series"].items():
+    for name, record in sorted(integrity["by_series"].items()):
         lines.append(
             f"| `{name}` | {record['frequency']} | {record['observation_dates']} | "
             f"{record['maximum_observation_gap_days']} | "
@@ -182,7 +182,7 @@ def build_markdown(result: dict[str, Any]) -> str:
     lines.append("")
     lines.append("| series | min age (days) | median | max |")
     lines.append("| --- | --- | --- | --- |")
-    for name, record in persistence["by_series"].items():
+    for name, record in sorted(persistence["by_series"].items()):
         lines.append(
             f"| `{name}` | {record['minimum_current_release_age_days']} | "
             f"{record['median_current_release_age_days']} | "

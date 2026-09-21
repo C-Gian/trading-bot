@@ -363,14 +363,14 @@ def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> No
     """The rebaseline handed off to the foundation, which has since been executed."""
     assert (
         STATE["next_recommended_work_package"]
-        == "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK"
+        == "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE"
     )
     assert STATE["research_architecture"]["next_checkpoint"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK"
+        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE"
     )
     task = _text("tasks/CURRENT_TASK.md")
     assert task.startswith(
-        "# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-STAGE3-MACRO-VINTAGE-SOURCE-BLOCK"
+        "# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-STAGE3-MACRO-RELEASE-STATE-CLOSURE"
     )
     for archived in (
         "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md",
@@ -381,6 +381,7 @@ def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> No
         "tasks/archive/PREDICTIVE-STAGE2-OPEN-INTEREST-V1.md",
         "tasks/archive/PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1.md",
         "tasks/archive/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1.md",
+        "tasks/archive/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1.md",
     ):
         assert (ROOT / archived).is_file(), archived
     foundation = _text("tasks/archive/PREDICTIVE-BASELINES-V1.md")
