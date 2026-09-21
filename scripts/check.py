@@ -378,7 +378,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
+        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
@@ -862,7 +862,7 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
     assert architecture["next_checkpoint"] == (
-        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
+        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1"
     )
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
@@ -2978,6 +2978,7 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
     assert objective["status"] in {
         "OPEN_NO_CANDIDATE_EXECUTED",
         "FIRST_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW",
+        "SECOND_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW",
     }
     assert objective["evaluation_contract_sha256"] == content_hash(
         ROOT / objective["evaluation_contract"]
@@ -3013,19 +3014,28 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
 
     # The rebaseline itself ran nothing. A later, separately preregistered V2 family may
     # update these counters only when its committed result artifacts exist.
-    calendar_executed = "predictive_v2_deterministic_calendar" in state
-    if calendar_executed:
-        calendar = state["predictive_v2_deterministic_calendar"]
-        assert objective["status"] == "FIRST_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW"
-        assert objective["v2_hypotheses_declared"] == 2
-        assert objective["v2_candidates_executed"] == 2
-        assert objective["model_fits"] == calendar["model_fits"]
-        assert objective["market_predictions"] == calendar["outer_predictions"]
-    else:
-        assert objective["status"] == "OPEN_NO_CANDIDATE_EXECUTED"
-        assert objective["v2_hypotheses_declared"] == 0
-        assert objective["v2_candidates_executed"] == 0
-        assert objective["model_fits"] == 0 and objective["market_predictions"] == 0
+    executed_families = [
+        state[key]
+        for key in (
+            "predictive_v2_deterministic_calendar",
+            "predictive_v2_internal_structure_selective",
+        )
+        if key in state
+    ]
+    statuses = {
+        0: "OPEN_NO_CANDIDATE_EXECUTED",
+        1: "FIRST_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW",
+        2: "SECOND_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW",
+    }
+    # Each executed family declared two hypotheses and consumed two configurations. The
+    # counters are the sum over the committed family records, never a standalone claim.
+    assert objective["status"] == statuses[len(executed_families)]
+    assert objective["v2_hypotheses_declared"] == 2 * len(executed_families)
+    assert objective["v2_candidates_executed"] == 2 * len(executed_families)
+    assert objective["model_fits"] == sum(family["model_fits"] for family in executed_families)
+    assert objective["market_predictions"] == sum(
+        family["outer_predictions"] for family in executed_families
+    )
     assert objective["sealed_queries"] == closure["sealed_queries"] == 0
     assert objective["champion_status"] == state["champion_status"] == "NONE"
     assert objective["real_money"] is False and state["real_money_authorized"] is False

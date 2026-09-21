@@ -382,11 +382,12 @@ def _normalize_current_task(text: str) -> str:
 
 def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> None:
     """The rebaseline handed off to the foundation, which has since been executed."""
-    expected = (
-        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
-        if "predictive_v2_deterministic_calendar" in STATE
-        else "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"
-    )
+    if "predictive_v2_internal_structure_selective" in STATE:
+        expected = "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1"
+    elif "predictive_v2_deterministic_calendar" in STATE:
+        expected = "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
+    else:
+        expected = "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"
     assert STATE["next_recommended_work_package"] == expected
     assert STATE["research_architecture"]["next_checkpoint"] == expected
     task = _normalize_current_task(_text("tasks/CURRENT_TASK.md"))
