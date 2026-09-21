@@ -235,7 +235,9 @@ def test_state_records_the_executed_checkpoint():
     state = read("state/current_state.json")
     record = state["predictive_stage3_macro_release_state"]
     result = read(REPORT_JSON_PATH)
-    assert state["latest_executor_checkpoint"] == "PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1"
+    assert state["latest_executor_checkpoint"] == (
+        "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
+    )
     assert record["status"] == "COMPLETE"
     assert record["admission_identity_sha256"] == admission_identity(ROOT)
     assert record["included_folds"] == result["folds"]["included_folds"]

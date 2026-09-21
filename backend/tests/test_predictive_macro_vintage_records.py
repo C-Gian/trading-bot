@@ -78,7 +78,9 @@ def test_state_records_the_fail_closed_checkpoint_without_a_new_experiment():
     record = state["predictive_stage3_macro_vintage"]
     # The predecessor stays the immutable source block it was; the executor checkpoint and
     # the generation's experiment count have since moved on to its remediation.
-    assert state["latest_executor_checkpoint"] == ("PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1")
+    assert state["latest_executor_checkpoint"] == (
+        "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
+    )
     assert state["predictive_research_objective"]["predictive_experiments_completed"] == 10
     assert record["status"] == BLOCKED
     assert record["admission_identity_sha256"] == admission_identity(ROOT)

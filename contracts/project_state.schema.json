@@ -34,6 +34,8 @@
     "predictive_research_objective",
     "predictive_baselines",
     "predictive_internal_structure",
+    "predictive_generation_v1_closure",
+    "predictive_generation_v2_objective",
     "predictive_internal_nonlinear",
     "predictive_stage1_disposition",
     "predictive_stage2_settled_funding",
@@ -415,6 +417,504 @@
         "sealed_queries": {"const": 0},
         "champion_status": {"const": "NONE"},
         "real_money": {"const": false}
+      }
+    },
+    "predictive_generation_v1_closure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "generation",
+        "status",
+        "disposition",
+        "decision_record",
+        "decided_by",
+        "evaluation_contract",
+        "evaluation_contract_amendments",
+        "evaluation_question",
+        "information_families_executed",
+        "information_families",
+        "configurations_consumed",
+        "executed_experiment_ids",
+        "configurations_advanced",
+        "sealed_eligible_configurations",
+        "source_blocked_checkpoints",
+        "source_block_counted_as_executed_configuration",
+        "establishes_market_unpredictability",
+        "establishes",
+        "results_rewritten",
+        "results_re_executed",
+        "rescue_by_inversion_thresholding_fold_removal_or_pruning",
+        "macro_residual_finding",
+        "macro_residual_ruling",
+        "macro_residual_repaired_retrospectively",
+        "prospective_source_guard",
+        "sealed_queries",
+        "champion_status",
+        "real_money"
+      ],
+      "properties": {
+        "version": {
+          "const": "PREDICTIVE_GENERATION_V1_CLOSURE_V1"
+        },
+        "generation": {
+          "const": "PREDICTIVE_RESEARCH_GENERATION_V1"
+        },
+        "status": {
+          "const": "CLOSED"
+        },
+        "disposition": {
+          "const": "CLOSED_NO_DIRECTIONAL_ADMISSION_NO_SEALED"
+        },
+        "decision_record": {
+          "const": "decisions/ADR-0028-GENERATION-V2-SELECTIVE-LONG-REBASELINE.md"
+        },
+        "decided_by": {
+          "const": "RESEARCH_DIRECTOR"
+        },
+        "evaluation_contract": {
+          "const": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md"
+        },
+        "evaluation_contract_amendments": {
+          "type": "array",
+          "items": {
+            "const": "A1"
+          },
+          "minItems": 1,
+          "maxItems": 1
+        },
+        "evaluation_question": {
+          "const": "UNIVERSAL_HOURLY_DIRECTIONAL_CLASSIFICATION_24H_TERMINAL"
+        },
+        "information_families_executed": {
+          "const": 5
+        },
+        "information_families": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 5,
+          "maxItems": 5,
+          "uniqueItems": true
+        },
+        "configurations_consumed": {
+          "const": 10
+        },
+        "executed_experiment_ids": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD",
+              "EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD",
+              "EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD",
+              "EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD",
+              "EXP-PRED-005-OPEN-INTEREST-LINEAR-DUAL-HEAD",
+              "EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD",
+              "EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR",
+              "EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR",
+              "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR",
+              "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR"
+            ]
+          },
+          "minItems": 10,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "configurations_advanced": {
+          "const": 0
+        },
+        "sealed_eligible_configurations": {
+          "const": 0
+        },
+        "source_blocked_checkpoints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "source_block_counted_as_executed_configuration": {
+          "const": false
+        },
+        "establishes_market_unpredictability": {
+          "const": false
+        },
+        "establishes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "results_rewritten": {
+          "const": false
+        },
+        "results_re_executed": {
+          "const": false
+        },
+        "rescue_by_inversion_thresholding_fold_removal_or_pruning": {
+          "const": false
+        },
+        "macro_residual_finding": {
+          "const": "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-RESIDUAL-SOURCE-FINDING.json"
+        },
+        "macro_residual_ruling": {
+          "const": "NEGATIVE_RESULT_STANDS_DEFECT_COULD_ONLY_FLATTER_THE_CANDIDATE"
+        },
+        "macro_residual_repaired_retrospectively": {
+          "const": false
+        },
+        "prospective_source_guard": {
+          "const": "docs/contracts/ALFRED_OBSERVATION_DATE_GUARD_V1.md"
+        },
+        "sealed_queries": {
+          "const": 0
+        },
+        "champion_status": {
+          "const": "NONE"
+        },
+        "real_money": {
+          "const": false
+        }
+      }
+    },
+    "predictive_generation_v2_objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "generation",
+        "status",
+        "decision_record",
+        "decided_by",
+        "checkpoint",
+        "checkpoint_report",
+        "evaluation_contract",
+        "evaluation_contract_sha256",
+        "evaluation_contract_amendment",
+        "scorer_module",
+        "scorer_module_sha256",
+        "prospective_source_guard",
+        "prospective_source_guard_sha256",
+        "evaluation_question",
+        "symbol",
+        "decision_cadence",
+        "primary_horizon",
+        "prediction_target",
+        "horizon_searched",
+        "actions",
+        "short_authorized",
+        "action_rule",
+        "action_threshold",
+        "action_threshold_tunable_on_development",
+        "probability_required_for_participation",
+        "primary_metric",
+        "primary_metric_definition",
+        "primary_control",
+        "primary_control_definition",
+        "primary_control_uses_candidate_action_selection",
+        "primary_effect",
+        "secondary_references",
+        "neutral_truth_rule",
+        "feature_invalid_row_rule",
+        "advancement_conditions",
+        "advancement_thresholds",
+        "all_conditions_must_hold",
+        "thresholds_weakenable_after_a_result",
+        "inference",
+        "reliability_bin_edges",
+        "reliability_bins_inherited_from_v1",
+        "magnitude_declared",
+        "magnitude_status",
+        "search_memory_carryover",
+        "search_memory_reset",
+        "rejected_v1_result_becomes_evidence_under_the_new_scorer",
+        "v2_hypotheses_declared",
+        "v2_candidates_executed",
+        "model_fits",
+        "market_predictions",
+        "sealed_queries",
+        "champion_status",
+        "real_money"
+      ],
+      "properties": {
+        "version": {
+          "const": "PREDICTIVE_GENERATION_V2_SELECTIVE_LONG_OBJECTIVE_V1"
+        },
+        "generation": {
+          "const": "PREDICTIVE_RESEARCH_GENERATION_V2"
+        },
+        "status": {
+          "const": "OPEN_NO_CANDIDATE_EXECUTED"
+        },
+        "decision_record": {
+          "const": "decisions/ADR-0028-GENERATION-V2-SELECTIVE-LONG-REBASELINE.md"
+        },
+        "decided_by": {
+          "const": "RESEARCH_DIRECTOR"
+        },
+        "checkpoint": {
+          "const": "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
+        },
+        "checkpoint_report": {
+          "const": "reports/checkpoints/PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1.md"
+        },
+        "evaluation_contract": {
+          "const": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V2.md"
+        },
+        "evaluation_contract_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "evaluation_contract_amendment": {
+          "const": "B1"
+        },
+        "scorer_module": {
+          "const": "backend/app/predictive/selective_long.py"
+        },
+        "scorer_module_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "prospective_source_guard": {
+          "const": "docs/contracts/ALFRED_OBSERVATION_DATE_GUARD_V1.md"
+        },
+        "prospective_source_guard_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "evaluation_question": {
+          "const": "SELECTIVE_DIRECTIONAL_PREDICTION_LONG_OR_NO_TRADE"
+        },
+        "symbol": {
+          "const": "BTCUSDT"
+        },
+        "decision_cadence": {
+          "const": "1h"
+        },
+        "primary_horizon": {
+          "const": "24h"
+        },
+        "prediction_target": {
+          "const": "r_24h = log(close[T+24h] / close[T])"
+        },
+        "horizon_searched": {
+          "const": false
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "LONG",
+              "NO_TRADE"
+            ]
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "short_authorized": {
+          "const": false
+        },
+        "action_rule": {
+          "const": "LONG_IFF_CALIBRATED_P_UP_AT_LEAST_0_60_ELSE_NO_TRADE"
+        },
+        "action_threshold": {
+          "const": 0.6
+        },
+        "action_threshold_tunable_on_development": {
+          "const": false
+        },
+        "probability_required_for_participation": {
+          "const": true
+        },
+        "primary_metric": {
+          "const": "SELECTIVE_LONG_WIN_RATE"
+        },
+        "primary_metric_definition": {
+          "const": "UP_TRUTHS_OVER_ACTIONABLE_LONG_PREDICTIONS"
+        },
+        "primary_control": {
+          "const": "FULL_FOLD_UP_RATE"
+        },
+        "primary_control_definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primary_control_uses_candidate_action_selection": {
+          "const": false
+        },
+        "primary_effect": {
+          "const": "SELECTIVE_LONG_WIN_RATE_MINUS_FULL_FOLD_UP_RATE"
+        },
+        "secondary_references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3,
+          "uniqueItems": true
+        },
+        "neutral_truth_rule": {
+          "const": "COUNTED_EXPLICITLY_EXCLUDED_FROM_WINS_AND_FROM_DENOMINATORS"
+        },
+        "feature_invalid_row_rule": {
+          "const": "EXCLUDED_FROM_EVERY_RATE_AND_COUNTED_NEVER_IMPUTED"
+        },
+        "advancement_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 10,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "advancement_thresholds": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pooled_action_coverage",
+            "fold_action_coverage",
+            "pooled_actionable_longs",
+            "fold_actionable_longs",
+            "pooled_selective_long_win_rate",
+            "pooled_enrichment",
+            "interval_lower_bound",
+            "non_negative_enrichment_folds",
+            "full_probability_brier",
+            "action_calibration_gap"
+          ],
+          "properties": {
+            "pooled_action_coverage": {
+              "const": 0.02
+            },
+            "fold_action_coverage": {
+              "const": 0.005
+            },
+            "pooled_actionable_longs": {
+              "const": 500
+            },
+            "fold_actionable_longs": {
+              "const": 30
+            },
+            "pooled_selective_long_win_rate": {
+              "const": 0.6
+            },
+            "pooled_enrichment": {
+              "const": 0.05
+            },
+            "interval_lower_bound": {
+              "const": 0.0
+            },
+            "non_negative_enrichment_folds": {
+              "const": "CEIL_TWO_THIRDS_OF_INCLUDED_FOLDS"
+            },
+            "full_probability_brier": {
+              "const": "MATCHED_TRAINING_UP_BASE_RATE_BRIER"
+            },
+            "action_calibration_gap": {
+              "const": 0.05
+            }
+          }
+        },
+        "all_conditions_must_hold": {
+          "const": true
+        },
+        "thresholds_weakenable_after_a_result": {
+          "const": false
+        },
+        "inference": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "method",
+            "block_length_hours",
+            "replicates",
+            "seed",
+            "familywise_alpha",
+            "recomputes_control_on_every_replicate",
+            "blocks_cross_fold_boundaries",
+            "empty_action_replicate_rule",
+            "maximum_discarded_replicate_share"
+          ],
+          "properties": {
+            "method": {
+              "const": "FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP_PAIRED_ENRICHMENT"
+            },
+            "block_length_hours": {
+              "const": 48
+            },
+            "replicates": {
+              "const": 10000
+            },
+            "seed": {
+              "const": "DECLARED_PER_FAMILY_BEFORE_EXECUTION"
+            },
+            "familywise_alpha": {
+              "const": 0.05
+            },
+            "recomputes_control_on_every_replicate": {
+              "const": true
+            },
+            "blocks_cross_fold_boundaries": {
+              "const": false
+            },
+            "empty_action_replicate_rule": {
+              "const": "DISCARDED_AND_COUNTED_NEVER_IMPUTED"
+            },
+            "maximum_discarded_replicate_share": {
+              "const": 0.01
+            }
+          }
+        },
+        "reliability_bin_edges": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 11,
+          "maxItems": 11
+        },
+        "reliability_bins_inherited_from_v1": {
+          "const": true
+        },
+        "magnitude_declared": {
+          "const": false
+        },
+        "magnitude_status": {
+          "const": "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION"
+        },
+        "search_memory_carryover": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 9,
+          "uniqueItems": true
+        },
+        "search_memory_reset": {
+          "const": false
+        },
+        "rejected_v1_result_becomes_evidence_under_the_new_scorer": {
+          "const": false
+        },
+        "v2_hypotheses_declared": {
+          "const": 0
+        },
+        "v2_candidates_executed": {
+          "const": 0
+        },
+        "model_fits": {
+          "const": 0
+        },
+        "market_predictions": {
+          "const": 0
+        },
+        "sealed_queries": {
+          "const": 0
+        },
+        "champion_status": {
+          "const": "NONE"
+        },
+        "real_money": {
+          "const": false
+        }
       }
     },
     "predictive_internal_nonlinear": {
@@ -2963,7 +3463,7 @@
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE"},
+        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

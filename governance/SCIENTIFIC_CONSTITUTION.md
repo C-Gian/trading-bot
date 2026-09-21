@@ -161,6 +161,41 @@ classification retrospectively.
 The same gate applies to a `MATERIAL_PREDICTIVE_HYPOTHESIS`, with the minimum important
 effect expressed in the predictive primary metric rather than in an economic one.
 
+## Research generations
+
+Version 2.0 governs every prediction-first research generation. A generation is a frozen
+evaluation question, not a new mission and not a new set of rigour rules. Opening one never
+weakens this Constitution, and closing one never deletes or reinterprets what it recorded.
+
+`PREDICTIVE_RESEARCH_GENERATION_V1` tested universal hourly directional classification on the
+frozen BTCUSDT 24h terminal target under
+`docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md` (Amendment A1). It is closed with
+disposition `CLOSED_NO_DIRECTIONAL_ADMISSION_NO_SEALED`: five executed information families,
+ten consumed configurations, none advanced, none sealed-eligible. That closure establishes
+that the tested always-declare formulations added no credible directional information over
+their frozen controls. It does not establish that the market is unpredictable, and it is not
+evidence for or against any question a later generation asks.
+
+`PREDICTIVE_RESEARCH_GENERATION_V2` tests selective directional prediction — `LONG` when a
+calibrated probability clears a frozen threshold, `NO_TRADE` otherwise — under
+`docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V2.md` (Amendment B1). See
+[ADR-0028](../decisions/ADR-0028-GENERATION-V2-SELECTIVE-LONG-REBASELINE.md).
+
+Rules that bind every generation:
+
+- a new evaluation question is preregistered before any candidate of that generation exists,
+  and is never applied retrospectively to an earlier generation's model score;
+- an earlier generation's rejected result never becomes evidence merely because the scorer
+  changed;
+- search memory, family dispositions, source blocks and search-burden accounting carry
+  forward across generations; new hypotheses receive new IDs and new budgets;
+- a generation's advancement thresholds may not be weakened after one of its candidates has
+  been observed;
+- a selective predictor is additionally governed by predeclared coverage and sample-size
+  floors, so a high win rate obtained by acting rarely is not predictive success;
+- a selective predictor is compared against the ambient outcome rate of the same evaluation
+  period, so acting inside a favourable regime is not mistaken for skill.
+
 ---
 
 ## Appendix A — superseded Version 1.0, preserved verbatim

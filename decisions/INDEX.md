@@ -27,3 +27,4 @@
 - [ADR-0025](ADR-0025-RUNTIME-ARTIFACTS-ARE-NOT-SCIENTIFIC-BUILD-STATE.md) — observer runtime stores are generated local state and can no longer unverify their own build
 - [ADR-0026](ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md) — Owner-authorized prediction-first objective supersedes cost-adjusted strategy selection and suspends the ALIGNED prospective observer
 - [ADR-0027](ADR-0027-BASELINE-PROBABILITY-SEMANTICS-AND-METRIC-APPLICABILITY.md) — baseline probability means P(declared direction correct), and each metric is mandatory exactly when the quantity it scores is declared
+- [ADR-0028](ADR-0028-GENERATION-V2-SELECTIVE-LONG-REBASELINE.md) — Generation V1 closes with no directional admission and Generation V2 tests selective LONG against the ambient fold rate

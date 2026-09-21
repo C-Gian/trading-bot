@@ -1,5 +1,11 @@
 # Predictive evaluation contract V1
 
+**Scope: `PREDICTIVE_RESEARCH_GENERATION_V1`, which is closed.** This contract governed every
+V1 result and continues to govern how those results are read. Generation V2 is scored by
+[`PREDICTIVE_EVALUATION_CONTRACT_V2`](PREDICTIVE_EVALUATION_CONTRACT_V2.md) (Amendment B1),
+which succeeds §3–§5 for V2 candidates only and is never applied retrospectively to a V1
+model score.
+
 Canonical. Owner-authorized prediction-first objective; see
 [ADR-0026](../../decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md) and
 [the Constitution](../../governance/SCIENTIFIC_CONSTITUTION.md).

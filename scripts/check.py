@@ -293,7 +293,9 @@ def validate_research_views(state: dict) -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == ("PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1")
+    assert state["latest_executor_checkpoint"] == (
+        "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
+    )
     assert state["project_phase"] == "PREDICTIVE_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -369,7 +371,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE"
+        "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
@@ -852,9 +854,7 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V1"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_RELEASE_STATE_CLOSURE"
-    )
+    assert architecture["next_checkpoint"] == ("RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE")
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -2911,6 +2911,116 @@ def predictive_macro_release_state_checks(state: dict) -> None:
     assert record["champion_status"] == state["champion_status"] == "NONE"
 
 
+def generation_v2_rebaseline_checks(state: dict) -> None:
+    """Generation V1 is closed, Generation V2 is frozen, and nothing was fitted to open it."""
+    from app.predictive.internal_structure import content_hash
+    from app.predictive.selective_long import (
+        ACTION_THRESHOLD,
+        GATE_NAMES,
+        SELECTIVE_BLOCK_LENGTH_HOURS,
+        SELECTIVE_REPLICATES,
+        frozen_semantics,
+    )
+
+    closure = state["predictive_generation_v1_closure"]
+    objective = state["predictive_generation_v2_objective"]
+    semantics = frozen_semantics()
+
+    # V1 closes on the ten configurations that actually produced a market result. The
+    # macro-vintage source block executed nothing and may never be counted among them.
+    executed = sorted(
+        path.parent.name for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+    )
+    assert closure["disposition"] == "CLOSED_NO_DIRECTIONAL_ADMISSION_NO_SEALED"
+    assert closure["configurations_consumed"] == len(executed) == 10
+    assert sorted(closure["executed_experiment_ids"]) == executed
+    assert closure["information_families_executed"] == 5
+    assert closure["configurations_advanced"] == 0
+    assert closure["sealed_eligible_configurations"] == 0
+    assert "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1" in closure["source_blocked_checkpoints"]
+    assert closure["source_block_counted_as_executed_configuration"] is False
+    assert "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1" not in closure["executed_experiment_ids"]
+    assert closure["establishes_market_unpredictability"] is False
+    assert closure["results_rewritten"] is False and closure["results_re_executed"] is False
+    assert closure["rescue_by_inversion_thresholding_fold_removal_or_pruning"] is False
+    assert closure["macro_residual_repaired_retrospectively"] is False
+    assert (ROOT / closure["decision_record"]).is_file()
+    assert (ROOT / closure["macro_residual_finding"]).is_file()
+
+    # The prospective ALFRED guard exists, is prospective, and carries both conditions.
+    guard = (ROOT / closure["prospective_source_guard"]).read_text(encoding="utf-8")
+    for required in (
+        "`availability_time <= T`",
+        "`observation_date <= UTC_date(T)`",
+        "prospectively",
+        "Current-revised substitution",
+    ):
+        assert required in guard, required
+
+    # The V2 freeze in state, the contract and the scorer must all be the same freeze.
+    contract = (ROOT / objective["evaluation_contract"]).read_text(encoding="utf-8")
+    assert objective["generation"] == "PREDICTIVE_RESEARCH_GENERATION_V2"
+    assert objective["status"] == "OPEN_NO_CANDIDATE_EXECUTED"
+    assert objective["evaluation_contract_sha256"] == content_hash(
+        ROOT / objective["evaluation_contract"]
+    )
+    assert objective["scorer_module_sha256"] == content_hash(ROOT / objective["scorer_module"])
+    assert objective["prospective_source_guard_sha256"] == content_hash(
+        ROOT / objective["prospective_source_guard"]
+    )
+    assert objective["prospective_source_guard"] == closure["prospective_source_guard"]
+    assert objective["action_threshold"] == ACTION_THRESHOLD == 0.60
+    assert objective["action_threshold_tunable_on_development"] is False
+    assert objective["short_authorized"] is False
+    assert objective["horizon_searched"] is False
+    assert objective["primary_horizon"] == "24h" and objective["decision_cadence"] == "1h"
+    assert objective["prediction_target"] == "r_24h = log(close[T+24h] / close[T])"
+    assert objective["primary_metric"] == semantics["primary_metric"]
+    assert objective["primary_control"] == semantics["primary_control"]
+    assert objective["primary_control_uses_candidate_action_selection"] is False
+    assert objective["primary_effect"] == semantics["primary_effect"]
+    assert objective["advancement_conditions"] == list(GATE_NAMES) == semantics["gate_names"]
+    assert len(GATE_NAMES) == 10 and objective["all_conditions_must_hold"] is True
+    assert objective["thresholds_weakenable_after_a_result"] is False
+    assert objective["inference"] == semantics["inference"]
+    assert objective["inference"]["block_length_hours"] == SELECTIVE_BLOCK_LENGTH_HOURS == 48
+    assert objective["inference"]["replicates"] == SELECTIVE_REPLICATES == 10_000
+    assert objective["inference"]["seed"] == "DECLARED_PER_FAMILY_BEFORE_EXECUTION"
+    assert objective["reliability_bin_edges"] == semantics["reliability_bin_edges"]
+    assert objective["reliability_bins_inherited_from_v1"] is True
+    assert objective["magnitude_declared"] is False
+    assert objective["magnitude_status"] == "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION"
+    assert objective["search_memory_reset"] is False
+    assert objective["rejected_v1_result_becomes_evidence_under_the_new_scorer"] is False
+
+    # This checkpoint opened a generation. It did not run one.
+    assert objective["v2_hypotheses_declared"] == 0
+    assert objective["v2_candidates_executed"] == 0
+    assert objective["model_fits"] == 0 and objective["market_predictions"] == 0
+    assert objective["sealed_queries"] == closure["sealed_queries"] == 0
+    assert objective["champion_status"] == state["champion_status"] == "NONE"
+    assert objective["real_money"] is False and state["real_money_authorized"] is False
+    assert not list((ROOT / "research/experiments").glob("EXP-PRED-V2-*"))
+
+    for required in (
+        "LONG      iff calibrated p_up >= 0.60",
+        "SELECTIVE_LONG_WIN_RATE",
+        "FULL_FOLD_UP_RATE",
+        "UNSTABLE_RESAMPLE_SUPPORT",
+        "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION",
+        "not** applied retrospectively to any V1 model score",
+    ):
+        assert required in contract, required
+    v1_contract = (ROOT / "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md").read_text(
+        encoding="utf-8"
+    )
+    assert "PREDICTIVE_EVALUATION_CONTRACT_V2" in v1_contract
+    constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
+    assert "## Research generations" in constitution
+    assert "PREDICTIVE_RESEARCH_GENERATION_V2" in constitution
+    assert (ROOT / objective["checkpoint_report"]).is_file()
+
+
 def dataset_scope_checks() -> None:
     """Metadata/inventory admission also runs in a checkout with no installed market data."""
     from app.research.continuation_lab import MANIFEST_SHA256
@@ -3483,6 +3593,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_cross_asset_checks(state)
     predictive_macro_vintage_checks(state)
     predictive_macro_release_state_checks(state)
+    generation_v2_rebaseline_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
