@@ -22,6 +22,71 @@
           "format": "date-time"
         }
       }
+    },
+    "calendarResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_version", "hypothesis_id", "preregistration", "result_json", "trials_json",
+        "model_fits", "actionable_long_predictions", "action_coverage",
+        "selective_long_win_rate", "full_fold_up_rate", "enrichment",
+        "enrichment_interval", "bootstrap_discarded_replicates",
+        "bootstrap_discarded_share", "bootstrap_support", "full_probability_brier",
+        "matched_training_up_base_rate_brier", "mean_predicted_p_up_on_actions",
+        "action_calibration_gap", "failed_gates", "terminal_classification",
+        "sealed_eligibility"
+      ],
+      "properties": {
+        "model_version": {
+          "enum": ["V2_CALENDAR_LINEAR_V1", "V2_CALENDAR_HGBR_V1"]
+        },
+        "hypothesis_id": {
+          "enum": ["H-PRED-V2-CALENDAR-001", "H-PRED-V2-CALENDAR-002"]
+        },
+        "preregistration": {"type": "string", "minLength": 1},
+        "result_json": {"type": "string", "minLength": 1},
+        "trials_json": {"type": "string", "minLength": 1},
+        "model_fits": {"const": 12},
+        "actionable_long_predictions": {"type": "integer", "minimum": 0},
+        "action_coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "selective_long_win_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "full_fold_up_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "enrichment": {"type": "number", "minimum": -1, "maximum": 1},
+        "enrichment_interval": {
+          "type": "array",
+          "items": {"type": "number", "minimum": -1, "maximum": 1},
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "bootstrap_discarded_replicates": {"type": "integer", "minimum": 0},
+        "bootstrap_discarded_share": {"type": "number", "minimum": 0, "maximum": 1},
+        "bootstrap_support": {"const": "STABLE"},
+        "full_probability_brier": {"type": "number", "minimum": 0, "maximum": 1},
+        "matched_training_up_base_rate_brier": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mean_predicted_p_up_on_actions": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "action_calibration_gap": {"type": "number", "minimum": 0, "maximum": 1},
+        "failed_gates": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "terminal_classification": {
+          "enum": [
+            "NO_ADVANCE_V2_CALENDAR_LINEAR_V1",
+            "NO_ADVANCE_V2_CALENDAR_HGBR_V1"
+          ]
+        },
+        "sealed_eligibility": {"const": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT"}
+      }
     }
   },
   "type": "object",
@@ -36,6 +101,7 @@
     "predictive_internal_structure",
     "predictive_generation_v1_closure",
     "predictive_generation_v2_objective",
+    "predictive_v2_deterministic_calendar",
     "predictive_internal_nonlinear",
     "predictive_stage1_disposition",
     "predictive_stage2_settled_funding",
@@ -643,7 +709,10 @@
           "const": "PREDICTIVE_RESEARCH_GENERATION_V2"
         },
         "status": {
-          "const": "OPEN_NO_CANDIDATE_EXECUTED"
+          "enum": [
+            "OPEN_NO_CANDIDATE_EXECUTED",
+            "FIRST_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW"
+          ]
         },
         "decision_record": {
           "const": "decisions/ADR-0028-GENERATION-V2-SELECTIVE-LONG-REBASELINE.md"
@@ -895,16 +964,16 @@
           "const": false
         },
         "v2_hypotheses_declared": {
-          "const": 0
+          "enum": [0, 2]
         },
         "v2_candidates_executed": {
-          "const": 0
+          "enum": [0, 2]
         },
         "model_fits": {
-          "const": 0
+          "enum": [0, 24]
         },
         "market_predictions": {
-          "const": 0
+          "enum": [0, 104630]
         },
         "sealed_queries": {
           "const": 0
@@ -915,6 +984,104 @@
         "real_money": {
           "const": false
         }
+      }
+    },
+    "predictive_v2_deterministic_calendar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "status", "classification", "generation", "family", "family_size",
+        "decision_record", "evaluation_contract", "feature_contract", "feature_proofs",
+        "feature_set_version", "feature_count", "feature_validity", "search_plan",
+        "admission", "admission_identity_sha256", "pre_result_commit", "report_json",
+        "report_markdown", "checkpoint_report", "folds", "primary_control",
+        "configurations_planned", "configurations_consumed", "configurations_remaining",
+        "configurations", "advancing_configurations", "family_disposition", "model_fits",
+        "outer_predictions", "deterministic_replay", "sealed_eligibility",
+        "v1_result_artifacts_unchanged", "v1_scores_or_tails_used",
+        "macro_source_block_unchanged", "macro_residual_finding_unchanged",
+        "magnitude_status", "sealed_queries", "champion_status", "real_money"
+      ],
+      "properties": {
+        "version": {"const": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"},
+        "status": {"const": "COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW"},
+        "classification": {"const": "PREDICTIVE_V2_FAMILY_RESULT"},
+        "generation": {"const": "PREDICTIVE_RESEARCH_GENERATION_V2"},
+        "family": {"const": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FAMILY_V1"},
+        "family_size": {"const": 2},
+        "decision_record": {
+          "const": "decisions/ADR-0029-PREDICTIVE-V2-DETERMINISTIC-CALENDAR.md"
+        },
+        "evaluation_contract": {
+          "const": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V2.md"
+        },
+        "feature_contract": {
+          "const": "docs/contracts/PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1.md"
+        },
+        "feature_proofs": {
+          "const": "reports/validation/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1-FEATURE-PROOFS.json"
+        },
+        "feature_set_version": {
+          "const": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1"
+        },
+        "feature_count": {"const": 7},
+        "feature_validity": {"const": 1.0},
+        "search_plan": {
+          "const": "research/protocols/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-SEARCH-PLAN-V1.json"
+        },
+        "admission": {
+          "const": "reports/validation/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1-ADMISSION.json"
+        },
+        "admission_identity_sha256": {"$ref": "#/$defs/sha256"},
+        "pre_result_commit": {
+          "const": "5cc4f153f37b0b200b46834e0b714498164889fc"
+        },
+        "report_json": {
+          "const": "reports/research/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1.json"
+        },
+        "report_markdown": {
+          "const": "reports/research/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1.md"
+        },
+        "checkpoint_report": {
+          "const": "reports/checkpoints/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1.md"
+        },
+        "folds": {
+          "type": "array",
+          "const": ["2019", "2020", "2021", "2022", "2023", "2024"]
+        },
+        "primary_control": {"const": "FULL_FOLD_UP_RATE"},
+        "configurations_planned": {"const": 2},
+        "configurations_consumed": {"const": 2},
+        "configurations_remaining": {"const": 0},
+        "configurations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "EXP-PRED-V2-001-CALENDAR-LINEAR",
+            "EXP-PRED-V2-002-CALENDAR-HGBR"
+          ],
+          "properties": {
+            "EXP-PRED-V2-001-CALENDAR-LINEAR": {"$ref": "#/$defs/calendarResult"},
+            "EXP-PRED-V2-002-CALENDAR-HGBR": {"$ref": "#/$defs/calendarResult"}
+          }
+        },
+        "advancing_configurations": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "family_disposition": {"const": "REJECTED_DEVELOPMENT_NO_SEALED"},
+        "model_fits": {"const": 24},
+        "outer_predictions": {"const": 104630},
+        "deterministic_replay": {"const": "PASS_BYTE_IDENTICAL"},
+        "sealed_eligibility": {"const": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT"},
+        "v1_result_artifacts_unchanged": {"const": 10},
+        "v1_scores_or_tails_used": {"const": false},
+        "macro_source_block_unchanged": {"const": true},
+        "macro_residual_finding_unchanged": {"const": true},
+        "magnitude_status": {"const": "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION"},
+        "sealed_queries": {"const": 0},
+        "champion_status": {"const": "NONE"},
+        "real_money": {"const": false}
       }
     },
     "predictive_internal_nonlinear": {
@@ -3459,11 +3626,13 @@
           "minItems": 3,
           "maxItems": 3
         },
-        "primary_next_direction": {"const": "PREDICTIVE_RESEARCH_GENERATION_V1"},
+        "primary_next_direction": {"const": "PREDICTIVE_RESEARCH_GENERATION_V2"},
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"},
+        "next_checkpoint": {
+          "const": "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
+        },
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

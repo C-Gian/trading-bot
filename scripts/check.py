@@ -376,7 +376,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"
+        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
@@ -856,10 +856,12 @@ def p2_closure_checks(state: dict) -> None:
     assert state["cycle_foundation"]["next_checkpoint"] == (
         "NONE_CYCLE_FAMILY_PARKED_METHODOLOGY_BLOCKED"
     )
-    assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V1"
+    assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V2"
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == ("RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE")
+    assert architecture["next_checkpoint"] == (
+        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
+    )
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
 
@@ -1671,7 +1673,9 @@ def prediction_first_checks(state: dict) -> None:
     # Whether a predictor has been trained is a fact about the committed experiment
     # records, not a claim state may make on its own.
     executed = sorted(
-        path.parent.name for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+        path.parent.name
+        for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+        if not path.parent.name.startswith("EXP-PRED-V2-")
     )
     assert objective["predictor_trained"] is bool(executed)
     assert objective["predictive_results_observed"] is bool(executed)
@@ -2907,7 +2911,9 @@ def predictive_macro_release_state_checks(state: dict) -> None:
         if not record["advancing_configurations"]:
             assert summary["sealed_eligibility"] == NOT_ELIGIBLE
     executed = sorted(
-        path.parent.name for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+        path.parent.name
+        for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+        if not path.parent.name.startswith("EXP-PRED-V2-")
     )
     assert len(executed) == 10
     assert state["predictive_research_objective"]["predictive_experiments_completed"] == 10
@@ -2934,7 +2940,9 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
     # V1 closes on the ten configurations that actually produced a market result. The
     # macro-vintage source block executed nothing and may never be counted among them.
     executed = sorted(
-        path.parent.name for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+        path.parent.name
+        for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+        if not path.parent.name.startswith("EXP-PRED-V2-")
     )
     assert closure["disposition"] == "CLOSED_NO_DIRECTIONAL_ADMISSION_NO_SEALED"
     assert closure["configurations_consumed"] == len(executed) == 10

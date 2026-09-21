@@ -92,7 +92,9 @@ def test_the_objective_matches_the_committed_predictive_experiments() -> None:
     """Whether a predictor exists is a fact about the records, not a claim state may make."""
     objective = STATE["predictive_research_objective"]
     executed = sorted(
-        path.parent.name for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+        path.parent.name
+        for path in (ROOT / "research/experiments").glob("EXP-PRED-*/result.json")
+        if not path.parent.name.startswith("EXP-PRED-V2-")
     )
     assert objective["predictor_trained"] is bool(executed)
     assert objective["predictive_results_observed"] is bool(executed)

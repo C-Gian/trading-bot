@@ -1,0 +1,564 @@
+{
+  "admission": "reports/validation/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1-ADMISSION.json",
+  "advancement_gate": {
+    "advances": false,
+    "all_must_hold": true,
+    "conditions": {
+      "ACTION_CALIBRATION_GAP_AT_MOST_0_05": {
+        "observed": 0.0766267243298,
+        "passed": false,
+        "threshold": 0.05
+      },
+      "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE_ENRICHMENT": {
+        "observed": 1,
+        "passed": false,
+        "threshold": 4
+      },
+      "ENRICHMENT_INTERVAL_LOWER_BOUND_ABOVE_ZERO": {
+        "observed": -0.06266302397996246,
+        "passed": false,
+        "threshold": 0.0
+      },
+      "EVERY_FOLD_ACTIONABLE_LONGS_AT_LEAST_30": {
+        "observed": 0,
+        "passed": false,
+        "threshold": 30
+      },
+      "EVERY_FOLD_ACTION_COVERAGE_AT_LEAST_0_005": {
+        "observed": 0.0,
+        "passed": false,
+        "threshold": 0.005
+      },
+      "FULL_PROBABILITY_BRIER_AT_MOST_MATCHED_TRAINING_UP_BASE_RATE_BRIER": {
+        "observed": 0.25373352905257046,
+        "passed": false,
+        "threshold": 0.2497220450654606
+      },
+      "POOLED_ACTIONABLE_LONGS_AT_LEAST_500": {
+        "observed": 2847,
+        "passed": true,
+        "threshold": 500
+      },
+      "POOLED_ACTION_COVERAGE_AT_LEAST_0_02": {
+        "observed": 0.05442033833508554,
+        "passed": true,
+        "threshold": 0.02
+      },
+      "POOLED_ENRICHMENT_OVER_FULL_FOLD_UP_RATE_AT_LEAST_0_05": {
+        "observed": 0.0035014040443425154,
+        "passed": false,
+        "threshold": 0.05
+      },
+      "POOLED_SELECTIVE_LONG_WIN_RATE_AT_LEAST_0_60": {
+        "observed": 0.5296803652968036,
+        "passed": false,
+        "threshold": 0.6
+      }
+    },
+    "failed_conditions": [
+      "EVERY_FOLD_ACTION_COVERAGE_AT_LEAST_0_005",
+      "EVERY_FOLD_ACTIONABLE_LONGS_AT_LEAST_30",
+      "POOLED_SELECTIVE_LONG_WIN_RATE_AT_LEAST_0_60",
+      "POOLED_ENRICHMENT_OVER_FULL_FOLD_UP_RATE_AT_LEAST_0_05",
+      "ENRICHMENT_INTERVAL_LOWER_BOUND_ABOVE_ZERO",
+      "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE_ENRICHMENT",
+      "FULL_PROBABILITY_BRIER_AT_MOST_MATCHED_TRAINING_UP_BASE_RATE_BRIER",
+      "ACTION_CALIBRATION_GAP_AT_MOST_0_05"
+    ],
+    "fold_action_coverage": {
+      "2019": 0.0,
+      "2020": 0.0,
+      "2021": 0.32727899758592943,
+      "2022": 0.0,
+      "2023": 0.0,
+      "2024": 0.0
+    },
+    "fold_actionable_long_predictions": {
+      "2019": 0,
+      "2020": 0,
+      "2021": 2847,
+      "2022": 0,
+      "2023": 0,
+      "2024": 0
+    },
+    "fold_enrichment": {
+      "2019": null,
+      "2020": null,
+      "2021": 0.007896252180353502,
+      "2022": null,
+      "2023": null,
+      "2024": null
+    },
+    "included_fold_count": 6,
+    "non_negative_enrichment_folds": 1,
+    "required_non_negative_folds": 4,
+    "secondary_metric_used_to_rescue": false
+  },
+  "boundaries": {
+    "champion_created": false,
+    "magnitude_declared": false,
+    "magnitude_status": "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION",
+    "post_cutoff_market_data": false,
+    "post_result_tuning": false,
+    "real_money": false,
+    "sealed_queries": 0,
+    "short_authorized": false
+  },
+  "candidate": {
+    "action_calibration_gap": 0.0766267243298,
+    "action_coverage": 0.05442033833508554,
+    "action_reliability_table": [
+      {
+        "bin": "[0.0,0.1)",
+        "count": 0,
+        "empirical_frequency_correct": null,
+        "mean_predicted_probability": null
+      },
+      {
+        "bin": "[0.1,0.2)",
+        "count": 0,
+        "empirical_frequency_correct": null,
+        "mean_predicted_probability": null
+      },
+      {
+        "bin": "[0.2,0.3)",
+        "count": 0,
+        "empirical_frequency_correct": null,
+        "mean_predicted_probability": null
+      },
+      {
+        "bin": "[0.3,0.4)",
+        "count": 0,
+        "empirical_frequency_correct": null,
+        "mean_predicted_probability": null
+      },
+      {
+        "bin": "[0.4,0.5)",
+        "count": 0,
+        "empirical_frequency_correct": null,
+        "mean_predicted_probability": null
+      },
+      {
+        "bin": "[0.5,0.6)",
+        "count": 0,
+        "empirical_frequency_correct": null,
+        "mean_predicted_probability": null
+      },
+      {
+        "bin": "[0.6,0.7)",
+        "count": 2847,
+        "empirical_frequency_correct": 0.5296803652968036,
+        "mean_predicted_probability": 0.6063070896266036
+      },
+      {
+        "bin": "[0.7,0.8)",
+        "count": 0,
+        "empirical_frequency_correct": null,
+        "mean_predicted_probability": null
+      },
+      {
+        "bin": "[0.8,0.9)",
+        "count": 0,
+        "empirical_frequency_correct": null,
+        "mean_predicted_probability": null
+      },
+      {
+        "bin": "[0.9,1.0]",
+        "count": 0,
+        "empirical_frequency_correct": null,
+        "mean_predicted_probability": null
+      }
+    ],
+    "action_threshold": 0.6,
+    "actionable_long_predictions": 2847,
+    "by_fold": {
+      "2019": {
+        "action_calibration_gap": null,
+        "action_coverage": 0.0,
+        "actionable_long_predictions": 0,
+        "directionally_scorable_timestamps": 8672,
+        "eligible_decision_timestamps": 8673,
+        "enrichment": null,
+        "feature_invalid_timestamps": 0,
+        "feature_valid_fold_up_rate": 0.521909594095941,
+        "feature_valid_timestamps": 8673,
+        "fold": "2019",
+        "full_fold_up_rate": 0.521909594095941,
+        "full_probability_brier": 0.25389787232026634,
+        "long_actions": 0,
+        "long_actions_on_neutral_truth": 0,
+        "matched_training_up_base_rate_brier": 0.24967398552602338,
+        "mean_predicted_p_up_on_actions": null,
+        "neutral_truths": 1,
+        "no_trade_actions": 8673,
+        "selective_long_win_rate": null,
+        "selective_long_wins": 0,
+        "timeline_hours": 8737,
+        "training_up_base_rate": 0.5094992822764502
+      },
+      "2020": {
+        "action_calibration_gap": null,
+        "action_coverage": 0.0,
+        "actionable_long_predictions": 0,
+        "directionally_scorable_timestamps": 8713,
+        "eligible_decision_timestamps": 8713,
+        "enrichment": null,
+        "feature_invalid_timestamps": 0,
+        "feature_valid_fold_up_rate": 0.5807414208653736,
+        "feature_valid_timestamps": 8713,
+        "fold": "2020",
+        "full_fold_up_rate": 0.5807414208653736,
+        "full_probability_brier": 0.26058985670562085,
+        "long_actions": 0,
+        "long_actions_on_neutral_truth": 0,
+        "matched_training_up_base_rate_brier": 0.24783527609957826,
+        "mean_predicted_p_up_on_actions": null,
+        "neutral_truths": 0,
+        "no_trade_actions": 8713,
+        "selective_long_win_rate": null,
+        "selective_long_wins": 0,
+        "timeline_hours": 8761,
+        "training_up_base_rate": 0.5147531405200116
+      },
+      "2021": {
+        "action_calibration_gap": 0.0766267243298,
+        "action_coverage": 0.32727899758592943,
+        "actionable_long_predictions": 2847,
+        "directionally_scorable_timestamps": 8699,
+        "eligible_decision_timestamps": 8699,
+        "enrichment": 0.007896252180353502,
+        "feature_invalid_timestamps": 0,
+        "feature_valid_fold_up_rate": 0.5217841131164501,
+        "feature_valid_timestamps": 8699,
+        "fold": "2021",
+        "full_fold_up_rate": 0.5217841131164501,
+        "full_probability_brier": 0.25486405906146203,
+        "long_actions": 2847,
+        "long_actions_on_neutral_truth": 0,
+        "matched_training_up_base_rate_brier": 0.24966217146754172,
+        "mean_predicted_p_up_on_actions": 0.6063070896266036,
+        "neutral_truths": 0,
+        "no_trade_actions": 5852,
+        "selective_long_win_rate": 0.5296803652968036,
+        "selective_long_wins": 1508,
+        "timeline_hours": 8737,
+        "training_up_base_rate": 0.5334768053562888
+      },
+      "2022": {
+        "action_calibration_gap": null,
+        "action_coverage": 0.0,
+        "actionable_long_predictions": 0,
+        "directionally_scorable_timestamps": 8737,
+        "eligible_decision_timestamps": 8737,
+        "enrichment": null,
+        "feature_invalid_timestamps": 0,
+        "feature_valid_fold_up_rate": 0.4691541719125558,
+        "feature_valid_timestamps": 8737,
+        "fold": "2022",
+        "full_fold_up_rate": 0.4691541719125558,
+        "full_probability_brier": 0.25064892318238974,
+        "long_actions": 0,
+        "long_actions_on_neutral_truth": 0,
+        "matched_training_up_base_rate_brier": 0.2529064698670257,
+        "mean_predicted_p_up_on_actions": null,
+        "neutral_truths": 0,
+        "no_trade_actions": 8737,
+        "selective_long_win_rate": null,
+        "selective_long_wins": 0,
+        "timeline_hours": 8737,
+        "training_up_base_rate": 0.5312664490999053
+      },
+      "2023": {
+        "action_calibration_gap": null,
+        "action_coverage": 0.0,
+        "actionable_long_predictions": 0,
+        "directionally_scorable_timestamps": 8733,
+        "eligible_decision_timestamps": 8733,
+        "enrichment": null,
+        "feature_invalid_timestamps": 0,
+        "feature_valid_fold_up_rate": 0.5263941371808084,
+        "feature_valid_timestamps": 8733,
+        "fold": "2023",
+        "full_fold_up_rate": 0.5263941371808084,
+        "full_probability_brier": 0.25327196571192195,
+        "long_actions": 0,
+        "long_actions_on_neutral_truth": 0,
+        "matched_training_up_base_rate_brier": 0.2493496312655779,
+        "mean_predicted_p_up_on_actions": null,
+        "neutral_truths": 0,
+        "no_trade_actions": 8733,
+        "selective_long_win_rate": null,
+        "selective_long_wins": 0,
+        "timeline_hours": 8737,
+        "training_up_base_rate": 0.5195910685259646
+      },
+      "2024": {
+        "action_calibration_gap": null,
+        "action_coverage": 0.0,
+        "actionable_long_predictions": 0,
+        "directionally_scorable_timestamps": 8759,
+        "eligible_decision_timestamps": 8760,
+        "enrichment": null,
+        "feature_invalid_timestamps": 0,
+        "feature_valid_fold_up_rate": 0.5371617764584998,
+        "feature_valid_timestamps": 8760,
+        "fold": "2024",
+        "full_fold_up_rate": 0.5371617764584998,
+        "full_probability_brier": 0.24916476388937103,
+        "long_actions": 0,
+        "long_actions_on_neutral_truth": 0,
+        "matched_training_up_base_rate_brier": 0.24890083270884653,
+        "mean_predicted_p_up_on_actions": null,
+        "neutral_truths": 1,
+        "no_trade_actions": 8760,
+        "selective_long_win_rate": null,
+        "selective_long_wins": 0,
+        "timeline_hours": 8760,
+        "training_up_base_rate": 0.5203739731949849
+      }
+    },
+    "directionally_scorable_timestamps": 52313,
+    "eligible_decision_timestamps": 52315,
+    "enrichment": 0.0035014040443425154,
+    "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V2.md",
+    "feature_invalid_timestamps": 0,
+    "feature_valid_timestamps": 52315,
+    "full_fold_up_rate": 0.5261789612524611,
+    "full_probability_brier": 0.25373352905257046,
+    "generation": "PREDICTIVE_RESEARCH_GENERATION_V2",
+    "included_fold_count": 6,
+    "included_folds": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "long_actions": 2847,
+    "long_actions_on_neutral_truth": 0,
+    "magnitude_declared": false,
+    "magnitude_status": "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION",
+    "matched_training_up_base_rate_brier": 0.2497220450654606,
+    "mean_predicted_p_up_on_actions": 0.6063070896266036,
+    "neutral_truths": 2,
+    "no_trade_actions": 49468,
+    "primary_control": "FULL_FOLD_UP_RATE",
+    "primary_metric": "SELECTIVE_LONG_WIN_RATE",
+    "reliability_bin_edges": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "selective_long_win_rate": 0.5296803652968036,
+    "selective_long_wins": 1508
+  },
+  "checkpoint": "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+  "classification": "PREDICTIVE_V2_SELECTIVE_LONG_EXPERIMENT_RESULT",
+  "evaluation_contract": "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V2.md",
+  "experiment_id": "EXP-PRED-V2-002-CALENDAR-HGBR",
+  "family": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FAMILY_V1",
+  "feature_contract": "docs/contracts/PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1.md",
+  "features": {
+    "causality_proofs": "PASS",
+    "eligible_vectors": 52315,
+    "external_sources_read": false,
+    "feature_count": 7,
+    "future_timestamps_read": false,
+    "input": "TIMEZONE_AWARE_UTC_DECISION_TIMESTAMP_T_ONLY",
+    "invalid_row_policy": "IMPLEMENTATION_DEFECT_FAIL_CLOSED_BEFORE_MODEL_EXECUTION",
+    "invalid_vectors": 0,
+    "labels_read": false,
+    "leap_year_denominator": 366,
+    "local_timezone_or_dst_used": false,
+    "market_values_read": false,
+    "ordered_names": [
+      "UTC_HOUR_SIN",
+      "UTC_HOUR_COS",
+      "UTC_WEEKDAY_SIN",
+      "UTC_WEEKDAY_COS",
+      "UTC_YEAR_PHASE_SIN",
+      "UTC_YEAR_PHASE_COS",
+      "UTC_WEEKEND"
+    ],
+    "ordinary_year_denominator": 365,
+    "validity": 1.0,
+    "version": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1"
+  },
+  "folds": {
+    "design": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD",
+    "included_fold_count": 6,
+    "included_folds": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "purge_embargo_hours": 24,
+    "random_k_fold": false,
+    "recut": false
+  },
+  "hypothesis_id": "H-PRED-V2-CALENDAR-002",
+  "integrity": {
+    "admission_identity_sha256": "91f47e036408b19c3023c508f61530bdcfba53525955566a16c2334b2bf97bcf",
+    "full_fold_control_visible_to_fitting_or_calibration": false,
+    "old_cycle_or_cross_section_result_imported_as_evidence": false,
+    "v1_results_modified": false,
+    "v1_scores_or_tails_used": false
+  },
+  "labels": {
+    "admissible_labels": 64323,
+    "direction_counts": {
+      "DOWN": 30681,
+      "NEUTRAL": 5,
+      "UP": 33637
+    },
+    "excluded_total": 329,
+    "exclusions": {
+      "DECISION_BAR_INCOMPLETE": 31,
+      "DECISION_BAR_MISSING": 127,
+      "HORIZON_BAR_BEYOND_COVERAGE": 24,
+      "HORIZON_BAR_INCOMPLETE": 29,
+      "HORIZON_BAR_MISSING": 118,
+      "NON_POSITIVE_PRICE": 0
+    },
+    "first_grid_instant": 1502942400,
+    "grid_decision_instants": 64652,
+    "last_grid_instant": 1735686000
+  },
+  "model": {
+    "base_estimator": "HistGradientBoostingClassifier",
+    "base_parameters": {
+      "early_stopping": false,
+      "l2_regularization": 1.0,
+      "learning_rate": 0.05,
+      "max_bins": 255,
+      "max_iter": 200,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 50,
+      "random_state": 20260921
+    },
+    "calibration_embargo_hours": 48,
+    "calibration_estimator": "LogisticRegression",
+    "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+    "calibration_parameters": {
+      "fit_intercept": true,
+      "max_iter": 2000,
+      "penalty": null,
+      "solver": "lbfgs",
+      "tol": 1e-08
+    },
+    "calibration_split_fraction": 0.8,
+    "hyperparameter_search": false,
+    "input_scaling": "NONE",
+    "magnitude_estimator": null,
+    "model_version": "V2_CALENDAR_HGBR_V1",
+    "probability_semantics": "P_R_24H_GREATER_THAN_ZERO",
+    "sklearn_version": "1.7.2",
+    "threshold_search": false
+  },
+  "model_fit_accounting": {
+    "base_classifier": 6,
+    "hyperparameter_fits": 0,
+    "platt_calibrator": 6,
+    "total": 12,
+    "training_base_rate_calculations": 6
+  },
+  "model_version": "V2_CALENDAR_HGBR_V1",
+  "preregistration": "research/experiments/EXP-PRED-V2-002-CALENDAR-HGBR/preregistration.json",
+  "primary_inference": {
+    "abstentions_compressed_into_adjacency": false,
+    "alpha": 0.025,
+    "block_length_hours": 48,
+    "blocks_cross_fold_boundaries": false,
+    "discarded_replicate_share": 0.0,
+    "discarded_replicates_without_an_actionable_long": 0,
+    "fold_geometry": {
+      "2019": {
+        "actionable_long_predictions": 0,
+        "block_start_positions": 8690,
+        "blocks_per_replicate": 183,
+        "directionally_scorable_timestamps": 8672,
+        "effective_block_hours": 48,
+        "timeline_hours": 8737
+      },
+      "2020": {
+        "actionable_long_predictions": 0,
+        "block_start_positions": 8714,
+        "blocks_per_replicate": 183,
+        "directionally_scorable_timestamps": 8713,
+        "effective_block_hours": 48,
+        "timeline_hours": 8761
+      },
+      "2021": {
+        "actionable_long_predictions": 2847,
+        "block_start_positions": 8690,
+        "blocks_per_replicate": 183,
+        "directionally_scorable_timestamps": 8699,
+        "effective_block_hours": 48,
+        "timeline_hours": 8737
+      },
+      "2022": {
+        "actionable_long_predictions": 0,
+        "block_start_positions": 8690,
+        "blocks_per_replicate": 183,
+        "directionally_scorable_timestamps": 8737,
+        "effective_block_hours": 48,
+        "timeline_hours": 8737
+      },
+      "2023": {
+        "actionable_long_predictions": 0,
+        "block_start_positions": 8690,
+        "blocks_per_replicate": 183,
+        "directionally_scorable_timestamps": 8733,
+        "effective_block_hours": 48,
+        "timeline_hours": 8737
+      },
+      "2024": {
+        "actionable_long_predictions": 0,
+        "block_start_positions": 8713,
+        "blocks_per_replicate": 183,
+        "directionally_scorable_timestamps": 8759,
+        "effective_block_hours": 48,
+        "timeline_hours": 8760
+      }
+    },
+    "interval": [
+      -0.06266302397996246,
+      0.07198435896048135
+    ],
+    "interval_lower_bound_above_zero": false,
+    "interval_mass": 0.975,
+    "maximum_discarded_replicate_share": 0.01,
+    "method": "FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP_PAIRED_ENRICHMENT",
+    "recomputes_control_on_every_replicate": true,
+    "replicates": 10000,
+    "resample_support": "STABLE",
+    "retained_replicates": 10000,
+    "seed": 20260921
+  },
+  "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V2",
+  "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
+  "search_budget": {
+    "configuration_consumed": true,
+    "configuration_trial_budget": 1,
+    "family_size": 2,
+    "feature_search": false,
+    "hyperparameter_search": false,
+    "result_dependent_forks": 0,
+    "threshold_search": false
+  },
+  "search_plan": "research/protocols/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-SEARCH-PLAN-V1.json",
+  "terminal_classification": "NO_ADVANCE_V2_CALENDAR_HGBR_V1",
+  "version": "V2_CALENDAR_HGBR_V1_RESULT_V1"
+}
