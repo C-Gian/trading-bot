@@ -54,6 +54,8 @@ PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR",
     "EXP-PRED-V2-001-CALENDAR-LINEAR",
     "EXP-PRED-V2-002-CALENDAR-HGBR",
+    "EXP-PRED-V2-003-INTERNAL-LINEAR",
+    "EXP-PRED-V2-004-INTERNAL-HGBR",
 }
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
@@ -3030,16 +3032,26 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
     v2_directories = {
         path.name for path in (ROOT / "research/experiments").glob("EXP-PRED-V2-*") if path.is_dir()
     }
+    # Each admitted V2 family owns exactly the experiment directories it preregistered. A
+    # directory with no admission behind it is an unfrozen experiment, not a result.
+    expected_v2_directories: set[str] = set()
     calendar_admission = (
         ROOT / "reports/validation/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1-ADMISSION.json"
     )
     if calendar_admission.is_file():
-        assert v2_directories == {
+        expected_v2_directories |= {
             "EXP-PRED-V2-001-CALENDAR-LINEAR",
             "EXP-PRED-V2-002-CALENDAR-HGBR",
         }
-    else:
-        assert not v2_directories
+    internal_selective_admission = (
+        ROOT / "reports/validation/PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1-ADMISSION.json"
+    )
+    if internal_selective_admission.is_file():
+        expected_v2_directories |= {
+            "EXP-PRED-V2-003-INTERNAL-LINEAR",
+            "EXP-PRED-V2-004-INTERNAL-HGBR",
+        }
+    assert v2_directories == expected_v2_directories
 
     for required in (
         "LONG      iff calibrated p_up >= 0.60",
@@ -3130,6 +3142,112 @@ def predictive_calendar_checks(state: dict) -> None:
         assert result["candidate"]["feature_invalid_timestamps"] == 0
         assert result["primary_inference"]["interval_mass"] == 0.975
         assert len(result["advancement_gate"]["conditions"]) == 10
+        prereg_commit = git(
+            "log",
+            "--diff-filter=A",
+            "--format=%H",
+            "--",
+            PREREGISTRATION_PATHS[model],
+        ).splitlines()[-1]
+        result_commit = git(
+            "log", "--diff-filter=A", "--format=%H", "--", RESULT_PATHS[model]
+        ).splitlines()[-1]
+        assert prereg_commit != result_commit
+        run(["git", "merge-base", "--is-ancestor", prereg_commit, result_commit])
+
+
+def predictive_internal_selective_checks(state: dict) -> None:
+    """The second V2 family is hash-frozen before results and replayed after execution."""
+    from app.predictive.internal_selective import (
+        ADMISSION_PATH,
+        CONFIGURATION_ORDER,
+        FAMILY_SIZE,
+        FEATURE_PROOF_PATH,
+        PREREGISTRATION_PATHS,
+        PRIOR_V1_RESULT_PATHS,
+        PRIOR_V2_RESULT_PATHS,
+        REPORT_JSON_PATH,
+        RESULT_PATHS,
+        SEARCH_PLAN_PATH,
+        TRIAL_PATHS,
+        admission,
+        admission_identity,
+        preregistration,
+        search_plan,
+    )
+
+    admission_path = ROOT / ADMISSION_PATH
+    if not admission_path.is_file():
+        assert "predictive_v2_internal_structure_selective" not in state
+        return
+    frozen = json.loads(admission_path.read_text(encoding="utf-8"))
+    assert frozen == admission(ROOT)
+    assert frozen["status"] == "FROZEN_BEFORE_FIRST_OUTER_PREDICTION"
+    assert frozen["v1_result_count"] == len(PRIOR_V1_RESULT_PATHS) == 10
+    assert set(frozen["v2_prior_result_sha256"]) == set(PRIOR_V2_RESULT_PATHS)
+    assert frozen["inference_seed"] == 20260922
+    assert frozen["generation_v1_disposition"] == ("CLOSED_NO_DIRECTIONAL_ADMISSION_NO_SEALED")
+    assert frozen["v1_internal_family_disposition"] == "REJECTED_DEVELOPMENT_NO_SEALED"
+    assert frozen["calendar_v2_family_disposition"] == "REJECTED_DEVELOPMENT_NO_SEALED"
+    assert frozen["v1_scores_or_tails_used"] is False
+    assert frozen["v1_fitted_model_or_prediction_loaded"] is False
+    assert frozen["stage1_substrate_debt"] == "DEFERRED_UNREPAIRED"
+    assert frozen["sealed_queries"] == 0
+    assert json.loads((ROOT / SEARCH_PLAN_PATH).read_text(encoding="utf-8")) == search_plan()
+    for model in CONFIGURATION_ORDER:
+        assert json.loads(
+            (ROOT / PREREGISTRATION_PATHS[model]).read_text(encoding="utf-8")
+        ) == preregistration(model)
+    proof = json.loads((ROOT / FEATURE_PROOF_PATH).read_text(encoding="utf-8"))
+    assert proof["status"] == "PASS_BEFORE_FIRST_MODEL_FIT"
+    assert proof["model_fits"] == 0 and proof["outer_predictions"] == 0
+    assert proof["stage1_substrate_debt_repaired"] is False
+    assert proof["v1_reconciliation"]["identical_to_v1_definition"] is True
+    assert all(proof["checks"].values())
+
+    if "predictive_v2_internal_structure_selective" not in state:
+        assert not any((ROOT / RESULT_PATHS[model]).exists() for model in CONFIGURATION_ORDER)
+        assert not any((ROOT / TRIAL_PATHS[model]).exists() for model in CONFIGURATION_ORDER)
+        assert not (ROOT / REPORT_JSON_PATH).exists()
+        return
+
+    from app.predictive.internal_selective_report import (
+        load_results,
+        validate_internal_selective,
+    )
+
+    finding = validate_internal_selective(ROOT, data_available=False)
+    record = state["predictive_v2_internal_structure_selective"]
+    report = json.loads((ROOT / REPORT_JSON_PATH).read_text(encoding="utf-8"))
+    results = load_results(ROOT)
+    assert finding["status"] == "PASS" and finding["data_replayed"] is False
+    assert record["family"] == report["family"]
+    assert record["family_size"] == FAMILY_SIZE == 2
+    assert record["configurations_consumed"] == FAMILY_SIZE
+    assert record["configurations_remaining"] == 0
+    assert record["family_disposition"] == report["family_disposition"]
+    assert record["model_fits"] == report["model_fits"] == 24
+    assert record["outer_predictions"] == report["outer_predictions"]
+    assert record["admission_identity_sha256"] == admission_identity(ROOT)
+    assert record["sealed_queries"] == 0
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+    assert record["real_money"] is False
+    assert record["magnitude_status"] == "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION"
+    assert record["stage1_substrate_debt"] == "DEFERRED_UNREPAIRED"
+    assert record["v1_model_outputs_used"] is False
+    # Feature availability is reported, never repaired, and never removes a fold.
+    assert 0.0 < record["outer_feature_validity"] < 1.0
+    for model in CONFIGURATION_ORDER:
+        result = results[model]
+        assert result["candidate"]["feature_invalid_timestamps"] > 0
+        assert result["folds"]["included_fold_count"] == 6
+        assert result["folds"]["fold_removed_for_low_feature_availability"] is False
+        assert result["primary_inference"]["interval_mass"] == 0.975
+        assert result["primary_inference"]["seed"] == 20260922
+        assert len(result["advancement_gate"]["conditions"]) == 10
+        assert result["integrity"]["v1_scores_or_tails_used"] is False
+        assert result["integrity"]["v1_fitted_model_or_prediction_loaded"] is False
+        assert result["integrity"]["stage1_substrate_debt_repaired"] is False
         prereg_commit = git(
             "log",
             "--diff-filter=A",
@@ -3718,6 +3836,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_macro_release_state_checks(state)
     generation_v2_rebaseline_checks(state)
     predictive_calendar_checks(state)
+    predictive_internal_selective_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -4108,6 +4227,16 @@ def data_checks(state: dict) -> None:
         assert (
             calendar["family_disposition"]
             == (state["predictive_v2_deterministic_calendar"]["family_disposition"])
+        )
+    if "predictive_v2_internal_structure_selective" in state:
+        from app.predictive.internal_selective_report import validate_internal_selective
+
+        internal_selective = validate_internal_selective(ROOT, data_available=True)
+        assert internal_selective["data_replayed"] is True
+        assert internal_selective["status"] == "PASS"
+        assert (
+            internal_selective["family_disposition"]
+            == (state["predictive_v2_internal_structure_selective"]["family_disposition"])
         )
     from app.research.cycle_structure_v2_lab import block_support_report, build_donors
 

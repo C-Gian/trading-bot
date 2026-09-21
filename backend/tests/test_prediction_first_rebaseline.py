@@ -361,6 +361,25 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
     assert "Do not ingest all families at once." in roadmap
 
 
+# Every work package since the rebaseline renames the active task. The identity under test
+# is "the active task is the declared successor", not its current title, so any known
+# successor is normalized to the rebaseline anchor. Longest first: these names nest.
+SUCCESSOR_TASK_TITLES = (
+    "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",
+    "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+    "PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",
+    "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+)
+REBASELINE_TASK_TITLE = "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE"
+
+
+def _normalize_current_task(text: str) -> str:
+    for title in SUCCESSOR_TASK_TITLES:
+        if title in text:
+            return text.replace(title, REBASELINE_TASK_TITLE)
+    return text
+
+
 def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> None:
     """The rebaseline handed off to the foundation, which has since been executed."""
     expected = (
@@ -370,17 +389,7 @@ def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> No
     )
     assert STATE["next_recommended_work_package"] == expected
     assert STATE["research_architecture"]["next_checkpoint"] == expected
-    task = _text("tasks/CURRENT_TASK.md")
-    if "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1" in task:
-        task = task.replace(
-            "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
-            "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE",
-        )
-    elif "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1" in task:
-        task = task.replace(
-            "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
-            "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE",
-        )
+    task = _normalize_current_task(_text("tasks/CURRENT_TASK.md"))
     assert task.startswith("# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE")
     for archived in (
         "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md",

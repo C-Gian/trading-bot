@@ -1,0 +1,79 @@
+{
+  "action_threshold": 0.6,
+  "advancement_condition_count": 10,
+  "basis": "DEFERRED",
+  "calendar_v2_family_disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+  "champion": "NONE",
+  "checkpoint": "PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",
+  "created_at": "2026-09-22T00:00:00Z",
+  "cross_asset_inversion_forbidden": true,
+  "design_sha256": {
+    "decisions/ADR-0030-PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE.md": "1dcaeff7ed9984e85e0102a39f3f7da4567dc9477be80a825f84b4c5828387a3",
+    "docs/contracts/PREDICTIVE_V2_INTERNAL_CAUSAL_FEATURES_V1.md": "bd43e903b29c6ec024a6c3248e3fa5e64b132ee37a805df46115546c96efbb87",
+    "reports/validation/PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1-FEATURE-PROOFS.json": "39ffd514d1cdb4ab9d734a27d9eb630b52f671b9355595011b15e3a3e2bdedf5",
+    "research/experiments/EXP-PRED-V2-003-INTERNAL-LINEAR/preregistration.json": "5a672853d4f5c8f0858ecd69cf6cc6f6780421e72f4b0df56e896e2202b47913",
+    "research/experiments/EXP-PRED-V2-004-INTERNAL-HGBR/preregistration.json": "83b974f23b4a139db4f5c6b192eae17f3eb159eb3b47708d41ba8c0d6894feed",
+    "research/protocols/PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-SEARCH-PLAN-V1.json": "b3b111aee89dc1174ca310edd5fb4c625b3eec3e808700b77f33e483e82fe9fd"
+  },
+  "family": "PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_FAMILY_V1",
+  "family_size": 2,
+  "feature_count": 18,
+  "feature_set": "PREDICTIVE_V2_INTERNAL_CAUSAL_FEATURES_V1",
+  "generation": "PREDICTIVE_RESEARCH_GENERATION_V2",
+  "generation_v1_disposition": "CLOSED_NO_DIRECTIONAL_ADMISSION_NO_SEALED",
+  "implementation_sha256": {
+    "backend/app/predictive/internal_features.py": "f41b1f01340f665b54d68fde6e76a75d6e60d2aebee77117175952eb005e3f62",
+    "backend/app/predictive/internal_selective.py": "c0353293875b821690aa918ab262da47151fe229bdf3c1c8f6a680425184ad50",
+    "backend/app/predictive/internal_selective_features.py": "cc28254342ed27836587701064434d7d4ddfed478f37a9b6428de1154681383f",
+    "backend/app/predictive/internal_selective_model.py": "0707825c36c3592e5f004872b60305caf5d8794575c420b6d670feca86f98f91",
+    "backend/app/predictive/internal_selective_report.py": "c4a14dbdac7af2559902837d3e855a60a63eda81792c664e63258843fbb4195c",
+    "backend/app/predictive/selective_long.py": "04ce5b73e5fa9aa13c725045327ad1f41dbea8e6950eb4c7567b93ea43394e6d",
+    "scripts/audit_predictive_internal_selective_features.py": "eea013087f8263a433e5eb8d3ad5cd27c699360abdf61850edabd5e0a5fd274c",
+    "scripts/preregister_predictive_internal_selective.py": "ded65446bf68876cb1674d27e2e2c4059e0309e946434172ba3938255116382a",
+    "scripts/run_predictive_internal_selective.py": "552ca4f799e8581261872e9af5d34d6537521e151f66fe2728630c913c00d6a8"
+  },
+  "inference_seed": 20260922,
+  "macro_residual_sha256": {
+    "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-RESIDUAL-SOURCE-FINDING.json": "92f5d278d95b4f1aab9a57fa9050d54bf5cdfaba5d9f75b5ed3c25c200a51aeb"
+  },
+  "macro_source_block_sha256": {
+    "reports/checkpoints/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1.md": "602c3771517500bdb72e3ffb035d71f3ec7d65d7560d1895eb9a4238d54f1228",
+    "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-ADMISSION.json": "b213a0cf36b52881c21efbf8e40a8f1b01d087e3f3a9b5194629dcb0b99f5351",
+    "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-SOURCE-AUDIT.json": "ed7f0a58c9f6562677fd6fc3c22ccca5758b28584a932dadc6c964ac41d5163d",
+    "research/experiments/EXP-PRED-007-MACRO-VINTAGE-LINEAR/preregistration.json": "210520c089a336a57b7f118e06ec723bf3dbaecfe105e8532442bd63ea239b3b",
+    "research/experiments/EXP-PRED-008-MACRO-VINTAGE-HGBR/preregistration.json": "c2ef6723c4db024f11e7c18775ca0251488527bbe86d9b7433e6d9a2df4c2aac",
+    "research/protocols/PREDICTIVE-STAGE3-MACRO-VINTAGE-SEARCH-PLAN-V1.json": "aaa22c61099575c251fff052fce0ed338229ffc63777ec9aac974bf8a07ac9be"
+  },
+  "macro_source_redesign_budget": "EXHAUSTED",
+  "magnitude_status": "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION",
+  "primary_control": "FULL_FOLD_UP_RATE",
+  "proof_tests_sha256": {
+    "backend/tests/test_predictive_internal_selective.py": "471494242de07f7569d5d26ff21dec5994be5d791016b72d69e26c63195ca219"
+  },
+  "real_money": false,
+  "sealed_queries": 0,
+  "stage1_substrate_debt": "DEFERRED_UNREPAIRED",
+  "status": "FROZEN_BEFORE_FIRST_OUTER_PREDICTION",
+  "v1_fitted_model_or_prediction_loaded": false,
+  "v1_internal_family_disposition": "REJECTED_DEVELOPMENT_NO_SEALED",
+  "v1_result_count": 10,
+  "v1_result_sha256": {
+    "research/experiments/EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD/result.json": "979e971fcd4f9b831d2ec535a70d555057740013e146669ec3d1149ce4849185",
+    "research/experiments/EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD/result.json": "c58765356fd44b75a12c27a6b20eb3b7b9b89a80e7941d247d61cec6647819fc",
+    "research/experiments/EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD/result.json": "d6e6f9e34d60e8a9efb26a5b313ad27e6a9ff93286e3ca16651cc52d6fe54b65",
+    "research/experiments/EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD/result.json": "3579968ae57351c5f7f974983fe2b9a07188ba10dc76bb171ae3858e6546f806",
+    "research/experiments/EXP-PRED-005-OPEN-INTEREST-LINEAR-DUAL-HEAD/result.json": "79633c3ba8e601903f75fc18febe1b7ac03276643eabf7762ec22580f97d13e3",
+    "research/experiments/EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD/result.json": "4b9d322b69a21b249df307cf95dcc449f9cf6601e7106b90535b3a2b9bcd46df",
+    "research/experiments/EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR/result.json": "40b3ea74942e80bf437523f6ece74e1377cc850e5f63ca90a0b91511ea0a45fe",
+    "research/experiments/EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR/result.json": "6b7468f003ae9640f6b28c2a0e31c74eab2ab3636cd63fa1de2d0e0563928b58",
+    "research/experiments/EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR/result.json": "a818b0e42aefb7d89e0b39c0da449dd84dc9310ef1f1447db4ae8a44c5c0cc07",
+    "research/experiments/EXP-PRED-010-MACRO-RELEASE-STATE-HGBR/result.json": "126dd9936a57fda8f3c12212e8114c0c4cdf9e6a1b5816c3b6096aefbf22c2d2"
+  },
+  "v1_scores_or_tails_used": false,
+  "v2_prior_result_sha256": {
+    "reports/research/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1.json": "5c03c468916bcf162ab85d8b92a869db30ab7ee4eb0c1cb20ee3df5fd1665a86",
+    "research/experiments/EXP-PRED-V2-001-CALENDAR-LINEAR/result.json": "58d38e19a9c3b4908cc2ead6a30318dd81c0bb389d5fceb939125dbfecfa07ba",
+    "research/experiments/EXP-PRED-V2-002-CALENDAR-HGBR/result.json": "65ef73a0823516902afa74140e6e267b3302f65bd3e9187ae03491996abe8303"
+  },
+  "version": "PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_ADMISSION_V1"
+}

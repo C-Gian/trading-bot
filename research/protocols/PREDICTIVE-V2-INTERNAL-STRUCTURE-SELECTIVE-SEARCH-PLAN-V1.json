@@ -1,0 +1,209 @@
+{
+  "action_threshold": 0.6,
+  "advancement": {
+    "ACTION_CALIBRATION_GAP_AT_MOST_0_05": 0.05,
+    "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE_ENRICHMENT": "CEIL_TWO_THIRDS_OF_INCLUDED_FOLDS",
+    "ENRICHMENT_INTERVAL_LOWER_BOUND_ABOVE_ZERO": 0.0,
+    "EVERY_FOLD_ACTIONABLE_LONGS_AT_LEAST_30": 30,
+    "EVERY_FOLD_ACTION_COVERAGE_AT_LEAST_0_005": 0.005,
+    "FULL_PROBABILITY_BRIER_AT_MOST_MATCHED_TRAINING_UP_BASE_RATE_BRIER": "MATCHED_TRAINING_UP_BASE_RATE_BRIER",
+    "POOLED_ACTIONABLE_LONGS_AT_LEAST_500": 500,
+    "POOLED_ACTION_COVERAGE_AT_LEAST_0_02": 0.02,
+    "POOLED_ENRICHMENT_OVER_FULL_FOLD_UP_RATE_AT_LEAST_0_05": 0.05,
+    "POOLED_SELECTIVE_LONG_WIN_RATE_AT_LEAST_0_60": 0.6
+  },
+  "all_ten_conditions_must_hold": true,
+  "boundaries": {
+    "calendar_v2_family_tuned_or_reused_as_model_evidence": false,
+    "champion": false,
+    "cross_asset_inversion": false,
+    "post_cutoff_or_sealed_market_data": false,
+    "real_money": false,
+    "short": false,
+    "stage1_substrate_debt_repaired": false,
+    "v1_family_rescued_or_rescored": false,
+    "v1_fitted_model_or_prediction_loaded": false,
+    "v1_model_probability_tail_consulted": false
+  },
+  "configuration_order": [
+    "V2_INTERNAL_LINEAR_V1",
+    "V2_INTERNAL_HGBR_V1"
+  ],
+  "controls": {
+    "feature_availability_redefines_primary_control": false,
+    "primary": "FULL_FOLD_UP_RATE",
+    "primary_visible_to_fitting_calibration_or_selection": false,
+    "secondary": [
+      "FEATURE_VALID_FOLD_UP_RATE",
+      "TRAINING_UP_BASE_RATE",
+      "ALWAYS_UP",
+      "PREVIOUS_24H_SIGN_PERSISTENCE_DESCRIPTIVE_ONLY_NEVER_INVERTED"
+    ]
+  },
+  "created_at": "2026-09-22T00:00:00Z",
+  "execution_rule": "EXECUTE_BOTH_UNLESS_INTEGRITY_OR_SOFTWARE_DEFECT_BLOCKS_THE_FAMILY",
+  "experiment_ids": {
+    "V2_INTERNAL_HGBR_V1": "EXP-PRED-V2-004-INTERNAL-HGBR",
+    "V2_INTERNAL_LINEAR_V1": "EXP-PRED-V2-003-INTERNAL-LINEAR"
+  },
+  "family": "PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_FAMILY_V1",
+  "family_size": 2,
+  "feature_search": false,
+  "feature_set": {
+    "definition_module": "backend/app/predictive/internal_features.py",
+    "definition_rewritten": false,
+    "external_sources_read": false,
+    "feature_count": 18,
+    "feature_invalid_row_rule": "EXCLUDED_FROM_EVERY_RATE_AND_COUNTED_NEVER_IMPUTED",
+    "fold_removed_for_low_feature_availability": false,
+    "future_bars_read": false,
+    "horizon_bar_read": false,
+    "inherits_definition_from": "PREDICTIVE_INTERNAL_CAUSAL_FEATURES_V1",
+    "input": "COMPLETED_CANONICAL_BTCUSDT_HOURLY_BARS_AT_OR_BEFORE_T_ONLY",
+    "interpolation_fill_or_nearest_bar_substitution": false,
+    "labels_read": false,
+    "max_lookback_hours": 168,
+    "ordered_names": [
+      "logret_1h",
+      "logret_6h",
+      "logret_24h",
+      "logret_72h",
+      "logret_168h",
+      "rv_6h",
+      "rv_24h",
+      "rv_72h",
+      "rv_168h",
+      "signed_efficiency_24h",
+      "signed_efficiency_72h",
+      "signed_efficiency_168h",
+      "up_fraction_24h",
+      "up_fraction_168h",
+      "close_position_24h",
+      "close_position_168h",
+      "log_volume_relative_24h",
+      "log_volume_regime_24_168h"
+    ],
+    "required_contiguous_bars": 169,
+    "stage1_substrate_debt": "DEFERRED_UNREPAIRED_169_HOUR_RULE_REUSED_UNCHANGED",
+    "unavailability_taxonomy": [
+      "LOOKBACK_BAR_MISSING",
+      "LOOKBACK_BAR_INCOMPLETE",
+      "NON_POSITIVE_CLOSE",
+      "NEGATIVE_VOLUME",
+      "NON_POSITIVE_MEAN_VOLUME",
+      "NON_FINITE_FEATURE"
+    ],
+    "version": "PREDICTIVE_V2_INTERNAL_CAUSAL_FEATURES_V1",
+    "zero_efficiency_denominator_value": 0.0,
+    "zero_range_close_position_value": 0.5
+  },
+  "folds": {
+    "calibration_embargo_hours": 48,
+    "calibration_split": "CHRONOLOGICAL_80_PERCENT_BASE_20_PERCENT_CALIBRATION",
+    "design": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD",
+    "fold_removed_after_a_source_feature_fit_or_prediction_result": false,
+    "included": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "purge_embargo_hours": 24,
+    "random_k_fold": false
+  },
+  "generation": "PREDICTIVE_RESEARCH_GENERATION_V2",
+  "hyperparameter_search": false,
+  "hypothesis_ids": {
+    "V2_INTERNAL_HGBR_V1": "H-PRED-V2-INTERNAL-002",
+    "V2_INTERNAL_LINEAR_V1": "H-PRED-V2-INTERNAL-001"
+  },
+  "inference": {
+    "block_length_hours": 48,
+    "blocks_cross_fold_boundaries": false,
+    "familywise_alpha": 0.05,
+    "interval_mass": 0.975,
+    "method": "FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP_PAIRED_ENRICHMENT",
+    "multiplicity_correction": "BONFERRONI_OVER_TWO_CONFIGURATIONS",
+    "per_configuration_alpha": 0.025,
+    "replicates": 10000,
+    "seed": 20260922
+  },
+  "magnitude_estimator": null,
+  "magnitude_status": "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION",
+  "models": {
+    "V2_INTERNAL_HGBR_V1": {
+      "base_estimator": "HistGradientBoostingClassifier",
+      "base_parameters": {
+        "early_stopping": false,
+        "l2_regularization": 1.0,
+        "learning_rate": 0.05,
+        "max_bins": 255,
+        "max_iter": 200,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 50,
+        "random_state": 20260922
+      },
+      "calibration_embargo_hours": 48,
+      "calibration_estimator": "LogisticRegression",
+      "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+      "calibration_parameters": {
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": null,
+        "solver": "lbfgs",
+        "tol": 1e-08
+      },
+      "calibration_split_fraction": 0.8,
+      "hyperparameter_search": false,
+      "input_scaling": "NONE",
+      "magnitude_estimator": null,
+      "model_version": "V2_INTERNAL_HGBR_V1",
+      "probability_semantics": "P_R_24H_GREATER_THAN_ZERO",
+      "sklearn_version": "1.7.2",
+      "threshold_search": false,
+      "v1_fitted_model_or_prediction_loaded": false
+    },
+    "V2_INTERNAL_LINEAR_V1": {
+      "base_estimator": "StandardScaler + LogisticRegression",
+      "base_parameters": {
+        "C": 1.0,
+        "class_weight": null,
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": "l2",
+        "solver": "lbfgs",
+        "tol": 1e-08
+      },
+      "calibration_embargo_hours": 48,
+      "calibration_estimator": "LogisticRegression",
+      "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+      "calibration_parameters": {
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": null,
+        "solver": "lbfgs",
+        "tol": 1e-08
+      },
+      "calibration_split_fraction": 0.8,
+      "hyperparameter_search": false,
+      "input_scaling": "STANDARD_SCALER_FITTED_ON_BASE_FIT_ROWS_ONLY",
+      "magnitude_estimator": null,
+      "model_version": "V2_INTERNAL_LINEAR_V1",
+      "probability_semantics": "P_R_24H_GREATER_THAN_ZERO",
+      "sklearn_version": "1.7.2",
+      "threshold_search": false,
+      "v1_fitted_model_or_prediction_loaded": false
+    }
+  },
+  "search_budget": {
+    "configurations_planned": 2,
+    "configurations_reserved": 2,
+    "result_dependent_forks": 0
+  },
+  "status": "FROZEN_BEFORE_FIRST_OUTER_PREDICTION",
+  "target": "r_24h = log(close[T+24h] / close[T])",
+  "threshold_search": false,
+  "version": "PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_SEARCH_PLAN_V1"
+}

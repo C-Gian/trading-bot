@@ -56,6 +56,25 @@ def test_wp015_independent_reconciliation_is_exact() -> None:
     assert not report["mismatches"]
 
 
+# Every work package since the rebaseline renames the active task. The identity under test
+# is "the active task is the declared successor", not its current title, so any known
+# successor is normalized to the rebaseline anchor. Longest first: these names nest.
+SUCCESSOR_TASK_TITLES = (
+    "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",
+    "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+    "PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",
+    "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+)
+REBASELINE_TASK_TITLE = "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE"
+
+
+def _normalize_current_task(text: str) -> str:
+    for title in SUCCESSOR_TASK_TITLES:
+        if title in text:
+            return text.replace(title, REBASELINE_TASK_TITLE)
+    return text
+
+
 def test_wp015_records_and_state_are_safe() -> None:
     experiments = (
         "EXP-ML-024-INTERNAL-PLUS-FUNDING-HGBR",
@@ -92,16 +111,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     assert state["real_money_authorized"] is False
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
-    if "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1" in current:
-        current = current.replace(
-            "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
-            "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE",
-        )
-    elif "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1" in current:
-        current = current.replace(
-            "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
-            "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE",
-        )
+    current = _normalize_current_task(current)
     assert "# CURRENT TASK — WP-015" in archived
     assert "# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE" in current
     assert (ROOT / "tasks/archive/PROSPECTIVE-EVIDENCE-COLLECTION-V1_1.md").is_file()

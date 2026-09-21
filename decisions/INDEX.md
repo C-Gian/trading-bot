@@ -29,3 +29,4 @@
 - [ADR-0027](ADR-0027-BASELINE-PROBABILITY-SEMANTICS-AND-METRIC-APPLICABILITY.md) — baseline probability means P(declared direction correct), and each metric is mandatory exactly when the quantity it scores is declared
 - [ADR-0028](ADR-0028-GENERATION-V2-SELECTIVE-LONG-REBASELINE.md) — Generation V1 closes with no directional admission and Generation V2 tests selective LONG against the ambient fold rate
 - [ADR-0029](ADR-0029-PREDICTIVE-V2-DETERMINISTIC-CALENDAR.md) — first Generation V2 family tests frozen deterministic UTC calendar context
+- [ADR-0030](ADR-0030-PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE.md) — second Generation V2 family re-enters causal internal market structure to ask the selective-LONG question
