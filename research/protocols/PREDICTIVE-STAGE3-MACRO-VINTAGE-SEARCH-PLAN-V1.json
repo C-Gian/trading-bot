@@ -1,0 +1,198 @@
+{
+  "budget": {
+    "configurations_consumed": 0,
+    "configurations_reserved": 2,
+    "reason_unconsumed": "BLOCKED_MACRO_SOURCE_COVERAGE_V1"
+  },
+  "checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+  "configurations": [
+    {
+      "experiment_id": "EXP-PRED-007-MACRO-VINTAGE-LINEAR",
+      "hypothesis_id": "H-PRED-MACRO-001",
+      "order": 1,
+      "specification": {
+        "calibration_embargo_hours": 48,
+        "calibration_split_fraction": 0.8,
+        "decision_rule": "UP_IF_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_ELSE_DOWN_TIES_UP",
+        "direction_estimator": "StandardScaler+LogisticRegression",
+        "hyperparameter_search": false,
+        "magnitude_estimator": null,
+        "model_version": "MACRO_VINTAGE_LINEAR_V1",
+        "parameters": {
+          "C": 1.0,
+          "class_weight": null,
+          "fit_intercept": true,
+          "max_iter": 2000,
+          "penalty": "l2",
+          "solver": "lbfgs",
+          "tol": 1e-08
+        },
+        "platt_parameters": {
+          "fit_intercept": true,
+          "max_iter": 2000,
+          "penalty": null,
+          "solver": "lbfgs",
+          "tol": 1e-08
+        },
+        "probability_calibration": "TRAINING_ONLY_PLATT_ON_RAW_DECISION_SCORE",
+        "threshold_search": false
+      }
+    },
+    {
+      "experiment_id": "EXP-PRED-008-MACRO-VINTAGE-HGBR",
+      "hypothesis_id": "H-PRED-MACRO-002",
+      "order": 2,
+      "specification": {
+        "calibration_embargo_hours": 48,
+        "calibration_split_fraction": 0.8,
+        "decision_rule": "UP_IF_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_ELSE_DOWN_TIES_UP",
+        "direction_estimator": "HistGradientBoostingClassifier",
+        "hyperparameter_search": false,
+        "magnitude_estimator": null,
+        "model_version": "MACRO_VINTAGE_HGBR_V1",
+        "parameters": {
+          "early_stopping": false,
+          "l2_regularization": 1.0,
+          "learning_rate": 0.05,
+          "max_bins": 255,
+          "max_iter": 200,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 50,
+          "random_state": 20260919
+        },
+        "platt_parameters": {
+          "fit_intercept": true,
+          "max_iter": 2000,
+          "penalty": null,
+          "solver": "lbfgs",
+          "tol": 1e-08
+        },
+        "probability_calibration": "TRAINING_ONLY_PLATT_ON_RAW_DECISION_SCORE",
+        "threshold_search": false
+      }
+    }
+  ],
+  "director_decisions": {
+    "admission_rationale": "Strict-vintage U.S. macro and financial-condition information is orthogonal to price structure, derivatives carry and positioning, and crypto breadth; the existing ALFRED foundation is hash-pinned.",
+    "admitted_family": "PREDICTIVE_STAGE3_MACRO_VINTAGE_FAMILY_V1",
+    "basis_disposition": "DEFERRED",
+    "basis_tested": false,
+    "breadth_inversion_or_rescue_authorized": false,
+    "decided_by": "RESEARCH_DIRECTOR",
+    "decision_id": "PREDICTIVE_STAGE3_MACRO_VINTAGE_ADMISSION_V1",
+    "generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+    "generation_continues": true,
+    "magnitude_declared": false,
+    "magnitude_disposition": "DEFERRED_UNTIL_DIRECTIONAL_ADMISSION",
+    "prior_negative_configurations": 8,
+    "prior_results_changed": false,
+    "stage1_substrate_disposition": "DEFERRED_SUBSTRATE_DEBT_NOT_A_RESCUE_PATH",
+    "target": "BTCUSDT_SPOT_24H_TERMINAL_DIRECTION",
+    "target_or_horizon_changed": false
+  },
+  "family": "PREDICTIVE_STAGE3_MACRO_VINTAGE_FAMILY_V1",
+  "family_size": 2,
+  "feature_set": {
+    "count": 13,
+    "ordered_names": [
+      "DFF_LEVEL",
+      "DFF_DELTA_30D",
+      "DGS10_LEVEL",
+      "DGS10_DELTA_30D",
+      "T10Y2Y_LEVEL",
+      "T10Y2Y_DELTA_30D",
+      "LOG_VIX_LEVEL",
+      "VIX_LOG_CHANGE_5D",
+      "NFCI_LEVEL",
+      "NFCI_DELTA_28D",
+      "WALCL_LOG_CHANGE_28D",
+      "CPI_YOY_LOG_CHANGE",
+      "UNRATE_DELTA_3M"
+    ],
+    "series": [
+      "DFF",
+      "DGS10",
+      "T10Y2Y",
+      "VIXCLS",
+      "NFCI",
+      "WALCL",
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "version": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V1"
+  },
+  "forbidden": [
+    "SOURCE_GATE_WEAKENING",
+    "CURRENT_REVISED_FRED_SUBSTITUTION",
+    "POST_2024_VINTAGES",
+    "INTERPOLATION_OR_NEAREST_FUTURE_SUBSTITUTION",
+    "FEATURE_OR_THRESHOLD_SEARCH",
+    "BREADTH_INVERSION_NEGATION_THRESHOLDING_OR_FOLD_TRIMMING",
+    "BASIS_OR_STAGE1_SUBSTRATE_RESCUE",
+    "TARGET_HORIZON_OR_MAGNITUDE_CHANGE",
+    "SEALED_OR_POST_CUTOFF_BTC_ACCESS",
+    "REAL_MONEY"
+  ],
+  "inference": {
+    "block_length_hours": 48,
+    "method": "PAIRED_FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP",
+    "replicates": 10000,
+    "seed": 20260919
+  },
+  "mesi": 0.015,
+  "multiplicity": {
+    "correction": "BONFERRONI",
+    "familywise_alpha": 0.05,
+    "interval_mass": 0.975,
+    "per_configuration_alpha": 0.025
+  },
+  "primary_effect": "CANDIDATE_WIN_RATE_MINUS_MATCHED_TRAINING_UP_BASE_RATE_WIN_RATE",
+  "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+  "schema_version": 1,
+  "source": {
+    "availability_rule": "NEXT_CALENDAR_DAY_00_00_UTC_AFTER_VINTAGE_START",
+    "catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+    "catalog_id": "ALFRED_SERIES_CATALOG_V1",
+    "catalog_sha256": "cfc08c40c669770a144210026b81326379e50e7d61e770d3d4b40baf5e94b8b1",
+    "current_revised_substitution": false,
+    "development_ceiling": "2024-12-31T23:59:00Z",
+    "interpolation": false,
+    "manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+    "manifest_id": "ALFRED-MACRO-CONTEXT-DEV-v1",
+    "manifest_sha256": "ae6d4acb0d2e6c2122d1e830b23390dbf18f83f614de0a7278e4fdd59ddab7d5",
+    "maximum_age_days": {
+      "DAILY": 7,
+      "MONTHLY": 45,
+      "WEEKLY": 14
+    },
+    "nearest_future_substitution": false,
+    "point_in_time_contract": "docs/contracts/POINT_IN_TIME_EXOGENOUS_DATA_V1.md",
+    "post_2024_vintages": 0,
+    "predictive_contract": "docs/contracts/PREDICTIVE_MACRO_VINTAGE_CONTEXT_V1.md",
+    "series": [
+      "DFF",
+      "DGS10",
+      "T10Y2Y",
+      "VIXCLS",
+      "NFCI",
+      "WALCL",
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "source_family": "ALFRED",
+    "substrate_artifact": "data/derived/ALFRED-macro-context-v1.parquet",
+    "substrate_file_sha256": "448f1ea80252ce5fbc7f1982c41540dc71852c3a4e2fbf1a1357fd1ed9c877dd",
+    "substrate_logical_sha256": "98257605fc61c68bf4e32992c2c7dbb7c7440f65d0d25cabbdb5e5ded794745d",
+    "substrate_rows": 70882,
+    "version": "ALFRED_MACRO_CONTEXT_V1"
+  },
+  "source_gate": {
+    "failure_classification": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+    "fold_coverage": 0.9,
+    "minimum_admissible_folds": 5,
+    "minimum_history_days": 365,
+    "pooled_coverage": 0.95
+  },
+  "status": "FROZEN_BEFORE_OBSERVATION_SOURCE_BLOCKED_BEFORE_EXECUTION",
+  "version": "PREDICTIVE_STAGE3_MACRO_VINTAGE_SEARCH_PLAN_V1"
+}

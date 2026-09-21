@@ -1,0 +1,78 @@
+{
+  "champion_status": "NONE",
+  "checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+  "configurations_consumed": 0,
+  "configurations_reserved": 2,
+  "execution_authorized": false,
+  "family": "PREDICTIVE_STAGE3_MACRO_VINTAGE_FAMILY_V1",
+  "implementation_sha256": {
+    "backend/app/predictive/macro_vintage.py": "fe28f417a92c1c7d59348f4e5e981ad010be902f837a9ce014f2ed3a6b7ef5a2",
+    "backend/app/predictive/macro_vintage_audit.py": "a626fd62e5de50e19a2cac970d4e499238f1e4c34c39c2d64cdbf721dab431d2",
+    "backend/app/predictive/macro_vintage_source.py": "b0ed006491fb578d0f164c6f28f82638fb1d48a38ccc6089d31d093994ccbf6c",
+    "scripts/audit_predictive_macro_vintage.py": "1821c25c8df2764dd8d47f86203108083a4ab76b6620ae478de5b4cc89b4161a",
+    "scripts/preregister_predictive_macro_vintage.py": "178e927d78fb612c29e64fa3fa784f5bc8373d500691c19812605ffc8aff6040"
+  },
+  "included_folds": [],
+  "model_fits_executed": 0,
+  "outer_predictions_observed": 0,
+  "preregistration_sha256": {
+    "EXP-PRED-007-MACRO-VINTAGE-LINEAR": "210520c089a336a57b7f118e06ec723bf3dbaecfe105e8532442bd63ea239b3b",
+    "EXP-PRED-008-MACRO-VINTAGE-HGBR": "c2ef6723c4db024f11e7c18775ca0251488527bbe86d9b7433e6d9a2df4c2aac"
+  },
+  "prior_experiment_result_sha256": {
+    "research/experiments/EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD/result.json": "979e971fcd4f9b831d2ec535a70d555057740013e146669ec3d1149ce4849185",
+    "research/experiments/EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD/result.json": "c58765356fd44b75a12c27a6b20eb3b7b9b89a80e7941d247d61cec6647819fc",
+    "research/experiments/EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD/result.json": "d6e6f9e34d60e8a9efb26a5b313ad27e6a9ff93286e3ca16651cc52d6fe54b65",
+    "research/experiments/EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD/result.json": "3579968ae57351c5f7f974983fe2b9a07188ba10dc76bb171ae3858e6546f806",
+    "research/experiments/EXP-PRED-005-OPEN-INTEREST-LINEAR-DUAL-HEAD/result.json": "79633c3ba8e601903f75fc18febe1b7ac03276643eabf7762ec22580f97d13e3",
+    "research/experiments/EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD/result.json": "4b9d322b69a21b249df307cf95dcc449f9cf6601e7106b90535b3a2b9bcd46df",
+    "research/experiments/EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR/result.json": "40b3ea74942e80bf437523f6ece74e1377cc850e5f63ca90a0b91511ea0a45fe",
+    "research/experiments/EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR/result.json": "6b7468f003ae9640f6b28c2a0e31c74eab2ab3636cd63fa1de2d0e0563928b58"
+  },
+  "real_money": false,
+  "record_type": "PREDICTIVE_PRE_EXECUTION_ADMISSION_V1",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "search_plan": "research/protocols/PREDICTIVE-STAGE3-MACRO-VINTAGE-SEARCH-PLAN-V1.json",
+  "search_plan_sha256": "aaa22c61099575c251fff052fce0ed338229ffc63777ec9aac974bf8a07ac9be",
+  "source": {
+    "availability_rule": "NEXT_CALENDAR_DAY_00_00_UTC_AFTER_VINTAGE_START",
+    "catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+    "catalog_id": "ALFRED_SERIES_CATALOG_V1",
+    "catalog_sha256": "cfc08c40c669770a144210026b81326379e50e7d61e770d3d4b40baf5e94b8b1",
+    "current_revised_substitution": false,
+    "development_ceiling": "2024-12-31T23:59:00Z",
+    "interpolation": false,
+    "manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+    "manifest_id": "ALFRED-MACRO-CONTEXT-DEV-v1",
+    "manifest_sha256": "ae6d4acb0d2e6c2122d1e830b23390dbf18f83f614de0a7278e4fdd59ddab7d5",
+    "maximum_age_days": {
+      "DAILY": 7,
+      "MONTHLY": 45,
+      "WEEKLY": 14
+    },
+    "nearest_future_substitution": false,
+    "point_in_time_contract": "docs/contracts/POINT_IN_TIME_EXOGENOUS_DATA_V1.md",
+    "post_2024_vintages": 0,
+    "predictive_contract": "docs/contracts/PREDICTIVE_MACRO_VINTAGE_CONTEXT_V1.md",
+    "series": [
+      "DFF",
+      "DGS10",
+      "T10Y2Y",
+      "VIXCLS",
+      "NFCI",
+      "WALCL",
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "source_family": "ALFRED",
+    "substrate_artifact": "data/derived/ALFRED-macro-context-v1.parquet",
+    "substrate_file_sha256": "448f1ea80252ce5fbc7f1982c41540dc71852c3a4e2fbf1a1357fd1ed9c877dd",
+    "substrate_logical_sha256": "98257605fc61c68bf4e32992c2c7dbb7c7440f65d0d25cabbdb5e5ded794745d",
+    "substrate_rows": 70882,
+    "version": "ALFRED_MACRO_CONTEXT_V1"
+  },
+  "source_audit": "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-SOURCE-AUDIT.json",
+  "source_audit_sha256": "ed7f0a58c9f6562677fd6fc3c22ccca5758b28584a932dadc6c964ac41d5163d",
+  "status": "BLOCKED_MACRO_SOURCE_COVERAGE_V1"
+}

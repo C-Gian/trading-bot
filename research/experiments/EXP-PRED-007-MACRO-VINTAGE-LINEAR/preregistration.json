@@ -1,0 +1,129 @@
+{
+  "advancement_gate": {
+    "all_must_hold": true,
+    "conditions": 7,
+    "not_evaluated_reason": "BLOCKED_MACRO_SOURCE_COVERAGE_V1"
+  },
+  "candidate_folds": [
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+  ],
+  "champion_created": false,
+  "checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+  "configuration_consumed": false,
+  "controls": {
+    "absolute_reference": "ALWAYS_UP",
+    "descriptive": "PREVIOUS_24H_SIGN_PERSISTENCE_NEVER_INVERTED",
+    "primary": "TRAINING_UP_BASE_RATE"
+  },
+  "created_at_utc": "2026-09-21T00:00:00Z",
+  "evaluation_design": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD",
+  "experiment_id": "EXP-PRED-007-MACRO-VINTAGE-LINEAR",
+  "experiment_version": 1,
+  "family": "PREDICTIVE_STAGE3_MACRO_VINTAGE_FAMILY_V1",
+  "features": {
+    "count": 13,
+    "ordered_names": [
+      "DFF_LEVEL",
+      "DFF_DELTA_30D",
+      "DGS10_LEVEL",
+      "DGS10_DELTA_30D",
+      "T10Y2Y_LEVEL",
+      "T10Y2Y_DELTA_30D",
+      "LOG_VIX_LEVEL",
+      "VIX_LOG_CHANGE_5D",
+      "NFCI_LEVEL",
+      "NFCI_DELTA_28D",
+      "WALCL_LOG_CHANGE_28D",
+      "CPI_YOY_LOG_CHANGE",
+      "UNRATE_DELTA_3M"
+    ],
+    "unavailability_taxonomy": [
+      "DFF_CURRENT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "DFF_30D_ANCHOR_UNAVAILABLE_OR_STALE",
+      "DGS10_CURRENT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "DGS10_30D_ANCHOR_UNAVAILABLE_OR_STALE",
+      "T10Y2Y_CURRENT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "T10Y2Y_30D_ANCHOR_UNAVAILABLE_OR_STALE",
+      "VIXCLS_CURRENT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "VIXCLS_5D_ANCHOR_UNAVAILABLE_OR_STALE",
+      "NFCI_CURRENT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "NFCI_28D_ANCHOR_UNAVAILABLE_OR_STALE",
+      "WALCL_CURRENT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "WALCL_28D_ANCHOR_UNAVAILABLE_OR_STALE",
+      "CPIAUCSL_CURRENT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "CPIAUCSL_12M_EXACT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "UNRATE_CURRENT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "UNRATE_3M_EXACT_ANCHOR_UNAVAILABLE_OR_STALE",
+      "VIXCLS_NON_POSITIVE_LEVEL",
+      "WALCL_NON_POSITIVE_LEVEL",
+      "CPIAUCSL_NON_POSITIVE_LEVEL",
+      "NON_FINITE_MACRO_FEATURE"
+    ],
+    "version": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V1"
+  },
+  "hypothesis": "Strict point-in-time U.S. macro and financial-condition information contains 24h BTCUSDT directional information beyond the training-only UP base rate.",
+  "hypothesis_class": "MATERIAL_PREDICTIVE_HYPOTHESIS",
+  "hypothesis_id": "H-PRED-MACRO-001",
+  "included_folds": [],
+  "inference": {
+    "block_length_hours": 48,
+    "method": "PAIRED_FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP",
+    "replicates": 10000,
+    "seed": 20260919
+  },
+  "model": {
+    "calibration_embargo_hours": 48,
+    "calibration_split_fraction": 0.8,
+    "decision_rule": "UP_IF_CALIBRATED_P_UP_GREATER_OR_EQUAL_0_5_ELSE_DOWN_TIES_UP",
+    "direction_estimator": "StandardScaler+LogisticRegression",
+    "hyperparameter_search": false,
+    "magnitude_estimator": null,
+    "model_version": "MACRO_VINTAGE_LINEAR_V1",
+    "parameters": {
+      "C": 1.0,
+      "class_weight": null,
+      "fit_intercept": true,
+      "max_iter": 2000,
+      "penalty": "l2",
+      "solver": "lbfgs",
+      "tol": 1e-08
+    },
+    "platt_parameters": {
+      "fit_intercept": true,
+      "max_iter": 2000,
+      "penalty": null,
+      "solver": "lbfgs",
+      "tol": 1e-08
+    },
+    "probability_calibration": "TRAINING_ONLY_PLATT_ON_RAW_DECISION_SCORE",
+    "threshold_search": false
+  },
+  "model_fits": 0,
+  "multiplicity": {
+    "correction": "BONFERRONI",
+    "familywise_alpha": 0.05,
+    "interval_mass": 0.975,
+    "per_configuration_alpha": 0.025
+  },
+  "outer_predictions": 0,
+  "primary_effect": {
+    "definition": "CANDIDATE_WIN_RATE_MINUS_MATCHED_TRAINING_UP_BASE_RATE_WIN_RATE",
+    "mesi": 0.015
+  },
+  "purge_embargo_hours": 24,
+  "real_money": false,
+  "record_type": "PREDICTIVE_EXPERIMENT_PREREGISTRATION_V1",
+  "research_generation": "PREDICTIVE_RESEARCH_GENERATION_V1",
+  "schema_version": 1,
+  "sealed_queries": 0,
+  "source_audit": "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-SOURCE-AUDIT.json",
+  "source_audit_status": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+  "source_contract": "docs/contracts/PREDICTIVE_MACRO_VINTAGE_CONTEXT_V1.md",
+  "source_manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+  "status": "PREREGISTERED_NOT_EXECUTED_SOURCE_BLOCKED"
+}

@@ -1,0 +1,92 @@
+{
+  "boundaries": {
+    "champion_created": false,
+    "magnitude_declared": false,
+    "post_cutoff_btc_access": 0,
+    "real_money": false,
+    "sealed_queries": 0
+  },
+  "checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
+  "classification": "PREDICTIVE_SOURCE_BLOCK",
+  "configurations": {
+    "EXP-PRED-007-MACRO-VINTAGE-LINEAR": {
+      "advancement_gate": "NOT_EVALUATED_SOURCE_BLOCKED",
+      "candidate_coverage": null,
+      "candidate_win_rate": null,
+      "model_fits": 0,
+      "primary_delta": null,
+      "primary_interval": null,
+      "status": "NOT_EXECUTED"
+    },
+    "EXP-PRED-008-MACRO-VINTAGE-HGBR": {
+      "advancement_gate": "NOT_EVALUATED_SOURCE_BLOCKED",
+      "candidate_coverage": null,
+      "candidate_win_rate": null,
+      "model_fits": 0,
+      "primary_delta": null,
+      "primary_interval": null,
+      "status": "NOT_EXECUTED"
+    }
+  },
+  "family": "PREDICTIVE_STAGE3_MACRO_VINTAGE_FAMILY_V1",
+  "family_disposition": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+  "feature_set": {
+    "count": 13,
+    "ordered_names": [
+      "DFF_LEVEL",
+      "DFF_DELTA_30D",
+      "DGS10_LEVEL",
+      "DGS10_DELTA_30D",
+      "T10Y2Y_LEVEL",
+      "T10Y2Y_DELTA_30D",
+      "LOG_VIX_LEVEL",
+      "VIX_LOG_CHANGE_5D",
+      "NFCI_LEVEL",
+      "NFCI_DELTA_28D",
+      "WALCL_LOG_CHANGE_28D",
+      "CPI_YOY_LOG_CHANGE",
+      "UNRATE_DELTA_3M"
+    ],
+    "version": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V1"
+  },
+  "included_folds": [],
+  "prior_predictive_configurations_unchanged": 8,
+  "search_budget": {
+    "configurations_consumed": 0,
+    "configurations_reserved": 2,
+    "remaining_reserved_after_checkpoint": 2,
+    "result_dependent_forks": 0
+  },
+  "source_gate": {
+    "candidate_fold_coverage": {
+      "2019": 0.13144240747146316,
+      "2020": 0.12119820957190405,
+      "2021": 0.13104954592481893,
+      "2022": 0.13734691541719127,
+      "2023": 0.10717966334592924,
+      "2024": 0.1178082191780822
+    },
+    "fold_coverage_threshold": 0.9,
+    "minimum_admissible_folds": 5,
+    "pooled_coverage_threshold": 0.95,
+    "status": "BLOCKED_MACRO_SOURCE_COVERAGE_V1"
+  },
+  "source_identity": {
+    "availability_rule": "NEXT_CALENDAR_DAY_00_00_UTC_AFTER_VINTAGE_START",
+    "catalog_sha256": "cfc08c40c669770a144210026b81326379e50e7d61e770d3d4b40baf5e94b8b1",
+    "current_revised_substitution": false,
+    "manifest_id": "ALFRED-MACRO-CONTEXT-DEV-v1",
+    "series": [
+      "DFF",
+      "DGS10",
+      "T10Y2Y",
+      "VIXCLS",
+      "NFCI",
+      "WALCL",
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "substrate_sha256": "448f1ea80252ce5fbc7f1982c41540dc71852c3a4e2fbf1a1357fd1ed9c877dd"
+  },
+  "version": "PREDICTIVE_STAGE3_MACRO_VINTAGE_V1"
+}

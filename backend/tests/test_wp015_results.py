@@ -74,7 +74,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1"
+    assert state["latest_executor_checkpoint"] == "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1"
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
     assert challenger["model_reconciliation"] == "PASS"
@@ -88,9 +88,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert "# CURRENT TASK — WP-015" in archived
-    assert (
-        "# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-STAGE-3-CROSS-ASSET-BREADTH-CLOSURE" in current
-    )
+    assert "# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-STAGE3-MACRO-VINTAGE-SOURCE-BLOCK" in current
     assert (ROOT / "tasks/archive/PROSPECTIVE-EVIDENCE-COLLECTION-V1_1.md").is_file()
     assert (ROOT / "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md").is_file()
     assert (ROOT / "tasks/archive/PREDICTIVE-BASELINES-V1.md").is_file()

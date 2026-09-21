@@ -48,6 +48,8 @@ PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD",
     "EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR",
     "EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR",
+    "EXP-PRED-007-MACRO-VINTAGE-LINEAR",
+    "EXP-PRED-008-MACRO-VINTAGE-HGBR",
 }
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
@@ -289,7 +291,7 @@ def validate_research_views(state: dict) -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1"
+    assert state["latest_executor_checkpoint"] == "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1"
     assert state["project_phase"] == "PREDICTIVE_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -365,7 +367,7 @@ def validate_research_views(state: dict) -> None:
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
     assert state["next_recommended_work_package"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_CROSS_ASSET_BREADTH_CLOSURE"
+        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK"
     )
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
@@ -849,7 +851,7 @@ def p2_closure_checks(state: dict) -> None:
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
     assert architecture["next_checkpoint"] == (
-        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_CROSS_ASSET_BREADTH_CLOSURE"
+        "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK"
     )
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
@@ -2720,6 +2722,69 @@ def predictive_cross_asset_checks(state: dict) -> None:
             run(["git", "merge-base", "--is-ancestor", frozen_commit, result_commit])
 
 
+def predictive_macro_vintage_checks(state: dict) -> None:
+    """The macro family must remain stopped at its source-only coverage gate."""
+    from app.predictive.macro_vintage import (
+        ADMISSION_PATH,
+        CONFIGURATION_ORDER,
+        EXPERIMENT_IDS,
+        PRIOR_EXPERIMENT_RESULTS,
+        SEARCH_PLAN_PATH,
+        admission,
+        admission_identity,
+        preregistration,
+        preregistration_path,
+        search_plan,
+    )
+    from app.predictive.macro_vintage_audit import AUDIT_PATH, BLOCKED
+
+    audit = json.loads((ROOT / AUDIT_PATH).read_text(encoding="utf-8"))
+    assert audit["status"] == BLOCKED
+    assert audit["target_bearing_model_fitted"] is False
+    assert audit["provenance"]["passed"] and audit["semantics"]["passed"]
+    assert audit["coverage"]["passed"] is False
+    assert audit["coverage"]["admissible_folds"] == []
+    assert audit["coverage"]["btc_close_column_loaded"] is False
+    assert audit["coverage"]["btc_return_values_inspected"] is False
+    assert audit["coverage"]["btc_direction_labels_inspected"] is False
+    assert audit["coverage"]["candidate_predictions_inspected"] is False
+    assert all(
+        record["coverage"] < audit["thresholds"]["fold_coverage"]
+        for record in audit["coverage"]["by_fold"].values()
+    )
+    assert json.loads((ROOT / SEARCH_PLAN_PATH).read_text(encoding="utf-8")) == search_plan()
+    committed_admission = json.loads((ROOT / ADMISSION_PATH).read_text(encoding="utf-8"))
+    assert committed_admission == admission(ROOT)
+    assert committed_admission["status"] == BLOCKED
+    assert committed_admission["execution_authorized"] is False
+    assert committed_admission["model_fits_executed"] == 0
+    assert committed_admission["outer_predictions_observed"] == 0
+    assert committed_admission["configurations_consumed"] == 0
+    assert set(committed_admission["prior_experiment_result_sha256"]) == set(
+        PRIOR_EXPERIMENT_RESULTS
+    )
+    for model_version in CONFIGURATION_ORDER:
+        committed = json.loads(
+            (ROOT / preregistration_path(model_version)).read_text(encoding="utf-8")
+        )
+        assert committed == preregistration(model_version, ROOT)
+        assert committed["status"] == "PREREGISTERED_NOT_EXECUTED_SOURCE_BLOCKED"
+        assert committed["model_fits"] == committed["outer_predictions"] == 0
+        experiment = EXPERIMENT_IDS[model_version]
+        assert not (ROOT / f"research/experiments/{experiment}/result.json").exists()
+        assert not (ROOT / f"research/experiments/{experiment}/trials.json").exists()
+    record = state["predictive_stage3_macro_vintage"]
+    assert record["status"] == record["family_disposition"] == BLOCKED
+    assert record["admission_identity_sha256"] == admission_identity(ROOT)
+    assert record["included_folds"] == []
+    assert record["model_fits"] == record["outer_predictions_observed"] == 0
+    assert record["configurations_consumed"] == 0
+    assert record["prior_predictive_configurations_unchanged"] == 8
+    assert state["predictive_research_objective"]["predictive_experiments_completed"] == 8
+    assert record["sealed_queries"] == 0 and record["real_money"] is False
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+
+
 def dataset_scope_checks() -> None:
     """Metadata/inventory admission also runs in a checkout with no installed market data."""
     from app.research.continuation_lab import MANIFEST_SHA256
@@ -3290,6 +3355,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_settled_funding_checks(state)
     predictive_open_interest_checks(state)
     predictive_cross_asset_checks(state)
+    predictive_macro_vintage_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -3646,6 +3712,11 @@ def data_checks(state: dict) -> None:
             cross_asset["included_folds"]
             == state["predictive_stage3_cross_asset_breadth"]["included_folds"]
         )
+    from app.predictive.internal_structure import canonical_bytes
+    from app.predictive.macro_vintage_audit import AUDIT_PATH as MACRO_AUDIT_PATH
+    from app.predictive.macro_vintage_audit import run_source_audit
+
+    assert canonical_bytes(run_source_audit(ROOT)) == (ROOT / MACRO_AUDIT_PATH).read_bytes()
     from app.research.cycle_structure_v2_lab import block_support_report, build_donors
 
     donors = build_donors(grids)

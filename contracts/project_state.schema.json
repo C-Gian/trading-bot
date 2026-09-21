@@ -39,6 +39,7 @@
     "predictive_stage2_settled_funding",
     "predictive_stage2_open_interest",
     "predictive_stage3_cross_asset_breadth",
+    "predictive_stage3_macro_vintage",
     "legacy_research_generation",
     "historical_discovery_status",
     "observed_material_historical_hypotheses",
@@ -1215,6 +1216,192 @@
         }
       }
     },
+    "predictive_stage3_macro_vintage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "family",
+        "family_disposition",
+        "search_plan",
+        "search_plan_sha256",
+        "admission",
+        "admission_identity_sha256",
+        "source_audit",
+        "source_audit_sha256",
+        "source_audit_status",
+        "checkpoint_report",
+        "predictive_contract",
+        "source_manifest",
+        "source_catalog",
+        "source_catalog_sha256",
+        "source_substrate_sha256",
+        "current_revised_substitution",
+        "post_2024_vintages",
+        "interpolation",
+        "feature_set_version",
+        "feature_count",
+        "magnitude_declared",
+        "candidate_fold_coverage",
+        "included_folds",
+        "included_fold_count",
+        "experiment_ids",
+        "preregistration_sha256",
+        "configurations_reserved",
+        "configurations_consumed",
+        "model_fits",
+        "outer_predictions_observed",
+        "paired_bootstrap_executed",
+        "sealed_eligibility",
+        "prior_predictive_configurations_unchanged",
+        "sealed_queries",
+        "champion_status",
+        "real_money"
+      ],
+      "properties": {
+        "version": {
+          "const": "PREDICTIVE_STAGE3_MACRO_VINTAGE_V1"
+        },
+        "status": {
+          "const": "BLOCKED_MACRO_SOURCE_COVERAGE_V1"
+        },
+        "family": {
+          "const": "PREDICTIVE_STAGE3_MACRO_VINTAGE_FAMILY_V1"
+        },
+        "family_disposition": {
+          "const": "BLOCKED_MACRO_SOURCE_COVERAGE_V1"
+        },
+        "search_plan": {
+          "const": "research/protocols/PREDICTIVE-STAGE3-MACRO-VINTAGE-SEARCH-PLAN-V1.json"
+        },
+        "search_plan_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "admission": {
+          "const": "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-ADMISSION.json"
+        },
+        "admission_identity_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_audit": {
+          "const": "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-SOURCE-AUDIT.json"
+        },
+        "source_audit_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_audit_status": {
+          "const": "BLOCKED_MACRO_SOURCE_COVERAGE_V1"
+        },
+        "checkpoint_report": {
+          "const": "reports/checkpoints/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1.md"
+        },
+        "predictive_contract": {
+          "const": "docs/contracts/PREDICTIVE_MACRO_VINTAGE_CONTEXT_V1.md"
+        },
+        "source_manifest": {
+          "const": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json"
+        },
+        "source_catalog": {
+          "const": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json"
+        },
+        "source_catalog_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_substrate_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "current_revised_substitution": {
+          "const": false
+        },
+        "post_2024_vintages": {
+          "const": 0
+        },
+        "interpolation": {
+          "const": false
+        },
+        "feature_set_version": {
+          "const": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V1"
+        },
+        "feature_count": {
+          "const": 13
+        },
+        "magnitude_declared": {
+          "const": false
+        },
+        "candidate_fold_coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["2019", "2020", "2021", "2022", "2023", "2024"],
+          "properties": {
+            "2019": {"type": "number", "minimum": 0, "maximum": 0.9},
+            "2020": {"type": "number", "minimum": 0, "maximum": 0.9},
+            "2021": {"type": "number", "minimum": 0, "maximum": 0.9},
+            "2022": {"type": "number", "minimum": 0, "maximum": 0.9},
+            "2023": {"type": "number", "minimum": 0, "maximum": 0.9},
+            "2024": {"type": "number", "minimum": 0, "maximum": 0.9}
+          }
+        },
+        "included_folds": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "included_fold_count": {
+          "const": 0
+        },
+        "experiment_ids": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "EXP-PRED-007-MACRO-VINTAGE-LINEAR"},
+            {"const": "EXP-PRED-008-MACRO-VINTAGE-HGBR"}
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "preregistration_sha256": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "EXP-PRED-007-MACRO-VINTAGE-LINEAR",
+            "EXP-PRED-008-MACRO-VINTAGE-HGBR"
+          ],
+          "properties": {
+            "EXP-PRED-007-MACRO-VINTAGE-LINEAR": {"$ref": "#/$defs/sha256"},
+            "EXP-PRED-008-MACRO-VINTAGE-HGBR": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        "configurations_reserved": {
+          "const": 2
+        },
+        "configurations_consumed": {
+          "const": 0
+        },
+        "model_fits": {
+          "const": 0
+        },
+        "outer_predictions_observed": {
+          "const": 0
+        },
+        "paired_bootstrap_executed": {
+          "const": false
+        },
+        "sealed_eligibility": {
+          "const": "NOT_ELIGIBLE_SOURCE_BLOCKED"
+        },
+        "prior_predictive_configurations_unchanged": {
+          "const": 8
+        },
+        "sealed_queries": {
+          "const": 0
+        },
+        "champion_status": {
+          "const": "NONE"
+        },
+        "real_money": {
+          "const": false
+        }
+      }
+    },
     "legacy_research_generation": {
       "type": "object",
       "additionalProperties": false,
@@ -2120,7 +2307,7 @@
         "secondary_parallel_direction": {"const": "HISTORICAL_DISCOVERY_PAUSED"},
         "btc_only_new_source_or_model_search": {"const": "DEPRIORITIZED"},
         "cycle_research": {"const": "PARKED_METHODOLOGY_BLOCKED"},
-        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_CROSS_ASSET_BREADTH_CLOSURE"},
+        "next_checkpoint": {"const": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK"},
         "product_universe": {"const": "BTCUSDT_SPOT_V1_UNCHANGED"},
         "cross_section_product_authorized": {"const": false},
         "cross_section_market_result_observed": {"const": false},

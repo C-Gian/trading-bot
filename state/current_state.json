@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "PREDICTIVE-STAGE3-CROSS-ASSET-BREADTH-V1",
+  "latest_executor_checkpoint": "PREDICTIVE-STAGE3-MACRO-VINTAGE-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_CROSS_ASSET_BREADTH_CLOSURE",
+  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -1269,6 +1269,59 @@
     "version": "PREDICTIVE_STAGE3_CROSS_ASSET_BREADTH_V1",
     "whole_sample_participation_threshold": false
   },
+  "predictive_stage3_macro_vintage": {
+    "admission": "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-ADMISSION.json",
+    "admission_identity_sha256": "e87b4ae3870852fa6485e04cb0b9e2b7c9e6a5c58e4bc71d511563fdc8e6a809",
+    "candidate_fold_coverage": {
+      "2019": 0.13144240747146316,
+      "2020": 0.12119820957190405,
+      "2021": 0.13104954592481893,
+      "2022": 0.13734691541719127,
+      "2023": 0.10717966334592924,
+      "2024": 0.1178082191780822
+    },
+    "champion_status": "NONE",
+    "checkpoint_report": "reports/checkpoints/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1.md",
+    "configurations_consumed": 0,
+    "configurations_reserved": 2,
+    "current_revised_substitution": false,
+    "experiment_ids": [
+      "EXP-PRED-007-MACRO-VINTAGE-LINEAR",
+      "EXP-PRED-008-MACRO-VINTAGE-HGBR"
+    ],
+    "feature_count": 13,
+    "feature_set_version": "PREDICTIVE_MACRO_VINTAGE_FEATURES_V1",
+    "family": "PREDICTIVE_STAGE3_MACRO_VINTAGE_FAMILY_V1",
+    "family_disposition": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+    "included_fold_count": 0,
+    "included_folds": [],
+    "interpolation": false,
+    "magnitude_declared": false,
+    "model_fits": 0,
+    "outer_predictions_observed": 0,
+    "paired_bootstrap_executed": false,
+    "post_2024_vintages": 0,
+    "predictive_contract": "docs/contracts/PREDICTIVE_MACRO_VINTAGE_CONTEXT_V1.md",
+    "preregistration_sha256": {
+      "EXP-PRED-007-MACRO-VINTAGE-LINEAR": "210520c089a336a57b7f118e06ec723bf3dbaecfe105e8532442bd63ea239b3b",
+      "EXP-PRED-008-MACRO-VINTAGE-HGBR": "c2ef6723c4db024f11e7c18775ca0251488527bbe86d9b7433e6d9a2df4c2aac"
+    },
+    "prior_predictive_configurations_unchanged": 8,
+    "real_money": false,
+    "search_plan": "research/protocols/PREDICTIVE-STAGE3-MACRO-VINTAGE-SEARCH-PLAN-V1.json",
+    "search_plan_sha256": "aaa22c61099575c251fff052fce0ed338229ffc63777ec9aac974bf8a07ac9be",
+    "sealed_eligibility": "NOT_ELIGIBLE_SOURCE_BLOCKED",
+    "sealed_queries": 0,
+    "source_audit": "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-SOURCE-AUDIT.json",
+    "source_audit_sha256": "ed7f0a58c9f6562677fd6fc3c22ccca5758b28584a932dadc6c964ac41d5163d",
+    "source_audit_status": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+    "source_catalog": "research/exogenous/ALFRED_SERIES_CATALOG_V1.json",
+    "source_catalog_sha256": "cfc08c40c669770a144210026b81326379e50e7d61e770d3d4b40baf5e94b8b1",
+    "source_manifest": "data/manifests/ALFRED-MACRO-CONTEXT-DEV-v1.json",
+    "source_substrate_sha256": "448f1ea80252ce5fbc7f1982c41540dc71852c3a4e2fbf1a1357fd1ed9c877dd",
+    "status": "BLOCKED_MACRO_SOURCE_COVERAGE_V1",
+    "version": "PREDICTIVE_STAGE3_MACRO_VINTAGE_V1"
+  },
   "primary_research_phase": "PREDICTIVE_MODELLING",
   "product_analysis": {
     "champion_status": "NONE",
@@ -1561,7 +1614,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_CROSS_ASSET_BREADTH_CLOSURE",
+    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_STAGE_3_MACRO_VINTAGE_SOURCE_BLOCK",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V1",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
