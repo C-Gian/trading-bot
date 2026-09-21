@@ -481,9 +481,10 @@ def validate_macro_release_state(
     if labels["admissible_labels"] + labels["excluded_total"] != labels["grid_decision_instants"]:
         raise ExperimentError("the label accounting does not close")
     features = result["features"]
-    if features["available_vectors"] + features["unavailable_vectors"] != labels[
-        "admissible_labels"
-    ]:
+    if (
+        features["available_vectors"] + features["unavailable_vectors"]
+        != labels["admissible_labels"]
+    ):
         raise ExperimentError("the macro availability accounting does not close")
 
     advancing: list[str] = []

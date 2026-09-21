@@ -97,7 +97,10 @@ EXACT_MONTH_ANCHORS = (("CPIAUCSL", "12M_EXACT", 12), ("UNRATE", "3M_EXACT", 3))
 
 UNAVAILABILITY_TAXONOMY = (
     tuple(f"{series}_CURRENT_RELEASE_STATE_UNAVAILABLE" for series in SERIES)
-    + tuple(f"{series}_{label}_HISTORICAL_ANCHOR_UNAVAILABLE" for series, label, _, _ in HISTORICAL_ANCHORS)
+    + tuple(
+        f"{series}_{label}_HISTORICAL_ANCHOR_UNAVAILABLE"
+        for series, label, _, _ in HISTORICAL_ANCHORS
+    )
     + tuple(f"{series}_{label}_ANCHOR_UNAVAILABLE" for series, label, _ in EXACT_MONTH_ANCHORS)
     + (
         "VIXCLS_NON_POSITIVE_LEVEL",
@@ -371,9 +374,7 @@ def availability_map(
     return cache, reasons
 
 
-def first_available_instant(
-    source: MacroReleaseStateSource, start: int, end: int
-) -> int | None:
+def first_available_instant(source: MacroReleaseStateSource, start: int, end: int) -> int | None:
     for instant in range(start, end + HOUR_SECONDS, HOUR_SECONDS):
         if source.at(instant)[0] is not None:
             return instant

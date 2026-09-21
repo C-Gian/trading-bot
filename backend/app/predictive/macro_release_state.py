@@ -51,14 +51,18 @@ from .labels import Bar, Label, build_labels, index_bars, load_hourly_bars
 from .macro_release_state_audit import (
     AUDIT_PATH,
     COVERAGE_BLOCKED,
-    FOLD_COVERAGE_GATE as SOURCE_FOLD_COVERAGE_GATE,
     INTEGRITY_BLOCKED,
     MINIMUM_ADMISSIBLE_FOLDS,
     MINIMUM_TRAINING_HISTORY_DAYS,
     PARKED,
     PASS,
-    POOLED_COVERAGE_GATE as SOURCE_POOLED_COVERAGE_GATE,
     SEMANTICS_BLOCKED,
+)
+from .macro_release_state_audit import (
+    FOLD_COVERAGE_GATE as SOURCE_FOLD_COVERAGE_GATE,
+)
+from .macro_release_state_audit import (
+    POOLED_COVERAGE_GATE as SOURCE_POOLED_COVERAGE_GATE,
 )
 from .macro_release_state_source import (
     CONTRACT_PATH,
@@ -376,8 +380,7 @@ def search_plan() -> dict[str, Any]:
                 f"{series}_{label}": offset for series, label, offset, _ in HISTORICAL_ANCHORS
             },
             "historical_anchor_tolerance_days": {
-                f"{series}_{label}": tolerance
-                for series, label, _, tolerance in HISTORICAL_ANCHORS
+                f"{series}_{label}": tolerance for series, label, _, tolerance in HISTORICAL_ANCHORS
             },
             "exact_month_anchors": {
                 f"{series}_{label}": months for series, label, months in EXACT_MONTH_ANCHORS
@@ -849,9 +852,7 @@ def _fold_predictions(
     available = [label for label in fold.evaluation if label.open_time in cache]
     matrix = [cache[label.open_time] for label in available]
     probabilities = head.probability_up(matrix) if matrix else []
-    by_time = dict(
-        zip([label.open_time for label in available], probabilities, strict=True)
-    )
+    by_time = dict(zip([label.open_time for label in available], probabilities, strict=True))
 
     predictions: list[Prediction] = []
     for label in fold.evaluation:

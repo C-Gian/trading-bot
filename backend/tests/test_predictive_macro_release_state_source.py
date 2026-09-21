@@ -56,9 +56,7 @@ def fixture_records() -> dict[str, list[VintageRecord]]:
         "DFF": daily([("2024-04-24", 4.8), ("2024-05-16", 5.0), ("2024-06-14", 5.5)]),
         "DGS10": daily([("2024-04-24", 3.8), ("2024-05-16", 4.0), ("2024-06-14", 4.2)]),
         "T10Y2Y": daily([("2024-04-24", -0.7), ("2024-05-16", -0.5), ("2024-06-14", -0.2)]),
-        "VIXCLS": daily(
-            [("2024-05-21", 18.0), ("2024-06-10", 20.0), ("2024-06-14", 22.0)]
-        ),
+        "VIXCLS": daily([("2024-05-21", 18.0), ("2024-06-10", 20.0), ("2024-06-14", 22.0)]),
         "NFCI": daily([("2024-04-27", -0.6), ("2024-05-18", -0.4), ("2024-06-14", -0.1)]),
         "WALCL": daily(
             [
@@ -124,9 +122,7 @@ def test_a_current_level_older_than_the_retired_45_day_rule_is_now_admitted():
 def test_a_later_revision_cannot_change_an_earlier_feature_vector():
     records = fixture_records()
     earlier = build(records).at(stamp(DECISION))[0]
-    records["DFF"].append(
-        VintageRecord(stamp("2024-06-20T00:00:00"), date(2024, 6, 14), 99.0)
-    )
+    records["DFF"].append(VintageRecord(stamp("2024-06-20T00:00:00"), date(2024, 6, 14), 99.0))
     revised = build(records)
     assert revised.at(stamp(DECISION))[0] == earlier
     later = revised.at(stamp("2024-06-21T12:00:00"))[0]
@@ -163,18 +159,16 @@ def test_a_future_monthly_release_is_invisible_before_its_availability():
 def test_the_exact_month_anchors_come_from_the_same_as_of_t_snapshot():
     records = fixture_records()
     # A later revision of the April 2023 CPI, available only after the decision.
-    records["CPIAUCSL"].append(
-        VintageRecord(stamp("2024-07-01T00:00:00"), date(2023, 4, 1), 999.0)
-    )
+    records["CPIAUCSL"].append(VintageRecord(stamp("2024-07-01T00:00:00"), date(2023, 4, 1), 999.0))
     source = build(records)
     at_decision = source.at(stamp(DECISION))[0]
     assert at_decision is not None
     assert at_decision[11] == pytest.approx(math.log(312.0 / 303.0))
     # The revision exists in the substrate, and only its own availability boundary exposes it.
     assert source.snapshot("CPIAUCSL", stamp(DECISION)).values[date(2023, 4, 1)] == 303.0
-    assert source.snapshot("CPIAUCSL", stamp("2024-07-02T12:00:00")).values[
-        date(2023, 4, 1)
-    ] == 999.0
+    assert (
+        source.snapshot("CPIAUCSL", stamp("2024-07-02T12:00:00")).values[date(2023, 4, 1)] == 999.0
+    )
 
 
 def test_the_unemployment_anchor_is_exactly_three_calendar_months_earlier():
@@ -210,9 +204,7 @@ def test_a_historical_anchor_outside_its_tolerance_fails_closed():
 
 def test_a_series_with_no_available_record_fails_closed_before_any_anchor():
     records = fixture_records()
-    records["NFCI"] = [
-        VintageRecord(stamp("2025-01-01T00:00:00"), date(2024, 12, 20), -0.2)
-    ]
+    records["NFCI"] = [VintageRecord(stamp("2025-01-01T00:00:00"), date(2024, 12, 20), -0.2)]
     values, reason = build(records).at(stamp(DECISION))
     assert values is None
     assert reason == "NFCI_CURRENT_RELEASE_STATE_UNAVAILABLE"
@@ -220,9 +212,7 @@ def test_a_series_with_no_available_record_fails_closed_before_any_anchor():
 
 def test_a_non_positive_log_input_fails_closed():
     records = fixture_records()
-    records["VIXCLS"] = daily(
-        [("2024-05-21", 18.0), ("2024-06-10", 20.0), ("2024-06-14", 0.0)]
-    )
+    records["VIXCLS"] = daily([("2024-05-21", 18.0), ("2024-06-10", 20.0), ("2024-06-14", 0.0)])
     values, reason = build(records).at(stamp(DECISION))
     assert values is None
     assert reason == "VIXCLS_NON_POSITIVE_LEVEL"
@@ -238,9 +228,7 @@ def regular_calendar_records() -> dict[str, list[VintageRecord]]:
     records["NFCI"] = daily([("2024-05-04", -0.4), ("2024-05-11", -0.4), ("2024-05-18", -0.4)])
     records["WALCL"] = records["NFCI"]
     records["CPIAUCSL"] = [
-        VintageRecord(
-            stamp(f"2024-{month:02d}-16T00:00:00"), date(2023, month, 1), 300.0 + month
-        )
+        VintageRecord(stamp(f"2024-{month:02d}-16T00:00:00"), date(2023, month, 1), 300.0 + month)
         for month in range(1, 13)
     ]
     records["UNRATE"] = [

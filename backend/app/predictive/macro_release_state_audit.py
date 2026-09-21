@@ -95,7 +95,9 @@ def canonical_timestamp_sets(root: Path = ROOT) -> tuple[dict[str, dict[str, lis
     eligible = [
         moment
         for moment in range(first, last + HOUR_SECONDS, HOUR_SECONDS)
-        if moment in usable and moment + HORIZON_SECONDS <= last and moment + HORIZON_SECONDS in usable
+        if moment in usable
+        and moment + HORIZON_SECONDS <= last
+        and moment + HORIZON_SECONDS in usable
     ]
     result: dict[str, dict[str, list[int]]] = {}
     for name, start_text, end_text in FOLD_BOUNDARIES:
@@ -107,9 +109,7 @@ def canonical_timestamp_sets(root: Path = ROOT) -> tuple[dict[str, dict[str, lis
                 if moment + HORIZON_SECONDS + PURGE_EMBARGO_HOURS * HOUR_SECONDS <= start
             ],
             "evaluation": [
-                moment
-                for moment in eligible
-                if start <= moment and moment + HORIZON_SECONDS <= end
+                moment for moment in eligible if start <= moment and moment + HORIZON_SECONDS <= end
             ],
         }
     return result, first, last
@@ -244,14 +244,19 @@ def semantics_findings(root: Path = ROOT) -> dict[str, Any]:
     anchor_checks = 0
     anchor_mismatches = 0
     anchor_distinguishing_cases = 0
-    final_state: dict[str, dict[Any, tuple[int, float]]] = {series: {} for series, _, _ in EXACT_MONTH_ANCHORS}
+    final_state: dict[str, dict[Any, tuple[int, float]]] = {
+        series: {} for series, _, _ in EXACT_MONTH_ANCHORS
+    }
     for row in raw:
         if row["series_id"] not in final_state:
             continue
         available = int(row["availability_time"].timestamp())
         previous = final_state[row["series_id"]].get(row["observation_date"])
         if previous is None or available >= previous[0]:
-            final_state[row["series_id"]][row["observation_date"]] = (available, float(row["value"]))
+            final_state[row["series_id"]][row["observation_date"]] = (
+                available,
+                float(row["value"]),
+            )
     for instant in PROBE_INSTANTS:
         for series, _, months in EXACT_MONTH_ANCHORS:
             current = source.current_release(series, instant)
@@ -283,8 +288,7 @@ def semantics_findings(root: Path = ROOT) -> dict[str, Any]:
         and anchor_mismatches == 0,
         "NO_INTERPOLATION_OR_NEAREST_FUTURE_SUBSTITUTION": True,
         "CURRENT_LEVEL_HAS_NO_EXPIRY_RELATIVE_TO_DECISION_TIME": True,
-        "ALL_13_FEATURES_PRESENT_IN_FROZEN_ORDER": FEATURE_COUNT == 13
-        and len(FEATURE_NAMES) == 13,
+        "ALL_13_FEATURES_PRESENT_IN_FROZEN_ORDER": FEATURE_COUNT == 13 and len(FEATURE_NAMES) == 13,
         "HISTORICAL_TOLERANCES_MEASURED_AGAINST_THE_INTENDED_ANCHOR": {
             f"{series}_{label}": tolerance for series, label, _, tolerance in HISTORICAL_ANCHORS
         }
