@@ -1,0 +1,70 @@
+{
+  "action_threshold": 0.6,
+  "advancement_condition_count": 10,
+  "basis": "DEFERRED",
+  "champion": "NONE",
+  "checkpoint": "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+  "created_at": "2026-09-21T00:00:00Z",
+  "cross_asset_inversion_forbidden": true,
+  "design_sha256": {
+    "decisions/ADR-0029-PREDICTIVE-V2-DETERMINISTIC-CALENDAR.md": "50fef9720feba0034baf02fd087596677ced0baa431f298470ac93923bcc5662",
+    "docs/contracts/PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1.md": "c0374dad1e8dbf3333c91a1e9b9ac9c41381aad94238caa9d9e4d762d5055337",
+    "reports/validation/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1-FEATURE-PROOFS.json": "ac8c1927d91a4c148dceb5d110b050dc13630793768a789efee37516637e7b2d",
+    "research/experiments/EXP-PRED-V2-001-CALENDAR-LINEAR/preregistration.json": "c26ddf0fa234254fe6ad00d547a93d3ade3ff3ef756f16d4e7e54d45944d9336",
+    "research/experiments/EXP-PRED-V2-002-CALENDAR-HGBR/preregistration.json": "438ec56f81457078c47e2fa835ff3657956d0c9f3838db40c24c81696f57d546",
+    "research/protocols/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-SEARCH-PLAN-V1.json": "b99674c11839914a41623ee762476a3655d92383510707166e1058f967d086da"
+  },
+  "family": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FAMILY_V1",
+  "family_size": 2,
+  "feature_count": 7,
+  "feature_set": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1",
+  "generation": "PREDICTIVE_RESEARCH_GENERATION_V2",
+  "generation_v1_disposition": "CLOSED_NO_DIRECTIONAL_ADMISSION_NO_SEALED",
+  "implementation_sha256": {
+    "backend/app/predictive/calendar.py": "142c563154fc205a51ea187479ce58b7c4c38a93e8cbd69470e6863c2744abbb",
+    "backend/app/predictive/calendar_features.py": "75f8b11fcfc7406a1d276f34099200c7762d64d74c89b3ac01c71f425e6eb6c2",
+    "backend/app/predictive/calendar_model.py": "b055f7824faf296a583bdf9baafdb70c17c418b63241a710f8c1e0c2ac9c51a2",
+    "backend/app/predictive/calendar_report.py": "f46cc9afa8ec93227381c3265290fd22afec06f5192927b420a31bc7f7143595",
+    "backend/app/predictive/selective_long.py": "04ce5b73e5fa9aa13c725045327ad1f41dbea8e6950eb4c7567b93ea43394e6d",
+    "scripts/audit_predictive_calendar_features.py": "d2031f6885689c4d33cd4bef1708d743b16730d91dd26ea618235b40e90a90f4",
+    "scripts/preregister_predictive_calendar.py": "d32093efcca3b63e65a68ec5983f6cec12dbab5f9dd62d1a987509b69cf8fedb",
+    "scripts/run_predictive_calendar.py": "2e9d417d20962a269033fe5de1e434399db98a25870d8a6330e426257400d09a"
+  },
+  "inference_seed": 20260921,
+  "macro_residual_sha256": {
+    "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-RESIDUAL-SOURCE-FINDING.json": "92f5d278d95b4f1aab9a57fa9050d54bf5cdfaba5d9f75b5ed3c25c200a51aeb"
+  },
+  "macro_source_block_sha256": {
+    "reports/checkpoints/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1.md": "602c3771517500bdb72e3ffb035d71f3ec7d65d7560d1895eb9a4238d54f1228",
+    "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-ADMISSION.json": "b213a0cf36b52881c21efbf8e40a8f1b01d087e3f3a9b5194629dcb0b99f5351",
+    "reports/validation/PREDICTIVE-STAGE3-MACRO-VINTAGE-V1-SOURCE-AUDIT.json": "ed7f0a58c9f6562677fd6fc3c22ccca5758b28584a932dadc6c964ac41d5163d",
+    "research/experiments/EXP-PRED-007-MACRO-VINTAGE-LINEAR/preregistration.json": "210520c089a336a57b7f118e06ec723bf3dbaecfe105e8532442bd63ea239b3b",
+    "research/experiments/EXP-PRED-008-MACRO-VINTAGE-HGBR/preregistration.json": "c2ef6723c4db024f11e7c18775ca0251488527bbe86d9b7433e6d9a2df4c2aac",
+    "research/protocols/PREDICTIVE-STAGE3-MACRO-VINTAGE-SEARCH-PLAN-V1.json": "aaa22c61099575c251fff052fce0ed338229ffc63777ec9aac974bf8a07ac9be"
+  },
+  "macro_source_redesign_budget": "EXHAUSTED",
+  "magnitude_status": "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION",
+  "primary_control": "FULL_FOLD_UP_RATE",
+  "proof_tests_sha256": {
+    "backend/tests/test_predictive_calendar.py": "1daf2e0d3424932320780a9a8964dc0e32d73b86d409070e72dc6c1b79fe8c3d"
+  },
+  "real_money": false,
+  "sealed_queries": 0,
+  "stage1_substrate_debt": "DEFERRED",
+  "status": "FROZEN_BEFORE_FIRST_OUTER_PREDICTION",
+  "v1_result_count": 10,
+  "v1_result_sha256": {
+    "research/experiments/EXP-PRED-001-INTERNAL-LINEAR-DUAL-HEAD/result.json": "979e971fcd4f9b831d2ec535a70d555057740013e146669ec3d1149ce4849185",
+    "research/experiments/EXP-PRED-002-INTERNAL-HGBR-DUAL-HEAD/result.json": "c58765356fd44b75a12c27a6b20eb3b7b9b89a80e7941d247d61cec6647819fc",
+    "research/experiments/EXP-PRED-003-FUNDING-LINEAR-DUAL-HEAD/result.json": "d6e6f9e34d60e8a9efb26a5b313ad27e6a9ff93286e3ca16651cc52d6fe54b65",
+    "research/experiments/EXP-PRED-004-FUNDING-HGBR-DUAL-HEAD/result.json": "3579968ae57351c5f7f974983fe2b9a07188ba10dc76bb171ae3858e6546f806",
+    "research/experiments/EXP-PRED-005-OPEN-INTEREST-LINEAR-DUAL-HEAD/result.json": "79633c3ba8e601903f75fc18febe1b7ac03276643eabf7762ec22580f97d13e3",
+    "research/experiments/EXP-PRED-006-OPEN-INTEREST-HGBR-DUAL-HEAD/result.json": "4b9d322b69a21b249df307cf95dcc449f9cf6601e7106b90535b3a2b9bcd46df",
+    "research/experiments/EXP-PRED-007-CROSS-ASSET-BREADTH-LINEAR/result.json": "40b3ea74942e80bf437523f6ece74e1377cc850e5f63ca90a0b91511ea0a45fe",
+    "research/experiments/EXP-PRED-008-CROSS-ASSET-BREADTH-HGBR/result.json": "6b7468f003ae9640f6b28c2a0e31c74eab2ab3636cd63fa1de2d0e0563928b58",
+    "research/experiments/EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR/result.json": "a818b0e42aefb7d89e0b39c0da449dd84dc9310ef1f1447db4ae8a44c5c0cc07",
+    "research/experiments/EXP-PRED-010-MACRO-RELEASE-STATE-HGBR/result.json": "126dd9936a57fda8f3c12212e8114c0c4cdf9e6a1b5816c3b6096aefbf22c2d2"
+  },
+  "v1_scores_or_tails_used": false,
+  "version": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_ADMISSION_V1"
+}

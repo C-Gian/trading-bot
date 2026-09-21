@@ -1,0 +1,45 @@
+{
+  "checks": {
+    "all_vectors_finite_width_seven": true,
+    "dec31_jan1_wrap": true,
+    "feb28_feb29_leap_year": true,
+    "market_value_mutation_cannot_enter_vector": true,
+    "naive_local_time_rejected": true,
+    "non_utc_offset_rejected": true,
+    "one_hour_transition_matches_new_timestamp": true,
+    "timestamp_only_api": true,
+    "utc_hour_boundary": true,
+    "utc_weekday_boundary": true,
+    "zero_offset_tzinfo_normalized_to_utc": true
+  },
+  "eligible_development_feature_validity": 1.0,
+  "eligible_development_timestamps": 64323,
+  "eligible_development_vectors_valid": 64323,
+  "feature_count": 7,
+  "feature_set": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1",
+  "folds": [
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+  ],
+  "model_fits": 0,
+  "ordered_names": [
+    "UTC_HOUR_SIN",
+    "UTC_HOUR_COS",
+    "UTC_WEEKDAY_SIN",
+    "UTC_WEEKDAY_COS",
+    "UTC_YEAR_PHASE_SIN",
+    "UTC_YEAR_PHASE_COS",
+    "UTC_WEEKEND"
+  ],
+  "outer_fold_eligible_timestamps": 52315,
+  "outer_fold_feature_validity": 1.0,
+  "outer_fold_vectors_valid": 52315,
+  "outer_predictions": 0,
+  "sealed_queries": 0,
+  "status": "PASS_BEFORE_FIRST_MODEL_FIT",
+  "version": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURE_PROOFS_V1"
+}

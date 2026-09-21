@@ -1,0 +1,176 @@
+{
+  "action_threshold": 0.6,
+  "advancement": {
+    "ACTION_CALIBRATION_GAP_AT_MOST_0_05": 0.05,
+    "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE_ENRICHMENT": "CEIL_TWO_THIRDS_OF_INCLUDED_FOLDS",
+    "ENRICHMENT_INTERVAL_LOWER_BOUND_ABOVE_ZERO": 0.0,
+    "EVERY_FOLD_ACTIONABLE_LONGS_AT_LEAST_30": 30,
+    "EVERY_FOLD_ACTION_COVERAGE_AT_LEAST_0_005": 0.005,
+    "FULL_PROBABILITY_BRIER_AT_MOST_MATCHED_TRAINING_UP_BASE_RATE_BRIER": "MATCHED_TRAINING_UP_BASE_RATE_BRIER",
+    "POOLED_ACTIONABLE_LONGS_AT_LEAST_500": 500,
+    "POOLED_ACTION_COVERAGE_AT_LEAST_0_02": 0.02,
+    "POOLED_ENRICHMENT_OVER_FULL_FOLD_UP_RATE_AT_LEAST_0_05": 0.05,
+    "POOLED_SELECTIVE_LONG_WIN_RATE_AT_LEAST_0_60": 0.6
+  },
+  "all_ten_conditions_must_hold": true,
+  "boundaries": {
+    "champion": false,
+    "ciclica_evoluta_or_analisi_evoluta_claim": false,
+    "old_cycle_or_cross_section_result_imported_as_evidence": false,
+    "post_cutoff_or_sealed_market_data": false,
+    "real_money": false,
+    "short": false,
+    "v1_results_rescored_or_used_for_family_selection": false
+  },
+  "configuration_order": [
+    "V2_CALENDAR_LINEAR_V1",
+    "V2_CALENDAR_HGBR_V1"
+  ],
+  "controls": {
+    "primary": "FULL_FOLD_UP_RATE",
+    "primary_visible_to_fitting_calibration_or_selection": false,
+    "secondary": [
+      "FEATURE_VALID_FOLD_UP_RATE",
+      "TRAINING_UP_BASE_RATE",
+      "ALWAYS_UP",
+      "PREVIOUS_24H_SIGN_PERSISTENCE_DESCRIPTIVE_ONLY_NEVER_INVERTED"
+    ]
+  },
+  "created_at": "2026-09-21T00:00:00Z",
+  "execution_rule": "EXECUTE_BOTH_UNLESS_INTEGRITY_OR_SOFTWARE_DEFECT_BLOCKS_THE_FAMILY",
+  "experiment_ids": {
+    "V2_CALENDAR_HGBR_V1": "EXP-PRED-V2-002-CALENDAR-HGBR",
+    "V2_CALENDAR_LINEAR_V1": "EXP-PRED-V2-001-CALENDAR-LINEAR"
+  },
+  "family": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FAMILY_V1",
+  "family_size": 2,
+  "feature_search": false,
+  "feature_set": {
+    "external_sources_read": false,
+    "feature_count": 7,
+    "future_timestamps_read": false,
+    "input": "TIMEZONE_AWARE_UTC_DECISION_TIMESTAMP_T_ONLY",
+    "invalid_row_policy": "IMPLEMENTATION_DEFECT_FAIL_CLOSED_BEFORE_MODEL_EXECUTION",
+    "labels_read": false,
+    "leap_year_denominator": 366,
+    "local_timezone_or_dst_used": false,
+    "market_values_read": false,
+    "ordered_names": [
+      "UTC_HOUR_SIN",
+      "UTC_HOUR_COS",
+      "UTC_WEEKDAY_SIN",
+      "UTC_WEEKDAY_COS",
+      "UTC_YEAR_PHASE_SIN",
+      "UTC_YEAR_PHASE_COS",
+      "UTC_WEEKEND"
+    ],
+    "ordinary_year_denominator": 365,
+    "version": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1"
+  },
+  "folds": {
+    "calibration_embargo_hours": 48,
+    "calibration_split": "CHRONOLOGICAL_80_PERCENT_BASE_20_PERCENT_CALIBRATION",
+    "design": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD",
+    "included": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "purge_embargo_hours": 24,
+    "random_k_fold": false
+  },
+  "generation": "PREDICTIVE_RESEARCH_GENERATION_V2",
+  "hyperparameter_search": false,
+  "hypothesis_ids": {
+    "V2_CALENDAR_HGBR_V1": "H-PRED-V2-CALENDAR-002",
+    "V2_CALENDAR_LINEAR_V1": "H-PRED-V2-CALENDAR-001"
+  },
+  "inference": {
+    "block_length_hours": 48,
+    "blocks_cross_fold_boundaries": false,
+    "familywise_alpha": 0.05,
+    "interval_mass": 0.975,
+    "method": "FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP_PAIRED_ENRICHMENT",
+    "multiplicity_correction": "BONFERRONI_OVER_TWO_CONFIGURATIONS",
+    "per_configuration_alpha": 0.025,
+    "replicates": 10000,
+    "seed": 20260921
+  },
+  "magnitude_estimator": null,
+  "magnitude_status": "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION",
+  "models": {
+    "V2_CALENDAR_HGBR_V1": {
+      "base_estimator": "HistGradientBoostingClassifier",
+      "base_parameters": {
+        "early_stopping": false,
+        "l2_regularization": 1.0,
+        "learning_rate": 0.05,
+        "max_bins": 255,
+        "max_iter": 200,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 50,
+        "random_state": 20260921
+      },
+      "calibration_embargo_hours": 48,
+      "calibration_estimator": "LogisticRegression",
+      "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+      "calibration_parameters": {
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": null,
+        "solver": "lbfgs",
+        "tol": 1e-08
+      },
+      "calibration_split_fraction": 0.8,
+      "hyperparameter_search": false,
+      "input_scaling": "NONE",
+      "magnitude_estimator": null,
+      "model_version": "V2_CALENDAR_HGBR_V1",
+      "probability_semantics": "P_R_24H_GREATER_THAN_ZERO",
+      "sklearn_version": "1.7.2",
+      "threshold_search": false
+    },
+    "V2_CALENDAR_LINEAR_V1": {
+      "base_estimator": "StandardScaler + LogisticRegression",
+      "base_parameters": {
+        "C": 1.0,
+        "class_weight": null,
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": "l2",
+        "solver": "lbfgs",
+        "tol": 1e-08
+      },
+      "calibration_embargo_hours": 48,
+      "calibration_estimator": "LogisticRegression",
+      "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+      "calibration_parameters": {
+        "fit_intercept": true,
+        "max_iter": 2000,
+        "penalty": null,
+        "solver": "lbfgs",
+        "tol": 1e-08
+      },
+      "calibration_split_fraction": 0.8,
+      "hyperparameter_search": false,
+      "input_scaling": "STANDARD_SCALER_FITTED_ON_BASE_FIT_ROWS_ONLY",
+      "magnitude_estimator": null,
+      "model_version": "V2_CALENDAR_LINEAR_V1",
+      "probability_semantics": "P_R_24H_GREATER_THAN_ZERO",
+      "sklearn_version": "1.7.2",
+      "threshold_search": false
+    }
+  },
+  "search_budget": {
+    "configurations_planned": 2,
+    "configurations_reserved": 2,
+    "result_dependent_forks": 0
+  },
+  "status": "FROZEN_BEFORE_FIRST_OUTER_PREDICTION",
+  "target": "r_24h = log(close[T+24h] / close[T])",
+  "threshold_search": false,
+  "version": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_SEARCH_PLAN_V1"
+}

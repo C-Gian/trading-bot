@@ -1,0 +1,123 @@
+{
+  "action_rule": "LONG_IFF_CALIBRATED_P_UP_AT_LEAST_0_60_ELSE_NO_TRADE",
+  "action_threshold": 0.6,
+  "advancement": {
+    "ACTION_CALIBRATION_GAP_AT_MOST_0_05": 0.05,
+    "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE_ENRICHMENT": "CEIL_TWO_THIRDS_OF_INCLUDED_FOLDS",
+    "ENRICHMENT_INTERVAL_LOWER_BOUND_ABOVE_ZERO": 0.0,
+    "EVERY_FOLD_ACTIONABLE_LONGS_AT_LEAST_30": 30,
+    "EVERY_FOLD_ACTION_COVERAGE_AT_LEAST_0_005": 0.005,
+    "FULL_PROBABILITY_BRIER_AT_MOST_MATCHED_TRAINING_UP_BASE_RATE_BRIER": "MATCHED_TRAINING_UP_BASE_RATE_BRIER",
+    "POOLED_ACTIONABLE_LONGS_AT_LEAST_500": 500,
+    "POOLED_ACTION_COVERAGE_AT_LEAST_0_02": 0.02,
+    "POOLED_ENRICHMENT_OVER_FULL_FOLD_UP_RATE_AT_LEAST_0_05": 0.05,
+    "POOLED_SELECTIVE_LONG_WIN_RATE_AT_LEAST_0_60": 0.6
+  },
+  "all_ten_conditions_must_hold": true,
+  "configuration": {
+    "base_estimator": "StandardScaler + LogisticRegression",
+    "base_parameters": {
+      "C": 1.0,
+      "class_weight": null,
+      "fit_intercept": true,
+      "max_iter": 2000,
+      "penalty": "l2",
+      "solver": "lbfgs",
+      "tol": 1e-08
+    },
+    "calibration_embargo_hours": 48,
+    "calibration_estimator": "LogisticRegression",
+    "calibration_input": "BASE_MODEL_RAW_DECISION_FUNCTION_SCORE",
+    "calibration_parameters": {
+      "fit_intercept": true,
+      "max_iter": 2000,
+      "penalty": null,
+      "solver": "lbfgs",
+      "tol": 1e-08
+    },
+    "calibration_split_fraction": 0.8,
+    "hyperparameter_search": false,
+    "input_scaling": "STANDARD_SCALER_FITTED_ON_BASE_FIT_ROWS_ONLY",
+    "magnitude_estimator": null,
+    "model_version": "V2_CALENDAR_LINEAR_V1",
+    "probability_semantics": "P_R_24H_GREATER_THAN_ZERO",
+    "sklearn_version": "1.7.2",
+    "threshold_search": false
+  },
+  "created_at": "2026-09-21T00:00:00Z",
+  "evaluation_design": {
+    "calibration_embargo_hours": 48,
+    "calibration_split": "CHRONOLOGICAL_80_PERCENT_BASE_20_PERCENT_CALIBRATION",
+    "design": "EXPANDING_CHRONOLOGICAL_WALK_FORWARD",
+    "included": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "purge_embargo_hours": 24,
+    "random_k_fold": false
+  },
+  "experiment_id": "EXP-PRED-V2-001-CALENDAR-LINEAR",
+  "fail_classification": "NO_ADVANCE_V2_CALENDAR_LINEAR_V1",
+  "family": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FAMILY_V1",
+  "family_size": 2,
+  "feature_search": false,
+  "feature_set": {
+    "external_sources_read": false,
+    "feature_count": 7,
+    "future_timestamps_read": false,
+    "input": "TIMEZONE_AWARE_UTC_DECISION_TIMESTAMP_T_ONLY",
+    "invalid_row_policy": "IMPLEMENTATION_DEFECT_FAIL_CLOSED_BEFORE_MODEL_EXECUTION",
+    "labels_read": false,
+    "leap_year_denominator": 366,
+    "local_timezone_or_dst_used": false,
+    "market_values_read": false,
+    "ordered_names": [
+      "UTC_HOUR_SIN",
+      "UTC_HOUR_COS",
+      "UTC_WEEKDAY_SIN",
+      "UTC_WEEKDAY_COS",
+      "UTC_YEAR_PHASE_SIN",
+      "UTC_YEAR_PHASE_COS",
+      "UTC_WEEKEND"
+    ],
+    "ordinary_year_denominator": 365,
+    "version": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1"
+  },
+  "generation": "PREDICTIVE_RESEARCH_GENERATION_V2",
+  "hypothesis": "DETERMINISTIC_UTC_CALENDAR_STATE_IDENTIFIES_SELECTIVE_LONG_OPPORTUNITIES_WITH_WIN_RATE_AT_LEAST_0_60_AND_ENRICHMENT_AT_LEAST_0_05_OVER_FULL_FOLD_UP_RATE",
+  "hypothesis_id": "H-PRED-V2-CALENDAR-001",
+  "inference": {
+    "block_length_hours": 48,
+    "blocks_cross_fold_boundaries": false,
+    "familywise_alpha": 0.05,
+    "interval_mass": 0.975,
+    "method": "FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP_PAIRED_ENRICHMENT",
+    "multiplicity_correction": "BONFERRONI_OVER_TWO_CONFIGURATIONS",
+    "per_configuration_alpha": 0.025,
+    "replicates": 10000,
+    "seed": 20260921
+  },
+  "magnitude_declared": false,
+  "magnitude_status": "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION",
+  "minimum_important_effect": 0.05,
+  "model_fit_budget": {
+    "base_classifier": 6,
+    "outer_folds": 6,
+    "platt_calibrator": 6
+  },
+  "parameter_search": false,
+  "pass_classification": "ADVANCE_V2_CALENDAR_LINEAR_V1",
+  "post_result_tuning": false,
+  "primary_metric": "SELECTIVE_LONG_WIN_RATE_MINUS_FULL_FOLD_UP_RATE",
+  "real_money": false,
+  "sealed_eligibility_if_pass": "ELIGIBLE_FOR_RESEARCH_DIRECTOR_SEALED_REVIEW",
+  "sealed_query_authorized": false,
+  "status": "PREREGISTERED_BEFORE_FIRST_OUTER_PREDICTION",
+  "threshold_search": false,
+  "trial_budget": 1,
+  "version": "V2_CALENDAR_LINEAR_V1_PREREGISTRATION_V1"
+}

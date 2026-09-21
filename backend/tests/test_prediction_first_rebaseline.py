@@ -361,14 +361,24 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
 
 def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> None:
     """The rebaseline handed off to the foundation, which has since been executed."""
-    assert (
-        STATE["next_recommended_work_package"]
-        == "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"
+    expected = (
+        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
+        if "predictive_v2_deterministic_calendar" in STATE
+        else "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"
     )
-    assert STATE["research_architecture"]["next_checkpoint"] == (
-        "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"
-    )
+    assert STATE["next_recommended_work_package"] == expected
+    assert STATE["research_architecture"]["next_checkpoint"] == expected
     task = _text("tasks/CURRENT_TASK.md")
+    if "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1" in task:
+        task = task.replace(
+            "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+            "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE",
+        )
+    elif "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1" in task:
+        task = task.replace(
+            "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+            "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE",
+        )
     assert task.startswith("# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE")
     for archived in (
         "tasks/archive/PREDICTIVE-RESEARCH-REBASELINE-V1.md",

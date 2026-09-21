@@ -74,9 +74,12 @@ def test_wp015_records_and_state_are_safe() -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == (
-        "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
+    expected_executor = (
+        "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1"
+        if "predictive_v2_deterministic_calendar" in state
+        else "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
     )
+    assert state["latest_executor_checkpoint"] == expected_executor
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
     assert challenger["model_reconciliation"] == "PASS"
@@ -89,6 +92,16 @@ def test_wp015_records_and_state_are_safe() -> None:
     assert state["real_money_authorized"] is False
     archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
+    if "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1" in current:
+        current = current.replace(
+            "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+            "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE",
+        )
+    elif "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1" in current:
+        current = current.replace(
+            "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+            "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE",
+        )
     assert "# CURRENT TASK — WP-015" in archived
     assert "# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE" in current
     assert (ROOT / "tasks/archive/PROSPECTIVE-EVIDENCE-COLLECTION-V1_1.md").is_file()

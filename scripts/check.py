@@ -52,6 +52,8 @@ PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-008-MACRO-VINTAGE-HGBR",
     "EXP-PRED-009-MACRO-RELEASE-STATE-LINEAR",
     "EXP-PRED-010-MACRO-RELEASE-STATE-HGBR",
+    "EXP-PRED-V2-001-CALENDAR-LINEAR",
+    "EXP-PRED-V2-002-CALENDAR-HGBR",
 }
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
@@ -293,9 +295,12 @@ def validate_research_views(state: dict) -> None:
     assert state["latest_reviewed_checkpoint"] == (
         "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
     )
-    assert state["latest_executor_checkpoint"] == (
-        "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
+    expected_executor = (
+        "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1"
+        if "predictive_v2_deterministic_calendar" in state
+        else "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
     )
+    assert state["latest_executor_checkpoint"] == expected_executor
     assert state["project_phase"] == "PREDICTIVE_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -2960,7 +2965,10 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
     # The V2 freeze in state, the contract and the scorer must all be the same freeze.
     contract = (ROOT / objective["evaluation_contract"]).read_text(encoding="utf-8")
     assert objective["generation"] == "PREDICTIVE_RESEARCH_GENERATION_V2"
-    assert objective["status"] == "OPEN_NO_CANDIDATE_EXECUTED"
+    assert objective["status"] in {
+        "OPEN_NO_CANDIDATE_EXECUTED",
+        "FIRST_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW",
+    }
     assert objective["evaluation_contract_sha256"] == content_hash(
         ROOT / objective["evaluation_contract"]
     )
@@ -2993,14 +3001,37 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
     assert objective["search_memory_reset"] is False
     assert objective["rejected_v1_result_becomes_evidence_under_the_new_scorer"] is False
 
-    # This checkpoint opened a generation. It did not run one.
-    assert objective["v2_hypotheses_declared"] == 0
-    assert objective["v2_candidates_executed"] == 0
-    assert objective["model_fits"] == 0 and objective["market_predictions"] == 0
+    # The rebaseline itself ran nothing. A later, separately preregistered V2 family may
+    # update these counters only when its committed result artifacts exist.
+    calendar_executed = "predictive_v2_deterministic_calendar" in state
+    if calendar_executed:
+        calendar = state["predictive_v2_deterministic_calendar"]
+        assert objective["status"] == "FIRST_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW"
+        assert objective["v2_hypotheses_declared"] == 2
+        assert objective["v2_candidates_executed"] == 2
+        assert objective["model_fits"] == calendar["model_fits"]
+        assert objective["market_predictions"] == calendar["outer_predictions"]
+    else:
+        assert objective["status"] == "OPEN_NO_CANDIDATE_EXECUTED"
+        assert objective["v2_hypotheses_declared"] == 0
+        assert objective["v2_candidates_executed"] == 0
+        assert objective["model_fits"] == 0 and objective["market_predictions"] == 0
     assert objective["sealed_queries"] == closure["sealed_queries"] == 0
     assert objective["champion_status"] == state["champion_status"] == "NONE"
     assert objective["real_money"] is False and state["real_money_authorized"] is False
-    assert not list((ROOT / "research/experiments").glob("EXP-PRED-V2-*"))
+    v2_directories = {
+        path.name for path in (ROOT / "research/experiments").glob("EXP-PRED-V2-*") if path.is_dir()
+    }
+    calendar_admission = (
+        ROOT / "reports/validation/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1-ADMISSION.json"
+    )
+    if calendar_admission.is_file():
+        assert v2_directories == {
+            "EXP-PRED-V2-001-CALENDAR-LINEAR",
+            "EXP-PRED-V2-002-CALENDAR-HGBR",
+        }
+    else:
+        assert not v2_directories
 
     for required in (
         "LONG      iff calibrated p_up >= 0.60",
@@ -3019,6 +3050,90 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
     assert "## Research generations" in constitution
     assert "PREDICTIVE_RESEARCH_GENERATION_V2" in constitution
     assert (ROOT / objective["checkpoint_report"]).is_file()
+
+
+def predictive_calendar_checks(state: dict) -> None:
+    """The first V2 family is hash-frozen before results and replayed after execution."""
+    from app.predictive.calendar import (
+        ADMISSION_PATH,
+        CONFIGURATION_ORDER,
+        FAMILY_SIZE,
+        FEATURE_PROOF_PATH,
+        PREREGISTRATION_PATHS,
+        REPORT_JSON_PATH,
+        RESULT_PATHS,
+        SEARCH_PLAN_PATH,
+        TRIAL_PATHS,
+        admission,
+        admission_identity,
+        preregistration,
+        search_plan,
+    )
+
+    admission_path = ROOT / ADMISSION_PATH
+    if not admission_path.is_file():
+        assert "predictive_v2_deterministic_calendar" not in state
+        return
+    frozen = json.loads(admission_path.read_text(encoding="utf-8"))
+    assert frozen == admission(ROOT)
+    assert frozen["status"] == "FROZEN_BEFORE_FIRST_OUTER_PREDICTION"
+    assert frozen["v1_result_count"] == 10
+    assert frozen["generation_v1_disposition"] == ("CLOSED_NO_DIRECTIONAL_ADMISSION_NO_SEALED")
+    assert frozen["sealed_queries"] == 0
+    assert json.loads((ROOT / SEARCH_PLAN_PATH).read_text(encoding="utf-8")) == search_plan()
+    for model in CONFIGURATION_ORDER:
+        assert json.loads(
+            (ROOT / PREREGISTRATION_PATHS[model]).read_text(encoding="utf-8")
+        ) == preregistration(model)
+    proof = json.loads((ROOT / FEATURE_PROOF_PATH).read_text(encoding="utf-8"))
+    assert proof["status"] == "PASS_BEFORE_FIRST_MODEL_FIT"
+    assert proof["eligible_development_feature_validity"] == 1.0
+    assert proof["outer_fold_feature_validity"] == 1.0
+    assert all(proof["checks"].values())
+
+    if "predictive_v2_deterministic_calendar" not in state:
+        assert not any((ROOT / RESULT_PATHS[model]).exists() for model in CONFIGURATION_ORDER)
+        assert not any((ROOT / TRIAL_PATHS[model]).exists() for model in CONFIGURATION_ORDER)
+        assert not (ROOT / REPORT_JSON_PATH).exists()
+        return
+
+    from app.predictive.calendar_report import load_results, validate_calendar
+
+    finding = validate_calendar(ROOT, data_available=False)
+    record = state["predictive_v2_deterministic_calendar"]
+    report = json.loads((ROOT / REPORT_JSON_PATH).read_text(encoding="utf-8"))
+    results = load_results(ROOT)
+    assert finding["status"] == "PASS" and finding["data_replayed"] is False
+    assert record["family"] == report["family"]
+    assert record["family_size"] == FAMILY_SIZE == 2
+    assert record["configurations_consumed"] == FAMILY_SIZE
+    assert record["configurations_remaining"] == 0
+    assert record["family_disposition"] == report["family_disposition"]
+    assert record["model_fits"] == report["model_fits"] == 24
+    assert record["outer_predictions"] == report["outer_predictions"]
+    assert record["admission_identity_sha256"] == admission_identity(ROOT)
+    assert record["feature_validity"] == 1.0
+    assert record["sealed_queries"] == 0
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+    assert record["real_money"] is False
+    assert record["magnitude_status"] == "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION"
+    for model in CONFIGURATION_ORDER:
+        result = results[model]
+        assert result["candidate"]["feature_invalid_timestamps"] == 0
+        assert result["primary_inference"]["interval_mass"] == 0.975
+        assert len(result["advancement_gate"]["conditions"]) == 10
+        prereg_commit = git(
+            "log",
+            "--diff-filter=A",
+            "--format=%H",
+            "--",
+            PREREGISTRATION_PATHS[model],
+        ).splitlines()[-1]
+        result_commit = git(
+            "log", "--diff-filter=A", "--format=%H", "--", RESULT_PATHS[model]
+        ).splitlines()[-1]
+        assert prereg_commit != result_commit
+        run(["git", "merge-base", "--is-ancestor", prereg_commit, result_commit])
 
 
 def dataset_scope_checks() -> None:
@@ -3594,6 +3709,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_macro_vintage_checks(state)
     predictive_macro_release_state_checks(state)
     generation_v2_rebaseline_checks(state)
+    predictive_calendar_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -3976,6 +4092,15 @@ def data_checks(state: dict) -> None:
         release_state["included_folds"]
         == state["predictive_stage3_macro_release_state"]["included_folds"]
     )
+    if "predictive_v2_deterministic_calendar" in state:
+        from app.predictive.calendar_report import validate_calendar
+
+        calendar = validate_calendar(ROOT, data_available=True)
+        assert calendar["data_replayed"] is True and calendar["status"] == "PASS"
+        assert (
+            calendar["family_disposition"]
+            == (state["predictive_v2_deterministic_calendar"]["family_disposition"])
+        )
     from app.research.cycle_structure_v2_lab import block_support_report, build_donors
 
     donors = build_donors(grids)
