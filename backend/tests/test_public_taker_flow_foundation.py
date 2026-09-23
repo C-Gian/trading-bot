@@ -317,12 +317,12 @@ def test_outer_folds_are_annual_and_purged_per_horizon() -> None:
 
 def test_calibration_split_is_chronological_with_two_horizon_embargo() -> None:
     times = np.arange(100, dtype=np.int64) * HOUR
-    base, calibration = calibration_split(times, 4)
+    base, calibration = calibration_split(times.tolist(), 4)
     assert calibration.tolist() == list(range(80, 100))
     assert base.max() == 72  # 72h + 8h embargo == first calibration instant at 80h
     assert base.tolist() == list(range(73))
     with pytest.raises(FoundationError):
-        calibration_split(times[::-1], 4)
+        calibration_split(times[::-1].tolist(), 4)
 
 
 # --------------------------------------------------------------------------------------
