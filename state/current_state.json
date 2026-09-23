@@ -199,7 +199,7 @@
     "inventory_report": "reports/cross_section/CROSS-SECTION-ARCHIVE-INVENTORY-V1.json",
     "leveraged_tokens_excluded": 52,
     "material_economic_hypotheses_executed": 0,
-    "mesi_bps": 24.0,
+    "mesi_bps": 24,
     "minimum_detectable_effect_bps": 44.87223602651074,
     "monthly_objects": 17925,
     "multi_asset_trading_implemented": false,
@@ -405,7 +405,7 @@
     "instrument_epochs": 390,
     "intensity_is_integer_0_to_3": true,
     "material_economic_hypotheses_executed": 0,
-    "mesi_bps_per_gate": 8.0,
+    "mesi_bps_per_gate": 8,
     "minimum_detectable_effect_bps_per_gate": null,
     "multi_asset_trading_implemented": false,
     "new_gate_parameters": 0,
@@ -663,7 +663,7 @@
       "fold_action_coverage": 0.005,
       "fold_actionable_longs": 30,
       "full_probability_brier": "MATCHED_TRAINING_UP_BASE_RATE_BRIER",
-      "interval_lower_bound": 0.0,
+      "interval_lower_bound": 0,
       "non_negative_enrichment_folds": "CEIL_TWO_THIRDS_OF_INCLUDED_FOLDS",
       "pooled_action_coverage": 0.02,
       "pooled_actionable_longs": 500,
@@ -717,7 +717,7 @@
     "real_money": false,
     "rejected_v1_result_becomes_evidence_under_the_new_scorer": false,
     "reliability_bin_edges": [
-      0.0,
+      0,
       0.1,
       0.2,
       0.3,
@@ -727,7 +727,7 @@
       0.7,
       0.8,
       0.9,
-      1.0
+      1
     ],
     "reliability_bins_inherited_from_v1": true,
     "scorer_module": "backend/app/predictive/selective_long.py",
@@ -751,7 +751,7 @@
       "PREVIOUS_24H_SIGN_PERSISTENCE"
     ],
     "short_authorized": false,
-    "status": "SECOND_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW",
+    "status": "TWO_FAMILIES_REJECTED_PUBLIC_TAKER_FLOW_HORIZON_FOUNDATION_IMPLEMENTATION_PENDING",
     "symbol": "BTCUSDT",
     "thresholds_weakenable_after_a_result": false,
     "v2_candidates_executed": 4,
@@ -794,7 +794,7 @@
       "2019": 0.883661939352012,
       "2020": 0.8589464019281533,
       "2021": 0.8899873548683757,
-      "2022": 1.0,
+      "2022": 1,
       "2023": 0.9807626245276537,
       "2024": 0.9998858447488584
     },
@@ -878,7 +878,7 @@
       "2019": 0.883661939352012,
       "2020": 0.8589464019281533,
       "2021": 0.8899873548683757,
-      "2022": 1.0,
+      "2022": 1,
       "2023": 0.9807626245276537,
       "2024": 0.9998858447488584
     },
@@ -1172,10 +1172,10 @@
           "POOLED_BRIER_AT_MOST_MATCHED_CONTROL_BRIER"
         ],
         "fold_coverage": {
-          "2020": 1.0,
-          "2021": 1.0,
-          "2022": 1.0,
-          "2023": 1.0,
+          "2020": 1,
+          "2021": 1,
+          "2022": 1,
+          "2023": 1,
           "2024": 0.9998858447488584
         },
         "fold_deltas": {
@@ -1216,15 +1216,15 @@
           "POOLED_BRIER_AT_MOST_MATCHED_CONTROL_BRIER"
         ],
         "fold_coverage": {
-          "2020": 1.0,
-          "2021": 1.0,
-          "2022": 1.0,
-          "2023": 1.0,
+          "2020": 1,
+          "2021": 1,
+          "2022": 1,
+          "2023": 1,
           "2024": 0.9998858447488584
         },
         "fold_deltas": {
           "2020": 0.013428210719614364,
-          "2021": 0.0,
+          "2021": 0,
           "2022": 0.003204761359734465,
           "2023": -0.015458605290278205,
           "2024": -0.004338394793926281
@@ -1313,7 +1313,7 @@
         "fold_coverage": {
           "2020": 0.9957534718237117,
           "2021": 0.9966662834808598,
-          "2022": 1.0,
+          "2022": 1,
           "2023": 0.9996564754379939,
           "2024": 0.9998858447488584
         },
@@ -1356,7 +1356,7 @@
         "fold_coverage": {
           "2020": 0.9957534718237117,
           "2021": 0.9966662834808598,
-          "2022": 1.0,
+          "2022": 1,
           "2023": 0.9996564754379939,
           "2024": 0.9998858447488584
         },
@@ -1448,12 +1448,12 @@
     "advancing_configurations": [],
     "base_rate_control_fits": 5,
     "candidate_fold_coverage": {
-      "2019": 1.0,
-      "2020": 1.0,
-      "2021": 1.0,
-      "2022": 1.0,
-      "2023": 1.0,
-      "2024": 1.0
+      "2019": 1,
+      "2020": 1,
+      "2021": 1,
+      "2022": 1,
+      "2023": 1,
+      "2024": 1
     },
     "champion_status": "NONE",
     "checkpoint_report": "reports/checkpoints/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1.md",
@@ -1473,16 +1473,16 @@
           "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE"
         ],
         "fold_coverage": {
-          "2020": 1.0,
-          "2021": 1.0,
-          "2022": 1.0,
-          "2023": 1.0,
+          "2020": 1,
+          "2021": 1,
+          "2022": 1,
+          "2023": 1,
           "2024": 0.9998858447488584
         },
         "fold_deltas": {
           "2020": -0.15918742109491568,
           "2021": -0.010805839751695578,
-          "2022": 0.0,
+          "2022": 0,
           "2023": -0.052788274361616816,
           "2024": -0.0004566731362027898
         },
@@ -1517,18 +1517,18 @@
           "AT_LEAST_TWO_THIRDS_OF_FOLDS_NON_NEGATIVE"
         ],
         "fold_coverage": {
-          "2020": 1.0,
-          "2021": 1.0,
-          "2022": 1.0,
-          "2023": 1.0,
+          "2020": 1,
+          "2021": 1,
+          "2022": 1,
+          "2023": 1,
           "2024": 0.9998858447488584
         },
         "fold_deltas": {
           "2020": -0.16148284173074717,
-          "2021": 0.0,
+          "2021": 0,
           "2022": -0.008240814925031481,
           "2023": -0.05885720829039276,
-          "2024": 0.0
+          "2024": 0
         },
         "hypothesis_id": "H-PRED-MACRO-004",
         "matched_always_up_win_rate": 0.5270273366788112,
@@ -1585,7 +1585,7 @@
     "model_fits": 20,
     "paired_bootstrap_seed": 20260921,
     "per_configuration_alpha": 0.025,
-    "pooled_source_feature_coverage": 1.0,
+    "pooled_source_feature_coverage": 1,
     "post_2024_vintages": 0,
     "post_hoc_winner_selected": false,
     "post_result_tuning": false,
@@ -1691,7 +1691,7 @@
         "action_coverage": 0.06818312147567619,
         "actionable_long_predictions": 3567,
         "bootstrap_discarded_replicates": 0,
-        "bootstrap_discarded_share": 0.0,
+        "bootstrap_discarded_share": 0,
         "bootstrap_support": "STABLE",
         "enrichment": 0.0005942375140093326,
         "enrichment_interval": [
@@ -1727,7 +1727,7 @@
         "action_coverage": 0.05442033833508554,
         "actionable_long_predictions": 2847,
         "bootstrap_discarded_replicates": 0,
-        "bootstrap_discarded_share": 0.0,
+        "bootstrap_discarded_share": 0,
         "bootstrap_support": "STABLE",
         "enrichment": 0.0035014040443425154,
         "enrichment_interval": [
@@ -1772,7 +1772,7 @@
     "feature_count": 7,
     "feature_proofs": "reports/validation/PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1-FEATURE-PROOFS.json",
     "feature_set_version": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1",
-    "feature_validity": 1.0,
+    "feature_validity": 1,
     "folds": [
       "2019",
       "2020",
@@ -1814,7 +1814,7 @@
         "action_coverage": 0.0678405817825261,
         "actionable_long_predictions": 3321,
         "bootstrap_discarded_replicates": 0,
-        "bootstrap_discarded_share": 0.0,
+        "bootstrap_discarded_share": 0,
         "bootstrap_support": "STABLE",
         "enrichment": 0.023354311858047816,
         "enrichment_interval": [
@@ -1853,7 +1853,7 @@
         "action_coverage": 0.06328519191877924,
         "actionable_long_predictions": 3098,
         "bootstrap_discarded_replicates": 0,
-        "bootstrap_discarded_share": 0.0,
+        "bootstrap_discarded_share": 0,
         "bootstrap_support": "STABLE",
         "enrichment": -0.011653460929672232,
         "enrichment_interval": [
@@ -1924,12 +1924,14 @@
     "sealed_eligibility": "NOT_ELIGIBLE_REJECTED_DEVELOPMENT",
     "sealed_queries": 0,
     "search_plan": "research/protocols/PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-SEARCH-PLAN-V1.json",
-    "stage1_substrate_debt": "DEFERRED_UNREPAIRED",
-    "status": "COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+    "stage1_substrate_debt": "DEFERRED_SUBSTRATE_DEBT_NOT_A_RESCUE_PATH",
+    "status": "COMPLETE_RESEARCH_DIRECTOR_REVIEWED_REJECTED",
     "v1_model_outputs_used": false,
     "v1_result_artifacts_unchanged": 10,
     "v1_scores_or_tails_used": false,
-    "version": "PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1"
+    "version": "PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1",
+    "research_director_review": "ACCEPTED_REJECTED_DEVELOPMENT_NO_SEALED",
+    "review_decision_record": "decisions/ADR-0031-V2-INTERNAL-CLOSURE-AND-ONCHAIN-PIT-ALLOCATION.md"
   },
   "primary_research_phase": "PREDICTIVE_MODELLING",
   "product_analysis": {
@@ -2223,9 +2225,9 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1",
+    "next_checkpoint": "IMPLEMENT_PUBLIC_TAKER_FLOW_HORIZON_FOUNDATION_V1",
     "paper_strategy_semantics_changed": false,
-    "primary_next_direction": "PREDICTIVE_RESEARCH_GENERATION_V2",
+    "primary_next_direction": "FREE_PUBLIC_EXCHANGE_NATIVE_HORIZON_FOUNDATION",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
     "secondary_parallel_direction": "HISTORICAL_DISCOVERY_PAUSED",
     "version": "RESEARCH_ARCHITECTURE_SYNTHESIS_V2"
@@ -2273,7 +2275,7 @@
     "future_only": true,
     "governed_prediction_speedup": 251.06965571205538,
     "historical_frozen_implementations_modified": false,
-    "max_prediction_difference": 0.0,
+    "max_prediction_difference": 0,
     "metrics_identical": true,
     "prediction_tolerance": 1e-12,
     "runner_explicit_binding": true,
@@ -2336,7 +2338,7 @@
     "hypothesis_status": "POWER_BLOCKED_NOT_EXECUTED",
     "matched_control_method": "DETERMINISTIC_WITHIN_FOLD_CIRCULAR_CALENDAR_SHIFT_V1",
     "material_experiment_executed": false,
-    "mesi_bps_per_event": 24.0,
+    "mesi_bps_per_event": 24,
     "minimum_attainable_randomization_p": 0.000135685210312076,
     "minimum_shift_hours": 168,
     "null_distribution": "reports/power/P1A-ALIGNED-SIGNAL-PERSISTENCE-NULL-DISTRIBUTION-V1.json",
@@ -2416,5 +2418,59 @@
     "matched_control_classification": "ALIGNED_DIAGNOSTIC_SUPPORTED_BUT_INCONCLUSIVE",
     "source_provenance_classification": "SOURCE_ARCHIVE_OFF_GRID_CONFIRMED",
     "status": "PASS"
+  },
+  "predictive_public_taker_flow_horizon_foundation": {
+    "version": "PREDICTIVE_V2_PUBLIC_TAKER_FLOW_HORIZON_FOUNDATION_V1",
+    "status": "ACTIVE_IMPLEMENTATION_ONLY_NO_EXECUTION",
+    "owner_data_policy": "NO_PAID_OR_CREDENTIALED_DATA_FOR_NOW",
+    "owner_decision_record": "decisions/ADR-0032-OWNER-SELECTS-NO-COST-PUBLIC-DATA-PATH.md",
+    "prior_allocation_record": "decisions/ADR-0031-V2-INTERNAL-CLOSURE-AND-ONCHAIN-PIT-ALLOCATION.md",
+    "protocol": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md",
+    "active_task": "tasks/CURRENT_TASK.md",
+    "source": "OFFICIAL_BINANCE_PUBLIC_ARCHIVES",
+    "markets": [
+      "BTCUSDT_SPOT_1M",
+      "BTCUSDT_USDM_PERPETUAL_1M"
+    ],
+    "development_source_window": [
+      "2020-01-01",
+      "2024-12-31"
+    ],
+    "features": [
+      "SPOT_TAKER_IMBALANCE_1H",
+      "UM_TAKER_IMBALANCE_1H",
+      "SPOT_MINUS_UM_TAKER_IMBALANCE_1H"
+    ],
+    "horizons_hours_in_frozen_order": [
+      24,
+      4,
+      1
+    ],
+    "model_family": "FIXED_STANDARDIZED_LOGISTIC_PLUS_TRAINING_ONLY_PLATT",
+    "hyperparameter_search": false,
+    "feature_search": false,
+    "action_threshold_used": false,
+    "market_results_observed": false,
+    "model_fits_observed": 0,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "real_money": false,
+    "historical_order_flow_relation": {
+      "classification": "LEGITIMATE_STRUCTURAL_REVISIT_NOT_FIRST_ORDER_FLOW_TEST",
+      "prior_family": "FAM-ORDER-FLOW",
+      "prior_experiments": [
+        "EXP-ALG-012-ORDERFLOW-CORE",
+        "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE"
+      ],
+      "prior_terminal_classification": "REJECT_COST_DOMINATED",
+      "forbidden_rescue": "NO_RETUNING_OF_PRIOR_0_5_TRANSITION_CONTEXT_DURATION_BARRIERS_OR_STRATEGY_GATES",
+      "distinction": "CONTINUOUS_SPOT_PLUS_USDM_FLOW_PREDICTION_AND_HORIZON_DECAY_INSTEAD_OF_SPOT_EVENT_TRANSITION_STRATEGY_PROFITABILITY"
+    },
+    "paid_onchain_pit_path": "PARKED_FUTURE_ENHANCEMENT_IF_FREE_PATH_SHOWS_POTENTIAL"
+  },
+  "chat_handover": {
+    "bootstrap": "docs/operations/NEW_CHAT_BOOTSTRAP.md",
+    "latest_snapshot": "reports/handover/CHAT-HANDOVER-2026-09-23.md",
+    "search_memory_reset_on_new_chat": false
   }
 }
