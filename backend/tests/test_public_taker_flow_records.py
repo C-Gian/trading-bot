@@ -43,13 +43,17 @@ def test_foundation_and_descendant_validate_without_market_data() -> None:
         "data_replayed": False,
         "raw_objects_verified": 0,
         "classification": "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY",
+        "power_gate": "POWER_BLOCKED_NOT_EXECUTED",
     }
 
 
 def test_foundation_outcome_is_search_memory_but_never_a_sealed_candidate() -> None:
-    outcomes = registry.validate_predictive_outcomes(ROOT)
-    assert [item["experiment_id"] for item in outcomes] == [EXPERIMENT]
-    outcome = outcomes[0]
+    outcomes = {item["experiment_id"]: item for item in registry.validate_predictive_outcomes(ROOT)}
+    assert set(outcomes) == {EXPERIMENT, "EXP-PRED-V2-006-PUBLIC-TAKER-FLOW-1H-INCREMENTAL"}
+    blocked = outcomes["EXP-PRED-V2-006-PUBLIC-TAKER-FLOW-1H-INCREMENTAL"]
+    assert blocked["terminal_classification"] == "POWER_BLOCKED_NOT_EXECUTED"
+    assert blocked["model_fits"] == 0 and blocked["market_outcomes_observed"] is False
+    outcome = outcomes[EXPERIMENT]
     assert outcome["family_id"] == "FAM-PUBLIC-TAKER-FLOW-PROBABILITY"
     assert outcome["terminal_classification"] == "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY"
     assert outcome["horizon_classifications"] == {
@@ -239,13 +243,13 @@ def test_top_level_pointers_are_derived_from_records() -> None:
     state = read_json("state/current_state.json")
     pointers = validation.expected_state_pointers(ROOT, state)
     assert pointers["latest_executor_checkpoint"] == (
-        "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1"
+        "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1"
     )
     assert pointers["next_recommended_work_package"] == (
-        "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1"
+        "RESEARCH-DIRECTOR-REALLOCATION-AFTER-PUBLIC-TAKER-FLOW-POWER-BLOCK"
     )
     validation.validate_state_pointers(ROOT, state)
-    state["latest_executor_checkpoint"] = "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1"
+    state["latest_executor_checkpoint"] = "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1"
     with pytest.raises(validation.TakerFlowValidationError, match="stale"):
         validation.validate_state_pointers(ROOT, state)
 

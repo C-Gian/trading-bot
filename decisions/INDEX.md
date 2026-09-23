@@ -34,3 +34,4 @@
 - [ADR-0032](ADR-0032-OWNER-SELECTS-NO-COST-PUBLIC-DATA-PATH.md) — Owner selects the no-cost public-data path and parks paid PIT on-chain access
 - [ADR-0033](ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md) — public taker-flow foundation supports 1h only; 24h/4h closed without rescue; 1h incremental-information test preregistered pending a power gate
 - [ADR-0034](ADR-0034-CANONICAL-TEXT-PROVENANCE.md) — scientific text dependencies are identified by canonical UTF-8 LF text; historical raw-byte pins are preserved and bound by provenance records
+- [ADR-0035](ADR-0035-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-BLOCK.md) — the 1h incremental taker-flow test is power-blocked (power 0.1871 at MESI 0.00020) and never executed; no rescue; Research Director reallocation pending

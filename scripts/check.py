@@ -3327,12 +3327,23 @@ def predictive_public_taker_flow_checks(state: dict) -> None:
     foundation = state["predictive_public_taker_flow_horizon_foundation"]
     assert foundation["status"] == "COMPLETE_RESEARCH_DIRECTOR_ACCEPTED"
     assert foundation["classification"] == "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY"
+    from app.predictive.taker_flow_power_gate import CLASSIFICATIONS as POWER_GATE_CLASSES
+
     finding = validate_public_taker_flow(ROOT, data_available=False)
     assert finding["status"] == "PASS" and finding["data_replayed"] is False
     assert finding["classification"] == foundation["classification"]
+    # The power-gate record is governed once it exists; it never authorizes execution.
+    assert finding["power_gate"] in {"NOT_COMPUTED", *POWER_GATE_CLASSES}
     incremental = state["predictive_public_taker_flow_1h_incremental"]
-    assert incremental["status"] == "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE"
     assert incremental["execution_authorized"] is False
+    assert incremental["model_fits_observed"] == 0
+    assert incremental["market_results_observed"] is False
+    # ADR-0035: the gate blocked the experiment; the block is terminal and never bypassed.
+    if finding["power_gate"] == "POWER_BLOCKED_NOT_EXECUTED":
+        assert incremental["status"] == "POWER_BLOCKED_NOT_EXECUTED"
+        assert incremental["next_engineering_task_authorized"] is False
+    else:
+        assert incremental["status"] == "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE"
 
 
 def dataset_scope_checks() -> None:
@@ -4239,6 +4250,14 @@ def data_checks(state: dict) -> None:
 
     public_flow = validate_public_taker_flow(ROOT, data_available=True)
     assert public_flow["data_replayed"] is True and public_flow["raw_objects_verified"] == 120
+    from app.predictive.taker_flow_power_gate import GATE_JSON_PATH
+
+    gate_record = ROOT / GATE_JSON_PATH
+    assert public_flow["power_gate"] == (
+        json.loads(gate_record.read_text(encoding="utf-8"))["classification"]
+        if gate_record.is_file()
+        else "NOT_COMPUTED"
+    )
     assert (
         public_flow["classification"]
         == (state["predictive_public_taker_flow_horizon_foundation"]["classification"])

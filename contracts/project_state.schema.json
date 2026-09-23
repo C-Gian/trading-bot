@@ -4031,6 +4031,9 @@
         "active_task": {
           "const": "tasks/CURRENT_TASK.md"
         },
+        "archived_task": {
+          "const": "tasks/archive/IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.md"
+        },
         "candidate_features": {
           "maxItems": 6,
           "minItems": 6,
@@ -4059,6 +4062,9 @@
         "champion_status": {
           "const": "NONE"
         },
+        "checkpoint_report": {
+          "const": "reports/checkpoints/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.md"
+        },
         "comparison_universe": {
           "const": "INTERSECTION_OF_CONTROL_AND_CANDIDATE_VALID_ROWS"
         },
@@ -4082,7 +4088,7 @@
           "const": false
         },
         "decision_record": {
-          "const": "decisions/ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md"
+          "const": "decisions/ADR-0035-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-BLOCK.md"
         },
         "execution_authorized": {
           "const": false
@@ -4090,8 +4096,42 @@
         "experiment_id": {
           "const": "EXP-PRED-V2-006-PUBLIC-TAKER-FLOW-1H-INCREMENTAL"
         },
+        "forbidden_rescues": {
+          "maxItems": 8,
+          "minItems": 8,
+          "prefixItems": [
+            {
+              "const": "CHANGE_MESI"
+            },
+            {
+              "const": "CHANGE_POWER_METHOD"
+            },
+            {
+              "const": "CHANGE_PROXY"
+            },
+            {
+              "const": "CHANGE_SEED"
+            },
+            {
+              "const": "CHANGE_BLOCK_LENGTH"
+            },
+            {
+              "const": "CHANGE_ALPHA_OR_TARGET_POWER"
+            },
+            {
+              "const": "EXECUTE_EXP_PRED_V2_006"
+            },
+            {
+              "const": "RERUN_GATE_UNDER_ANOTHER_DEFINITION"
+            }
+          ],
+          "type": "array"
+        },
         "hypothesis_id": {
           "const": "H-PRED-V2-PUBLIC-FLOW-INCREMENTAL-001"
+        },
+        "incremental_hypothesis_result_inferable": {
+          "const": false
         },
         "inference": {
           "additionalProperties": false,
@@ -4138,8 +4178,11 @@
         "model_fits_observed": {
           "const": 0
         },
+        "next_engineering_task_authorized": {
+          "const": false
+        },
         "next_work_package": {
-          "const": "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1"
+          "const": "RESEARCH-DIRECTOR-REALLOCATION-AFTER-PUBLIC-TAKER-FLOW-POWER-BLOCK"
         },
         "outer_fold_years": {
           "maxItems": 4,
@@ -4168,6 +4211,12 @@
           "properties": {
             "alpha": {
               "const": 0.05
+            },
+            "analog_mde": {
+              "const": 0.0005413999999999999
+            },
+            "analog_mde_grid_k": {
+              "const": 5414
             },
             "block_classification": {
               "const": "POWER_BLOCKED_NOT_EXECUTED"
@@ -4224,6 +4273,12 @@
               ],
               "type": "object"
             },
+            "classification": {
+              "const": "POWER_BLOCKED_NOT_EXECUTED"
+            },
+            "deterministic_replay": {
+              "const": "PASS"
+            },
             "failed_closed_classification": {
               "const": "POWER_GATE_FAILED_CLOSED"
             },
@@ -4263,6 +4318,9 @@
             "pass_classification": {
               "const": "ANALOG_POWER_GATE_PASSES_PENDING_RESEARCH_DIRECTOR_REVIEW"
             },
+            "power_at_mesi": {
+              "const": 0.1871
+            },
             "power_rule": {
               "const": "MEAN_OVER_D0_OF_DELTA_PLUS_D_PLUS_QUANTILE_0_025_OF_D0_ABOVE_ZERO"
             },
@@ -4272,8 +4330,23 @@
             "proxy_reconstruction": {
               "const": "EXACT_DETERMINISTIC_REPLAY_OF_FROZEN_FOUNDATION_FAIL_CLOSED_ON_MISMATCH"
             },
+            "proxy_replay": {
+              "const": "REPRODUCED_EXACTLY"
+            },
             "proxy_series": {
               "const": "EXP_PRED_V2_005_1H_FLOW_ONLY_BRIER_LOSS_MINUS_TRAINING_BASE_RATE_CONSTANT_BRIER_LOSS"
+            },
+            "record": {
+              "const": "reports/validation/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.json"
+            },
+            "record_canonical_text_sha256": {
+              "const": "09f5e05562aa6439a2e6a9a9b5fc2c94fde1293116502d9d74f08ba9562e5c01"
+            },
+            "report": {
+              "const": "reports/validation/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.md"
+            },
+            "report_canonical_text_sha256": {
+              "const": "26e65370eabc4104b28fb5999e9b72bdaef4f5b56a8b75d9556982287745bcd0"
             },
             "seeds_distinct": {
               "additionalProperties": false,
@@ -4296,7 +4369,7 @@
               "type": "object"
             },
             "status": {
-              "const": "NOT_COMPUTED_PENDING_IMPLEMENTATION"
+              "const": "COMPUTED_POWER_BLOCKED_RESEARCH_DIRECTOR_ACCEPTED"
             },
             "target_power": {
               "const": 0.8
@@ -4325,9 +4398,25 @@
             "pass_authorizes_execution",
             "future_price_only_or_price_plus_flow_predictions_used",
             "outer_candidate_or_control_fits_allowed",
-            "seeds_distinct"
+            "seeds_distinct",
+            "record",
+            "record_canonical_text_sha256",
+            "report",
+            "report_canonical_text_sha256",
+            "classification",
+            "proxy_replay",
+            "deterministic_replay",
+            "power_at_mesi",
+            "analog_mde",
+            "analog_mde_grid_k"
           ],
           "type": "object"
+        },
+        "price_only_control_fitted": {
+          "const": false
+        },
+        "price_plus_flow_candidate_fitted": {
+          "const": false
         },
         "primary_metric": {
           "const": "INCREMENTAL_BRIER = PRICE_ONLY_CONTROL_BRIER - PRICE_PLUS_FLOW_CANDIDATE_BRIER"
@@ -4363,14 +4452,20 @@
         "sealed_queries": {
           "const": 0
         },
+        "search_memory_outcome": {
+          "const": "research/memory/registry/outcomes/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.jsonl"
+        },
         "source_manifest": {
           "const": "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json"
         },
         "status": {
-          "const": "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE"
+          "const": "POWER_BLOCKED_NOT_EXECUTED"
         },
         "target": {
           "const": "r_1h = log(spot_close[T+1h] / spot_close[T])"
+        },
+        "terminal_classification": {
+          "const": "POWER_BLOCKED_NOT_EXECUTED"
         },
         "trading_pnl": {
           "const": false
@@ -4411,7 +4506,16 @@
         "real_money",
         "active_task",
         "next_work_package",
-        "hypothesis_id"
+        "hypothesis_id",
+        "terminal_classification",
+        "price_only_control_fitted",
+        "price_plus_flow_candidate_fitted",
+        "incremental_hypothesis_result_inferable",
+        "checkpoint_report",
+        "archived_task",
+        "search_memory_outcome",
+        "forbidden_rescues",
+        "next_engineering_task_authorized"
       ],
       "type": "object"
     },
@@ -8426,7 +8530,7 @@
           "type": "array"
         },
         "next_checkpoint": {
-          "const": "IMPLEMENT_PUBLIC_TAKER_FLOW_1H_INCREMENTAL_POWER_GATE_V1"
+          "const": "RESEARCH_DIRECTOR_REALLOCATION_AFTER_PUBLIC_TAKER_FLOW_POWER_BLOCK"
         },
         "paper_strategy_semantics_changed": {
           "const": false

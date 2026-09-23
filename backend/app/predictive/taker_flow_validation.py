@@ -25,6 +25,7 @@ from typing import Any
 
 from ..research.text_provenance import (
     CANONICAL_TEXT_RULE,
+    canonical_text_bytes,
     canonical_text_sha256,
     verify_text_dependency,
 )
@@ -76,6 +77,12 @@ INCREMENTAL_PROTOCOL_PATH = (
     "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-V1.md"
 )
 INCREMENTAL_BLOCKED = "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE"
+# ADR-0035: the gate blocked the experiment before execution; this status is terminal.
+INCREMENTAL_POWER_BLOCKED = "POWER_BLOCKED_NOT_EXECUTED"
+INCREMENTAL_OUTCOME_PATH = (
+    "research/memory/registry/outcomes/"
+    "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.jsonl"
+)
 POWER_GATE_SEED = 2026092307
 INCREMENTAL_SEED = 2026092306
 MESI = 0.0002
@@ -328,14 +335,19 @@ def validate_incremental(root: Path, state: dict[str, Any]) -> None:
         == record["protocol_canonical_text_sha256"],
         "the frozen incremental protocol changed",
     )
-    require(record["status"] == INCREMENTAL_BLOCKED, "the incremental experiment left its block")
+    require(
+        record["status"] in {INCREMENTAL_BLOCKED, INCREMENTAL_POWER_BLOCKED},
+        "the incremental experiment left its block",
+    )
     require(record["execution_authorized"] is False, "execution was authorized")
     require(record["model_fits_observed"] == 0, "the incremental candidate was fitted")
     require(record["market_results_observed"] is False, "incremental results observed")
     require(
         not (root / "research/experiments" / INCREMENTAL_EXPERIMENT_ID).exists(),
-        "an EXP-PRED-V2-006 artifact exists before its power gate",
+        "an EXP-PRED-V2-006 experiment artifact exists",
     )
+    if record["status"] == INCREMENTAL_POWER_BLOCKED:
+        validate_power_block(root, record)
     gate = record["power_gate"]
     require(gate["mesi"] == MESI and gate["mesi_lowerable_after_block"] is False, "MESI drift")
     require(gate["bootstrap"]["seed"] == POWER_GATE_SEED, "power-gate seed drift")
@@ -358,6 +370,55 @@ def validate_incremental(root: Path, state: dict[str, Any]) -> None:
     )
 
 
+def validate_power_block(root: Path, record: dict[str, Any]) -> None:
+    """The terminal power block is bound to its gate record, outcome and decision.
+
+    Nothing about the incremental hypothesis was observed, and nothing may bypass the block.
+    """
+    from ..research.registry import predictive_outcomes
+    from .taker_flow_power_gate import BLOCKED, GATE_JSON_PATH, GATE_MARKDOWN_PATH
+
+    gate = record["power_gate"]
+    require(record["terminal_classification"] == INCREMENTAL_POWER_BLOCKED, "terminal drift")
+    require(gate["classification"] == BLOCKED, "the recorded gate did not block")
+    require(gate["record"] == GATE_JSON_PATH and gate["report"] == GATE_MARKDOWN_PATH, "paths")
+    require(
+        canonical_text_sha256(root / GATE_JSON_PATH) == gate["record_canonical_text_sha256"]
+        and canonical_text_sha256(root / GATE_MARKDOWN_PATH)
+        == gate["report_canonical_text_sha256"],
+        "the power-gate outputs differ from their state pins",
+    )
+    written = read_json(root / GATE_JSON_PATH)
+    require(written["classification"] == BLOCKED, "the gate record did not block")
+    require(gate["power_at_mesi"] == written["analysis"]["power_at_mesi"], "power drift")
+    require(gate["power_at_mesi"] < 0.80, "a blocked gate cannot reach target power")
+    require(gate["analog_mde"] == written["analysis"]["mde"]["mde"], "MDE drift")
+    require(gate["deterministic_replay"] == "PASS", "gate replay status drift")
+    require(
+        record["price_only_control_fitted"] is False
+        and record["price_plus_flow_candidate_fitted"] is False
+        and record["incremental_hypothesis_result_inferable"] is False
+        and record["next_engineering_task_authorized"] is False,
+        "the power block was bypassed",
+    )
+    require((root / record["decision_record"]).is_file(), "the power-block decision is missing")
+    require((root / record["checkpoint_report"]).is_file(), "the power-block checkpoint is missing")
+    require(record["search_memory_outcome"] == INCREMENTAL_OUTCOME_PATH, "outcome path drift")
+    outcomes = [
+        item
+        for item in predictive_outcomes(root)
+        if item["experiment_id"] == INCREMENTAL_EXPERIMENT_ID
+    ]
+    require(len(outcomes) == 1, "the power block must be recorded exactly once in search memory")
+    outcome = outcomes[0]
+    require(outcome["terminal_classification"] == INCREMENTAL_POWER_BLOCKED, "outcome drift")
+    require(outcome["result_sha256"] == gate["record_canonical_text_sha256"], "outcome pin")
+    require(
+        outcome["model_fits"] == 0 and outcome["market_outcomes_observed"] is False,
+        "the outcome claims an incremental observation",
+    )
+
+
 def active_task_title(root: Path) -> str:
     """The work-package identifier in the header of `tasks/CURRENT_TASK.md`."""
     header = (root / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8").splitlines()[0]
@@ -367,19 +428,23 @@ def active_task_title(root: Path) -> str:
 
 
 def expected_state_pointers(root: Path, state: dict[str, Any]) -> dict[str, str]:
-    """Top-level pointers derived from records, while this foundation is the latest checkpoint.
+    """Top-level pointers derived from the latest reviewed public taker-flow checkpoint.
 
-    The executor and reviewed checkpoint are the foundation's own checkpoint report, reviewed
-    by its accepting decision record; the next work package is the active task's header.
+    Once the incremental power gate is closed (ADR-0035) its checkpoint is the latest one;
+    before that, the foundation's. The next work package is the active task's header.
     """
-    record = state[FOUNDATION_KEY]
+    incremental = state[INCREMENTAL_KEY]
+    if incremental["status"] == INCREMENTAL_POWER_BLOCKED:
+        record = incremental
+    else:
+        record = state[FOUNDATION_KEY]
+        require(
+            record["status"] == "COMPLETE_RESEARCH_DIRECTOR_ACCEPTED",
+            "the foundation checkpoint has not been reviewed",
+        )
     report = root / record["checkpoint_report"]
-    require(report.is_file(), "the foundation checkpoint report is missing")
-    require(
-        record["status"] == "COMPLETE_RESEARCH_DIRECTOR_ACCEPTED"
-        and (root / record["decision_record"]).is_file(),
-        "the foundation checkpoint has not been reviewed",
-    )
+    require(report.is_file(), "the latest checkpoint report is missing")
+    require((root / record["decision_record"]).is_file(), "the latest checkpoint is unreviewed")
     checkpoint = report.stem
     next_work_package = active_task_title(root)
     require(
@@ -402,6 +467,53 @@ def validate_state_pointers(root: Path, state: dict[str, Any]) -> None:
         require(actual == expected, f"state pointer {field} is stale: {actual} != {expected}")
 
 
+def validate_power_gate(root: Path, state: dict[str, Any], data_available: bool) -> str:
+    """The EXP-PRED-V2-006 power-gate record, once written, is governed and hash-checked.
+
+    Before the Owner runs the gate neither output may exist. Afterwards both must, the record
+    must be internally consistent with the frozen design, every text dependency must still
+    have the canonical text it names, the Markdown must regenerate from the JSON, and data
+    mode replays the gate itself. A written gate never authorizes execution.
+    """
+    from . import taker_flow_power_gate as gate
+
+    present = [path for path in gate.GATE_PATHS if (root / path).exists()]
+    gate_state = state[INCREMENTAL_KEY]["power_gate"]
+    if not present:
+        require(
+            gate_state["status"] == "NOT_COMPUTED_PENDING_IMPLEMENTATION",
+            "state claims a power-gate result that does not exist",
+        )
+        return "NOT_COMPUTED"
+    require(len(present) == len(gate.GATE_PATHS), "the power-gate outputs are incomplete")
+    json_path = root / gate.GATE_JSON_PATH
+    record = read_json(json_path)
+    try:
+        gate.validate_record(record, root)
+    except gate.PowerGateError as exc:
+        raise TakerFlowValidationError(f"power gate: {exc}") from exc
+    require(
+        canonical_text_bytes(json_path.read_bytes()) == gate.canonical_json_bytes(record),
+        "the power-gate JSON is not in canonical form",
+    )
+    require(
+        canonical_text_bytes((root / gate.GATE_MARKDOWN_PATH).read_bytes())
+        == gate.markdown_bytes(record),
+        "the power-gate report does not regenerate from its record",
+    )
+    pinned = gate_state.get("record_canonical_text_sha256")
+    if pinned is not None:
+        require(canonical_text_sha256(json_path) == pinned, "power-gate record differs from state")
+    require(state[INCREMENTAL_KEY]["execution_authorized"] is False, "execution was authorized")
+    if data_available:
+        replay = gate.run_power_gate(root)
+        require(
+            gate.canonical_json_bytes(replay) == gate.canonical_json_bytes(record),
+            "the power-gate replay does not reproduce the written record",
+        )
+    return str(record["classification"])
+
+
 def validate_public_taker_flow(root: Path = ROOT, data_available: bool = False) -> dict[str, Any]:
     state = read_json(root / STATE_PATH)
     manifest = validate_manifest(root)
@@ -409,6 +521,7 @@ def validate_public_taker_flow(root: Path = ROOT, data_available: bool = False) 
     validate_search_memory(root, state[FOUNDATION_KEY]["result"]["sha256"])
     validate_incremental(root, state)
     validate_state_pointers(root, state)
+    power_gate = validate_power_gate(root, state, data_available)
     raw_objects = 0
     if data_available:
         raw_objects = validate_raw_objects(root, manifest)
@@ -422,6 +535,7 @@ def validate_public_taker_flow(root: Path = ROOT, data_available: bool = False) 
         "data_replayed": data_available,
         "raw_objects_verified": raw_objects,
         "classification": result["selection"],
+        "power_gate": power_gate,
     }
 
 
@@ -431,6 +545,7 @@ __all__ = [
     "expected_state_pointers",
     "validate_incremental",
     "validate_manifest",
+    "validate_power_gate",
     "validate_public_taker_flow",
     "validate_raw_objects",
     "validate_result",

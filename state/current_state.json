@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1",
+  "latest_executor_checkpoint": "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -458,7 +458,7 @@
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
     "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1",
+  "latest_reviewed_checkpoint": "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
   "legacy_research_generation": {
     "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
     "aligned_historical_results_changed": false,
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
+  "next_recommended_work_package": "RESEARCH-DIRECTOR-REALLOCATION-AFTER-PUBLIC-TAKER-FLOW-POWER-BLOCK",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -2225,7 +2225,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "IMPLEMENT_PUBLIC_TAKER_FLOW_1H_INCREMENTAL_POWER_GATE_V1",
+    "next_checkpoint": "RESEARCH_DIRECTOR_REALLOCATION_AFTER_PUBLIC_TAKER_FLOW_POWER_BLOCK",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "FREE_PUBLIC_EXCHANGE_NATIVE_HORIZON_FOUNDATION",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
@@ -2551,10 +2551,10 @@
   "predictive_public_taker_flow_1h_incremental": {
     "experiment_id": "EXP-PRED-V2-006-PUBLIC-TAKER-FLOW-1H-INCREMENTAL",
     "version": "PREDICTIVE_V2_PUBLIC_TAKER_FLOW_1H_INCREMENTAL_V1",
-    "status": "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE",
+    "status": "POWER_BLOCKED_NOT_EXECUTED",
     "protocol": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-V1.md",
     "protocol_canonical_text_sha256": "74a7fb16e3f305cdbfe66c0548ebddeff1e2bd16c1a667b271c8e4f19f3f2e95",
-    "decision_record": "decisions/ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md",
+    "decision_record": "decisions/ADR-0035-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-BLOCK.md",
     "parent_experiment_id": "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
     "root_family": "FAM-PUBLIC-TAKER-FLOW-PROBABILITY",
     "source_manifest": "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json",
@@ -2591,7 +2591,7 @@
       "interval_mass": 0.95
     },
     "power_gate": {
-      "status": "NOT_COMPUTED_PENDING_IMPLEMENTATION",
+      "status": "COMPUTED_POWER_BLOCKED_RESEARCH_DIRECTOR_ACCEPTED",
       "implementation_task": "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
       "metric": "ABSOLUTE_PAIRED_BRIER_IMPROVEMENT",
       "mesi": 0.0002,
@@ -2630,7 +2630,17 @@
         "foundation_family": 20260923,
         "power_gate": 2026092307,
         "incremental_inference": 2026092306
-      }
+      },
+      "record": "reports/validation/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.json",
+      "record_canonical_text_sha256": "09f5e05562aa6439a2e6a9a9b5fc2c94fde1293116502d9d74f08ba9562e5c01",
+      "report": "reports/validation/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.md",
+      "report_canonical_text_sha256": "26e65370eabc4104b28fb5999e9b72bdaef4f5b56a8b75d9556982287745bcd0",
+      "classification": "POWER_BLOCKED_NOT_EXECUTED",
+      "proxy_replay": "REPRODUCED_EXACTLY",
+      "deterministic_replay": "PASS",
+      "power_at_mesi": 0.1871,
+      "analog_mde": 0.0005413999999999999,
+      "analog_mde_grid_k": 5414
     },
     "qualification_success": "INCREMENTAL_TAKER_FLOW_SUPPORTED_1H",
     "qualification_failure": [
@@ -2647,7 +2657,25 @@
     "champion_status": "NONE",
     "real_money": false,
     "active_task": "tasks/CURRENT_TASK.md",
-    "next_work_package": "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
-    "hypothesis_id": "H-PRED-V2-PUBLIC-FLOW-INCREMENTAL-001"
+    "next_work_package": "RESEARCH-DIRECTOR-REALLOCATION-AFTER-PUBLIC-TAKER-FLOW-POWER-BLOCK",
+    "hypothesis_id": "H-PRED-V2-PUBLIC-FLOW-INCREMENTAL-001",
+    "terminal_classification": "POWER_BLOCKED_NOT_EXECUTED",
+    "price_only_control_fitted": false,
+    "price_plus_flow_candidate_fitted": false,
+    "incremental_hypothesis_result_inferable": false,
+    "checkpoint_report": "reports/checkpoints/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.md",
+    "archived_task": "tasks/archive/IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.md",
+    "search_memory_outcome": "research/memory/registry/outcomes/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1.jsonl",
+    "forbidden_rescues": [
+      "CHANGE_MESI",
+      "CHANGE_POWER_METHOD",
+      "CHANGE_PROXY",
+      "CHANGE_SEED",
+      "CHANGE_BLOCK_LENGTH",
+      "CHANGE_ALPHA_OR_TARGET_POWER",
+      "EXECUTE_EXP_PRED_V2_006",
+      "RERUN_GATE_UNDER_ANOTHER_DEFINITION"
+    ],
+    "next_engineering_task_authorized": false
   }
 }

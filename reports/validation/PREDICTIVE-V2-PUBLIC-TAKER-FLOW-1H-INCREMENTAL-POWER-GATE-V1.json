@@ -1,0 +1,200 @@
+{
+  "analysis": {
+    "bootstrap_geometry": {
+      "2021": {
+        "block_start_positions": 8713,
+        "blocks_per_replicate": 183,
+        "effective_block_hours": 48,
+        "scored_rows": 8731,
+        "timeline_hours": 8760
+      },
+      "2022": {
+        "block_start_positions": 8713,
+        "blocks_per_replicate": 183,
+        "effective_block_hours": 48,
+        "scored_rows": 8760,
+        "timeline_hours": 8760
+      },
+      "2023": {
+        "block_start_positions": 8713,
+        "blocks_per_replicate": 183,
+        "effective_block_hours": 48,
+        "scored_rows": 8757,
+        "timeline_hours": 8760
+      },
+      "2024": {
+        "block_start_positions": 8737,
+        "blocks_per_replicate": 183,
+        "effective_block_hours": 48,
+        "scored_rows": 8782,
+        "timeline_hours": 8784
+      }
+    },
+    "classification": "POWER_BLOCKED_NOT_EXECUTED",
+    "mde": {
+      "k": 5414,
+      "mde": 0.0005413999999999999,
+      "power_at_mde": 0.8,
+      "reached": true
+    },
+    "noise_distribution": {
+      "definition": "REPLICATE_POOLED_STATISTIC_MINUS_OBSERVED_POOLED_PROXY_MEAN",
+      "maximum": 0.0007231356341028865,
+      "mean": 6.350969357863484e-06,
+      "minimum": -0.0008825442473450243,
+      "quantile_0_025": -0.0003816344988746354,
+      "quantile_0_975": 0.0003986456932831937,
+      "replicates": 10000,
+      "standard_deviation": 0.00019865390670029134
+    },
+    "observed_pooled_proxy_mean": 0.0006437786467623997,
+    "power_at_mesi": 0.1871,
+    "proxy_fold_means": {
+      "2021": -0.0010322828042549931,
+      "2022": 0.0008186822801020356,
+      "2023": 0.0016493283405848438,
+      "2024": 0.001132954009091539
+    }
+  },
+  "boundaries": {
+    "champion_status": "NONE",
+    "execution_authorized": false,
+    "foundation_models_refitted_for_exact_replay_only": true,
+    "incremental_experiment_model_fits": 0,
+    "observed_incremental_effect_used": false,
+    "pass_authorizes_execution": false,
+    "post_cutoff_data_used": false,
+    "price_features_constructed": false,
+    "price_only_or_price_plus_flow_predictions_used": false,
+    "real_money": false,
+    "research_director_review_required": true,
+    "sealed_queries": 0
+  },
+  "classification": "POWER_BLOCKED_NOT_EXECUTED",
+  "decision_record": "decisions/ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md",
+  "design": {
+    "alpha": 0.05,
+    "block_classification": "POWER_BLOCKED_NOT_EXECUTED",
+    "bootstrap": {
+      "block_length_hours": 48,
+      "blocks_cross_fold_boundaries": false,
+      "method": "FOLD_STRATIFIED_MOVING_BLOCK_ON_HOURLY_TIMELINE",
+      "replicate_chunk": 500,
+      "replicates": 10000,
+      "seed": 2026092307
+    },
+    "failed_closed_classification": "POWER_GATE_FAILED_CLOSED",
+    "interval_mass": 0.95,
+    "mde_grid": {
+      "k_max": 100000,
+      "k_min": 0,
+      "step": 1e-07
+    },
+    "mde_search": "BISECTION_OVER_K_WITH_LITERAL_POWER_EVALUATION",
+    "mesi": 0.0002,
+    "mesi_lowerable_after_block": false,
+    "metric": "ABSOLUTE_PAIRED_BRIER_IMPROVEMENT",
+    "outer_fold_years": [
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "pass_classification": "ANALOG_POWER_GATE_PASSES_PENDING_RESEARCH_DIRECTOR_REVIEW",
+    "power_rule": "MEAN_OVER_D0_OF_DELTA_PLUS_D_PLUS_QUANTILE_0_025_OF_D0_ABOVE_ZERO",
+    "proxy_classification": "ANALOG_DEPENDENCE_AND_VARIANCE_PROXY",
+    "proxy_horizon_hours": 1,
+    "proxy_series": "FLOW_ONLY_BRIER_LOSS - TRAINING_BASE_RATE_CONSTANT_BRIER_LOSS",
+    "proxy_source_experiment_id": "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
+    "quantile_method": "NUMPY_QUANTILE_LINEAR",
+    "target_power": 0.8
+  },
+  "experiment_id": "EXP-PRED-V2-006-PUBLIC-TAKER-FLOW-1H-INCREMENTAL",
+  "hypothesis_id": "H-PRED-V2-PUBLIC-FLOW-INCREMENTAL-001",
+  "protocol": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-V1.md",
+  "record": "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
+  "replay": {
+    "checks": [
+      "FOLD_YEARS",
+      "FULL_1H_SUMMARY_EQUALS_COMMITTED",
+      "POOLED_SCORED_ROWS",
+      "PROXY_ROW_COUNT",
+      "POOLED_BRIER_IMPROVEMENT",
+      "FOLD_2021_IDENTITY",
+      "FOLD_2021_SCORED_ROWS",
+      "FOLD_2021_BRIER_IMPROVEMENT",
+      "FOLD_2022_IDENTITY",
+      "FOLD_2022_SCORED_ROWS",
+      "FOLD_2022_BRIER_IMPROVEMENT",
+      "FOLD_2023_IDENTITY",
+      "FOLD_2023_SCORED_ROWS",
+      "FOLD_2023_BRIER_IMPROVEMENT",
+      "FOLD_2024_IDENTITY",
+      "FOLD_2024_SCORED_ROWS",
+      "FOLD_2024_BRIER_IMPROVEMENT"
+    ],
+    "pooled_brier_improvement": 0.0006437786467623496,
+    "scored_rows": 35030,
+    "source_result": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+    "status": "REPRODUCED_EXACTLY"
+  },
+  "schema_version": 1,
+  "statement": "MDE_IS_ANALOG_EXPECTED_DETECTABILITY_NOT_REALIZED_INCREMENTAL_VARIANCE",
+  "text_dependencies": [
+    {
+      "canonical_text_sha256": "74a7fb16e3f305cdbfe66c0548ebddeff1e2bd16c1a667b271c8e4f19f3f2e95",
+      "path": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-V1.md",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "fdb355fcb66566f83c0a10ff646ebf8647ccc1c83289bbec2ab1e2a84801b7cd",
+      "path": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "7ae609d3228354673309dfc09eb1104a0f9ac88df00dbb5d95a1350cff2e69bc",
+      "path": "decisions/ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "bc8150163b156840e711a916823ccd5dcd69bf747ab6e389302524d7a6497bbf",
+      "path": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "cf696350cfe6294ffcbb74bef657ba9e58be22d232e7aab30c9cc7aa4c204bc4",
+      "path": "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "27e6b898d63a1e594887b3c6e5f731d4a3ee84c675f35abf3c791db790f054ec",
+      "path": "backend/app/predictive/taker_flow_power_gate.py",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "4f633776a96716942bf4b8735395e7a233e59b721b2ea66bdded78d588a81d82",
+      "path": "backend/app/predictive/taker_flow_foundation.py",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "83cab4b5cfcf785e1eb7c664b64fb66b8da086858e8ccc076af7db293e8bd644",
+      "path": "backend/app/predictive/taker_flow_source.py",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "e92e9504b4853417184a2ed6b96ad8c724fb524d8e9a50615ba2fd285ae8402a",
+      "path": "backend/app/predictive/paired_inference.py",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "5db69c0b7a7550f85eb8cffec348a022702011fc04ebc624b4b3ade0c379bcd7",
+      "path": "backend/app/research/text_provenance.py",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "44b2f34fd2cba41926a4529047d61759ea561cc76e7400da4829c22fbaa4c681",
+      "path": "scripts/run_public_taker_flow_1h_incremental_power_gate.py",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    }
+  ]
+}
