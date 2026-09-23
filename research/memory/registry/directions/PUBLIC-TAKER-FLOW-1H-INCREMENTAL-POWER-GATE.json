@@ -1,0 +1,32 @@
+{
+  "adaptive_decision_increment": 1,
+  "configuration_variants": 0,
+  "decision_id": "PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE",
+  "decision_record": "decisions/ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md",
+  "direction": "PUBLIC_TAKER_FLOW_1H_INCREMENTAL_INFORMATION_BEYOND_MATCHED_CONTEMPORANEOUS_PRICE_MOVEMENT",
+  "economic_strategy_created": false,
+  "experiment_id": "EXP-PRED-V2-006-PUBLIC-TAKER-FLOW-1H-INCREMENTAL",
+  "hypothesis_id": "H-PRED-V2-PUBLIC-FLOW-INCREMENTAL-001",
+  "kind": "RESULT_DEPENDENT_NON_TRIAL_PREDICTIVE_DESCENDANT_PENDING_POWER_GATE",
+  "market_outcomes_observed": false,
+  "material_economic_hypotheses": 0,
+  "material_economic_hypotheses_executed": 0,
+  "model_fits": 0,
+  "numeric_parameter_variants": 0,
+  "power_proxy": "ANALOG_DEPENDENCE_AND_VARIANCE_PROXY",
+  "primary_structural_hypotheses": 1,
+  "profile_evaluations": 0,
+  "protocol": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-V1.md",
+  "result_dependent_fork_increment": 1,
+  "root_family": "FAM-PUBLIC-TAKER-FLOW-PROBABILITY",
+  "sealed_queries": 0,
+  "source_decision": {
+    "experiment_id": "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
+    "disposition": "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY",
+    "result_sha256": "bc8150163b156840e711a916823ccd5dcd69bf747ab6e389302524d7a6497bbf",
+    "structural_market_result_observed": true
+  },
+  "status": "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE",
+  "strategy_experiments": 0,
+  "work_package": "PUBLIC-TAKER-FLOW-FOUNDATION-CLOSURE-AND-1H-INCREMENTAL-ALLOCATION-V1"
+}

@@ -48,6 +48,7 @@ from app.predictive.macro_release_state_source import (
     FEATURE_SET_VERSION,
     PREDECESSOR_FEATURE_SET_VERSION,
 )
+from app.predictive.taker_flow_validation import expected_state_pointers
 
 ROOT = Path(__file__).resolve().parents[2]
 AUDIT_PATH = "reports/validation/PREDICTIVE-STAGE3-MACRO-RELEASE-STATE-V1-SOURCE-AUDIT.json"
@@ -235,7 +236,8 @@ def test_state_records_the_executed_checkpoint():
     state = read("state/current_state.json")
     record = state["predictive_stage3_macro_release_state"]
     result = read(REPORT_JSON_PATH)
-    assert state["latest_executor_checkpoint"] == ("PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1")
+    pointers = expected_state_pointers(ROOT, state)
+    assert state["latest_executor_checkpoint"] == pointers["latest_executor_checkpoint"]
     assert record["status"] == "COMPLETE"
     assert record["admission_identity_sha256"] == admission_identity(ROOT)
     assert record["included_folds"] == result["folds"]["included_folds"]

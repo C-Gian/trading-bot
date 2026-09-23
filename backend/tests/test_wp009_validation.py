@@ -12,8 +12,9 @@ def test_wp009_fixed_scope_and_non_trial_accounting() -> None:
     # WP-009 itself consumed no strategy trial. Later work through preregistered WP-017
     # advanced cumulative totals; the WP-009 scope assertions above remain unchanged.
     totals = cumulative_accounting()
-    assert totals["adaptive_decisions"] == 16
-    assert totals["result_dependent_forks"] == 13
+    # ADR-0033 added one result-dependent predictive direction after WP-017.
+    assert totals["adaptive_decisions"] == 16 + 1
+    assert totals["result_dependent_forks"] == 13 + 1
     assert totals["configuration_variants"] == 29
     assert totals["profile_trials"] == 133
     assert totals["supervised_model_fits"] == 228

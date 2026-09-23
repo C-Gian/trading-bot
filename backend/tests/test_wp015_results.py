@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 
+from app.predictive.taker_flow_validation import expected_state_pointers
 from app.research.records import validate_result
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -60,6 +61,7 @@ def test_wp015_independent_reconciliation_is_exact() -> None:
 # is "the active task is the declared successor", not its current title, so any known
 # successor is normalized to the rebaseline anchor. Longest first: these names nest.
 SUCCESSOR_TASK_TITLES = (
+    "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
     "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",
     "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
     "PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",
@@ -90,15 +92,14 @@ def test_wp015_records_and_state_are_safe() -> None:
 
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
-    assert state["latest_reviewed_checkpoint"] == (
-        "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
+    assert (
+        state["latest_reviewed_checkpoint"]
+        == (expected_state_pointers(ROOT, state)["latest_reviewed_checkpoint"])
     )
-    expected_executor = (
-        "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1"
-        if "predictive_v2_deterministic_calendar" in state
-        else "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
+    assert (
+        state["latest_executor_checkpoint"]
+        == (expected_state_pointers(ROOT, state)["latest_executor_checkpoint"])
     )
-    assert state["latest_executor_checkpoint"] == expected_executor
     challenger = state["funding_context_challenger"]
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 10
     assert challenger["model_reconciliation"] == "PASS"

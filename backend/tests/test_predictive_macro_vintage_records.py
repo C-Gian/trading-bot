@@ -16,6 +16,7 @@ from app.predictive.macro_vintage import (
     search_plan,
 )
 from app.predictive.macro_vintage_audit import AUDIT_PATH, BLOCKED
+from app.predictive.taker_flow_validation import expected_state_pointers
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -78,7 +79,8 @@ def test_state_records_the_fail_closed_checkpoint_without_a_new_experiment():
     record = state["predictive_stage3_macro_vintage"]
     # The predecessor stays the immutable source block it was; the executor checkpoint and
     # the generation's experiment count have since moved on to its remediation.
-    assert state["latest_executor_checkpoint"] == ("PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1")
+    pointers = expected_state_pointers(ROOT, state)
+    assert state["latest_executor_checkpoint"] == pointers["latest_executor_checkpoint"]
     assert state["predictive_research_objective"]["predictive_experiments_completed"] == 10
     assert record["status"] == BLOCKED
     assert record["admission_identity_sha256"] == admission_identity(ROOT)

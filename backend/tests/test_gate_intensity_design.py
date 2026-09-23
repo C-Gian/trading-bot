@@ -418,8 +418,9 @@ def test_product_and_accounting_are_unchanged() -> None:
 
 def test_the_descendant_consumed_one_adaptive_decision_and_fork() -> None:
     state = read_json("state/current_state.json")
-    assert state["adaptive_search"]["adaptive_decisions"] == 16
-    assert state["adaptive_search"]["result_dependent_forks"] == 13
+    # Includes the later ADR-0033 public taker-flow direction (+1 decision, +1 fork).
+    assert state["adaptive_search"]["adaptive_decisions"] == 16 + 1
+    assert state["adaptive_search"]["result_dependent_forks"] == 13 + 1
     direction = read_json(
         "research/memory/registry/directions/ALIGNED-GATE-INTENSITY-DESCENDANT.json"
     )

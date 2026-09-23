@@ -32,3 +32,5 @@
 - [ADR-0030](ADR-0030-PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE.md) — second Generation V2 family re-enters causal internal market structure to ask the selective-LONG question
 - [ADR-0031](ADR-0031-V2-INTERNAL-CLOSURE-AND-ONCHAIN-PIT-ALLOCATION.md) — V2 internal selective closes rejected; PIT on-chain exchange flows become preferred next evidence path
 - [ADR-0032](ADR-0032-OWNER-SELECTS-NO-COST-PUBLIC-DATA-PATH.md) — Owner selects the no-cost public-data path and parks paid PIT on-chain access
+- [ADR-0033](ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md) — public taker-flow foundation supports 1h only; 24h/4h closed without rescue; 1h incremental-information test preregistered pending a power gate
+- [ADR-0034](ADR-0034-CANONICAL-TEXT-PROVENANCE.md) — scientific text dependencies are identified by canonical UTF-8 LF text; historical raw-byte pins are preserved and bound by provenance records

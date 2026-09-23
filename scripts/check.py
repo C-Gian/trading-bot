@@ -56,6 +56,7 @@ PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-V2-002-CALENDAR-HGBR",
     "EXP-PRED-V2-003-INTERNAL-LINEAR",
     "EXP-PRED-V2-004-INTERNAL-HGBR",
+    "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
 }
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
@@ -66,6 +67,13 @@ PREDICTIVE_FOUNDATION_MODULES = (
     "labels.py",
     "report.py",
 )
+V2_POST_REVIEW_STATUS = (
+    "TWO_FAMILIES_REJECTED_PUBLIC_TAKER_FLOW_FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY"
+)
+PUBLIC_TAKER_FLOW_EXPERIMENT = "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION"
+PUBLIC_TAKER_FLOW_MANIFEST = "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json"
+# Result-dependent directions recorded after the P2 cycle-family closure (ADR-0033).
+POST_P2_CLOSURE_DIRECTIONS = {"PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE"}
 PREDECESSOR = "60ab3141862da74028763e2df72ac3c88b63b5a8"
 SEED = "c6c526124945aa1624118bd7ee6aef9ae5c011b2"
 CUTOFF = datetime(2024, 12, 31, 23, 59, tzinfo=UTC)
@@ -294,15 +302,14 @@ def validate_research_views(state: dict) -> None:
     assert validate_search_memory_v2()["status"] == "PASS"
     assert state["selected_family"]["name"] == "ALIGNED_PARTICIPATION_CONTINUATION_V1"
     assert state["selected_family"]["primary_experiment_id"] == "EXP-ALG-009-ALIGNED"
-    assert state["latest_reviewed_checkpoint"] == (
-        "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
-    )
-    expected_executor = (
-        "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1"
-        if "predictive_v2_deterministic_calendar" in state
-        else "PREDICTIVE-GENERATION-V2-SELECTIVE-LONG-REBASELINE-V1"
-    )
-    assert state["latest_executor_checkpoint"] == expected_executor
+    # Top-level pointers are derived from the latest reviewed checkpoint record and the
+    # active task header, never pinned to a historical checkpoint name.
+    from app.predictive.taker_flow_validation import expected_state_pointers
+
+    pointers = expected_state_pointers(ROOT, state)
+    assert state["latest_reviewed_checkpoint"] == pointers["latest_reviewed_checkpoint"]
+    assert state["latest_executor_checkpoint"] == pointers["latest_executor_checkpoint"]
+    assert state["status"] == pointers["status"]
     assert state["project_phase"] == "PREDICTIVE_RESEARCH" and not state["owner_decision_required"]
     from app.research.local_runner import research_candidate_registry
     from app.research.wp016 import EXPERIMENTS as WP016_EXPERIMENTS
@@ -377,9 +384,7 @@ def validate_research_views(state: dict) -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    assert state["next_recommended_work_package"] == (
-        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1"
-    )
+    assert state["next_recommended_work_package"] == pointers["next_recommended_work_package"]
     assert state["owner_economic_policy"] == {
         "annual_net_excess_return_mesi_percentage_points": 5,
         "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -858,11 +863,18 @@ def p2_closure_checks(state: dict) -> None:
     assert state["cycle_foundation"]["next_checkpoint"] == (
         "NONE_CYCLE_FAMILY_PARKED_METHODOLOGY_BLOCKED"
     )
-    assert architecture["primary_next_direction"] == "PREDICTIVE_RESEARCH_GENERATION_V2"
+    # ADR-0032/ADR-0033: the free public exchange-native path is the primary direction, and
+    # the next checkpoint is the 1h incremental power gate, not an experiment.
+    assert (
+        architecture["primary_next_direction"] == "FREE_PUBLIC_EXCHANGE_NATIVE_HORIZON_FOUNDATION"
+    )
     assert architecture["secondary_parallel_direction"] == "HISTORICAL_DISCOVERY_PAUSED"
     assert architecture["btc_only_new_source_or_model_search"] == "DEPRIORITIZED"
-    assert architecture["next_checkpoint"] == (
-        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1"
+    from app.predictive.taker_flow_validation import expected_state_pointers
+
+    assert (
+        architecture["next_checkpoint"]
+        == (expected_state_pointers(ROOT, state)["research_architecture.next_checkpoint"])
     )
     assert "CROSS_SECTIONAL_FEASIBILITY_AND_POWER_DESIGN" in synthesis
     assert len(architecture["evaluated_directions"]) == 3
@@ -886,11 +898,20 @@ def p2_closure_checks(state: dict) -> None:
         assert payload["actual_execution_authorized"] is False
         assert payload["safety"]["cross_section_product_authorized"] is False
 
-    # Accounting is untouched by a formally recorded review.
+    # Accounting is untouched by a formally recorded review. Later result-dependent
+    # directions add exactly the increments their own registry records declare.
+    from app.research.registry import directions
+
+    later = [item for item in directions() if item["decision_id"] in POST_P2_CLOSURE_DIRECTIONS]
+    assert {item["decision_id"] for item in later} == POST_P2_CLOSURE_DIRECTIONS
     assert state["experiments_completed"] == 26
     assert state["statistical_governance"]["known_discovery_family_size"] == 12
-    assert state["adaptive_search"]["adaptive_decisions"] == 16
-    assert state["adaptive_search"]["result_dependent_forks"] == 13
+    assert state["adaptive_search"]["adaptive_decisions"] == 16 + sum(
+        item["adaptive_decision_increment"] for item in later
+    )
+    assert state["adaptive_search"]["result_dependent_forks"] == 13 + sum(
+        item["result_dependent_fork_increment"] for item in later
+    )
     assert state["adaptive_search"]["sealed_queries"] == 0
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["champion_status"] == "NONE"
@@ -2979,6 +3000,7 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
         "OPEN_NO_CANDIDATE_EXECUTED",
         "FIRST_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW",
         "SECOND_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW",
+        V2_POST_REVIEW_STATUS,
     }
     assert objective["evaluation_contract_sha256"] == content_hash(
         ROOT / objective["evaluation_contract"]
@@ -3029,7 +3051,21 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
     }
     # Each executed family declared two hypotheses and consumed two configurations. The
     # counters are the sum over the committed family records, never a standalone claim.
-    assert objective["status"] == statuses[len(executed_families)]
+    # Once the Research Director has closed both executed families (ADR-0031), the objective
+    # carries the post-review allocation instead of a pending-review status.
+    both_reviewed_rejected = (
+        len(executed_families) == 2
+        and all(
+            family["family_disposition"] == "REJECTED_DEVELOPMENT_NO_SEALED"
+            for family in executed_families
+        )
+        and state["predictive_v2_internal_structure_selective"]["status"]
+        == ("COMPLETE_RESEARCH_DIRECTOR_REVIEWED_REJECTED")
+    )
+    expected_status = (
+        V2_POST_REVIEW_STATUS if both_reviewed_rejected else statuses[len(executed_families)]
+    )
+    assert objective["status"] == expected_status
     assert objective["v2_hypotheses_declared"] == 2 * len(executed_families)
     assert objective["v2_candidates_executed"] == 2 * len(executed_families)
     assert objective["model_fits"] == sum(family["model_fits"] for family in executed_families)
@@ -3061,6 +3097,11 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
             "EXP-PRED-V2-003-INTERNAL-LINEAR",
             "EXP-PRED-V2-004-INTERNAL-HGBR",
         }
+    # The public taker-flow foundation owns its directory only once state records it complete;
+    # its preregistered descendant EXP-PRED-V2-006 may own none until its power gate passes.
+    foundation = state.get("predictive_public_taker_flow_horizon_foundation", {})
+    if foundation.get("status") == "COMPLETE_RESEARCH_DIRECTOR_ACCEPTED":
+        expected_v2_directories.add(PUBLIC_TAKER_FLOW_EXPERIMENT)
     assert v2_directories == expected_v2_directories
 
     for required in (
@@ -3243,7 +3284,14 @@ def predictive_internal_selective_checks(state: dict) -> None:
     assert record["champion_status"] == state["champion_status"] == "NONE"
     assert record["real_money"] is False
     assert record["magnitude_status"] == "DEFERRED_UNTIL_FIRST_DIRECTIONAL_ADMISSION"
-    assert record["stage1_substrate_debt"] == "DEFERRED_UNREPAIRED"
+    # ADR-0031 reviewed and closed the family; the debt stays deferred and is not a rescue.
+    assert record["status"] == "COMPLETE_RESEARCH_DIRECTOR_REVIEWED_REJECTED"
+    assert record["research_director_review"] == "ACCEPTED_REJECTED_DEVELOPMENT_NO_SEALED"
+    assert record["review_decision_record"] == (
+        "decisions/ADR-0031-V2-INTERNAL-CLOSURE-AND-ONCHAIN-PIT-ALLOCATION.md"
+    )
+    assert (ROOT / record["review_decision_record"]).is_file()
+    assert record["stage1_substrate_debt"] == "DEFERRED_SUBSTRATE_DEBT_NOT_A_RESCUE_PATH"
     assert record["v1_model_outputs_used"] is False
     # Feature availability is reported, never repaired, and never removes a fold.
     assert 0.0 < record["outer_feature_validity"] < 1.0
@@ -3272,6 +3320,21 @@ def predictive_internal_selective_checks(state: dict) -> None:
         run(["git", "merge-base", "--is-ancestor", prereg_commit, result_commit])
 
 
+def predictive_public_taker_flow_checks(state: dict) -> None:
+    """The public taker-flow foundation is recorded once; its descendant stays blocked."""
+    from app.predictive.taker_flow_validation import validate_public_taker_flow
+
+    foundation = state["predictive_public_taker_flow_horizon_foundation"]
+    assert foundation["status"] == "COMPLETE_RESEARCH_DIRECTOR_ACCEPTED"
+    assert foundation["classification"] == "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY"
+    finding = validate_public_taker_flow(ROOT, data_available=False)
+    assert finding["status"] == "PASS" and finding["data_replayed"] is False
+    assert finding["classification"] == foundation["classification"]
+    incremental = state["predictive_public_taker_flow_1h_incremental"]
+    assert incremental["status"] == "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE"
+    assert incremental["execution_authorized"] is False
+
+
 def dataset_scope_checks() -> None:
     """Metadata/inventory admission also runs in a checkout with no installed market data."""
     from app.research.continuation_lab import MANIFEST_SHA256
@@ -3287,6 +3350,7 @@ def dataset_scope_checks() -> None:
     cftc = ROOT / "data/manifests/CFTC-CME-BITCOIN-TFF-DEV-v1.json"
     cross_section = ROOT / "data/manifests/BINANCE-SPOT-USDT-1H-CROSSSECTION-DEV-v1.json"
     open_interest = ROOT / "data/manifests/BTCUSDT-USDM-OPEN-INTEREST-DEV-v1.json"
+    public_taker_flow = ROOT / PUBLIC_TAKER_FLOW_MANIFEST
     # The GDELT and combined-context manifests only exist once WP-009 is finalized; a
     # paused WP-009 must not be asked for them, and must not carry them either.
     wp009_final = gdelt.is_file() or exogenous.is_file()
@@ -3299,6 +3363,7 @@ def dataset_scope_checks() -> None:
         cftc,
         cross_section,
         open_interest,
+        public_taker_flow,
     }
     if wp009_final:
         expected |= {gdelt, exogenous}
@@ -3325,6 +3390,11 @@ def dataset_scope_checks() -> None:
         )
         for item in open_interest_manifest["archive"]["day_index"]
     }
+    from app.predictive.taker_flow_validation import validate_manifest as taker_flow_manifest
+
+    # Official Binance monthly spot + USD-M klines, 2020-01..2024-12, each one pinned by the
+    # archive's own checksum; the manifest check rejects any other month, market or host.
+    raw |= {ROOT / item["raw_path"] for item in taker_flow_manifest(ROOT)["archives"]}
     assert set((ROOT / "data/raw").rglob("*.zip")) <= raw
     alfred_manifest = json.loads(alfred.read_text(encoding="utf-8"))
     funding_manifest = json.loads(funding.read_text(encoding="utf-8"))
@@ -3847,6 +3917,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     generation_v2_rebaseline_checks(state)
     predictive_calendar_checks(state)
     predictive_internal_selective_checks(state)
+    predictive_public_taker_flow_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -3976,6 +4047,7 @@ def data_checks(state: dict) -> None:
         cftc_path,
         cross_path,
         open_interest_path,
+        ROOT / PUBLIC_TAKER_FLOW_MANIFEST,
     }
     manifest = validate_json(path, schema)
     flow_manifest = json.loads(flow_path.read_text(encoding="utf-8"))
@@ -4008,7 +4080,17 @@ def data_checks(state: dict) -> None:
         assert sha256(archive_path) == item["official_checksum_sha256"], archive_path.name
         assert item["day"] <= "2024-12-31", "post-cutoff open-interest archive day"
         open_interest_raw.add(archive_path)
-    assert set((ROOT / "data/raw").rglob("*.zip")) == raw | cftc_raw | cross_raw | open_interest_raw
+    from app.predictive.taker_flow_validation import validate_manifest as taker_flow_manifest
+    from app.predictive.taker_flow_validation import validate_raw_objects as taker_flow_raw
+
+    # Every official monthly kline object, re-verified against its official checksum and the
+    # manifest; the public taker-flow raw root holds exactly the pinned set.
+    public_flow_manifest = taker_flow_manifest(ROOT)
+    assert taker_flow_raw(ROOT, public_flow_manifest) == 120
+    public_flow_raw = {ROOT / item["raw_path"] for item in public_flow_manifest["archives"]}
+    assert set((ROOT / "data/raw").rglob("*.zip")) == (
+        raw | cftc_raw | cross_raw | open_interest_raw | public_flow_raw
+    )
     assert all(
         "BTCUSDT" in p.name and not any(f"-{y}-" in p.name for y in range(2025, 2100)) for p in raw
     )
@@ -4153,6 +4235,14 @@ def data_checks(state: dict) -> None:
     from app.predictive.report import validate_report as validate_predictive_baselines
 
     assert validate_predictive_baselines(ROOT, data_available=True)["data_replayed"] is True
+    from app.predictive.taker_flow_validation import validate_public_taker_flow
+
+    public_flow = validate_public_taker_flow(ROOT, data_available=True)
+    assert public_flow["data_replayed"] is True and public_flow["raw_objects_verified"] == 120
+    assert (
+        public_flow["classification"]
+        == (state["predictive_public_taker_flow_horizon_foundation"]["classification"])
+    )
     from app.predictive.internal_report import validate_internal_structure
 
     replayed = validate_internal_structure(ROOT, data_available=True)

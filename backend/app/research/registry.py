@@ -87,6 +87,95 @@ def all_outcomes(root: Path = ROOT) -> list[dict[str, Any]]:
     ]
 
 
+# A predictive, prediction-only outcome is durable search memory like any other, but it is
+# never a strategy and never a sealed candidate. It carries its own classification
+# vocabulary instead of being translated into a legacy economic terminal classification.
+PREDICTIVE_OUTCOME_LAYER = "PREDICTIVE_NON_SEALED"
+PREDICTIVE_SEALED_ELIGIBILITY = "NONE_NOT_AUTHORIZED"
+PREDICTIVE_OUTCOME_FIELDS = (
+    "schema_version",
+    "outcome_layer",
+    "experiment_id",
+    "family_id",
+    "result_path",
+    "result_sha256",
+    "terminal_classification",
+    "horizon_classifications",
+    "deterministic_replay",
+    "conclusion",
+    "falsified",
+    "not_falsified",
+    "evidence_facts",
+    "forbidden_rescues",
+    "legitimate_revisit",
+    "decision_record",
+    "champion_status",
+    "sealed_eligibility",
+    "sealed_queries",
+    "real_money",
+)
+
+
+def predictive_outcomes(root: Path = ROOT) -> list[dict[str, Any]]:
+    return [
+        item
+        for item in registry_outcomes(root)
+        if item.get("outcome_layer") == PREDICTIVE_OUTCOME_LAYER
+    ]
+
+
+def strategy_outcomes(root: Path = ROOT) -> list[dict[str, Any]]:
+    """Every outcome that can be projected into sealed-candidate eligibility."""
+    return [
+        item for item in all_outcomes(root) if item.get("outcome_layer") != PREDICTIVE_OUTCOME_LAYER
+    ]
+
+
+def _pointer(record: Any, pointer: str) -> Any:
+    for name in pointer.lstrip("/").split("/"):
+        name = name.replace("~1", "/").replace("~0", "~")
+        record = record[int(name)] if isinstance(record, list) else record[name]
+    return record
+
+
+def validate_predictive_outcomes(root: Path = ROOT) -> list[dict[str, Any]]:
+    """Each predictive outcome is complete, bound to its family and its immutable result."""
+    # Predictive outcomes pin their result by canonical text (CANONICAL_UTF8_LF_TEXT_V1).
+    from .text_provenance import canonical_text_sha256
+
+    families = {family["family_id"] for family in all_families(root)}
+    outcomes = predictive_outcomes(root)
+    seen: set[str] = set()
+    for outcome in outcomes:
+        experiment_id = str(outcome.get("experiment_id"))
+        missing = [name for name in PREDICTIVE_OUTCOME_FIELDS if name not in outcome]
+        if missing:
+            raise ValueError(f"{experiment_id}: predictive outcome lacks {missing}")
+        if experiment_id in seen:
+            raise ValueError(f"{experiment_id}: predictive outcome recorded twice")
+        seen.add(experiment_id)
+        if outcome["family_id"] not in families:
+            raise ValueError(f"{experiment_id}: unregistered family {outcome['family_id']}")
+        if outcome["sealed_eligibility"] != PREDICTIVE_SEALED_ELIGIBILITY:
+            raise ValueError(f"{experiment_id}: a predictive outcome is never seal-eligible")
+        if outcome["champion_status"] != "NONE" or outcome["real_money"] is not False:
+            raise ValueError(f"{experiment_id}: a predictive outcome grants no Champion or money")
+        if outcome["sealed_queries"] != 0 or outcome["deterministic_replay"] != "PASS":
+            raise ValueError(f"{experiment_id}: sealed queries or replay status is wrong")
+        path = root / outcome["result_path"]
+        if canonical_text_sha256(path) != outcome["result_sha256"]:
+            raise ValueError(f"{experiment_id}: result differs from its pinned hash")
+        if not (root / outcome["decision_record"]).is_file():
+            raise ValueError(f"{experiment_id}: decision record is missing")
+        result = read_json(path)
+        if not outcome["evidence_facts"]:
+            raise ValueError(f"{experiment_id}: predictive outcome has no evidence facts")
+        for fact in outcome["evidence_facts"]:
+            if _pointer(result, fact["json_pointer"]) != fact["expected_value"]:
+                raise ValueError(f"{experiment_id}: {fact['json_pointer']} differs from result")
+    return outcomes
+
+
 def all_families(root: Path = ROOT) -> list[dict[str, Any]]:
     families = list(load_memory(root)["families"]["families"])
     families.extend(read_json(root / V2_FAMILIES)["families"])

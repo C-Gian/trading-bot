@@ -11,7 +11,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .registry import admission_ledger, all_outcomes
+from .registry import admission_ledger, strategy_outcomes
 from .search_memory import text_sha256
 from .wp004 import ROOT
 
@@ -62,7 +62,8 @@ def _spec_hashes(root: Path) -> dict[str, dict[str, str]]:
 
 
 def _outcomes(root: Path) -> list[dict[str, Any]]:
-    return all_outcomes(root)
+    # Predictive non-sealed outcomes are search memory, not sealed candidates.
+    return strategy_outcomes(root)
 
 
 def build_eligibility_table(root: Path = ROOT) -> dict[str, Any]:

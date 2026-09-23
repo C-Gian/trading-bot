@@ -12,6 +12,7 @@ from pathlib import Path
 
 import pytest
 from app.main import create_app
+from app.predictive.taker_flow_validation import expected_state_pointers
 from app.product.shadow_observer import (
     AUTOMATIC_COLLECTION_ENABLED,
     AUTOMATIC_COLLECTION_STATUS,
@@ -365,6 +366,7 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
 # is "the active task is the declared successor", not its current title, so any known
 # successor is normalized to the rebaseline anchor. Longest first: these names nest.
 SUCCESSOR_TASK_TITLES = (
+    "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
     "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",
     "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
     "PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",
@@ -382,14 +384,22 @@ def _normalize_current_task(text: str) -> str:
 
 def test_the_predictive_foundation_checkpoint_completed_and_was_archived() -> None:
     """The rebaseline handed off to the foundation, which has since been executed."""
-    if "predictive_v2_internal_structure_selective" in STATE:
-        expected = "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1"
+    # Since ADR-0031..ADR-0033 the pointers follow the reviewed public taker-flow foundation
+    # and the active task; they are derived from those records, not pinned here.
+    if "predictive_public_taker_flow_1h_incremental" in STATE:
+        pointers = expected_state_pointers(ROOT, STATE)
+        expected = pointers["next_recommended_work_package"]
+        checkpoint = pointers["research_architecture.next_checkpoint"]
+    elif "predictive_v2_internal_structure_selective" in STATE:
+        expected = checkpoint = (
+            "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1"
+        )
     elif "predictive_v2_deterministic_calendar" in STATE:
-        expected = "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
+        expected = checkpoint = "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_DETERMINISTIC_CALENDAR_V1"
     else:
-        expected = "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"
+        expected = checkpoint = "RESEARCH_DIRECTOR_REVIEW_GENERATION_V2_REBASELINE"
     assert STATE["next_recommended_work_package"] == expected
-    assert STATE["research_architecture"]["next_checkpoint"] == expected
+    assert STATE["research_architecture"]["next_checkpoint"] == checkpoint
     task = _normalize_current_task(_text("tasks/CURRENT_TASK.md"))
     assert task.startswith("# CURRENT TASK — RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE")
     for archived in (

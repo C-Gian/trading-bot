@@ -1,0 +1,151 @@
+{
+  "decision_record": "decisions/ADR-0034-CANONICAL-TEXT-PROVENANCE.md",
+  "dependencies": [
+    {
+      "canonical_text_sha256": "fdb355fcb66566f83c0a10ff646ebf8647ccc1c83289bbec2ab1e2a84801b7cd",
+      "path": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md",
+      "raw_sha256": "6fb5da71b18a44bd6c8891f50b0490311f48a988eef27ea46ff66546762fe012",
+      "recorded_at": [
+        {
+          "artifact": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+          "json_pointer": "/protocol/sha256"
+        },
+        {
+          "artifact": "state/current_state.json",
+          "json_pointer": "/predictive_public_taker_flow_horizon_foundation/result/protocol_sha256"
+        }
+      ],
+      "role": "FROZEN_PROTOCOL",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "cf696350cfe6294ffcbb74bef657ba9e58be22d232e7aab30c9cc7aa4c204bc4",
+      "path": "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json",
+      "raw_sha256": "cf696350cfe6294ffcbb74bef657ba9e58be22d232e7aab30c9cc7aa4c204bc4",
+      "recorded_at": [
+        {
+          "artifact": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+          "json_pointer": "/source/manifest_sha256"
+        },
+        {
+          "artifact": "state/current_state.json",
+          "json_pointer": "/predictive_public_taker_flow_horizon_foundation/result/source_manifest_sha256"
+        }
+      ],
+      "role": "SOURCE_MANIFEST",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "e92e9504b4853417184a2ed6b96ad8c724fb524d8e9a50615ba2fd285ae8402a",
+      "path": "backend/app/predictive/paired_inference.py",
+      "raw_sha256": "e92e9504b4853417184a2ed6b96ad8c724fb524d8e9a50615ba2fd285ae8402a",
+      "recorded_at": [
+        {
+          "artifact": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+          "json_pointer": "/implementation/backend~1app~1predictive~1paired_inference.py"
+        }
+      ],
+      "role": "FROZEN_IMPLEMENTATION",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "4f633776a96716942bf4b8735395e7a233e59b721b2ea66bdded78d588a81d82",
+      "path": "backend/app/predictive/taker_flow_foundation.py",
+      "raw_sha256": "4f633776a96716942bf4b8735395e7a233e59b721b2ea66bdded78d588a81d82",
+      "recorded_at": [
+        {
+          "artifact": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+          "json_pointer": "/implementation/backend~1app~1predictive~1taker_flow_foundation.py"
+        }
+      ],
+      "role": "FROZEN_IMPLEMENTATION",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "83cab4b5cfcf785e1eb7c664b64fb66b8da086858e8ccc076af7db293e8bd644",
+      "path": "backend/app/predictive/taker_flow_source.py",
+      "raw_sha256": "83cab4b5cfcf785e1eb7c664b64fb66b8da086858e8ccc076af7db293e8bd644",
+      "recorded_at": [
+        {
+          "artifact": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+          "json_pointer": "/implementation/backend~1app~1predictive~1taker_flow_source.py"
+        }
+      ],
+      "role": "FROZEN_IMPLEMENTATION",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "620e617d0cdd9bf9eb702e1b74aa93396dd09613bbb2fcc87fa2302adfa8659a",
+      "path": "scripts/acquire_public_taker_flow.py",
+      "raw_sha256": "620e617d0cdd9bf9eb702e1b74aa93396dd09613bbb2fcc87fa2302adfa8659a",
+      "recorded_at": [
+        {
+          "artifact": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+          "json_pointer": "/implementation/scripts~1acquire_public_taker_flow.py"
+        }
+      ],
+      "role": "FROZEN_IMPLEMENTATION",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "9dd018fe3c4cdc354c228ac4cf951a3fffaddc48359abf773aa67175cdc7b668",
+      "path": "scripts/run_public_taker_flow_foundation.py",
+      "raw_sha256": "9dd018fe3c4cdc354c228ac4cf951a3fffaddc48359abf773aa67175cdc7b668",
+      "recorded_at": [
+        {
+          "artifact": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+          "json_pointer": "/implementation/scripts~1run_public_taker_flow_foundation.py"
+        }
+      ],
+      "role": "FROZEN_IMPLEMENTATION",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "bc8150163b156840e711a916823ccd5dcd69bf747ab6e389302524d7a6497bbf",
+      "path": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+      "raw_sha256": "bc8150163b156840e711a916823ccd5dcd69bf747ab6e389302524d7a6497bbf",
+      "recorded_at": [
+        {
+          "artifact": "state/current_state.json",
+          "json_pointer": "/predictive_public_taker_flow_horizon_foundation/result/sha256"
+        },
+        {
+          "artifact": "research/memory/registry/outcomes/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.jsonl",
+          "json_pointer": "/result_sha256"
+        }
+      ],
+      "role": "IMMUTABLE_RESULT_ARTIFACT",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    },
+    {
+      "canonical_text_sha256": "b77fe1f9c28bfc9fb057140b3a07b6f526bfab2c5af3a05d8528090b9bb0d50a",
+      "path": "reports/research/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md",
+      "raw_sha256": "b77fe1f9c28bfc9fb057140b3a07b6f526bfab2c5af3a05d8528090b9bb0d50a",
+      "recorded_at": [
+        {
+          "artifact": "state/current_state.json",
+          "json_pointer": "/predictive_public_taker_flow_horizon_foundation/result/report_sha256"
+        }
+      ],
+      "role": "GENERATED_REPORT",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1"
+    }
+  ],
+  "experiment_id": "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
+  "finding": "The EXP-PRED-V2-005 protocol pin was taken over the Owner's Windows CRLF working-tree bytes. The committed Git text is the same; its LF checkout has a different raw digest and the same canonical text digest. This is a provenance-encoding defect, not a scientific difference.",
+  "historical_raw_hashes_preserved": true,
+  "historical_result_rewritten": false,
+  "owner_script_check_mode": "scripts/run_public_taker_flow_foundation.py --check compares raw bytes and is platform dependent; the governed cross-platform replay is taker_flow_validation data mode.",
+  "raw_checkout_bytes_may_differ": true,
+  "record": "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1-TEXT-PROVENANCE",
+  "rule": "CANONICAL_UTF8_LF_TEXT_V1",
+  "rule_definition": "Decode strict UTF-8; replace CRLF then lone CR with LF; change nothing else; SHA-256 the UTF-8 bytes.",
+  "rule_module": "backend/app/research/text_provenance.py",
+  "schema_version": 1,
+  "undeclared_dependencies": "EXACT_RAW_BYTES",
+  "validation_layers": {
+    "immutable_result_artifact": "result.json is never rewritten; its pins are checked through this record",
+    "numerical_replay": "backend/app/predictive/taker_flow_validation.py data mode: run_foundation output equals the committed result except its file-hash fields",
+    "text_dependency_provenance": "each dependency below must match its canonical_text_sha256; its raw_sha256 is preserved and must equal every recorded_at location"
+  }
+}

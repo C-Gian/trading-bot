@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from app.predictive.taker_flow_validation import expected_state_pointers
 from app.research.supervised import FULL_FEATURES
 from app.research.wp014_model import HGBR_PARAMETERS
 
@@ -126,10 +127,12 @@ def test_wp014_result_records_and_state_are_consistent_and_safe() -> None:
 
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
-    assert state["latest_reviewed_checkpoint"] == (
-        "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
+    assert (
+        state["latest_reviewed_checkpoint"]
+        == (expected_state_pointers(ROOT, state)["latest_reviewed_checkpoint"])
     )
-    assert state["latest_executor_checkpoint"] == ("PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1")
+    pointers = expected_state_pointers(ROOT, state)
+    assert state["latest_executor_checkpoint"] == pointers["latest_executor_checkpoint"]
     challenger = state["shallow_nonlinear_challenger"]
     assert challenger["terminal_classification"] == "REJECT_COST_DOMINATED"
     assert challenger["actual_model_fits"] == challenger["reserved_model_fits"] == 12

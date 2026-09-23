@@ -21,7 +21,7 @@
     "version": "EXPONENTIALLY_WEIGHTED_LINEAR_NET_R_V1"
   },
   "adaptive_search": {
-    "adaptive_decisions": 16,
+    "adaptive_decisions": 17,
     "configuration_variants": 29,
     "diagnostic_evaluations": 35,
     "diagnostic_execution_attempts": 2,
@@ -29,7 +29,7 @@
     "material_economic_hypotheses": 13,
     "numeric_parameter_variants": 0,
     "profile_trials": 133,
-    "result_dependent_forks": 13,
+    "result_dependent_forks": 14,
     "sealed_queries": 0,
     "strategy_descendants": 14,
     "supervised_model_fits": 228,
@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1",
+  "latest_executor_checkpoint": "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -458,7 +458,7 @@
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
     "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1",
+  "latest_reviewed_checkpoint": "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1",
   "legacy_research_generation": {
     "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
     "aligned_historical_results_changed": false,
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1",
+  "next_recommended_work_package": "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -751,7 +751,7 @@
       "PREVIOUS_24H_SIGN_PERSISTENCE"
     ],
     "short_authorized": false,
-    "status": "TWO_FAMILIES_REJECTED_PUBLIC_TAKER_FLOW_HORIZON_FOUNDATION_IMPLEMENTATION_PENDING",
+    "status": "TWO_FAMILIES_REJECTED_PUBLIC_TAKER_FLOW_FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY",
     "symbol": "BTCUSDT",
     "thresholds_weakenable_after_a_result": false,
     "v2_candidates_executed": 4,
@@ -2225,7 +2225,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "IMPLEMENT_PUBLIC_TAKER_FLOW_HORIZON_FOUNDATION_V1",
+    "next_checkpoint": "IMPLEMENT_PUBLIC_TAKER_FLOW_1H_INCREMENTAL_POWER_GATE_V1",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "FREE_PUBLIC_EXCHANGE_NATIVE_HORIZON_FOUNDATION",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
@@ -2305,7 +2305,7 @@
   },
   "sealed_evaluations_completed": 0,
   "search_memory": {
-    "families_tracked": 15,
+    "families_tracked": 16,
     "status": "VALIDATED",
     "version": "SEARCH_MEMORY_V2"
   },
@@ -2387,7 +2387,7 @@
     "unquantified_pre_repo_exposure": true,
     "version": "P0_STATISTICAL_GOVERNANCE_V1"
   },
-  "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+  "status": "REVIEWED",
   "superseded_prospective_evidence": {
     "contract": "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1.md",
     "evidence_migrated": false,
@@ -2421,12 +2421,11 @@
   },
   "predictive_public_taker_flow_horizon_foundation": {
     "version": "PREDICTIVE_V2_PUBLIC_TAKER_FLOW_HORIZON_FOUNDATION_V1",
-    "status": "ACTIVE_IMPLEMENTATION_ONLY_NO_EXECUTION",
+    "status": "COMPLETE_RESEARCH_DIRECTOR_ACCEPTED",
     "owner_data_policy": "NO_PAID_OR_CREDENTIALED_DATA_FOR_NOW",
     "owner_decision_record": "decisions/ADR-0032-OWNER-SELECTS-NO-COST-PUBLIC-DATA-PATH.md",
     "prior_allocation_record": "decisions/ADR-0031-V2-INTERNAL-CLOSURE-AND-ONCHAIN-PIT-ALLOCATION.md",
     "protocol": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md",
-    "active_task": "tasks/CURRENT_TASK.md",
     "source": "OFFICIAL_BINANCE_PUBLIC_ARCHIVES",
     "markets": [
       "BTCUSDT_SPOT_1M",
@@ -2450,8 +2449,8 @@
     "hyperparameter_search": false,
     "feature_search": false,
     "action_threshold_used": false,
-    "market_results_observed": false,
-    "model_fits_observed": 0,
+    "market_results_observed": true,
+    "model_fits_observed": 12,
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
@@ -2466,11 +2465,189 @@
       "forbidden_rescue": "NO_RETUNING_OF_PRIOR_0_5_TRANSITION_CONTEXT_DURATION_BARRIERS_OR_STRATEGY_GATES",
       "distinction": "CONTINUOUS_SPOT_PLUS_USDM_FLOW_PREDICTION_AND_HORIZON_DECAY_INSTEAD_OF_SPOT_EVENT_TRANSITION_STRATEGY_PROFITABILITY"
     },
-    "paid_onchain_pit_path": "PARKED_FUTURE_ENHANCEMENT_IF_FREE_PATH_SHOWS_POTENTIAL"
+    "paid_onchain_pit_path": "PARKED_FUTURE_ENHANCEMENT_IF_FREE_PATH_SHOWS_POTENTIAL",
+    "experiment_id": "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
+    "result": {
+      "path": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+      "sha256": "bc8150163b156840e711a916823ccd5dcd69bf747ab6e389302524d7a6497bbf",
+      "report": "reports/research/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md",
+      "report_sha256": "b77fe1f9c28bfc9fb057140b3a07b6f526bfab2c5af3a05d8528090b9bb0d50a",
+      "source_manifest": "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json",
+      "source_manifest_sha256": "cf696350cfe6294ffcbb74bef657ba9e58be22d232e7aab30c9cc7aa4c204bc4",
+      "source_objects_verified": 120,
+      "protocol_sha256": "6fb5da71b18a44bd6c8891f50b0490311f48a988eef27ea46ff66546762fe012",
+      "targeted_tests": "19_PASSED",
+      "deterministic_replay": "PASS",
+      "horizons": {
+        "24": {
+          "scored_rows": 34997,
+          "pooled_feature_coverage": 0.9998571510199418,
+          "pooled_brier_improvement": -0.0037125903573256847,
+          "adjusted_interval": [
+            -0.005987498947295829,
+            -0.0013779971162721282
+          ],
+          "classification": "FOUNDATION_SIGNAL_NOT_SUPPORTED"
+        },
+        "4": {
+          "scored_rows": 35017,
+          "pooled_feature_coverage": 0.9998572325966535,
+          "pooled_brier_improvement": -0.00021835711383572098,
+          "adjusted_interval": [
+            -0.0007811561927786787,
+            0.00033973594799868034
+          ],
+          "classification": "FOUNDATION_SIGNAL_NOT_SUPPORTED"
+        },
+        "1": {
+          "scored_rows": 35030,
+          "pooled_feature_coverage": 0.9998572855715713,
+          "pooled_brier_improvement": 0.0006437786467623496,
+          "adjusted_interval": [
+            0.00017050016020700632,
+            0.0011318045278073461
+          ],
+          "classification": "FOUNDATION_SIGNAL_SUPPORTED"
+        }
+      },
+      "selection": "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY"
+    },
+    "classification": "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY",
+    "frozen_implementation_interpretations": {
+      "calibration_embargo": "DROP_BASE_FIT_ROWS_WITH_T_PLUS_2H_AFTER_FIRST_CALIBRATION_INSTANT",
+      "bootstrap_streams": "SEEDSEQUENCE_20260923_SPAWN_3_IN_24H_4H_1H_ORDER",
+      "accepted_by": "RESEARCH_DIRECTOR"
+    },
+    "decision_record": "decisions/ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md",
+    "checkpoint_report": "reports/checkpoints/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md",
+    "archived_task": "tasks/archive/IMPLEMENT-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md",
+    "search_memory_family": "research/memory/registry/families/FAM-PUBLIC-TAKER-FLOW-PROBABILITY.json",
+    "interpretation": {
+      "24h": "NOT_SUPPORTED_NO_RESCUE",
+      "4h": "NOT_SUPPORTED_NO_RESCUE",
+      "1h": "SUPPORTED_RESEARCH_BUDGET_ONLY",
+      "trading_profitability_evidence": false,
+      "strategy_created": false,
+      "sealed_evaluation_authorized": false,
+      "product_horizon_change_authorized": false,
+      "wp007_rejection_intact": true,
+      "relation_to_wp007": "DISTINCT_STRUCTURAL_PREDICTION_RESULT_NOT_A_RETROACTIVE_RESCUE"
+    },
+    "search_memory_outcome": "research/memory/registry/outcomes/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.jsonl",
+    "text_provenance": {
+      "path": "reports/validation/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1-TEXT-PROVENANCE.json",
+      "rule": "CANONICAL_UTF8_LF_TEXT_V1",
+      "canonical_text_sha256": "562d53d44d881872bee09c714a33bf9565ee73192524a74d99ee8306b74ee8a2",
+      "protocol_historical_raw_sha256": "6fb5da71b18a44bd6c8891f50b0490311f48a988eef27ea46ff66546762fe012",
+      "protocol_canonical_text_sha256": "fdb355fcb66566f83c0a10ff646ebf8647ccc1c83289bbec2ab1e2a84801b7cd",
+      "decision_record": "decisions/ADR-0034-CANONICAL-TEXT-PROVENANCE.md"
+    }
   },
   "chat_handover": {
     "bootstrap": "docs/operations/NEW_CHAT_BOOTSTRAP.md",
     "latest_snapshot": "reports/handover/CHAT-HANDOVER-2026-09-23.md",
     "search_memory_reset_on_new_chat": false
+  },
+  "predictive_public_taker_flow_1h_incremental": {
+    "experiment_id": "EXP-PRED-V2-006-PUBLIC-TAKER-FLOW-1H-INCREMENTAL",
+    "version": "PREDICTIVE_V2_PUBLIC_TAKER_FLOW_1H_INCREMENTAL_V1",
+    "status": "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE",
+    "protocol": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-V1.md",
+    "protocol_canonical_text_sha256": "74a7fb16e3f305cdbfe66c0548ebddeff1e2bd16c1a667b271c8e4f19f3f2e95",
+    "decision_record": "decisions/ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md",
+    "parent_experiment_id": "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
+    "root_family": "FAM-PUBLIC-TAKER-FLOW-PROBABILITY",
+    "source_manifest": "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json",
+    "target": "r_1h = log(spot_close[T+1h] / spot_close[T])",
+    "control_features": [
+      "SPOT_LOG_RETURN_1H",
+      "UM_LOG_RETURN_1H",
+      "SPOT_MINUS_UM_LOG_RETURN_1H"
+    ],
+    "candidate_features": [
+      "SPOT_LOG_RETURN_1H",
+      "UM_LOG_RETURN_1H",
+      "SPOT_MINUS_UM_LOG_RETURN_1H",
+      "SPOT_TAKER_IMBALANCE_1H",
+      "UM_TAKER_IMBALANCE_1H",
+      "SPOT_MINUS_UM_TAKER_IMBALANCE_1H"
+    ],
+    "comparison_universe": "INTERSECTION_OF_CONTROL_AND_CANDIDATE_VALID_ROWS",
+    "model_family": "FIXED_STANDARDIZED_LOGISTIC_PLUS_TRAINING_ONLY_PLATT",
+    "outer_fold_years": [
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "primary_metric": "INCREMENTAL_BRIER = PRICE_ONLY_CONTROL_BRIER - PRICE_PLUS_FLOW_CANDIDATE_BRIER",
+    "inference": {
+      "method": "PAIRED_FOLD_STRATIFIED_MOVING_BLOCK_BOOTSTRAP_ON_HOURLY_TIMELINE",
+      "block_length_hours": 48,
+      "replicates": 10000,
+      "seed": 2026092306,
+      "familywise_alpha": 0.05,
+      "primary_hypotheses": 1,
+      "interval_mass": 0.95
+    },
+    "power_gate": {
+      "status": "NOT_COMPUTED_PENDING_IMPLEMENTATION",
+      "implementation_task": "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
+      "metric": "ABSOLUTE_PAIRED_BRIER_IMPROVEMENT",
+      "mesi": 0.0002,
+      "mesi_lowerable_after_block": false,
+      "alpha": 0.05,
+      "interval_mass": 0.95,
+      "target_power": 0.8,
+      "proxy_classification": "ANALOG_DEPENDENCE_AND_VARIANCE_PROXY",
+      "proxy_series": "EXP_PRED_V2_005_1H_FLOW_ONLY_BRIER_LOSS_MINUS_TRAINING_BASE_RATE_CONSTANT_BRIER_LOSS",
+      "proxy_reconstruction": "EXACT_DETERMINISTIC_REPLAY_OF_FROZEN_FOUNDATION_FAIL_CLOSED_ON_MISMATCH",
+      "mde_statement": "MDE_IS_ANALOG_EXPECTED_DETECTABILITY_NOT_REALIZED_INCREMENTAL_VARIANCE",
+      "bootstrap": {
+        "method": "FOLD_STRATIFIED_MOVING_BLOCK_ON_HOURLY_TIMELINE",
+        "block_length_hours": 48,
+        "blocks_cross_fold_boundaries": false,
+        "replicates": 10000,
+        "replicate_chunk": 500,
+        "seed": 2026092307,
+        "outer_fold_years": [
+          2021,
+          2022,
+          2023,
+          2024
+        ]
+      },
+      "noise_distribution": "REPLICATE_POOLED_STATISTIC_MINUS_OBSERVED_POOLED_PROXY_MEAN",
+      "power_rule": "MEAN_OVER_D0_OF_DELTA_PLUS_D_PLUS_QUANTILE_0_025_OF_D0_ABOVE_ZERO",
+      "mde_search": "SMALLEST_K_TIMES_1E_MINUS_7_FOR_K_0_TO_100000_WITH_POWER_AT_LEAST_0_80",
+      "pass_classification": "ANALOG_POWER_GATE_PASSES_PENDING_RESEARCH_DIRECTOR_REVIEW",
+      "block_classification": "POWER_BLOCKED_NOT_EXECUTED",
+      "failed_closed_classification": "POWER_GATE_FAILED_CLOSED",
+      "pass_authorizes_execution": false,
+      "future_price_only_or_price_plus_flow_predictions_used": false,
+      "outer_candidate_or_control_fits_allowed": false,
+      "seeds_distinct": {
+        "foundation_family": 20260923,
+        "power_gate": 2026092307,
+        "incremental_inference": 2026092306
+      }
+    },
+    "qualification_success": "INCREMENTAL_TAKER_FLOW_SUPPORTED_1H",
+    "qualification_failure": [
+      "INCREMENTAL_TAKER_FLOW_NOT_SUPPORTED_1H",
+      "POWER_BLOCKED_NOT_EXECUTED"
+    ],
+    "execution_authorized": false,
+    "model_fits_observed": 0,
+    "market_results_observed": false,
+    "action_threshold_used": false,
+    "trading_pnl": false,
+    "costs_or_execution": false,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "real_money": false,
+    "active_task": "tasks/CURRENT_TASK.md",
+    "next_work_package": "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
+    "hypothesis_id": "H-PRED-V2-PUBLIC-FLOW-INCREMENTAL-001"
   }
 }

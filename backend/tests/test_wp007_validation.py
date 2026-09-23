@@ -60,8 +60,9 @@ def test_cumulative_search_accounting_is_exact():
     assert totals["wp017_variants_reserved"] == 2
     assert totals["wp017_profiles_reserved"] == 8
     assert totals["numeric_parameter_variants"] == 0
-    assert totals["adaptive_decisions"] == 16
-    assert totals["result_dependent_forks"] == 13
+    # ADR-0033 records one result-dependent predictive direction (the 1h incremental power gate).
+    assert totals["adaptive_decisions"] == 16 + 1
+    assert totals["result_dependent_forks"] == 13 + 1
 
 
 def test_both_order_flow_candidates_are_sealed_ineligible():

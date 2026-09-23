@@ -454,7 +454,8 @@ def test_scientific_paper_trade_counter_is_untouched() -> None:
     assert state["experiments_completed"] == 26
     assert state["sealed_evaluations_completed"] == 0
     # WP-011 through preregistered WP-016 advanced search burden; paper counters stay zero.
-    assert state["adaptive_search"]["adaptive_decisions"] == 16
+    # ADR-0033's public taker-flow direction added one non-trial adaptive decision.
+    assert state["adaptive_search"]["adaptive_decisions"] == 16 + 1
     assert state["adaptive_search"]["profile_trials"] == 133
     assert state["adaptive_search"]["configuration_variants"] == 29
 

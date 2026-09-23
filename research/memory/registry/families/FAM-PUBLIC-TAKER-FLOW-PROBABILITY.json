@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "family_id": "FAM-PUBLIC-TAKER-FLOW-PROBABILITY",
+  "aliases": [
+    "PREDICTIVE_V2_PUBLIC_TAKER_FLOW_HORIZON_FOUNDATION_V1",
+    "PUBLIC_TAKER_FLOW_HORIZON_FOUNDATION",
+    "SPOT_USDM_TAKER_IMBALANCE_PROBABILITY",
+    "PREDICTIVE_V2_PUBLIC_TAKER_FLOW_1H_INCREMENTAL_V1",
+    "PUBLIC_TAKER_FLOW_1H_INCREMENTAL"
+  ],
+  "entry_event_anchors": [],
+  "parent_family_id": "FAM-ORDER-FLOW",
+  "relation_to_parent": {
+    "classification": "LEGITIMATE_STRUCTURAL_REVISIT_NOT_A_RESCUE",
+    "parent_experiments": [
+      "EXP-ALG-012-ORDERFLOW-CORE",
+      "EXP-ALG-013-ORDERFLOW-PRICE-RESPONSE"
+    ],
+    "parent_terminal_classification": "REJECT_COST_DOMINATED",
+    "parent_design": "SPOT_ONLY_TAKER_BUY_SHARE_EVENT_TRANSITION_STRATEGY_WITH_ECONOMIC_COST_GATES",
+    "this_design": "CONTINUOUS_SPOT_PLUS_USDM_TAKER_IMBALANCE_AS_A_CALIBRATED_PROBABILITY_SOURCE_SCORED_BY_BRIER",
+    "parent_rejection_intact": true
+  },
+  "admitted_by": "decisions/ADR-0032-OWNER-SELECTS-NO-COST-PUBLIC-DATA-PATH.md",
+  "allocation_id": "PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE",
+  "work_package": "IMPLEMENT-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1",
+  "information_source": "OFFICIAL_BINANCE_PUBLIC_ARCHIVE_BTCUSDT_SPOT_AND_USDM_1M_KLINE_TAKER_BUY_QUOTE_VOLUME",
+  "mechanism": "The previous completed hour's aggressive taker-buy versus taker-sell quote imbalance on spot and USD-M perpetual, and their difference, may carry directional probability information about subsequent BTCUSDT spot returns.",
+  "experiments": [
+    {
+      "experiment_id": "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
+      "protocol": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.md",
+      "result_path": "research/experiments/EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION/result.json",
+      "result_sha256": "bc8150163b156840e711a916823ccd5dcd69bf747ab6e389302524d7a6497bbf",
+      "model_fits": 12,
+      "horizons_hours_in_frozen_order": [
+        24,
+        4,
+        1
+      ],
+      "horizon_classifications": {
+        "24": "FOUNDATION_SIGNAL_NOT_SUPPORTED",
+        "4": "FOUNDATION_SIGNAL_NOT_SUPPORTED",
+        "1": "FOUNDATION_SIGNAL_SUPPORTED"
+      },
+      "terminal_classification": "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY",
+      "deterministic_replay": "PASS",
+      "decision_record": "decisions/ADR-0033-PUBLIC-TAKER-FLOW-FOUNDATION-1H-ONLY-AND-INCREMENTAL-ALLOCATION.md",
+      "outcome_record": "research/memory/registry/outcomes/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1.jsonl"
+    },
+    {
+      "experiment_id": "EXP-PRED-V2-006-PUBLIC-TAKER-FLOW-1H-INCREMENTAL",
+      "protocol": "research/protocols/PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-V1.md",
+      "parent_experiment_id": "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
+      "question": "INCREMENTAL_1H_FLOW_INFORMATION_BEYOND_MATCHED_CONTEMPORANEOUS_SPOT_AND_USDM_1H_PRICE_MOVEMENT",
+      "status": "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE",
+      "model_fits": 0,
+      "market_results_observed": false,
+      "hypothesis_id": "H-PRED-V2-PUBLIC-FLOW-INCREMENTAL-001"
+    }
+  ],
+  "status": "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY_INCREMENTAL_TEST_PREREGISTERED",
+  "failure_experiment_ids": [],
+  "failed_horizons": [
+    "24h",
+    "4h"
+  ],
+  "blocked_repeats": [
+    "24H_OR_4H_RESCUE_BY_MODEL_THRESHOLD_TRANSFORMATION_INVERSION_OR_POST_RESULT_TUNING",
+    "OTHER_HORIZONS_OR_HORIZON_SEARCH",
+    "EXTRA_LAGS",
+    "ALTERNATIVE_IMBALANCE_DEFINITIONS",
+    "NONLINEAR_OR_SECOND_MODEL_FAMILY",
+    "HAND_BUILT_REGIMES",
+    "THRESHOLD_SWEEPS_OR_P_UP_0_60_LONG_RULE",
+    "EXTRA_FEATURES_BEYOND_THE_FROZEN_SIX",
+    "RETUNING_WP007_0_5_TRANSITION_CONTEXT_DURATION_BARRIERS_OR_GATES"
+  ],
+  "legitimate_revisit": "Only the frozen EXP-PRED-V2-006 incremental test after its power gate passes and is reviewed, or a new explicit Research Director allocation. The 1h foundation result supports research budget only; it is not a strategy, Champion, sealed authorization or product-horizon change."
+}

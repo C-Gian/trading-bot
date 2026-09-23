@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from app.predictive.taker_flow_validation import expected_state_pointers
+
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -68,9 +70,11 @@ def test_wp013_result_records_and_safety_state() -> None:
         assert result["trial_accounting"] == {"declared_budget": 4, "executed_trials": 4}
     state = read_json("state/current_state.json")
     assert state["experiments_completed"] == 26
-    assert state["latest_executor_checkpoint"] == ("PREDICTIVE-V2-DETERMINISTIC-CALENDAR-V1")
-    assert state["latest_reviewed_checkpoint"] == (
-        "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
+    pointers = expected_state_pointers(ROOT, state)
+    assert state["latest_executor_checkpoint"] == pointers["latest_executor_checkpoint"]
+    assert (
+        state["latest_reviewed_checkpoint"]
+        == (expected_state_pointers(ROOT, state)["latest_reviewed_checkpoint"])
     )
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0

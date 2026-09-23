@@ -17,6 +17,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from app.predictive.taker_flow_validation import expected_state_pointers
 from check import (
     WP009_FINAL_ARTIFACTS,
     WP009_PAUSED_ARTIFACTS,
@@ -157,8 +158,9 @@ def test_the_validator_never_touches_cutoff_or_sealed_state() -> None:
 def test_state_records_the_accepted_wp011_review() -> None:
     state = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
     adaptive = state["adaptive_challenger"]
-    assert state["latest_reviewed_checkpoint"] == (
-        "PROSPECTIVE-RUNTIME-ARTIFACT-PROVENANCE-FIX-V1_1"
+    assert (
+        state["latest_reviewed_checkpoint"]
+        == (expected_state_pointers(ROOT, state)["latest_reviewed_checkpoint"])
     )
     assert adaptive["research_director_verdict"] == "ACCEPTED"
     assert adaptive["terminal_classification"] == "REJECT_COST_DOMINATED"
@@ -172,8 +174,9 @@ def test_state_records_the_accepted_wp011_review() -> None:
     assert state["real_money_authorized"] is False
     assert state["exogenous_acquisition_pause"]["wp009_finalized"] is False
     assert state["paper_trading"]["research_status"] == "PAPER_RESEARCH_CANDIDATE"
-    assert state["next_recommended_work_package"] == (
-        "RESEARCH_DIRECTOR_REVIEW_PREDICTIVE_V2_INTERNAL_STRUCTURE_SELECTIVE_V1"
+    assert (
+        state["next_recommended_work_package"]
+        == (expected_state_pointers(ROOT, state)["next_recommended_work_package"])
     )
 
 
