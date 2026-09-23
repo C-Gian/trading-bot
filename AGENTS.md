@@ -254,3 +254,28 @@ identify a blocker.
 
 The Research Director will inspect committed repository artifacts and interpret the
 scientific meaning of the work.
+
+## Conversation handover and token-efficient execution
+
+A new ChatGPT conversation must bootstrap from repository truth, not from a manually reconstructed
+chat recap. Follow `docs/operations/NEW_CHAT_BOOTSTRAP.md`.
+
+Before proposing a new research direction, inspect the append-only research registry and the
+predictive-generation closure/current-state records so rejected, parked or blocked mechanisms
+cannot be silently retried under a new name.
+
+Default executor division:
+
+- ChatGPT/Research Director decides science, architecture, preregistration and interpretation.
+- Codex/Claude Code implement a substantial code block and stop when the active task says code is
+  ready.
+- The Owner runs heavy local downloads, backtests, full validation, Git commands and CI checks from
+  copy/paste commands supplied by ChatGPT.
+- Do not spend executor usage waiting for CPU-bound jobs, polling CI or performing routine Git
+  operations unless the active task explicitly authorizes it.
+- Avoid tiny implementation fragments that force repeated Owner intervention; batch adjacent coding
+  work when scientifically safe.
+
+The Owner reports concise PASS/FAIL/result paths. The Owner is not expected to debug or interpret
+raw output.
+
