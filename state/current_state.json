@@ -2740,8 +2740,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,
@@ -2809,7 +2809,8 @@
       "decisions/ADR-0044-ADOPT-SYSTEM-G1-PROFESSIONAL-MULTISIGNAL-ARCHITECTURE.md",
       "decisions/ADR-0045-ACCEPT-G1-CHECKPOINT-1-AND-FREEZE-CYCLE-QUALITY-GATE.md",
       "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
-      "decisions/ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md"
+      "decisions/ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md",
+      "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md"
     ],
     "astra_decision": "ASTRA_PROFESSIONAL_TRADING_SYSTEM_STRATEGIC_ARCHITECTURE_V1",
     "constitution_version": "4.0",
@@ -2823,8 +2824,8 @@
     "market_trial_authorized": false,
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
-    "research_task_active": false,
-    "automatic_next_research_package": "RESEARCH-DIRECTOR-G1-INCOMPLETE-BAR-FIX-REVIEW-V1",
+    "research_task_active": true,
+    "automatic_next_research_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1",
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
@@ -2914,7 +2915,7 @@
   },
   "system_g1_development": {
     "work_package": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
-    "status": "SYSTEM_G1_DEVELOPMENT_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_REVIEW",
+    "status": "REVIEWED",
     "protocol": "research/protocols/SYSTEM-G1-DEVELOPMENT-V1.md",
     "protocol_canonical_sha256": "db0024f1e07fac631bf61c186e6486f0feeb806e23e1dacc3508254dc4dffa88",
     "decision_record": "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
@@ -2934,14 +2935,17 @@
       "S_P2_ONLY"
     ],
     "cycle_method": "ACTIVE_COMPONENT",
-    "historical_execution_authorized": false,
-    "execution_authorization_record": null,
+    "historical_execution_authorized": true,
+    "execution_authorization_record": "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
     "real_g1_outcomes_inspected": false,
     "forecaster_real_fitted": false,
     "p1_p2_real_performance_computed": false,
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
-    "next_work_package": "RESEARCH-DIRECTOR-G1-INCOMPLETE-BAR-FIX-REVIEW-V1"
+    "next_work_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1",
+    "authorized_phase": "A",
+    "phase_a_executed": false,
+    "phase_b_executed": false
   }
 }
