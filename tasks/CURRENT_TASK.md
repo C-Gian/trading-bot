@@ -4,8 +4,7 @@ Status: NO_NEW_MARKET_TRIAL_AUTHORIZED
 
 ## Strategic authority
 
-This work package translates the Owner's clarified product objective and
-`ASTRA_TRADING_BOT_STRATEGIC_OPERATING_DIRECTIVE_V1` (25 September 2026) into repository truth.
+This work package translates the Owner's clarified product objective, `ASTRA_TRADING_BOT_STRATEGIC_OPERATING_DIRECTIVE_V2` (25 September 2026), and the subsequent historical evidence-salvage audit into repository truth. V2 is the current strategic authority; V1 is historical context.
 
 Decision hierarchy for this phase:
 
@@ -268,40 +267,59 @@ It must NOT merely be:
 - marginal OI/funding prediction with a new label;
 - an exposed old fixed-barrier target under another model.
 
-## Narrow candidate-admission review
+## Candidate #1 lineage result already established
 
-Inspect only the smallest relevant records needed to decide novelty and data/timing feasibility:
+The historical evidence-salvage audit completed the eight-dimension lineage comparison and classified Candidate #1 as:
 
-- old pullback core/confirmation signatures and actual target/payoff;
-- old order-flow core/price-response signatures;
-- relevant funding/internal definitions/results;
-- relevant OI feature/target/source definitions;
-- positioning/OI source timing and admissibility records;
-- append-only family outcomes and no-rescue restrictions.
+`DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED`
+
+Do not repeat the broad novelty audit. Record this result and its historical parents. The candidate is not yet admitted for market execution; source/support admission remains pending.
+
+Record separate programme descriptors:
+
+- allocation posture: `LATE_STAGE_WITHIN_CURRENT_ENVELOPE` / `RESEARCH_WARNING`;
+- scientific coverage: `MATURE_NEGATIVE_PREDICTOR_RESEARCH_WITH_LIMITED_PLAYBOOK_COVERAGE`.
+
+The first is a budget posture, not a claim that most trading mechanisms are disproven. The second does not expand the research budget.
+
+## Remaining candidate-admission review
+
+Inspect only the smallest relevant records needed to decide source/support feasibility:
+
+- existing data manifests and cache/provenance records for spot, USD-M and OI;
+- the existing OI quantity/source timing and admissibility contracts;
+- candidate-specific overlap of admissible OI with synchronized spot/perpetual traded-price data;
+- OI missingness/discontinuity behavior relevant to stress events;
+- the unresolved publication/arrival-latency assumption;
+- the minimal synchronized traded perpetual/spot relative-price transformation needed by the candidate;
+- practical event/common-support feasibility without inspecting candidate performance outcomes.
+
+Carry forward the prior OI eligibility restriction: existing manifests contain earlier rows, but prior evaluation admitted 2022-2024 folds; earlier records are not automatically admissible.
+
+Reuse existing source parsers, manifests, completed-bar/as-of primitives, cost/accounting engine, inference utilities and evidence infrastructure. Do not rebuild general infrastructure.
 
 Do NOT inspect new market outcomes.
 Do NOT execute a backtest.
 Do NOT fetch post-cutoff/protected BTC data.
 Do NOT design a second candidate.
 
-Produce a compact comparison covering:
+Produce a compact admission record covering:
 
-- mechanism;
-- event trigger;
-- conditioning state;
-- information/timing;
-- comparator/control;
-- payoff/holding semantics;
-- lineage overlap;
-- remaining unanswered claim.
+- available cached/manifed source assets and exact usable intersection;
+- OI quantity/unit integrity, synchronization, missingness and discontinuity checks;
+- defensible information-availability/latency assumption;
+- exact traded-perpetual versus traded-spot relative-price concept;
+- practical event/support feasibility;
+- reusable existing infrastructure versus minimal new work;
+- remaining blockers, if any.
 
 Admission dispositions:
 
-- clearly distinct + source/timing feasible -> record admission for **PROTOCOL DESIGN ONLY**;
-- duplicate/exhausted or source/timing infeasible -> record rejection/blocked disposition and close
-  the candidate;
-- materially ambiguous novelty -> stop with **ASTRA_ESCALATION_REQUIRED** and state the exact
-  ambiguity.
+- source/timing/support feasible -> record **CANDIDATE_1_ADMITTED_FOR_PROTOCOL_DESIGN**;
+- source/timing/support infeasible -> record rejection/blocked disposition and close the candidate;
+- a material new scientific/source assumption beyond V2 -> stop with **ASTRA_ESCALATION_REQUIRED** and state the exact ambiguity.
+
+Lineage novelty itself is no longer the open question; it has already been adjudicated as distinct but heavily prior-constrained.
 
 Even an admitted candidate does NOT authorize market execution in this task.
 
