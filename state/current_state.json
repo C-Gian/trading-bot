@@ -2810,7 +2810,7 @@
     ],
     "astra_decision": "ASTRA_PROFESSIONAL_TRADING_SYSTEM_STRATEGIC_ARCHITECTURE_V1",
     "constitution_version": "4.0",
-    "disposition": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
+    "disposition": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
     "active_alpha_allocation": 1,
     "active_candidate": null,
     "candidate_1": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
@@ -2861,6 +2861,8 @@
     "closure_artifact": "reports/checkpoints/FINAL-PARKED-STATE-RECONCILIATION-V1.md",
     "preservation_manifest": "reports/handover/PARKED-STATE-PRESERVATION-MANIFEST-V1.md",
     "active_system_generation": "SYSTEM_G1",
-    "architecture": "docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md"
+    "architecture": "docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md",
+    "strategic_disposition": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
+    "operational_compatibility_note": "Temporary fail-closed compatibility: legacy app checks disposition==PARKED. Checkpoint 1 must migrate the action guard to validated_strategy/operational authorization, then promote disposition to strategic_disposition."
   }
 }
