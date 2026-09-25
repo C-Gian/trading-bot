@@ -1,31 +1,65 @@
-# CURRENT TASK — RESEARCH-DIRECTOR-ADJUDICATION-CANDIDATE-1-DEVELOPMENT-V1
+# CURRENT TASK — ASTRA-STRATEGIC-REALLOCATION-OR-PARK-REVIEW
 
-Status: BLOCKED_PENDING_RESEARCH_DIRECTOR_ADJUDICATION — EXECUTOR WORK FORBIDDEN
+Status: STRONG_STOP_PENDING_ASTRA — EXECUTOR WORK FORBIDDEN
 
-## Context
+## Canonical decision
 
-- The single authorized Candidate #1 Development execution (ADR-0040) ran once.
-- Result: `research/experiments/CANDIDATE-1-DEVELOPMENT-V1/result.json`; checkpoint
-  `reports/checkpoints/EXECUTE-CANDIDATE-1-DEVELOPMENT-V1.md`; provenance and replay
-  `reports/validation/CANDIDATE-1-DEVELOPMENT-V1-PROVENANCE.json`; search-memory outcome
-  `research/memory/registry/outcomes/CANDIDATE-1-DEVELOPMENT-V1.jsonl`.
-- Mechanical Development disposition: `DEVELOPMENT_REJECTED` (recorded, not adjudicated).
-- State: `CANDIDATE_1_DEVELOPMENT_RESULT_PENDING_RESEARCH_DIRECTOR_ADJUDICATION`; execution
-  authorization removed; Development executions 1 of 1.
+Research Director adjudication:
 
-## Required decision (Research Director)
+`DEVELOPMENT_REJECTED`
 
-Adjudicate the Development checkpoint under `research/protocols/CANDIDATE-1-DEVELOPMENT-V1.md`
-§15 and record the resulting project state. Any strategic reallocation or Astra escalation is a
-separate decision.
+Decision record:
+
+`decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md`
+
+Candidate #1 is closed under the current allocation.
+
+The frozen Development result is:
+
+`research/experiments/CANDIDATE-1-DEVELOPMENT-V1/result.json`
+
+Canonical result sha256:
+
+`4a5d6f39d4c41157a12b79b3f38d9122e3ed0f4d99e38bd6cfce4d7d3dc7e866`
+
+## Project state
+
+`STRONG_STOP_PENDING_ASTRA`
+
+The current one-card alpha allocation is exhausted.
+
+Candidate Card #2 is not allocated.
+
+No successor, rescue, new source family, Frontier R&D branch, prospective confirmation, Champion
+designation or real-money action is authorized.
 
 ## Executor instruction
 
-No executor work is authorized.
+No Claude Code work is authorized.
 
-- No rerun, variant, alternate horizon, stop, target, filter, subgroup, cost or delay.
-- No further Candidate #1 market experiment; no Candidate #2 or successor.
-- No prospective confirmation preparation, Champion designation or real-money action.
-- No new market data; no post-cutoff or sealed access.
+Do not:
 
-Sealed queries 0. Champion NONE. Real money false.
+- rerun Candidate #1;
+- inspect alternate Candidate #1 horizons, filters, thresholds, costs, subgroups or exits;
+- create Candidate #2;
+- acquire new market data;
+- open a new model/source search;
+- access post-cutoff or sealed data;
+- prepare prospective confirmation;
+- modify strategic allocation.
+
+## Required next decision
+
+Astra strategic review must decide one of the following broad paths:
+
+1. `PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS`; or
+2. one specifically justified, genuinely distinct remaining allocation with superior expected
+   information value under the existing product/resource envelope; or
+3. a material product/resource change requiring the appropriate Owner decision.
+
+The default under Strategic Directive V2 is parking unless a compelling remaining case is identified.
+
+Research Director may prepare the strategic evidence packet and Astra prompt, but may not allocate a
+new market experiment independently.
+
+Champion NONE. Sealed queries 0. Real money false.
