@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "EXECUTE-CANDIDATE-1-DEVELOPMENT-V1",
+  "latest_executor_checkpoint": "FINAL-PARKED-STATE-RECONCILIATION-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -458,7 +458,7 @@
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
     "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
+  "latest_reviewed_checkpoint": "EXECUTE-CANDIDATE-1-DEVELOPMENT-V1",
   "legacy_research_generation": {
     "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
     "aligned_historical_results_changed": false,
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH-DIRECTOR-ADJUDICATION-CANDIDATE-1-DEVELOPMENT-V1",
+  "next_recommended_work_package": "PARKED-NO-ACTIVE-RESEARCH-TASK",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -2225,7 +2225,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "RESEARCH_DIRECTOR_ADJUDICATION_CANDIDATE_1_DEVELOPMENT_V1",
+    "next_checkpoint": "PARKED_NO_ACTIVE_RESEARCH_TASK",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "FREE_PUBLIC_EXCHANGE_NATIVE_HORIZON_FOUNDATION",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
@@ -2680,15 +2680,16 @@
   },
   "governance_transition_v3": {
     "checkpoint": "GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1",
-    "checkpoint_report": "reports/checkpoints/EXECUTE-CANDIDATE-1-DEVELOPMENT-V1.md",
-    "status": "RESEARCH_DIRECTOR_ADJUDICATED_STRONG_STOP_PENDING_ASTRA",
+    "checkpoint_report": "reports/checkpoints/FINAL-PARKED-STATE-RECONCILIATION-V1.md",
+    "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
     "decision_records": [
       "decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md",
       "decisions/ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md",
       "decisions/ADR-0038-CANDIDATE-1-ADMITTED-FOR-PROTOCOL-DESIGN.md",
       "decisions/ADR-0039-CANDIDATE-1-DEVELOPMENT-PROTOCOL-FREEZE.md",
       "decisions/ADR-0040-CANDIDATE-1-DEVELOPMENT-EXECUTION-AUTHORIZATION.md",
-      "decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md"
+      "decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md",
+      "decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md"
     ],
     "authorized_by": "OWNER",
     "authorized_on": "2026-09-25",
@@ -2729,7 +2730,7 @@
     ],
     "allocation_posture": [
       "LATE_STAGE_WITHIN_CURRENT_ENVELOPE",
-      "STRONG_STOP_PENDING_ASTRA"
+      "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS"
     ],
     "scientific_coverage": "MATURE_NEGATIVE_PREDICTOR_RESEARCH_WITH_LIMITED_PLAYBOOK_COVERAGE",
     "candidate_card_2_allocated": false,
@@ -2739,8 +2740,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,
@@ -2793,9 +2794,71 @@
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
-    "archived_task": "tasks/archive/EXECUTE-CANDIDATE-1-DEVELOPMENT-V1.md",
+    "archived_task": "tasks/archive/FINAL-PARKED-STATE-RECONCILIATION-V1.md",
     "active_task": "tasks/CURRENT_TASK.md",
-    "next_work_package": "ASTRA-STRATEGIC-REALLOCATION-OR-PARK-REVIEW",
-    "project_state": "STRONG_STOP_PENDING_ASTRA"
+    "next_work_package": "PARKED-NO-ACTIVE-RESEARCH-TASK",
+    "project_state": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
+    "latest_reviewed_checkpoint_report": "reports/checkpoints/EXECUTE-CANDIDATE-1-DEVELOPMENT-V1.md"
+  },
+  "current_project_status": {
+    "precedence": "CANONICAL_CURRENT_STATUS_OVERRIDES_EVERY_HISTORICAL_TOP_LEVEL_FIELD",
+    "authority": [
+      "decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md",
+      "decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md"
+    ],
+    "astra_decision": "ASTRA_POST_CANDIDATE_1_STRATEGIC_REALLOCATION_OR_PARK_2026-09",
+    "constitution_version": "3.0",
+    "disposition": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
+    "active_alpha_allocation": 0,
+    "active_candidate": null,
+    "candidate_1": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
+    "candidate_2": "UNALLOCATED",
+    "validated_strategy": null,
+    "operational_action_output": "NO_TRADE",
+    "market_trial_authorized": false,
+    "confirmation_authorized": false,
+    "prospective_collection_authorized": false,
+    "research_task_active": false,
+    "automatic_next_research_package": null,
+    "champion_status": "NONE",
+    "real_money_authorized": false,
+    "sealed_queries": 0,
+    "reopening": {
+      "rule": "decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md#reopening-triggers",
+      "requires": [
+        "WRITTEN_REOPENING_DOSSIER_MATERIAL_CHANGED_CASE",
+        "ASTRA_STRATEGIC_APPROVAL"
+      ],
+      "owner_approval_required_for_material_product_risk_resource_change": true,
+      "owner_decision_required_for_real_capital": true
+    },
+    "disabled_action_paths": [
+      "POST /api/v1/product/analysis -> PARKED NO_TRADE without strategy evaluation",
+      "POST /api/v1/product/paper-trades -> 409",
+      "POST /api/v1/research/runner/runs -> 409"
+    ],
+    "active_project_internal_alpha_schedules": [],
+    "historical_top_level_fields": [
+      "project_phase",
+      "primary_research_phase",
+      "historical_discovery_status",
+      "status",
+      "latest_executor_checkpoint",
+      "latest_reviewed_checkpoint",
+      "next_recommended_work_package",
+      "selected_family",
+      "latest_family",
+      "product_analysis",
+      "paper_trading",
+      "prospective_collection",
+      "prospective_collection_operating_policy",
+      "prospective_shadow_observer",
+      "research_architecture",
+      "research_runner",
+      "predictive_research_objective",
+      "predictive_generation_v2_objective"
+    ],
+    "closure_artifact": "reports/checkpoints/FINAL-PARKED-STATE-RECONCILIATION-V1.md",
+    "preservation_manifest": "reports/handover/PARKED-STATE-PRESERVATION-MANIFEST-V1.md"
   }
 }

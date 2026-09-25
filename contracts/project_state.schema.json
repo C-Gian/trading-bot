@@ -9429,6 +9429,7 @@
         "status": {
           "enum": [
             "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+            "RESEARCH_DIRECTOR_ADJUDICATED_STRONG_STOP_PENDING_ASTRA",
             "RESEARCH_DIRECTOR_DEVELOPMENT_EXECUTION_AUTHORIZED",
             "REVIEWED"
           ]
@@ -9574,7 +9575,11 @@
               "const": "LATE_STAGE_WITHIN_CURRENT_ENVELOPE"
             },
             {
-              "const": "RESEARCH_WARNING"
+              "enum": [
+                "RESEARCH_WARNING",
+                "STRONG_STOP_PENDING_ASTRA",
+                "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS"
+              ]
             }
           ]
         },
@@ -9690,7 +9695,8 @@
               "enum": [
                 "PENDING_FROZEN_ADMISSION_CALCULATION",
                 "CANDIDATE_1_ADMITTED_FOR_PROTOCOL_DESIGN",
-                "CANDIDATE_1_CLOSED_CURRENT_ALLOCATION_SUPPORT_OR_FEASIBILITY"
+                "CANDIDATE_1_CLOSED_CURRENT_ALLOCATION_SUPPORT_OR_FEASIBILITY",
+                "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED"
               ]
             },
             "result_decision_record": {
@@ -9755,6 +9761,7 @@
                 },
                 "status": {
                   "enum": [
+                    "CANDIDATE_1_DEVELOPMENT_ADJUDICATED_REJECTED",
                     "CANDIDATE_1_DEVELOPMENT_EXECUTION_AUTHORIZED",
                     "CANDIDATE_1_DEVELOPMENT_RESULT_PENDING_RESEARCH_DIRECTOR_ADJUDICATION",
                     "CANDIDATE_1_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_AUTHORIZATION",
@@ -9800,8 +9807,12 @@
                 "adjudication": {
                   "enum": [
                     "PENDING_RESEARCH_DIRECTOR",
+                    "RESEARCH_DIRECTOR_ACCEPTED_DEVELOPMENT_REJECTED",
                     "RESEARCH_DIRECTOR_ADJUDICATED"
                   ]
+                },
+                "adjudication_decision": {
+                  "const": "decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md"
                 }
               }
             }
@@ -9845,8 +9856,141 @@
             "STRONG_STOP_PENDING_ASTRA",
             "CANDIDATE_1_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_AUTHORIZATION",
             "CANDIDATE_1_DEVELOPMENT_EXECUTION_AUTHORIZED",
-            "CANDIDATE_1_DEVELOPMENT_RESULT_PENDING_RESEARCH_DIRECTOR_ADJUDICATION"
+            "CANDIDATE_1_DEVELOPMENT_RESULT_PENDING_RESEARCH_DIRECTOR_ADJUDICATION",
+            "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS"
           ]
+        },
+        "latest_reviewed_checkpoint_report": {
+          "pattern": "^reports/checkpoints/[A-Z0-9_.-]+\\.md$",
+          "type": "string"
+        }
+      }
+    },
+    "current_project_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "precedence",
+        "authority",
+        "astra_decision",
+        "constitution_version",
+        "disposition",
+        "active_alpha_allocation",
+        "active_candidate",
+        "candidate_1",
+        "candidate_2",
+        "validated_strategy",
+        "operational_action_output",
+        "market_trial_authorized",
+        "confirmation_authorized",
+        "prospective_collection_authorized",
+        "research_task_active",
+        "automatic_next_research_package",
+        "champion_status",
+        "real_money_authorized",
+        "sealed_queries",
+        "reopening",
+        "disabled_action_paths",
+        "active_project_internal_alpha_schedules",
+        "historical_top_level_fields",
+        "closure_artifact",
+        "preservation_manifest"
+      ],
+      "properties": {
+        "precedence": {
+          "const": "CANONICAL_CURRENT_STATUS_OVERRIDES_EVERY_HISTORICAL_TOP_LEVEL_FIELD"
+        },
+        "authority": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "pattern": "^decisions/ADR-[0-9]{4}-[A-Z0-9-]+\\.md$",
+            "type": "string"
+          }
+        },
+        "astra_decision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "constitution_version": {
+          "const": "3.0"
+        },
+        "disposition": {
+          "enum": [
+            "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
+            "ACTIVE_ALLOCATION"
+          ]
+        },
+        "active_alpha_allocation": {
+          "const": 0
+        },
+        "active_candidate": {
+          "type": "null"
+        },
+        "candidate_1": {
+          "const": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED"
+        },
+        "candidate_2": {
+          "const": "UNALLOCATED"
+        },
+        "validated_strategy": {
+          "type": "null"
+        },
+        "operational_action_output": {
+          "const": "NO_TRADE"
+        },
+        "market_trial_authorized": {
+          "const": false
+        },
+        "confirmation_authorized": {
+          "const": false
+        },
+        "prospective_collection_authorized": {
+          "const": false
+        },
+        "research_task_active": {
+          "const": false
+        },
+        "automatic_next_research_package": {
+          "type": "null"
+        },
+        "champion_status": {
+          "const": "NONE"
+        },
+        "real_money_authorized": {
+          "const": false
+        },
+        "sealed_queries": {
+          "const": 0
+        },
+        "reopening": {
+          "type": "object"
+        },
+        "disabled_action_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "active_project_internal_alpha_schedules": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "historical_top_level_fields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "closure_artifact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "preservation_manifest": {
+          "type": "string",
+          "minLength": 1
         }
       }
     }
@@ -9914,7 +10058,8 @@
     "chat_handover",
     "predictive_public_taker_flow_horizon_foundation",
     "predictive_public_taker_flow_1h_incremental",
-    "governance_transition_v3"
+    "governance_transition_v3",
+    "current_project_status"
   ],
   "type": "object"
 }

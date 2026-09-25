@@ -1,5 +1,28 @@
 # AGENTS.md — Trading Bot Operating Protocol
 
+## Current operative status — read before anything else
+
+Alpha research is **parked**:
+`PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS`
+([ADR-0042](decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md); Candidate #1 closed as
+`CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED`, [ADR-0041](decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md)).
+The canonical machine-readable truth is `state/current_state.json` → `current_project_status`,
+which takes precedence over every historical top-level field it lists (old prediction-first,
+ALIGNED, selected-family, phase, runner and prospective-collection values are history, not
+instructions).
+
+- Active alpha allocation is zero; there is no active Candidate and Candidate Card #2 is
+  unallocated.
+- No Candidate, model, source, feature, horizon, R&D, confirmation or prospective-collection work
+  is authorized, and no old roadmap, generation or lineage may be resumed.
+- `NO_TRADE` is the honest current action output; the app reports parked / no validated
+  strategy.
+- A new market-research allocation requires a written reopening dossier establishing a material
+  changed case (ADR-0042 triggers) **and** Astra approval. A material product, risk or resource
+  scope change may also require Owner approval.
+- Real capital remains forbidden without a separate explicit Owner authorization.
+- `tasks/CURRENT_TASK.md` is `PARKED-NO-ACTIVE-RESEARCH-TASK`: there is no executor work.
+
 ## Mission
 
 Trading Bot is a research-first project intended to become a practical, reproducible BTC

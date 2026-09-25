@@ -62,6 +62,8 @@ PREDICTIVE_EXPERIMENTS = {
 # `state.governance_transition_v3` (ADR-0040); they are neither legacy cost-expectancy nor
 # predictive experiments.
 PLAYBOOK_EXPERIMENTS = {"CANDIDATE-1-DEVELOPMENT-V1"}
+# ADR-0042: the definitive parked alpha-research disposition.
+PARKED = "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS"
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
     "__init__.py",
@@ -3396,7 +3398,8 @@ def governance_transition_v3_checks(state: dict) -> None:
         "CLOSED / NO HISTORICAL RESCUE",
         "SHARED CONTEXT ONLY",
         "ELIGIBLE FOR BOUNDED PLAYBOOK RESEARCH",
-        "CURRENT PRIORITY — ADMISSION ONLY",
+        "CLOSED — DEVELOPMENT_REJECTED; NO ORDINARY RESCUE",
+        "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
         "RESERVE; EXISTING RESULTS CLOSED",
         "SHARED INPUTS ONLY FOR AN ADMITTED MECHANISM",
         "SHARED CONTEXT / RISK ONLY",
@@ -3446,13 +3449,20 @@ def governance_transition_v3_checks(state: dict) -> None:
     assert admission["post_cutoff_data_accessed"] is False
     assert admission["protocol"] == candidate["frozen_specification"]
     assert candidate["gates"] == admission["gates"]
-    assert candidate["disposition"] == admission["disposition"]
-    # Admission fixes the entry state; an admitted candidate may then advance through
-    # its frozen Development stages (ADR-0039).
-    assert record["project_state"] == admission["project_state"] or (
+    # Admission fixes the entry state; an admitted candidate may then advance through its
+    # frozen Development stages (ADR-0039) and, once rejected, close (ADR-0041) and park the
+    # project (ADR-0042). The admission record itself never changes.
+    development = candidate.get("development", {})
+    closed = (
         admission["disposition"] == "CANDIDATE_1_ADMITTED_FOR_PROTOCOL_DESIGN"
-        and "development" in candidate
-        and record["project_state"] == candidate["development"]["status"]
+        and development.get("development_disposition") == "DEVELOPMENT_REJECTED"
+        and candidate["disposition"] == "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED"
+    )
+    assert candidate["disposition"] == admission["disposition"] or closed
+    assert (
+        record["project_state"] == admission["project_state"]
+        or record["project_state"] == development.get("status")
+        or (closed and record["project_state"] in {"STRONG_STOP_PENDING_ASTRA", PARKED})
     )
     assert (ROOT / candidate["result_decision_record"]).is_file()
     assert candidate["result_decision_record"] in record["decision_records"]
@@ -3460,12 +3470,57 @@ def governance_transition_v3_checks(state: dict) -> None:
         text = (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
         assert hashlib.sha256(text).hexdigest() == digest, path
     if all(admission["gates"].values()):
-        assert candidate["disposition"] == "CANDIDATE_1_ADMITTED_FOR_PROTOCOL_DESIGN"
+        assert candidate["disposition"] in {
+            "CANDIDATE_1_ADMITTED_FOR_PROTOCOL_DESIGN",
+            "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
+        }
     else:
         assert candidate["disposition"] == (
             "CANDIDATE_1_CLOSED_CURRENT_ALLOCATION_SUPPORT_OR_FEASIBILITY"
         )
         assert record["project_state"] == "STRONG_STOP_PENDING_ASTRA"
+
+
+def parked_state_checks(state: dict) -> None:
+    """ADR-0042: the parked state is canonical, fail-closed and leaves no active research."""
+    from app.main import create_app
+    from fastapi.testclient import TestClient
+
+    current = state["current_project_status"]
+    if current["disposition"] != PARKED:
+        return
+    record = state["governance_transition_v3"]
+    assert record["project_state"] == PARKED
+    assert record["candidate_1"]["disposition"] == current["candidate_1"]
+    assert record["candidate_card_2_allocated"] is False
+    assert record["market_trial_authorized"] is False
+    assert record["candidate_1"]["development"]["execution_authorized"] is False
+    assert state["champion_status"] == "NONE" and state["real_money_authorized"] is False
+    for path in (
+        *current["authority"],
+        current["closure_artifact"],
+        current["preservation_manifest"],
+    ):
+        assert (ROOT / path).is_file(), path
+    for field in current["historical_top_level_fields"]:
+        assert field in state, field
+    task = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
+    assert task.startswith("# CURRENT TASK — PARKED-NO-ACTIVE-RESEARCH-TASK")
+    for text in (
+        (ROOT / "AGENTS.md").read_text(encoding="utf-8"),
+        (ROOT / "docs/operations/NEW_CHAT_BOOTSTRAP.md").read_text(encoding="utf-8"),
+    ):
+        assert PARKED in text
+    # The action surface fails closed: NO_TRADE, no paper trade, no research run.
+    client = TestClient(create_app(analyser=lambda: {"decision": "LONG"}))
+    analysis = client.post("/api/v1/product/analysis").json()
+    assert analysis["decision"] == "NO_TRADE" and analysis["plan"] is None
+    assert analysis["data_status"] == "RESEARCH_PARKED"
+    assert client.post("/api/v1/product/paper-trades").status_code == 409
+    run = client.post(
+        "/api/v1/research/runner/runs", json={"candidate_id": "WP015_REPRODUCTION_V1"}
+    )
+    assert run.status_code == 409
 
 
 def candidate_1_development_checks(record: dict, development: dict) -> None:
@@ -4126,6 +4181,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_internal_selective_checks(state)
     predictive_public_taker_flow_checks(state)
     governance_transition_v3_checks(state)
+    parked_state_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",

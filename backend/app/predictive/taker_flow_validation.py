@@ -474,6 +474,10 @@ def _governance_pointers(root: Path, state: dict[str, Any]) -> dict[str, str]:
     executor = report.stem
     if record["status"] == "REVIEWED":
         reviewed = executor
+    elif "latest_reviewed_checkpoint_report" in record:
+        reviewed_report = root / record["latest_reviewed_checkpoint_report"]
+        require(reviewed_report.is_file(), "the latest reviewed checkpoint report is missing")
+        reviewed = reviewed_report.stem
     else:
         previous = state[INCREMENTAL_KEY]
         require(previous["status"] == INCREMENTAL_POWER_BLOCKED, "no prior reviewed checkpoint")

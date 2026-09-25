@@ -246,7 +246,11 @@ def test_top_level_pointers_are_derived_from_records() -> None:
     # the power-gate checkpoint stays the latest reviewed one until the transition is reviewed.
     governance = state["governance_transition_v3"]
     assert pointers["latest_executor_checkpoint"] == (Path(governance["checkpoint_report"]).stem)
-    if governance["status"] != "REVIEWED":
+    if "latest_reviewed_checkpoint_report" in governance:
+        assert pointers["latest_reviewed_checkpoint"] == (
+            Path(governance["latest_reviewed_checkpoint_report"]).stem
+        )
+    elif governance["status"] != "REVIEWED":
         assert pointers["latest_reviewed_checkpoint"] == (
             "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1"
         )
