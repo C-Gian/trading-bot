@@ -53,3 +53,5 @@
 - [ADR-0045 — Accept G1 Checkpoint 1 and freeze cycle quality gate](ADR-0045-ACCEPT-G1-CHECKPOINT-1-AND-FREEZE-CYCLE-QUALITY-GATE.md)
 
 - [ADR-0046 — Accept G1 cycle quality and activate cycle component](ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md)
+
+- [ADR-0047 — G1 implementation review: incomplete-bar correction required](ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md)
