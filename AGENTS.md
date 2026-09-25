@@ -1,14 +1,18 @@
-## CURRENT OWNER MISSION OVERRIDE — 2026-09-25
+## CURRENT SYSTEM G1 AUTHORITY — 2026-09-25
 
-Before treating the parked LONG/NO_TRADE programme as the current product mission, read
-`docs/canonical/OWNER_PRODUCT_MISSION_V2.md` and ADR-0043.
+Active Constitution: Version 4.0.
 
-The Owner has changed the intended V1 to a professional multi-signal BTC paper-trading system with
-continuous candle predictions and selective `LONG / SHORT / NO_TRADE` decisions, live dashboard,
-multi-timeframe/cyclical context and visual historical replay.
+Read `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`, ADR-0044 and
+`docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md`.
 
-The old parked state remains binding evidence for the narrower predecessor programme. No new market
-work is authorized until Astra completes the strategic redesign in `tasks/CURRENT_TASK.md`.
+The current bounded programme is System G1: continuous 15m predictions, selective
+LONG/SHORT/NO_TRADE paper decisions, exactly two initial playbooks, shared multi-timeframe state and
+causal replay.
+
+The predecessor ADR-0042 parked decision and Candidate #1 rejection remain historical evidence.
+
+No historical System G1 market-performance run is authorized until a later Research Director task.
+The current task is synthetic/causal implementation only.
 
 # AGENTS.md — Trading Bot Operating Protocol
 
