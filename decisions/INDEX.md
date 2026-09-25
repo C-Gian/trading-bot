@@ -49,3 +49,5 @@
 - [ADR-0043 — Owner professional multi-signal LONG/SHORT mission reset](ADR-0043-OWNER-PROFESSIONAL-MULTISIGNAL-LONG-SHORT-MISSION.md)
 
 - [ADR-0044 — Adopt System G1 professional multi-signal architecture](ADR-0044-ADOPT-SYSTEM-G1-PROFESSIONAL-MULTISIGNAL-ARCHITECTURE.md)
+
+- [ADR-0045 — Accept G1 Checkpoint 1 and freeze cycle quality gate](ADR-0045-ACCEPT-G1-CHECKPOINT-1-AND-FREEZE-CYCLE-QUALITY-GATE.md)
