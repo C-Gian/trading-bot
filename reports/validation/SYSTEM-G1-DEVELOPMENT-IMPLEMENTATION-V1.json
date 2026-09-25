@@ -6,7 +6,7 @@
     "backend/app/backtest/models.py": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845",
     "backend/app/g1/__init__.py": "340702f533fc3aa0d1af6b9d027701cee2842eaf02272b148a7877d83280b266",
     "backend/app/g1/bars.py": "7ceafd3fd1329e214f2e15cb7e0d29e8bc36b57f35a7c3b109d484eac89e74ee",
-    "backend/app/g1/batch.py": "afdd8aea2b5a5d430b6f588a5944c27d0bd38221dc36011f7aa17825b3c784f3",
+    "backend/app/g1/batch.py": "d66e12969a4178864b515b57c79d82a18305832806d4aef1f4023bdaf256d8c1",
     "backend/app/g1/canonical.py": "f6ece4db6ea444a8b3dddac97bfb597128806667f13d35b01dbefd3f6a250ebb",
     "backend/app/g1/cycle.py": "adcd909ad3d10cd607ed09d219bf74975a4c172e1d8670b58c99689f65f1baa6",
     "backend/app/g1/development.py": "b7d28dcec55e7c79454f4b3940cc433d3aecf116bf7a882317b5ad31efb986b8",
@@ -16,7 +16,7 @@
     "backend/app/g1/playbooks.py": "f2a32150c69799aebf9925a762a6f5c3be0a0e19a9a0a90ac40f191968628644",
     "backend/app/g1/records.py": "c3ab5e76b3c764d549cfc7baba9ff4a862e0d90193f2fe39af36e97407501c66",
     "backend/app/g1/scoring.py": "ca66c948aad9659b1e95a48121308d6fda9adc66aa0c9541693be9179f4fa775",
-    "backend/app/g1/sources.py": "6e6006785a8ded2ccbfba01165608cf6cf46a61b22f1773b56660be843deb4c5",
+    "backend/app/g1/sources.py": "c04d4d128f606740bf56e92d948056c72f533b0a8be538e18613650f3b06b3e0",
     "backend/app/g1/store.py": "5e2b2d67c6b61be0958cd019e4aa2415264b66758c10d6671f3f65a56413f284"
   },
   "configuration_identity": "fcea9697dd95a2a93e601a15fe1febdb4322326bf7a48963579a1b0b6a633231",
@@ -94,6 +94,17 @@
       ],
       "tests": "backend/tests/test_g1_incomplete_bar_fix.py",
       "work_package": "FIX-SYSTEM-G1-INCOMPLETE-BAR-RECURSIVE-STATE-V1"
+    },
+    {
+      "change": "execution safety only: the guard takes the requested phase and refuses unless authorized_phase matches; a handle opened for one phase cannot drive the other; no scientific behavior changed",
+      "decision": "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
+      "files": [
+        "backend/app/g1/batch.py",
+        "backend/app/g1/sources.py",
+        "scripts/run_g1_development.py"
+      ],
+      "tests": "backend/tests/test_g1_dev_engine_and_guard.py",
+      "work_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1"
     }
   ],
   "decision": "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
@@ -264,7 +275,7 @@
       "backend/tests/test_g1_api_and_isolation.py": 7,
       "backend/tests/test_g1_cycle_quality_gate.py": 9,
       "backend/tests/test_g1_dev_cycle_and_indicators.py": 19,
-      "backend/tests/test_g1_dev_engine_and_guard.py": 13,
+      "backend/tests/test_g1_dev_engine_and_guard.py": 21,
       "backend/tests/test_g1_dev_forecaster_scoring.py": 14,
       "backend/tests/test_g1_dev_playbooks.py": 23,
       "backend/tests/test_g1_incomplete_bar_fix.py": 8,
@@ -274,7 +285,7 @@
       "backend/tests/test_g1_replay.py": 7,
       "frontend/src/Replay.test.tsx": 6
     },
-    "total": 155
+    "total": 163
   },
   "validated_strategy": null,
   "windows": {

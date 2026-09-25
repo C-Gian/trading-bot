@@ -28,7 +28,7 @@ def main() -> None:
     parser.add_argument("--phase", choices=("A", "B"), required=True)
     options = parser.parse_args()
     try:
-        source = authorize_real_sources(ROOT)
+        source = authorize_real_sources(options.phase, ROOT)
     except ExecutionNotAuthorized as exc:
         raise SystemExit(f"REFUSED: {exc}") from exc
     runner = run_phase_a if options.phase == "A" else run_phase_b

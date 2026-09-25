@@ -136,8 +136,17 @@ def execution_authorization(root: Path = ROOT) -> dict[str, Any]:
     return state.get(STATE_KEY, {})
 
 
-def authorize_real_sources(root: Path = ROOT) -> Any:
-    """The only path to real observations. Refuses unless state explicitly authorizes the batch."""
+PHASES = ("A", "B")
+
+
+def authorize_real_sources(phase: str, root: Path = ROOT) -> Any:
+    """The only path to real observations, scoped to one requested phase (ADR-0048).
+
+    Refuses unless the canonical state has `historical_execution_authorized is True`, an existing
+    `execution_authorization_record`, and `authorized_phase` equal to the requested phase.
+    """
+    if phase not in PHASES:
+        raise ExecutionNotAuthorized(f"unknown System G1 phase {phase!r}")
     record = execution_authorization(root)
     decision = record.get("execution_authorization_record")
     if record.get("historical_execution_authorized") is not True or not decision:
@@ -146,9 +155,19 @@ def authorize_real_sources(root: Path = ROOT) -> Any:
         )
     if not (root / decision).is_file():
         raise ExecutionNotAuthorized(f"authorization record {decision} does not exist")
+    if record.get("authorized_phase") != phase:
+        raise ExecutionNotAuthorized(
+            f"phase {phase} is not authorized (authorized_phase={record.get('authorized_phase')!r})"
+        )
     from .sources import RealSourceHandle
 
-    return RealSourceHandle(root, decision, GUARD_TOKEN)
+    return RealSourceHandle(root, decision, GUARD_TOKEN, phase)
+
+
+def _require_phase(source: Any, phase: str) -> None:
+    """A real handle opened for one phase can never drive the other phase."""
+    if not isinstance(source, SyntheticSource) and getattr(source, "phase", None) != phase:
+        raise ExecutionNotAuthorized(f"the real source handle was not authorized for phase {phase}")
 
 
 # ------------------------------------------------------------------ helpers
@@ -190,6 +209,11 @@ def _digest(payload: dict[str, Any]) -> str:
     return hashlib.sha256(
         json.dumps(to_plain(body), sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
+
+
+def artifact_digest(payload: dict[str, Any]) -> str:
+    """Deterministic verification of a write-once phase artifact's self-hash."""
+    return _digest(payload)
 
 
 def _write_once(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
@@ -264,6 +288,7 @@ def write_selection(
 
 
 def run_phase_a(source: Any, out_dir: Path, root: Path = ROOT) -> dict[str, Any]:
+    _require_phase(source, "A")
     out_dir = _output_dir(source, out_dir, root)
     if (out_dir / SELECTION_FILE).exists():
         raise StageLockError("Phase A has already been executed")
@@ -314,6 +339,7 @@ def run_phase_b(
     root: Path = ROOT,
     violations: Callable[[DevelopmentEngine], bool] = lambda engine: False,
 ) -> dict[str, Any]:
+    _require_phase(source, "B")
     out_dir = _output_dir(source, out_dir, root)
     if (out_dir / EVALUATION_FILE).exists():
         raise StageLockError("Phase B has already been executed")

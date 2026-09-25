@@ -163,13 +163,14 @@ def funding_minute(funding_time: datetime) -> datetime:
 class RealSourceHandle:
     """Opens real observations. Constructed only by the authorized batch guard."""
 
-    def __init__(self, root: Path, authorization: str, token: object) -> None:
+    def __init__(self, root: Path, authorization: str, token: object, phase: str) -> None:
         from . import batch
 
         if token is not batch.GUARD_TOKEN:
             raise PermissionError("real sources are reachable only through the execution guard")
         self.root = root
         self.authorization = authorization
+        self.phase = phase
         self.identity = binding_identity(root)
 
     def minutes(self) -> Iterator[Bar]:

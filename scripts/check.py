@@ -3557,7 +3557,12 @@ def system_g1_checks(state: dict) -> None:
     assert g1["cycle_active_in_decisions"] is False
     task = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert task.startswith(f"# CURRENT TASK — {g1['next_work_package']}")
-    assert "EXECUTOR MARKET WORK FORBIDDEN" in task
+    development = state["system_g1_development"]
+    if development["historical_execution_authorized"] is True:
+        # Only an explicitly armed, phase-scoped execution task may omit the review-only banner.
+        assert f"PHASE_{development['authorized_phase']}_ONLY_AUTHORIZED" in task
+    else:
+        assert "EXECUTOR MARKET WORK FORBIDDEN" in task
     validation = json.loads((ROOT / g1["implementation_validation"]).read_text(encoding="utf-8"))
     for claim in (
         "real_historical_g1_outcomes_inspected",
@@ -3620,15 +3625,12 @@ def system_g1_cycle_gate_checks(state: dict) -> None:
 
 
 def system_g1_development_checks(state: dict) -> None:
-    """IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1: frozen implementation identities; execution guarded."""
+    """G1 Development V1: frozen implementation identities; phase-scoped guard (ADR-0048)."""
     from app.g1 import batch
     from app.g1.playbooks import CONFIGURATIONS
     from app.g1.sources import binding_identity
 
     record = state["system_g1_development"]
-    assert record["status"] == (
-        "SYSTEM_G1_DEVELOPMENT_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_REVIEW"
-    )
     for path in (
         record["protocol"],
         record["decision_record"],
@@ -3642,13 +3644,6 @@ def system_g1_development_checks(state: dict) -> None:
         state["current_project_status"]["automatic_next_research_package"]
         == (record["next_work_package"])
     )
-    for claim in (
-        "historical_execution_authorized",
-        "real_g1_outcomes_inspected",
-        "forecaster_real_fitted",
-        "p1_p2_real_performance_computed",
-    ):
-        assert record[claim] is False, claim
     assert record["cycle_method"] == "ACTIVE_COMPONENT"
     assert tuple(record["configurations"]) == CONFIGURATIONS
     validation = json.loads(
@@ -3657,23 +3652,42 @@ def system_g1_development_checks(state: dict) -> None:
     assert validation["protocol_canonical_sha256"] == record["protocol_canonical_sha256"]
     assert validation["code_canonical_sha256"] == batch.code_identity(ROOT)
     assert validation["source_bindings"] == binding_identity(ROOT)
-    for claim in (
-        "real_historical_g1_outcomes_inspected",
-        "new_market_data_accessed",
-        "forecaster_real_fitted",
-        "p1_p2_real_performance_computed",
-        "historical_execution_authorized",
-    ):
-        assert validation[claim] is False, claim
-    # The guard refuses and no historical G1 result exists.
+    # Phase B has never run and is refused under the canonical state (ADR-0048).
+    assert record["phase_b_executed"] is False
+    assert not (ROOT / batch.RUN_DIR / batch.EVALUATION_FILE).exists()
     try:
-        batch.authorize_real_sources(ROOT)
+        batch.authorize_real_sources("B", ROOT)
     except batch.ExecutionNotAuthorized:
         pass
-    else:  # pragma: no cover - a state flip must come with its own reviewed checks
-        raise AssertionError("System G1 historical execution must remain unauthorized")
-    for name in (batch.SELECTION_FILE, batch.EVALUATION_FILE):
-        assert not (ROOT / batch.RUN_DIR / name).exists(), name
+    else:  # pragma: no cover - Phase B needs its own reviewed authorization and checks
+        raise AssertionError("System G1 Phase B must remain unauthorized")
+    selection = ROOT / batch.RUN_DIR / batch.SELECTION_FILE
+    if record["phase_a_executed"]:
+        # Disarmed after the single Phase-A run; the write-once artifact is intact.
+        assert record["historical_execution_authorized"] is False
+        assert record["authorized_phase"] is None
+        assert record["real_g1_outcomes_inspected"] is True
+        artifact = json.loads(selection.read_text(encoding="utf-8"))
+        assert artifact["artifact_sha256"] == batch.artifact_digest(artifact)
+        assert artifact["artifact_sha256"] == record["phase_a_artifact_sha256"]
+        assert artifact["configurations_inspected"] == list(CONFIGURATIONS)
+        assert artifact["evidence_class"] == batch.REAL_EVIDENCE
+        assert artifact["selected_configuration"] == record["phase_a_selected_configuration"]
+    else:
+        assert not selection.exists()
+        for claim in (
+            "real_g1_outcomes_inspected",
+            "forecaster_real_fitted",
+            "p1_p2_real_performance_computed",
+        ):
+            assert record[claim] is False, claim
+        if record["historical_execution_authorized"] is not True:
+            try:
+                batch.authorize_real_sources("A", ROOT)
+            except batch.ExecutionNotAuthorized:
+                pass
+            else:  # pragma: no cover
+                raise AssertionError("System G1 Phase A must be refused while disarmed")
 
 
 def candidate_1_development_checks(record: dict, development: dict) -> None:

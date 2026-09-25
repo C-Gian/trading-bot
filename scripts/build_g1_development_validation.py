@@ -29,7 +29,7 @@ SYNTHETIC_TESTS = {
     "backend/tests/test_g1_dev_cycle_and_indicators.py": 19,
     "backend/tests/test_g1_dev_playbooks.py": 23,
     "backend/tests/test_g1_dev_forecaster_scoring.py": 14,
-    "backend/tests/test_g1_dev_engine_and_guard.py": 13,
+    "backend/tests/test_g1_dev_engine_and_guard.py": 21,
     "backend/tests/test_g1_incomplete_bar_fix.py": 8,
     "backend/tests/test_g1_api_and_isolation.py": 7,
     "backend/tests/test_g1_cycle_quality_gate.py": 9,
@@ -77,7 +77,22 @@ def record() -> dict:
                 ),
                 "files": ["backend/app/g1/indicators.py"],
                 "tests": "backend/tests/test_g1_incomplete_bar_fix.py",
-            }
+            },
+            {
+                "decision": "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
+                "work_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1",
+                "change": (
+                    "execution safety only: the guard takes the requested phase and refuses "
+                    "unless authorized_phase matches; a handle opened for one phase cannot drive "
+                    "the other; no scientific behavior changed"
+                ),
+                "files": [
+                    "backend/app/g1/batch.py",
+                    "backend/app/g1/sources.py",
+                    "scripts/run_g1_development.py",
+                ],
+                "tests": "backend/tests/test_g1_dev_engine_and_guard.py",
+            },
         ],
         "run_command": "uv run python scripts/run_g1_development.py --phase A|B",
         "run_directory": batch.RUN_DIR,

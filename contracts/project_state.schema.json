@@ -10354,6 +10354,36 @@
         },
         "phase_b_executed": {
           "type": "boolean"
+        },
+        "phase_a_artifact": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phase_a_artifact_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phase_a_selected_configuration": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phase_a_disposition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phase_a_checkpoint_report": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     }

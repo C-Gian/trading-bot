@@ -166,46 +166,112 @@ def source() -> batch.SyntheticSource:
     )
 
 
-def test_real_execution_is_refused_by_the_canonical_state() -> None:
+def _live_record() -> dict:
+    state = json.loads((ROOT / batch.STATE_PATH).read_text(encoding="utf-8"))
+    return state[batch.STATE_KEY]
+
+
+def test_canonical_state_guard_is_phase_scoped() -> None:
+    """Only the phase the canonical state authorizes is accepted; Phase B is refused now.
+
+    This test never opens market observations: constructing a handle reads manifest metadata only,
+    and the subprocess only ever requests Phase B.
+    """
+    record = _live_record()
+    for phase in ("A", "B"):
+        allowed = (
+            record.get("historical_execution_authorized") is True
+            and record.get("authorized_phase") == phase
+        )
+        if allowed:
+            handle = batch.authorize_real_sources(phase, ROOT)
+            assert handle.phase == phase
+        else:
+            with pytest.raises(batch.ExecutionNotAuthorized):
+                batch.authorize_real_sources(phase, ROOT)
     with pytest.raises(batch.ExecutionNotAuthorized):
-        batch.authorize_real_sources(ROOT)
+        batch.authorize_real_sources("B", ROOT)  # ADR-0048: never Phase B
     with pytest.raises(PermissionError):
-        RealSourceHandle(ROOT, "x", object())
+        RealSourceHandle(ROOT, "x", object(), "A")
     completed = subprocess.run(
-        [sys.executable, "scripts/run_g1_development.py", "--phase", "A"],
+        [sys.executable, "scripts/run_g1_development.py", "--phase", "B"],
         cwd=ROOT,
         capture_output=True,
         text=True,
         check=False,
     )
     assert completed.returncode != 0 and "REFUSED" in completed.stderr
-    assert not (ROOT / batch.RUN_DIR / batch.SELECTION_FILE).exists()
+    assert not (ROOT / batch.RUN_DIR / batch.EVALUATION_FILE).exists()
 
 
-def test_authorization_mechanics_require_an_explicit_record(tmp_path) -> None:
-    for path in ("data/manifests", "state"):
-        (tmp_path / path).mkdir(parents=True)
+def _authorization_root(tmp_path: Path, record: dict, adr: bool = True) -> Path:
+    for path in ("data/manifests", "state", "decisions"):
+        (tmp_path / path).mkdir(parents=True, exist_ok=True)
     for manifest in (
         "BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json",
         "BTCUSDT-USDM-FUNDING-DEV-v1.json",
     ):
         shutil.copy(ROOT / "data/manifests" / manifest, tmp_path / "data/manifests" / manifest)
-    state = {
-        batch.STATE_KEY: {
-            "historical_execution_authorized": True,
-            "execution_authorization_record": "decisions/ADR-X.md",
-        }
-    }
+    if adr:
+        (tmp_path / "decisions/ADR-X.md").write_text("authorized", encoding="utf-8")
+    state = {batch.STATE_KEY: record}
     (tmp_path / batch.STATE_PATH).write_text(json.dumps(state), encoding="utf-8")
+    return tmp_path
+
+
+ARMED_A = {
+    "historical_execution_authorized": True,
+    "execution_authorization_record": "decisions/ADR-X.md",
+    "authorized_phase": "A",
+}
+
+
+def test_phase_a_is_accepted_only_with_an_explicit_phase_and_record(tmp_path) -> None:
+    root = _authorization_root(tmp_path, ARMED_A)
+    handle = batch.authorize_real_sources("A", root)
+    assert isinstance(handle, RealSourceHandle) and handle.phase == "A"
+    assert handle.identity["market_observations_read"] is False
     with pytest.raises(batch.ExecutionNotAuthorized):
-        batch.authorize_real_sources(tmp_path)  # the decision record does not exist
-    (tmp_path / "decisions").mkdir()
-    (tmp_path / "decisions/ADR-X.md").write_text("authorized", encoding="utf-8")
-    handle = batch.authorize_real_sources(tmp_path)
-    assert (
-        isinstance(handle, RealSourceHandle)
-        and handle.identity["market_observations_read"] is False
-    )
+        batch.authorize_real_sources("B", root)
+    with pytest.raises(batch.ExecutionNotAuthorized):
+        batch.authorize_real_sources("C", root)
+
+
+@pytest.mark.parametrize(
+    ("record", "adr"),
+    [
+        ({**ARMED_A, "authorized_phase": None}, True),
+        ({**ARMED_A, "authorized_phase": "B"}, True),
+        ({**ARMED_A, "authorized_phase": "a"}, True),
+        ({k: v for k, v in ARMED_A.items() if k != "authorized_phase"}, True),
+        ({**ARMED_A, "historical_execution_authorized": False}, True),
+        ({**ARMED_A, "execution_authorization_record": None}, True),
+        (ARMED_A, False),
+    ],
+    ids=[
+        "null-phase",
+        "wrong-phase",
+        "lowercase",
+        "no-phase",
+        "disarmed",
+        "no-record",
+        "missing-adr",
+    ],
+)
+def test_phase_a_is_refused_without_every_authorization_condition(tmp_path, record, adr) -> None:
+    root = _authorization_root(tmp_path, record, adr)
+    with pytest.raises(batch.ExecutionNotAuthorized):
+        batch.authorize_real_sources("A", root)
+
+
+def test_a_phase_a_handle_can_never_drive_phase_b(tmp_path) -> None:
+    root = _authorization_root(tmp_path, ARMED_A)
+    handle = batch.authorize_real_sources("A", root)
+    with pytest.raises(batch.ExecutionNotAuthorized):
+        batch.run_phase_b(handle, root / batch.RUN_DIR, root)
+    fake = type("Handle", (), {"phase": "B"})()
+    with pytest.raises(batch.ExecutionNotAuthorized):
+        batch.run_phase_a(fake, root / batch.RUN_DIR, root)
 
 
 def test_phase_b_refuses_without_selection_and_synthetic_never_writes_to_the_run_dir(
