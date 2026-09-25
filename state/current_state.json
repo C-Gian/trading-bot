@@ -2479,15 +2479,15 @@
       "targeted_tests": "19_PASSED",
       "deterministic_replay": "PASS",
       "horizons": {
-        "24": {
-          "scored_rows": 34997,
-          "pooled_feature_coverage": 0.9998571510199418,
-          "pooled_brier_improvement": -0.0037125903573256847,
+        "1": {
+          "scored_rows": 35030,
+          "pooled_feature_coverage": 0.9998572855715713,
+          "pooled_brier_improvement": 0.0006437786467623496,
           "adjusted_interval": [
-            -0.005987498947295829,
-            -0.0013779971162721282
+            0.00017050016020700632,
+            0.0011318045278073461
           ],
-          "classification": "FOUNDATION_SIGNAL_NOT_SUPPORTED"
+          "classification": "FOUNDATION_SIGNAL_SUPPORTED"
         },
         "4": {
           "scored_rows": 35017,
@@ -2499,15 +2499,15 @@
           ],
           "classification": "FOUNDATION_SIGNAL_NOT_SUPPORTED"
         },
-        "1": {
-          "scored_rows": 35030,
-          "pooled_feature_coverage": 0.9998572855715713,
-          "pooled_brier_improvement": 0.0006437786467623496,
+        "24": {
+          "scored_rows": 34997,
+          "pooled_feature_coverage": 0.9998571510199418,
+          "pooled_brier_improvement": -0.0037125903573256847,
           "adjusted_interval": [
-            0.00017050016020700632,
-            0.0011318045278073461
+            -0.005987498947295829,
+            -0.0013779971162721282
           ],
-          "classification": "FOUNDATION_SIGNAL_SUPPORTED"
+          "classification": "FOUNDATION_SIGNAL_NOT_SUPPORTED"
         }
       },
       "selection": "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY"
@@ -2681,12 +2681,13 @@
   "governance_transition_v3": {
     "checkpoint": "GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1",
     "checkpoint_report": "reports/checkpoints/IMPLEMENT-CANDIDATE-1-DEVELOPMENT-V1.md",
-    "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+    "status": "RESEARCH_DIRECTOR_DEVELOPMENT_EXECUTION_AUTHORIZED",
     "decision_records": [
       "decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md",
       "decisions/ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md",
       "decisions/ADR-0038-CANDIDATE-1-ADMITTED-FOR-PROTOCOL-DESIGN.md",
-      "decisions/ADR-0039-CANDIDATE-1-DEVELOPMENT-PROTOCOL-FREEZE.md"
+      "decisions/ADR-0039-CANDIDATE-1-DEVELOPMENT-PROTOCOL-FREEZE.md",
+      "decisions/ADR-0040-CANDIDATE-1-DEVELOPMENT-EXECUTION-AUTHORIZATION.md"
     ],
     "authorized_by": "OWNER",
     "authorized_on": "2026-09-25",
@@ -2737,8 +2738,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,
@@ -2772,21 +2773,22 @@
         "synthetic_tests": "backend/tests/test_candidate_1_development.py",
         "implementation_validation_record": "reports/validation/CANDIDATE-1-DEVELOPMENT-IMPLEMENTATION-V1.json",
         "result_path": "research/experiments/CANDIDATE-1-DEVELOPMENT-V1/result.json",
-        "status": "CANDIDATE_1_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_AUTHORIZATION",
-        "execution_authorized": false,
+        "status": "CANDIDATE_1_DEVELOPMENT_EXECUTION_AUTHORIZED",
+        "execution_authorized": true,
         "development_executions": 0,
-        "development_disposition": null
+        "development_disposition": null,
+        "execution_authorization_decision": "decisions/ADR-0040-CANDIDATE-1-DEVELOPMENT-EXECUTION-AUTHORIZATION.md"
       }
     },
     "market_trials_executed": 0,
-    "market_trial_authorized": false,
+    "market_trial_authorized": true,
     "new_market_data_accessed": false,
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
     "archived_task": "tasks/archive/IMPLEMENT-CANDIDATE-1-DEVELOPMENT-V1.md",
     "active_task": "tasks/CURRENT_TASK.md",
-    "next_work_package": "RESEARCH-DIRECTOR-EXECUTION-REVIEW-CANDIDATE-1-DEVELOPMENT-V1",
-    "project_state": "CANDIDATE_1_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_AUTHORIZATION"
+    "next_work_package": "EXECUTE-CANDIDATE-1-DEVELOPMENT-V1",
+    "project_state": "CANDIDATE_1_DEVELOPMENT_EXECUTION_AUTHORIZED"
   }
 }
