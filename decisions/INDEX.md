@@ -47,3 +47,5 @@
 - [ADR-0042 — Park active alpha research under current constraints](ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md)
 
 - [ADR-0043 — Owner professional multi-signal LONG/SHORT mission reset](ADR-0043-OWNER-PROFESSIONAL-MULTISIGNAL-LONG-SHORT-MISSION.md)
+
+- [ADR-0044 — Adopt System G1 professional multi-signal architecture](ADR-0044-ADOPT-SYSTEM-G1-PROFESSIONAL-MULTISIGNAL-ARCHITECTURE.md)
