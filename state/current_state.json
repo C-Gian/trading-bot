@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "FINAL-PARKED-STATE-RECONCILIATION-V1",
+  "latest_executor_checkpoint": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "PARKED-NO-ACTIVE-RESEARCH-TASK",
+  "next_recommended_work_package": "RESEARCH-DIRECTOR-REVIEW-SYSTEM-G1-CHECKPOINT-1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -2225,7 +2225,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "PARKED_NO_ACTIVE_RESEARCH_TASK",
+    "next_checkpoint": "RESEARCH_DIRECTOR_REVIEW_SYSTEM_G1_CHECKPOINT_1",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "FREE_PUBLIC_EXCHANGE_NATIVE_HORIZON_FOUNDATION",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
@@ -2680,7 +2680,7 @@
   },
   "governance_transition_v3": {
     "checkpoint": "GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1",
-    "checkpoint_report": "reports/checkpoints/FINAL-PARKED-STATE-RECONCILIATION-V1.md",
+    "checkpoint_report": "reports/checkpoints/SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE.md",
     "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
     "decision_records": [
       "decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md",
@@ -2740,8 +2740,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,
@@ -2794,9 +2794,9 @@
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
-    "archived_task": "tasks/archive/FINAL-PARKED-STATE-RECONCILIATION-V1.md",
+    "archived_task": "tasks/archive/SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE.md",
     "active_task": "tasks/CURRENT_TASK.md",
-    "next_work_package": "PARKED-NO-ACTIVE-RESEARCH-TASK",
+    "next_work_package": "RESEARCH-DIRECTOR-REVIEW-SYSTEM-G1-CHECKPOINT-1",
     "project_state": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
     "latest_reviewed_checkpoint_report": "reports/checkpoints/EXECUTE-CANDIDATE-1-DEVELOPMENT-V1.md"
   },
@@ -2810,7 +2810,7 @@
     ],
     "astra_decision": "ASTRA_PROFESSIONAL_TRADING_SYSTEM_STRATEGIC_ARCHITECTURE_V1",
     "constitution_version": "4.0",
-    "disposition": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
+    "disposition": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
     "active_alpha_allocation": 1,
     "active_candidate": null,
     "candidate_1": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
@@ -2820,8 +2820,8 @@
     "market_trial_authorized": false,
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
-    "research_task_active": true,
-    "automatic_next_research_package": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
+    "research_task_active": false,
+    "automatic_next_research_package": "RESEARCH-DIRECTOR-REVIEW-SYSTEM-G1-CHECKPOINT-1",
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
@@ -2833,9 +2833,9 @@
       "owner_decision_required_for_real_capital": true
     },
     "disabled_action_paths": [
-      "POST /api/v1/product/analysis -> PARKED NO_TRADE without strategy evaluation",
-      "POST /api/v1/product/paper-trades -> 409",
-      "POST /api/v1/research/runner/runs -> 409"
+      "POST /api/v1/product/analysis -> NO_TRADE without strategy evaluation (validated_strategy is null)",
+      "POST /api/v1/product/paper-trades -> 409 (validated_strategy is null)",
+      "POST /api/v1/research/runner/runs -> 409 (legacy runner not authorized)"
     ],
     "active_project_internal_alpha_schedules": [],
     "historical_top_level_fields": [
@@ -2863,6 +2863,29 @@
     "active_system_generation": "SYSTEM_G1",
     "architecture": "docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md",
     "strategic_disposition": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
-    "operational_compatibility_note": "Temporary fail-closed compatibility: legacy app checks disposition==PARKED. Checkpoint 1 must migrate the action guard to validated_strategy/operational authorization, then promote disposition to strategic_disposition."
+    "action_guard": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY"
+  },
+  "system_g1_checkpoint_1": {
+    "checkpoint": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
+    "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+    "checkpoint_report": "reports/checkpoints/SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE.md",
+    "implementation_validation": "reports/validation/SYSTEM-G1-CHECKPOINT-1-IMPLEMENTATION-VALIDATION.json",
+    "cycle_synthetic_diagnostics": "reports/research/SYSTEM-G1-CYCLE-SYNTHETIC-DIAGNOSTICS-V1.json",
+    "archived_task": "tasks/archive/SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE.md",
+    "next_work_package": "RESEARCH-DIRECTOR-REVIEW-SYSTEM-G1-CHECKPOINT-1",
+    "implementation_package": "backend/app/g1",
+    "evidence_class": "SYNTHETIC_FIXTURE_NOT_MARKET_EVIDENCE",
+    "cycle_status": "SYNTHETIC_DIAGNOSTICS_PENDING_RESEARCH_DIRECTOR_QUALITY_GATE",
+    "cycle_active_in_decisions": false,
+    "cycle_quality_thresholds_selected": false,
+    "historical_market_trial_authorized": false,
+    "real_historical_g1_outcomes_inspected": false,
+    "new_market_data_accessed": false,
+    "p1_p2_performance_computed": false,
+    "forecaster_fitted": false,
+    "executor_market_work_authorized": false,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "real_money": false
   }
 }

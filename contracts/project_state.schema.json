@@ -9898,7 +9898,7 @@
         "active_system_generation",
         "architecture",
         "strategic_disposition",
-        "operational_compatibility_note"
+        "action_guard"
       ],
       "properties": {
         "precedence": {
@@ -10017,9 +10017,109 @@
         "strategic_disposition": {
           "const": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING"
         },
-        "operational_compatibility_note": {
+        "action_guard": {
+          "const": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY"
+        }
+      }
+    },
+    "system_g1_checkpoint_1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "archived_task",
+        "champion_status",
+        "checkpoint",
+        "checkpoint_report",
+        "cycle_active_in_decisions",
+        "cycle_quality_thresholds_selected",
+        "cycle_status",
+        "cycle_synthetic_diagnostics",
+        "evidence_class",
+        "executor_market_work_authorized",
+        "forecaster_fitted",
+        "historical_market_trial_authorized",
+        "implementation_package",
+        "implementation_validation",
+        "new_market_data_accessed",
+        "next_work_package",
+        "p1_p2_performance_computed",
+        "real_historical_g1_outcomes_inspected",
+        "real_money",
+        "sealed_queries",
+        "status"
+      ],
+      "properties": {
+        "checkpoint": {
+          "const": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE"
+        },
+        "status": {
+          "enum": [
+            "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+            "REVIEWED"
+          ]
+        },
+        "checkpoint_report": {
+          "pattern": "^reports/checkpoints/[A-Z0-9_.-]+\\.md$",
+          "type": "string"
+        },
+        "implementation_validation": {
           "type": "string",
           "minLength": 1
+        },
+        "cycle_synthetic_diagnostics": {
+          "type": "string",
+          "minLength": 1
+        },
+        "archived_task": {
+          "pattern": "^tasks/archive/[A-Z0-9_.-]+\\.md$",
+          "type": "string"
+        },
+        "next_work_package": {
+          "type": "string",
+          "pattern": "^[A-Z0-9-]+$"
+        },
+        "implementation_package": {
+          "const": "backend/app/g1"
+        },
+        "evidence_class": {
+          "const": "SYNTHETIC_FIXTURE_NOT_MARKET_EVIDENCE"
+        },
+        "cycle_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cycle_active_in_decisions": {
+          "const": false
+        },
+        "cycle_quality_thresholds_selected": {
+          "type": "boolean"
+        },
+        "historical_market_trial_authorized": {
+          "const": false
+        },
+        "real_historical_g1_outcomes_inspected": {
+          "const": false
+        },
+        "new_market_data_accessed": {
+          "const": false
+        },
+        "p1_p2_performance_computed": {
+          "const": false
+        },
+        "forecaster_fitted": {
+          "const": false
+        },
+        "executor_market_work_authorized": {
+          "const": false
+        },
+        "sealed_queries": {
+          "const": 0
+        },
+        "champion_status": {
+          "const": "NONE"
+        },
+        "real_money": {
+          "const": false
         }
       }
     }
@@ -10088,7 +10188,8 @@
     "predictive_public_taker_flow_horizon_foundation",
     "predictive_public_taker_flow_1h_incremental",
     "governance_transition_v3",
-    "current_project_status"
+    "current_project_status",
+    "system_g1_checkpoint_1"
   ],
   "type": "object"
 }

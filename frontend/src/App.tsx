@@ -12,11 +12,12 @@ import { Performance, TradeHistory } from './Performance';
 import { Market } from './Market';
 import { ResearchCandidatePicker } from './ResearchCandidatePicker';
 import { ProspectiveObserver } from './ProspectiveObserver';
+import { Replay } from './Replay';
 import { Advanced, Badge, Empty, KeyValues, Section } from './ui';
 import { refusalCopy } from './format';
 
 const PRIMARY = ['Dashboard', 'Trade', 'Risultati'] as const;
-const SECONDARY = ['Research', 'Altro'] as const;
+const SECONDARY = ['Replay', 'Research', 'Altro'] as const;
 type Page = (typeof PRIMARY)[number] | (typeof SECONDARY)[number];
 
 function researchMetric(value: number|null|undefined, suffix = ' R/trade') {
@@ -380,6 +381,8 @@ export function App() {
             <TradeHistory trades={history} />
           </>
         )}
+
+        {page === 'Replay' && <Replay />}
 
         {page === 'Research' && <ResearchLab candidates={candidates} candidate={candidate} run={run} onSelect={setSelectedCandidateId} onStart={startResearch} onCopy={copyReview} />}
 

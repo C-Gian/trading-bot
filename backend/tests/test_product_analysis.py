@@ -26,7 +26,7 @@ from app.product.features import ProspectiveFeatureSource
 from app.product.market_feed import Kline, MarketFeedError, _parse, fetch_klines
 from app.research.continuation import CUTOFF_US, FeatureBar, FeatureSource
 from fastapi.testclient import TestClient
-from state_fixtures import unparked_state_path
+from state_fixtures import preserved_mechanics
 
 ROOT = Path(__file__).resolve().parents[2]
 NOW = datetime(2026, 3, 5, 12, 30, tzinfo=UTC)
@@ -252,9 +252,7 @@ def test_the_product_path_carries_no_credential_or_order_surface() -> None:
 @pytest.fixture
 def client() -> TestClient:
     return TestClient(
-        create_app(
-            state_path=unparked_state_path(), analyser=lambda: analyse(now=NOW, feed=_long_feed())
-        )
+        create_app(**preserved_mechanics(), analyser=lambda: analyse(now=NOW, feed=_long_feed()))
     )
 
 
@@ -281,7 +279,7 @@ def test_endpoint_returns_a_labelled_paper_research_long_plan(client: TestClient
 
 def test_endpoint_returns_no_trade_without_a_plan() -> None:
     app = create_app(
-        state_path=unparked_state_path(), analyser=lambda: analyse(now=NOW, feed=_no_trade_feed())
+        **preserved_mechanics(), analyser=lambda: analyse(now=NOW, feed=_no_trade_feed())
     )
     body = TestClient(app).post("/api/v1/product/analysis").json()
     assert body["decision"] == "NO_TRADE" and body["plan"] is None
@@ -297,7 +295,7 @@ def test_analysis_runs_only_on_explicit_request(client: TestClient) -> None:
         calls.append(1)
         return analyse(now=NOW, feed=_long_feed())
 
-    app = create_app(state_path=unparked_state_path(), analyser=counting)
+    app = create_app(**preserved_mechanics(), analyser=counting)
     with TestClient(app) as started:
         assert calls == []
         for path in ("/api/v1/system/health", "/api/v1/state", "/api/v1/research/status"):

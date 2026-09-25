@@ -35,11 +35,15 @@ def _text(relative: str) -> str:
 
 
 def test_constitution_preserves_version_2_and_version_1_verbatim() -> None:
-    # Version 3.0 (ADR-0036) supersedes Version 2.0 and keeps it verbatim as Appendix B.
+    # Version 3.0 (ADR-0036) superseded Version 2.0 and keeps it verbatim as Appendix B;
+    # Version 4.0 (ADR-0043/ADR-0044) supersedes 3.0 and keeps it verbatim as Appendix C.
     constitution = _text("governance/SCIENTIFIC_CONSTITUTION.md")
     assert constitution.startswith(
-        "# Trading Bot — Scientific Constitution\n\nVersion 3.0 — practical economic usefulness\n"
+        "# Trading Bot — Scientific Constitution\n\n"
+        "Version 4.0 — professional multi-signal paper system\n"
     )
+    assert "## Appendix C — superseded Version 3.0, preserved verbatim" in constitution
+    assert "\nVersion 3.0 — practical economic usefulness\n" in constitution
     assert "## Appendix B — superseded Version 2.0, preserved verbatim" in constitution
     assert "\nVersion 2.0 — prediction-first\n" in constitution
     seeded = subprocess.check_output(
@@ -369,6 +373,8 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
 # is "the active task is the declared successor", not its current title, so any known
 # successor is normalized to the rebaseline anchor. Longest first: these names nest.
 SUCCESSOR_TASK_TITLES = (
+    "RESEARCH-DIRECTOR-REVIEW-SYSTEM-G1-CHECKPOINT-1",
+    "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
     "PARKED-NO-ACTIVE-RESEARCH-TASK",
     "FINAL-PARKED-STATE-RECONCILIATION-V1",
     "RESEARCH-DIRECTOR-ADJUDICATION-CANDIDATE-1-DEVELOPMENT-V1",

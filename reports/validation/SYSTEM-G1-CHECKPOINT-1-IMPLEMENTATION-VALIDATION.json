@@ -1,0 +1,69 @@
+{
+  "checkpoint": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
+  "classification": "SYSTEM_G1_CHECKPOINT_1_READY_PENDING_RESEARCH_DIRECTOR_REVIEW",
+  "evidence_class": "SYNTHETIC_FIXTURE_NOT_MARKET_EVIDENCE",
+  "stages": {
+    "fail_closed_migration": "PASS",
+    "domain_contracts": "PASS",
+    "causal_aggregation_virtual_clock": "PASS",
+    "long_short_ledger": "PASS",
+    "prediction_decision_pipeline": "PASS",
+    "cycle_method_implementation": "PASS",
+    "replay_api": "PASS",
+    "replay_ui_vertical_slice": "PASS",
+    "hot_window_post_analysis_isolation": "PASS"
+  },
+  "synthetic_tests": {
+    "backend": {
+      "count": 63,
+      "files": [
+        "backend/tests/test_fail_closed_action_surface.py",
+        "backend/tests/test_g1_records_and_aggregation.py",
+        "backend/tests/test_g1_replay.py",
+        "backend/tests/test_g1_ledger.py",
+        "backend/tests/test_g1_pipeline_and_cycle.py",
+        "backend/tests/test_g1_api_and_isolation.py"
+      ]
+    },
+    "frontend": {
+      "count": 5,
+      "files": ["frontend/src/Replay.test.tsx"]
+    },
+    "total": 68
+  },
+  "acceptance_evidence": {
+    "completed_bar_availability": "test_higher_timeframe_bars_are_invisible_until_complete",
+    "future_data_rejection": "test_future_observations_are_rejected; test_late_or_future_minutes_cannot_rewrite_history",
+    "immutable_issued_prediction": "test_records_are_frozen_and_the_store_is_append_only",
+    "separate_realization": "test_realization_is_a_separate_later_record",
+    "long_short_signed_pnl": "test_long_and_short_signed_pnl_and_adverse_costs",
+    "fee_friction_sign": "test_long_and_short_signed_pnl_and_adverse_costs",
+    "funding_accounting": "test_funding_credit_and_debit_are_signed",
+    "one_position_occupancy": "test_one_position_no_pyramiding_or_hedging",
+    "risk_vetoes": "test_daily_entry_stop_after_one_percent_loss_resets_next_utc_day; test_run_drawdown_entry_stop_after_five_percent; test_quantity_notional_equity_and_sizing_caps",
+    "conservative_gap_collision": "test_adverse_gap_fills_at_the_worse_open; test_same_minute_stop_objective_collision_resolves_to_stop",
+    "higher_timeframe_availability": "test_daily_weekly_monthly_boundaries_on_a_synthetic_path",
+    "turn_confirmation_timestamps": "test_warmup_gap_rewarm_and_turn_confirmation_timestamps",
+    "replay_speed_invariance": "test_replay_at_every_speed_reproduces_identical_records; test_irregular_wall_pacing_and_speed_changes_do_not_change_outputs",
+    "historical_live_adapter_identity": "test_live_style_adapter_produces_identical_core_outputs",
+    "glyph_semantics": "frontend/src/Replay.test.tsx",
+    "no_trade_persistence": "test_every_eligible_decision_candle_has_prediction_and_decision",
+    "legacy_long_reconciliation": "test_long_accounting_reconciles_with_the_legacy_long_only_engine",
+    "fail_closed_old_analyser_not_called": "test_every_disposition_without_validation_fails_closed; test_live_app_never_calls_the_old_analyser",
+    "cycle_no_decision_influence": "test_cycle_state_has_no_influence_on_decisions",
+    "cycle_reference_reconciliation": "test_streaming_acp_reconciles_with_the_independent_reference"
+  },
+  "cycle_synthetic_diagnostics": "reports/research/SYSTEM-G1-CYCLE-SYNTHETIC-DIAGNOSTICS-V1.json",
+  "cycle_status": "SYNTHETIC_DIAGNOSTICS_PENDING_RESEARCH_DIRECTOR_QUALITY_GATE",
+  "cycle_quality_thresholds_selected": false,
+  "cycle_active_in_decisions": false,
+  "real_historical_g1_outcomes_inspected": false,
+  "new_market_data_accessed": false,
+  "p1_p2_performance_computed": false,
+  "forecaster_fitted": false,
+  "sealed_queries": 0,
+  "validated_strategy": null,
+  "operational_action": "NO_TRADE",
+  "champion": "NONE",
+  "real_money": false
+}

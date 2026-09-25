@@ -61,6 +61,8 @@ def test_wp015_independent_reconciliation_is_exact() -> None:
 # is "the active task is the declared successor", not its current title, so any known
 # successor is normalized to the rebaseline anchor. Longest first: these names nest.
 SUCCESSOR_TASK_TITLES = (
+    "RESEARCH-DIRECTOR-REVIEW-SYSTEM-G1-CHECKPOINT-1",
+    "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
     "PARKED-NO-ACTIVE-RESEARCH-TASK",
     "FINAL-PARKED-STATE-RECONCILIATION-V1",
     "RESEARCH-DIRECTOR-ADJUDICATION-CANDIDATE-1-DEVELOPMENT-V1",

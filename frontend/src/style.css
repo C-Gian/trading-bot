@@ -952,3 +952,18 @@ button:disabled {
   color: var(--text-2);
   max-width: 46ch;
 }
+
+/* System G1 synthetic replay (Checkpoint 1) */
+.replay-chart { width: 100%; height: auto; display: block; }
+.replay-chart .wick { stroke: currentColor; opacity: .5; }
+.replay-chart .candle.up { fill: #1f9d6b; }
+.replay-chart .candle.down { fill: #d0493d; }
+.replay-chart .glyph { font-size: 11px; cursor: default; fill: currentColor; }
+.replay-chart .glyph.prediction.hit { fill: #1f9d6b; }
+.replay-chart .glyph.prediction.miss { fill: #d0493d; }
+.replay-chart .glyph.prediction.pending { fill: #6b7cff; }
+.replay-chart .glyph.prediction.muted, .replay-chart .glyph.decision.flat { opacity: .45; }
+.replay-chart .glyph.long { fill: #1f9d6b; font-weight: 700; }
+.replay-chart .glyph.short { fill: #d0493d; font-weight: 700; }
+.replay-controls { gap: 8px; align-items: center; }
+.replay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }

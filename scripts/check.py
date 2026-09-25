@@ -87,6 +87,13 @@ CONSTITUTION_V2_HEAD = "c163887d16610ce884d0e3a8c326204df4122a79"
 CONSTITUTION_V3_HEADER = (
     "# Trading Bot — Scientific Constitution\n\nVersion 3.0 — practical economic usefulness\n"
 )
+# The last commit at which Constitution Version 3.0 was current (ADR-0043/ADR-0044). Its text
+# must stay verbatim inside Version 4.0 as Appendix C.
+CONSTITUTION_V3_HEAD = "8c0335c9767469f316ae82761857455340a15f52"
+CONSTITUTION_V4_HEADER = (
+    "# Trading Bot — Scientific Constitution\n\n"
+    "Version 4.0 — professional multi-signal paper system\n"
+)
 SEED = "c6c526124945aa1624118bd7ee6aef9ae5c011b2"
 CUTOFF = datetime(2024, 12, 31, 23, 59, tzinfo=UTC)
 EXPERIMENTS = {
@@ -1692,7 +1699,8 @@ def prediction_first_checks(state: dict) -> None:
 
     # Version 2.0 declared this objective; Version 3.0 (ADR-0036) supersedes it and keeps it
     # verbatim as Appendix B, so the objective record stays a historical 2.0 record.
-    assert constitution.replace("\r\n", "\n").startswith(CONSTITUTION_V3_HEADER)
+    assert constitution.replace("\r\n", "\n").startswith(CONSTITUTION_V4_HEADER)
+    assert "\nVersion 3.0 — practical economic usefulness\n" in constitution.replace("\r\n", "\n")
     assert "Version 2.0 — prediction-first\n" in constitution
     assert objective["constitution_version"] == "2.0"
     assert objective["evaluation_contract_amendments"] == ["A1"]
@@ -3481,16 +3489,21 @@ def governance_transition_v3_checks(state: dict) -> None:
         assert record["project_state"] == "STRONG_STOP_PENDING_ASTRA"
 
 
-def parked_state_checks(state: dict) -> None:
-    """ADR-0042: the parked state is canonical, fail-closed and leaves no active research."""
-    from app.main import create_app
+def fail_closed_state_checks(state: dict) -> None:
+    """System G1 Checkpoint 1: the action guard fails closed on a null validated strategy.
+
+    It supersedes the ADR-0042 PARKED-only check: NO_TRADE, no paper trade and no legacy research
+    run hold whatever the disposition, and the historical analyser is never called.
+    """
+    from app.main import FAIL_CLOSED_DATA_STATUS, create_app
     from fastapi.testclient import TestClient
 
     current = state["current_project_status"]
-    if current["disposition"] != PARKED:
-        return
+    assert current["validated_strategy"] is None
+    assert current["operational_action_output"] == "NO_TRADE"
+    assert current["action_guard"] == "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY"
+    assert "operational_compatibility_note" not in current
     record = state["governance_transition_v3"]
-    assert record["project_state"] == PARKED
     assert record["candidate_1"]["disposition"] == current["candidate_1"]
     assert record["candidate_card_2_allocated"] is False
     assert record["market_trial_authorized"] is False
@@ -3504,23 +3517,64 @@ def parked_state_checks(state: dict) -> None:
         assert (ROOT / path).is_file(), path
     for field in current["historical_top_level_fields"]:
         assert field in state, field
-    task = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
-    assert task.startswith("# CURRENT TASK — PARKED-NO-ACTIVE-RESEARCH-TASK")
-    for text in (
-        (ROOT / "AGENTS.md").read_text(encoding="utf-8"),
-        (ROOT / "docs/operations/NEW_CHAT_BOOTSTRAP.md").read_text(encoding="utf-8"),
-    ):
-        assert PARKED in text
-    # The action surface fails closed: NO_TRADE, no paper trade, no research run.
-    client = TestClient(create_app(analyser=lambda: {"decision": "LONG"}))
+
+    def never() -> dict:
+        raise AssertionError("the historical strategy analyser must not run")
+
+    client = TestClient(create_app(analyser=never))
     analysis = client.post("/api/v1/product/analysis").json()
     assert analysis["decision"] == "NO_TRADE" and analysis["plan"] is None
-    assert analysis["data_status"] == "RESEARCH_PARKED"
+    assert analysis["data_status"] == FAIL_CLOSED_DATA_STATUS
     assert client.post("/api/v1/product/paper-trades").status_code == 409
     run = client.post(
         "/api/v1/research/runner/runs", json={"candidate_id": "WP015_REPRODUCTION_V1"}
     )
     assert run.status_code == 409
+    if current["disposition"] == PARKED:
+        assert record["project_state"] == PARKED
+        return
+    system_g1_checks(state)
+
+
+def system_g1_checks(state: dict) -> None:
+    """ADR-0044 System G1 Checkpoint 1: synthetic-only implementation, review pending."""
+    from app.g1.cycle import CYCLE_DECISION_ACTIVATION
+
+    current = state["current_project_status"]
+    g1 = state["system_g1_checkpoint_1"]
+    assert current["disposition"] == current["strategic_disposition"]
+    assert current["active_system_generation"] == "SYSTEM_G1"
+    assert current["market_trial_authorized"] is False
+    assert current["confirmation_authorized"] is False
+    assert current["prospective_collection_authorized"] is False
+    assert current["automatic_next_research_package"] == g1["next_work_package"]
+    for path in (
+        g1["checkpoint_report"],
+        g1["implementation_validation"],
+        g1["cycle_synthetic_diagnostics"],
+        g1["archived_task"],
+    ):
+        assert (ROOT / path).is_file(), path
+    assert g1["cycle_active_in_decisions"] is CYCLE_DECISION_ACTIVATION is False
+    task = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
+    assert task.startswith(f"# CURRENT TASK — {g1['next_work_package']}")
+    assert "EXECUTOR MARKET WORK FORBIDDEN" in task
+    validation = json.loads((ROOT / g1["implementation_validation"]).read_text(encoding="utf-8"))
+    for claim in (
+        "real_historical_g1_outcomes_inspected",
+        "new_market_data_accessed",
+        "p1_p2_performance_computed",
+        "forecaster_fitted",
+        "cycle_quality_thresholds_selected",
+        "cycle_active_in_decisions",
+    ):
+        assert validation[claim] is False, claim
+    assert validation["sealed_queries"] == 0 and validation["validated_strategy"] is None
+    diagnostics = json.loads((ROOT / g1["cycle_synthetic_diagnostics"]).read_text(encoding="utf-8"))
+    assert diagnostics["quality_thresholds_selected"] is False
+    assert diagnostics["market_data_read"] is False
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "SYSTEM G1" in agents and "Version 4.0" in agents
 
 
 def candidate_1_development_checks(record: dict, development: dict) -> None:
@@ -4064,7 +4118,17 @@ def governance_checks(pre_experiment: bool) -> dict:
     # never deleted: the seeded baseline, and every section appended to it during the
     # superseded generation, must still appear verbatim inside the document, and so must the
     # whole Version 2.0 body.
-    assert constitution_normalized.startswith(CONSTITUTION_V3_HEADER)
+    # Version 4.0 (ADR-0043/ADR-0044) supersedes 3.0, which stays verbatim as Appendix C.
+    assert constitution_normalized.startswith(CONSTITUTION_V4_HEADER)
+    version_3 = subprocess.check_output(
+        ["git", "show", f"{CONSTITUTION_V3_HEAD}:governance/SCIENTIFIC_CONSTITUTION.md"],
+        cwd=ROOT,
+        text=True,
+        encoding="utf-8",
+    ).replace("\r\n", "\n")
+    assert "\nVersion 3.0 — practical economic usefulness\n" in version_3
+    assert version_3.rstrip() in constitution_normalized
+    assert "## Appendix C — superseded Version 3.0, preserved verbatim" in constitution_normalized
     assert baseline_normalized in constitution_normalized
     version_2 = subprocess.check_output(
         ["git", "show", f"{CONSTITUTION_V2_HEAD}:governance/SCIENTIFIC_CONSTITUTION.md"],
@@ -4181,7 +4245,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_internal_selective_checks(state)
     predictive_public_taker_flow_checks(state)
     governance_transition_v3_checks(state)
-    parked_state_checks(state)
+    fail_closed_state_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -4636,6 +4700,7 @@ def main() -> None:
     run([sys.executable, "scripts/audit_p1a_power_gate.py", "--check"])
     run([sys.executable, "scripts/audit_p2_cycle_power_gate.py", "--check"])
     run([sys.executable, "scripts/audit_p2_cycle_null_v2.py", "--check"])
+    run([sys.executable, "scripts/build_g1_cycle_diagnostics.py", "--check"])
     for command in (
         [sys.executable, "-m", "ruff", "check", "backend", "scripts"],
         [sys.executable, "-m", "ruff", "format", "--check", "backend", "scripts"],

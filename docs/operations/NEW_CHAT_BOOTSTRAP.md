@@ -5,6 +5,8 @@
 > `docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md`, current state and
 > `tasks/CURRENT_TASK.md`. The old parked programme remains historical evidence; no System G1
 > historical performance execution is authorized unless the current task explicitly says so.
+> Checkpoint 1 (synthetic vertical slice) awaits Research Director review; the action guard fails
+> closed on a null `validated_strategy`.
 
 Purpose: make a new ChatGPT conversation recover the project from repository truth without
 depending on the previous chat transcript.

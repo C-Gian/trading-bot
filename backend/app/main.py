@@ -14,6 +14,8 @@ from pydantic import BaseModel, ConfigDict
 from . import __version__
 from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
 from .data.store import available, candles
+from .g1.api import g1_router
+from .g1.service import G1ReplayService
 from .product.analysis import RESEARCH_STATUS, STRATEGY_VERSION, VARIANT, analyse
 from .product.analysis_review import build_analysis_review_bundle
 from .product.market_feed import recent_candles
@@ -55,37 +57,55 @@ from .research.wp006_views import v2_budget_view
 from .sealed import public_status
 from .state import StateRepository
 
-# ADR-0042: while alpha research is parked there is no validated strategy. Every action surface
-# fails closed to NO_TRADE and no paper trade or research run may start.
+# Fail-closed action guard (System G1 Checkpoint 1, superseding the ADR-0042 PARKED check).
+# The guard depends only on `current_project_status.validated_strategy`: while it is null (or the
+# canonical status block is absent) no historical strategy — ALIGNED or any predictive family — is
+# evaluated, the action output is NO_TRADE, paper-trade creation is disabled and the legacy research
+# runner cannot start. A change of strategic disposition can never re-enable a historical fallback.
 PARKED_DISPOSITION = "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS"
-PARKED_DATA_STATUS = "RESEARCH_PARKED"
-PARKED_RESEARCH_STATUS = "PARKED_NO_VALIDATED_STRATEGY"
-PARKED_DETAIL = (
-    "Alpha research is parked (ADR-0042): no validated strategy exists, so the honest "
+FAIL_CLOSED_DATA_STATUS = "NO_VALIDATED_STRATEGY"
+FAIL_CLOSED_RESEARCH_STATUS = "DEVELOPMENT_NO_VALIDATED_STRATEGY"
+FAIL_CLOSED_DETAIL = (
+    "No validated strategy exists (System G1 is in synthetic development), so the honest "
     "action output is NO_TRADE."
+)
+RUNNER_DISABLED_DETAIL = (
+    "the legacy local research runner is disabled until a future task explicitly authorizes it"
 )
 
 
-def parked(state: dict[str, Any]) -> bool:
-    return state.get("current_project_status", {}).get("disposition") == PARKED_DISPOSITION
+def validated_strategy(state: dict[str, Any]) -> Any:
+    """The validated strategy identity, or None. A missing status block is never validated."""
+    return state.get("current_project_status", {}).get("validated_strategy")
 
 
-def parked_analysis(state: dict[str, Any]) -> dict[str, Any]:
-    """The parked action output: NO_TRADE, no plan, without evaluating any strategy."""
+def fail_closed(state: dict[str, Any]) -> bool:
+    return validated_strategy(state) is None
+
+
+def legacy_runner_authorized(state: dict[str, Any]) -> bool:
+    """Only an explicit future authorization flag reopens the legacy research runner."""
+    return state.get("current_project_status", {}).get("legacy_research_runner_authorized") is True
+
+
+def fail_closed_analysis(state: dict[str, Any]) -> dict[str, Any]:
+    """The fail-closed action output: NO_TRADE, no plan, without evaluating any strategy."""
+    current = state.get("current_project_status", {})
     return {
-        "analysis_version": "PARKED_NO_TRADE_V1",
+        "analysis_version": "FAIL_CLOSED_NO_TRADE_V2",
         "classification": "NO_VALIDATED_STRATEGY",
         "symbol": "BTCUSDT",
         "strategy_version": "NONE",
         "variant": "NONE",
         "feature_version": "NONE",
-        "research_status": PARKED_RESEARCH_STATUS,
+        "research_status": FAIL_CLOSED_RESEARCH_STATUS,
         "champion_status": state["champion_status"],
-        "project_disposition": PARKED_DISPOSITION,
+        "project_disposition": current.get("disposition"),
+        "active_system_generation": current.get("active_system_generation"),
         "analysis_time": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         "signal_time": None,
-        "data_status": PARKED_DATA_STATUS,
-        "data_detail": PARKED_DETAIL,
+        "data_status": FAIL_CLOSED_DATA_STATUS,
+        "data_detail": FAIL_CLOSED_DETAIL,
         "decision": "NO_TRADE",
         "plan": None,
         "paper_trade_persisted": False,
@@ -116,6 +136,8 @@ def create_app(
     market_view: Callable[[], dict] = recent_candles,
     research_runner: LocalResearchRunner | None = None,
     shadow_observer: Any | None = None,
+    state_schema_path: Path | None = None,
+    g1_service: G1ReplayService | None = None,
 ) -> FastAPI:
     @asynccontextmanager
     async def lifespan(_: FastAPI):
@@ -134,7 +156,7 @@ def create_app(
         allow_methods=["GET", "POST"],
         allow_headers=["*"],
     )
-    repository = StateRepository(state_path)
+    repository = StateRepository(state_path, state_schema_path)
     trades = paper_store or PaperTradeStore(Path(__file__).resolve().parents[2] / STORE_PATH)
     local_runner = research_runner or default_runner()
     # ADR-0026: automatic ALIGNED prospective collection is suspended on ``main``. An
@@ -144,6 +166,12 @@ def create_app(
 
     def state_repository() -> StateRepository:
         return repository
+
+    # System G1 Checkpoint 1: the synthetic replay slice. It never touches the fail-closed
+    # production action surface above, which stays NO_TRADE while no strategy is validated.
+    application.router.routes.extend(
+        g1_router(g1_service or G1ReplayService(), repository.load).routes
+    )
 
     @application.get("/api/v1/state")
     def current_state(repo: StateRepository = Depends(state_repository)):
@@ -222,10 +250,8 @@ def create_app(
         state = repo.load()
         if state["real_money_authorized"]:
             raise HTTPException(409, "local research is disabled if real money is authorized")
-        if parked(state):
-            raise HTTPException(
-                409, "local research runs are disabled while alpha research is parked"
-            )
+        if not legacy_runner_authorized(state):
+            raise HTTPException(409, RUNNER_DISABLED_DETAIL)
         try:
             return local_runner.start(request.candidate_id)
         except UnknownCandidateError as exc:
@@ -272,7 +298,7 @@ def create_app(
         state = repo.load()
         if state["real_money_authorized"]:
             raise HTTPException(409, "real-money authorization is not supported by this surface")
-        result = parked_analysis(state) if parked(state) else analyser()
+        result = fail_closed_analysis(state) if fail_closed(state) else analyser()
         response = {
             **result,
             "champion_status": state["champion_status"],
@@ -285,14 +311,14 @@ def create_app(
     @application.get("/api/v1/product/analysis/capability")
     def product_analysis_capability(repo: StateRepository = Depends(state_repository)):
         state = repo.load()
-        if parked(state):
+        if fail_closed(state):
             return {
-                "surface": "PARKED_NO_TRADE",
+                "surface": "FAIL_CLOSED_NO_TRADE",
                 "trigger": "EXPLICIT_USER_ACTION_ONLY",
                 "strategy_version": "NONE",
                 "variant": "NONE",
-                "research_status": PARKED_RESEARCH_STATUS,
-                "project_disposition": PARKED_DISPOSITION,
+                "research_status": FAIL_CLOSED_RESEARCH_STATUS,
+                "project_disposition": state.get("current_project_status", {}).get("disposition"),
                 "champion_status": state["champion_status"],
                 "paper_trade_persistence": False,
                 "order_placement": False,
@@ -323,8 +349,8 @@ def create_app(
         state = repo.load()
         if state["real_money_authorized"]:
             raise HTTPException(409, "real-money authorization is not supported by this surface")
-        if parked(state):
-            raise HTTPException(409, PARKED_DETAIL)
+        if fail_closed(state):
+            raise HTTPException(409, FAIL_CLOSED_DETAIL)
         analysis = analyser()
         try:
             trade = create_from_analysis(analysis, trades)

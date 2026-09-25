@@ -1,0 +1,2455 @@
+{
+  "artifact": "SYSTEM-G1-CYCLE-SYNTHETIC-DIAGNOSTICS-V1",
+  "btc_returns_or_outcomes_used": false,
+  "contract": "research/protocols/SYSTEM-G1-CYCLE-METHOD-V1.md",
+  "cycle_active_in_decisions": false,
+  "decision_path_cycle_role": "METHOD_NOT_READY",
+  "evaluation_bars_per_fixture": 384,
+  "evidence_class": "SYNTHETIC_METHOD_VALIDATION_ONLY",
+  "fixture_amplitude": 10.0,
+  "implementation_choices_for_review": [
+    "high-pass cutoff = period2 and SuperSmoother cutoff = period1 (2016 ACP companion)",
+    "normalization by the current band maximum of R (no MaxPwr decay/AGC)",
+    "DFT over lags 3..period2 (lags below the Pearson averaging length excluded)",
+    "phase-like coordinate = cos(atan2(sum x sin(wk), sum x cos(wk))) over round(period) trailing filtered samples; explained_fraction = (2/L)(re^2+im^2)/sum x^2",
+    "turn: slope sign change, confirmed by one further completed bar without reversal; estimated turn time = close of the bar before the sign change",
+    "gap or incomplete input bar: full recursive reset and re-warm of max(4*period2, 128)"
+  ],
+  "market_data_read": false,
+  "method_status": "SYNTHETIC_DIAGNOSTICS_PENDING_RESEARCH_DIRECTOR_QUALITY_GATE",
+  "method_version": "SYSTEM-G1-CYCLE-METHOD-V1-ACP-IMPL-1",
+  "noise_seed_base": 20260925,
+  "quality_labels_assigned": [
+    "UNAVAILABLE",
+    "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+  ],
+  "quality_metric_definitions": {
+    "explained_fraction": "variance share of the trailing window explained by the dominant-period projection (numerical, not a probability)",
+    "mean_normalized_power": "mean normalized ACP power across the band (lower = more concentrated spectrum)",
+    "peak_band_fraction": "share of band periods with normalized power >= 0.5",
+    "period_change": "absolute one-bar change of the dominant period (bars)"
+  },
+  "quality_thresholds_selected": false,
+  "reference_reconciliation_max_abs_period_diff": 0.0,
+  "scales": [
+    {
+      "acp_period_search": [
+        10,
+        22
+      ],
+      "fixture_periods": {
+        "changed": 11.0,
+        "nominal": 15.0,
+        "second": 21.0
+      },
+      "fixtures": [
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 52,
+          "dominant_period_bars": {
+            "median": 15.810698964,
+            "p10": 15.412320583,
+            "p90": 16.217038045
+          },
+          "evaluation_bars": 384,
+          "expected_turns_in_evaluation": 51,
+          "fixture": "clean_in_band_sinusoid",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.054046598,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.986774607,
+              "p10": 0.982930028,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.590887369,
+              "p10": 0.588993964,
+              "p90": 0.595834739
+            },
+            "peak_band_fraction": {
+              "median": 0.615384615,
+              "p10": 0.538461538,
+              "p90": 0.615384615
+            },
+            "period_change": {
+              "median": 0.348788854,
+              "p10": 0.003805248,
+              "p90": 0.391367222
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "periods": [
+              15.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 52,
+          "dominant_period_bars": {
+            "median": 16.274576161,
+            "p10": 14.774494041,
+            "p90": 16.91864358
+          },
+          "evaluation_bars": 384,
+          "fixture": "two_frequency_mixture",
+          "fraction_between_component_periods": 0.9921875,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.947189479,
+              "p10": 0.80510397,
+              "p90": 0.994452101
+            },
+            "mean_normalized_power": {
+              "median": 0.609543921,
+              "p10": 0.563475543,
+              "p90": 0.625158541
+            },
+            "peak_band_fraction": {
+              "median": 0.615384615,
+              "p10": 0.538461538,
+              "p90": 0.692307692
+            },
+            "period_change": {
+              "median": 0.041137908,
+              "p10": 0.004957006,
+              "p90": 0.445738599
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "amplitude_ratio": 0.6,
+            "periods": [
+              15.0,
+              21.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 52,
+          "dominant_period_bars": {
+            "median": 15.810698964,
+            "p10": 15.412320583,
+            "p90": 16.217038045
+          },
+          "evaluation_bars": 384,
+          "fixture": "trend_plus_cycle",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.054046598,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.986774607,
+              "p10": 0.982930028,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.590887369,
+              "p10": 0.588993964,
+              "p90": 0.595834739
+            },
+            "peak_band_fraction": {
+              "median": 0.615384615,
+              "p10": 0.538461538,
+              "p90": 0.615384615
+            },
+            "period_change": {
+              "median": 0.348788854,
+              "p10": 0.003805248,
+              "p90": 0.391367222
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "periods": [
+              15.0
+            ],
+            "trend_per_bar": 0.05
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 79,
+          "dominant_period_bars": {
+            "median": 11.884543083,
+            "p10": 10.0,
+            "p90": 16.65361009
+          },
+          "evaluation_bars": 384,
+          "fixture": "white_noise",
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.506244886,
+              "p10": 0.191489796,
+              "p90": 0.814481536
+            },
+            "mean_normalized_power": {
+              "median": 0.413370425,
+              "p10": 0.151741693,
+              "p90": 0.65820692
+            },
+            "peak_band_fraction": {
+              "median": 0.384615385,
+              "p10": 0.076923077,
+              "p90": 0.692307692
+            },
+            "period_change": {
+              "median": 0.047118202,
+              "p10": 0.0,
+              "p90": 0.818925134
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "noise_sd": 7.071067812,
+            "periods": []
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "bars_until_within_10pct_of_new_period": 25,
+          "confirmed_turns": 61,
+          "dominant_period_bars": {
+            "median": 15.408515335,
+            "p10": 11.37308782,
+            "p90": 16.209886961
+          },
+          "evaluation_bars": 384,
+          "fixture": "abrupt_period_change",
+          "post_change_dominant_median": 11.398389785,
+          "pre_change_dominant_median": 15.810698964,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 1.0,
+              "p10": 0.982930028,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.588952409,
+              "p10": 0.302413623,
+              "p90": 0.593684816
+            },
+            "peak_band_fraction": {
+              "median": 0.538461538,
+              "p10": 0.307692308,
+              "p90": 0.615384615
+            },
+            "period_change": {
+              "median": 0.030137222,
+              "p10": 0.00316925,
+              "p90": 0.389310327
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "change_index": 320,
+            "periods": [
+              15.0,
+              11.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 52,
+          "dominant_period_bars": {
+            "median": 15.812716339,
+            "p10": 15.41312914,
+            "p90": 16.214780343
+          },
+          "evaluation_bars": 384,
+          "fixture": "amplitude_decay",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.054181089,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.986586167,
+              "p10": 0.982109634,
+              "p90": 0.999367361
+            },
+            "mean_normalized_power": {
+              "median": 0.59082765,
+              "p10": 0.589315619,
+              "p90": 0.595526554
+            },
+            "peak_band_fraction": {
+              "median": 0.615384615,
+              "p10": 0.538461538,
+              "p90": 0.615384615
+            },
+            "period_change": {
+              "median": 0.345608302,
+              "p10": 0.005209378,
+              "p90": 0.391164104
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "decay_time_constant_bars": 170.666666667,
+            "periods": [
+              15.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 0.666666667,
+          "confirmed_turns": 35,
+          "dominant_period_bars": {
+            "median": 15.810698964,
+            "p10": 15.412320583,
+            "p90": 16.217038045
+          },
+          "evaluation_bars": 381,
+          "first_ready_index_after_gap": 322,
+          "fixture": "missing_observations",
+          "fraction_within_10pct": 1.0,
+          "gap_states_seen": [
+            "NO_GAP",
+            "REWARMING_AFTER_GAP"
+          ],
+          "median_relative_period_error": 0.054046598,
+          "quality_label_assigned": [
+            "UNAVAILABLE",
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.986774607,
+              "p10": 0.982930028,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.590887369,
+              "p10": 0.588993964,
+              "p90": 0.595834739
+            },
+            "peak_band_fraction": {
+              "median": 0.615384615,
+              "p10": 0.538461538,
+              "p90": 0.615384615
+            },
+            "period_change": {
+              "median": 0.348788854,
+              "p10": 0.003805248,
+              "p90": 0.391367222
+            }
+          },
+          "rewarm_bars_after_gap": 130,
+          "series_bars": 512,
+          "truth": {
+            "missing_indices": [
+              192,
+              193,
+              194
+            ],
+            "periods": [
+              15.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        }
+      ],
+      "group": "FAST",
+      "input_resolution": "3m",
+      "nominal_samples": 15,
+      "nominal_scale": "45m",
+      "warmup_bars": 128
+    },
+    {
+      "acp_period_search": [
+        10,
+        18
+      ],
+      "fixture_periods": {
+        "changed": 11.0,
+        "nominal": 12.0,
+        "second": 17.0
+      },
+      "fixtures": [
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 65,
+          "dominant_period_bars": {
+            "median": 12.497264215,
+            "p10": 12.420409893,
+            "p90": 12.891798402
+          },
+          "evaluation_bars": 384,
+          "expected_turns_in_evaluation": 64,
+          "fixture": "clean_in_band_sinusoid",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.041438685,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.989810867,
+              "p10": 0.973142742,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.668812487,
+              "p10": 0.659530596,
+              "p90": 0.67724629
+            },
+            "peak_band_fraction": {
+              "median": 0.666666667,
+              "p10": 0.666666667,
+              "p90": 0.777777778
+            },
+            "period_change": {
+              "median": 0.06380882,
+              "p10": 0.026091004,
+              "p90": 0.378907602
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "periods": [
+              12.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 65,
+          "dominant_period_bars": {
+            "median": 12.949920463,
+            "p10": 11.801990626,
+            "p90": 13.794031489
+          },
+          "evaluation_bars": 384,
+          "fixture": "two_frequency_mixture",
+          "fraction_between_component_periods": 1.0,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.941275716,
+              "p10": 0.728232942,
+              "p90": 0.993024184
+            },
+            "mean_normalized_power": {
+              "median": 0.704080067,
+              "p10": 0.578774722,
+              "p90": 0.731472609
+            },
+            "peak_band_fraction": {
+              "median": 0.777777778,
+              "p10": 0.555555556,
+              "p90": 0.777777778
+            },
+            "period_change": {
+              "median": 0.037168373,
+              "p10": 0.004267143,
+              "p90": 0.399725854
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "amplitude_ratio": 0.6,
+            "periods": [
+              12.0,
+              17.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 65,
+          "dominant_period_bars": {
+            "median": 12.497264215,
+            "p10": 12.420409893,
+            "p90": 12.891798402
+          },
+          "evaluation_bars": 384,
+          "fixture": "trend_plus_cycle",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.041438685,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.989810867,
+              "p10": 0.973142742,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.668812487,
+              "p10": 0.659530596,
+              "p90": 0.67724629
+            },
+            "peak_band_fraction": {
+              "median": 0.666666667,
+              "p10": 0.666666667,
+              "p90": 0.777777778
+            },
+            "period_change": {
+              "median": 0.06380882,
+              "p10": 0.026091004,
+              "p90": 0.378907602
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "periods": [
+              12.0
+            ],
+            "trend_per_bar": 0.05
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 77,
+          "dominant_period_bars": {
+            "median": 10.829350552,
+            "p10": 10.361783654,
+            "p90": 14.111516637
+          },
+          "evaluation_bars": 384,
+          "fixture": "white_noise",
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.607545748,
+              "p10": 0.2059724,
+              "p90": 0.861267363
+            },
+            "mean_normalized_power": {
+              "median": 0.435352976,
+              "p10": 0.244449333,
+              "p90": 0.765878482
+            },
+            "peak_band_fraction": {
+              "median": 0.333333333,
+              "p10": 0.222222222,
+              "p90": 0.888888889
+            },
+            "period_change": {
+              "median": 0.02084965,
+              "p10": 0.000857689,
+              "p90": 0.504394443
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "noise_sd": 7.071067812,
+            "periods": []
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "bars_until_within_10pct_of_new_period": 188,
+          "confirmed_turns": 68,
+          "dominant_period_bars": {
+            "median": 12.420409893,
+            "p10": 11.825815,
+            "p90": 12.849395995
+          },
+          "evaluation_bars": 384,
+          "fixture": "abrupt_period_change",
+          "post_change_dominant_median": 11.885403817,
+          "pre_change_dominant_median": 12.497264215,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.979202771,
+              "p10": 0.969203577,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.659530596,
+              "p10": 0.577903482,
+              "p90": 0.670426884
+            },
+            "peak_band_fraction": {
+              "median": 0.666666667,
+              "p10": 0.555555556,
+              "p90": 0.777777778
+            },
+            "period_change": {
+              "median": 0.066389903,
+              "p10": 0.014701219,
+              "p90": 0.378907602
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "change_index": 320,
+            "periods": [
+              12.0,
+              11.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 65,
+          "dominant_period_bars": {
+            "median": 12.497683843,
+            "p10": 12.420781848,
+            "p90": 12.892051305
+          },
+          "evaluation_bars": 384,
+          "fixture": "amplitude_decay",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.041473654,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.990199736,
+              "p10": 0.971985481,
+              "p90": 0.999658014
+            },
+            "mean_normalized_power": {
+              "median": 0.668910632,
+              "p10": 0.659584404,
+              "p90": 0.677272227
+            },
+            "peak_band_fraction": {
+              "median": 0.666666667,
+              "p10": 0.666666667,
+              "p90": 0.777777778
+            },
+            "period_change": {
+              "median": 0.064095633,
+              "p10": 0.025612724,
+              "p90": 0.379251351
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 512,
+          "truth": {
+            "decay_time_constant_bars": 170.666666667,
+            "periods": [
+              12.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        },
+        {
+          "available_fraction": 0.666666667,
+          "confirmed_turns": 45,
+          "dominant_period_bars": {
+            "median": 12.481637631,
+            "p10": 12.420409893,
+            "p90": 12.891798402
+          },
+          "evaluation_bars": 381,
+          "first_ready_index_after_gap": 322,
+          "fixture": "missing_observations",
+          "fraction_within_10pct": 1.0,
+          "gap_states_seen": [
+            "NO_GAP",
+            "REWARMING_AFTER_GAP"
+          ],
+          "median_relative_period_error": 0.040136469,
+          "quality_label_assigned": [
+            "UNAVAILABLE",
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 1.0,
+              "p10": 0.973142742,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.667470759,
+              "p10": 0.659530596,
+              "p90": 0.67724629
+            },
+            "peak_band_fraction": {
+              "median": 0.666666667,
+              "p10": 0.666666667,
+              "p90": 0.777777778
+            },
+            "period_change": {
+              "median": 0.061227738,
+              "p10": 0.026091004,
+              "p90": 0.378907602
+            }
+          },
+          "rewarm_bars_after_gap": 130,
+          "series_bars": 512,
+          "truth": {
+            "missing_indices": [
+              192,
+              193,
+              194
+            ],
+            "periods": [
+              12.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 128
+        }
+      ],
+      "group": "FAST",
+      "input_resolution": "15m",
+      "nominal_samples": 12,
+      "nominal_scale": "3h",
+      "warmup_bars": 128
+    },
+    {
+      "acp_period_search": [
+        16,
+        36
+      ],
+      "fixture_periods": {
+        "changed": 18.0,
+        "nominal": 24.0,
+        "second": 34.0
+      },
+      "fixtures": [
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 33,
+          "dominant_period_bars": {
+            "median": 25.185551034,
+            "p10": 24.293944585,
+            "p90": 26.192408651
+          },
+          "evaluation_bars": 384,
+          "expected_turns_in_evaluation": 32,
+          "fixture": "clean_in_band_sinusoid",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.04939796,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.994317733,
+              "p10": 0.974737424,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.573442492,
+              "p10": 0.549431573,
+              "p90": 0.588903661
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.523809524,
+              "p90": 0.619047619
+            },
+            "period_change": {
+              "median": 0.419288887,
+              "p10": 0.027525092,
+              "p90": 0.607875471
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "periods": [
+              24.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 35,
+          "dominant_period_bars": {
+            "median": 25.698645161,
+            "p10": 22.385566575,
+            "p90": 27.349324073
+          },
+          "evaluation_bars": 384,
+          "fixture": "two_frequency_mixture",
+          "fraction_between_component_periods": 1.0,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.944826125,
+              "p10": 0.81712067,
+              "p90": 0.996651588
+            },
+            "mean_normalized_power": {
+              "median": 0.588246108,
+              "p10": 0.49445431,
+              "p90": 0.604816765
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.476190476,
+              "p90": 0.666666667
+            },
+            "period_change": {
+              "median": 0.164201025,
+              "p10": 0.022808982,
+              "p90": 0.69662939
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "amplitude_ratio": 0.6,
+            "periods": [
+              24.0,
+              34.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 33,
+          "dominant_period_bars": {
+            "median": 25.185551034,
+            "p10": 24.293944586,
+            "p90": 26.192408651
+          },
+          "evaluation_bars": 384,
+          "fixture": "trend_plus_cycle",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.04939796,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.994317733,
+              "p10": 0.974737424,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.573442492,
+              "p10": 0.549431573,
+              "p90": 0.588903661
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.523809524,
+              "p90": 0.619047619
+            },
+            "period_change": {
+              "median": 0.419288887,
+              "p10": 0.027525092,
+              "p90": 0.607875471
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "periods": [
+              24.0
+            ],
+            "trend_per_bar": 0.05
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 55,
+          "dominant_period_bars": {
+            "median": 17.256268165,
+            "p10": 16.0,
+            "p90": 22.278329277
+          },
+          "evaluation_bars": 384,
+          "fixture": "white_noise",
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.625154762,
+              "p10": 0.206650461,
+              "p90": 0.878520081
+            },
+            "mean_normalized_power": {
+              "median": 0.24627526,
+              "p10": 0.125416324,
+              "p90": 0.506901399
+            },
+            "peak_band_fraction": {
+              "median": 0.19047619,
+              "p10": 0.047619048,
+              "p90": 0.476190476
+            },
+            "period_change": {
+              "median": 0.030962092,
+              "p10": 0.0,
+              "p90": 0.732506086
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "noise_sd": 7.071067812,
+            "periods": []
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "bars_until_within_10pct_of_new_period": 39,
+          "confirmed_turns": 38,
+          "dominant_period_bars": {
+            "median": 24.293758203,
+            "p10": 18.33871073,
+            "p90": 25.795371009
+          },
+          "evaluation_bars": 384,
+          "fixture": "abrupt_period_change",
+          "post_change_dominant_median": 18.483287361,
+          "pre_change_dominant_median": 25.185551034,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.995428569,
+              "p10": 0.972639633,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.549431255,
+              "p10": 0.291649629,
+              "p90": 0.586217298
+            },
+            "peak_band_fraction": {
+              "median": 0.523809524,
+              "p10": 0.285714286,
+              "p90": 0.571428571
+            },
+            "period_change": {
+              "median": 0.344358309,
+              "p10": 0.012371439,
+              "p90": 0.560778758
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "change_index": 336,
+            "periods": [
+              24.0,
+              18.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 33,
+          "dominant_period_bars": {
+            "median": 25.02152165,
+            "p10": 24.284014604,
+            "p90": 26.177390406
+          },
+          "evaluation_bars": 384,
+          "fixture": "amplitude_decay",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.042563402,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.993189895,
+              "p10": 0.970610899,
+              "p90": 0.998361104
+            },
+            "mean_normalized_power": {
+              "median": 0.572538673,
+              "p10": 0.548421045,
+              "p90": 0.588797582
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.523809524,
+              "p90": 0.619047619
+            },
+            "period_change": {
+              "median": 0.413950156,
+              "p10": 0.037364158,
+              "p90": 0.619723452
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "decay_time_constant_bars": 176.0,
+            "periods": [
+              24.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 0.624671916,
+          "confirmed_turns": 22,
+          "dominant_period_bars": {
+            "median": 25.234576367,
+            "p10": 24.293944583,
+            "p90": 26.192408678
+          },
+          "evaluation_bars": 381,
+          "first_ready_index_after_gap": 354,
+          "fixture": "missing_observations",
+          "fraction_within_10pct": 1.0,
+          "gap_states_seen": [
+            "NO_GAP",
+            "REWARMING_AFTER_GAP"
+          ],
+          "median_relative_period_error": 0.051440682,
+          "quality_label_assigned": [
+            "UNAVAILABLE",
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.994006955,
+              "p10": 0.974737418,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.577018187,
+              "p10": 0.549431567,
+              "p90": 0.588903666
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.523809524,
+              "p90": 0.619047619
+            },
+            "period_change": {
+              "median": 0.424558677,
+              "p10": 0.027525071,
+              "p90": 0.607875524
+            }
+          },
+          "rewarm_bars_after_gap": 146,
+          "series_bars": 528,
+          "truth": {
+            "missing_indices": [
+              208,
+              209,
+              210
+            ],
+            "periods": [
+              24.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        }
+      ],
+      "group": "INTERMEDIATE",
+      "input_resolution": "1h",
+      "nominal_samples": 24,
+      "nominal_scale": "1d",
+      "warmup_bars": 144
+    },
+    {
+      "acp_period_search": [
+        16,
+        36
+      ],
+      "fixture_periods": {
+        "changed": 18.0,
+        "nominal": 24.0,
+        "second": 34.0
+      },
+      "fixtures": [
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 33,
+          "dominant_period_bars": {
+            "median": 25.185551034,
+            "p10": 24.293944585,
+            "p90": 26.192408651
+          },
+          "evaluation_bars": 384,
+          "expected_turns_in_evaluation": 32,
+          "fixture": "clean_in_band_sinusoid",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.04939796,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.994317733,
+              "p10": 0.974737424,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.573442492,
+              "p10": 0.549431573,
+              "p90": 0.588903661
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.523809524,
+              "p90": 0.619047619
+            },
+            "period_change": {
+              "median": 0.419288887,
+              "p10": 0.027525092,
+              "p90": 0.607875471
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "periods": [
+              24.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 35,
+          "dominant_period_bars": {
+            "median": 25.698645161,
+            "p10": 22.385566575,
+            "p90": 27.349324073
+          },
+          "evaluation_bars": 384,
+          "fixture": "two_frequency_mixture",
+          "fraction_between_component_periods": 1.0,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.944826125,
+              "p10": 0.81712067,
+              "p90": 0.996651588
+            },
+            "mean_normalized_power": {
+              "median": 0.588246108,
+              "p10": 0.49445431,
+              "p90": 0.604816765
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.476190476,
+              "p90": 0.666666667
+            },
+            "period_change": {
+              "median": 0.164201025,
+              "p10": 0.022808982,
+              "p90": 0.69662939
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "amplitude_ratio": 0.6,
+            "periods": [
+              24.0,
+              34.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 33,
+          "dominant_period_bars": {
+            "median": 25.185551034,
+            "p10": 24.293944586,
+            "p90": 26.192408651
+          },
+          "evaluation_bars": 384,
+          "fixture": "trend_plus_cycle",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.04939796,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.994317733,
+              "p10": 0.974737424,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.573442492,
+              "p10": 0.549431573,
+              "p90": 0.588903661
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.523809524,
+              "p90": 0.619047619
+            },
+            "period_change": {
+              "median": 0.419288887,
+              "p10": 0.027525092,
+              "p90": 0.607875471
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "periods": [
+              24.0
+            ],
+            "trend_per_bar": 0.05
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 55,
+          "dominant_period_bars": {
+            "median": 17.256268165,
+            "p10": 16.0,
+            "p90": 22.278329277
+          },
+          "evaluation_bars": 384,
+          "fixture": "white_noise",
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.625154762,
+              "p10": 0.206650461,
+              "p90": 0.878520081
+            },
+            "mean_normalized_power": {
+              "median": 0.24627526,
+              "p10": 0.125416324,
+              "p90": 0.506901399
+            },
+            "peak_band_fraction": {
+              "median": 0.19047619,
+              "p10": 0.047619048,
+              "p90": 0.476190476
+            },
+            "period_change": {
+              "median": 0.030962092,
+              "p10": 0.0,
+              "p90": 0.732506086
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "noise_sd": 7.071067812,
+            "periods": []
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "bars_until_within_10pct_of_new_period": 39,
+          "confirmed_turns": 38,
+          "dominant_period_bars": {
+            "median": 24.293758203,
+            "p10": 18.33871073,
+            "p90": 25.795371009
+          },
+          "evaluation_bars": 384,
+          "fixture": "abrupt_period_change",
+          "post_change_dominant_median": 18.483287361,
+          "pre_change_dominant_median": 25.185551034,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.995428569,
+              "p10": 0.972639633,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.549431255,
+              "p10": 0.291649629,
+              "p90": 0.586217298
+            },
+            "peak_band_fraction": {
+              "median": 0.523809524,
+              "p10": 0.285714286,
+              "p90": 0.571428571
+            },
+            "period_change": {
+              "median": 0.344358309,
+              "p10": 0.012371439,
+              "p90": 0.560778758
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "change_index": 336,
+            "periods": [
+              24.0,
+              18.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 33,
+          "dominant_period_bars": {
+            "median": 25.02152165,
+            "p10": 24.284014604,
+            "p90": 26.177390406
+          },
+          "evaluation_bars": 384,
+          "fixture": "amplitude_decay",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.042563402,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.993189895,
+              "p10": 0.970610899,
+              "p90": 0.998361104
+            },
+            "mean_normalized_power": {
+              "median": 0.572538673,
+              "p10": 0.548421045,
+              "p90": 0.588797582
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.523809524,
+              "p90": 0.619047619
+            },
+            "period_change": {
+              "median": 0.413950156,
+              "p10": 0.037364158,
+              "p90": 0.619723452
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 528,
+          "truth": {
+            "decay_time_constant_bars": 176.0,
+            "periods": [
+              24.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        },
+        {
+          "available_fraction": 0.624671916,
+          "confirmed_turns": 22,
+          "dominant_period_bars": {
+            "median": 25.234576367,
+            "p10": 24.293944583,
+            "p90": 26.192408678
+          },
+          "evaluation_bars": 381,
+          "first_ready_index_after_gap": 354,
+          "fixture": "missing_observations",
+          "fraction_within_10pct": 1.0,
+          "gap_states_seen": [
+            "NO_GAP",
+            "REWARMING_AFTER_GAP"
+          ],
+          "median_relative_period_error": 0.051440682,
+          "quality_label_assigned": [
+            "UNAVAILABLE",
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.994006955,
+              "p10": 0.974737418,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.577018187,
+              "p10": 0.549431567,
+              "p90": 0.588903666
+            },
+            "peak_band_fraction": {
+              "median": 0.571428571,
+              "p10": 0.523809524,
+              "p90": 0.619047619
+            },
+            "period_change": {
+              "median": 0.424558677,
+              "p10": 0.027525071,
+              "p90": 0.607875524
+            }
+          },
+          "rewarm_bars_after_gap": 146,
+          "series_bars": 528,
+          "truth": {
+            "missing_indices": [
+              208,
+              209,
+              210
+            ],
+            "periods": [
+              24.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 144
+        }
+      ],
+      "group": "INTERMEDIATE",
+      "input_resolution": "4h",
+      "nominal_samples": 24,
+      "nominal_scale": "4d",
+      "warmup_bars": 144
+    },
+    {
+      "acp_period_search": [
+        28,
+        48
+      ],
+      "fixture_periods": {
+        "changed": 32.0,
+        "nominal": 42.0,
+        "second": 47.0
+      },
+      "fixtures": [
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 19,
+          "dominant_period_bars": {
+            "median": 40.856143673,
+            "p10": 40.114095219,
+            "p90": 41.724026046
+          },
+          "evaluation_bars": 384,
+          "expected_turns_in_evaluation": 18,
+          "fixture": "clean_in_band_sinusoid",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.027234674,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.998115442,
+              "p10": 0.99335596,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.750431662,
+              "p10": 0.680963124,
+              "p90": 0.761174666
+            },
+            "peak_band_fraction": {
+              "median": 0.761904762,
+              "p10": 0.714285714,
+              "p90": 0.80952381
+            },
+            "period_change": {
+              "median": 0.129991633,
+              "p10": 0.026598606,
+              "p90": 0.451383758
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 576,
+          "truth": {
+            "periods": [
+              42.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 192
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 19,
+          "dominant_period_bars": {
+            "median": 40.48690806,
+            "p10": 39.566044238,
+            "p90": 42.230989285
+          },
+          "evaluation_bars": 384,
+          "fixture": "two_frequency_mixture",
+          "fraction_between_component_periods": 1.0,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.982964253,
+              "p10": 0.977927052,
+              "p90": 0.995321334
+            },
+            "mean_normalized_power": {
+              "median": 0.749790939,
+              "p10": 0.633100075,
+              "p90": 0.771361847
+            },
+            "peak_band_fraction": {
+              "median": 0.80952381,
+              "p10": 0.666666667,
+              "p90": 0.857142857
+            },
+            "period_change": {
+              "median": 0.116149764,
+              "p10": 0.014466168,
+              "p90": 0.465282858
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 576,
+          "truth": {
+            "amplitude_ratio": 0.6,
+            "periods": [
+              42.0,
+              47.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 192
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 19,
+          "dominant_period_bars": {
+            "median": 40.856143673,
+            "p10": 40.114095219,
+            "p90": 41.724026046
+          },
+          "evaluation_bars": 384,
+          "fixture": "trend_plus_cycle",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.027234674,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.998115442,
+              "p10": 0.99335596,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.750431662,
+              "p10": 0.680963124,
+              "p90": 0.761174666
+            },
+            "peak_band_fraction": {
+              "median": 0.761904762,
+              "p10": 0.714285714,
+              "p90": 0.80952381
+            },
+            "period_change": {
+              "median": 0.129991633,
+              "p10": 0.026598606,
+              "p90": 0.451383758
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 576,
+          "truth": {
+            "periods": [
+              42.0
+            ],
+            "trend_per_bar": 0.05
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 192
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 32,
+          "dominant_period_bars": {
+            "median": 32.12317544,
+            "p10": 28.785029313,
+            "p90": 42.261683653
+          },
+          "evaluation_bars": 384,
+          "fixture": "white_noise",
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.672932308,
+              "p10": 0.272168748,
+              "p90": 0.820801675
+            },
+            "mean_normalized_power": {
+              "median": 0.453152559,
+              "p10": 0.194748301,
+              "p90": 0.814694214
+            },
+            "peak_band_fraction": {
+              "median": 0.428571429,
+              "p10": 0.142857143,
+              "p90": 1.0
+            },
+            "period_change": {
+              "median": 0.067675325,
+              "p10": 0.002029023,
+              "p90": 0.857258384
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 576,
+          "truth": {
+            "noise_sd": 7.071067812,
+            "periods": []
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 192
+        },
+        {
+          "available_fraction": 1.0,
+          "bars_until_within_10pct_of_new_period": 75,
+          "confirmed_turns": 22,
+          "dominant_period_bars": {
+            "median": 40.140134127,
+            "p10": 33.385968388,
+            "p90": 41.679681698
+          },
+          "evaluation_bars": 384,
+          "fixture": "abrupt_period_change",
+          "post_change_dominant_median": 34.949589452,
+          "pre_change_dominant_median": 40.856143673,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.993656712,
+              "p10": 0.96865567,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.71939054,
+              "p10": 0.621267959,
+              "p90": 0.7621986
+            },
+            "peak_band_fraction": {
+              "median": 0.761904762,
+              "p10": 0.619047619,
+              "p90": 0.80952381
+            },
+            "period_change": {
+              "median": 0.135249208,
+              "p10": 0.026598645,
+              "p90": 0.497306258
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 576,
+          "truth": {
+            "change_index": 384,
+            "periods": [
+              42.0,
+              32.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 192
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 19,
+          "dominant_period_bars": {
+            "median": 40.834780274,
+            "p10": 40.108153578,
+            "p90": 41.713180359
+          },
+          "evaluation_bars": 384,
+          "fixture": "amplitude_decay",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.027743327,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.99451784,
+              "p10": 0.989488998,
+              "p90": 0.996876572
+            },
+            "mean_normalized_power": {
+              "median": 0.751576017,
+              "p10": 0.68285067,
+              "p90": 0.761266758
+            },
+            "peak_band_fraction": {
+              "median": 0.761904762,
+              "p10": 0.714285714,
+              "p90": 0.80952381
+            },
+            "period_change": {
+              "median": 0.141300868,
+              "p10": 0.01824561,
+              "p90": 0.444510036
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 576,
+          "truth": {
+            "decay_time_constant_bars": 192.0,
+            "periods": [
+              42.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 192
+        },
+        {
+          "available_fraction": 0.498687664,
+          "confirmed_turns": 11,
+          "dominant_period_bars": {
+            "median": 40.856143673,
+            "p10": 40.114095525,
+            "p90": 41.724026882
+          },
+          "evaluation_bars": 381,
+          "first_ready_index_after_gap": 450,
+          "fixture": "missing_observations",
+          "fraction_within_10pct": 1.0,
+          "gap_states_seen": [
+            "NO_GAP",
+            "REWARMING_AFTER_GAP"
+          ],
+          "median_relative_period_error": 0.027234674,
+          "quality_label_assigned": [
+            "UNAVAILABLE",
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.998115442,
+              "p10": 0.993354026,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.750431662,
+              "p10": 0.680962966,
+              "p90": 0.761174623
+            },
+            "peak_band_fraction": {
+              "median": 0.761904762,
+              "p10": 0.714285714,
+              "p90": 0.80952381
+            },
+            "period_change": {
+              "median": 0.129991633,
+              "p10": 0.026598384,
+              "p90": 0.451383848
+            }
+          },
+          "rewarm_bars_after_gap": 194,
+          "series_bars": 576,
+          "truth": {
+            "missing_indices": [
+              256,
+              257,
+              258
+            ],
+            "periods": [
+              42.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 192
+        }
+      ],
+      "group": "SLOW",
+      "input_resolution": "4h",
+      "nominal_samples": 42,
+      "nominal_scale": "1w",
+      "warmup_bars": 192
+    },
+    {
+      "acp_period_search": [
+        19,
+        42
+      ],
+      "fixture_periods": {
+        "changed": 21.0,
+        "nominal": 28.0,
+        "second": 39.0
+      },
+      "fixtures": [
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 28,
+          "dominant_period_bars": {
+            "median": 29.144874944,
+            "p10": 28.20971285,
+            "p90": 30.692039924
+          },
+          "evaluation_bars": 384,
+          "expected_turns_in_evaluation": 27,
+          "fixture": "clean_in_band_sinusoid",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.040888391,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.995632378,
+              "p10": 0.969442428,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.576025203,
+              "p10": 0.546767086,
+              "p90": 0.599141553
+            },
+            "peak_band_fraction": {
+              "median": 0.583333333,
+              "p10": 0.5,
+              "p90": 0.625
+            },
+            "period_change": {
+              "median": 0.412239023,
+              "p10": 0.020612566,
+              "p90": 0.803332291
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 552,
+          "truth": {
+            "periods": [
+              28.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 168
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 31,
+          "dominant_period_bars": {
+            "median": 29.782012199,
+            "p10": 26.291953918,
+            "p90": 32.178240322
+          },
+          "evaluation_bars": 384,
+          "fixture": "two_frequency_mixture",
+          "fraction_between_component_periods": 1.0,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.942591753,
+              "p10": 0.85574542,
+              "p90": 0.99609914
+            },
+            "mean_normalized_power": {
+              "median": 0.594232942,
+              "p10": 0.490366369,
+              "p90": 0.612947829
+            },
+            "peak_band_fraction": {
+              "median": 0.583333333,
+              "p10": 0.458333333,
+              "p90": 0.666666667
+            },
+            "period_change": {
+              "median": 0.343044499,
+              "p10": 0.017219107,
+              "p90": 0.775355128
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 552,
+          "truth": {
+            "amplitude_ratio": 0.6,
+            "periods": [
+              28.0,
+              39.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 168
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 28,
+          "dominant_period_bars": {
+            "median": 29.144874944,
+            "p10": 28.20971285,
+            "p90": 30.692039924
+          },
+          "evaluation_bars": 384,
+          "fixture": "trend_plus_cycle",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.040888391,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.995632378,
+              "p10": 0.969442428,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.576025203,
+              "p10": 0.546767086,
+              "p90": 0.599141553
+            },
+            "peak_band_fraction": {
+              "median": 0.583333333,
+              "p10": 0.5,
+              "p90": 0.625
+            },
+            "period_change": {
+              "median": 0.412239023,
+              "p10": 0.020612566,
+              "p90": 0.803332291
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 552,
+          "truth": {
+            "periods": [
+              28.0
+            ],
+            "trend_per_bar": 0.05
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 168
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 53,
+          "dominant_period_bars": {
+            "median": 24.354913497,
+            "p10": 19.383177442,
+            "p90": 34.118438112
+          },
+          "evaluation_bars": 384,
+          "fixture": "white_noise",
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.463028841,
+              "p10": 0.134357257,
+              "p90": 0.819305141
+            },
+            "mean_normalized_power": {
+              "median": 0.437206848,
+              "p10": 0.123749282,
+              "p90": 0.649948243
+            },
+            "peak_band_fraction": {
+              "median": 0.375,
+              "p10": 0.083333333,
+              "p90": 0.708333333
+            },
+            "period_change": {
+              "median": 0.072471093,
+              "p10": 0.001203908,
+              "p90": 1.425387606
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 552,
+          "truth": {
+            "noise_sd": 7.071067812,
+            "periods": []
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 168
+        },
+        {
+          "available_fraction": 1.0,
+          "bars_until_within_10pct_of_new_period": 45,
+          "confirmed_turns": 33,
+          "dominant_period_bars": {
+            "median": 28.209712761,
+            "p10": 21.361318576,
+            "p90": 30.285065862
+          },
+          "evaluation_bars": 384,
+          "fixture": "abrupt_period_change",
+          "post_change_dominant_median": 21.829233974,
+          "pre_change_dominant_median": 29.14487279,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.99384757,
+              "p10": 0.964556768,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.546767085,
+              "p10": 0.284011828,
+              "p90": 0.597963952
+            },
+            "peak_band_fraction": {
+              "median": 0.5,
+              "p10": 0.25,
+              "p90": 0.583333333
+            },
+            "period_change": {
+              "median": 0.132821832,
+              "p10": 0.008748124,
+              "p90": 0.612873867
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 552,
+          "truth": {
+            "change_index": 360,
+            "periods": [
+              28.0,
+              21.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 168
+        },
+        {
+          "available_fraction": 1.0,
+          "confirmed_turns": 28,
+          "dominant_period_bars": {
+            "median": 28.805011253,
+            "p10": 28.212282591,
+            "p90": 30.691658974
+          },
+          "evaluation_bars": 384,
+          "fixture": "amplitude_decay",
+          "fraction_within_10pct": 1.0,
+          "median_relative_period_error": 0.028750402,
+          "quality_label_assigned": [
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.994334263,
+              "p10": 0.962483569,
+              "p90": 0.998038258
+            },
+            "mean_normalized_power": {
+              "median": 0.575189756,
+              "p10": 0.546728325,
+              "p90": 0.598763697
+            },
+            "peak_band_fraction": {
+              "median": 0.541666667,
+              "p10": 0.5,
+              "p90": 0.625
+            },
+            "period_change": {
+              "median": 0.416848873,
+              "p10": 0.02614219,
+              "p90": 0.805955313
+            }
+          },
+          "reference_availability_matches": true,
+          "reference_reconciliation_max_abs_period_diff": 0.0,
+          "series_bars": 552,
+          "truth": {
+            "decay_time_constant_bars": 184.0,
+            "periods": [
+              28.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 168
+        },
+        {
+          "available_fraction": 0.56167979,
+          "confirmed_turns": 16,
+          "dominant_period_bars": {
+            "median": 29.14487665,
+            "p10": 28.20971285,
+            "p90": 30.692039924
+          },
+          "evaluation_bars": 381,
+          "first_ready_index_after_gap": 402,
+          "fixture": "missing_observations",
+          "fraction_within_10pct": 1.0,
+          "gap_states_seen": [
+            "NO_GAP",
+            "REWARMING_AFTER_GAP"
+          ],
+          "median_relative_period_error": 0.040888452,
+          "quality_label_assigned": [
+            "UNAVAILABLE",
+            "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+          ],
+          "quality_metrics": {
+            "explained_fraction": {
+              "median": 0.995465467,
+              "p10": 0.969442428,
+              "p90": 1.0
+            },
+            "mean_normalized_power": {
+              "median": 0.576025334,
+              "p10": 0.546767086,
+              "p90": 0.599141553
+            },
+            "peak_band_fraction": {
+              "median": 0.583333333,
+              "p10": 0.5,
+              "p90": 0.625
+            },
+            "period_change": {
+              "median": 0.412237347,
+              "p10": 0.020612566,
+              "p90": 0.803332291
+            }
+          },
+          "rewarm_bars_after_gap": 170,
+          "series_bars": 552,
+          "truth": {
+            "missing_indices": [
+              232,
+              233,
+              234
+            ],
+            "periods": [
+              28.0
+            ]
+          },
+          "turn_confirmation_delay_bars": {
+            "median": 2.0,
+            "p10": 2.0,
+            "p90": 2.0
+          },
+          "turn_confirmation_never_before_estimate": true,
+          "warmup_bars": 168
+        }
+      ],
+      "group": "SLOW",
+      "input_resolution": "1d",
+      "nominal_samples": 28,
+      "nominal_scale": "4w",
+      "warmup_bars": 168
+    }
+  ],
+  "threshold_authority": "RESEARCH_DIRECTOR_ONLY"
+}
