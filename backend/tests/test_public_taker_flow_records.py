@@ -242,12 +242,15 @@ def test_validator_rejects_a_rewritten_historical_raw_pin(tmp_path: Path) -> Non
 def test_top_level_pointers_are_derived_from_records() -> None:
     state = read_json("state/current_state.json")
     pointers = validation.expected_state_pointers(ROOT, state)
-    assert pointers["latest_executor_checkpoint"] == (
-        "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1"
-    )
-    assert pointers["next_recommended_work_package"] == (
-        "RESEARCH-DIRECTOR-REALLOCATION-AFTER-PUBLIC-TAKER-FLOW-POWER-BLOCK"
-    )
+    # ADR-0036: the Constitution 3.0 transition record names the latest executor checkpoint;
+    # the power-gate checkpoint stays the latest reviewed one until the transition is reviewed.
+    governance = state["governance_transition_v3"]
+    assert pointers["latest_executor_checkpoint"] == (Path(governance["checkpoint_report"]).stem)
+    if governance["status"] != "REVIEWED":
+        assert pointers["latest_reviewed_checkpoint"] == (
+            "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1"
+        )
+    assert pointers["next_recommended_work_package"] == governance["next_work_package"]
     validation.validate_state_pointers(ROOT, state)
     state["latest_executor_checkpoint"] = "PREDICTIVE-V2-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION-V1"
     with pytest.raises(validation.TakerFlowValidationError, match="stale"):

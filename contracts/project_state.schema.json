@@ -8530,7 +8530,8 @@
           "type": "array"
         },
         "next_checkpoint": {
-          "const": "RESEARCH_DIRECTOR_REALLOCATION_AFTER_PUBLIC_TAKER_FLOW_POWER_BLOCK"
+          "pattern": "^[A-Z0-9_]+$",
+          "type": "string"
         },
         "paper_strategy_semantics_changed": {
           "const": false
@@ -9374,6 +9375,379 @@
         "matched_control_classification"
       ],
       "type": "object"
+    },
+    "governance_transition_v3": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkpoint",
+        "checkpoint_report",
+        "status",
+        "decision_records",
+        "authorized_by",
+        "authorized_on",
+        "strategic_directive",
+        "constitution",
+        "constitution_version",
+        "constitution_title",
+        "superseded_constitution_versions_preserved",
+        "product",
+        "no_trade_is_valid_permanent_outcome",
+        "research_sequence",
+        "stage_policy",
+        "allocation_map",
+        "confirmation_defaults",
+        "decision_hierarchy",
+        "executor_policy",
+        "methodological_qualifications",
+        "methodological_qualification_ids",
+        "historical_results_rewritten",
+        "withdrawn_proposals",
+        "allocation_posture",
+        "scientific_coverage",
+        "candidate_card_2_allocated",
+        "candidate_1",
+        "market_trials_executed",
+        "market_trial_authorized",
+        "new_market_data_accessed",
+        "sealed_queries",
+        "champion_status",
+        "real_money",
+        "archived_task",
+        "active_task",
+        "next_work_package",
+        "project_state"
+      ],
+      "properties": {
+        "checkpoint": {
+          "const": "GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1"
+        },
+        "checkpoint_report": {
+          "pattern": "^reports/checkpoints/[A-Z0-9_.-]+\\.md$",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+            "REVIEWED"
+          ]
+        },
+        "decision_records": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "const": "decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md"
+            },
+            {
+              "const": "decisions/ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md"
+            }
+          ],
+          "items": {
+            "pattern": "^decisions/ADR-[0-9]{4}-[A-Z0-9-]+\\.md$",
+            "type": "string"
+          }
+        },
+        "authorized_by": {
+          "const": "OWNER"
+        },
+        "authorized_on": {
+          "const": "2026-09-25"
+        },
+        "strategic_directive": {
+          "const": "ASTRA_TRADING_BOT_STRATEGIC_OPERATING_DIRECTIVE_V2"
+        },
+        "constitution": {
+          "const": "governance/SCIENTIFIC_CONSTITUTION.md"
+        },
+        "constitution_version": {
+          "const": "3.0"
+        },
+        "constitution_title": {
+          "const": "practical economic usefulness"
+        },
+        "superseded_constitution_versions_preserved": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "const": "1.0"
+            },
+            {
+              "const": "2.0"
+            }
+          ]
+        },
+        "product": {
+          "const": "BTC_SPOT_LONG_OR_NO_TRADE_PAPER"
+        },
+        "no_trade_is_valid_permanent_outcome": {
+          "const": true
+        },
+        "research_sequence": {
+          "const": "PLAUSIBLE_MECHANISM -> EXPLICIT_PLAYBOOK -> BOUNDED_HISTORICAL_DEVELOPMENT -> PROMOTION_GATE -> FROZEN_PROSPECTIVE_ECONOMIC_CONFIRMATION"
+        },
+        "stage_policy": {
+          "const": "docs/canonical/RESEARCH_STAGE_POLICY_V1.md"
+        },
+        "allocation_map": {
+          "const": "docs/canonical/STRATEGIC_ALLOCATION_MAP_V1.md"
+        },
+        "confirmation_defaults": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "target_power",
+            "familywise_alpha",
+            "calendar_ceiling_months"
+          ],
+          "properties": {
+            "target_power": {
+              "const": 0.8
+            },
+            "familywise_alpha": {
+              "const": 0.05
+            },
+            "calendar_ceiling_months": {
+              "const": 12
+            }
+          }
+        },
+        "decision_hierarchy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "strategic_scientific_authority",
+            "routine_research_director",
+            "sole_coding_executor",
+            "codex_in_normal_workflow"
+          ],
+          "properties": {
+            "strategic_scientific_authority": {
+              "const": "ASTRA"
+            },
+            "routine_research_director": {
+              "const": "CHATGPT_RESEARCH_DIRECTOR"
+            },
+            "sole_coding_executor": {
+              "const": "CLAUDE_CODE"
+            },
+            "codex_in_normal_workflow": {
+              "const": false
+            }
+          }
+        },
+        "executor_policy": {
+          "const": "governance/EXECUTOR_POLICY.md"
+        },
+        "methodological_qualifications": {
+          "const": "reports/reviews/METHODOLOGICAL-QUALIFICATIONS-V1.md"
+        },
+        "methodological_qualification_ids": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^Q-[0-9]{3}-[A-Z0-9-]+$"
+          }
+        },
+        "historical_results_rewritten": {
+          "const": false
+        },
+        "withdrawn_proposals": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "allocation_posture": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "const": "LATE_STAGE_WITHIN_CURRENT_ENVELOPE"
+            },
+            {
+              "const": "RESEARCH_WARNING"
+            }
+          ]
+        },
+        "scientific_coverage": {
+          "const": "MATURE_NEGATIVE_PREDICTOR_RESEARCH_WITH_LIMITED_PLAYBOOK_COVERAGE"
+        },
+        "candidate_card_2_allocated": {
+          "const": false
+        },
+        "candidate_1": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "card",
+            "name",
+            "lineage_classification",
+            "executor_support_diagnostic",
+            "frozen_specification",
+            "frozen_by",
+            "admission_module",
+            "admission_audit",
+            "admission_record",
+            "support_calculations_budget",
+            "support_calculations_executed",
+            "gates",
+            "disposition",
+            "result_decision_record",
+            "economic_hypothesis_tested",
+            "market_outcomes_inspected",
+            "replacement_candidate",
+            "reopening_requires"
+          ],
+          "properties": {
+            "card": {
+              "const": "research/candidates/CANDIDATE-CARD-1-POSITIONING-CONDITIONED-SELL-OFF-RECOVERY.md"
+            },
+            "name": {
+              "const": "POSITIONING_CONDITIONED_RECOVERY_AFTER_SHARP_BTC_SPOT_SELL_OFF"
+            },
+            "lineage_classification": {
+              "const": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED"
+            },
+            "executor_support_diagnostic": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "bundle",
+                "classification",
+                "astra_adjudication",
+                "authoritative",
+                "events",
+                "joint_state",
+                "complement"
+              ],
+              "properties": {
+                "bundle": {
+                  "const": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md"
+                },
+                "classification": {
+                  "const": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION"
+                },
+                "astra_adjudication": {
+                  "const": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED"
+                },
+                "authoritative": {
+                  "const": false
+                },
+                "events": {
+                  "const": 73
+                },
+                "joint_state": {
+                  "const": 25
+                },
+                "complement": {
+                  "const": 48
+                }
+              }
+            },
+            "frozen_specification": {
+              "const": "research/protocols/CANDIDATE-1-FROZEN-ADMISSION-V1.md"
+            },
+            "frozen_by": {
+              "const": "RESEARCH_DIRECTOR"
+            },
+            "admission_module": {
+              "const": "backend/app/research/candidate_1_admission.py"
+            },
+            "admission_audit": {
+              "const": "scripts/audit_candidate_1_frozen_admission.py"
+            },
+            "admission_record": {
+              "const": "reports/validation/CANDIDATE-1-FROZEN-ADMISSION-V1.json"
+            },
+            "support_calculations_budget": {
+              "const": 1
+            },
+            "support_calculations_executed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "gates": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            },
+            "disposition": {
+              "enum": [
+                "PENDING_FROZEN_ADMISSION_CALCULATION",
+                "CANDIDATE_1_ADMITTED_FOR_PROTOCOL_DESIGN",
+                "CANDIDATE_1_CLOSED_CURRENT_ALLOCATION_SUPPORT_OR_FEASIBILITY"
+              ]
+            },
+            "result_decision_record": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "economic_hypothesis_tested": {
+              "const": false
+            },
+            "market_outcomes_inspected": {
+              "const": false
+            },
+            "replacement_candidate": {
+              "type": "null"
+            },
+            "reopening_requires": {
+              "const": "ASTRA"
+            }
+          }
+        },
+        "market_trials_executed": {
+          "const": 0
+        },
+        "market_trial_authorized": {
+          "const": false
+        },
+        "new_market_data_accessed": {
+          "const": false
+        },
+        "sealed_queries": {
+          "const": 0
+        },
+        "champion_status": {
+          "const": "NONE"
+        },
+        "real_money": {
+          "const": false
+        },
+        "archived_task": {
+          "pattern": "^tasks/archive/[A-Z0-9_.-]+\\.md$",
+          "type": "string"
+        },
+        "active_task": {
+          "const": "tasks/CURRENT_TASK.md"
+        },
+        "next_work_package": {
+          "type": "string",
+          "pattern": "^[A-Z0-9-]+$"
+        },
+        "project_state": {
+          "enum": [
+            "CANDIDATE_1_FROZEN_ADMISSION_PENDING",
+            "CANDIDATE_1_PROTOCOL_DESIGN_PENDING",
+            "STRONG_STOP_PENDING_ASTRA"
+          ]
+        }
+      }
     }
   },
   "required": [
@@ -9438,7 +9812,8 @@
     "predictive_v2_internal_structure_selective",
     "chat_handover",
     "predictive_public_taker_flow_horizon_foundation",
-    "predictive_public_taker_flow_1h_incremental"
+    "predictive_public_taker_flow_1h_incremental",
+    "governance_transition_v3"
   ],
   "type": "object"
 }

@@ -34,11 +34,14 @@ def _text(relative: str) -> str:
 # --- Constitution Version 2.0 ------------------------------------------------------
 
 
-def test_constitution_is_version_2_and_preserves_version_1_verbatim() -> None:
+def test_constitution_preserves_version_2_and_version_1_verbatim() -> None:
+    # Version 3.0 (ADR-0036) supersedes Version 2.0 and keeps it verbatim as Appendix B.
     constitution = _text("governance/SCIENTIFIC_CONSTITUTION.md")
     assert constitution.startswith(
-        "# Trading Bot — Scientific Constitution\n\nVersion 2.0 — prediction-first\n"
+        "# Trading Bot — Scientific Constitution\n\nVersion 3.0 — practical economic usefulness\n"
     )
+    assert "## Appendix B — superseded Version 2.0, preserved verbatim" in constitution
+    assert "\nVersion 2.0 — prediction-first\n" in constitution
     seeded = subprocess.check_output(
         ["git", "show", "c6c526124945aa1624118bd7ee6aef9ae5c011b2:SCIENTIFIC_CONSTITUTION.md"],
         cwd=ROOT,
@@ -366,6 +369,9 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
 # is "the active task is the declared successor", not its current title, so any known
 # successor is normalized to the rebaseline anchor. Longest first: these names nest.
 SUCCESSOR_TASK_TITLES = (
+    "RESEARCH-DIRECTOR-PROTOCOL-DESIGN-CANDIDATE-1-V1",
+    "STRONG-STOP-PENDING-ASTRA-AFTER-CANDIDATE-1",
+    "CANDIDATE-1-FROZEN-ADMISSION-V1",
     "RESEARCH-DIRECTOR-REALLOCATION-AFTER-PUBLIC-TAKER-FLOW-POWER-BLOCK",
     "IMPLEMENT-PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE-V1",
     "RESEARCH-DIRECTOR-REVIEW-PREDICTIVE-V2-INTERNAL-STRUCTURE-SELECTIVE-V1",

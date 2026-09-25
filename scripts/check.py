@@ -75,6 +75,12 @@ PUBLIC_TAKER_FLOW_MANIFEST = "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DE
 # Result-dependent directions recorded after the P2 cycle-family closure (ADR-0033).
 POST_P2_CLOSURE_DIRECTIONS = {"PUBLIC-TAKER-FLOW-1H-INCREMENTAL-POWER-GATE"}
 PREDECESSOR = "60ab3141862da74028763e2df72ac3c88b63b5a8"
+# The last commit at which Constitution Version 2.0 was current (ADR-0036). Its text must stay
+# verbatim inside Version 3.0 as Appendix B.
+CONSTITUTION_V2_HEAD = "c163887d16610ce884d0e3a8c326204df4122a79"
+CONSTITUTION_V3_HEADER = (
+    "# Trading Bot — Scientific Constitution\n\nVersion 3.0 — practical economic usefulness\n"
+)
 SEED = "c6c526124945aa1624118bd7ee6aef9ae5c011b2"
 CUTOFF = datetime(2024, 12, 31, 23, 59, tzinfo=UTC)
 EXPERIMENTS = {
@@ -1677,9 +1683,10 @@ def prediction_first_checks(state: dict) -> None:
     roadmap = (ROOT / objective["source_roadmap"]).read_text(encoding="utf-8")
     agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
-    assert constitution.replace("\r\n", "\n").startswith(
-        "# Trading Bot — Scientific Constitution\n\nVersion 2.0 — prediction-first\n"
-    )
+    # Version 2.0 declared this objective; Version 3.0 (ADR-0036) supersedes it and keeps it
+    # verbatim as Appendix B, so the objective record stays a historical 2.0 record.
+    assert constitution.replace("\r\n", "\n").startswith(CONSTITUTION_V3_HEADER)
+    assert "Version 2.0 — prediction-first\n" in constitution
     assert objective["constitution_version"] == "2.0"
     assert objective["evaluation_contract_amendments"] == ["A1"]
     assert (ROOT / objective["adr"]).is_file()
@@ -3346,6 +3353,105 @@ def predictive_public_taker_flow_checks(state: dict) -> None:
         assert incremental["status"] == "PREREGISTERED_EXECUTION_BLOCKED_PENDING_POWER_GATE"
 
 
+def governance_transition_v3_checks(state: dict) -> None:
+    """ADR-0036/0037: the Constitution 3.0 transition and the Candidate #1 admission record."""
+    record = state["governance_transition_v3"]
+    candidate = record["candidate_1"]
+    for path in (
+        record["checkpoint_report"],
+        *record["decision_records"],
+        record["stage_policy"],
+        record["allocation_map"],
+        record["executor_policy"],
+        record["methodological_qualifications"],
+        record["archived_task"],
+        candidate["card"],
+        candidate["executor_support_diagnostic"]["bundle"],
+        candidate["frozen_specification"],
+        candidate["admission_module"],
+        candidate["admission_audit"],
+    ):
+        assert (ROOT / path).is_file(), path
+    assert record["champion_status"] == state["champion_status"] == "NONE"
+    assert record["real_money"] is state["real_money_authorized"] is False
+    assert record["sealed_queries"] == state["sealed_evaluation"]["consumed_btc_queries"] == 0
+    assert record["market_trials_executed"] == 0 and record["market_trial_authorized"] is False
+    assert record["candidate_card_2_allocated"] is False
+    # Every declared qualification is actually recorded, append-only.
+    qualifications = (ROOT / record["methodological_qualifications"]).read_text(encoding="utf-8")
+    for identifier in record["methodological_qualification_ids"]:
+        assert f"## {identifier[:5]} —" in qualifications, identifier
+    for required in ("0.1871", "0.0005414", "POWER_BLOCKED_NOT_EXECUTED"):
+        assert required in qualifications, required
+    # The allocation map carries every directive disposition.
+    allocation = (ROOT / record["allocation_map"]).read_text(encoding="utf-8")
+    for required in (
+        "CLOSED / NO HISTORICAL RESCUE",
+        "SHARED CONTEXT ONLY",
+        "ELIGIBLE FOR BOUNDED PLAYBOOK RESEARCH",
+        "CURRENT PRIORITY — ADMISSION ONLY",
+        "RESERVE; EXISTING RESULTS CLOSED",
+        "SHARED INPUTS ONLY FOR AN ADMITTED MECHANISM",
+        "SHARED CONTEXT / RISK ONLY",
+        "RESERVE; NO GENERIC SEARCH",
+        "CONTEXT ONLY WHERE REQUIRED; NO GENERAL PREDICTOR PROGRAMME",
+        "ZERO CURRENT BUDGET",
+        "PARKED",
+        "REQUIRED COMMON DISCIPLINE; NO OPTIMIZATION TOURNAMENT",
+        "OUT OF CURRENT PRODUCT SCOPE",
+    ):
+        assert required in allocation, required
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    bootstrap = (ROOT / "docs/operations/NEW_CHAT_BOOTSTRAP.md").read_text(encoding="utf-8")
+    for text in (agents, bootstrap):
+        assert "Claude Code" in text and "Astra" in text
+        assert record["stage_policy"].split("/")[-1] in text
+    # ADR-0037: the executor diagnostic is preserved, non-authoritative and never a disposition.
+    diagnostic = candidate["executor_support_diagnostic"]
+    assert diagnostic["authoritative"] is False
+    bundle = (ROOT / diagnostic["bundle"]).read_text(encoding="utf-8")
+    assert diagnostic["classification"] in bundle and diagnostic["astra_adjudication"] in bundle
+    assert not (ROOT / "scripts/audit_candidate_1_admission.py").exists()
+    assert candidate["market_outcomes_inspected"] is False
+    assert candidate["economic_hypothesis_tested"] is False
+    assert candidate["replacement_candidate"] is None
+    assert candidate["support_calculations_budget"] == 1
+    record_path = ROOT / candidate["admission_record"]
+    if candidate["disposition"] == "PENDING_FROZEN_ADMISSION_CALCULATION":
+        # The frozen specification is committed before its single calculation.
+        assert not record_path.exists()
+        assert candidate["support_calculations_executed"] == 0
+        assert candidate["gates"] is None and candidate["result_decision_record"] is None
+        assert record["project_state"] == "CANDIDATE_1_FROZEN_ADMISSION_PENDING"
+        return
+    admission = json.loads(record_path.read_text(encoding="utf-8"))
+    assert (
+        candidate["support_calculations_executed"]
+        == admission["support_calculations_executed"]
+        == 1
+    )
+    assert admission["forward_returns_computed"] is False
+    assert admission["labels_or_outcomes_computed"] is False
+    assert admission["models_fitted"] == admission["sealed_queries"] == 0
+    assert admission["post_cutoff_data_accessed"] is False
+    assert admission["protocol"] == candidate["frozen_specification"]
+    assert candidate["gates"] == admission["gates"]
+    assert candidate["disposition"] == admission["disposition"]
+    assert record["project_state"] == admission["project_state"]
+    assert (ROOT / candidate["result_decision_record"]).is_file()
+    assert candidate["result_decision_record"] in record["decision_records"]
+    for path, digest in admission["identity"].items():
+        text = (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
+        assert hashlib.sha256(text).hexdigest() == digest, path
+    if all(admission["gates"].values()):
+        assert candidate["disposition"] == "CANDIDATE_1_ADMITTED_FOR_PROTOCOL_DESIGN"
+    else:
+        assert candidate["disposition"] == (
+            "CANDIDATE_1_CLOSED_CURRENT_ALLOCATION_SUPPORT_OR_FEASIBILITY"
+        )
+        assert record["project_state"] == "STRONG_STOP_PENDING_ASTRA"
+
+
 def dataset_scope_checks() -> None:
     """Metadata/inventory admission also runs in a checkout with no installed market data."""
     from app.research.continuation_lab import MANIFEST_SHA256
@@ -3819,13 +3925,22 @@ def governance_checks(pre_experiment: bool) -> dict:
     constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
     baseline_normalized = baseline.replace("\r\n", "\n").rstrip()
     constitution_normalized = constitution.replace("\r\n", "\n")
-    # Version 2.0 is Owner-authorized (ADR-0026). The superseded Version 1.0 is never
-    # deleted: the seeded baseline, and every section appended to it during the superseded
-    # generation, must still appear verbatim inside the document.
-    assert constitution_normalized.startswith(
-        "# Trading Bot — Scientific Constitution\n\nVersion 2.0 — prediction-first\n"
-    )
+    # Version 3.0 is Owner-authorized (ADR-0036); Version 2.0 (ADR-0026) and Version 1.0 are
+    # never deleted: the seeded baseline, and every section appended to it during the
+    # superseded generation, must still appear verbatim inside the document, and so must the
+    # whole Version 2.0 body.
+    assert constitution_normalized.startswith(CONSTITUTION_V3_HEADER)
     assert baseline_normalized in constitution_normalized
+    version_2 = subprocess.check_output(
+        ["git", "show", f"{CONSTITUTION_V2_HEAD}:governance/SCIENTIFIC_CONSTITUTION.md"],
+        cwd=ROOT,
+        text=True,
+        encoding="utf-8",
+    ).replace("\r\n", "\n")
+    version_2_body = version_2.split("\n---\n\n## Appendix A")[0].rstrip()
+    assert version_2_body.startswith("# Trading Bot — Scientific Constitution\n\nVersion 2.0")
+    assert version_2_body in constitution_normalized
+    assert "## Appendix B — superseded Version 2.0, preserved verbatim" in constitution_normalized
     assert "## Appendix A — superseded Version 1.0, preserved verbatim" in constitution_normalized
     assert "## Selection/evaluation separation" in constitution_normalized
     assert "## Future power gate" in constitution_normalized
@@ -3837,6 +3952,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     for ancestor in (
         SEED,
         PREDECESSOR,
+        CONSTITUTION_V2_HEAD,
         REVIEWED,
         WP004_BASE,
         WP005_BASE,
@@ -3929,6 +4045,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     predictive_calendar_checks(state)
     predictive_internal_selective_checks(state)
     predictive_public_taker_flow_checks(state)
+    governance_transition_v3_checks(state)
     boundary = (ROOT / p2["source_boundary"]).read_text(encoding="utf-8")
     for unsupported in (
         "complete centering algorithm",
@@ -4249,6 +4366,8 @@ def data_checks(state: dict) -> None:
     from app.predictive.taker_flow_validation import validate_public_taker_flow
 
     public_flow = validate_public_taker_flow(ROOT, data_available=True)
+    if (ROOT / "reports/validation/CANDIDATE-1-FROZEN-ADMISSION-V1.json").is_file():
+        run([sys.executable, "scripts/audit_candidate_1_frozen_admission.py", "--check"])
     assert public_flow["data_replayed"] is True and public_flow["raw_objects_verified"] == 120
     from app.predictive.taker_flow_power_gate import GATE_JSON_PATH
 

@@ -2,21 +2,28 @@
 
 ## Mission
 
-Trading Bot is a research-first BTCUSDT prediction system.
+Trading Bot is a research-first project intended to become a practical, reproducible BTC
+spot `LONG` / `NO_TRADE` paper system (Constitution Version 3.0, ADR-0036). Its final product
+advancement objective is practical, risk-constrained economic usefulness, demonstrated by
+frozen prospective economic confirmation. `NO_TRADE` is a valid operational output and a valid
+permanent project outcome.
 
-The Owner delegates quantitative research direction, product/technical architecture,
-implementation coordination, experiment interpretation, and routine technical choices
-to ChatGPT as Research Director. Coding agents are implementation executors.
+Governed sequence:
+`PLAUSIBLE MECHANISM -> EXPLICIT PLAYBOOK -> BOUNDED HISTORICAL DEVELOPMENT -> PROMOTION GATE -> FROZEN PROSPECTIVE ECONOMIC CONFIRMATION`
+(`docs/canonical/RESEARCH_STAGE_POLICY_V1.md`). Historical development is exposed exploratory
+evidence and never becomes fresh confirmation through rescoring or renaming.
 
-The scientific objective is a statistically credible BTCUSDT predictor that estimates
-future price direction, calibrated probability, and expected movement magnitude over
-explicitly declared horizons.
+Decision hierarchy:
 
-Prediction quality is evaluated independently of capital size, exchange fees, leverage,
-slippage, network costs and position sizing. Economic execution is a downstream layer: it
-may translate a prediction into a paper decision, but it never defines whether the
-underlying market prediction was correct.
+- the Owner controls mission, evaluation principles, product/risk objective and real capital;
+- Astra is the strategic scientific authority for material research-allocation decisions;
+- the ChatGPT Research Director owns routine scientific design, architecture, tasking,
+  implementation review, experiment adjudication and ordinary decisions inside Astra's
+  directive;
+- Claude Code is the sole coding / repository implementation executor. Codex is not part of
+  the normal implementation workflow.
 
+Where a playbook uses a prediction, prediction quality remains a distinct quantity.
 Directional win rate is a primary human-facing metric and is never interpreted alone. It
 is always reported with sample size and coverage, alongside calibration, magnitude error,
 predeclared baselines and dependence-aware uncertainty.
@@ -43,9 +50,15 @@ Use one source for each kind of truth.
   `governance/SCIENTIFIC_CONSTITUTION.md`
 - Stable product/technical canon:
   `docs/canonical/`
-- How a prediction is defined, scored and reported:
-  `docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md`
-- Which information families may enter, and on what conditions:
+- Research stages, promotion, confirmation and Astra escalation:
+  `docs/canonical/RESEARCH_STAGE_POLICY_V1.md`
+- Current strategic allocation dispositions:
+  `docs/canonical/STRATEGIC_ALLOCATION_MAP_V1.md`
+- Candidate Cards and their admission records:
+  `research/candidates/`
+- How a prediction is defined, scored and reported (where predictions are used):
+  `docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md` and `_V2.md`
+- Historical prediction-first source ladder (no longer authorizes work by itself):
   `docs/canonical/PREDICTIVE_SOURCE_ROADMAP_V1.md`
 - Current machine-readable project state:
   `state/current_state.json`
@@ -143,53 +156,19 @@ Future prospective paper evidence remains stronger than any historical holdout.
 - V1 is local and Windows-friendly.
 - No V2 server complexity until justified.
 
-## Cost-aware model routing
+## Cost-aware execution
 
-Preserve scientific and engineering quality while minimizing Codex usage.
+Preserve scientific and engineering quality while minimizing executor usage.
 
-The model selected by the Owner for the main Codex session is the orchestrator. When
-model-selectable subagent dispatch is available, do not automatically clone the
-orchestrator for every subtask. Route work by difficulty, risk, and context needs.
-
-Use the strongest selected model (normally Sol at high effort) for work where reasoning
-quality materially matters, including:
-
-- research design, preregistration, novelty/search-memory decisions, and scientific
-  interpretation;
-- architecture and cross-cutting implementation decisions;
-- ambiguous debugging, leakage/execution-risk analysis, and difficult root-cause work;
-- final integration/review of material checkpoints and any governance-sensitive change.
-
-Prefer cheaper models for bounded auxiliary work when the runtime supports explicit
-model/effort selection:
-
-- Luna at low effort for read-only scans, file discovery, mechanical extraction,
-  formatting/renaming inventories, simple fixture generation, deterministic result
-  transcription, and other narrow low-risk tasks;
-- Terra at medium effort for ordinary bounded implementation or test-writing that
-  requires more coding competence but not high-level scientific judgment.
-
-Delegation rules:
-
-- use deterministic tools/scripts directly instead of spawning any model when they can
-  perform the task reliably;
-- do not spawn a subagent for a trivial shell command or tiny edit where coordination
-  would cost more than doing the work directly;
-- give subagents the smallest task-specific context and explicit acceptance criteria;
-- prefer fresh bounded subagents over resuming a long-context child for usage-sensitive
-  work;
-- require the orchestrator to verify outputs before they affect scientific truth,
-  governance, experiment classification, or final commits;
-- never let a cheaper subagent independently change hypotheses after results, authorize
-  sealed access, promote a Champion, or make real-capital decisions;
-- if the runtime cannot prove which model/effort a subagent actually used, do not claim
-  a cost saving from model routing;
-- if delegation repeatedly fails or requires substantial rework, stop delegating that
-  class of task and let the orchestrator complete it directly.
-
-Optimize total workflow cost, not the number of subagents. Parallelism is useful only
-when subtasks are genuinely independent and the expected usage saving exceeds
-coordination overhead.
+- Use deterministic tools/scripts directly whenever they can perform a task reliably.
+- Do not spawn a subagent for a trivial shell command or tiny edit where coordination would
+  cost more than doing the work directly; give any subagent the smallest task-specific context
+  and explicit acceptance criteria.
+- The main Claude Code session verifies every delegated output before it affects scientific
+  truth, governance, experiment classification or final commits.
+- No subagent may change hypotheses after results, authorize sealed access, promote a Champion
+  or make real-capital decisions.
+- Do not claim a cost saving from model routing unless the runtime proves which model was used.
 
 ## Autonomous execution
 
@@ -243,7 +222,7 @@ Do not push to GitHub unless the active task explicitly authorizes it.
 commit directly to local `main`; do not create a branch per work package. Never rewrite
 history. Immutable checkpoint reports, experiment records, content hashes, and commit
 SHAs form the audit trail. Failed experiments and failed checkpoints remain recorded.
-Codex does not push unless the active task explicitly authorizes it.
+The executor does not push unless the active task explicitly authorizes it.
 
 ## Reporting
 
@@ -260,14 +239,18 @@ scientific meaning of the work.
 A new ChatGPT conversation must bootstrap from repository truth, not from a manually reconstructed
 chat recap. Follow `docs/operations/NEW_CHAT_BOOTSTRAP.md`.
 
-Before proposing a new research direction, inspect the append-only research registry and the
-predictive-generation closure/current-state records so rejected, parked or blocked mechanisms
-cannot be silently retried under a new name.
+Before proposing a new research direction, inspect the append-only research registry, the
+strategic allocation map, `research/candidates/` and the predictive-generation closure/current-state
+records so rejected, parked or blocked mechanisms cannot be silently retried under a new name.
+Opening a new mechanism or Candidate Card requires Astra.
 
 Default executor division:
 
-- ChatGPT/Research Director decides science, architecture, preregistration and interpretation.
-- Codex/Claude Code implement a substantial code block and stop when the active task says code is
+- Astra decides material strategic research allocation (escalation list in
+  `docs/canonical/RESEARCH_STAGE_POLICY_V1.md`).
+- ChatGPT/Research Director decides routine science, architecture, preregistration and
+  interpretation inside Astra's directive.
+- Claude Code implements a substantial code block and stops when the active task says code is
   ready.
 - The Owner runs heavy local downloads, backtests, full validation, Git commands and CI checks from
   copy/paste commands supplied by ChatGPT.

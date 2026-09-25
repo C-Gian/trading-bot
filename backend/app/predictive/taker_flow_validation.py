@@ -62,6 +62,7 @@ ROOT = Path(__file__).resolve().parents[3]
 STATE_PATH = "state/current_state.json"
 FOUNDATION_KEY = "predictive_public_taker_flow_horizon_foundation"
 INCREMENTAL_KEY = "predictive_public_taker_flow_1h_incremental"
+GOVERNANCE_KEY = "governance_transition_v3"
 FOUNDATION_CLASSIFICATION = "FOUNDATION_SUPPORTS_1H_RESEARCH_ONLY"
 FAMILY_ID = "FAM-PUBLIC-TAKER-FLOW-PROBABILITY"
 FAMILY_PATH = f"research/memory/registry/families/{FAMILY_ID}.json"
@@ -431,8 +432,12 @@ def expected_state_pointers(root: Path, state: dict[str, Any]) -> dict[str, str]
     """Top-level pointers derived from the latest reviewed public taker-flow checkpoint.
 
     Once the incremental power gate is closed (ADR-0035) its checkpoint is the latest one;
-    before that, the foundation's. The next work package is the active task's header.
+    before that, the foundation's. Once the Constitution 3.0 governance transition is recorded
+    (ADR-0036) its checkpoint is the latest executor checkpoint, and it is also the latest
+    reviewed one only after review. The next work package is the active task's header.
     """
+    if GOVERNANCE_KEY in state:
+        return _governance_pointers(root, state)
     incremental = state[INCREMENTAL_KEY]
     if incremental["status"] == INCREMENTAL_POWER_BLOCKED:
         record = incremental
@@ -456,6 +461,33 @@ def expected_state_pointers(root: Path, state: dict[str, Any]) -> dict[str, str]
         "latest_reviewed_checkpoint": checkpoint,
         "next_recommended_work_package": next_work_package,
         "status": "REVIEWED",
+        "research_architecture.next_checkpoint": next_work_package.replace("-", "_"),
+    }
+
+
+def _governance_pointers(root: Path, state: dict[str, Any]) -> dict[str, str]:
+    record = state[GOVERNANCE_KEY]
+    report = root / record["checkpoint_report"]
+    require(report.is_file(), "the governance checkpoint report is missing")
+    for decision in record["decision_records"]:
+        require((root / decision).is_file(), f"decision record {decision} is missing")
+    executor = report.stem
+    if record["status"] == "REVIEWED":
+        reviewed = executor
+    else:
+        previous = state[INCREMENTAL_KEY]
+        require(previous["status"] == INCREMENTAL_POWER_BLOCKED, "no prior reviewed checkpoint")
+        reviewed = Path(previous["checkpoint_report"]).stem
+    next_work_package = active_task_title(root)
+    require(
+        next_work_package == record["next_work_package"],
+        "the active task is not the recorded next work package",
+    )
+    return {
+        "latest_executor_checkpoint": executor,
+        "latest_reviewed_checkpoint": reviewed,
+        "next_recommended_work_package": next_work_package,
+        "status": record["status"],
         "research_architecture.next_checkpoint": next_work_package.replace("-", "_"),
     }
 

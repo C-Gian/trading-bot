@@ -1,5 +1,228 @@
 # Trading Bot — Scientific Constitution
 
+Version 3.0 — practical economic usefulness
+
+Owner-authorized on 2026-09-25, translating the Owner's clarified product objective and
+`ASTRA_TRADING_BOT_STRATEGIC_OPERATING_DIRECTIVE_V2` into repository truth. Supersedes
+Version 2.0, which is preserved verbatim in Appendix B; Version 2.0 itself preserved
+Version 1.0, which remains verbatim in Appendix A. See
+[ADR-0036](../decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md).
+
+## Mission
+
+Trading Bot is intended to become a practical, reproducible BTC spot `LONG` / `NO_TRADE`
+paper system whose final product advancement objective is practical, risk-constrained economic
+usefulness, demonstrated by frozen prospective economic confirmation — while minimizing the
+probability of mistaking overfitting, leakage, look-ahead, execution artifacts, repeated
+testing or random luck for a genuine edge.
+
+Professional trading mechanisms generate bounded hypotheses. Statistics evaluates them and
+prevents self-deception. The project does not continue inventing increasingly elaborate alpha
+questions merely because previous ideas failed.
+
+Where a playbook uses a prediction, prediction quality remains a distinct scientific quantity
+and is evaluated on its own terms. A good prediction is not by itself an economically useful
+system, and an economic claim is never supported by prediction-layer evidence alone.
+
+`NO_TRADE` is a valid operational output and a valid permanent project outcome.
+
+Trading Bot is research-first. It is not a promise of profit. Real money is a separate
+explicit Owner gate.
+
+## Evidence hierarchy
+
+From strongest to weakest:
+
+1. immutable frozen prospective paper / forward evidence;
+2. sealed locked evaluation;
+3. properly purged chronological walk-forward / out-of-sample validation;
+4. robustness, cost and stress tests;
+5. development backtests and development-period fits;
+6. narrative explanations.
+
+Lower-quality evidence cannot override stronger evidence.
+
+Historical development is exposed exploratory evidence, even when it is chronological or
+walk-forward. It does not become fresh confirmation through repeated rescoring, new names,
+new scorers or new models. Prospective evidence outranks exposed historical development.
+
+## Research sequence
+
+The governed sequence is:
+
+`PLAUSIBLE MECHANISM -> EXPLICIT PLAYBOOK -> BOUNDED HISTORICAL DEVELOPMENT -> PROMOTION GATE -> FROZEN PROSPECTIVE ECONOMIC CONFIRMATION`
+
+- Historical development may formalize a mechanism, inspect support, estimate gross/net scale,
+  diagnose failure modes and spend a small preregistered robustness budget.
+- Prospective evidence is scarce. It is earned only by a candidate with materially useful
+  development economics, credible execution margin, adequate support and acceptable
+  concentration, and feasible detectability.
+- The default confirmation calendar ceiling is 12 months. An effect that cannot plausibly
+  resolve its economic MESI inside that budget is not tested prospectively.
+- A p-value alone is never promotion.
+- Frontier R&D is exceptional. Ordinary strategy failure is never an R&D trigger.
+
+The Development Lab, Promotion Gate, Confirmation and Frontier R&D stages, and the escalation
+policy, are defined in `docs/canonical/RESEARCH_STAGE_POLICY_V1.md`. That policy may be
+tightened but not weakened, and never after a result it would govern has been observed.
+
+## Non-negotiable rules
+
+- AI may propose hypotheses, code and interpretations. Deterministic tooling evaluates them.
+- Every material experiment is preregistered before execution.
+- Hypothesis, primary metric, evaluation design, parameter/search space and trial budget
+  are declared before results are observed.
+- Failed and negative experiments are preserved.
+- Results are never rewritten after observation.
+- A material playbook, predictor or strategy change creates a new experiment version.
+- Signals and features use only information available at signal time.
+- Transaction costs, delay and execution assumptions are mandatory and versioned for every
+  economic or trading claim.
+- Ambiguous fills are handled conservatively, never optimistically.
+- Sealed holdout data is inaccessible to research agents.
+- Repeated sealed queries consume explicit evaluation budget.
+- Exposed holdouts are retired from sealed status.
+- Standard random K-fold is forbidden for overlapping financial time-series labels.
+- Prefer simple deterministic baselines and meaningful controls before complex models.
+- Machine learning is a challenger family, not a prerequisite.
+- Trial count and adaptive search must be recorded for multiple-testing analysis.
+- Search memory and every negative, blocked or parked result remain binding. A renamed family
+  is not new evidence.
+- Outcome-driven parameter rescue is forbidden unless the dimension, range or branch rule was
+  explicitly budgeted before inspection. Every inspected version remains in the exposed lineage.
+- No AI agent may access or deploy real-money credentials.
+- Paper success is not permission for live capital.
+- Any real-capital transition requires a separate explicit Owner gate.
+
+## Economic and predictive quantities
+
+Economic usefulness is judged on predeclared net estimands: versioned costs, delay, occupancy,
+eligibility and exits are part of the frozen playbook, and every economic effect is compared
+with a meaningful predeclared control, not only with zero.
+
+Where a playbook declares a prediction, these predictive evaluation rules apply to that
+component:
+
+- Directional win rate is a primary human-facing predictive metric.
+- It must never be interpreted alone.
+- Every reported win rate is paired with sample size and prediction coverage.
+- Probabilistic predictions are evaluated for calibration.
+- Magnitude forecasts are evaluated separately from direction.
+- Metrics are compared against predeclared chronological baselines with dependence-aware
+  uncertainty intervals.
+- No high win rate obtained by trivial abstention, class imbalance or selective reporting is
+  predictive success.
+- Uncalibrated model scores are never presented as probabilities, and magnitude strength is
+  never presented as a probability.
+- A selective contrast is composition-controlled — matched within fold or otherwise defined
+  before outcomes — so acting inside a favourable regime is not mistaken for skill.
+
+`docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md` and
+`docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V2.md` continue to govern predictive claims;
+they may be extended but not weakened.
+
+## Information sources
+
+Information families are not searched as a universal source ladder. A family enters only as
+an input to an admitted mechanism or playbook, with point-in-time availability rules,
+declared timing and missingness semantics, and search-budget accounting. The current
+allocation dispositions live in `docs/canonical/STRATEGIC_ALLOCATION_MAP_V1.md`; they are
+allocation decisions, not impossibility claims.
+
+`docs/canonical/PREDICTIVE_SOURCE_ROADMAP_V1.md` remains the historical source ladder of the
+prediction-first generations and does not authorize new work by itself.
+
+Narrative plausibility alone is never evidence. Political, policy and geopolitical events are
+admissible only as timestamped public information, without partisan interpretation.
+
+## Anti-overfitting principle
+
+The laboratory's advantage must not be “try more strategies or models until one looks good.”
+
+The advantage must be “run a small number of bounded, mechanism-led experiments without
+allowing the number of attempts to fool us.”
+
+## Governance
+
+This Constitution is Owner-controlled and cannot be automatically weakened or replaced by an
+AI agent. Only the Owner may change the mission or the evaluation principles.
+
+Within it, Astra is the strategic scientific authority for material research-allocation
+decisions; the Research Director owns routine scientific design, architecture, tasking,
+implementation review, experiment adjudication and ordinary decisions inside Astra's
+directive; Claude Code is the sole coding and repository implementation executor. No agent can
+authorize real capital. Scientific truth lives in repository artifacts, not in conversations.
+
+Lower-level research workflow may evolve, but never in conflict with this document.
+
+Historical research generations, their experiments and their negative results are never
+deleted or rewritten when the mission changes. A superseded generation is recorded with an
+explicit disposition and preserved.
+
+## Selection/evaluation separation
+
+No feature set, feature weight, timeframe, signal threshold, label horizon,
+stop/target geometry, risk parameter, model hyperparameter, or ensemble weight may be
+selected using the final or outer evaluation metric.
+
+Any authorized tuning must occur entirely within the chronological training portion of
+the governed process. Outer evaluation remains unseen until candidate freeze. Any
+post-result material optimization creates a new preregistered experiment and consumes
+new search budget.
+
+## Future power gate
+
+Before executing any future `MATERIAL_ECONOMIC_HYPOTHESIS`, its preregistration must
+freeze:
+
+- experiment metric and MESI expressed in that metric;
+- expected sample design and expected dependence structure;
+- statistical dependence method;
+- expected MDE or an explicit fail-closed reason it is unavailable;
+- alpha and multiplicity-family membership;
+- target power, defaulting to 0.80.
+
+A design without adequate expected ability to distinguish its preregistered MESI must
+not automatically be executed. It must be classified `REDESIGN_REQUIRED` or explicitly
+accepted before execution as exploratory, non-resolution evidence. MESI and target power
+may not be lowered after results are observed.
+
+MDE and MESI are distinct: MDE describes design detectability under assumptions; MESI is
+the minimum economically important effect. Neither changes a historical terminal
+classification retrospectively.
+
+The same gate applies to a `MATERIAL_PREDICTIVE_HYPOTHESIS`, with the minimum important
+effect expressed in the predictive primary metric rather than in an economic one.
+
+Prospective confirmation defaults to target power 0.80 at the predeclared economic MESI and a
+family-wise false-positive budget of 0.05 across its declared confirmatory claims, unless a
+stronger reason is recorded before confirmation begins.
+
+## Research generations
+
+`COST_EXPECTANCY_RESEARCH_GENERATION_V1` (Appendix A), `PREDICTIVE_RESEARCH_GENERATION_V1` and
+`PREDICTIVE_RESEARCH_GENERATION_V2` (Appendix B) keep every recorded result, disposition and
+negative finding. Version 3.0 opens no new prediction-first family by default: a predictive
+component is evaluated only as part of an admitted playbook. Search memory, family
+dispositions, source blocks and search-burden accounting carry forward; new hypotheses receive
+new IDs and new budgets, and an earlier rejected result never becomes evidence merely because
+the scorer, the name or the stage changed.
+
+---
+
+## Appendix B — superseded Version 2.0, preserved verbatim
+
+Version 2.0 governed the prediction-first research generations. Its text is reproduced below
+exactly as it stood when the Owner authorized Version 3.0, up to (and not including) its own
+Appendix A, which follows unchanged after this appendix. Nothing in it is edited, and the
+historical results it governed are not reinterpreted.
+
+Where Version 3.0 above conflicts with the text below, Version 3.0 governs. The material
+conflicts are the mission (prediction-first versus practical economic usefulness) and the
+universal predictive source ladder; every rigour rule below remains in force.
+
+# Trading Bot — Scientific Constitution
+
 Version 2.0 — prediction-first
 
 Owner-authorized on 2026-09-16. Supersedes Version 1.0, which is preserved verbatim in
