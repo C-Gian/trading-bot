@@ -1,0 +1,501 @@
+{
+  "candidate": "CANDIDATE-1-POSITIONING-CONDITIONED-SELL-OFF-RECOVERY",
+  "feasibility_checks": {
+    "complement_arm_events": 48,
+    "event_input_completeness": 1.0,
+    "joint_state_arm_events": 25,
+    "minimum_hourly_joint_availability_admissible_years": 0.991803
+  },
+  "feasibility_rule": {
+    "arms": "JOINT_STATE (OI_24H_LOG_CHANGE<0 AND REL_PRICE_24H_CHANGE<0) VS COMPLEMENT",
+    "minimum_event_input_completeness": 0.9,
+    "minimum_hourly_joint_availability_per_admissible_year": 0.95,
+    "minimum_pooled_admissible_events_per_arm": 30,
+    "note": "Support feasibility only. Detectability/power requires the protocol-design power gate and is not decided here.",
+    "reference_threshold": -0.05
+  },
+  "forward_returns_computed": false,
+  "hourly_joint_availability_by_year": {
+    "2020": {
+      "available": 2888,
+      "hours": 2904,
+      "rate": 0.99449
+    },
+    "2021": {
+      "available": 8682,
+      "hours": 8760,
+      "rate": 0.991096
+    },
+    "2022": {
+      "available": 8740,
+      "hours": 8760,
+      "rate": 0.997717
+    },
+    "2023": {
+      "available": 8752,
+      "hours": 8760,
+      "rate": 0.999087
+    },
+    "2024": {
+      "available": 8712,
+      "hours": 8784,
+      "rate": 0.991803
+    }
+  },
+  "labels_or_outcomes_computed": false,
+  "models_fitted": 0,
+  "oi_integrity": {
+    "admitted_quantity": "sum_open_interest (contract quantity in BTC; notional excluded)",
+    "first_record": "2020-09-01T00:00:00Z",
+    "five_minute_discontinuities_by_year": {
+      "abs_5m_log_change_gt_0.05": {
+        "2020": 11,
+        "2021": 23,
+        "2022": 0,
+        "2023": 10,
+        "2024": 2
+      },
+      "abs_5m_log_change_gt_0.1": {
+        "2020": 1,
+        "2021": 5,
+        "2022": 0,
+        "2023": 0,
+        "2024": 0
+      }
+    },
+    "last_record": "2024-12-31T23:55:00Z",
+    "manifest": "data/manifests/BTCUSDT-USDM-OPEN-INTEREST-DEV-v1.json",
+    "manifest_gap_summary_by_year": {
+      "2020": {
+        "gaps": 4,
+        "max_missing": 11,
+        "missing_records": 33
+      },
+      "2021": {
+        "gaps": 148,
+        "max_missing": 63,
+        "missing_records": 468
+      },
+      "2023": {
+        "gaps": 1,
+        "max_missing": 3,
+        "missing_records": 3
+      },
+      "2024": {
+        "gaps": 2,
+        "max_missing": 125,
+        "missing_records": 127
+      }
+    },
+    "non_positive_quantities_by_year": {
+      "2020": 0,
+      "2021": 10,
+      "2022": 117,
+      "2023": 16,
+      "2024": 305
+    },
+    "non_positive_quantities_exact_zero": 448,
+    "non_positive_quantities_total": 448,
+    "off_grid_records": 0,
+    "post_cutoff_records": 0,
+    "records": 455273,
+    "strictly_increasing": true
+  },
+  "post_cutoff_data_accessed": false,
+  "relative_price": {
+    "abs_level_bps_quantiles_in_domain": {
+      "0.5": 4.516,
+      "0.99": 17.997,
+      "0.999": 29.333
+    },
+    "availability_by_year": {
+      "2020": {
+        "available": 2898,
+        "hours": 2904,
+        "rate": 0.997934
+      },
+      "2021": {
+        "available": 8743,
+        "hours": 8760,
+        "rate": 0.998059
+      },
+      "2022": {
+        "available": 8760,
+        "hours": 8760,
+        "rate": 1.0
+      },
+      "2023": {
+        "available": 8758,
+        "hours": 8760,
+        "rate": 0.999772
+      },
+      "2024": {
+        "available": 8784,
+        "hours": 8784,
+        "rate": 1.0
+      }
+    },
+    "change_24h_availability_by_year": {
+      "2020": {
+        "available": 2892,
+        "hours": 2904,
+        "rate": 0.995868
+      },
+      "2021": {
+        "available": 8726,
+        "hours": 8760,
+        "rate": 0.996119
+      },
+      "2022": {
+        "available": 8760,
+        "hours": 8760,
+        "rate": 1.0
+      },
+      "2023": {
+        "available": 8756,
+        "hours": 8760,
+        "rate": 0.999543
+      },
+      "2024": {
+        "available": 8784,
+        "hours": 8784,
+        "rate": 1.0
+      }
+    },
+    "definition": "q_T = log(UM_PERP_1M_CLOSE / SPOT_1M_CLOSE), both the completed minute [T-1m, T) of the traded BTCUSDT instruments; deterioration = q_T - q_(T-24h) < 0",
+    "not_used": [
+      "MARK_PRICE",
+      "INDEX_PRICE",
+      "PREMIUM_INDEX",
+      "FUNDING_RATE",
+      "NOTIONAL_OI"
+    ],
+    "synchronization_caveat": "1m closes are last trades inside the same minute, not simultaneous quotes; residual asynchrony is bounded by one minute and is noise, not look-ahead."
+  },
+  "sealed_queries": 0,
+  "sources": {
+    "open_interest_5m": {
+      "manifest": "data/manifests/BTCUSDT-USDM-OPEN-INTEREST-DEV-v1.json"
+    },
+    "spot_and_perpetual_1m_klines": {
+      "manifest": "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json",
+      "objects_verified": 120,
+      "perpetual_minutes": {
+        "absent_minutes": 0,
+        "grid_minutes": 2630880,
+        "invalid_minutes": 0,
+        "invalid_reasons": {
+          "DUPLICATED_MINUTE": 0,
+          "INCOMPLETE_MINUTE": 0,
+          "NON_FINITE_VALUE": 0,
+          "OFF_GRID_TIMESTAMP": 0,
+          "OUTSIDE_OWN_MONTH": 0
+        },
+        "market": "USDM_PERPETUAL",
+        "records": 2630880,
+        "valid_minutes": 2630880
+      },
+      "spot_minutes": {
+        "absent_minutes": 2325,
+        "grid_minutes": 2630880,
+        "invalid_minutes": 8,
+        "invalid_reasons": {
+          "DUPLICATED_MINUTE": 0,
+          "INCOMPLETE_MINUTE": 8,
+          "NON_FINITE_VALUE": 0,
+          "OFF_GRID_TIMESTAMP": 0,
+          "OUTSIDE_OWN_MONTH": 0
+        },
+        "market": "SPOT",
+        "records": 2628555,
+        "valid_minutes": 2628547
+      },
+      "window": [
+        "2020-01-01",
+        "2024-12-31"
+      ]
+    }
+  },
+  "support": {
+    "-0.05": {
+      "admissible_2022_2024": {
+        "complement": 48,
+        "complete_inputs": 73,
+        "events": 73,
+        "joint_state": 25
+      },
+      "admissible_events_per_year": 24.333,
+      "by_year": {
+        "2020": {
+          "complement": 5,
+          "complete_inputs": 7,
+          "events": 7,
+          "joint_state": 2
+        },
+        "2021": {
+          "complement": 45,
+          "complete_inputs": 52,
+          "events": 52,
+          "joint_state": 7
+        },
+        "2022": {
+          "complement": 27,
+          "complete_inputs": 38,
+          "events": 38,
+          "joint_state": 11
+        },
+        "2023": {
+          "complement": 7,
+          "complete_inputs": 12,
+          "events": 12,
+          "joint_state": 5
+        },
+        "2024": {
+          "complement": 14,
+          "complete_inputs": 23,
+          "events": 23,
+          "joint_state": 9
+        }
+      }
+    },
+    "-0.075": {
+      "admissible_2022_2024": {
+        "complement": 16,
+        "complete_inputs": 32,
+        "events": 32,
+        "joint_state": 16
+      },
+      "admissible_events_per_year": 10.667,
+      "by_year": {
+        "2020": {
+          "complement": 0,
+          "complete_inputs": 2,
+          "events": 2,
+          "joint_state": 2
+        },
+        "2021": {
+          "complement": 22,
+          "complete_inputs": 28,
+          "events": 28,
+          "joint_state": 6
+        },
+        "2022": {
+          "complement": 8,
+          "complete_inputs": 20,
+          "events": 20,
+          "joint_state": 12
+        },
+        "2023": {
+          "complement": 1,
+          "complete_inputs": 2,
+          "events": 2,
+          "joint_state": 1
+        },
+        "2024": {
+          "complement": 7,
+          "complete_inputs": 10,
+          "events": 10,
+          "joint_state": 3
+        }
+      }
+    },
+    "-0.1": {
+      "admissible_2022_2024": {
+        "complement": 5,
+        "complete_inputs": 9,
+        "events": 9,
+        "joint_state": 4
+      },
+      "admissible_events_per_year": 3.0,
+      "by_year": {
+        "2020": {
+          "complement": 0,
+          "complete_inputs": 2,
+          "events": 2,
+          "joint_state": 2
+        },
+        "2021": {
+          "complement": 10,
+          "complete_inputs": 21,
+          "events": 21,
+          "joint_state": 11
+        },
+        "2022": {
+          "complement": 5,
+          "complete_inputs": 8,
+          "events": 8,
+          "joint_state": 3
+        },
+        "2024": {
+          "complement": 0,
+          "complete_inputs": 1,
+          "events": 1,
+          "joint_state": 1
+        }
+      }
+    }
+  },
+  "support_definitions": {
+    "decluster_hours": 72,
+    "joint_state": "OI_24H_LOG_CHANGE < 0 AND REL_PRICE_24H_CHANGE < 0 at T",
+    "oi_timing_rule": "CONSERVATIVE_CREATE_TIME_LE_T_MINUS_5M_AGE_LE_15M",
+    "sell_off": "trailing 24h spot log return at T <= threshold (known at T)",
+    "status": "DIAGNOSTIC_SUPPORT_ONLY_NOT_FROZEN_ELIGIBILITY",
+    "thresholds": [
+      -0.05,
+      -0.075,
+      -0.1
+    ]
+  },
+  "support_feasible": false,
+  "timing": {
+    "CONSERVATIVE_CREATE_TIME_LE_T_MINUS_5M_AGE_LE_15M": {
+      "hourly_state_availability_by_year": {
+        "2020": {
+          "available": 2902,
+          "hours": 2904,
+          "rate": 0.999311
+        },
+        "2021": {
+          "available": 8737,
+          "hours": 8760,
+          "rate": 0.997374
+        },
+        "2022": {
+          "available": 8750,
+          "hours": 8760,
+          "rate": 0.998858
+        },
+        "2023": {
+          "available": 8758,
+          "hours": 8760,
+          "rate": 0.999772
+        },
+        "2024": {
+          "available": 8746,
+          "hours": 8784,
+          "rate": 0.995674
+        }
+      },
+      "oi_24h_change_availability_by_year": {
+        "2020": {
+          "available": 2900,
+          "hours": 2904,
+          "rate": 0.998623
+        },
+        "2021": {
+          "available": 8716,
+          "hours": 8760,
+          "rate": 0.994977
+        },
+        "2022": {
+          "available": 8740,
+          "hours": 8760,
+          "rate": 0.997717
+        },
+        "2023": {
+          "available": 8756,
+          "hours": 8760,
+          "rate": 0.999543
+        },
+        "2024": {
+          "available": 8712,
+          "hours": 8784,
+          "rate": 0.991803
+        }
+      },
+      "rule": {
+        "lag": 300,
+        "max_age": 900
+      },
+      "unavailability_reasons_in_domain": {
+        "NON_POSITIVE_OPEN_INTEREST": 40,
+        "NO_PRIOR_OPEN_INTEREST_RECORD": 0,
+        "OPEN_INTEREST_STATE_TOO_STALE": 35
+      }
+    },
+    "CONTRACT_V1_STRICTLY_BEFORE_T_AGE_LE_10M": {
+      "hourly_state_availability_by_year": {
+        "2020": {
+          "available": 2901,
+          "hours": 2904,
+          "rate": 0.998967
+        },
+        "2021": {
+          "available": 8734,
+          "hours": 8760,
+          "rate": 0.997032
+        },
+        "2022": {
+          "available": 8750,
+          "hours": 8760,
+          "rate": 0.998858
+        },
+        "2023": {
+          "available": 8758,
+          "hours": 8760,
+          "rate": 0.999772
+        },
+        "2024": {
+          "available": 8746,
+          "hours": 8784,
+          "rate": 0.995674
+        }
+      },
+      "oi_24h_change_availability_by_year": {
+        "2020": {
+          "available": 2898,
+          "hours": 2904,
+          "rate": 0.997934
+        },
+        "2021": {
+          "available": 8710,
+          "hours": 8760,
+          "rate": 0.994292
+        },
+        "2022": {
+          "available": 8740,
+          "hours": 8760,
+          "rate": 0.997717
+        },
+        "2023": {
+          "available": 8756,
+          "hours": 8760,
+          "rate": 0.999543
+        },
+        "2024": {
+          "available": 8712,
+          "hours": 8784,
+          "rate": 0.991803
+        }
+      },
+      "rule": {
+        "lag": 0,
+        "max_age": 600
+      },
+      "unavailability_reasons_in_domain": {
+        "NON_POSITIVE_OPEN_INTEREST": 40,
+        "NO_PRIOR_OPEN_INTEREST_RECORD": 0,
+        "OPEN_INTEREST_STATE_TOO_STALE": 39
+      }
+    }
+  },
+  "usable_intersection": {
+    "admissible_evaluation_years": [
+      2022,
+      2023,
+      2024
+    ],
+    "eligibility_carry_forward": "Stage-2 OI coverage/history gate admitted 2022-2024; 2020-09..2021 records exist but are not automatically admissible.",
+    "first_decision_instant_with_24h_lookback": "2020-09-02T01:00:00Z",
+    "informational_only_years": [
+      2020,
+      2021
+    ],
+    "raw_overlap": [
+      "2020-09-01T00:00:00Z",
+      "2024-12-31T23:59:59Z"
+    ]
+  },
+  "version": "CANDIDATE_1_SOURCE_SUPPORT_ADMISSION_AUDIT_V1"
+}
