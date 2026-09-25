@@ -1,3 +1,15 @@
+## CURRENT OWNER MISSION OVERRIDE — 2026-09-25
+
+Before treating the parked LONG/NO_TRADE programme as the current product mission, read
+`docs/canonical/OWNER_PRODUCT_MISSION_V2.md` and ADR-0043.
+
+The Owner has changed the intended V1 to a professional multi-signal BTC paper-trading system with
+continuous candle predictions and selective `LONG / SHORT / NO_TRADE` decisions, live dashboard,
+multi-timeframe/cyclical context and visual historical replay.
+
+The old parked state remains binding evidence for the narrower predecessor programme. No new market
+work is authorized until Astra completes the strategic redesign in `tasks/CURRENT_TASK.md`.
+
 # AGENTS.md — Trading Bot Operating Protocol
 
 ## Current operative status — read before anything else
