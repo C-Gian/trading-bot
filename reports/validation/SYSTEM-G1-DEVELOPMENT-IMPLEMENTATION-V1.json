@@ -11,7 +11,7 @@
     "backend/app/g1/cycle.py": "adcd909ad3d10cd607ed09d219bf74975a4c172e1d8670b58c99689f65f1baa6",
     "backend/app/g1/development.py": "b7d28dcec55e7c79454f4b3940cc433d3aecf116bf7a882317b5ad31efb986b8",
     "backend/app/g1/forecaster.py": "5c436698e4029cd900bd5647ecb7098a15a39e0b0f9871bc1407f66df5a3d90a",
-    "backend/app/g1/indicators.py": "9d8f126bdb778f8ae3a3a80e66837201125d396a1ebab0152e59726a897e3d04",
+    "backend/app/g1/indicators.py": "8c9a7502bd8d7e237cb1eb6adaef80dfc8e748f1963f68257fe490b6cf6a92a1",
     "backend/app/g1/ledger.py": "74c1ca2b49161642af99e4def64841c0a4086416985a6c7bb8ae60c462da970c",
     "backend/app/g1/playbooks.py": "f2a32150c69799aebf9925a762a6f5c3be0a0e19a9a0a90ac40f191968628644",
     "backend/app/g1/records.py": "c3ab5e76b3c764d549cfc7baba9ff4a862e0d90193f2fe39af36e97407501c66",
@@ -85,6 +85,17 @@
       "removed": "PLAYBOOK_P1"
     }
   },
+  "corrections": [
+    {
+      "change": "incomplete 15m/1h/4h/1d bars reset ATR, EMA20/EMA50, ADX/DI and daily EMA20+lookback, are never consumed and publish UNAVAILABLE",
+      "decision": "decisions/ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md",
+      "files": [
+        "backend/app/g1/indicators.py"
+      ],
+      "tests": "backend/tests/test_g1_incomplete_bar_fix.py",
+      "work_package": "FIX-SYSTEM-G1-INCOMPLETE-BAR-RECURSIVE-STATE-V1"
+    }
+  ],
   "decision": "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
   "decision_canonical_sha256": "8f5adec28a83cc0de46008ba588277e638f59e94018f75d2daa0a0ae8af962ca",
   "execution_contract": {
@@ -256,13 +267,14 @@
       "backend/tests/test_g1_dev_engine_and_guard.py": 13,
       "backend/tests/test_g1_dev_forecaster_scoring.py": 14,
       "backend/tests/test_g1_dev_playbooks.py": 23,
+      "backend/tests/test_g1_incomplete_bar_fix.py": 8,
       "backend/tests/test_g1_ledger.py": 17,
       "backend/tests/test_g1_pipeline_and_cycle.py": 15,
       "backend/tests/test_g1_records_and_aggregation.py": 9,
       "backend/tests/test_g1_replay.py": 7,
       "frontend/src/Replay.test.tsx": 6
     },
-    "total": 147
+    "total": 155
   },
   "validated_strategy": null,
   "windows": {

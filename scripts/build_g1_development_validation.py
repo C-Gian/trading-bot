@@ -30,6 +30,7 @@ SYNTHETIC_TESTS = {
     "backend/tests/test_g1_dev_playbooks.py": 23,
     "backend/tests/test_g1_dev_forecaster_scoring.py": 14,
     "backend/tests/test_g1_dev_engine_and_guard.py": 13,
+    "backend/tests/test_g1_incomplete_bar_fix.py": 8,
     "backend/tests/test_g1_api_and_isolation.py": 7,
     "backend/tests/test_g1_cycle_quality_gate.py": 9,
     "backend/tests/test_g1_pipeline_and_cycle.py": 15,
@@ -66,6 +67,18 @@ def record() -> dict:
             "probability_status": PROBABILITY_STATUS,
         },
         "windows": to_plain(batch.FROZEN_WINDOWS),
+        "corrections": [
+            {
+                "decision": "decisions/ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md",
+                "work_package": "FIX-SYSTEM-G1-INCOMPLETE-BAR-RECURSIVE-STATE-V1",
+                "change": (
+                    "incomplete 15m/1h/4h/1d bars reset ATR, EMA20/EMA50, ADX/DI and daily "
+                    "EMA20+lookback, are never consumed and publish UNAVAILABLE"
+                ),
+                "files": ["backend/app/g1/indicators.py"],
+                "tests": "backend/tests/test_g1_incomplete_bar_fix.py",
+            }
+        ],
         "run_command": "uv run python scripts/run_g1_development.py --phase A|B",
         "run_directory": batch.RUN_DIR,
         "source_bindings": binding_identity(ROOT),

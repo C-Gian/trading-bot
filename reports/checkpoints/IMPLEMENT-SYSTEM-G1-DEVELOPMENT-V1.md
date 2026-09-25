@@ -23,13 +23,13 @@ computed, no market data was fetched, no sealed query was made.
 | Source bindings | `sources.py` | USD-M 1m official klines (60 objects 2020-01..2024-12; OHLC, base, quote, taker-buy base) + settled funding; spot not required; identity only |
 | Replay/UI | `service.py`, `frontend/src/Replay.tsx` | two synthetic development runs (S_FULL, S0) with grouped signals, six-scale cycle + groups, MarketState, P1/P2 setups (stop/objective/RR), conviction, not-calibrated status; production stays NO_TRADE |
 
-Synthetic tests: 147 (141 backend across the G1 suites, 6 frontend replay tests).
+Synthetic tests: 155 (149 backend across the G1 suites, 6 frontend replay tests), after the ADR-0047 correction.
 
 ## Implementation choices for Director review (not specified verbatim by the protocol)
 
 1. Missing data: a whole missing higher-timeframe bar resets that recursive indicator (normal
-   re-warm); an INCOMPLETE bar continues the recursion with its observed OHLC but its reading is
-   UNAVAILABLE. VWAP is unavailable after any missing session minute. The previous-day boundary
+   re-warm); an INCOMPLETE bar also resets it, is never consumed and publishes UNAVAILABLE
+   (corrected by ADR-0047, see below). VWAP is unavailable after any missing session minute. The previous-day boundary
    requires a COMPLETE previous UTC day. RVOL needs 20 contiguous COMPLETE prior candles.
 2. P1 daily rule: an UNAVAILABLE daily state cannot be verified as "not opposing" and fails.
 3. P1 may trigger on the arming candle (the window counts the arming candle); the trigger's
@@ -58,3 +58,29 @@ Estimated batch cost: ~0.28 ms per minute → roughly 12 minutes per phase pass 
   everything except code identities / activation flag (ADR-0046 edited `cycle.py` text only).
 - Checkpoint-1 scenario tests updated to the active cycle role; `CausalView` history is bounded and
   aggregation incremental (O(1) memory for multi-year runs); `Bar` carries quote and taker-buy volume.
+
+## Correction — ADR-0047 (FIX-SYSTEM-G1-INCOMPLETE-BAR-RECURSIVE-STATE-V1)
+
+Pre-outcome defect fixed before any execution: an INCOMPLETE aggregated bar used to publish
+UNAVAILABLE while still updating the recursive indicator with its partial OHLC/close, which could
+contaminate later READY values. Now, in `backend/app/g1/indicators.py`:
+
+- 15m Wilder ATR: incomplete bar resets the ATR state, is not consumed, publishes UNAVAILABLE;
+- 1h EMA20/EMA50 structure: both EMAs reset; re-seeded only from subsequent complete closes;
+- 4h Wilder ADX/+DI/-DI: the entire state resets; re-warms from subsequent complete bars;
+- daily context: EMA20 and its three-day lookback reset; boundary and direction UNAVAILABLE; the
+  incomplete day's close/high/low are not consumed.
+
+Unchanged: session VWAP, participation/RVOL, cycle, forecaster risk window, aggregation, every
+threshold/timeframe/playbook/cost/risk rule, configurations and source bindings. Protocol hash and
+configuration identity are unchanged; only the `indicators.py` code identity changed
+(`reports/validation/SYSTEM-G1-DEVELOPMENT-IMPLEMENTATION-V1.json` regenerated).
+
+Tests (`backend/tests/test_g1_incomplete_bar_fix.py`, 8): for ATR, EMA, ADX and daily context,
+two histories identical before an incomplete bar with radically different partial OHLC publish
+UNAVAILABLE at that bar, produce identical later state equal to a fresh indicator fed only the later
+complete bars, and publish no READY value before the frozen re-warm (ATR 14, EMA 50, ADX 28 complete
+4h bars, daily direction 23 days); whole-bar-gap resets retained. An integration run of the
+development engine (S0 and S_FULL) with poisoned minutes inside incomplete 3m/15m/1h/4h/1d bars
+yields identical decisions, market states, forecasts, fills and trades. All five contamination tests
+fail against the pre-fix code.

@@ -203,7 +203,9 @@ def test_ema_structure_and_incomplete_bar_semantics() -> None:
     assert readings[48].state == UNAVAILABLE and readings[49].state == BULLISH
     incomplete = bar("1h", 55, 155, 156, 154, 155.5, 60, complete=False)
     assert structure.update(incomplete).state == UNAVAILABLE
-    assert structure.update(bar("1h", 56, 156, 157, 155, 156.5, 60)).state == BULLISH
+    # ADR-0047: the incomplete bar reset the EMAs; a single complete bar cannot re-seed EMA50.
+    assert structure.update(bar("1h", 56, 156, 157, 155, 156.5, 60)).state == UNAVAILABLE
+    assert structure.ema20 is None
     gapped = structure.update(bar("1h", 60, 150, 151, 149, 150.5, 60))  # whole bars missing
     assert gapped.state == UNAVAILABLE and structure.ema20 is None  # reset, re-warm
     falling = HourStructure()

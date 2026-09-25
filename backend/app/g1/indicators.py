@@ -20,8 +20,10 @@ Missing-data semantics (implementation of "readiness and missing-data semantics"
 
 - every indicator consumes completed UTC bars only; each output carries the bar's `available_at`;
 - a whole missing bar (time gap) resets that recursive indicator, which then re-warms normally;
-- an INCOMPLETE bar (some constituent minutes missing) continues the recursion with its observed
-  OHLC, but the reading published for that bar is UNAVAILABLE (no decision uses it);
+- an INCOMPLETE bar (some constituent minutes missing) also resets that recursive indicator
+  (15m ATR, 1h EMA20/EMA50, 4h ADX/DI, daily EMA20 + lookback), is never consumed (its partial
+  OHLC/close cannot contaminate later state) and publishes UNAVAILABLE; subsequent complete bars
+  re-warm normally (ADR-0047);
 - session VWAP is unavailable if any minute of the current UTC session is missing, lacks quote
   volume, or the cumulative base volume is not positive;
 - previous-day boundaries are unavailable unless the previous UTC day bar is COMPLETE;
@@ -124,8 +126,11 @@ class WilderAdx:
         self.adx: float | None = None
 
     def update(self, bar: Bar) -> Reading:
-        if self.gap.breaks(bar):
+        if self.gap.breaks(bar) or not bar.complete:
             self.reset()
+        if not bar.complete:
+            self.reading = Reading(UNAVAILABLE, bar.available_at)
+            return self.reading
         high, low = float(bar.high), float(bar.low)
         previous = self.previous
         self.previous = bar
@@ -164,8 +169,7 @@ class WilderAdx:
         else:
             self.adx = (self.adx * (n - 1) + dx) / n
         values = (("adx", self.adx), ("plus_di", plus), ("minus_di", minus))
-        state = regime(self.adx, plus, minus) if bar.complete else UNAVAILABLE
-        self.reading = Reading(state, bar.available_at, values)
+        self.reading = Reading(regime(self.adx, plus, minus), bar.available_at, values)
         return self.reading
 
 
@@ -188,12 +192,15 @@ class HourStructure:
         self.reading = Reading(UNAVAILABLE, None)
 
     def update(self, bar: Bar) -> Reading:
-        if self.gap.breaks(bar):
+        if self.gap.breaks(bar) or not bar.complete:
             self.fast.reset()
             self.slow.reset()
+        if not bar.complete:
+            self.reading = Reading(UNAVAILABLE, bar.available_at)
+            return self.reading
         close = float(bar.close)
         fast, slow = self.fast.update(close), self.slow.update(close)
-        if fast is None or slow is None or not bar.complete:
+        if fast is None or slow is None:
             values = (("ema20", fast), ("ema50", slow), ("close", close))
             self.reading = Reading(UNAVAILABLE, bar.available_at, values)
             return self.reading
@@ -227,8 +234,11 @@ class WilderAtr:
         self.atr: float | None = None
 
     def update(self, bar: Bar) -> Reading:
-        if self.gap.breaks(bar):
+        if self.gap.breaks(bar) or not bar.complete:
             self.reset()
+        if not bar.complete:
+            self.reading = Reading(UNAVAILABLE, bar.available_at, (("atr", None),))
+            return self.reading
         high, low, close = float(bar.high), float(bar.low), float(bar.close)
         if self.previous_close is None:
             tr = high - low
@@ -241,7 +251,7 @@ class WilderAtr:
                 self.atr = sum(self.samples) / ATR_PERIOD
         else:
             self.atr = (self.atr * (ATR_PERIOD - 1) + tr) / ATR_PERIOD
-        valid = bar.complete and self.atr is not None and math.isfinite(self.atr) and self.atr > 0
+        valid = self.atr is not None and math.isfinite(self.atr) and self.atr > 0
         self.reading = Reading(
             "READY" if valid else UNAVAILABLE,
             bar.available_at,
@@ -290,17 +300,17 @@ class DailyContext:
         self.direction = Reading(UNAVAILABLE, None)
 
     def update(self, bar: Bar) -> None:
-        if self.gap.breaks(bar):
+        if self.gap.breaks(bar) or not bar.complete:
             self.ema.reset()
             self.history.clear()
-        close = float(bar.close)
-        value = self.ema.update(close)
-        if value is not None:
-            self.history.append(value)
         if not bar.complete:
             self.boundary = Reading(UNAVAILABLE, bar.available_at)
             self.direction = Reading(UNAVAILABLE, bar.available_at)
             return
+        close = float(bar.close)
+        value = self.ema.update(close)
+        if value is not None:
+            self.history.append(value)
         self.boundary = Reading(
             "READY", bar.available_at, (("high", float(bar.high)), ("low", float(bar.low)))
         )
