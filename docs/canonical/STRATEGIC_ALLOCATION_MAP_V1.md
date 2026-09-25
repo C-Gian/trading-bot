@@ -38,7 +38,9 @@ The executor support diagnostic (73 / 25) is preserved as
 Admission is decided once by the Director-frozen specification
 `research/protocols/CANDIDATE-1-FROZEN-ADMISSION-V1.md`
 ([ADR-0037](../../decisions/ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md)).
-The operative disposition is recorded in state (`governance_transition_v3.candidate_1`). The
+The operative disposition is recorded in state (`governance_transition_v3.candidate_1`); the
+frozen admission result is [ADR-0038](../../decisions/ADR-0038-CANDIDATE-1-ADMITTED-FOR-PROTOCOL-DESIGN.md)
+(admitted for protocol design only; no market trial authorized). The
 broad area "temporary inventory / positioning-pressure mean reversion" keeps its disposition;
 any new candidate inside it requires Astra.
 

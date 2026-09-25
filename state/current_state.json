@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1",
+  "latest_executor_checkpoint": "CANDIDATE-1-FROZEN-ADMISSION-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "CANDIDATE-1-FROZEN-ADMISSION-V1",
+  "next_recommended_work_package": "RESEARCH-DIRECTOR-PROTOCOL-DESIGN-CANDIDATE-1-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -2225,7 +2225,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "CANDIDATE_1_FROZEN_ADMISSION_V1",
+    "next_checkpoint": "RESEARCH_DIRECTOR_PROTOCOL_DESIGN_CANDIDATE_1_V1",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "FREE_PUBLIC_EXCHANGE_NATIVE_HORIZON_FOUNDATION",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
@@ -2680,11 +2680,12 @@
   },
   "governance_transition_v3": {
     "checkpoint": "GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1",
-    "checkpoint_report": "reports/checkpoints/GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1.md",
+    "checkpoint_report": "reports/checkpoints/CANDIDATE-1-FROZEN-ADMISSION-V1.md",
     "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
     "decision_records": [
       "decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md",
-      "decisions/ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md"
+      "decisions/ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md",
+      "decisions/ADR-0038-CANDIDATE-1-ADMITTED-FOR-PROTOCOL-DESIGN.md"
     ],
     "authorized_by": "OWNER",
     "authorized_on": "2026-09-25",
@@ -2748,10 +2749,15 @@
       "admission_audit": "scripts/audit_candidate_1_frozen_admission.py",
       "admission_record": "reports/validation/CANDIDATE-1-FROZEN-ADMISSION-V1.json",
       "support_calculations_budget": 1,
-      "support_calculations_executed": 0,
-      "gates": null,
-      "disposition": "PENDING_FROZEN_ADMISSION_CALCULATION",
-      "result_decision_record": null,
+      "support_calculations_executed": 1,
+      "gates": {
+        "AVAILABILITY_ASSUMPTION": true,
+        "COMMON_SUPPORT": true,
+        "DETECTABILITY_12M": true,
+        "SOURCE_RELIABILITY": true
+      },
+      "disposition": "CANDIDATE_1_ADMITTED_FOR_PROTOCOL_DESIGN",
+      "result_decision_record": "decisions/ADR-0038-CANDIDATE-1-ADMITTED-FOR-PROTOCOL-DESIGN.md",
       "economic_hypothesis_tested": false,
       "market_outcomes_inspected": false,
       "replacement_candidate": null,
@@ -2763,9 +2769,9 @@
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
-    "archived_task": "tasks/archive/GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1.md",
+    "archived_task": "tasks/archive/CANDIDATE-1-FROZEN-ADMISSION-V1.md",
     "active_task": "tasks/CURRENT_TASK.md",
-    "next_work_package": "CANDIDATE-1-FROZEN-ADMISSION-V1",
-    "project_state": "CANDIDATE_1_FROZEN_ADMISSION_PENDING"
+    "next_work_package": "RESEARCH-DIRECTOR-PROTOCOL-DESIGN-CANDIDATE-1-V1",
+    "project_state": "CANDIDATE_1_PROTOCOL_DESIGN_PENDING"
   }
 }
