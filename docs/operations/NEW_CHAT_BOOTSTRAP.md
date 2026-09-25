@@ -1,10 +1,10 @@
 # NEW CHAT BOOTSTRAP — Trading Bot
 
-> **Current scope reset:** before interpreting the parked state, read
-> `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`, ADR-0043 and `tasks/CURRENT_TASK.md`.
-> The Owner has triggered strategic reopening review for a professional multi-signal BTC
-> `LONG / SHORT / NO_TRADE` system. No market research is authorized until Astra redesigns the
-> programme.
+> **Current System G1 programme:** active Constitution is Version 4.0. Read
+> `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`, ADR-0044,
+> `docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md`, current state and
+> `tasks/CURRENT_TASK.md`. The old parked programme remains historical evidence; no System G1
+> historical performance execution is authorized unless the current task explicitly says so.
 
 Purpose: make a new ChatGPT conversation recover the project from repository truth without
 depending on the previous chat transcript.
