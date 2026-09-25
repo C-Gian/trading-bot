@@ -124,11 +124,97 @@ def predictive_outcomes(root: Path = ROOT) -> list[dict[str, Any]]:
     ]
 
 
+# Constitution 3.0 (ADR-0036): a Development Lab playbook outcome is exposed historical
+# development evidence. It is search memory, never a sealed candidate and never projected into
+# the legacy sealed-eligibility vocabulary.
+PLAYBOOK_OUTCOME_LAYER = "PLAYBOOK_DEVELOPMENT_NON_SEALED"
+NON_SEALED_OUTCOME_LAYERS = (PREDICTIVE_OUTCOME_LAYER, PLAYBOOK_OUTCOME_LAYER)
+PLAYBOOK_DISPOSITIONS = (
+    "INVALID_EXECUTION",
+    "BLOCKED_DATA_OR_SUPPORT",
+    "DEVELOPMENT_REJECTED",
+    "INCONCLUSIVE_NO_PROMOTION",
+    "PROMOTION_ELIGIBLE",
+)
+PLAYBOOK_OUTCOME_FIELDS = (
+    "schema_version",
+    "outcome_layer",
+    "experiment_id",
+    "candidate",
+    "protocol",
+    "result_path",
+    "result_sha256",
+    "terminal_classification",
+    "adjudication",
+    "deterministic_replay",
+    "conclusion",
+    "falsified",
+    "not_falsified",
+    "evidence_facts",
+    "forbidden_rescues",
+    "legitimate_revisit",
+    "decision_record",
+    "champion_status",
+    "sealed_eligibility",
+    "sealed_queries",
+    "real_money",
+)
+
+
 def strategy_outcomes(root: Path = ROOT) -> list[dict[str, Any]]:
     """Every outcome that can be projected into sealed-candidate eligibility."""
     return [
-        item for item in all_outcomes(root) if item.get("outcome_layer") != PREDICTIVE_OUTCOME_LAYER
+        item
+        for item in all_outcomes(root)
+        if item.get("outcome_layer") not in NON_SEALED_OUTCOME_LAYERS
     ]
+
+
+def playbook_outcomes(root: Path = ROOT) -> list[dict[str, Any]]:
+    return [
+        item
+        for item in registry_outcomes(root)
+        if item.get("outcome_layer") == PLAYBOOK_OUTCOME_LAYER
+    ]
+
+
+def validate_playbook_outcomes(root: Path = ROOT) -> list[dict[str, Any]]:
+    """Each playbook outcome is complete, non-sealed and bound to its immutable result."""
+    from .text_provenance import canonical_text_sha256
+
+    outcomes = playbook_outcomes(root)
+    seen: set[str] = set()
+    for outcome in outcomes:
+        experiment_id = str(outcome.get("experiment_id"))
+        missing = [name for name in PLAYBOOK_OUTCOME_FIELDS if name not in outcome]
+        if missing:
+            raise ValueError(f"{experiment_id}: playbook outcome lacks {missing}")
+        if experiment_id in seen:
+            raise ValueError(f"{experiment_id}: playbook outcome recorded twice")
+        seen.add(experiment_id)
+        if outcome["terminal_classification"] not in PLAYBOOK_DISPOSITIONS:
+            raise ValueError(f"{experiment_id}: unknown playbook disposition")
+        if outcome["sealed_eligibility"] != PREDICTIVE_SEALED_ELIGIBILITY:
+            raise ValueError(f"{experiment_id}: a playbook outcome is never seal-eligible")
+        if outcome["champion_status"] != "NONE" or outcome["real_money"] is not False:
+            raise ValueError(f"{experiment_id}: a playbook outcome grants no Champion or money")
+        if outcome["sealed_queries"] != 0 or outcome["deterministic_replay"] != "PASS":
+            raise ValueError(f"{experiment_id}: sealed queries or replay status is wrong")
+        path = root / outcome["result_path"]
+        if canonical_text_sha256(path) != outcome["result_sha256"]:
+            raise ValueError(f"{experiment_id}: result differs from its pinned hash")
+        for record in (outcome["decision_record"], outcome["protocol"]):
+            if not (root / record).is_file():
+                raise ValueError(f"{experiment_id}: {record} is missing")
+        result = read_json(path)
+        if result.get("disposition") != outcome["terminal_classification"]:
+            raise ValueError(f"{experiment_id}: disposition differs from the result")
+        if not outcome["evidence_facts"]:
+            raise ValueError(f"{experiment_id}: playbook outcome has no evidence facts")
+        for fact in outcome["evidence_facts"]:
+            if _pointer(result, fact["json_pointer"]) != fact["expected_value"]:
+                raise ValueError(f"{experiment_id}: {fact['json_pointer']} differs from result")
+    return outcomes
 
 
 def _pointer(record: Any, pointer: str) -> Any:

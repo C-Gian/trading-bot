@@ -387,11 +387,12 @@ def build_repository_ledger(root: Path = ROOT) -> dict[str, Any]:
     ]
     observed.add(str(control_id))
     # The historical ledger covers the superseded cost-expectancy generation only. The
-    # prediction-first generation keeps its own search budget and never enters this count.
+    # prediction-first generation and Constitution 3.0 Development Lab executions (ADR-0040,
+    # `CANDIDATE-*`) keep their own accounting and never enter this count.
     result_paths = sorted(
         path
         for path in (root / "research/experiments").glob("*/result.json")
-        if not path.parent.name.startswith("EXP-PRED-")
+        if not path.parent.name.startswith(("EXP-PRED-", "CANDIDATE-"))
     )
     observed_profiles = (
         sum(int(_json(path)["trial_accounting"]["executed_trials"]) for path in result_paths) + 4

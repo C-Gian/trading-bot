@@ -58,6 +58,10 @@ PREDICTIVE_EXPERIMENTS = {
     "EXP-PRED-V2-004-INTERNAL-HGBR",
     "EXP-PRED-V2-005-PUBLIC-TAKER-FLOW-HORIZON-FOUNDATION",
 }
+# Constitution 3.0 Development Lab executions keep their own accounting in
+# `state.governance_transition_v3` (ADR-0040); they are neither legacy cost-expectancy nor
+# predictive experiments.
+PLAYBOOK_EXPERIMENTS = {"CANDIDATE-1-DEVELOPMENT-V1"}
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
 PREDICTIVE_FOUNDATION_MODULES = (
     "__init__.py",
@@ -172,6 +176,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP016_EXPERIMENTS.values())
         | set(WP017_EXPERIMENTS.values())
         | PREDICTIVE_EXPERIMENTS
+        | {name for name in PLAYBOOK_EXPERIMENTS if name in directories}
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
     assert len(results) == state["experiments_completed"] == 26
@@ -3375,7 +3380,9 @@ def governance_transition_v3_checks(state: dict) -> None:
     assert record["champion_status"] == state["champion_status"] == "NONE"
     assert record["real_money"] is state["real_money_authorized"] is False
     assert record["sealed_queries"] == state["sealed_evaluation"]["consumed_btc_queries"] == 0
-    assert record["market_trials_executed"] == 0 and record["market_trial_authorized"] is False
+    # ADR-0040: at most the single authorized Development execution is a market trial.
+    executions = record["candidate_1"].get("development", {}).get("development_executions", 0)
+    assert record["market_trials_executed"] == executions <= 1
     assert record["candidate_card_2_allocated"] is False
     # Every declared qualification is actually recorded, append-only.
     qualifications = (ROOT / record["methodological_qualifications"]).read_text(encoding="utf-8")
@@ -3412,8 +3419,9 @@ def governance_transition_v3_checks(state: dict) -> None:
     bundle = (ROOT / diagnostic["bundle"]).read_text(encoding="utf-8")
     assert diagnostic["classification"] in bundle and diagnostic["astra_adjudication"] in bundle
     assert not (ROOT / "scripts/audit_candidate_1_admission.py").exists()
-    assert candidate["market_outcomes_inspected"] is False
-    assert candidate["economic_hypothesis_tested"] is False
+    # Outcomes are inspected exactly when the single Development execution has run.
+    assert candidate["market_outcomes_inspected"] is (executions == 1)
+    assert candidate["economic_hypothesis_tested"] is (executions == 1)
     assert candidate["replacement_candidate"] is None
     assert candidate["support_calculations_budget"] == 1
     if "development" in candidate:
@@ -3493,13 +3501,35 @@ def candidate_1_development_checks(record: dict, development: dict) -> None:
     assert validation["outcome_blind_matching"]["reads_forward_prices"] is False
     for path, digest in validation["implementation_sha256"].items():
         assert dev.canonical_text_sha256(ROOT / path) == digest, path
-    if not development["execution_authorized"]:
-        # No outcome may exist before the Research Director authorizes the single run.
-        assert development["development_executions"] == 0
+    assert record["market_trial_authorized"] is development["execution_authorized"]
+    if development["development_executions"] == 0:
+        # No outcome may exist before the single authorized run.
         assert development["development_disposition"] is None
         assert not (ROOT / dev.RESULT_PATH).exists()
-        assert record["market_trial_authorized"] is False
-        assert record["candidate_1"]["economic_hypothesis_tested"] is False
+        return
+    # ADR-0040: exactly one execution; authorization is removed immediately afterwards.
+    from app.research.registry import validate_playbook_outcomes
+
+    assert development["development_executions"] == 1
+    assert development["execution_authorized"] is False
+    assert (
+        dev.canonical_text_sha256(ROOT / dev.RESULT_PATH)
+        == (development["result_canonical_sha256"])
+    )
+    result = json.loads((ROOT / dev.RESULT_PATH).read_text(encoding="utf-8"))
+    assert result["version"] == dev.VERSION
+    assert result["disposition"] == development["development_disposition"]
+    assert result["disposition"] == dev.adjudicate(result["stages"])
+    provenance = json.loads((ROOT / development["provenance_record"]).read_text(encoding="utf-8"))
+    assert provenance["result_canonical_sha256"] == development["result_canonical_sha256"]
+    assert provenance["deterministic_replay"] == "PASS"
+    assert provenance["new_market_data_accessed"] is False
+    assert provenance["sealed_queries"] == 0
+    outcomes = {o["experiment_id"]: o for o in validate_playbook_outcomes(ROOT)}
+    assert (
+        outcomes[dev.VERSION.replace("_", "-")]["terminal_classification"]
+        == (result["disposition"])
+    )
 
 
 def dataset_scope_checks() -> None:
@@ -4149,7 +4179,7 @@ def governance_checks(pre_experiment: bool) -> dict:
     results = [
         path
         for path in (ROOT / "research/experiments").glob("*/result.json")
-        if path.parent.name not in PREDICTIVE_EXPERIMENTS
+        if path.parent.name not in PREDICTIVE_EXPERIMENTS | PLAYBOOK_EXPERIMENTS
     ]
     if pre_experiment:
         assert state["experiments_completed"] == 0 and not results
@@ -4421,6 +4451,9 @@ def data_checks(state: dict) -> None:
     if (ROOT / "reports/validation/CANDIDATE-1-DEVELOPMENT-IMPLEMENTATION-V1.json").is_file():
         # Outcome-blind replay: identity, admission replay and matching; no execution bars.
         run([sys.executable, "scripts/run_candidate_1_development.py", "--check"])
+    if (ROOT / "research/experiments/CANDIDATE-1-DEVELOPMENT-V1/result.json").is_file():
+        # Byte-identical replay of the single recorded Development execution (ADR-0040).
+        run([sys.executable, "scripts/replay_candidate_1_development.py"])
     assert public_flow["data_replayed"] is True and public_flow["raw_objects_verified"] == 120
     from app.predictive.taker_flow_power_gate import GATE_JSON_PATH
 

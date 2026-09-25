@@ -9429,6 +9429,7 @@
         "status": {
           "enum": [
             "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+            "RESEARCH_DIRECTOR_DEVELOPMENT_EXECUTION_AUTHORIZED",
             "REVIEWED"
           ]
         },
@@ -9634,10 +9635,10 @@
                   "const": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md"
                 },
                 "classification": {
-                  "const": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION"
+                  "const": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION"
                 },
                 "astra_adjudication": {
-                  "const": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED"
+                  "const": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED"
                 },
                 "authoritative": {
                   "const": false
@@ -9699,10 +9700,10 @@
               ]
             },
             "economic_hypothesis_tested": {
-              "const": false
+              "type": "boolean"
             },
             "market_outcomes_inspected": {
-              "const": false
+              "type": "boolean"
             },
             "replacement_candidate": {
               "type": "null"
@@ -9754,9 +9755,11 @@
                 },
                 "status": {
                   "enum": [
+                    "CANDIDATE_1_DEVELOPMENT_EXECUTION_AUTHORIZED",
+                    "CANDIDATE_1_DEVELOPMENT_RESULT_PENDING_RESEARCH_DIRECTOR_ADJUDICATION",
                     "CANDIDATE_1_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_AUTHORIZATION",
-                    "DEVELOPMENT_EXECUTION_AUTHORIZED",
-                    "DEVELOPMENT_EXECUTED"
+                    "DEVELOPMENT_EXECUTED",
+                    "DEVELOPMENT_EXECUTION_AUTHORIZED"
                   ]
                 },
                 "execution_authorized": {
@@ -9776,16 +9779,41 @@
                     "INCONCLUSIVE_NO_PROMOTION",
                     "PROMOTION_ELIGIBLE"
                   ]
+                },
+                "execution_authorization_decision": {
+                  "const": "decisions/ADR-0040-CANDIDATE-1-DEVELOPMENT-EXECUTION-AUTHORIZATION.md"
+                },
+                "result_canonical_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                "provenance_record": {
+                  "const": "reports/validation/CANDIDATE-1-DEVELOPMENT-V1-PROVENANCE.json"
+                },
+                "outcome_record": {
+                  "const": "research/memory/registry/outcomes/CANDIDATE-1-DEVELOPMENT-V1.jsonl"
+                },
+                "executed_at_head": {
+                  "pattern": "^[0-9a-f]{40}$",
+                  "type": "string"
+                },
+                "adjudication": {
+                  "enum": [
+                    "PENDING_RESEARCH_DIRECTOR",
+                    "RESEARCH_DIRECTOR_ADJUDICATED"
+                  ]
                 }
               }
             }
           }
         },
         "market_trials_executed": {
-          "const": 0
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
         },
         "market_trial_authorized": {
-          "const": false
+          "type": "boolean"
         },
         "new_market_data_accessed": {
           "const": false
@@ -9815,7 +9843,9 @@
             "CANDIDATE_1_FROZEN_ADMISSION_PENDING",
             "CANDIDATE_1_PROTOCOL_DESIGN_PENDING",
             "STRONG_STOP_PENDING_ASTRA",
-            "CANDIDATE_1_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_AUTHORIZATION"
+            "CANDIDATE_1_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_AUTHORIZATION",
+            "CANDIDATE_1_DEVELOPMENT_EXECUTION_AUTHORIZED",
+            "CANDIDATE_1_DEVELOPMENT_RESULT_PENDING_RESEARCH_DIRECTOR_ADJUDICATION"
           ]
         }
       }

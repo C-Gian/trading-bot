@@ -215,7 +215,7 @@ def test_the_superseded_generation_is_preserved_not_rewritten() -> None:
     results = [
         path
         for path in (ROOT / "research/experiments").glob("*/result.json")
-        if not path.parent.name.startswith("EXP-PRED-")
+        if not path.parent.name.startswith(("EXP-PRED-", "CANDIDATE-"))
     ]
     assert len(results) == 26
 
@@ -369,6 +369,8 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
 # is "the active task is the declared successor", not its current title, so any known
 # successor is normalized to the rebaseline anchor. Longest first: these names nest.
 SUCCESSOR_TASK_TITLES = (
+    "RESEARCH-DIRECTOR-ADJUDICATION-CANDIDATE-1-DEVELOPMENT-V1",
+    "EXECUTE-CANDIDATE-1-DEVELOPMENT-V1",
     "RESEARCH-DIRECTOR-EXECUTION-REVIEW-CANDIDATE-1-DEVELOPMENT-V1",
     "IMPLEMENT-CANDIDATE-1-DEVELOPMENT-V1",
     "RESEARCH-DIRECTOR-PROTOCOL-DESIGN-CANDIDATE-1-V1",
