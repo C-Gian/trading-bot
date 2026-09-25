@@ -2740,8 +2740,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,
@@ -2804,12 +2804,14 @@
     "precedence": "CANONICAL_CURRENT_STATUS_OVERRIDES_EVERY_HISTORICAL_TOP_LEVEL_FIELD",
     "authority": [
       "decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md",
-      "decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md"
+      "decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md",
+      "decisions/ADR-0043-OWNER-PROFESSIONAL-MULTISIGNAL-LONG-SHORT-MISSION.md",
+      "decisions/ADR-0044-ADOPT-SYSTEM-G1-PROFESSIONAL-MULTISIGNAL-ARCHITECTURE.md"
     ],
-    "astra_decision": "ASTRA_POST_CANDIDATE_1_STRATEGIC_REALLOCATION_OR_PARK_2026-09",
-    "constitution_version": "3.0",
-    "disposition": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
-    "active_alpha_allocation": 0,
+    "astra_decision": "ASTRA_PROFESSIONAL_TRADING_SYSTEM_STRATEGIC_ARCHITECTURE_V1",
+    "constitution_version": "4.0",
+    "disposition": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
+    "active_alpha_allocation": 1,
     "active_candidate": null,
     "candidate_1": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
     "candidate_2": "UNALLOCATED",
@@ -2818,18 +2820,16 @@
     "market_trial_authorized": false,
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
-    "research_task_active": false,
-    "automatic_next_research_package": null,
+    "research_task_active": true,
+    "automatic_next_research_package": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
     "reopening": {
-      "rule": "decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md#reopening-triggers",
-      "requires": [
-        "WRITTEN_REOPENING_DOSSIER_MATERIAL_CHANGED_CASE",
-        "ASTRA_STRATEGIC_APPROVAL"
-      ],
-      "owner_approval_required_for_material_product_risk_resource_change": true,
+      "previous_park": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
+      "trigger": "OWNER_PRODUCT_MISSION_V2_MATERIAL_SCOPE_CHANGE",
+      "strategic_approval": "ADR-0044_SYSTEM_G1_ARCHITECTURE_ADOPTED",
+      "next_astra_review": "AFTER_SYSTEM_G1_ADJUDICATION_OR_MATERIAL_ARCHITECTURE_IMPASSE",
       "owner_decision_required_for_real_capital": true
     },
     "disabled_action_paths": [
@@ -2859,6 +2859,8 @@
       "predictive_generation_v2_objective"
     ],
     "closure_artifact": "reports/checkpoints/FINAL-PARKED-STATE-RECONCILIATION-V1.md",
-    "preservation_manifest": "reports/handover/PARKED-STATE-PRESERVATION-MANIFEST-V1.md"
+    "preservation_manifest": "reports/handover/PARKED-STATE-PRESERVATION-MANIFEST-V1.md",
+    "active_system_generation": "SYSTEM_G1",
+    "architecture": "docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md"
   }
 }
