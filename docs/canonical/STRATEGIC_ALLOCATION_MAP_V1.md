@@ -55,4 +55,8 @@ Astra strategic allocation.
 
 ## Current project-level allocation state
 
-`STRONG_STOP_PENDING_ASTRA` — the one-card allocation has ended without promotion. Candidate Card #2 remains unallocated; no new alpha-development work is authorized pending Astra strategic review.
+`PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS` — Astra has completed the project-level review. Active alpha allocation is zero. Candidate Card #2 remains unallocated and no new alpha-development, source-search, R&D or confirmation work is authorized unless a legitimate reopening dossier is approved by Astra.
+
+## Reopening rule
+
+Reopening requires a concrete material changed case under ADR-0042 and Astra approval. Untested territory, a new indicator/model, elapsed time or renewed interest are insufficient.
