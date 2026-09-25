@@ -1,5 +1,12 @@
 # Trading Bot — Scientific Constitution
 
+> **OWNER SCOPE UPDATE — 2026-09-25:** Product-scope portions of Constitution 3.0 that
+> restrict the active mission to BTC spot `LONG / NO_TRADE` are superseded by
+> `docs/canonical/OWNER_PRODUCT_MISSION_V2.md` and ADR-0043, pending Astra's strategic redesign
+> and a formal Constitution-version migration. All scientific-integrity, anti-leakage,
+> anti-overfitting, evidence and real-capital rules remain binding. No new market experiment is
+> authorized by this scope update.
+
 Version 3.0 — practical economic usefulness
 
 Owner-authorized on 2026-09-25, translating the Owner's clarified product objective and
