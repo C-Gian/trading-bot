@@ -73,3 +73,23 @@ change is a legitimate reopening trigger, but no new allocation is active until 
 strategic redesign. Historical family closures remain evidence for their exact tested formulations;
 they must not be erased, but they also must not be mechanically treated as proof that a signal cannot
 serve a different predeclared contextual role inside a genuinely distinct composite playbook.
+
+
+## System G1 current allocation — superseding operational park for the new Owner scope
+
+ADR-0044 adopts `SYSTEM_G1` under Constitution 4.0.
+
+Current strategic disposition:
+`PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT — ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING`.
+
+The ADR-0042 parked disposition remains historical truth for the predecessor BTC spot LONG/NO_TRADE
+programme. Candidate #1 remains closed.
+
+System G1 allocation is finite:
+
+- exactly two initial playbooks (P1 continuation, P2 failed-auction re-entry);
+- one 15m decision clock and one 4h forecast target;
+- one six-scale cycle method family;
+- at most seven predeclared historical development configurations;
+- no automatic G2;
+- no historical performance run until the Research Director freezes and authorizes it.
