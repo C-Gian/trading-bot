@@ -43,3 +43,5 @@
 - [ADR-0040 — Candidate #1 Development execution authorization](ADR-0040-CANDIDATE-1-DEVELOPMENT-EXECUTION-AUTHORIZATION.md)
 
 - [ADR-0041 — Candidate #1 Development rejected; strong stop pending Astra](ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md)
+
+- [ADR-0042 — Park active alpha research under current constraints](ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md)
