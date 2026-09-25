@@ -29,6 +29,7 @@ from app.product.paper_v2 import (
     update_lifecycle,
 )
 from fastapi.testclient import TestClient
+from state_fixtures import unparked_state_path
 
 ROOT = Path(__file__).resolve().parents[2]
 SIGNAL = datetime(2026, 9, 14, 10, tzinfo=UTC)
@@ -288,7 +289,9 @@ def test_client_body_cannot_forge_server_owned_plan_or_timestamps(tmp_path: Path
     server_analysis["analysis_time"] = "2026-09-13T10:23:16Z"
     server_analysis["signal_time"] = "2026-09-13T10:00:00Z"
     server_analysis["analysis_id"] = analysis_identity(server_analysis)
-    app = create_app(analyser=lambda: server_analysis, paper_store=store)
+    app = create_app(
+        state_path=unparked_state_path(), analyser=lambda: server_analysis, paper_store=store
+    )
     response = TestClient(app).post(
         "/api/v1/product/paper-trades",
         json={
@@ -436,7 +439,9 @@ def test_manual_classification_and_counter_discipline_persist(tmp_path: Path) ->
 
 
 def test_v2_has_no_real_money_order_or_credential_path(tmp_path: Path) -> None:
-    app = create_app(analyser=_analysis, paper_store=_store(tmp_path))
+    app = create_app(
+        state_path=unparked_state_path(), analyser=_analysis, paper_store=_store(tmp_path)
+    )
     paths = {str(getattr(route, "path", "")).lower() for route in app.routes}
     assert not any(
         word in path

@@ -25,6 +25,7 @@ from app.research.local_runner import (
 )
 from app.research.runtime_v2 import RUNTIME_VERSION, StageTimer
 from fastapi.testclient import TestClient
+from state_fixtures import unparked_state_path
 
 EVIDENCE = "REPRODUCTION_OF_ALREADY_EXPOSED_DEVELOPMENT_RESULT"
 STAGES = (
@@ -448,8 +449,9 @@ def test_api_accepts_only_candidate_id_and_returns_persisted_run(tmp_path: Path)
 
     service = runner(tmp_path, adapter)
     state_root = Path(__file__).resolve().parents[2]
-    state_path = tmp_path / "state.json"
-    state_path.write_bytes((state_root / "state/current_state.json").read_bytes())
+    del state_root
+    # The preserved runner mechanics are exercised on an unparked copy (ADR-0042).
+    state_path = unparked_state_path()
     client = TestClient(create_app(state_path=state_path, research_runner=service))
     overview = client.get("/api/v1/research/runner").json()
     assert overview["runner_status"] == "IDLE"

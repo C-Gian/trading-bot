@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from collections.abc import Callable
 from contextlib import asynccontextmanager
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -54,6 +54,43 @@ from .research.local_runner import (
 from .research.wp006_views import v2_budget_view
 from .sealed import public_status
 from .state import StateRepository
+
+# ADR-0042: while alpha research is parked there is no validated strategy. Every action surface
+# fails closed to NO_TRADE and no paper trade or research run may start.
+PARKED_DISPOSITION = "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS"
+PARKED_DATA_STATUS = "RESEARCH_PARKED"
+PARKED_RESEARCH_STATUS = "PARKED_NO_VALIDATED_STRATEGY"
+PARKED_DETAIL = (
+    "Alpha research is parked (ADR-0042): no validated strategy exists, so the honest "
+    "action output is NO_TRADE."
+)
+
+
+def parked(state: dict[str, Any]) -> bool:
+    return state.get("current_project_status", {}).get("disposition") == PARKED_DISPOSITION
+
+
+def parked_analysis(state: dict[str, Any]) -> dict[str, Any]:
+    """The parked action output: NO_TRADE, no plan, without evaluating any strategy."""
+    return {
+        "analysis_version": "PARKED_NO_TRADE_V1",
+        "classification": "NO_VALIDATED_STRATEGY",
+        "symbol": "BTCUSDT",
+        "strategy_version": "NONE",
+        "variant": "NONE",
+        "feature_version": "NONE",
+        "research_status": PARKED_RESEARCH_STATUS,
+        "champion_status": state["champion_status"],
+        "project_disposition": PARKED_DISPOSITION,
+        "analysis_time": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "signal_time": None,
+        "data_status": PARKED_DATA_STATUS,
+        "data_detail": PARKED_DETAIL,
+        "decision": "NO_TRADE",
+        "plan": None,
+        "paper_trade_persisted": False,
+        "real_money": False,
+    }
 
 
 class ResearchRunRequest(BaseModel):
@@ -185,6 +222,10 @@ def create_app(
         state = repo.load()
         if state["real_money_authorized"]:
             raise HTTPException(409, "local research is disabled if real money is authorized")
+        if parked(state):
+            raise HTTPException(
+                409, "local research runs are disabled while alpha research is parked"
+            )
         try:
             return local_runner.start(request.candidate_id)
         except UnknownCandidateError as exc:
@@ -231,7 +272,7 @@ def create_app(
         state = repo.load()
         if state["real_money_authorized"]:
             raise HTTPException(409, "real-money authorization is not supported by this surface")
-        result = analyser()
+        result = parked_analysis(state) if parked(state) else analyser()
         response = {
             **result,
             "champion_status": state["champion_status"],
@@ -244,6 +285,19 @@ def create_app(
     @application.get("/api/v1/product/analysis/capability")
     def product_analysis_capability(repo: StateRepository = Depends(state_repository)):
         state = repo.load()
+        if parked(state):
+            return {
+                "surface": "PARKED_NO_TRADE",
+                "trigger": "EXPLICIT_USER_ACTION_ONLY",
+                "strategy_version": "NONE",
+                "variant": "NONE",
+                "research_status": PARKED_RESEARCH_STATUS,
+                "project_disposition": PARKED_DISPOSITION,
+                "champion_status": state["champion_status"],
+                "paper_trade_persistence": False,
+                "order_placement": False,
+                "real_money_authorized": state["real_money_authorized"],
+            }
         return {
             "surface": state.get("product_analysis", {}).get("surface", "UNAVAILABLE"),
             "trigger": "EXPLICIT_USER_ACTION_ONLY",
@@ -269,6 +323,8 @@ def create_app(
         state = repo.load()
         if state["real_money_authorized"]:
             raise HTTPException(409, "real-money authorization is not supported by this surface")
+        if parked(state):
+            raise HTTPException(409, PARKED_DETAIL)
         analysis = analyser()
         try:
             trade = create_from_analysis(analysis, trades)

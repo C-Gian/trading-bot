@@ -143,6 +143,8 @@ export function refusalCopy(message: string): string {
 /** Why an analysis could not be produced. */
 export function dataStatusCopy(status: string): string | null {
   if (status === 'OK') return null;
+  if (status === 'RESEARCH_PARKED')
+    return 'La ricerca è sospesa: non esiste una strategia validata, quindi il bot resta su NO_TRADE.';
   if (status === 'MARKET_DATA_UNAVAILABLE')
     return 'Non è stato possibile leggere i dati di mercato. Riprova tra poco.';
   return 'I dati di mercato non sono completi, quindi il bot non si esprime.';

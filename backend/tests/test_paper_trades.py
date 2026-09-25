@@ -29,6 +29,7 @@ from app.product.paper import (
     update_lifecycle,
 )
 from fastapi.testclient import TestClient
+from state_fixtures import unparked_state_path
 
 ROOT = Path(__file__).resolve().parents[2]
 SIGNAL = datetime(2026, 3, 5, 12, tzinfo=UTC)
@@ -349,6 +350,7 @@ def _app(tmp_path: Path, decision: str = "LONG"):
     klines = _flat(10)
     klines[3] = _minute(3, high=TARGET + 500, low=49_900, close=TARGET, opened=50_000)
     return store, create_app(
+        state_path=unparked_state_path(),
         analyser=lambda: _analysis(decision),
         paper_store=store,
         lifecycle=lambda s: update_lifecycle(s, now=NOW, feed=_feed(klines)),
@@ -401,6 +403,7 @@ def test_nothing_advances_without_an_explicit_lifecycle_call(tmp_path: Path) -> 
         return update_lifecycle(store, now=NOW, feed=_feed(_flat(10)))
 
     app = create_app(
+        state_path=unparked_state_path(),
         analyser=lambda: _analysis(),
         paper_store=store,
         lifecycle=counting_lifecycle,
