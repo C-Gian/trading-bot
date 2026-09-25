@@ -60,3 +60,16 @@ Astra strategic allocation.
 ## Reopening rule
 
 Reopening requires a concrete material changed case under ADR-0042 and Astra approval. Untested territory, a new indicator/model, elapsed time or renewed interest are insufficient.
+
+
+## Owner mission V2 scope-reset note
+
+On 2026-09-25 the Owner authorized ADR-0043 / `OWNER_PRODUCT_MISSION_V2`, materially expanding the
+intended product from the predecessor BTC spot LONG/NO_TRADE research programme to a professional
+multi-signal BTC paper system with continuous predictions and selective LONG/SHORT/NO_TRADE.
+
+The parked disposition remains the correct terminal result for the predecessor programme. The scope
+change is a legitimate reopening trigger, but no new allocation is active until Astra completes the
+strategic redesign. Historical family closures remain evidence for their exact tested formulations;
+they must not be erased, but they also must not be mechanically treated as proof that a signal cannot
+serve a different predeclared contextual role inside a genuinely distinct composite playbook.
