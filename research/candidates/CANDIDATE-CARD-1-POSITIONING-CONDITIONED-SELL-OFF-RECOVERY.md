@@ -52,4 +52,22 @@ Programme descriptors: allocation posture `LATE_STAGE_WITHIN_CURRENT_ENVELOPE` /
    exactly one calculation by `scripts/audit_candidate_1_frozen_admission.py`, record
    `reports/validation/CANDIDATE-1-FROZEN-ADMISSION-V1.json`.
 
-No forward return, trade outcome, label or model has been computed for this candidate.
+## Development outcome
+
+The single frozen Development Lab execution is recorded at
+`research/experiments/CANDIDATE-1-DEVELOPMENT-V1/result.json` and adjudicated by
+[ADR-0041](../../decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md).
+
+Terminal disposition: **`DEVELOPMENT_REJECTED`**.
+
+Key frozen-result facts:
+
+- gross Candidate expectancy approximately -3.03 bp/trade;
+- `ABS_NET_BP = -27.03` bp/trade;
+- `INCREMENTAL_NET_BP = -17.47` bp/matched pair;
+- all twelve Development gates failed;
+- prospective detectability failed.
+
+Candidate #1 is closed under the current allocation with no ordinary rescue. This rejects the frozen
+playbook, not every possible positioning/deleveraging mechanism. Reopening or defining a new related
+Candidate requires Astra.
