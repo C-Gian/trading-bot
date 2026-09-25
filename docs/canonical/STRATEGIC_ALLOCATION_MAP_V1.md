@@ -13,7 +13,7 @@ negative or blocked result remain binding regardless of disposition.
 | Tested SMA/trend, breakout, participation, pullback and ALIGNED lineages | **CLOSED / NO HISTORICAL RESCUE** |
 | Internal price structure / ordinary technical descriptors | **SHARED CONTEXT ONLY** |
 | Temporary inventory / positioning-pressure mean reversion | **ELIGIBLE FOR BOUNDED PLAYBOOK RESEARCH** |
-| Positioning-conditioned recovery after a sharp BTC sell-off (Candidate Card #1) | **CURRENT PRIORITY — ADMISSION ONLY** (admission outcome: see below) |
+| Positioning-conditioned recovery after a sharp BTC sell-off (Candidate Card #1) | **CLOSED — DEVELOPMENT_REJECTED; NO ORDINARY RESCUE** |
 | Aggressive order flow | **RESERVE; EXISTING RESULTS CLOSED** |
 | Funding, OI and perpetual-relative state | **SHARED INPUTS ONLY FOR AN ADMITTED MECHANISM** |
 | Volatility / liquidity | **SHARED CONTEXT / RISK ONLY** |
@@ -38,11 +38,13 @@ The executor support diagnostic (73 / 25) is preserved as
 Admission is decided once by the Director-frozen specification
 `research/protocols/CANDIDATE-1-FROZEN-ADMISSION-V1.md`
 ([ADR-0037](../../decisions/ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md)).
-The operative disposition is recorded in state (`governance_transition_v3.candidate_1`); the
-frozen admission result is [ADR-0038](../../decisions/ADR-0038-CANDIDATE-1-ADMITTED-FOR-PROTOCOL-DESIGN.md)
-(admitted for protocol design only; no market trial authorized). The
-broad area "temporary inventory / positioning-pressure mean reversion" keeps its disposition;
-any new candidate inside it requires Astra.
+The operative disposition is recorded in state (`governance_transition_v3.candidate_1`). The
+candidate passed frozen admission under [ADR-0038](../../decisions/ADR-0038-CANDIDATE-1-ADMITTED-FOR-PROTOCOL-DESIGN.md),
+then underwent the single frozen Development execution and was adjudicated `DEVELOPMENT_REJECTED`
+under [ADR-0041](../../decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md).
+No ordinary rescue is authorized. The broad area "temporary inventory / positioning-pressure
+mean reversion" is not declared universally disproven, but any new candidate inside it requires
+Astra strategic allocation.
 
 ## Programme descriptors
 
@@ -50,3 +52,7 @@ any new candidate inside it requires Astra.
   posture, not a claim that most trading mechanisms are disproven.
 - Scientific coverage: `MATURE_NEGATIVE_PREDICTOR_RESEARCH_WITH_LIMITED_PLAYBOOK_COVERAGE` —
   descriptive only; it does not expand the research budget.
+
+## Current project-level allocation state
+
+`STRONG_STOP_PENDING_ASTRA` — the one-card allocation has ended without promotion. Candidate Card #2 remains unallocated; no new alpha-development work is authorized pending Astra strategic review.
