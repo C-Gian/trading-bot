@@ -9896,7 +9896,9 @@
         "closure_artifact",
         "preservation_manifest",
         "active_system_generation",
-        "architecture"
+        "architecture",
+        "strategic_disposition",
+        "operational_compatibility_note"
       ],
       "properties": {
         "precedence": {
@@ -10011,6 +10013,13 @@
             "string",
             "null"
           ]
+        },
+        "strategic_disposition": {
+          "const": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING"
+        },
+        "operational_compatibility_note": {
+          "type": "string",
+          "minLength": 1
         }
       }
     }
