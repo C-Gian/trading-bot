@@ -4333,6 +4333,12 @@ def governance_checks(pre_experiment: bool) -> dict:
         "/api/v1/product/paper-trades",
         "/api/v1/product/paper-trades/lifecycle",
         "/api/v1/research/runner/runs",
+        # System G1 Checkpoint 1: in-memory synthetic replay controls. They never write
+        # canonical state, paper trades or research records, and accept no scientific knob.
+        "/api/v1/g1/replay/sessions",
+        "/api/v1/g1/replay/sessions/{session_id}/control",
+        "/api/v1/g1/replay/sessions/{session_id}/tick",
+        "/api/v1/g1/runs/{run_id}/post-analysis",
     }
     for route in app.routes:
         route_path = str(getattr(route, "path", ""))
