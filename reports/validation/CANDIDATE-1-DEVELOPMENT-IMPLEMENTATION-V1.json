@@ -1,0 +1,125 @@
+{
+  "admission_identity_replay": true,
+  "admission_record": "reports/validation/CANDIDATE-1-FROZEN-ADMISSION-V1.json",
+  "development_result_created": false,
+  "execution_authorized": false,
+  "execution_price_source": "data/canonical/BTCUSDT-1m.parquet (BTCUSDT-SPOT-1M-DEV-v1)",
+  "execution_price_source_read": false,
+  "freeze_decision": "decisions/ADR-0039-CANDIDATE-1-DEVELOPMENT-PROTOCOL-FREEZE.md",
+  "identity": {
+    "ADMISSION_RECORD_IDENTITY": true,
+    "FREEZE_DECISION_IDENTITY": true,
+    "PROTOCOL_IDENTITY": true
+  },
+  "implementation_paths": [
+    "backend/app/research/candidate_1_development.py",
+    "scripts/run_candidate_1_development.py",
+    "backend/tests/test_candidate_1_development.py"
+  ],
+  "implementation_sha256": {
+    "backend/app/research/candidate_1_development.py": "2d877c5e4a704ab59d00e58e853a3ed3bad947409cfd65ada18b6b437ba6bd97",
+    "backend/tests/test_candidate_1_development.py": "dc3a58a370eceabbf83ad70df0b4a51b53ab80bcf5f7b23d2c2ad335a4f55557",
+    "scripts/run_candidate_1_development.py": "baed05d45efc9f2e3bf8be4cd1acae8c53cb35696ceba90cb033cf5aa69e0a85"
+  },
+  "market_outcomes_inspected": false,
+  "new_market_data_accessed": false,
+  "outcome_blind_matching": {
+    "balance": {
+      "by_year": {
+        "2022": {
+          "log_sigma_prior_1h": -0.036219048753413446,
+          "shock_z": -0.05624721813941703
+        },
+        "2023": {
+          "log_sigma_prior_1h": 0.025272399285845102,
+          "shock_z": -0.19968611902472755
+        },
+        "2024": {
+          "log_sigma_prior_1h": -0.029922000989168803,
+          "shock_z": -0.019049844550491267
+        }
+      },
+      "pooled": {
+        "log_sigma_prior_1h": -0.009445372627785331,
+        "shock_z": -0.08294130496934556
+      }
+    },
+    "blocked_years": [],
+    "coverage": 0.8706896551724138,
+    "gates": {
+      "COVERAGE_EACH_YEAR": true,
+      "COVERAGE_OVERALL": true,
+      "NO_BLOCKED_YEAR": true,
+      "SMD_EACH_YEAR": true,
+      "SMD_POOLED": true
+    },
+    "pairs": 101,
+    "reads_forward_prices": false,
+    "years": {
+      "2022": {
+        "candidates": 41,
+        "controls": 80,
+        "coverage": 0.926829268292683,
+        "feasible_edges": 390
+      },
+      "2023": {
+        "candidates": 40,
+        "controls": 54,
+        "coverage": 0.775,
+        "feasible_edges": 307
+      },
+      "2024": {
+        "candidates": 35,
+        "controls": 85,
+        "coverage": 0.9142857142857143,
+        "feasible_edges": 272
+      }
+    }
+  },
+  "population": {
+    "admission_exclusions": {
+      "OI_NON_POSITIVE": 1
+    },
+    "candidate": 116,
+    "candidates_with_exit_minute_after_cutoff": 0,
+    "consumed_candidates": 116,
+    "consumed_valid_episodes": 335,
+    "control": 219,
+    "intended": 336,
+    "non_overlapping_primary_positions": true,
+    "valid": 335
+  },
+  "protocol": "research/protocols/CANDIDATE-1-DEVELOPMENT-V1.md",
+  "protocol_canonical_sha256": "c47ffb9b5fc737962ec7e074c62344cb2aa9117ea7798a9f8a1ab19b07762313",
+  "sealed_queries": 0,
+  "synthetic_tests": [
+    "test_accounting_matches_the_backtest_engine",
+    "test_attractive_synthetic_market_is_promotion_eligible",
+    "test_caliper_excludes_edges_beyond_half_a_standardized_unit",
+    "test_cost_profiles_are_24_and_36_bp_round_trip_on_a_flat_price",
+    "test_degenerate_and_non_finite_variance_is_invalid",
+    "test_disposition_order_cannot_be_overridden_by_later_stages",
+    "test_exact_ties_break_by_candidate_then_control_timestamp",
+    "test_exit_after_the_development_cutoff_is_never_read",
+    "test_expected_shortfall_and_drawdown",
+    "test_hungarian_assignment_is_exact",
+    "test_ingestion_fails_closed_on_a_drifted_record",
+    "test_integrity_failure_beats_everything",
+    "test_losing_synthetic_market_is_rejected",
+    "test_matching_is_outcome_blind",
+    "test_maximum_cardinality_precedes_distance",
+    "test_minimum_total_squared_distance_among_maximum_matchings",
+    "test_missing_exact_minutes_are_unscorable_without_replacement_fill",
+    "test_noisy_market_is_inconclusive_not_promoted",
+    "test_one_way_cluster_se_with_repeated_months",
+    "test_overlapping_primary_positions_are_detected",
+    "test_planning_sd_and_required_n",
+    "test_primary_and_delay_timestamps",
+    "test_standardized_mean_difference_and_gates",
+    "test_support_failure_beats_attractive_economics",
+    "test_the_frozen_admission_population_is_consumed_not_rederived",
+    "test_two_way_cluster_se_with_overlapping_clusters",
+    "test_zero_standard_deviation_blocks_the_year"
+  ],
+  "version": "CANDIDATE_1_DEVELOPMENT_IMPLEMENTATION_VALIDATION_V1"
+}

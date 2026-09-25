@@ -9435,7 +9435,7 @@
         "decision_records": {
           "type": "array",
           "minItems": 2,
-          "maxItems": 3,
+          "maxItems": 16,
           "prefixItems": [
             {
               "const": "decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md"
@@ -9604,7 +9604,8 @@
             "economic_hypothesis_tested",
             "market_outcomes_inspected",
             "replacement_candidate",
-            "reopening_requires"
+            "reopening_requires",
+            "development"
           ],
           "properties": {
             "card": {
@@ -9708,6 +9709,75 @@
             },
             "reopening_requires": {
               "const": "ASTRA"
+            },
+            "development": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "protocol",
+                "protocol_canonical_sha256",
+                "decision_record",
+                "implementation_module",
+                "runner",
+                "synthetic_tests",
+                "implementation_validation_record",
+                "result_path",
+                "status",
+                "execution_authorized",
+                "development_executions",
+                "development_disposition"
+              ],
+              "properties": {
+                "protocol": {
+                  "const": "research/protocols/CANDIDATE-1-DEVELOPMENT-V1.md"
+                },
+                "protocol_canonical_sha256": {
+                  "const": "c47ffb9b5fc737962ec7e074c62344cb2aa9117ea7798a9f8a1ab19b07762313"
+                },
+                "decision_record": {
+                  "const": "decisions/ADR-0039-CANDIDATE-1-DEVELOPMENT-PROTOCOL-FREEZE.md"
+                },
+                "implementation_module": {
+                  "const": "backend/app/research/candidate_1_development.py"
+                },
+                "runner": {
+                  "const": "scripts/run_candidate_1_development.py"
+                },
+                "synthetic_tests": {
+                  "const": "backend/tests/test_candidate_1_development.py"
+                },
+                "implementation_validation_record": {
+                  "const": "reports/validation/CANDIDATE-1-DEVELOPMENT-IMPLEMENTATION-V1.json"
+                },
+                "result_path": {
+                  "const": "research/experiments/CANDIDATE-1-DEVELOPMENT-V1/result.json"
+                },
+                "status": {
+                  "enum": [
+                    "CANDIDATE_1_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_AUTHORIZATION",
+                    "DEVELOPMENT_EXECUTION_AUTHORIZED",
+                    "DEVELOPMENT_EXECUTED"
+                  ]
+                },
+                "execution_authorized": {
+                  "type": "boolean"
+                },
+                "development_executions": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "development_disposition": {
+                  "enum": [
+                    null,
+                    "INVALID_EXECUTION",
+                    "BLOCKED_DATA_OR_SUPPORT",
+                    "DEVELOPMENT_REJECTED",
+                    "INCONCLUSIVE_NO_PROMOTION",
+                    "PROMOTION_ELIGIBLE"
+                  ]
+                }
+              }
             }
           }
         },
@@ -9744,7 +9814,8 @@
           "enum": [
             "CANDIDATE_1_FROZEN_ADMISSION_PENDING",
             "CANDIDATE_1_PROTOCOL_DESIGN_PENDING",
-            "STRONG_STOP_PENDING_ASTRA"
+            "STRONG_STOP_PENDING_ASTRA",
+            "CANDIDATE_1_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_AUTHORIZATION"
           ]
         }
       }

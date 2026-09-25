@@ -3416,6 +3416,8 @@ def governance_transition_v3_checks(state: dict) -> None:
     assert candidate["economic_hypothesis_tested"] is False
     assert candidate["replacement_candidate"] is None
     assert candidate["support_calculations_budget"] == 1
+    if "development" in candidate:
+        candidate_1_development_checks(record, candidate["development"])
     record_path = ROOT / candidate["admission_record"]
     if candidate["disposition"] == "PENDING_FROZEN_ADMISSION_CALCULATION":
         # The frozen specification is committed before its single calculation.
@@ -3437,7 +3439,13 @@ def governance_transition_v3_checks(state: dict) -> None:
     assert admission["protocol"] == candidate["frozen_specification"]
     assert candidate["gates"] == admission["gates"]
     assert candidate["disposition"] == admission["disposition"]
-    assert record["project_state"] == admission["project_state"]
+    # Admission fixes the entry state; an admitted candidate may then advance through
+    # its frozen Development stages (ADR-0039).
+    assert record["project_state"] == admission["project_state"] or (
+        admission["disposition"] == "CANDIDATE_1_ADMITTED_FOR_PROTOCOL_DESIGN"
+        and "development" in candidate
+        and record["project_state"] == candidate["development"]["status"]
+    )
     assert (ROOT / candidate["result_decision_record"]).is_file()
     assert candidate["result_decision_record"] in record["decision_records"]
     for path, digest in admission["identity"].items():
@@ -3450,6 +3458,48 @@ def governance_transition_v3_checks(state: dict) -> None:
             "CANDIDATE_1_CLOSED_CURRENT_ALLOCATION_SUPPORT_OR_FEASIBILITY"
         )
         assert record["project_state"] == "STRONG_STOP_PENDING_ASTRA"
+
+
+def candidate_1_development_checks(record: dict, development: dict) -> None:
+    """ADR-0039: the Development implementation is pinned and cannot run unauthorized."""
+    from app.research import candidate_1_development as dev
+
+    for key in (
+        "protocol",
+        "decision_record",
+        "implementation_module",
+        "runner",
+        "synthetic_tests",
+        "implementation_validation_record",
+    ):
+        assert (ROOT / development[key]).is_file(), development[key]
+    assert development["protocol"] == dev.PROTOCOL_PATH
+    assert development["protocol_canonical_sha256"] == dev.PROTOCOL_CANONICAL_SHA256
+    assert all(dev.identity_checks(ROOT).values())
+    assert development["result_path"] == dev.RESULT_PATH
+    validation = json.loads(
+        (ROOT / development["implementation_validation_record"]).read_text(encoding="utf-8")
+    )
+    assert validation["protocol_canonical_sha256"] == dev.PROTOCOL_CANONICAL_SHA256
+    assert all(validation["identity"].values()) and validation["admission_identity_replay"]
+    for claim in (
+        "market_outcomes_inspected",
+        "new_market_data_accessed",
+        "development_result_created",
+        "execution_authorized",
+        "execution_price_source_read",
+    ):
+        assert validation[claim] is False, claim
+    assert validation["outcome_blind_matching"]["reads_forward_prices"] is False
+    for path, digest in validation["implementation_sha256"].items():
+        assert dev.canonical_text_sha256(ROOT / path) == digest, path
+    if not development["execution_authorized"]:
+        # No outcome may exist before the Research Director authorizes the single run.
+        assert development["development_executions"] == 0
+        assert development["development_disposition"] is None
+        assert not (ROOT / dev.RESULT_PATH).exists()
+        assert record["market_trial_authorized"] is False
+        assert record["candidate_1"]["economic_hypothesis_tested"] is False
 
 
 def dataset_scope_checks() -> None:
@@ -4368,6 +4418,9 @@ def data_checks(state: dict) -> None:
     public_flow = validate_public_taker_flow(ROOT, data_available=True)
     if (ROOT / "reports/validation/CANDIDATE-1-FROZEN-ADMISSION-V1.json").is_file():
         run([sys.executable, "scripts/audit_candidate_1_frozen_admission.py", "--check"])
+    if (ROOT / "reports/validation/CANDIDATE-1-DEVELOPMENT-IMPLEMENTATION-V1.json").is_file():
+        # Outcome-blind replay: identity, admission replay and matching; no execution bars.
+        run([sys.executable, "scripts/run_candidate_1_development.py", "--check"])
     assert public_flow["data_replayed"] is True and public_flow["raw_objects_verified"] == 120
     from app.predictive.taker_flow_power_gate import GATE_JSON_PATH
 

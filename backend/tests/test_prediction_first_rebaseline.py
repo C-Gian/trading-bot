@@ -369,6 +369,8 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
 # is "the active task is the declared successor", not its current title, so any known
 # successor is normalized to the rebaseline anchor. Longest first: these names nest.
 SUCCESSOR_TASK_TITLES = (
+    "RESEARCH-DIRECTOR-EXECUTION-REVIEW-CANDIDATE-1-DEVELOPMENT-V1",
+    "IMPLEMENT-CANDIDATE-1-DEVELOPMENT-V1",
     "RESEARCH-DIRECTOR-PROTOCOL-DESIGN-CANDIDATE-1-V1",
     "STRONG-STOP-PENDING-ASTRA-AFTER-CANDIDATE-1",
     "CANDIDATE-1-FROZEN-ADMISSION-V1",
