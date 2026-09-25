@@ -16,7 +16,6 @@ from app.g1.cycle import (
     CYCLE_DECISION_ACTIVATION,
     NOT_READY_QUALIFIER,
     SCALES,
-    THRESHOLD_PENDING_LABEL,
     AutocorrelationPeriodogram,
     CycleEngine,
     ScaleTracker,
@@ -140,7 +139,8 @@ def test_trade_path_exercises_objective_stop_expiry_funding_and_rejection(run) -
     assert any(f.side is Side.LONG and f.funding_amount < 0 for f in funding)
     assert any(f.side is Side.SHORT and f.funding_amount > 0 for f in funding)
     for trade in trades:
-        assert trade.entry_time.minute % 15 == 0  # next eligible minute after the decision
+        # Next eligible minute after the decision plus the frozen 1m primary delay.
+        assert trade.entry_time.minute % 15 == 1
 
 
 def test_realizations_are_scored_only_after_maturity(run) -> None:
@@ -172,7 +172,7 @@ def test_signals_and_cycle_states_are_diagnostic_or_not_ready(run) -> None:
         assert state.decision_role is SignalRole.METHOD_NOT_READY
         assert state.timing_qualifier == NOT_READY_QUALIFIER
         for scale in state.scales:
-            assert scale.quality_label in ("UNAVAILABLE", THRESHOLD_PENDING_LABEL)
+            assert scale.quality_label in ("UNAVAILABLE", "WEAK", "USABLE")
     for state in run.store.of_type(MarketState):
         assert state.cycle_summary == NOT_READY_QUALIFIER
     assert CYCLE_DECISION_ACTIVATION is False
@@ -287,15 +287,16 @@ def test_warmup_gap_rewarm_and_turn_confirmation_timestamps() -> None:
     assert incomplete.bars_seen == 0 and incomplete.gap_state == "REWARMING_AFTER_GAP"
 
 
-def test_cycle_synthetic_diagnostic_artifact_regenerates_and_selects_no_threshold() -> None:
+def test_preserved_checkpoint_1_cycle_diagnostics_are_unchanged() -> None:
+    """The IMPL-1 artifact is immutable history; ADR-0045 labels supersede its pending labels."""
     import sys
 
     sys.path.insert(0, str(ROOT / "scripts"))
-    from build_g1_cycle_diagnostics import artifact_bytes
+    from build_g1_cycle_diagnostics import PRESERVED_V1_SHA256, preserved_sha256
 
+    assert preserved_sha256() == PRESERVED_V1_SHA256
     path = ROOT / "reports/research/SYSTEM-G1-CYCLE-SYNTHETIC-DIAGNOSTICS-V1.json"
-    content = artifact_bytes()
-    assert path.read_bytes().replace(b"\r\n", b"\n") == content
+    content = path.read_bytes()
     artifact = json.loads(content)
     assert artifact["quality_thresholds_selected"] is False
     assert artifact["market_data_read"] is False and artifact["cycle_active_in_decisions"] is False

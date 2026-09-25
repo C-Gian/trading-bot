@@ -10122,6 +10122,105 @@
           "const": false
         }
       }
+    },
+    "system_g1_cycle_quality_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "archived_task",
+        "artifact",
+        "checkpoint_report",
+        "cycle_active_in_decisions",
+        "decision_record",
+        "disposition",
+        "forecaster_fitted",
+        "gate",
+        "historical_market_trial_authorized",
+        "market_data_read",
+        "next_work_package",
+        "p1_p2_performance_computed",
+        "primary_operational_delay_minutes",
+        "protocol",
+        "quality_rule_id",
+        "replay_command",
+        "risk_contract_version",
+        "sealed_queries",
+        "status"
+      ],
+      "properties": {
+        "gate": {
+          "const": "SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1"
+        },
+        "status": {
+          "enum": [
+            "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_ADJUDICATION",
+            "REVIEWED"
+          ]
+        },
+        "decision_record": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protocol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checkpoint_report": {
+          "pattern": "^reports/checkpoints/[A-Z0-9_.-]+\\.md$",
+          "type": "string"
+        },
+        "archived_task": {
+          "pattern": "^tasks/archive/[A-Z0-9_.-]+\\.md$",
+          "type": "string"
+        },
+        "replay_command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quality_rule_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disposition": {
+          "enum": [
+            "CYCLE_SYNTHETIC_QUALITY_GATE_PASS_PENDING_RESEARCH_DIRECTOR_ACTIVATION",
+            "CYCLE_SYNTHETIC_QUALITY_GATE_FAIL_METHOD_NOT_READY"
+          ]
+        },
+        "cycle_active_in_decisions": {
+          "const": false
+        },
+        "primary_operational_delay_minutes": {
+          "const": 1
+        },
+        "risk_contract_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "market_data_read": {
+          "const": false
+        },
+        "historical_market_trial_authorized": {
+          "const": false
+        },
+        "p1_p2_performance_computed": {
+          "const": false
+        },
+        "forecaster_fitted": {
+          "const": false
+        },
+        "sealed_queries": {
+          "const": 0
+        },
+        "next_work_package": {
+          "type": "string",
+          "pattern": "^[A-Z0-9-]+$"
+        }
+      }
     }
   },
   "required": [
@@ -10189,7 +10288,8 @@
     "predictive_public_taker_flow_1h_incremental",
     "governance_transition_v3",
     "current_project_status",
-    "system_g1_checkpoint_1"
+    "system_g1_checkpoint_1",
+    "system_g1_cycle_quality_gate"
   ],
   "type": "object"
 }

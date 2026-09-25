@@ -12,8 +12,9 @@ causal replay.
 The predecessor ADR-0042 parked decision and Candidate #1 rejection remain historical evidence.
 
 No historical System G1 market-performance run is authorized until a later Research Director task.
-Checkpoint 1 (synthetic/causal implementation) is executor-complete; the current task is the
-review-only `RESEARCH-DIRECTOR-REVIEW-SYSTEM-G1-CHECKPOINT-1` and executor market work is forbidden.
+Checkpoint 1 is accepted (ADR-0045). The frozen cycle synthetic quality gate is executor-complete;
+the current task is the review-only `RESEARCH-DIRECTOR-CYCLE-QUALITY-ADJUDICATION-V1`, cycle state
+stays inactive in decisions, and executor market work is forbidden.
 The action guard fails closed on `current_project_status.validated_strategy = null` (NO_TRADE).
 
 # AGENTS.md — Trading Bot Operating Protocol

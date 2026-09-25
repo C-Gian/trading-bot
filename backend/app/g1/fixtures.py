@@ -57,7 +57,7 @@ ANCHORS = (
 )
 
 # Missing 1m source events exercised by the fixture (data-quality handling).
-MISSING_MINUTES = frozenset({_at(1, "10:07"), _at(1, "10:08"), _at(1, "10:09"), _at(2, "11:45")})
+MISSING_MINUTES = frozenset({_at(1, "10:07"), _at(1, "10:08"), _at(1, "10:09"), _at(2, "11:46")})
 
 # Synthetic funding rates at settlement instants (per 8h), fixture-controlled.
 FUNDING_RATES = {

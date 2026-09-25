@@ -3575,6 +3575,46 @@ def system_g1_checks(state: dict) -> None:
     assert diagnostics["market_data_read"] is False
     agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
     assert "SYSTEM G1" in agents and "Version 4.0" in agents
+    system_g1_cycle_gate_checks(state)
+
+
+def system_g1_cycle_gate_checks(state: dict) -> None:
+    """ADR-0045: frozen cycle quality gate recorded; cycle inactive; 1m primary delay."""
+    from app.g1 import cycle
+    from app.g1.cycle_quality_gate import ARTIFACT_PATH, canonical_text_sha256
+    from app.g1.ledger import PRIMARY_DELAY_MINUTES, RiskPolicy
+
+    record = state["system_g1_cycle_quality_gate"]
+    assert record["artifact"] == ARTIFACT_PATH
+    for path in (
+        record["decision_record"],
+        record["protocol"],
+        record["artifact"],
+        record["checkpoint_report"],
+        record["archived_task"],
+    ):
+        assert (ROOT / path).is_file(), path
+    assert (
+        state["current_project_status"]["automatic_next_research_package"]
+        == (record["next_work_package"])
+    )
+    artifact = json.loads((ROOT / ARTIFACT_PATH).read_text(encoding="utf-8"))
+    assert artifact["disposition"] == record["disposition"]
+    assert artifact["market_data_read"] is False
+    assert artifact["threshold_or_method_search_performed"] is False
+    rule = artifact["frozen_rule"]
+    assert rule["rule_id"] == record["quality_rule_id"] == cycle.QUALITY_RULE_ID
+    assert rule["explained_fraction_threshold"] == cycle.USABLE_EXPLAINED_FRACTION == 0.90
+    assert rule["persistence_bars"] == cycle.USABLE_PERSISTENCE_BARS == 3
+    assert rule["protocol_canonical_sha256"] == canonical_text_sha256(record["protocol"])
+    assert rule["decision_canonical_sha256"] == canonical_text_sha256(record["decision_record"])
+    for path, digest in artifact["code_canonical_sha256"].items():
+        assert canonical_text_sha256(path) == digest, path
+    assert cycle.CYCLE_DECISION_ACTIVATION is False
+    assert record["cycle_active_in_decisions"] is artifact["cycle_active_in_decisions"] is False
+    policy = RiskPolicy()
+    assert policy.operational_delay_minutes == PRIMARY_DELAY_MINUTES == 1
+    assert policy.version == record["risk_contract_version"]
 
 
 def candidate_1_development_checks(record: dict, development: dict) -> None:
@@ -4707,6 +4747,7 @@ def main() -> None:
     run([sys.executable, "scripts/audit_p2_cycle_power_gate.py", "--check"])
     run([sys.executable, "scripts/audit_p2_cycle_null_v2.py", "--check"])
     run([sys.executable, "scripts/build_g1_cycle_diagnostics.py", "--check"])
+    run([sys.executable, "scripts/build_g1_cycle_quality_gate.py", "--check"])
     for command in (
         [sys.executable, "-m", "ruff", "check", "backend", "scripts"],
         [sys.executable, "-m", "ruff", "format", "--check", "backend", "scripts"],

@@ -16,12 +16,18 @@ Traders' Tips companions):
 Everything is strictly recursive over completed past bars; no centred, forward/backward or
 full-series operation exists here. The same class runs in live-style and replay adapters.
 
-Scientific boundary (Checkpoint 1): WEAK/USABLE quality thresholds are NOT chosen here. After
-warm-up every scale reports continuous quality *metrics* and the label
-`UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR`. Every CycleState exposed to the decision path
-carries `decision_role = METHOD_NOT_READY` and the timing qualifier `CYCLE_METHOD_NOT_READY`, and
-`CYCLE_DECISION_ACTIVATION` is False: cycle state is diagnostic only and cannot raise conviction or
-authorize a trade.
+Quality labels (frozen by ADR-0045 / SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1, not chosen here):
+
+- UNAVAILABLE: warm-up incomplete, active gap re-warm, no dominant period or no causal projection;
+- USABLE: otherwise available and `explained_fraction >= 0.90` on the current completed input bar
+  and on each of the two immediately preceding completed input bars, with no gap/reset inside that
+  three-bar window (the persistence history is cleared on every reset);
+- WEAK: available but not USABLE.
+
+No other metric participates. Scientific boundary: every CycleState exposed to the decision path
+still carries `decision_role = METHOD_NOT_READY` and the timing qualifier `CYCLE_METHOD_NOT_READY`,
+and `CYCLE_DECISION_ACTIVATION` is False: a USABLE label is diagnostic only until a later Research
+Director adjudication activates cycle timing. It cannot raise conviction or authorize a trade.
 """
 
 from __future__ import annotations
@@ -35,13 +41,16 @@ from .bars import FIXED_MINUTES, Bar
 from .canonical import content_id, digest
 from .records import CycleScaleState, CycleState, SignalRole, TurnEvent
 
-METHOD_VERSION = "SYSTEM-G1-CYCLE-METHOD-V1-ACP-IMPL-1"
+METHOD_VERSION = "SYSTEM-G1-CYCLE-METHOD-V1-ACP-IMPL-2-QUALITY-GATE-V1"
 AVERAGING_LENGTH = 3
 SMOOTHING = 0.2
 POWER_FLOOR = 0.5
 CYCLE_DECISION_ACTIVATION = False
-METHOD_STATUS = "SYNTHETIC_DIAGNOSTICS_PENDING_RESEARCH_DIRECTOR_QUALITY_GATE"
-THRESHOLD_PENDING_LABEL = "UNLABELED_THRESHOLDS_PENDING_RESEARCH_DIRECTOR"
+METHOD_STATUS = "QUALITY_LABELS_FROZEN_NOT_ACTIVATED_IN_DECISIONS"
+QUALITY_RULE_ID = "SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1:EXPLAINED_FRACTION_GE_0.90_FOR_3_BARS"
+USABLE_EXPLAINED_FRACTION = 0.90  # frozen (ADR-0045); never tuned
+USABLE_PERSISTENCE_BARS = 3  # current bar + two immediately preceding bars (ADR-0045)
+UNAVAILABLE, WEAK, USABLE = "UNAVAILABLE", "WEAK", "USABLE"
 NOT_READY_QUALIFIER = "CYCLE_METHOD_NOT_READY"
 
 
@@ -220,6 +229,8 @@ class ScaleTracker:
         self.pending_turn: tuple[str, datetime] | None = None
         self.last_turn: TurnEvent | None = None
         self.last_open: datetime | None = None
+        # explained_fraction of the most recent completed input bars since the last reset.
+        self.explained_history: deque[float | None] = deque(maxlen=USABLE_PERSISTENCE_BARS)
 
     @property
     def ready(self) -> bool:
@@ -254,6 +265,7 @@ class ScaleTracker:
         else:
             self.coordinate, self.phase, self.explained = projected
             self.slope = None if previous is None else self.coordinate - previous
+        self.explained_history.append(self.explained)
         self._track_turn(open_time, close_time)
         if self.ready and self.gap_state == "REWARMING_AFTER_GAP":
             self.gap_state = "NO_GAP"
@@ -273,6 +285,23 @@ class ScaleTracker:
             # subsequent completed bar does not reverse the new slope sign.
             self.pending_turn = (kind, history[-1][2])
         history.append((sign, open_time, close_time))
+
+    def quality_label(self) -> str:
+        """The frozen three-way label; only `explained_fraction` persistence participates."""
+        if (
+            not self.ready
+            or self.gap_state == "REWARMING_AFTER_GAP"
+            or self.dominant is None
+            or self.coordinate is None
+            or self.explained is None
+        ):
+            return UNAVAILABLE
+        history = self.explained_history
+        if len(history) == USABLE_PERSISTENCE_BARS and all(
+            value is not None and value >= USABLE_EXPLAINED_FRACTION for value in history
+        ):
+            return USABLE
+        return WEAK
 
     def quality_metrics(self) -> tuple[tuple[str, float | str | None], ...]:
         if not self.power:
@@ -314,7 +343,7 @@ class ScaleTracker:
             None if dominant is None else dominant * scale.bar_minutes,
             digest([round(p, 9) for p in self.power])[:16] if ready and self.power else None,
             self.quality_metrics() if ready else (),
-            THRESHOLD_PENDING_LABEL if ready else "UNAVAILABLE",
+            self.quality_label(),
             self.coordinate if ready else None,
             self.phase if ready else None,
             ("RISING" if slope > 0 else "FALLING" if slope < 0 else "FLAT")
@@ -324,7 +353,7 @@ class ScaleTracker:
             METHOD_VERSION,
             (
                 "PHASE_ESTIMATE_DIAGNOSTIC_ONLY",
-                "QUALITY_THRESHOLDS_PENDING_RESEARCH_DIRECTOR",
+                "QUALITY_LABEL_NOT_ACTIVATED_IN_DECISIONS",
                 "NOT_A_PROBABILITY_OR_TURN_FORECAST",
             ),
         )
@@ -348,10 +377,12 @@ class CycleEngine:
             members = [
                 s for s, t in zip(scales, self.trackers, strict=True) if t.scale.group == group
             ]
-            # No scale can be USABLE before the Director freezes thresholds, so every group is
-            # UNKNOWN for decisions; individual scale disagreement stays in `scales`.
+            # Diagnostic only: labels are reported per group, but no group summary reaches the
+            # decision path before activation; individual scale disagreement stays in `scales`.
+            usable = [s.nominal_scale for s in members if s.quality_label == USABLE]
             ready = [s.nominal_scale for s in members if s.warmup_ready]
-            groups.append((group, "UNKNOWN_NO_USABLE_SCALE"))
+            groups.append((group, "DIAGNOSTIC_NOT_ACTIVATED"))
+            groups.append((f"{group}_usable_scales", ",".join(usable) or None))
             groups.append((f"{group}_warm_scales", ",".join(ready) or None))
         payload = (run_id, decision_time, METHOD_VERSION, scales)
         return CycleState(

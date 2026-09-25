@@ -37,7 +37,10 @@ from .records import (
 
 BPS = Decimal(10000)
 COST_CONTRACT_VERSION = "G1_REFERENCE_PAPER_COST_V1_24BP_ROUND_TRIP_PLUS_FUNDING"
-RISK_CONTRACT_VERSION = "G1_RISK_V1_025PCT_1X_1PCT_DAY_5PCT_RUN_ONE_POSITION"
+# V2 (ADR-0045): the architecture's frozen 1-minute primary operational delay after readiness.
+RISK_CONTRACT_VERSION = "G1_RISK_V2_025PCT_1X_1PCT_DAY_5PCT_RUN_ONE_POSITION_1M_PRIMARY_DELAY"
+PRIMARY_DELAY_MINUTES = 1
+DELAY_STRESS_MINUTES = 5  # later robustness view, relative to the primary delay
 QUANTITY_STEP = Decimal("0.000001")
 FUNDING_HOURS = (0, 8, 16)
 
@@ -50,7 +53,7 @@ class RiskPolicy:
     daily_loss_stop_fraction: Decimal = Decimal("0.01")
     run_drawdown_stop_fraction: Decimal = Decimal("0.05")
     max_hold_minutes: int = 240
-    operational_delay_minutes: int = 0
+    operational_delay_minutes: int = PRIMARY_DELAY_MINUTES
     version: str = RISK_CONTRACT_VERSION
 
     def __post_init__(self) -> None:
