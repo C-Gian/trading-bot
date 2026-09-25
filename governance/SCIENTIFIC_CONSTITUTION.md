@@ -1,5 +1,300 @@
 # Trading Bot — Scientific Constitution
 
+Version 4.0 — professional multi-signal paper system
+
+Owner-authorized mission basis: `docs/canonical/OWNER_PRODUCT_MISSION_V2.md` / ADR-0043.
+Strategic architecture: ADR-0044 /
+`docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md`.
+
+Version 4.0 supersedes Version 3.0 for the active product/research mission. Version 3.0 and every
+earlier Constitution remain preserved below as historical appendices. Historical experimental
+results and closures are never rewritten by this mission change.
+
+## Mission
+
+Trading Bot is intended to become an interpretable, reproducible BTC paper-trading system that
+approximates a disciplined professional trading process:
+
+- continuously assess the market on a fixed causal clock;
+- combine a bounded catalogue of established professional signal families;
+- preserve multi-timeframe disagreement and cyclical context;
+- emit an honest continuous market forecast at every eligible decision candle;
+- selectively output `LONG`, `SHORT` or `NO_TRADE`;
+- simulate risk, execution, costs and funding consistently;
+- expose the reasoning, predictions and trades through a live/replay web application.
+
+The product is **not** a search for one isolated alpha anomaly and is **not** an unconstrained feature
+or model tournament.
+
+Statistics is the evaluator and guardrail. It prevents leakage, overfitting, false discovery,
+execution artifacts and misleading claims. It does not require every contextual signal to earn
+standalone trading profitability before it may serve a predeclared role inside a coherent playbook.
+
+The final objective remains practical positive paper-trading value after realistic costs and risk,
+earned through properly separated development and future confirmation.
+
+Real money remains a separate explicit Owner gate.
+
+## Active product boundary
+
+Current bounded generation: `SYSTEM_G1`.
+
+- primary market: BTCUSDT;
+- paper only;
+- native action space: `LONG / SHORT / NO_TRADE`;
+- local web application;
+- decision / continuous-prediction clock: completed 15m candles;
+- execution simulation: canonical 1m observations;
+- primary prediction target: 4h terminal return distribution;
+- shared higher-timeframe context as frozen by the System G1 architecture;
+- exactly two initial playbooks;
+- no live exchange order placement;
+- no leverage authorization;
+- no real-capital authorization.
+
+The USD-M traded-price series may be used as a reference paper instrument for coherent bidirectional
+accounting. This is a research contract, not approval to trade futures.
+
+## System-level research sequence
+
+The active governed sequence is:
+
+`PROFESSIONAL ARCHITECTURE -> FROZEN CAUSAL CONTRACTS -> SYNTHETIC VALIDATION -> ONE BOUNDED HISTORICAL G1 BATCH -> SYSTEM PROMOTION GATE -> AT MOST ONE FROZEN PROSPECTIVE PAPER SYSTEM`
+
+No automatic G2 exists.
+
+If System G1 fails its frozen development/promotion gates, the project returns to Astra rather than
+generating another strategy family automatically.
+
+## Evidence hierarchy
+
+From strongest to weakest:
+
+1. immutable frozen prospective paper / forward evidence;
+2. sealed locked evaluation where applicable;
+3. purged chronological / out-of-sample validation;
+4. robustness, cost and execution stress;
+5. exposed development backtests;
+6. descriptive diagnostics;
+7. narrative explanations.
+
+Historical development remains exposed even if causal, chronological and visually convincing.
+
+## Continuous prediction and trade policy are distinct
+
+Every eligible decision candle may produce a PredictionSnapshot whether or not a trade is proposed.
+
+Prediction evaluation must preserve:
+
+- coverage / unavailable states;
+- direction;
+- calibrated probability status;
+- magnitude/distribution error;
+- baseline comparison;
+- ex-ante conviction strata.
+
+Low-conviction forecasts are not discarded and their failures remain visible.
+
+The selective trading policy is evaluated separately on actual `LONG / SHORT / NO_TRADE`
+decisions, calendar-time equity/P&L, risk, costs, occupancy and execution.
+
+A strong trade subset does not excuse false probability/calibration claims.
+A large number of weak low-conviction forecast misses does not by itself reject an otherwise
+predeclared selective policy.
+
+## Component-role principle
+
+A component may be admitted only with:
+
+- a professional/economic role;
+- deterministic causal definition;
+- point-in-time availability semantics;
+- quality/missingness rules;
+- a declared relationship to one or more playbooks;
+- a controlled comparison/removal meaning.
+
+Context, corroboration, timing, risk and execution components are not required to demonstrate
+standalone trading profitability.
+
+However, component complexity must be accountable: a component that adds no useful system-level or
+conditional contribution under its declared comparison does not earn retention.
+
+No arbitrary indicator accumulation is permitted.
+
+## Multi-timeframe and cycle rules
+
+Timeframes are architecture, not a post-hoc parameter sweep.
+
+The System G1 hierarchy and forecast horizon are frozen before market outcomes.
+
+Cycle analysis is one hierarchical family. Its fixed scales and method live in
+`research/protocols/SYSTEM-G1-CYCLE-METHOD-V1.md`.
+
+Rules:
+
+- no best-period search using trading returns;
+- no future extrema or centered/future-backward filters;
+- turn/state availability uses causal confirmation time;
+- weak/no identifiable cycle is valid;
+- cycle state is context/timing, not probability;
+- no cycle implementation may affect decisions until its synthetic method gate passes.
+
+## Playbook governance
+
+System G1 contains exactly:
+
+1. P1 — directional continuation after pullback;
+2. P2 — failed-auction re-entry.
+
+A playbook is an explicit causal decision process, not a label attached after outcomes.
+
+Before historical execution freeze exactly one construction for each required trigger, location,
+corroboration, invalidation, objective, maximum hold and risk/admissibility rule.
+
+Prior negative results remain binding for their exact historical formulations and lineage.
+
+Adding a new indicator to a failed historical rule does not make it a fresh playbook.
+
+## Selection/evaluation separation
+
+No feature set, signal threshold, timeframe, cycle band, forecast horizon, stop/target geometry,
+risk parameter, model hyperparameter, playbook routing rule or ensemble weight may be selected using
+the final/outer evaluation metric.
+
+System G1 may inspect only its preregistered finite development configurations.
+
+At most one already-declared configuration may advance.
+
+Every inspected configuration remains in search memory.
+
+## Bounded G1 search budget
+
+Maximum seven predeclared development configurations as defined by ADR-0044.
+
+No Cartesian removal combinations, learner ladder, timeframe tournament, alternate cycle-method
+tournament, source ladder or post-result rescue.
+
+Cost and delay stresses are robustness views, not replacement strategies.
+
+## Point-in-time and replay integrity
+
+At simulated/live time T, algorithm code may use only information whose `available_at <= T`.
+
+Issued state, prediction and decision records are immutable.
+
+Historical replay and live paper processing share the same core logic; adapters may differ only in
+how causally available observations arrive.
+
+Replay speed may never change outputs.
+
+The UI displays algorithm outputs but does not compute authoritative trading logic.
+
+## Data governance
+
+Prefer local immutable source caches and versioned derived artifacts.
+
+Every data family has:
+
+- source/instrument identity;
+- units;
+- market timestamp;
+- availability timestamp/policy;
+- checksum/manifest;
+- gap/missingness semantics.
+
+Do not infer order-book state from data that does not contain it.
+Do not invent unavailable historical news/sentiment/on-chain information.
+Do not silently use revised present-day values as historical point-in-time inputs.
+
+The protected historical cutoff and all earlier data-governance decisions remain binding unless the
+Owner explicitly changes that boundary.
+
+## Event/news post-analysis
+
+Retrospective hot-period news/event research may explain completed replays but is outside the trading
+input graph.
+
+It may not alter past predictions/trades or become an algorithm input without a separate
+point-in-time source contract and strategic allocation.
+
+Political/policy information is handled factually and neutrally.
+
+## Economic / risk claims
+
+Every trading claim includes versioned:
+
+- reference instrument;
+- position/accounting convention;
+- fees/friction;
+- funding where applicable;
+- latency;
+- fills;
+- stop/objective/max-hold semantics;
+- occupancy;
+- risk limits.
+
+Ambiguous execution is conservative.
+
+LONG and SHORT contributions are reported separately and together.
+
+Paper success is not permission for real capital.
+
+## Forecast claims
+
+Probability is displayed as calibrated only when calibration is actually supported.
+
+Conviction is an ex-ante evidence-coherence category, not a probability.
+
+Magnitude, direction, probability, uncertainty and trade action remain separate concepts.
+
+Overlapping 4h forecasts and common slow states require dependence-aware inference.
+
+## Anti-overfitting principle
+
+The project's advantage must be:
+
+> a small, explicit professional system tested under bounded causal comparisons.
+
+It must not be:
+
+> try indicators, timeframes, thresholds, models or playbooks until a profitable chart appears.
+
+## Research memory
+
+Every prior negative, rejected, blocked and parked result remains binding for its exact proposition.
+
+ADR-0042 remains historical truth for the predecessor narrow programme.
+Candidate #1 remains permanently `DEVELOPMENT_REJECTED`.
+
+The new mission changes the research unit; it does not turn old failures into wins.
+
+## Governance
+
+- **Owner** — mission, product/risk/resource scope, protected-data boundary changes, paid/credentialed
+  resources where consequential, and all real-capital decisions.
+- **Astra** — material research architecture/allocation, reopening/closing generations, post-G1
+  promotion/stop.
+- **Research Director** — scientific contracts, routine numerical choices, preregistration,
+  architecture within the directive, implementation review and experiment adjudication.
+- **Claude Code** — sole engineering executor.
+- **LLMs at runtime** — may not improvise entries, override thresholds/risk, or translate current
+  political/news narratives directly into trades.
+
+No AI agent may create/request/store/deploy real-money credentials.
+
+## Immediate active checkpoint
+
+Checkpoint 1 is synthetic/causal engineering only.
+
+No System G1 historical performance run is authorized until the Research Director freezes the full
+development protocol after implementation review.
+
+---
+
+## Appendix C — superseded Version 3.0, preserved verbatim
+
+# Trading Bot — Scientific Constitution
+
 > **OWNER SCOPE UPDATE — 2026-09-25:** Product-scope portions of Constitution 3.0 that
 > restrict the active mission to BTC spot `LONG / NO_TRADE` are superseded by
 > `docs/canonical/OWNER_PRODUCT_MISSION_V2.md` and ADR-0043, pending Astra's strategic redesign
