@@ -1212,7 +1212,7 @@
           "const": 0
         },
         "mesi_bps": {
-          "const": 24.0
+          "const": 24
         },
         "minimum_detectable_effect_bps": {
           "exclusiveMinimum": 0,
@@ -2177,7 +2177,7 @@
           "const": 0
         },
         "mesi_bps_per_gate": {
-          "const": 8.0
+          "const": 8
         },
         "minimum_detectable_effect_bps_per_gate": {
           "exclusiveMinimum": 0,
@@ -3176,7 +3176,7 @@
               "const": "MATCHED_TRAINING_UP_BASE_RATE_BRIER"
             },
             "interval_lower_bound": {
-              "const": 0.0
+              "const": 0
             },
             "non_negative_enrichment_folds": {
               "const": "CEIL_TWO_THIRDS_OF_INCLUDED_FOLDS"
@@ -4789,46 +4789,6 @@
                   ],
                   "type": "object"
                 },
-                "24": {
-                  "additionalProperties": false,
-                  "properties": {
-                    "adjusted_interval": {
-                      "maxItems": 2,
-                      "minItems": 2,
-                      "prefixItems": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ],
-                      "type": "array"
-                    },
-                    "classification": {
-                      "const": "FOUNDATION_SIGNAL_NOT_SUPPORTED"
-                    },
-                    "pooled_brier_improvement": {
-                      "type": "number"
-                    },
-                    "pooled_feature_coverage": {
-                      "maximum": 1,
-                      "minimum": 0,
-                      "type": "number"
-                    },
-                    "scored_rows": {
-                      "const": 34997
-                    }
-                  },
-                  "required": [
-                    "scored_rows",
-                    "pooled_feature_coverage",
-                    "pooled_brier_improvement",
-                    "adjusted_interval",
-                    "classification"
-                  ],
-                  "type": "object"
-                },
                 "4": {
                   "additionalProperties": false,
                   "properties": {
@@ -4858,6 +4818,46 @@
                     },
                     "scored_rows": {
                       "const": 35017
+                    }
+                  },
+                  "required": [
+                    "scored_rows",
+                    "pooled_feature_coverage",
+                    "pooled_brier_improvement",
+                    "adjusted_interval",
+                    "classification"
+                  ],
+                  "type": "object"
+                },
+                "24": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "adjusted_interval": {
+                      "maxItems": 2,
+                      "minItems": 2,
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "type": "array"
+                    },
+                    "classification": {
+                      "const": "FOUNDATION_SIGNAL_NOT_SUPPORTED"
+                    },
+                    "pooled_brier_improvement": {
+                      "type": "number"
+                    },
+                    "pooled_feature_coverage": {
+                      "maximum": 1,
+                      "minimum": 0,
+                      "type": "number"
+                    },
+                    "scored_rows": {
+                      "const": 34997
                     }
                   },
                   "required": [
@@ -7359,7 +7359,7 @@
           "const": "PREDICTIVE_V2_DETERMINISTIC_CALENDAR_FEATURES_V1"
         },
         "feature_validity": {
-          "const": 1.0
+          "const": 1
         },
         "folds": {
           "const": [
@@ -8723,7 +8723,7 @@
           "const": false
         },
         "max_prediction_difference": {
-          "const": 0.0
+          "const": 0
         },
         "metrics_identical": {
           "const": true
@@ -9021,7 +9021,7 @@
           "const": false
         },
         "mesi_bps_per_event": {
-          "const": 24.0
+          "const": 24
         },
         "minimum_attainable_randomization_p": {
           "exclusiveMinimum": 0,
@@ -9640,10 +9640,10 @@
                   "const": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md"
                 },
                 "classification": {
-                  "const": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION"
+                  "const": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION"
                 },
                 "astra_adjudication": {
-                  "const": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED"
+                  "const": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED"
                 },
                 "authoritative": {
                   "const": false
@@ -9894,7 +9894,9 @@
         "active_project_internal_alpha_schedules",
         "historical_top_level_fields",
         "closure_artifact",
-        "preservation_manifest"
+        "preservation_manifest",
+        "active_system_generation",
+        "architecture"
       ],
       "properties": {
         "precedence": {
@@ -9913,16 +9915,19 @@
           "minLength": 1
         },
         "constitution_version": {
-          "const": "3.0"
+          "const": "4.0"
         },
         "disposition": {
           "enum": [
             "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
-            "ACTIVE_ALLOCATION"
+            "ACTIVE_ALLOCATION",
+            "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING"
           ]
         },
         "active_alpha_allocation": {
-          "const": 0
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
         },
         "active_candidate": {
           "type": "null"
@@ -9949,10 +9954,13 @@
           "const": false
         },
         "research_task_active": {
-          "const": false
+          "type": "boolean"
         },
         "automatic_next_research_package": {
-          "type": "null"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "champion_status": {
           "const": "NONE"
@@ -9991,6 +9999,18 @@
         "preservation_manifest": {
           "type": "string",
           "minLength": 1
+        },
+        "active_system_generation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "architecture": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     }
