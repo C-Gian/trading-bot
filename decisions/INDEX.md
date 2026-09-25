@@ -41,3 +41,5 @@
 - [ADR-0039](ADR-0039-CANDIDATE-1-DEVELOPMENT-PROTOCOL-FREEZE.md) — Research Director freezes the Candidate #1 Development Lab protocol (~4h timed LONG, 24 bp costs, outcome-blind matched control, +25/+20 bp MESIs, cost/delay stresses, prospective-detectability gate); implementation only, no outcome inspection
 
 - [ADR-0040 — Candidate #1 Development execution authorization](ADR-0040-CANDIDATE-1-DEVELOPMENT-EXECUTION-AUTHORIZATION.md)
+
+- [ADR-0041 — Candidate #1 Development rejected; strong stop pending Astra](ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md)
