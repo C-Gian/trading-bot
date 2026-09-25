@@ -91,6 +91,11 @@ REBASELINE_TASK_TITLE = "RESEARCH-DIRECTOR-REVIEW-GENERATION-V2-REBASELINE"
 
 
 def _normalize_current_task(text: str) -> str:
+    # Match the header's own title first: a task body may name its successor work package.
+    header = text.splitlines()[0] if text else ""
+    for title in SUCCESSOR_TASK_TITLES:
+        if title in header:
+            return text.replace(title, REBASELINE_TASK_TITLE)
     for title in SUCCESSOR_TASK_TITLES:
         if title in text:
             return text.replace(title, REBASELINE_TASK_TITLE)
