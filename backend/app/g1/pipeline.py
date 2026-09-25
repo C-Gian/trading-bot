@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 
 from .canonical import content_id
-from .cycle import NOT_READY_QUALIFIER, decision_timing_qualifier
+from .cycle import decision_timing_qualifier
 from .fixtures import ScenarioStep
 from .ledger import COST_CONTRACT_VERSION, ReferenceLedger
 from .records import (
@@ -111,9 +111,9 @@ def actionability(
     ledger: ReferenceLedger,
     cycle: CycleState,
 ) -> tuple[Actionability, Playbook | None]:
-    # The cycle qualifier is read here to prove it cannot participate before activation.
-    qualifier = decision_timing_qualifier(cycle)
-    assert qualifier == NOT_READY_QUALIFIER
+    # Checkpoint-1 scenario contract: fixture-scripted decisions never consult the cycle
+    # qualifier (the frozen P1/P2 engine in `development.py` is the only cycle consumer).
+    del cycle
     blockers: list[str] = []
     if not ready:
         blockers.append(unavailable or "DATA_NOT_READY")

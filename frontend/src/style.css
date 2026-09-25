@@ -967,3 +967,5 @@ button:disabled {
 .replay-chart .glyph.short { fill: #d0493d; font-weight: 700; }
 .replay-controls { gap: 8px; align-items: center; }
 .replay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
+.replay-run { display: block; margin: 8px 0 12px; }
+.signal-family h3 { font-size: 12px; margin: 8px 0 4px; opacity: .7; }

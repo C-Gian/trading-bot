@@ -1,0 +1,283 @@
+{
+  "champion": "NONE",
+  "checkpoint": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
+  "classification": "SYSTEM_G1_DEVELOPMENT_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_REVIEW",
+  "code_canonical_sha256": {
+    "backend/app/backtest/models.py": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845",
+    "backend/app/g1/__init__.py": "340702f533fc3aa0d1af6b9d027701cee2842eaf02272b148a7877d83280b266",
+    "backend/app/g1/bars.py": "7ceafd3fd1329e214f2e15cb7e0d29e8bc36b57f35a7c3b109d484eac89e74ee",
+    "backend/app/g1/batch.py": "afdd8aea2b5a5d430b6f588a5944c27d0bd38221dc36011f7aa17825b3c784f3",
+    "backend/app/g1/canonical.py": "f6ece4db6ea444a8b3dddac97bfb597128806667f13d35b01dbefd3f6a250ebb",
+    "backend/app/g1/cycle.py": "adcd909ad3d10cd607ed09d219bf74975a4c172e1d8670b58c99689f65f1baa6",
+    "backend/app/g1/development.py": "b7d28dcec55e7c79454f4b3940cc433d3aecf116bf7a882317b5ad31efb986b8",
+    "backend/app/g1/forecaster.py": "5c436698e4029cd900bd5647ecb7098a15a39e0b0f9871bc1407f66df5a3d90a",
+    "backend/app/g1/indicators.py": "9d8f126bdb778f8ae3a3a80e66837201125d396a1ebab0152e59726a897e3d04",
+    "backend/app/g1/ledger.py": "74c1ca2b49161642af99e4def64841c0a4086416985a6c7bb8ae60c462da970c",
+    "backend/app/g1/playbooks.py": "f2a32150c69799aebf9925a762a6f5c3be0a0e19a9a0a90ac40f191968628644",
+    "backend/app/g1/records.py": "c3ab5e76b3c764d549cfc7baba9ff4a862e0d90193f2fe39af36e97407501c66",
+    "backend/app/g1/scoring.py": "ca66c948aad9659b1e95a48121308d6fda9adc66aa0c9541693be9179f4fa775",
+    "backend/app/g1/sources.py": "6e6006785a8ded2ccbfba01165608cf6cf46a61b22f1773b56660be843deb4c5",
+    "backend/app/g1/store.py": "5e2b2d67c6b61be0958cd019e4aa2415264b66758c10d6671f3f65a56413f284"
+  },
+  "configuration_identity": "fcea9697dd95a2a93e601a15fe1febdb4322326bf7a48963579a1b0b6a633231",
+  "configurations": {
+    "S0": {
+      "config_id": "S0",
+      "cycle": false,
+      "p1_daily_veto": false,
+      "p1_enabled": true,
+      "p2_enabled": true,
+      "participation": false,
+      "removed": "PARTICIPATION+CYCLE+P1_DAILY_VETO"
+    },
+    "S_FULL": {
+      "config_id": "S_FULL",
+      "cycle": true,
+      "p1_daily_veto": true,
+      "p1_enabled": true,
+      "p2_enabled": true,
+      "participation": true,
+      "removed": "NONE"
+    },
+    "S_MINUS_CYCLE": {
+      "config_id": "S_MINUS_CYCLE",
+      "cycle": false,
+      "p1_daily_veto": true,
+      "p1_enabled": true,
+      "p2_enabled": true,
+      "participation": true,
+      "removed": "CYCLE"
+    },
+    "S_MINUS_DAILY_HTF": {
+      "config_id": "S_MINUS_DAILY_HTF",
+      "cycle": true,
+      "p1_daily_veto": false,
+      "p1_enabled": true,
+      "p2_enabled": true,
+      "participation": true,
+      "removed": "P1_DAILY_VETO"
+    },
+    "S_MINUS_PARTICIPATION": {
+      "config_id": "S_MINUS_PARTICIPATION",
+      "cycle": true,
+      "p1_daily_veto": true,
+      "p1_enabled": true,
+      "p2_enabled": true,
+      "participation": false,
+      "removed": "PARTICIPATION"
+    },
+    "S_P1_ONLY": {
+      "config_id": "S_P1_ONLY",
+      "cycle": true,
+      "p1_daily_veto": true,
+      "p1_enabled": true,
+      "p2_enabled": false,
+      "participation": true,
+      "removed": "PLAYBOOK_P2"
+    },
+    "S_P2_ONLY": {
+      "config_id": "S_P2_ONLY",
+      "cycle": true,
+      "p1_daily_veto": true,
+      "p1_enabled": false,
+      "p2_enabled": true,
+      "participation": true,
+      "removed": "PLAYBOOK_P1"
+    }
+  },
+  "decision": "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
+  "decision_canonical_sha256": "8f5adec28a83cc0de46008ba588277e638f59e94018f75d2daa0a0ae8af962ca",
+  "execution_contract": {
+    "cost_stress": {
+      "entry_fee_bps": "20",
+      "entry_friction_bps": "4",
+      "exit_fee_bps": "20",
+      "exit_friction_bps": "4",
+      "profile": "G1_COST_STRESS_48BP_ROUND_TRIP_PLUS_FUNDING"
+    },
+    "delay_stress_additional_minutes": 5,
+    "risk_policy": {
+      "daily_loss_stop_fraction": "0.01",
+      "initial_equity": "10000",
+      "max_gross_notional_multiple": "1",
+      "max_hold_minutes": 240,
+      "operational_delay_minutes": 1,
+      "risk_fraction": "0.0025",
+      "run_drawdown_stop_fraction": "0.05",
+      "version": "G1_RISK_V2_025PCT_1X_1PCT_DAY_5PCT_RUN_ONE_POSITION_1M_PRIMARY_DELAY"
+    }
+  },
+  "forecaster": {
+    "estimator": "G1-EMPIRICAL-SHRUNK-CONDITIONAL-4H-V1",
+    "probability_status": "EMPIRICAL_SHRUNK_CONDITIONAL_PROBABILITY_NOT_CALIBRATED",
+    "shrinkage_prior": 256
+  },
+  "forecaster_real_fitted": false,
+  "historical_execution_authorized": false,
+  "new_market_data_accessed": false,
+  "operational_action": "NO_TRADE",
+  "p1_p2_real_performance_computed": false,
+  "protocol": "research/protocols/SYSTEM-G1-DEVELOPMENT-V1.md",
+  "protocol_canonical_sha256": "db0024f1e07fac631bf61c186e6486f0feeb806e23e1dacc3508254dc4dffa88",
+  "real_historical_g1_outcomes_inspected": false,
+  "real_money": false,
+  "run_command": "uv run python scripts/run_g1_development.py --phase A|B",
+  "run_directory": "research/experiments/SYSTEM-G1-DEVELOPMENT-V1",
+  "sealed_queries": 0,
+  "source_bindings": {
+    "funding": {
+      "canonical_file_sha256": "bab36514c4b8ff9fe1f64e9148f19adfd448021747f032dce05e1b45a35eceef",
+      "canonical_logical_sha256": "a65e10ecb5912652e6c96ae978b23c354067387f4c7b8443a138014d5941f165",
+      "canonical_path": "data/derived/BTCUSDT-USDM-settled-funding-v1.parquet",
+      "fields": [
+        "funding_time",
+        "funding_rate"
+      ],
+      "last_funding_time": "2024-12-31T16:00:00Z",
+      "manifest": "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json",
+      "manifest_canonical_sha256": "f6f975370b5e701ba93d4fdd4da9cf2bd23013b174e462f59298074d50963bbc",
+      "records": 5819
+    },
+    "market_observations_read": false,
+    "reference_klines": {
+      "fields": [
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "quote_volume",
+        "taker_buy_volume"
+      ],
+      "interval": "1m",
+      "manifest": "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json",
+      "manifest_canonical_sha256": "cf696350cfe6294ffcbb74bef657ba9e58be22d232e7aab30c9cc7aa4c204bc4",
+      "manifest_id": "BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1",
+      "market": "USDM_PERPETUAL",
+      "months": [
+        "2020-01",
+        "2024-12",
+        60
+      ],
+      "object_index_sha256": "7c0a3528538db230822c4314e06658b79360c5275d213a0e03c4e43c7cee9283",
+      "object_sha256": {
+        "2020-01": "b4e13ea185ba96c413ac9167cfbb6e238eb5eae119a7a77f41f4c61c5e099d03",
+        "2020-02": "f32b20168ea590cd7d04a2995bc5ec500ea06331c8174f7fd14f29c1078e5ed2",
+        "2020-03": "15790b4b031cbc5f59cae30e523fb8341588d279fe3839ba1224c7fe8a6bc929",
+        "2020-04": "f45228183c21030fc3a787109eada99187d9ba8c4d5d7ea5c178967150fa7467",
+        "2020-05": "bc5bdae217f9ef6a32ffcc7653e3d45e007a2d9b2e93b752bdc7805254446821",
+        "2020-06": "91f18492445c0a9609d70bd4603c73c8588a88c06105ade34082417f8b2e7e6d",
+        "2020-07": "4cb7dcf6e1adb17e8ab8787c459f3f645b7070633f530485f0f93dd45a9de693",
+        "2020-08": "7596de0f26df44d782713475f97af34f27a287faf084c73bdcc61819215b060a",
+        "2020-09": "9f2d575ffc17a14320bc08a99d51a5580fd7f058f1495cfec598fbbd959792c2",
+        "2020-10": "f35bc01dc1bba142c87033b33055c34a0ba37c2a2abd6c115af6a9c4f238dd03",
+        "2020-11": "8eb55b2a547c35d792f88186168774804346426b82289bc9b1633406c0ff9e40",
+        "2020-12": "72cfa1e9aeb851871af0168eb7ee22d334b5efb3aa4a76d7382754dac5e885d8",
+        "2021-01": "ba7aeda6a99e0828b39da1b0605aaefcb40882fe9d44034598c4404f8a07783f",
+        "2021-02": "0a270f354b15b053824a7bb87c652aa95acb4a255fc968fe0a24bdc9e785223e",
+        "2021-03": "15a2676410d5104fac1ea15f7302addbf4d0de14f6db8ce10a4930c3f5d5e7fa",
+        "2021-04": "d957fcde82f9b5a9a05264a9602e5deae03472aa0d424ddb0f27a04e58723217",
+        "2021-05": "dcf7c567cbde49a5e564b29f01be95e28d32f12cb68c40b2a14da75930187dc8",
+        "2021-06": "a640c7f935a1136d2f65f28f9606f0e063185c500f982aec273bb2ed3f61bfc5",
+        "2021-07": "1367b5cd230474b0ecc6031b9e18cffe66e011c8fdd01c3325985a39c5d5ed48",
+        "2021-08": "a864bdf38c9d06b7a6a1dc07c5593bbe7387cec3b869e9ebee020da053d94f37",
+        "2021-09": "6e7bbfe650e6c56e189e78d521b3714feffd38468d1268b706a6626737326676",
+        "2021-10": "4b78dd0174890c975effca2ed078163d6e9b4f7437f692e2c430c724b7eafc24",
+        "2021-11": "67da3342f014166d2af97321599e0011453c4bd5a9282ef12c1a6131efd12993",
+        "2021-12": "c905c5c8ff36d0dfac3a0581225ab305f72d1e11e634953d8d3a136161d10956",
+        "2022-01": "9cdbcf68903434c850f9bec60d8174c2cfd105dd24a7566965b442ec15124e04",
+        "2022-02": "63672d552f98ec125ac4d90d82154313fb9832b7e1aaed196101816bd61bfb89",
+        "2022-03": "4532faf2f92d205fac79b7d25327d2045843b60a4494e00b0962e6b7f028bc06",
+        "2022-04": "0f509e296da62eed5f4e903507ced0de9738ea96a7a885e76dd2394b8049e689",
+        "2022-05": "768bdbbd11b08d935b3753ecfee7f1e351a346c71b11cf68a4a51296d694f368",
+        "2022-06": "8587319eaf1b1f6d73fd34446acdecdc72c47b23ecfd2d88e2a6dd2a35470565",
+        "2022-07": "6fc45fa135a6be85679a6ab0b1268fbd1f8258079295cd134b9a4c535c6b6b65",
+        "2022-08": "806ee1d6efa856984fe79453d17f04c0fb5e447413fe828cbd3ec2df9a1f5fc4",
+        "2022-09": "fa1adecbe41b530c12f481882115511297ac7b78a9a7ae9d9d21b11c745649a4",
+        "2022-10": "0f2d2cd67b30ab186bf3db5a07acfe835f1d74335c6493c80e9e4f0598e29b2c",
+        "2022-11": "96916aba47f230a9bc68cd3fd98d0d352e1fd8f23c16c515107c4d965a2067a3",
+        "2022-12": "0f4788019cdb29f4db7b03d9efefce099d7adf49c0daf70a144b814b292bf577",
+        "2023-01": "b7b04483464b36c89f519bf35d6461d278c709577562108b6a00fb786b92e6a6",
+        "2023-02": "b62ca5df57b1715109cb1fd57097529b28410fb36b0db5bd41dbefe7e070db68",
+        "2023-03": "1cb47aae71e941d3e9d333f9c96723eb35c8b4a7ec90e819c59a7c02f89b03bb",
+        "2023-04": "2c22e2e460bf0e41884bf71031eebf60224ba470b25777a4d17ddc9298390650",
+        "2023-05": "cf9e0ab390e3872ddb9d807ad161933a28e374e09dbee2b9addf659856d1e656",
+        "2023-06": "8dac3fe301198e752b257817542a7ded393dbe00b604f67aba6bc0090778ae95",
+        "2023-07": "5cc84c767c9f4d1fa3cb3d33bd009a0b5e3a445e9c89ad2ef259c90b0365cbc3",
+        "2023-08": "8d77e6f898fba3aa5bf643d128e0aaa1b722ea6881cd26a3d19088705117a1d7",
+        "2023-09": "ea43f6e612b54e165c47ea30955b8d9e825b1d3ad1846f12c03ad0f0fced9029",
+        "2023-10": "153f1322695d16a12cab261b7798045323d9f893b19d35d95ffe94a62530b4de",
+        "2023-11": "63aa156170b2316927ae4c4928cc78866934a02b4bbc14c730b5fe4790383a80",
+        "2023-12": "947ea9b1c5dfa301f1d5ff89d28f3ee49bc73eef2cfa1f0dc4024048458eb60b",
+        "2024-01": "21eeac04a76a7a35b10467e5e752fb2f8cff77cdeb57df6b50a23ce8d69bb190",
+        "2024-02": "1407acbf8ad99911bdf582805699b7e85fdbc346dbe12618ce8b6369f0d8058d",
+        "2024-03": "040b8e448e4243072b88b0d9908dfebed91bba943b75f4e831fa5337a2e1dab9",
+        "2024-04": "6a41f002da0c8e3f60bd46c841ea4ed766fb195764ad3b6b10e4f508d29c2eb7",
+        "2024-05": "42de617ed643def54b5a2c3fceb7cd2edec91aafaa01104a097b2ded5c5122d4",
+        "2024-06": "93499da4990fec5471bb0d73c91116e7d20a8b2697d7a4491665d6d1b8e85c85",
+        "2024-07": "97f9cd5104a33828c5c2d8d03a2796d600102ab88737d1c6da515b9609540c3c",
+        "2024-08": "f69dbcebfd7108dc97825bd6c35d8d9a51745082f66617cb69de888e867e8e89",
+        "2024-09": "16fe2e13728236bfbd3efee99671612daadeea3b62dfd55d8874feae9faa4946",
+        "2024-10": "aa8c79ad120a8d870e23276d1ad5966f99f59bc0a1886ef5927a3808a5efee36",
+        "2024-11": "9c3dad038f4b043ec51d4200f57d15a0a07b3fc32b3ea3dca6a96543b9624941",
+        "2024-12": "bfce141d2a152c2b94d85b797fe18ebfa195fa0e6091a7ccc06663ae1309466f"
+      },
+      "parser": "G1_USDM_1M_FULL_KLINE_PARSER_V1",
+      "request_ceiling": "2024-12-31T23:59:59.999Z",
+      "version": "BINANCE_PUBLIC_BTCUSDT_SPOT_AND_USDM_1M_KLINES_V1"
+    },
+    "spot_1m": {
+      "manifest": "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json",
+      "status": "NOT_REQUIRED_NO_FROZEN_G1_DEFINITION_READS_SPOT"
+    }
+  },
+  "stages": {
+    "conflict_occupancy": "PASS",
+    "conviction": "PASS",
+    "cycle_component_active_in_g1_logic": "PASS",
+    "execution_guard": "PASS",
+    "forecaster_implementation": "PASS",
+    "p1_implementation": "PASS",
+    "p2_implementation": "PASS",
+    "protocol_identity": "PASS",
+    "replay_ui_integration": "PASS",
+    "scoring_adjudication": "PASS",
+    "seven_configurations": "PASS",
+    "shared_state_indicators": "PASS",
+    "source_manifest_bindings": "PASS",
+    "staged_selection_guard": "PASS"
+  },
+  "synthetic_tests": {
+    "files": {
+      "backend/tests/test_fail_closed_action_surface.py": 8,
+      "backend/tests/test_g1_api_and_isolation.py": 7,
+      "backend/tests/test_g1_cycle_quality_gate.py": 9,
+      "backend/tests/test_g1_dev_cycle_and_indicators.py": 19,
+      "backend/tests/test_g1_dev_engine_and_guard.py": 13,
+      "backend/tests/test_g1_dev_forecaster_scoring.py": 14,
+      "backend/tests/test_g1_dev_playbooks.py": 23,
+      "backend/tests/test_g1_ledger.py": 17,
+      "backend/tests/test_g1_pipeline_and_cycle.py": 15,
+      "backend/tests/test_g1_records_and_aggregation.py": 9,
+      "backend/tests/test_g1_replay.py": 7,
+      "frontend/src/Replay.test.tsx": 6
+    },
+    "total": 147
+  },
+  "validated_strategy": null,
+  "windows": {
+    "engine_start": "2020-01-01T00:00:00Z",
+    "evaluation_end": "2025-01-01T00:00:00Z",
+    "evaluation_start": "2023-01-01T00:00:00Z",
+    "evaluation_years": [
+      2023,
+      2024
+    ],
+    "selection_end": "2023-01-01T00:00:00Z",
+    "selection_start": "2021-01-01T00:00:00Z",
+    "selection_years": [
+      2021,
+      2022
+    ]
+  }
+}

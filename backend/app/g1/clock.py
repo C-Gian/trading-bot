@@ -12,9 +12,9 @@ from collections import deque
 from collections.abc import Callable
 from datetime import datetime, timedelta
 from enum import StrEnum
+from typing import Any
 
 from .bars import MINUTE, Bar
-from .core import G1Core
 
 SPEEDS = (60, 900, 3600, 14400)  # virtual seconds per wall second
 DEFAULT_SPEED = 900
@@ -30,7 +30,7 @@ class ReplayStatus(StrEnum):
 class ReplayController:
     """Historical-replay adapter: a preloaded synthetic source released by a virtual cursor."""
 
-    def __init__(self, core: G1Core, source: tuple[Bar, ...]) -> None:
+    def __init__(self, core: Any, source: tuple[Bar, ...]) -> None:
         self.core = core
         self._pending = deque(source)
         self.status = ReplayStatus.READY
@@ -103,7 +103,7 @@ class LiveStyleAdapter:
     It feeds the same `G1Core` as replay; only the arrival mechanics differ.
     """
 
-    def __init__(self, core: G1Core) -> None:
+    def __init__(self, core: Any) -> None:
         self.core = core
 
     def on_minute(self, bar: Bar) -> None:

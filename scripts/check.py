@@ -3537,9 +3537,7 @@ def fail_closed_state_checks(state: dict) -> None:
 
 
 def system_g1_checks(state: dict) -> None:
-    """ADR-0044 System G1 Checkpoint 1: synthetic-only implementation, review pending."""
-    from app.g1.cycle import CYCLE_DECISION_ACTIVATION
-
+    """ADR-0044 System G1 Checkpoint 1 (historical record) and the current G1 stage checks."""
     current = state["current_project_status"]
     g1 = state["system_g1_checkpoint_1"]
     assert current["disposition"] == current["strategic_disposition"]
@@ -3555,7 +3553,8 @@ def system_g1_checks(state: dict) -> None:
         g1["archived_task"],
     ):
         assert (ROOT / path).is_file(), path
-    assert g1["cycle_active_in_decisions"] is CYCLE_DECISION_ACTIVATION is False
+    # Historical: cycle was inactive at Checkpoint 1; ADR-0046 later activated it.
+    assert g1["cycle_active_in_decisions"] is False
     task = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert task.startswith(f"# CURRENT TASK — {g1['next_work_package']}")
     assert "EXECUTOR MARKET WORK FORBIDDEN" in task
@@ -3576,10 +3575,11 @@ def system_g1_checks(state: dict) -> None:
     agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
     assert "SYSTEM G1" in agents and "Version 4.0" in agents
     system_g1_cycle_gate_checks(state)
+    system_g1_development_checks(state)
 
 
 def system_g1_cycle_gate_checks(state: dict) -> None:
-    """ADR-0045: frozen cycle quality gate recorded; cycle inactive; 1m primary delay."""
+    """ADR-0045/0046: frozen cycle quality gate preserved; cycle now active; 1m primary delay."""
     from app.g1 import cycle
     from app.g1.cycle_quality_gate import ARTIFACT_PATH, canonical_text_sha256
     from app.g1.ledger import PRIMARY_DELAY_MINUTES, RiskPolicy
@@ -3608,13 +3608,72 @@ def system_g1_cycle_gate_checks(state: dict) -> None:
     assert rule["persistence_bars"] == cycle.USABLE_PERSISTENCE_BARS == 3
     assert rule["protocol_canonical_sha256"] == canonical_text_sha256(record["protocol"])
     assert rule["decision_canonical_sha256"] == canonical_text_sha256(record["decision_record"])
-    for path, digest in artifact["code_canonical_sha256"].items():
-        assert canonical_text_sha256(path) == digest, path
-    assert cycle.CYCLE_DECISION_ACTIVATION is False
+    # ADR-0046 changed cycle.py text (activation/qualifier) but never the gate math: the other
+    # gate code identities are unchanged and the full gate replays via the --check script.
+    for path in ("backend/app/g1/cycle_reference.py", "backend/app/g1/cycle_quality_gate.py"):
+        assert canonical_text_sha256(path) == artifact["code_canonical_sha256"][path], path
+    assert cycle.CYCLE_DECISION_ACTIVATION is True
     assert record["cycle_active_in_decisions"] is artifact["cycle_active_in_decisions"] is False
     policy = RiskPolicy()
     assert policy.operational_delay_minutes == PRIMARY_DELAY_MINUTES == 1
     assert policy.version == record["risk_contract_version"]
+
+
+def system_g1_development_checks(state: dict) -> None:
+    """IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1: frozen implementation identities; execution guarded."""
+    from app.g1 import batch
+    from app.g1.playbooks import CONFIGURATIONS
+    from app.g1.sources import binding_identity
+
+    record = state["system_g1_development"]
+    assert record["status"] == (
+        "SYSTEM_G1_DEVELOPMENT_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_REVIEW"
+    )
+    for path in (
+        record["protocol"],
+        record["decision_record"],
+        record["implementation_validation"],
+        record["checkpoint_report"],
+        record["archived_task"],
+    ):
+        assert (ROOT / path).is_file(), path
+    assert record["protocol_canonical_sha256"] == batch.protocol_sha256(ROOT)
+    assert (
+        state["current_project_status"]["automatic_next_research_package"]
+        == (record["next_work_package"])
+    )
+    for claim in (
+        "historical_execution_authorized",
+        "real_g1_outcomes_inspected",
+        "forecaster_real_fitted",
+        "p1_p2_real_performance_computed",
+    ):
+        assert record[claim] is False, claim
+    assert record["cycle_method"] == "ACTIVE_COMPONENT"
+    assert tuple(record["configurations"]) == CONFIGURATIONS
+    validation = json.loads(
+        (ROOT / record["implementation_validation"]).read_text(encoding="utf-8")
+    )
+    assert validation["protocol_canonical_sha256"] == record["protocol_canonical_sha256"]
+    assert validation["code_canonical_sha256"] == batch.code_identity(ROOT)
+    assert validation["source_bindings"] == binding_identity(ROOT)
+    for claim in (
+        "real_historical_g1_outcomes_inspected",
+        "new_market_data_accessed",
+        "forecaster_real_fitted",
+        "p1_p2_real_performance_computed",
+        "historical_execution_authorized",
+    ):
+        assert validation[claim] is False, claim
+    # The guard refuses and no historical G1 result exists.
+    try:
+        batch.authorize_real_sources(ROOT)
+    except batch.ExecutionNotAuthorized:
+        pass
+    else:  # pragma: no cover - a state flip must come with its own reviewed checks
+        raise AssertionError("System G1 historical execution must remain unauthorized")
+    for name in (batch.SELECTION_FILE, batch.EVALUATION_FILE):
+        assert not (ROOT / batch.RUN_DIR / name).exists(), name
 
 
 def candidate_1_development_checks(record: dict, development: dict) -> None:

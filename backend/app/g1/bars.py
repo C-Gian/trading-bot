@@ -8,14 +8,17 @@ complete bar, so consumers can refuse it.
 
 from __future__ import annotations
 
+from collections import deque
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
+from itertools import islice
 
 MINUTE = timedelta(minutes=1)
 TIMEFRAMES = ("1m", "3m", "15m", "1h", "4h", "1d", "1w", "1M")
 FIXED_MINUTES = {"1m": 1, "3m": 3, "15m": 15, "1h": 60, "4h": 240, "1d": 1440, "1w": 10080}
 EPOCH_MONDAY = datetime(1970, 1, 5, tzinfo=UTC)
+RETENTION = 4096
 
 
 class FutureObservationError(LookupError):
@@ -36,6 +39,9 @@ class Bar:
     source_minutes: int
     expected_minutes: int
     quality: str
+    # Exchange-reported kline fields (None when a constituent minute lacks them; never imputed).
+    quote_volume: Decimal | None = None
+    taker_buy_base_volume: Decimal | None = None
 
     @property
     def complete(self) -> bool:
@@ -49,6 +55,8 @@ def minute_bar(
     low: Decimal,
     close: Decimal,
     volume: Decimal = Decimal(1),
+    quote_volume: Decimal | None = None,
+    taker_buy_base_volume: Decimal | None = None,
 ) -> Bar:
     if open_time.tzinfo is None or open_time.second or open_time.microsecond:
         raise ValueError("1m source events must be UTC minute boundaries")
@@ -56,7 +64,20 @@ def minute_bar(
         raise ValueError("inconsistent OHLC")
     close_time = open_time + MINUTE
     return Bar(
-        "1m", open_time, close_time, close_time, open_, high, low, close, volume, 1, 1, "COMPLETE"
+        "1m",
+        open_time,
+        close_time,
+        close_time,
+        open_,
+        high,
+        low,
+        close,
+        volume,
+        1,
+        1,
+        "COMPLETE",
+        quote_volume,
+        taker_buy_base_volume,
     )
 
 
@@ -82,28 +103,55 @@ def window_end(timeframe: str, start: datetime) -> datetime:
 
 
 class _Partial:
+    """Incremental OHLCV accumulation for one open window (O(1) memory per timeframe)."""
+
     def __init__(self, timeframe: str, start: datetime) -> None:
         self.timeframe = timeframe
         self.start = start
         self.end = window_end(timeframe, start)
-        self.bars: list[Bar] = []
+        self.count = 0
+        self.open = self.high = self.low = self.close = Decimal(0)
+        self.volume = Decimal(0)
+        self.quote: Decimal | None = Decimal(0)
+        self.taker: Decimal | None = Decimal(0)
+
+    def add(self, bar: Bar) -> None:
+        if self.count == 0:
+            self.open, self.high, self.low = bar.open, bar.high, bar.low
+        else:
+            self.high = max(self.high, bar.high)
+            self.low = min(self.low, bar.low)
+        self.close = bar.close
+        self.volume += bar.volume
+        self.quote = (
+            None
+            if self.quote is None or bar.quote_volume is None
+            else (self.quote + bar.quote_volume)
+        )
+        self.taker = (
+            None
+            if self.taker is None or bar.taker_buy_base_volume is None
+            else (self.taker + bar.taker_buy_base_volume)
+        )
+        self.count += 1
 
     def build(self) -> Bar:
         expected = int((self.end - self.start).total_seconds() // 60)
-        first, last = self.bars[0], self.bars[-1]
         return Bar(
             self.timeframe,
             self.start,
             self.end,
             self.end,
-            first.open,
-            max(bar.high for bar in self.bars),
-            min(bar.low for bar in self.bars),
-            last.close,
-            sum((bar.volume for bar in self.bars), Decimal(0)),
-            len(self.bars),
+            self.open,
+            self.high,
+            self.low,
+            self.close,
+            self.volume,
+            self.count,
             expected,
-            "COMPLETE" if len(self.bars) == expected else "INCOMPLETE",
+            "COMPLETE" if self.count == expected else "INCOMPLETE",
+            self.quote,
+            self.taker,
         )
 
 
@@ -135,7 +183,7 @@ class Aggregator:
                 if partial is None:
                     partial = _Partial(timeframe, window_start(timeframe, bar.open_time))
                     self._partial[timeframe] = partial
-                partial.bars.append(bar)
+                partial.add(bar)
         emitted.extend(self._close_before(cursor))
         return emitted
 
@@ -152,9 +200,14 @@ class Aggregator:
 class CausalView:
     """Everything an algorithm may see at the cursor: bars with `available_at <= cursor`."""
 
-    def __init__(self) -> None:
+    def __init__(self, retention: int = RETENTION) -> None:
+        # Bounded causal history per timeframe: long historical runs keep O(1) memory. Every
+        # consumer reads at most the trailing window it needs (the longest is one UTC day of 1m).
         self.cursor: datetime | None = None
-        self._bars: dict[str, list[Bar]] = {tf: [] for tf in TIMEFRAMES}
+        self._bars: dict[str, deque[Bar]] = {
+            tf: deque(maxlen=max(retention, 2 * 1440) if tf == "1m" else retention)
+            for tf in TIMEFRAMES
+        }
 
     def move_to(self, cursor: datetime, new_bars: list[Bar]) -> None:
         if self.cursor is not None and cursor < self.cursor:
@@ -171,7 +224,9 @@ class CausalView:
 
     def bars(self, timeframe: str, count: int | None = None) -> tuple[Bar, ...]:
         rows = self._bars[timeframe]
-        return tuple(rows if count is None else rows[-count:])
+        if count is None or count >= len(rows):
+            return tuple(rows)
+        return tuple(islice(rows, len(rows) - count, None))
 
     def last(self, timeframe: str) -> Bar | None:
         rows = self._bars[timeframe]

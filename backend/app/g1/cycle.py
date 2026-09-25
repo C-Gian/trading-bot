@@ -24,10 +24,19 @@ Quality labels (frozen by ADR-0045 / SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1, 
   three-bar window (the persistence history is cleared on every reset);
 - WEAK: available but not USABLE.
 
-No other metric participates. Scientific boundary: every CycleState exposed to the decision path
-still carries `decision_role = METHOD_NOT_READY` and the timing qualifier `CYCLE_METHOD_NOT_READY`,
-and `CYCLE_DECISION_ACTIVATION` is False: a USABLE label is diagnostic only until a later Research
-Director adjudication activates cycle timing. It cannot raise conviction or authorize a trade.
+No other metric participates.
+
+Activation (ADR-0046): the family is an ACTIVE timing/corroboration component. The only value the
+decision path reads is the timing qualifier:
+
+- `CYCLE_SUPPORTS_LONG` iff at least one FAST (45m, 3h) scale is USABLE, every USABLE FAST scale is
+  RISING, and no USABLE INTERMEDIATE (1d, 4d) scale has most recent confirmed turn
+  `CONFIRMED_DOWN_TURN`;
+- `CYCLE_SUPPORTS_SHORT` symmetrically;
+- otherwise `CYCLE_MIXED_OR_WEAK`.
+
+SLOW (1w, 4w) disagreement is recorded, never a veto. The qualifier can only satisfy a playbook's
+predeclared cycle-corroboration role; it cannot create a setup or a trade by itself.
 """
 
 from __future__ import annotations
@@ -45,13 +54,16 @@ METHOD_VERSION = "SYSTEM-G1-CYCLE-METHOD-V1-ACP-IMPL-2-QUALITY-GATE-V1"
 AVERAGING_LENGTH = 3
 SMOOTHING = 0.2
 POWER_FLOOR = 0.5
-CYCLE_DECISION_ACTIVATION = False
-METHOD_STATUS = "QUALITY_LABELS_FROZEN_NOT_ACTIVATED_IN_DECISIONS"
+CYCLE_DECISION_ACTIVATION = True  # ADR-0046
+METHOD_STATUS = "ACTIVE_COMPONENT_ADR_0046"
 QUALITY_RULE_ID = "SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1:EXPLAINED_FRACTION_GE_0.90_FOR_3_BARS"
 USABLE_EXPLAINED_FRACTION = 0.90  # frozen (ADR-0045); never tuned
 USABLE_PERSISTENCE_BARS = 3  # current bar + two immediately preceding bars (ADR-0045)
 UNAVAILABLE, WEAK, USABLE = "UNAVAILABLE", "WEAK", "USABLE"
 NOT_READY_QUALIFIER = "CYCLE_METHOD_NOT_READY"
+SUPPORTS_LONG = "CYCLE_SUPPORTS_LONG"
+SUPPORTS_SHORT = "CYCLE_SUPPORTS_SHORT"
+MIXED_OR_WEAK = "CYCLE_MIXED_OR_WEAK"
 
 
 @dataclass(frozen=True)
@@ -353,7 +365,7 @@ class ScaleTracker:
             METHOD_VERSION,
             (
                 "PHASE_ESTIMATE_DIAGNOSTIC_ONLY",
-                "QUALITY_LABEL_NOT_ACTIVATED_IN_DECISIONS",
+                "QUALITY_LABEL_ONLY_VIA_ADR_0046_TIMING_QUALIFIER",
                 "NOT_A_PROBABILITY_OR_TURN_FORECAST",
             ),
         )
@@ -377,12 +389,13 @@ class CycleEngine:
             members = [
                 s for s, t in zip(scales, self.trackers, strict=True) if t.scale.group == group
             ]
-            # Diagnostic only: labels are reported per group, but no group summary reaches the
-            # decision path before activation; individual scale disagreement stays in `scales`.
-            usable = [s.nominal_scale for s in members if s.quality_label == USABLE]
+            # Individual scale disagreement stays in `scales`; SLOW is recorded, never a veto.
+            usable = [s for s in members if s.quality_label == USABLE]
             ready = [s.nominal_scale for s in members if s.warmup_ready]
-            groups.append((group, "DIAGNOSTIC_NOT_ACTIVATED"))
-            groups.append((f"{group}_usable_scales", ",".join(usable) or None))
+            groups.append((group, group_direction(usable)))
+            groups.append(
+                (f"{group}_usable_scales", ",".join(s.nominal_scale for s in usable) or None)
+            )
             groups.append((f"{group}_warm_scales", ",".join(ready) or None))
         payload = (run_id, decision_time, METHOD_VERSION, scales)
         return CycleState(
@@ -392,17 +405,54 @@ class CycleEngine:
             decision_time,
             METHOD_VERSION,
             METHOD_STATUS,
-            SignalRole.METHOD_NOT_READY,
-            NOT_READY_QUALIFIER,
+            SignalRole.ACTIVE,
+            timing_qualifier(scales),
             tuple(groups),
             scales,
         )
 
 
+def group_direction(usable: list[CycleScaleState]) -> str:
+    """Descriptive direction of one group's USABLE scales (display/record only)."""
+    if not usable:
+        return "UNKNOWN_NO_USABLE_SCALE"
+    slopes = {s.slope_direction for s in usable}
+    if slopes == {"RISING"}:
+        return "RISING"
+    if slopes == {"FALLING"}:
+        return "FALLING"
+    return "DISAGREE"
+
+
+def timing_qualifier(scales: tuple[CycleScaleState, ...]) -> str:
+    """ADR-0046 frozen timing qualifier from the six scale states."""
+    by_group = {
+        group: [s for s, scale in zip(scales, SCALES, strict=True) if scale.group == group]
+        for group in ("FAST", "INTERMEDIATE")
+    }
+    fast = [s for s in by_group["FAST"] if s.quality_label == USABLE]
+    intermediate = [s for s in by_group["INTERMEDIATE"] if s.quality_label == USABLE]
+
+    def last_turn(state: CycleScaleState) -> str | None:
+        return None if state.last_confirmed_turn is None else state.last_confirmed_turn.kind
+
+    if (
+        fast
+        and all(s.slope_direction == "RISING" for s in fast)
+        and not any(last_turn(s) == "CONFIRMED_DOWN_TURN" for s in intermediate)
+    ):
+        return SUPPORTS_LONG
+    if (
+        fast
+        and all(s.slope_direction == "FALLING" for s in fast)
+        and not any(last_turn(s) == "CONFIRMED_UP_TURN" for s in intermediate)
+    ):
+        return SUPPORTS_SHORT
+    return MIXED_OR_WEAK
+
+
 def decision_timing_qualifier(state: CycleState) -> str:
-    """The only cycle value the decision path may read. Before activation it is always NOT_READY."""
+    """The only cycle value the decision path may read (ADR-0046 active component)."""
     if not CYCLE_DECISION_ACTIVATION or state.decision_role is not SignalRole.ACTIVE:
         return NOT_READY_QUALIFIER
-    raise RuntimeError(
-        "cycle activation requires a Research Director quality gate"
-    )  # pragma: no cover
+    return state.timing_qualifier

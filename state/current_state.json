@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1",
+  "latest_executor_checkpoint": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -458,7 +458,7 @@
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
     "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
+  "latest_reviewed_checkpoint": "SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1",
   "legacy_research_generation": {
     "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
     "aligned_historical_results_changed": false,
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH-DIRECTOR-CYCLE-QUALITY-ADJUDICATION-V1",
+  "next_recommended_work_package": "RESEARCH-DIRECTOR-G1-DEVELOPMENT-EXECUTION-REVIEW-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -2225,7 +2225,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "RESEARCH_DIRECTOR_CYCLE_QUALITY_ADJUDICATION_V1",
+    "next_checkpoint": "RESEARCH_DIRECTOR_G1_DEVELOPMENT_EXECUTION_REVIEW_V1",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "FREE_PUBLIC_EXCHANGE_NATIVE_HORIZON_FOUNDATION",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
@@ -2680,7 +2680,7 @@
   },
   "governance_transition_v3": {
     "checkpoint": "GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1",
-    "checkpoint_report": "reports/checkpoints/SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1.md",
+    "checkpoint_report": "reports/checkpoints/IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1.md",
     "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
     "decision_records": [
       "decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md",
@@ -2740,8 +2740,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,
@@ -2794,11 +2794,11 @@
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
-    "archived_task": "tasks/archive/SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1.md",
+    "archived_task": "tasks/archive/IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1.md",
     "active_task": "tasks/CURRENT_TASK.md",
-    "next_work_package": "RESEARCH-DIRECTOR-CYCLE-QUALITY-ADJUDICATION-V1",
+    "next_work_package": "RESEARCH-DIRECTOR-G1-DEVELOPMENT-EXECUTION-REVIEW-V1",
     "project_state": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
-    "latest_reviewed_checkpoint_report": "reports/checkpoints/SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE.md"
+    "latest_reviewed_checkpoint_report": "reports/checkpoints/SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1.md"
   },
   "current_project_status": {
     "precedence": "CANONICAL_CURRENT_STATUS_OVERRIDES_EVERY_HISTORICAL_TOP_LEVEL_FIELD",
@@ -2822,8 +2822,8 @@
     "market_trial_authorized": false,
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
-    "research_task_active": true,
-    "automatic_next_research_package": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
+    "research_task_active": false,
+    "automatic_next_research_package": "RESEARCH-DIRECTOR-G1-DEVELOPMENT-EXECUTION-REVIEW-V1",
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
@@ -2874,7 +2874,7 @@
     "implementation_validation": "reports/validation/SYSTEM-G1-CHECKPOINT-1-IMPLEMENTATION-VALIDATION.json",
     "cycle_synthetic_diagnostics": "reports/research/SYSTEM-G1-CYCLE-SYNTHETIC-DIAGNOSTICS-V1.json",
     "archived_task": "tasks/archive/SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE.md",
-    "next_work_package": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
+    "next_work_package": "RESEARCH-DIRECTOR-G1-DEVELOPMENT-EXECUTION-REVIEW-V1",
     "implementation_package": "backend/app/g1",
     "evidence_class": "SYNTHETIC_FIXTURE_NOT_MARKET_EVIDENCE",
     "cycle_status": "SYNTHETIC_QUALITY_GATE_ACCEPTED_ACTIVE_COMPONENT_IMPLEMENTATION_PENDING",
@@ -2892,7 +2892,7 @@
   },
   "system_g1_cycle_quality_gate": {
     "gate": "SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1",
-    "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_ADJUDICATION",
+    "status": "REVIEWED",
     "decision_record": "decisions/ADR-0045-ACCEPT-G1-CHECKPOINT-1-AND-FREEZE-CYCLE-QUALITY-GATE.md",
     "protocol": "research/protocols/SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1.md",
     "artifact": "reports/research/SYSTEM-G1-CYCLE-SYNTHETIC-QUALITY-GATE-V1.json",
@@ -2909,6 +2909,38 @@
     "p1_p2_performance_computed": false,
     "forecaster_fitted": false,
     "sealed_queries": 0,
-    "next_work_package": "RESEARCH-DIRECTOR-CYCLE-QUALITY-ADJUDICATION-V1"
+    "next_work_package": "RESEARCH-DIRECTOR-G1-DEVELOPMENT-EXECUTION-REVIEW-V1"
+  },
+  "system_g1_development": {
+    "work_package": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
+    "status": "SYSTEM_G1_DEVELOPMENT_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_REVIEW",
+    "protocol": "research/protocols/SYSTEM-G1-DEVELOPMENT-V1.md",
+    "protocol_canonical_sha256": "db0024f1e07fac631bf61c186e6486f0feeb806e23e1dacc3508254dc4dffa88",
+    "decision_record": "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
+    "implementation_validation": "reports/validation/SYSTEM-G1-DEVELOPMENT-IMPLEMENTATION-V1.json",
+    "checkpoint_report": "reports/checkpoints/IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1.md",
+    "archived_task": "tasks/archive/IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1.md",
+    "implementation_package": "backend/app/g1",
+    "run_command": "uv run python scripts/run_g1_development.py --phase A|B",
+    "run_directory": "research/experiments/SYSTEM-G1-DEVELOPMENT-V1",
+    "configurations": [
+      "S0",
+      "S_FULL",
+      "S_MINUS_CYCLE",
+      "S_MINUS_PARTICIPATION",
+      "S_MINUS_DAILY_HTF",
+      "S_P1_ONLY",
+      "S_P2_ONLY"
+    ],
+    "cycle_method": "ACTIVE_COMPONENT",
+    "historical_execution_authorized": false,
+    "execution_authorization_record": null,
+    "real_g1_outcomes_inspected": false,
+    "forecaster_real_fitted": false,
+    "p1_p2_real_performance_computed": false,
+    "sealed_queries": 0,
+    "champion_status": "NONE",
+    "real_money": false,
+    "next_work_package": "RESEARCH-DIRECTOR-G1-DEVELOPMENT-EXECUTION-REVIEW-V1"
   }
 }

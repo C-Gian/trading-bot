@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  ReplayView, controlReplay, createReplaySession, readReplayRuns, tickReplay,
+  ReplayRun, ReplayView, controlReplay, createReplaySession, readReplayRuns, tickReplay,
 } from './replayApi';
 import { DecisionGlyph, PredictionGlyph, decisionGlyphs, fillMarks, predictionGlyphs } from './replayGlyphs';
 import { Badge, KeyValues, Section } from './ui';
@@ -18,6 +18,13 @@ type Detail =
 
 const pct = (value: number | null | undefined, digits = 2) => value == null ? '—' : `${(value * 100).toFixed(digits)}%`;
 const time = (value: string) => value.replace('T', ' ').replace(':00Z', ' UTC');
+const fmt = (value: number | null | undefined) => value == null ? '—' : value.toFixed(2);
+
+export function groupSignals<T extends { family: string }>(signals: T[]): [string, T[]][] {
+  const groups = new Map<string, T[]>();
+  for (const signal of signals) groups.set(signal.family, [...(groups.get(signal.family) ?? []), signal]);
+  return [...groups.entries()];
+}
 
 export function ReplayChart({ view, onDetail }: { view: ReplayView; onDetail: (detail: Detail) => void }) {
   const candles = view.candles.slice(-VISIBLE);
@@ -141,6 +148,7 @@ export function Replay() {
   const [error, setError] = useState<string | null>(null);
   const [detail, setDetail] = useState<Detail>(null);
   const busy = useRef(false);
+  const [runs, setRuns] = useState<ReplayRun[]>([]);
 
   const act = useCallback(async (call: () => Promise<ReplayView>) => {
     if (busy.current) return;
@@ -157,8 +165,10 @@ export function Replay() {
 
   const open = useCallback(async () => {
     try {
-      const runs = await readReplayRuns();
-      if (runs.length) await act(() => createReplaySession(runs[0].manifest.run_id));
+      const registered = await readReplayRuns();
+      setRuns(registered);
+      const preferred = registered.find(run => run.kind === 'SYSTEM_G1_DEVELOPMENT_V1_ENGINE') ?? registered[0];
+      if (preferred) await act(() => createReplaySession(preferred.manifest.run_id));
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'errore');
     }
@@ -190,6 +200,22 @@ export function Replay() {
         <Badge tone="paper">{view?.label ?? 'SYNTHETIC FIXTURE'}</Badge>
       </div>
       {error && <p className="notice" role="alert">{error}</p>}
+      {runs.length > 1 && (
+        <label className="summary replay-run">
+          Run sintetico registrato{' '}
+          <select
+            aria-label="Run registrato"
+            value={view?.run_id ?? ''}
+            onChange={event => void act(() => createReplaySession(event.target.value))}
+          >
+            {runs.map(run => (
+              <option key={run.manifest.run_id} value={run.manifest.run_id}>
+                {run.description ?? run.fixture_id}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       {view && session && (
         <>
           <Section
@@ -226,7 +252,12 @@ export function Replay() {
                     ['Direzione', current.prediction.predicted_direction],
                     ['Convinzione', current.prediction.conviction],
                     ['Valore P(su)', `${pct(current.prediction.probability_up, 1)} · non calibrato`],
+                    ['Stato probabilità', current.prediction.probability_status],
                     ['Rendimento medio 4h', pct(current.prediction.mean_terminal_return, 3)],
+                    ['Mediana / q10–q90', `${pct(current.prediction.median_terminal_return, 3)} · ${pct(current.prediction.lower_quantile_return, 3)} … ${pct(current.prediction.upper_quantile_return, 3)}`],
+                    ['Scala di rischio 4h', pct(current.prediction.prior_risk_scale, 3)],
+                    ['Supporto', current.prediction.support_status],
+                    ['Motivo non disponibile', current.prediction.unavailable_reason ?? '—'],
                     ['Scadenza', time(current.prediction.target_end)],
                   ]} />
                 ) : <p className="summary">Nessuna previsione ancora emessa.</p>}
@@ -238,6 +269,7 @@ export function Replay() {
                   <KeyValues rows={[
                     ['Azione (replay)', current.decision.action],
                     ['Playbook', current.decision.playbook_id ?? '—'],
+                    ['Convinzione', current.decision.conviction],
                     ['Blocchi', current.decision.blockers.join(', ') || 'nessuno'],
                     ['Equity virtuale', current.ledger.equity.slice(0, 10)],
                     ['Posizione', current.ledger.open_side ?? 'nessuna'],
@@ -246,12 +278,53 @@ export function Replay() {
                 ) : <p className="summary">Nessuna decisione ancora emessa.</p>}
               </div>
             </Section>
-            <Section title="Segnali e stato" label="Segnali e stato" hint="Diagnostici; ciclo METHOD_NOT_READY">
+            <Section title="Setup P1/P2" label="Setup P1/P2" hint="Riconoscimento causale al candle corrente">
+              <div className="pad" data-testid="replay-setups">
+                {current?.setups?.length ? (
+                  <KeyValues rows={current.setups.map(setup => [
+                    `${setup.playbook.includes('P1') ? 'P1' : 'P2'} ${setup.side}`,
+                    `stop ${fmt(setup.stop)} · obiettivo ${fmt(setup.objective)} · R/R ${fmt(setup.reward_risk)} · ${setup.plan_veto ?? 'piano valido'}`,
+                  ] as [string, string])} />
+                ) : <p className="summary">Nessun trigger P1/P2 su questo candle.</p>}
+              </div>
+            </Section>
+            <Section title="Stato di mercato" label="Stato di mercato">
               <div className="pad">
-                <KeyValues rows={[
-                  ...(current?.signals ?? []).map(signal => [`${signal.name}`, `${signal.state} · ${signal.quality}`] as [string, string]),
-                  ['Ciclo', current?.cycle ? `${current.cycle.decision_role} · ${current.cycle.timing_qualifier}` : '—'],
-                ]} />
+                {current?.market_state ? (
+                  <KeyValues rows={[
+                    ['Bias', current.market_state.directional_bias],
+                    ['Regime 4h', current.market_state.context_4h],
+                    ['Struttura 1h', current.market_state.structure_1h],
+                    ['Giornaliero', current.market_state.daily_context],
+                    ['Posizione vs VWAP', current.market_state.location],
+                    ['Partecipazione', current.market_state.participation],
+                    ['Ciclo', current.market_state.cycle_summary],
+                    ['Motivi', [...current.market_state.supporting_reasons, ...current.market_state.opposing_reasons].join(', ') || '—'],
+                  ]} />
+                ) : <p className="summary">Nessuno stato di mercato ancora emesso.</p>}
+              </div>
+            </Section>
+            <Section title="Segnali" label="Segnali" hint="Raggruppati per famiglia">
+              <div className="pad" data-testid="replay-signals">
+                {groupSignals(current?.signals ?? []).map(([family, signals]) => (
+                  <div key={family} className="signal-family">
+                    <h3>{family}</h3>
+                    <KeyValues rows={signals.map(signal => [signal.name, `${signal.state} · ${signal.quality} · ${signal.role}`] as [string, string])} />
+                  </div>
+                ))}
+              </div>
+            </Section>
+            <Section title="Ciclo (6 scale)" label="Ciclo" hint={current?.cycle ? `${current.cycle.decision_role} · ${current.cycle.timing_qualifier}` : undefined}>
+              <div className="pad" data-testid="replay-cycle">
+                {current?.cycle ? (
+                  <>
+                    <KeyValues rows={(current.cycle.groups ?? []).filter(([name]) => ['FAST', 'INTERMEDIATE', 'SLOW'].includes(name)).map(([name, value]) => [name, value ?? '—'] as [string, string])} />
+                    <KeyValues rows={current.cycle.scales.map(scale => [
+                      `${scale.nominal_scale} (${scale.input_resolution})`,
+                      `${scale.quality_label} · ${scale.slope_direction} · ${scale.last_confirmed_turn ?? 'nessuna svolta'} · warm-up ${scale.warmup}`,
+                    ] as [string, string])} />
+                  </>
+                ) : <p className="summary">Ciclo non ancora calcolato.</p>}
               </div>
             </Section>
             <Section title="Statistiche maturate" label="Statistiche maturate" hint={stats?.label}>

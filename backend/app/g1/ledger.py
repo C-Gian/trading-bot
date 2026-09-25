@@ -366,6 +366,18 @@ class ReferenceLedger:
         if self.drawdown_fraction >= self.policy.run_drawdown_stop_fraction:
             self.run_entry_stop = True
 
+    def finalize(self, moment: datetime) -> None:
+        """Unresolved end state: drop a pending entry; close an open position at the last observed
+        close as UNSCORABLE (it never counts as scored economics)."""
+        if self.pending is not None:
+            self._event(
+                self.pending.plan, FillKind.ENTRY_REJECTED, moment, "UNRESOLVED_END_OF_WINDOW"
+            )
+            self.pending = None
+        if self.position is not None:
+            mark = self.last_mark if self.last_mark is not None else self.position.entry_raw
+            self._close(moment, mark, "UNRESOLVED_END_OF_WINDOW_UNSCORABLE", scorable=False)
+
     def settle_funding(self, moment: datetime, rate: Decimal, mark: Decimal) -> None:
         """Signed funding at a settlement instant for a position held across it.
 

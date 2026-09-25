@@ -25,8 +25,10 @@ export type ReplayDecision = {
 };
 export type ReplayTradePlan = { trade_plan_id: string; side: 'LONG' | 'SHORT'; playbook_id: string; reference_price: string; stop_price: string; objective_price: string; max_hold_minutes: number; planned_risk_amount: string };
 export type ReplayFill = { event_id: string; trade_plan_id: string; kind: 'ENTRY' | 'EXIT' | 'FUNDING' | 'ENTRY_REJECTED'; side: 'LONG' | 'SHORT'; event_time: string; available_at: string; raw_price: string | null; reason: string; funding_amount: string };
-export type ReplaySignal = { signal_id: string; family: string; name: string; timeframe: string; state: string; quality: string; role: string; available_at: string };
-export type ReplayCycle = { method_status: string; decision_role: string; timing_qualifier: string; scales: { nominal_scale: string; input_resolution: string; warmup: string; ready: boolean; quality_label: string; dominant_period_minutes: number | null; slope_direction: string }[] };
+export type ReplaySignal = { signal_id: string; family: string; name: string; timeframe: string; state: string; quality: string; role: string; available_at: string; values?: [string, number | string | null][] };
+export type ReplayCycle = { method_status: string; decision_role: string; timing_qualifier: string; groups?: [string, string | null][]; scales: { nominal_scale: string; input_resolution: string; warmup: string; ready: boolean; quality_label: string; dominant_period_minutes: number | null; slope_direction: string; last_confirmed_turn?: string | null }[] };
+export type ReplayMarketState = { directional_bias: string; structural_mode: string; structure_1h: string; context_4h: string; daily_context: string; location: string; participation: string; cycle_summary: string; data_ready: boolean; supporting_reasons: string[]; opposing_reasons: string[]; state_source: string };
+export type ReplaySetup = { playbook: string; side: 'LONG' | 'SHORT'; reference: number; stop: number | null; objective: number | null; reward_risk: number | null; plan_veto: string | null; reasons: string[] };
 export type ReplayLedger = { equity: string; drawdown_fraction: string; day_loss_fraction: string; open_side: string | null; open_quantity: string; unrealized_pnl: string; daily_entry_stop: boolean; run_entry_stop: boolean };
 export type ReplayStats = {
   label: string; predictions_issued: number; predictions_unavailable: number; matured: number; matured_valid: number;
@@ -41,10 +43,10 @@ export type ReplayView = {
   cursor: string; dataset_start: string; dataset_end: string;
   candles: ReplayCandle[]; predictions: ReplayPrediction[]; realizations: ReplayRealization[];
   decisions: ReplayDecision[]; trade_plans: ReplayTradePlan[]; fills: ReplayFill[];
-  current: { signals: ReplaySignal[]; cycle: ReplayCycle | null; prediction: ReplayPrediction | null; decision: ReplayDecision | null; ledger: ReplayLedger };
+  current: { signals: ReplaySignal[]; setups?: ReplaySetup[]; cycle: ReplayCycle | null; market_state?: ReplayMarketState | null; prediction: ReplayPrediction | null; decision: ReplayDecision | null; ledger: ReplayLedger };
   stats: ReplayStats; production_action: 'NO_TRADE'; validated_strategy: null;
 };
-export type ReplayRun = { manifest: { run_id: string; evidence_class: string; dataset_start: string; dataset_end: string }; fixture_id: string; label: string };
+export type ReplayRun = { manifest: { run_id: string; evidence_class: string; dataset_start: string; dataset_end: string }; fixture_id: string; label: string; kind?: string; description?: string };
 
 async function post<T>(url: string, body: unknown): Promise<T> {
   const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });

@@ -31,6 +31,11 @@ DECISION_PATH_MODULES = (
     "fixtures.py",
     "clock.py",
     "stats.py",
+    "indicators.py",
+    "playbooks.py",
+    "forecaster.py",
+    "development.py",
+    "scoring.py",
 )
 SERVICE = G1ReplayService()
 
@@ -53,7 +58,7 @@ def _session(client: TestClient) -> tuple[str, str]:
 def test_status_reports_fail_closed_synthetic_only(client) -> None:
     status = client.get("/api/v1/g1/status").json()
     assert status["validated_strategy"] is None and status["operational_action"] == "NO_TRADE"
-    assert status["cycle_active_in_decisions"] is False
+    assert status["cycle_active_in_decisions"] is True  # ADR-0046 active component
     assert status["historical_market_trial_authorized"] is False
     assert status["evidence"] == "SYNTHETIC_FIXTURE_ONLY"
     # The production action surface stays fail-closed alongside the G1 replay slice.
@@ -78,7 +83,7 @@ def test_causal_cursor_view_exposes_only_available_information(client) -> None:
         assert issued[realization["prediction_id"]]["target_end"] <= cursor
     assert len(view["realizations"]) < len(view["predictions"])  # later ones not yet matured
     assert view["current"]["decision"]["decision_time"] == cursor
-    assert view["current"]["cycle"]["decision_role"] == "METHOD_NOT_READY"
+    assert view["current"]["cycle"]["decision_role"] == "ACTIVE"
     assert view["stats"]["matured"] == len(view["realizations"])
     assert view["production_action"] == "NO_TRADE" and view["validated_strategy"] is None
     assert any(f["kind"] == "ENTRY" and f["side"] == "LONG" for f in view["fills"])
@@ -161,3 +166,39 @@ def test_decision_path_cannot_consume_post_analysis_entities() -> None:
         assert not any("post_analysis" in name for name in imported), module
         source = path.read_text(encoding="utf-8")
         assert "HotWindow" not in source and "PostAnalysisReport" not in source, module
+
+
+def test_development_engine_runs_are_registered_synthetic_and_replayable(client) -> None:
+    runs = client.get("/api/v1/g1/runs").json()["runs"]
+    kinds = [run["kind"] for run in runs]
+    assert kinds[0] == "CHECKPOINT_1_CONTRACT_FIXTURE"
+    development = [run for run in runs if run["kind"] == "SYSTEM_G1_DEVELOPMENT_V1_ENGINE"]
+    assert len(development) == 2
+    for run in runs:
+        assert run["manifest"]["evidence_class"] == "SYNTHETIC_FIXTURE_NOT_MARKET_EVIDENCE"
+        assert run["manifest"]["dataset_start"] < "2002"
+    body = client.post(
+        "/api/v1/g1/replay/sessions", json={"run_id": development[0]["manifest"]["run_id"]}
+    ).json()
+    session = body["session_id"]
+    for _ in range(8):
+        view = client.post(
+            f"/api/v1/g1/replay/sessions/{session}/control", json={"action": "step"}
+        ).json()
+    current = view["current"]
+    assert current["prediction"]["unavailable_reason"] in {
+        "PRIOR_RISK_SCALE_UNAVAILABLE",
+        "NO_TRAINING_OBSERVATIONS",
+    }
+    assert current["cycle"]["decision_role"] == "ACTIVE" and len(current["cycle"]["scales"]) == 6
+    assert {name for name, _ in current["cycle"]["groups"]} >= {"FAST", "INTERMEDIATE", "SLOW"}
+    families = {signal["family"] for signal in current["signals"]}
+    assert families >= {
+        "STRUCTURE_TREND",
+        "PRICE_LOCATION_VALUE",
+        "PARTICIPATION_FLOW",
+        "CYCLICAL_STATE",
+    }
+    assert current["market_state"]["state_source"] == "SYSTEM_G1_DEVELOPMENT_V1_FROZEN_RULES"
+    assert current["decision"]["action"] == "NO_TRADE" and "setups" in current
+    assert view["production_action"] == "NO_TRADE"

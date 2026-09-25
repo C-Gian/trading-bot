@@ -10,9 +10,9 @@ is a placeholder that records the boundary, not an explanation.
 from __future__ import annotations
 
 from datetime import timedelta
+from typing import Any
 
 from .canonical import content_id
-from .core import G1Core
 from .records import ClosedTrade, HotWindow, PostAnalysisReport
 
 WINDOW_PADDING = timedelta(minutes=30)
@@ -30,7 +30,7 @@ class PostAnalysisStore:
         self.reports: list[PostAnalysisReport] = []
 
 
-def create_hot_windows(core: G1Core, store: PostAnalysisStore) -> tuple[HotWindow, ...]:
+def create_hot_windows(core: Any, store: PostAnalysisStore) -> tuple[HotWindow, ...]:
     if not core.complete:
         raise RunNotCompleteError("hot windows are created only after the run completes")
     windows = []
@@ -48,7 +48,7 @@ def create_hot_windows(core: G1Core, store: PostAnalysisStore) -> tuple[HotWindo
 
 
 def create_report(
-    core: G1Core, store: PostAnalysisStore, windows: tuple[HotWindow, ...]
+    core: Any, store: PostAnalysisStore, windows: tuple[HotWindow, ...]
 ) -> PostAnalysisReport:
     if not core.complete:
         raise RunNotCompleteError("post-analysis reports are created only after completion")

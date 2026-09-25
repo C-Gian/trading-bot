@@ -118,3 +118,47 @@ describe('replay page', () => {
     await waitFor(() => expect(screen.getByText('Pausa')).toBeTruthy());
   });
 });
+
+describe('G1 development record panels', () => {
+  it('shows grouped signals, six cycle scales, market state, P1/P2 setups and the uncalibrated status', async () => {
+    const dev = view();
+    dev.current = {
+      ...dev.current,
+      prediction: { ...dev.predictions[0], probability_status: 'EMPIRICAL_SHRUNK_CONDITIONAL_PROBABILITY_NOT_CALIBRATED' },
+      decision: dev.decisions[0],
+      signals: [
+        { signal_id: 'S1', family: 'STRUCTURE_TREND', name: 'adx_di_regime_4h', timeframe: '4h', state: 'TREND_BULL', quality: 'READY', role: 'ACTIVE', available_at: '' },
+        { signal_id: 'S2', family: 'PARTICIPATION_FLOW', name: 'rvol_and_taker_imbalance_15m', timeframe: '15m', state: 'READY', quality: 'READY', role: 'ACTIVE', available_at: '' },
+        { signal_id: 'S3', family: 'STRUCTURE_TREND', name: 'ema20_ema50_structure_1h', timeframe: '1h', state: 'BULLISH', quality: 'READY', role: 'ACTIVE', available_at: '' },
+      ],
+      setups: [{ playbook: 'SYSTEM-G1-P1-DIRECTIONAL-CONTINUATION', side: 'LONG', reference: 104, stop: 98.5, objective: 115, reward_risk: 2, plan_veto: null, reasons: [] }],
+      market_state: { directional_bias: 'BULLISH', structural_mode: 'TREND', structure_1h: 'BULLISH', context_4h: 'TREND_BULL', daily_context: 'DAILY_BULL', location: 'ABOVE_SESSION_VWAP', participation: 'SUPPORTS_LONG', cycle_summary: 'CYCLE_SUPPORTS_LONG', data_ready: true, supporting_reasons: ['P1_LONG_TRIGGERED'], opposing_reasons: [], state_source: 'SYSTEM_G1_DEVELOPMENT_V1_FROZEN_RULES' },
+      cycle: {
+        method_status: 'ACTIVE_COMPONENT_ADR_0046', decision_role: 'ACTIVE', timing_qualifier: 'CYCLE_SUPPORTS_LONG',
+        groups: [['FAST', 'RISING'], ['FAST_usable_scales', '45m'], ['INTERMEDIATE', 'UNKNOWN_NO_USABLE_SCALE'], ['SLOW', 'FALLING']],
+        scales: ['45m', '3h', '1d', '4d', '1w', '4w'].map(nominal => ({ nominal_scale: nominal, input_resolution: '3m', warmup: '128/128', ready: true, quality_label: 'USABLE', dominant_period_minutes: 45, slope_direction: 'RISING', last_confirmed_turn: null })),
+      },
+    };
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+      if (url === '/api/v1/g1/runs') {
+        return new Response(JSON.stringify({ runs: [
+          { manifest: { run_id: 'RUN-c1', evidence_class: 'SYNTHETIC', dataset_start: '', dataset_end: '' }, fixture_id: 'C1', label: 'S', kind: 'CHECKPOINT_1_CONTRACT_FIXTURE', description: 'Checkpoint-1' },
+          { manifest: { run_id: 'RUN-dev', evidence_class: 'SYNTHETIC', dataset_start: '', dataset_end: '' }, fixture_id: 'DEV', label: 'S', kind: 'SYSTEM_G1_DEVELOPMENT_V1_ENGINE', description: 'G1 dev S_FULL' },
+        ] }));
+      }
+      return new Response(JSON.stringify({ ...dev, run_id: 'RUN-dev' }));
+    }));
+    render(<Replay />);
+    await waitFor(() => expect(screen.getByTestId('replay-setups').textContent).toContain('R/R 2.00'));
+    expect(screen.getByTestId('replay-setups').textContent).toContain('stop 98.50');
+    expect(screen.getByTestId('replay-setups').textContent).toContain('obiettivo 115.00');
+    const signals = screen.getByTestId('replay-signals');
+    expect(signals.querySelectorAll('h3')).toHaveLength(2);
+    const cycle = screen.getByTestId('replay-cycle').textContent ?? '';
+    for (const scale of ['45m', '3h', '1d', '4d', '1w', '4w']) expect(cycle).toContain(scale);
+    expect(cycle).toContain('SLOW');
+    expect(screen.getByText('EMPIRICAL_SHRUNK_CONDITIONAL_PROBABILITY_NOT_CALIBRATED')).toBeTruthy();
+    expect(screen.getByText('CYCLE_SUPPORTS_LONG')).toBeTruthy();
+    expect((screen.getByLabelText('Run registrato') as HTMLSelectElement).value).toBe('RUN-dev');
+  });
+});

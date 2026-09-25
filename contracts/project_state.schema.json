@@ -10221,6 +10221,121 @@
           "pattern": "^[A-Z0-9-]+$"
         }
       }
+    },
+    "system_g1_development": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "archived_task",
+        "champion_status",
+        "checkpoint_report",
+        "configurations",
+        "cycle_method",
+        "decision_record",
+        "execution_authorization_record",
+        "forecaster_real_fitted",
+        "historical_execution_authorized",
+        "implementation_package",
+        "implementation_validation",
+        "next_work_package",
+        "p1_p2_real_performance_computed",
+        "protocol",
+        "protocol_canonical_sha256",
+        "real_g1_outcomes_inspected",
+        "real_money",
+        "run_command",
+        "run_directory",
+        "sealed_queries",
+        "status",
+        "work_package"
+      ],
+      "properties": {
+        "work_package": {
+          "const": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1"
+        },
+        "status": {
+          "enum": [
+            "SYSTEM_G1_DEVELOPMENT_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_REVIEW",
+            "REVIEWED"
+          ]
+        },
+        "protocol": {
+          "const": "research/protocols/SYSTEM-G1-DEVELOPMENT-V1.md"
+        },
+        "protocol_canonical_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "decision_record": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation_validation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checkpoint_report": {
+          "pattern": "^reports/checkpoints/[A-Z0-9_.-]+\\.md$",
+          "type": "string"
+        },
+        "archived_task": {
+          "pattern": "^tasks/archive/[A-Z0-9_.-]+\\.md$",
+          "type": "string"
+        },
+        "implementation_package": {
+          "const": "backend/app/g1"
+        },
+        "run_command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "run_directory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "configurations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 7,
+          "maxItems": 7
+        },
+        "cycle_method": {
+          "const": "ACTIVE_COMPONENT"
+        },
+        "historical_execution_authorized": {
+          "type": "boolean"
+        },
+        "execution_authorization_record": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "real_g1_outcomes_inspected": {
+          "type": "boolean"
+        },
+        "forecaster_real_fitted": {
+          "type": "boolean"
+        },
+        "p1_p2_real_performance_computed": {
+          "type": "boolean"
+        },
+        "sealed_queries": {
+          "const": 0
+        },
+        "champion_status": {
+          "const": "NONE"
+        },
+        "real_money": {
+          "const": false
+        },
+        "next_work_package": {
+          "type": "string",
+          "pattern": "^[A-Z0-9-]+$"
+        }
+      }
     }
   },
   "required": [
@@ -10289,7 +10404,8 @@
     "governance_transition_v3",
     "current_project_status",
     "system_g1_checkpoint_1",
-    "system_g1_cycle_quality_gate"
+    "system_g1_cycle_quality_gate",
+    "system_g1_development"
   ],
   "type": "object"
 }

@@ -29,3 +29,29 @@ record identities are identical at every speed and under the live-style adapter.
 
 The production action surface (`/api/v1/product/*`) is unaffected and fails closed while
 `current_project_status.validated_strategy` is null.
+
+## Development V1 records (IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1)
+
+`GET /api/v1/g1/runs` now lists three synthetic registered runs (`kind`):
+`CHECKPOINT_1_CONTRACT_FIXTURE`, and two `SYSTEM_G1_DEVELOPMENT_V1_ENGINE` runs of the frozen engine
+on a synthetic 2000-2001 path (display configurations S_FULL and S0). No real-market run exists.
+
+For development runs the cursor view `current` block carries:
+
+- `signals` — grouped by `family` (`STRUCTURE_TREND`, `PRICE_LOCATION_VALUE`,
+  `MOMENTUM_VOLATILITY`, `PARTICIPATION_FLOW`, `CYCLICAL_STATE`), each with state/quality/role and
+  causal `available_at`;
+- `cycle` — `decision_role = ACTIVE`, ADR-0046 `timing_qualifier`, `groups`
+  (FAST / INTERMEDIATE / SLOW direction and USABLE scales; SLOW recorded only) and six `scales`
+  with quality label, slope and last confirmed turn;
+- `market_state` — bias, 4h regime, 1h structure, daily corroboration, VWAP location,
+  participation, cycle qualifier, supporting/opposing P1/P2 events;
+- `prediction` — mixture probability with `probability_status =
+  EMPIRICAL_SHRUNK_CONDITIONAL_PROBABILITY_NOT_CALIBRATED`, mean/median/q10/q90, prior risk scale,
+  support (`CELL_N`, `SHRINKAGE_W`) or `unavailable_reason`;
+- `setups` — recognized P1/P2 triggers with stop, objective, reward/risk and plan veto;
+- `decision` — LONG / SHORT / NO_TRADE for the displayed configuration with LOW/MEDIUM/HIGH
+  conviction and blockers; trade plans carry stop, objective and planned reward/risk.
+
+The historical Development batch is not reachable through the API; it runs only through
+`scripts/run_g1_development.py`, which refuses without a state authorization.

@@ -14,12 +14,10 @@ from app.g1 import fixtures
 from app.g1.core import G1Core, run_manifest, run_to_end
 from app.g1.cycle import (
     CYCLE_DECISION_ACTIVATION,
-    NOT_READY_QUALIFIER,
     SCALES,
     AutocorrelationPeriodogram,
     CycleEngine,
     ScaleTracker,
-    decision_timing_qualifier,
 )
 from app.g1.cycle_reference import reference_acp
 from app.g1.ledger import RiskPolicy
@@ -43,6 +41,7 @@ from app.g1.records import (
 )
 
 ROOT = Path(__file__).resolve().parents[2]
+QUALIFIERS = {"CYCLE_SUPPORTS_LONG", "CYCLE_SUPPORTS_SHORT", "CYCLE_MIXED_OR_WEAK"}
 BARS = fixtures.minute_path()
 POLICY = RiskPolicy()
 MANIFEST = run_manifest(BARS, fixtures.START, fixtures.END, POLICY)
@@ -165,17 +164,19 @@ def test_realizations_are_scored_only_after_maturity(run) -> None:
     assert len(realizations) == len(predictions) - 16
 
 
-def test_signals_and_cycle_states_are_diagnostic_or_not_ready(run) -> None:
+def test_scenario_signals_are_diagnostic_and_cycle_states_are_active(run) -> None:
+    """Checkpoint-1 scenario records: plumbing signals stay DIAGNOSTIC; since ADR-0046 every
+    CycleState is an ACTIVE component carrying the frozen timing qualifier."""
     for signal in run.store.of_type(SignalSnapshot):
-        assert signal.role is SignalRole.DIAGNOSTIC and signal.available_at <= signal.available_at
+        assert signal.role is SignalRole.DIAGNOSTIC
     for state in run.store.of_type(CycleState):
-        assert state.decision_role is SignalRole.METHOD_NOT_READY
-        assert state.timing_qualifier == NOT_READY_QUALIFIER
+        assert state.decision_role is SignalRole.ACTIVE
+        assert state.timing_qualifier in QUALIFIERS
         for scale in state.scales:
             assert scale.quality_label in ("UNAVAILABLE", "WEAK", "USABLE")
     for state in run.store.of_type(MarketState):
-        assert state.cycle_summary == NOT_READY_QUALIFIER
-    assert CYCLE_DECISION_ACTIVATION is False
+        assert state.cycle_summary in QUALIFIERS
+    assert CYCLE_DECISION_ACTIVATION is True
 
 
 def test_cycle_state_has_no_influence_on_decisions(run, monkeypatch) -> None:
@@ -207,17 +208,6 @@ def test_cycle_state_has_no_influence_on_decisions(run, monkeypatch) -> None:
     assert [key(d) for d in other.store.of_type(DecisionSnapshot)] == [
         key(d) for d in run.store.of_type(DecisionSnapshot)
     ]
-    for state in other.store.of_type(MarketState):
-        assert state.cycle_summary == NOT_READY_QUALIFIER
-
-
-def test_cycle_timing_qualifier_is_not_ready_even_for_an_active_role() -> None:
-    state = CycleEngine().snapshot("RUN-x", datetime(2001, 1, 1, tzinfo=UTC))
-    assert decision_timing_qualifier(state) == NOT_READY_QUALIFIER
-    assert (
-        decision_timing_qualifier(dataclasses.replace(state, decision_role=SignalRole.ACTIVE))
-        == NOT_READY_QUALIFIER
-    )
 
 
 @pytest.mark.parametrize("scale", SCALES, ids=lambda s: s.nominal)

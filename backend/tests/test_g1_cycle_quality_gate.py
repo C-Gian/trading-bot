@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 from datetime import UTC, datetime, timedelta
@@ -15,7 +16,6 @@ from app.g1 import fixtures
 from app.g1.core import G1Core, run_manifest, run_to_end
 from app.g1.cycle import (
     CYCLE_DECISION_ACTIVATION,
-    NOT_READY_QUALIFIER,
     SCALES,
     UNAVAILABLE,
     USABLE,
@@ -70,7 +70,7 @@ def _expected(rows, position: int, ready: bool, gap_epoch_start: int) -> str:
 
 def test_frozen_rule_constants_are_unchanged() -> None:
     assert USABLE_EXPLAINED_FRACTION == 0.90 and USABLE_PERSISTENCE_BARS == 3
-    assert CYCLE_DECISION_ACTIVATION is False
+    assert CYCLE_DECISION_ACTIVATION is True  # ADR-0046 activation after the gate
 
 
 @pytest.mark.parametrize("scale", SCALES[:3], ids=lambda s: s.nominal)
@@ -133,13 +133,22 @@ def test_gate_artifact_records_a_mechanical_disposition_without_market_data() ->
         artifact["market_data_read"] is False and artifact["btc_returns_or_outcomes_used"] is False
     )
     assert artifact["threshold_or_method_search_performed"] is False
-    assert artifact["cycle_active_in_decisions"] is False
+    assert artifact["cycle_active_in_decisions"] is False  # true when the gate ran
     rule = artifact["frozen_rule"]
     assert rule["explained_fraction_threshold"] == 0.9 and rule["persistence_bars"] == 3
     assert rule["protocol_canonical_sha256"] == gate.canonical_text_sha256(gate.PROTOCOL_PATH)
     assert rule["decision_canonical_sha256"] == gate.canonical_text_sha256(gate.DECISION_PATH)
-    for path, digest in artifact["code_canonical_sha256"].items():
-        assert gate.canonical_text_sha256(path) == digest, path
+    # ADR-0046 changed cycle.py source text (activation, qualifier), never its math; the
+    # accepted artifact is preserved byte-for-byte and replayed by the gate `--check`.
+    import sys
+
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from build_g1_cycle_quality_gate import PRESERVED_SHA256
+
+    raw = (ROOT / gate.ARTIFACT_PATH).read_bytes().replace(b"\r\n", b"\n")
+    assert hashlib.sha256(raw).hexdigest() == PRESERVED_SHA256
+    for path in ("backend/app/g1/cycle_reference.py", "backend/app/g1/cycle_quality_gate.py"):
+        assert gate.canonical_text_sha256(path) == artifact["code_canonical_sha256"][path], path
     passed = all(all(g.values()) for g in artifact["scale_gate_results"].values()) and all(
         artifact["integrity"].values()
     )
@@ -151,7 +160,7 @@ def test_gate_artifact_records_a_mechanical_disposition_without_market_data() ->
         assert set(scale["non_gating_diagnostics"]) == set(gate.NON_GATING)
 
 
-def test_cycle_labels_never_reach_decisions_even_when_usable() -> None:
+def test_active_cycle_states_carry_labels_and_the_frozen_qualifier() -> None:
     bars = fixtures.minute_path()
     policy = RiskPolicy()
     core = run_to_end(
@@ -165,8 +174,12 @@ def test_cycle_labels_never_reach_decisions_even_when_usable() -> None:
     )
     states = core.store.of_type(CycleState)
     assert any(s.quality_label == USABLE for state in states for s in state.scales)
-    assert all(state.decision_role is SignalRole.METHOD_NOT_READY for state in states)
-    assert all(state.timing_qualifier == NOT_READY_QUALIFIER for state in states)
+    assert all(state.decision_role is SignalRole.ACTIVE for state in states)
+    assert {state.timing_qualifier for state in states} <= {
+        "CYCLE_SUPPORTS_LONG",
+        "CYCLE_SUPPORTS_SHORT",
+        "CYCLE_MIXED_OR_WEAK",
+    }
 
 
 def test_primary_operational_delay_is_one_minute() -> None:
