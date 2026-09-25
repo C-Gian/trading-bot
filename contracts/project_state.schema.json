@@ -10247,7 +10247,10 @@
         "run_directory",
         "sealed_queries",
         "status",
-        "work_package"
+        "work_package",
+        "authorized_phase",
+        "phase_a_executed",
+        "phase_b_executed"
       ],
       "properties": {
         "work_package": {
@@ -10334,6 +10337,23 @@
         "next_work_package": {
           "type": "string",
           "pattern": "^[A-Z0-9-]+$"
+        },
+        "authorized_phase": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "A",
+            "B",
+            null
+          ]
+        },
+        "phase_a_executed": {
+          "type": "boolean"
+        },
+        "phase_b_executed": {
+          "type": "boolean"
         }
       }
     }
