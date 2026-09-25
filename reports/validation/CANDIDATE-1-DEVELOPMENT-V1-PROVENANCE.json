@@ -1,0 +1,54 @@
+{
+  "authorization": "decisions/ADR-0040-CANDIDATE-1-DEVELOPMENT-EXECUTION-AUTHORIZATION.md",
+  "command": "python scripts/run_candidate_1_development.py --execute",
+  "deterministic_replay": "PASS",
+  "disposition": "DEVELOPMENT_REJECTED",
+  "executed_at_head": "7677ce257ed8ecd9a2884cdc27f3c125b95851f4",
+  "execution_price_source": {
+    "manifest_sha256_matches": true,
+    "path": "data/canonical/BTCUSDT-1m.parquet",
+    "read_window": [
+      "2022-01-01T00:00:00Z",
+      "2024-12-31T23:59:00Z"
+    ],
+    "sha256": "ae604813448ef9b83e76c9740c471afe0af18cbb22a8c987f87754d6c40f47e1"
+  },
+  "executions": 1,
+  "identities": {
+    "backend/app/backtest/models.py": "81ef772e759a5983dbf671af4b372a08e910ec19ec539a5a2e4e3df5dc1d9845",
+    "backend/app/research/candidate_1_development.py": "2d877c5e4a704ab59d00e58e853a3ed3bad947409cfd65ada18b6b437ba6bd97",
+    "data/manifests/BTCUSDT-SPOT-1M-DEV-v1.json": "50279396df26965188214cb39199a775f2683e70dbfe66240dc03d1fa7bc6806",
+    "decisions/ADR-0039-CANDIDATE-1-DEVELOPMENT-PROTOCOL-FREEZE.md": "d6183d9f70029c58814fd04593e42903ca6d298a5aadbf23a6bd7f448ce5d2cd",
+    "decisions/ADR-0040-CANDIDATE-1-DEVELOPMENT-EXECUTION-AUTHORIZATION.md": "0f325dd0e209265573c7fe56c3cef8f8913ab50a9a7807908bebfb6150731657",
+    "reports/validation/CANDIDATE-1-DEVELOPMENT-IMPLEMENTATION-V1.json": "3ea4b5eeae569c44febc7a9bff3face91470a4a4668df74c628679b7f9acbd9c",
+    "reports/validation/CANDIDATE-1-FROZEN-ADMISSION-V1.json": "d79f533b2aa082853333858ed36319040d55f4bceef0f1cf69626c9d716ce2de",
+    "research/protocols/CANDIDATE-1-DEVELOPMENT-V1.md": "c47ffb9b5fc737962ec7e074c62344cb2aa9117ea7798a9f8a1ab19b07762313",
+    "scripts/replay_candidate_1_development.py": "d7c5492037510bc7ae625c81ebca4585acf5beb30e928eb3b56e9bf05ddf2f3f",
+    "scripts/run_candidate_1_development.py": "baed05d45efc9f2e3bf8be4cd1acae8c53cb35696ceba90cb033cf5aa69e0a85"
+  },
+  "identity_rule": "CANONICAL_UTF8_LF_TEXT_V1",
+  "integrity": {
+    "ADMISSION_RECORD_IDENTITY": true,
+    "ADMISSION_REPLAY": true,
+    "FREEZE_DECISION_IDENTITY": true,
+    "NO_OVERLAPPING_PRIMARY_POSITIONS": true,
+    "PROTOCOL_IDENTITY": true
+  },
+  "new_market_data_accessed": false,
+  "post_cutoff_or_sealed_access": false,
+  "preflight": {
+    "clean_worktree": true,
+    "execution_authorized": true,
+    "implementation_identity": true,
+    "implementation_validation_replay": "PASS",
+    "protocol_freeze_admission_identity": true,
+    "result_absent_before_run": true,
+    "state_schema_note": "The arming commit used status/key values not yet in contracts/project_state.schema.json; reconciled in the post-run schema update without changing any scientific field.",
+    "state_schema_valid_before_run": false
+  },
+  "replay_command": "python scripts/replay_candidate_1_development.py",
+  "result_canonical_sha256": "4a5d6f39d4c41157a12b79b3f38d9122e3ed0f4d99e38bd6cfce4d7d3dc7e866",
+  "result_path": "research/experiments/CANDIDATE-1-DEVELOPMENT-V1/result.json",
+  "sealed_queries": 0,
+  "version": "CANDIDATE_1_DEVELOPMENT_V1_PROVENANCE"
+}
