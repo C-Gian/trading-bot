@@ -39,3 +39,5 @@
 - [ADR-0037](ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md) — Astra rules the executor Candidate #1 support diagnostic non-authoritative (preserved); the Research Director freezes one admission specification before any new calculation
 - [ADR-0038](ADR-0038-CANDIDATE-1-ADMITTED-FOR-PROTOCOL-DESIGN.md) — the single Director-frozen Candidate #1 admission passes every gate (335/336 valid, 116 candidate / 219 control, common support, required effect 0.42 <= 0.50); admitted for protocol design only, economics untested
 - [ADR-0039](ADR-0039-CANDIDATE-1-DEVELOPMENT-PROTOCOL-FREEZE.md) — Research Director freezes the Candidate #1 Development Lab protocol (~4h timed LONG, 24 bp costs, outcome-blind matched control, +25/+20 bp MESIs, cost/delay stresses, prospective-detectability gate); implementation only, no outcome inspection
+
+- [ADR-0040 — Candidate #1 Development execution authorization](ADR-0040-CANDIDATE-1-DEVELOPMENT-EXECUTION-AUTHORIZATION.md)
