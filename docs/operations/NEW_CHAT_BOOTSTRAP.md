@@ -1,5 +1,11 @@
 # NEW CHAT BOOTSTRAP — Trading Bot
 
+> **Current scope reset:** before interpreting the parked state, read
+> `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`, ADR-0043 and `tasks/CURRENT_TASK.md`.
+> The Owner has triggered strategic reopening review for a professional multi-signal BTC
+> `LONG / SHORT / NO_TRADE` system. No market research is authorized until Astra redesigns the
+> programme.
+
 Purpose: make a new ChatGPT conversation recover the project from repository truth without
 depending on the previous chat transcript.
 
