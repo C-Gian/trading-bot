@@ -367,11 +367,14 @@
         "dataset"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "DATASET_INSPECTED",
+      "study_status": "REVIEWED",
       "rights_status": "AQR_DATA_REFERENCE_ONLY_CHECK_SOURCE_TERMS_BEFORE_REDISTRIBUTION",
       "notes": [
-        "Dataset states it contains TSMOM factors used in the 2012 Journal of Financial Economics paper.",
-        "Monthly excess-return factors 1985–2009 for all assets/EQ/FX/FI/CM."
+        "Complete workbook reviewed on 2026-09-26: both worksheets, all 300 monthly observations, metadata, disclosure text box, continuity and missing-value audit.",
+        "Dossier: research/library/source_notes/LIB-011-TIME-SERIES-MOMENTUM-ORIGINAL-PAPER-DATA.md",
+        "Dataset covers monthly TSMOM excess-return factors from 1985-01 through 2009-12 for all assets, EQ, FX, FI and CM.",
+        "No external paper was opened during this source study; factor-construction methodology absent from the workbook remains unspecified.",
+        "This dataset is external literature evidence/provenance only and is not BTC training/calibration data."
       ],
       "related_sources": [
         "LIB-010",
