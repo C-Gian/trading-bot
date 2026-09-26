@@ -9898,7 +9898,8 @@
         "active_system_generation",
         "architecture",
         "strategic_disposition",
-        "action_guard"
+        "action_guard",
+        "successor_system_generation"
       ],
       "properties": {
         "precedence": {
@@ -9923,7 +9924,8 @@
           "enum": [
             "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
             "ACTIVE_ALLOCATION",
-            "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING"
+            "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
+            "SYSTEM_G1_TERMINAL_PARK"
           ]
         },
         "active_alpha_allocation": {
@@ -10015,10 +10017,16 @@
           ]
         },
         "strategic_disposition": {
-          "const": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING"
+          "enum": [
+            "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
+            "SYSTEM_G1_TERMINAL_PARK"
+          ]
         },
         "action_guard": {
           "const": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY"
+        },
+        "successor_system_generation": {
+          "const": "UNALLOCATED"
         }
       }
     },
@@ -10250,7 +10258,12 @@
         "work_package",
         "authorized_phase",
         "phase_a_executed",
-        "phase_b_executed"
+        "phase_b_executed",
+        "terminal_disposition",
+        "astra_review_record",
+        "engineering_debt_record",
+        "phase_b_authorized",
+        "g2_allocated"
       ],
       "properties": {
         "work_package": {
@@ -10259,7 +10272,8 @@
         "status": {
           "enum": [
             "SYSTEM_G1_DEVELOPMENT_IMPLEMENTATION_READY_PENDING_RESEARCH_DIRECTOR_EXECUTION_REVIEW",
-            "REVIEWED"
+            "REVIEWED",
+            "CLOSED_TERMINAL_PARK"
           ]
         },
         "protocol": {
@@ -10384,6 +10398,23 @@
             "string",
             "null"
           ]
+        },
+        "terminal_disposition": {
+          "const": "SYSTEM_G1_TERMINAL_PARK"
+        },
+        "astra_review_record": {
+          "type": "string",
+          "minLength": 1
+        },
+        "engineering_debt_record": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phase_b_authorized": {
+          "const": false
+        },
+        "g2_allocated": {
+          "const": false
         }
       }
     }
