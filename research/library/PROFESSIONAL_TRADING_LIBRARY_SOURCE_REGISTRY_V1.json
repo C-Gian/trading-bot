@@ -1,0 +1,672 @@
+{
+  "registry_id": "PROFESSIONAL_TRADING_LIBRARY_SOURCE_REGISTRY_V1",
+  "created_on": "2026-09-26",
+  "authority": "decisions/ADR-0051-OWNER-DIRECTED-PROFESSIONAL-TRADING-KNOWLEDGE-BASE-STUDY.md",
+  "drive_folder_id": "1CCH0iTYb0MEFESY1RSGW2ud39zzVZtjv",
+  "file_count": 20,
+  "completeness": "INVENTORY_COMPLETE_FOR_FILES_VISIBLE_AT_INITIAL_SCAN__CORPUS_STUDY_IN_PROGRESS",
+  "status_vocabulary": [
+    "DISCOVERED",
+    "IDENTIFIED",
+    "PARTIALLY_REVIEWED",
+    "REVIEWED",
+    "DATASET_INSPECTED",
+    "UNREADABLE",
+    "DUPLICATE",
+    "EXTERNAL_REFERENCE"
+  ],
+  "sources": [
+    {
+      "source_id": "LIB-001",
+      "drive_file_id": "1_1BdgOFL6PnODB58wgLTc-Bw3KzdfJHS",
+      "filename": "Algorithmic trading & DMA _ an introduction to direct access trading strategies.pdf",
+      "title": "Algorithmic Trading & DMA: An Introduction to Direct Access Trading Strategies",
+      "authors": [
+        "Barry Johnson"
+      ],
+      "year": 2010,
+      "source_type": "BOOK",
+      "classification": "BOOK_TEXTBOOK",
+      "evidence_tier": "C",
+      "topics": [
+        "market_microstructure",
+        "execution",
+        "orders",
+        "transaction_costs",
+        "algorithmic_trading",
+        "DMA",
+        "optimal_execution"
+      ],
+      "btcusdt_relevance": "DIRECTLY_RELEVANT",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "RIGHTS_UNCLEAR_REFERENCE_ONLY_UNTIL_CLARIFIED",
+      "notes": [
+        "Scanned/image PDF; Drive text extraction is empty but rendered pages are readable.",
+        "594-page edition visually identified from title/copyright/front matter.",
+        "Particularly relevant to execution and microstructure; not evidence of BTC alpha."
+      ],
+      "related_sources": [
+        "LIB-020"
+      ]
+    },
+    {
+      "source_id": "LIB-002",
+      "drive_file_id": "1A5wxjxXAKnX7weeU0SUFkq5f7GbA8wJx",
+      "filename": "Expected returns.pdf",
+      "title": "Expected Returns: An Investor’s Guide to Harvesting Market Rewards",
+      "authors": [
+        "Antti Ilmanen"
+      ],
+      "year": 2011,
+      "source_type": "BOOK",
+      "classification": "BOOK_TEXTBOOK",
+      "evidence_tier": "C",
+      "topics": [
+        "expected_returns",
+        "risk_premia",
+        "momentum",
+        "value",
+        "carry",
+        "behavioral_finance",
+        "portfolio_construction"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "IDENTIFIED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Full text is readable through Drive.",
+        "Potentially useful for expected-return reasoning and cross-signal economic interpretation; cross-asset findings are not BTC evidence."
+      ],
+      "related_sources": []
+    },
+    {
+      "source_id": "LIB-003",
+      "drive_file_id": "13Yq37aveSXm2QdOkbpm-FaJKpCDzAER_",
+      "filename": "Quantitative trading _ how to build your own algorithmic trading business.pdf",
+      "title": "Quantitative Trading: How to Build Your Own Algorithmic Trading Business",
+      "authors": [
+        "Ernest P. Chan"
+      ],
+      "year": 2009,
+      "source_type": "BOOK",
+      "classification": "BOOK_TEXTBOOK",
+      "evidence_tier": "C",
+      "topics": [
+        "backtesting",
+        "lookahead",
+        "data_snooping",
+        "transaction_costs",
+        "execution",
+        "risk_management",
+        "strategy_refinement",
+        "regime"
+      ],
+      "btcusdt_relevance": "DIRECTLY_RELEVANT",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Reviewed sections on look-ahead, data snooping, costs and strategy refinement.",
+        "Chan permits economically motivated, simple refinement with training/test discipline; this is recorded as a methodological disagreement with López de Prado."
+      ],
+      "related_sources": [
+        "LIB-004",
+        "LIB-012",
+        "LIB-013",
+        "LIB-018"
+      ]
+    },
+    {
+      "source_id": "LIB-004",
+      "drive_file_id": "1TfhN_PXlmB1262Yz7FV3ZftYVSGQw-Aj",
+      "filename": "Systematic-Trading_-A-unique-new-method-for-designing-trading-and-investing-systems.pdf",
+      "title": "Systematic Trading: A Unique New Method for Designing Trading and Investing Systems",
+      "authors": [
+        "Robert Carver"
+      ],
+      "year": 2015,
+      "source_type": "BOOK",
+      "classification": "BOOK_TEXTBOOK",
+      "evidence_tier": "C",
+      "topics": [
+        "systematic_trading",
+        "forecast_combination",
+        "forecast_weights",
+        "volatility_targeting",
+        "position_sizing",
+        "overfitting",
+        "transaction_costs",
+        "portfolio_construction"
+      ],
+      "btcusdt_relevance": "DIRECTLY_RELEVANT",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Reviewed fitting, hand-crafted weights, combined forecasts and framework structure.",
+        "Strongly relevant to modular signal-family aggregation and robust weighting, but its futures framework must not be copied mechanically to BTC."
+      ],
+      "related_sources": [
+        "LIB-003",
+        "LIB-012"
+      ]
+    },
+    {
+      "source_id": "LIB-005",
+      "drive_file_id": "1jcH8GO-kk9YOSchsI-pC79Pimr8dVqR1",
+      "filename": "Market-Wizards_-The-Next-Generation_-The-world__039_s-top-young-traders-reveal-how-they-beat-the-mar.pdf",
+      "title": "Market Wizards: The Next Generation — The World’s Top Young Traders Reveal How They Beat the Market",
+      "authors": [
+        "Jack D. Schwager",
+        "George F. Coyle"
+      ],
+      "year": 2026,
+      "source_type": "BOOK_INTERVIEWS",
+      "classification": "BOOK_TEXTBOOK",
+      "evidence_tier": "C",
+      "topics": [
+        "trader_process",
+        "risk_management",
+        "discretionary_process",
+        "trade_selection",
+        "psychology"
+      ],
+      "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
+      "study_status": "IDENTIFIED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Bibliographic inconsistency in file: 'First published in 2025' while copyright/preface indicate 2026.",
+        "Use as practitioner-process evidence, not scientific proof."
+      ],
+      "related_sources": []
+    },
+    {
+      "source_id": "LIB-006",
+      "drive_file_id": "1YAR-alc4baagX9gRBnVrO2dyxFsv8TJo",
+      "filename": "Man_AHL_Insights_Trend_Following__Equity_and_Bond_Crisis_Alpha_English_(United_States)_30-09-2016.pdf",
+      "title": "Trend Following: Equity and Bond Crisis Alpha",
+      "authors": [
+        "Carl Hamill",
+        "Sandy Rattray",
+        "Otto van Hemert"
+      ],
+      "year": 2016,
+      "source_type": "INSTITUTIONAL_RESEARCH",
+      "classification": "INSTITUTIONAL_PRACTITIONER",
+      "evidence_tier": "B",
+      "topics": [
+        "trend_following",
+        "time_series_momentum",
+        "crisis_alpha",
+        "regime",
+        "risk"
+      ],
+      "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "INSTITUTIONAL_MATERIAL_REFERENCE_ONLY_RIGHTS_UNCLEAR",
+      "notes": [
+        "Multi-asset evidence over long historical periods; not direct BTC evidence."
+      ],
+      "related_sources": [
+        "LIB-007",
+        "LIB-008",
+        "LIB-009",
+        "LIB-010",
+        "LIB-011",
+        "LIB-015"
+      ]
+    },
+    {
+      "source_id": "LIB-007",
+      "drive_file_id": "1BGwgPnBXF2_YaFUjivsdntguIDQdR2pg",
+      "filename": "Man_AHL_Insights_Trend_Following_and_Drawdowns__Is_This_Time_Different__English_(United_States)_17-06-2025.pdf",
+      "title": "Trend Following and Drawdowns: Is This Time Different?",
+      "authors": [
+        "Russell Korgaonkar"
+      ],
+      "year": 2025,
+      "source_type": "INSTITUTIONAL_RESEARCH",
+      "classification": "INSTITUTIONAL_PRACTITIONER",
+      "evidence_tier": "B",
+      "topics": [
+        "trend_following",
+        "drawdowns",
+        "edge_decay",
+        "crowding",
+        "regime",
+        "systematic_trading"
+      ],
+      "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "INSTITUTIONAL_MATERIAL_REFERENCE_ONLY_RIGHTS_UNCLEAR",
+      "notes": [
+        "Useful practitioner evidence about strategy decay and persistence; does not establish transferability to BTC."
+      ],
+      "related_sources": [
+        "LIB-006",
+        "LIB-008",
+        "LIB-009"
+      ]
+    },
+    {
+      "source_id": "LIB-008",
+      "drive_file_id": "1xspqO4DGcziazpO9Z9h-1mc6FK5Fncoo",
+      "filename": "lasse_heje_pedersen_et_al_which_trend_is_your_friend_publishersversion.pdf",
+      "title": "Which Trend Is Your Friend?",
+      "authors": [
+        "Ari Levine",
+        "Lasse Heje Pedersen"
+      ],
+      "year": 2016,
+      "source_type": "ACADEMIC_PAPER",
+      "classification": "PEER_REVIEWED_ACADEMIC_PAPER",
+      "evidence_tier": "A",
+      "topics": [
+        "trend_following",
+        "time_series_momentum",
+        "moving_average",
+        "linear_filters",
+        "signal_representation"
+      ],
+      "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "CC_BY_AS_STATED_IN_FILE",
+      "notes": [
+        "Financial Analysts Journal 72(3), 51–66; DOI 10.2469/faj.v72.n3.3.",
+        "Shows close theoretical/empirical relationship among common linear trend filters; not intraday BTC validation."
+      ],
+      "related_sources": [
+        "LIB-009",
+        "LIB-011",
+        "LIB-015"
+      ]
+    },
+    {
+      "source_id": "LIB-009",
+      "drive_file_id": "19VKw0xmAvsgZtaPq7f2SR2zT1tPQG6Pv",
+      "filename": "AQR JPM Fall 2017.pdf",
+      "title": "A Century of Evidence on Trend-Following Investing",
+      "authors": [
+        "Brian Hurst",
+        "Yao Hua Ooi",
+        "Lasse Heje Pedersen"
+      ],
+      "year": 2017,
+      "source_type": "ACADEMIC_PAPER",
+      "classification": "PEER_REVIEWED_ACADEMIC_PAPER",
+      "evidence_tier": "A",
+      "topics": [
+        "trend_following",
+        "time_series_momentum",
+        "historical_robustness",
+        "transaction_costs",
+        "regime"
+      ],
+      "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Journal of Portfolio Management, Fall 2017.",
+        "Very long-run multi-asset monthly evidence; external evidence only for BTC."
+      ],
+      "related_sources": [
+        "LIB-006",
+        "LIB-008",
+        "LIB-010",
+        "LIB-011",
+        "LIB-015"
+      ]
+    },
+    {
+      "source_id": "LIB-010",
+      "drive_file_id": "1n6m6gjimKjiep_1IDSrrqCh5IIGDLcT-",
+      "filename": "Time Series Momentum Factors Monthly.xlsx",
+      "title": "AQR Time Series Momentum: Factors, Monthly",
+      "authors": [
+        "AQR Capital Management"
+      ],
+      "year": null,
+      "source_type": "DATASET",
+      "classification": "DATASET",
+      "evidence_tier": "A",
+      "topics": [
+        "time_series_momentum",
+        "trend_following",
+        "factor_returns",
+        "dataset"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "DATASET_INSPECTED",
+      "rights_status": "AQR_DATA_REFERENCE_ONLY_CHECK_SOURCE_TERMS_BEFORE_REDISTRIBUTION",
+      "notes": [
+        "Updated/extended TSMOM factors based on Moskowitz, Ooi & Pedersen (2012).",
+        "Monthly 12-month TSMOM, 1-month holding; columns include all-assets and CM/EQ/FI/FX.",
+        "AQR states the full history is reconstructed when returns are updated."
+      ],
+      "related_sources": [
+        "LIB-011",
+        "LIB-015"
+      ]
+    },
+    {
+      "source_id": "LIB-011",
+      "drive_file_id": "1QGGdj54WNKst45EY0AZyeISHDhDFCVyv",
+      "filename": "Time Series Momentum Original Paper Data.xlsx",
+      "title": "AQR Time Series Momentum: Original Paper Data",
+      "authors": [
+        "Tobias J. Moskowitz",
+        "Yao Hua Ooi",
+        "Lasse Heje Pedersen"
+      ],
+      "year": 2012,
+      "source_type": "DATASET",
+      "classification": "DATASET",
+      "evidence_tier": "A",
+      "topics": [
+        "time_series_momentum",
+        "trend_following",
+        "factor_returns",
+        "dataset"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "DATASET_INSPECTED",
+      "rights_status": "AQR_DATA_REFERENCE_ONLY_CHECK_SOURCE_TERMS_BEFORE_REDISTRIBUTION",
+      "notes": [
+        "Dataset states it contains TSMOM factors used in the 2012 Journal of Financial Economics paper.",
+        "Monthly excess-return factors 1985–2009 for all assets/EQ/FX/FI/CM."
+      ],
+      "related_sources": [
+        "LIB-010",
+        "LIB-015"
+      ]
+    },
+    {
+      "source_id": "LIB-012",
+      "drive_file_id": "1-PpSbPLJNNrJnPu6IVxFrVlJoY9BtuDM",
+      "filename": "Advances-in-Financial-Machine-Learning.pdf",
+      "title": "Advances in Financial Machine Learning",
+      "authors": [
+        "Marcos López de Prado"
+      ],
+      "year": 2018,
+      "source_type": "BOOK",
+      "classification": "BOOK_TEXTBOOK",
+      "evidence_tier": "C",
+      "topics": [
+        "financial_machine_learning",
+        "cross_validation",
+        "purging",
+        "embargo",
+        "backtest_overfitting",
+        "bet_sizing",
+        "microstructure",
+        "backtesting"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Reviewed chapters/sections on finance CV, purged K-fold, dangers of backtesting and backtest statistics.",
+        "Its strict view that backtesting should discard rather than iteratively improve models conflicts with Chan's refinement approach; disagreement is preserved."
+      ],
+      "related_sources": [
+        "LIB-003",
+        "LIB-013",
+        "LIB-016",
+        "LIB-017",
+        "LIB-018"
+      ]
+    },
+    {
+      "source_id": "LIB-013",
+      "drive_file_id": "1l7JxyZdx1_9go_JcyPi68-bv8izoOcKV",
+      "filename": "deflated-sharpe.pdf",
+      "title": "The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting and Non-Normality",
+      "authors": [
+        "David H. Bailey",
+        "Marcos López de Prado"
+      ],
+      "year": 2014,
+      "source_type": "ACADEMIC_PAPER",
+      "classification": "RESEARCH_METHODOLOGY",
+      "evidence_tier": "A",
+      "topics": [
+        "deflated_sharpe_ratio",
+        "multiple_testing",
+        "selection_bias",
+        "backtest_overfitting",
+        "non_normality"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Core argument and conclusion reviewed.",
+        "DSR adjusts apparent Sharpe significance for selection/multiple-testing effects and non-normal returns; requires information about unselected trials."
+      ],
+      "related_sources": [
+        "LIB-016",
+        "LIB-017",
+        "LIB-018"
+      ]
+    },
+    {
+      "source_id": "LIB-014",
+      "drive_file_id": "13QBCcNRduhNyehFAn_KxwxDEC90P2-2D",
+      "filename": "Value and Momentum Everywhere.pdf",
+      "title": "Value and Momentum Everywhere — AQR summary",
+      "authors": [
+        "AQR Capital Management"
+      ],
+      "year": 2013,
+      "source_type": "INSTITUTIONAL_SUMMARY",
+      "classification": "INSTITUTIONAL_PRACTITIONER",
+      "evidence_tier": "B",
+      "topics": [
+        "value",
+        "momentum",
+        "cross_asset",
+        "factor_premia"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "AQR_RESTRICTED_REDISTRIBUTION_REFERENCE_ONLY",
+      "notes": [
+        "This Drive artifact explicitly says it is secondary information and 'not research'; it is not treated as the underlying academic paper.",
+        "Underlying academic paper is by Asness, Moskowitz & Pedersen (Journal of Finance, 2013)."
+      ],
+      "related_sources": []
+    },
+    {
+      "source_id": "LIB-015",
+      "drive_file_id": "1uqHPWXeoYYkG_LUAW3g9wa54oOqBCZkT",
+      "filename": "Time Series Momentum.pdf",
+      "title": "Time Series Momentum — AQR summary",
+      "authors": [
+        "AQR Capital Management"
+      ],
+      "year": 2012,
+      "source_type": "INSTITUTIONAL_SUMMARY",
+      "classification": "INSTITUTIONAL_PRACTITIONER",
+      "evidence_tier": "B",
+      "topics": [
+        "time_series_momentum",
+        "trend_following",
+        "cross_asset"
+      ],
+      "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "AQR_RESTRICTED_REDISTRIBUTION_REFERENCE_ONLY",
+      "notes": [
+        "This Drive artifact is an AQR summary with a secondary-information/not-research disclaimer; not treated as the full JFE paper.",
+        "Associated 2012 paper authors: Moskowitz, Ooi & Pedersen."
+      ],
+      "related_sources": [
+        "LIB-010",
+        "LIB-011",
+        "LIB-008",
+        "LIB-009"
+      ]
+    },
+    {
+      "source_id": "LIB-016",
+      "drive_file_id": "1I6jemQFT3mbMJDq8l9VIExhHq3WRrTi5",
+      "filename": "ssrn-2249314.pdf",
+      "title": "… and the Cross-Section of Expected Returns",
+      "authors": [
+        "Campbell R. Harvey",
+        "Yan Liu",
+        "Heqing Zhu"
+      ],
+      "year": 2015,
+      "source_type": "ACADEMIC_PAPER",
+      "classification": "RESEARCH_METHODOLOGY",
+      "evidence_tier": "A",
+      "topics": [
+        "multiple_testing",
+        "factor_zoo",
+        "false_discovery",
+        "statistical_significance",
+        "data_mining"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Drive manuscript version dated April 20, 2015; later published in Review of Financial Studies.",
+        "The paper's t-statistic guidance is contextual to factor research and must not be copied as a universal Trading Bot threshold."
+      ],
+      "related_sources": [
+        "LIB-013",
+        "LIB-017",
+        "LIB-018"
+      ]
+    },
+    {
+      "source_id": "LIB-017",
+      "drive_file_id": "1X1OtPeJTP4jyVTQYhh0L2cOZRkdcTt3B",
+      "filename": "ssrn-2568435.pdf",
+      "title": "Mathematical Appendices to “The Probability of Backtest Overfitting”",
+      "authors": [
+        "David H. Bailey",
+        "Jonathan M. Borwein",
+        "Marcos López de Prado",
+        "Qiji Jim Zhu"
+      ],
+      "year": 2015,
+      "source_type": "ACADEMIC_SUPPLEMENT",
+      "classification": "RESEARCH_METHODOLOGY",
+      "evidence_tier": "A",
+      "topics": [
+        "backtest_overfitting",
+        "PBO",
+        "CSCV",
+        "simulation"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Technical supplement to LIB-018; not independent empirical evidence."
+      ],
+      "related_sources": [
+        "LIB-018"
+      ]
+    },
+    {
+      "source_id": "LIB-018",
+      "drive_file_id": "10SKN0AMgP-QfycugAn-Jpksk-EuIxrdM",
+      "filename": "ssrn-2326253.pdf",
+      "title": "The Probability of Backtest Overfitting",
+      "authors": [
+        "David H. Bailey",
+        "Jonathan M. Borwein",
+        "Marcos López de Prado",
+        "Qiji Jim Zhu"
+      ],
+      "year": 2015,
+      "source_type": "ACADEMIC_PAPER",
+      "classification": "RESEARCH_METHODOLOGY",
+      "evidence_tier": "A",
+      "topics": [
+        "backtest_overfitting",
+        "PBO",
+        "CSCV",
+        "selection_bias",
+        "cross_validation"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Core framework, limitations, practical example and conclusion reviewed.",
+        "PBO/CSCV evaluates selection overfit but does not repair flawed data timing, cost or execution assumptions and must not become the search objective."
+      ],
+      "related_sources": [
+        "LIB-013",
+        "LIB-016",
+        "LIB-017"
+      ]
+    },
+    {
+      "source_id": "LIB-019",
+      "drive_file_id": "13EVTsuQKijyJZx4Ako7V7DaL0oIDZ2zZ",
+      "filename": "Options, Futures and Other Derivatives (6th Edition).pdf",
+      "title": "Options, Futures, and Other Derivatives",
+      "authors": [
+        "John C. Hull"
+      ],
+      "year": 2006,
+      "source_type": "BOOK",
+      "classification": "BOOK_TEXTBOOK",
+      "evidence_tier": "C",
+      "topics": [
+        "derivatives",
+        "futures",
+        "options",
+        "hedging",
+        "volatility",
+        "risk",
+        "VaR"
+      ],
+      "btcusdt_relevance": "METHODOLOGY_ONLY",
+      "study_status": "IDENTIFIED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Sixth edition.",
+        "Useful as derivatives/risk background; most options-specific material is outside current product scope."
+      ],
+      "related_sources": []
+    },
+    {
+      "source_id": "LIB-020",
+      "drive_file_id": "10eSdyQLw64madko3fb3h68Ak83uRxOER",
+      "filename": "Trading and Exchanges_ Market Microstructure for Practitioners - FULL -.pdf",
+      "title": "Trading and Exchanges: Market Microstructure for Practitioners",
+      "authors": [
+        "Larry Harris"
+      ],
+      "year": 2003,
+      "source_type": "BOOK",
+      "classification": "BOOK_TEXTBOOK",
+      "evidence_tier": "C",
+      "topics": [
+        "market_microstructure",
+        "liquidity",
+        "orders",
+        "spread",
+        "execution",
+        "trader_motives",
+        "price_discovery"
+      ],
+      "btcusdt_relevance": "DIRECTLY_RELEVANT",
+      "study_status": "PARTIALLY_REVIEWED",
+      "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
+      "notes": [
+        "Full text readable.",
+        "Core professional reference for execution/microstructure concepts, not a source of BTC alpha by itself."
+      ],
+      "related_sources": [
+        "LIB-001"
+      ]
+    }
+  ]
+}
