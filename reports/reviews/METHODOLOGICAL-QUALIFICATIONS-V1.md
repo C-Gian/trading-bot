@@ -58,3 +58,61 @@ partly reflects fold/year composition rather than within-period selection skill.
 Preserved: every old V2 rejection and classification. For all future selective evaluation, the
 contrast must be matched within fold, or otherwise composition-controlled, and defined before
 outcomes (Constitution Version 3.0, "Economic and predictive quantities").
+
+
+## Q-004 — Stopped Phase-A policies do not measure unrestricted 2022 opportunity counts
+
+Scope: System G1 Phase A, especially `S0` and `S_MINUS_CYCLE`.
+
+Both policies triggered the frozen run-level drawdown stop in 2021. Their 2022 trade count of zero
+therefore describes the **executed stopped policy path**, not an unrestricted count of how many base
+setups/opportunities might otherwise have appeared in 2022.
+
+Preserved exactly: the frozen risk rule, the observed stopped paths, their negative economics and
+selection-stage rejection.
+
+This qualification does not authorize resetting/removing the stop or rerunning G1.
+
+## Q-005 — Zero executed P2 trades does not locate the P2 recognition bottleneck
+
+Scope: `SYSTEM-G1-P2-FAILED-AUCTION-REENTRY`.
+
+`S_P2_ONLY` produced zero executed/scorable trades and `S_P1_ONLY` matched `S_FULL`.
+
+This establishes that P2 contributed no full-configuration executed trade in Phase A.
+
+It does **not** establish which stage prevented execution: raw boundary excursion, re-entry,
+4h RANGE classification, participation/cycle corroboration, reward/risk admissibility, occupancy,
+data readiness or another frozen gate.
+
+No historical funnel analysis or favorable relaxation is authorized. P2's exact G1 construction is
+closed.
+
+## Q-006 — G1 conjunction ablations do not identify standalone component alpha
+
+Scope: comparisons among `S_FULL`, `S_MINUS_CYCLE`, `S_MINUS_PARTICIPATION`,
+`S_MINUS_DAILY_HTF` and `S0`.
+
+Differences in trade counts and P&L arise from different admission paths, occupancy, risk-stop
+trajectories and later system states. They are not clean causal estimates of cycle, participation or
+daily context as standalone predictors or alpha sources.
+
+Preserved: the full seven-configuration rejection and all component-role uncertainty.
+
+This qualification neither validates nor disproves those components outside their exact G1 roles.
+
+## Q-007 — Phase-A selection summary does not adjudicate continuous-forecast quality
+
+Scope: System G1 continuous 4h prediction layer.
+
+The canonical Phase-A selection artifact contains trade/configuration selection metrics but no
+complete forecast score table.
+
+Therefore no conclusion is authorized from Phase A about whether the forecaster was accurate,
+inaccurate, calibrated, uncalibrated in practice, or economically useful.
+
+Preserved: the model's declared
+`EMPIRICAL_SHRUNK_CONDITIONAL_PROBABILITY_NOT_CALIBRATED` status and the requirement that any
+future allocation score all matured forecasts separately from trade-policy economics.
+
+No extra G1 forecast run/report is authorized by this qualification.
