@@ -1,77 +1,86 @@
-## CURRENT SYSTEM G1 AUTHORITY — 2026-09-25
+## CURRENT TERMINAL PARK AUTHORITY — 2026-09-26
 
 Active Constitution: Version 4.0.
 
-Read `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`, ADR-0044 and
-`docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md`.
+Canonical mission:
+`docs/canonical/OWNER_PRODUCT_MISSION_V2.md`.
 
-The current bounded programme is System G1: continuous 15m predictions, selective
-LONG/SHORT/NO_TRADE paper decisions, exactly two initial playbooks, shared multi-timeframe state and
-causal replay.
+Strategic disposition:
+`SYSTEM_G1_TERMINAL_PARK` under ADR-0050.
 
-The predecessor ADR-0042 parked decision and Candidate #1 rejection remain historical evidence.
+System G1 is closed at `SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE`.
+System G2 is unallocated. Phase B is forbidden. Active strategy/alpha/system research allocation is
+zero.
 
-No historical System G1 market-performance run is authorized until a later Research Director task.
-Checkpoint 1 (ADR-0045) and the cycle quality gate (ADR-0046, cycle = active component) are
-accepted. The frozen Development V1 implementation is executor-complete; the current task is the
-review-only `RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1`: Phase A ran once (ADR-0048) with disposition `SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE`. The historical G1 runner refuses
-until the state explicitly authorizes it, and executor market work is forbidden.
-The action guard fails closed on `current_project_status.validated_strategy = null` (NO_TRADE).
+The reusable web-app/data/replay/ledger architecture is preserved, but there is no validated
+trading policy. Production/live action must remain `NO_TRADE`.
+
+No market experiment, configuration/playbook/model search, source search, prospective strategy
+collection or engineering optimization is active.
+
+Reopening requires a written material changed case and Astra strategic approval. Real capital
+always requires explicit Owner authorization.
 
 # AGENTS.md — Trading Bot Operating Protocol
 
 ## Current operative status — read before anything else
 
-Alpha research is **parked**:
-`PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS`
-([ADR-0042](decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md); Candidate #1 closed as
-`CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED`, [ADR-0041](decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md)).
-The canonical machine-readable truth is `state/current_state.json` → `current_project_status`,
-which takes precedence over every historical top-level field it lists (old prediction-first,
-ALIGNED, selected-family, phase, runner and prospective-collection values are history, not
-instructions).
+Strategy/system research is **parked** at:
 
-- Active alpha allocation is zero; there is no active Candidate and Candidate Card #2 is
-  unallocated.
-- No Candidate, model, source, feature, horizon, R&D, confirmation or prospective-collection work
-  is authorized, and no old roadmap, generation or lineage may be resumed.
-- `NO_TRADE` is the honest current action output; the app reports parked / no validated
-  strategy.
-- A new market-research allocation requires a written reopening dossier establishing a material
-  changed case (ADR-0042 triggers) **and** Astra approval. A material product, risk or resource
-  scope change may also require Owner approval.
-- Real capital remains forbidden without a separate explicit Owner authorization.
-- `tasks/CURRENT_TASK.md` is `PARKED-NO-ACTIVE-RESEARCH-TASK`: there is no executor work.
+`SYSTEM_G1_TERMINAL_PARK`
+
+([ADR-0050](decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md)).
+
+The canonical machine-readable truth is `state/current_state.json -> current_project_status`, which
+takes precedence over historical top-level fields and older programme summaries.
+
+- System G1: closed / selection-stage rejected.
+- System G2: unallocated.
+- Active alpha/system allocation: zero.
+- Phase B: forbidden.
+- Champion: NONE.
+- Validated strategy: NONE.
+- Production action: NO_TRADE.
+- Prospective strategy collection: not authorized.
+- Real money: false.
+- `tasks/CURRENT_TASK.md` is `PARKED-NO-ACTIVE-RESEARCH-TASK`.
+
+The Owner Product Mission V2 remains active. Parking is a research-allocation state, not a rollback
+to the old LONG-only predecessor mission.
 
 ## Mission
 
-Trading Bot is a research-first project intended to become a practical, reproducible BTC
-spot `LONG` / `NO_TRADE` paper system (Constitution Version 3.0, ADR-0036). Its final product
-advancement objective is practical, risk-constrained economic usefulness, demonstrated by
-frozen prospective economic confirmation. `NO_TRADE` is a valid operational output and a valid
-permanent project outcome.
+Trading Bot is intended to become a professional, interpretable BTC paper-trading web application
+under Owner Product Mission V2.
 
-Governed sequence:
-`PLAUSIBLE MECHANISM -> EXPLICIT PLAYBOOK -> BOUNDED HISTORICAL DEVELOPMENT -> PROMOTION GATE -> FROZEN PROSPECTIVE ECONOMIC CONFIRMATION`
-(`docs/canonical/RESEARCH_STAGE_POLICY_V1.md`). Historical development is exposed exploratory
-evidence and never becomes fresh confirmation through rescoring or renaming.
+The intended product remains:
+
+- continuous candle-level market prediction;
+- selective `LONG / SHORT / NO_TRADE` decisions;
+- multi-timeframe market/signal state including cyclical context;
+- causal historical replay;
+- visible prediction and trade annotations;
+- realistic risk/execution accounting;
+- local web app first;
+- paper only unless a future explicit Owner decision authorizes real capital.
+
+The project is not a search for one isolated alpha anomaly and is not an unconstrained indicator or
+model tournament.
+
+Statistics is the evaluator and anti-overfitting guardrail.
+
+Current research parking means only that no validated active trading policy has earned deployment
+and no successor allocation is justified under the present evidence. It does not alter the Owner
+mission or convert G1 into a live strategy.
 
 Decision hierarchy:
 
-- the Owner controls mission, evaluation principles, product/risk objective and real capital;
-- Astra is the strategic scientific authority for material research-allocation decisions;
-- the ChatGPT Research Director owns routine scientific design, architecture, tasking,
-  implementation review, experiment adjudication and ordinary decisions inside Astra's
-  directive;
-- Claude Code is the sole coding / repository implementation executor. Codex is not part of
-  the normal implementation workflow.
+- Owner: mission, product/risk/resource scope and real capital;
+- Astra: material research allocation / reopening / successor generation;
+- ChatGPT Research Director: routine science, architecture, governance and interpretation;
+- Claude Code: engineering executor when an active task authorizes implementation.
 
-Where a playbook uses a prediction, prediction quality remains a distinct quantity.
-Directional win rate is a primary human-facing metric and is never interpreted alone. It
-is always reported with sample size and coverage, alongside calibration, magnitude error,
-predeclared baselines and dependence-aware uncertainty.
-
-Real money is forbidden unless a future explicit Owner gate authorizes it.
+Real money is forbidden without explicit Owner authorization.
 
 ## Read order at the start of every work package
 
