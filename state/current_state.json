@@ -2740,8 +2740,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,
@@ -2810,7 +2810,8 @@
       "decisions/ADR-0045-ACCEPT-G1-CHECKPOINT-1-AND-FREEZE-CYCLE-QUALITY-GATE.md",
       "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
       "decisions/ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md",
-      "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md"
+      "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
+      "decisions/ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md"
     ],
     "astra_decision": "ASTRA_PROFESSIONAL_TRADING_SYSTEM_STRATEGIC_ARCHITECTURE_V1",
     "constitution_version": "4.0",
@@ -2824,8 +2825,8 @@
     "market_trial_authorized": false,
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
-    "research_task_active": false,
-    "automatic_next_research_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
+    "research_task_active": true,
+    "automatic_next_research_package": "ASTRA-SYSTEM-G1-POST-PHASE-A-STRATEGIC-REVIEW",
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
@@ -2943,7 +2944,7 @@
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
-    "next_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
+    "next_work_package": "ASTRA-SYSTEM-G1-POST-PHASE-A-STRATEGIC-REVIEW",
     "authorized_phase": null,
     "phase_a_executed": true,
     "phase_b_executed": false,
@@ -2951,6 +2952,7 @@
     "phase_a_artifact_sha256": "375c3a9720ea93467af60b0af44a4bf2a58d42ed314c3001669e93ad35f03655",
     "phase_a_selected_configuration": null,
     "phase_a_disposition": "SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE",
-    "phase_a_checkpoint_report": "reports/checkpoints/EXECUTE-SYSTEM-G1-PHASE-A-V1.md"
+    "phase_a_checkpoint_report": "reports/checkpoints/EXECUTE-SYSTEM-G1-PHASE-A-V1.md",
+    "selected_configuration": null
   }
 }
