@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "NONE",
+  "next_recommended_work_package": "PROFESSIONAL-TRADING-KNOWLEDGE-BASE-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -2740,8 +2740,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,
@@ -2796,7 +2796,7 @@
     "real_money": false,
     "archived_task": "tasks/archive/EXECUTE-SYSTEM-G1-PHASE-A-V1.md",
     "active_task": "tasks/CURRENT_TASK.md",
-    "next_work_package": "NONE",
+    "next_work_package": "PROFESSIONAL-TRADING-KNOWLEDGE-BASE-V1",
     "project_state": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
     "latest_reviewed_checkpoint_report": "reports/checkpoints/SYSTEM-G1-TERMINAL-PARK-CLOSURE-V1.md"
   },
@@ -2812,7 +2812,8 @@
       "decisions/ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md",
       "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
       "decisions/ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md",
-      "decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md"
+      "decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md",
+      "decisions/ADR-0051-OWNER-DIRECTED-PROFESSIONAL-TRADING-KNOWLEDGE-BASE-STUDY.md"
     ],
     "astra_decision": "ASTRA_SYSTEM_G1_POST_PHASE_A_STRATEGIC_REVIEW_V1",
     "constitution_version": "4.0",
@@ -2826,8 +2827,8 @@
     "market_trial_authorized": false,
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
-    "research_task_active": false,
-    "automatic_next_research_package": null,
+    "research_task_active": true,
+    "automatic_next_research_package": "PROFESSIONAL-TRADING-KNOWLEDGE-BASE-V1",
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
