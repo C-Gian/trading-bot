@@ -93,3 +93,38 @@ System G1 allocation is finite:
 - at most seven predeclared historical development configurations;
 - no automatic G2;
 - no historical performance run until the Research Director freezes and authorizes it.
+
+
+## System G1 terminal disposition — 2026-09-26
+
+Astra's post-Phase-A review is adopted by ADR-0050.
+
+Current strategic disposition:
+
+`SYSTEM_G1_TERMINAL_PARK`
+
+System G1 remains `SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE`.
+
+- G1 Phase B: forbidden / not executed.
+- G2: unallocated.
+- active strategy/system research allocation: zero.
+- Champion: NONE.
+- validated strategy: NONE.
+- operational action: NO_TRADE.
+- real money: false.
+
+The Owner Product Mission V2 remains unchanged.
+
+No weighted-score successor, forecast-entry integration, replacement P2, new exit geometry,
+threshold/period rescue, component-removal rescue or fitted ensemble receives current allocation.
+
+2023-2024 remain locked against new system evaluation under the present allocation and are not
+declared pristine sealed confirmation.
+
+Parked reusable engineering debt:
+
+- phase-bounded source I/O;
+- exact-semantic forecaster/runtime optimization for practical replay.
+
+Reopening requires a documented material changed case and Astra approval. A new indicator/model,
+generic paper, elapsed time or renewed enthusiasm is insufficient.
