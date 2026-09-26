@@ -55,25 +55,30 @@ Use explicit per-source statuses:
 - DUPLICATE
 - EXTERNAL_REFERENCE
 
-## Study order
+## Study protocol
 
-Proceed progressively:
+Follow:
 
-1. research methodology / backtest hygiene;
-2. systematic design / forecast combination;
-3. market microstructure / execution / transaction costs;
-4. risk / expected returns / sizing;
-5. trend and time-series-momentum evidence;
-6. trader process / discretionary-professional reasoning;
-7. financial ML only where it materially improves validation or interpretable decision architecture.
+`research/library/PROFESSIONAL_TRADING_LIBRARY_LINEAR_STUDY_PROTOCOL_V2.md`
 
-For every material source claim distinguish:
+Primary reading is now strictly linear by source registry order:
 
-- SOURCE CLAIM
-- RESEARCH DIRECTOR INTERPRETATION
-- TESTABLE PROJECT IMPLICATION
+`LIB-001 -> LIB-020`.
 
-Do not force contradictory sources into agreement.
+Each source must be studied independently and receive its own persistent dossier before final
+cross-source synthesis.
+
+Do not group primary reading by topic.
+
+The thematic work already completed on LIB-006, LIB-007, LIB-008, LIB-009 and LIB-015 remains valid,
+but individual dossiers must still be created for those sources.
+
+No final signal weights, professional-trader architecture or System G2 design before corpus
+completion.
+
+After all source dossiers are complete, perform one final cross-source synthesis and then send that
+dossier set + synthesis to Astra for independent challenge. Astra may reopen original sources
+selectively where needed.
 
 ## Owner Mission V2 precedence
 
