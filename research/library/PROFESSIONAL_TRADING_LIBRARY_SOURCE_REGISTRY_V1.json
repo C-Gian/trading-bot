@@ -467,11 +467,13 @@
         "factor_premia"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "AQR_RESTRICTED_REDISTRIBUTION_REFERENCE_ONLY",
       "notes": [
-        "This Drive artifact explicitly says it is secondary information and 'not research'; it is not treated as the underlying academic paper.",
-        "Underlying academic paper is by Asness, Moskowitz & Pedersen (Journal of Finance, 2013)."
+        "Complete local Drive artifact reviewed on 2026-09-26.",
+        "This file is a two-page AQR secondary-information summary, explicitly marked 'not research'; it is not the full underlying academic paper.",
+        "Dossier: research/library/source_notes/LIB-014-VALUE-AND-MOMENTUM-EVERYWHERE.md",
+        "No numeric Trading Bot weight, BTC transfer claim, or parameter is derived from this artifact."
       ],
       "related_sources": []
     },
