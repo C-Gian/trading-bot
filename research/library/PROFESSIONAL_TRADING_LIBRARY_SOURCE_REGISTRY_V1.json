@@ -660,11 +660,14 @@
         "price_discovery"
       ],
       "btcusdt_relevance": "DIRECTLY_RELEVANT",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Full text readable.",
-        "Core professional reference for execution/microstructure concepts, not a source of BTC alpha by itself."
+        "Complete connected Drive source reviewed across all 29 chapters on 2026-09-26.",
+        "Deep review concentrated on orders, trader motives, informed/technical trading, manipulation, dealer/adverse-selection mechanics, value/arbitrage, buy-side execution, liquidity, volatility, transaction-cost measurement, and performance evaluation.",
+        "Dossier: research/library/source_notes/LIB-020-TRADING-AND-EXCHANGES-MARKET-MICROSTRUCTURE.md",
+        "2003 institutional/venue specifics are treated as historical; durable microstructure mechanisms are separated from current BTC/Binance claims.",
+        "No numeric Trading Bot signal weight or BTC profitability claim is derived from this source."
       ],
       "related_sources": [
         "LIB-001"
