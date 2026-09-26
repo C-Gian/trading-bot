@@ -450,7 +450,7 @@
     "zero_shift_effect_observed": false
   },
   "historical_discovery_status": "SUPERSEDED_BY_OWNER_PREDICTION_FIRST_OBJECTIVE",
-  "latest_executor_checkpoint": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
+  "latest_executor_checkpoint": "EXECUTE-SYSTEM-G1-PHASE-A-V1",
   "latest_family": {
     "name": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1",
     "novelty_classification": "NEW_FAMILY",
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1",
+  "next_recommended_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -2225,7 +2225,7 @@
       "CROSS_SECTIONAL_COMMON_EFFECT_REPLICATION",
       "PROSPECTIVE_EVIDENCE_COLLECTION"
     ],
-    "next_checkpoint": "EXECUTE_SYSTEM_G1_PHASE_A_V1",
+    "next_checkpoint": "RESEARCH_DIRECTOR_SYSTEM_G1_PHASE_A_ADJUDICATION_V1",
     "paper_strategy_semantics_changed": false,
     "primary_next_direction": "FREE_PUBLIC_EXCHANGE_NATIVE_HORIZON_FOUNDATION",
     "product_universe": "BTCUSDT_SPOT_V1_UNCHANGED",
@@ -2387,7 +2387,7 @@
     "unquantified_pre_repo_exposure": true,
     "version": "P0_STATISTICAL_GOVERNANCE_V1"
   },
-  "status": "REVIEWED",
+  "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
   "superseded_prospective_evidence": {
     "contract": "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1.md",
     "evidence_migrated": false,
@@ -2680,8 +2680,8 @@
   },
   "governance_transition_v3": {
     "checkpoint": "GOVERNANCE-TRANSITION-AND-CANDIDATE-ADMISSION-V1",
-    "checkpoint_report": "reports/checkpoints/IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1.md",
-    "status": "REVIEWED",
+    "checkpoint_report": "reports/checkpoints/EXECUTE-SYSTEM-G1-PHASE-A-V1.md",
+    "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
     "decision_records": [
       "decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md",
       "decisions/ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md",
@@ -2794,9 +2794,9 @@
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
-    "archived_task": "tasks/archive/FIX-SYSTEM-G1-INCOMPLETE-BAR-RECURSIVE-STATE-V1.md",
+    "archived_task": "tasks/archive/EXECUTE-SYSTEM-G1-PHASE-A-V1.md",
     "active_task": "tasks/CURRENT_TASK.md",
-    "next_work_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1",
+    "next_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
     "project_state": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
     "latest_reviewed_checkpoint_report": "reports/checkpoints/IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1.md"
   },
@@ -2824,8 +2824,8 @@
     "market_trial_authorized": false,
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
-    "research_task_active": true,
-    "automatic_next_research_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1",
+    "research_task_active": false,
+    "automatic_next_research_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
@@ -2876,7 +2876,7 @@
     "implementation_validation": "reports/validation/SYSTEM-G1-CHECKPOINT-1-IMPLEMENTATION-VALIDATION.json",
     "cycle_synthetic_diagnostics": "reports/research/SYSTEM-G1-CYCLE-SYNTHETIC-DIAGNOSTICS-V1.json",
     "archived_task": "tasks/archive/SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE.md",
-    "next_work_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1",
+    "next_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
     "implementation_package": "backend/app/g1",
     "evidence_class": "SYNTHETIC_FIXTURE_NOT_MARKET_EVIDENCE",
     "cycle_status": "SYNTHETIC_QUALITY_GATE_ACCEPTED_ACTIVE_COMPONENT_IMPLEMENTATION_PENDING",
@@ -2911,7 +2911,7 @@
     "p1_p2_performance_computed": false,
     "forecaster_fitted": false,
     "sealed_queries": 0,
-    "next_work_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1"
+    "next_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1"
   },
   "system_g1_development": {
     "work_package": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
@@ -2935,17 +2935,22 @@
       "S_P2_ONLY"
     ],
     "cycle_method": "ACTIVE_COMPONENT",
-    "historical_execution_authorized": true,
+    "historical_execution_authorized": false,
     "execution_authorization_record": "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
-    "real_g1_outcomes_inspected": false,
-    "forecaster_real_fitted": false,
-    "p1_p2_real_performance_computed": false,
+    "real_g1_outcomes_inspected": true,
+    "forecaster_real_fitted": true,
+    "p1_p2_real_performance_computed": true,
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
-    "next_work_package": "EXECUTE-SYSTEM-G1-PHASE-A-V1",
-    "authorized_phase": "A",
-    "phase_a_executed": false,
-    "phase_b_executed": false
+    "next_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
+    "authorized_phase": null,
+    "phase_a_executed": true,
+    "phase_b_executed": false,
+    "phase_a_artifact": "research/experiments/SYSTEM-G1-DEVELOPMENT-V1/PHASE-A-SELECTION.json",
+    "phase_a_artifact_sha256": "375c3a9720ea93467af60b0af44a4bf2a58d42ed314c3001669e93ad35f03655",
+    "phase_a_selected_configuration": null,
+    "phase_a_disposition": "SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE",
+    "phase_a_checkpoint_report": "reports/checkpoints/EXECUTE-SYSTEM-G1-PHASE-A-V1.md"
   }
 }

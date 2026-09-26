@@ -62,6 +62,8 @@ PREDICTIVE_EXPERIMENTS = {
 # `state.governance_transition_v3` (ADR-0040); they are neither legacy cost-expectancy nor
 # predictive experiments.
 PLAYBOOK_EXPERIMENTS = {"CANDIDATE-1-DEVELOPMENT-V1"}
+# Constitution 4.0 System G1 Development batch (ADR-0048): its own guarded run directory.
+SYSTEM_G1_EXPERIMENTS = {"SYSTEM-G1-DEVELOPMENT-V1"}
 # ADR-0042: the definitive parked alpha-research disposition.
 PARKED = "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS"
 # The frozen predictive foundation: it fits nothing, and the guard below proves it.
@@ -186,6 +188,7 @@ def validate_experiments(state: dict, results: list[Path]) -> None:
         | set(WP017_EXPERIMENTS.values())
         | PREDICTIVE_EXPERIMENTS
         | {name for name in PLAYBOOK_EXPERIMENTS if name in directories}
+        | {name for name in SYSTEM_G1_EXPERIMENTS if name in directories}
     )
     assert set(WP006_SPEC) == set(WP006_EXPERIMENTS)
     assert len(results) == state["experiments_completed"] == 26

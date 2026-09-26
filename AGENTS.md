@@ -14,7 +14,7 @@ The predecessor ADR-0042 parked decision and Candidate #1 rejection remain histo
 No historical System G1 market-performance run is authorized until a later Research Director task.
 Checkpoint 1 (ADR-0045) and the cycle quality gate (ADR-0046, cycle = active component) are
 accepted. The frozen Development V1 implementation is executor-complete; the current task is the
-review-only `RESEARCH-DIRECTOR-G1-INCOMPLETE-BAR-FIX-REVIEW-V1` (ADR-0047 correction). The historical G1 runner refuses
+review-only `RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1`: Phase A ran once (ADR-0048) with disposition `SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE`. The historical G1 runner refuses
 until the state explicitly authorizes it, and executor market work is forbidden.
 The action guard fails closed on `current_project_status.validated_strategy = null` (NO_TRADE).
 
