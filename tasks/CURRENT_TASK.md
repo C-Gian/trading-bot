@@ -1,80 +1,66 @@
-# CURRENT TASK — ASTRA-SYSTEM-G1-POST-PHASE-A-STRATEGIC-REVIEW
+# CURRENT TASK — PARKED-NO-ACTIVE-RESEARCH-TASK
 
-Status: SYSTEM_G1_REJECTED_PENDING_ASTRA — EXECUTOR MARKET WORK FORBIDDEN
+Status: SYSTEM_G1_TERMINAL_PARK — NO EXECUTOR WORK AUTHORIZED
 
-## Authority
+## Canonical authority
 
+- `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`
 - Constitution 4.0
+- `reports/strategic/ASTRA_SYSTEM_G1_POST_PHASE_A_STRATEGIC_REVIEW_V1.md`
 - `decisions/ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md`
-- `research/experiments/SYSTEM-G1-DEVELOPMENT-V1/PHASE-A-SELECTION.json`
+- `decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md`
+- `state/current_state.json -> current_project_status`
 
-## Canonical result
+## Current truth
 
-System G1 Phase A (2021-2022 selection) inspected all seven frozen configurations.
+- System G1: CLOSED / `SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE`
+- strategic disposition: `SYSTEM_G1_TERMINAL_PARK`
+- System G2: UNALLOCATED
+- active strategy/system research allocation: 0
+- Phase B: FORBIDDEN
+- validated strategy: NONE
+- Champion: NONE
+- operational action: NO_TRADE
+- prospective strategy collection: NOT AUTHORIZED
+- real money: false
+- sealed queries: 0
 
-Selected configuration:
+## No active work
 
-`NONE`
+Do not:
 
-Disposition:
+- run market experiments;
+- inspect Phase B / 2023-2024 system economics;
+- rerun or rescue G1;
+- create G2;
+- search new playbooks/components/models/sources;
+- compute a G1 funnel;
+- optimize thresholds/stops/targets/timeframes;
+- implement the parked engineering debts;
+- start prospective collection;
+- place real or paper strategy orders.
 
-`SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE`
+The application/replay/data/ledger infrastructure is preserved but no G1 policy is active.
 
-Phase B / 2023-2024 configuration economics were not computed and are not authorized.
+## Parked engineering debt
 
-## Strategic question for Astra
+Recorded only:
 
-The Owner's clarified product mission remains:
+`reports/engineering/SYSTEM-G1-PARKED-ENGINEERING-DEBT-V1.md`
 
-a professional, interpretable BTC multi-signal trader with continuous prediction and selective
-LONG/SHORT/NO_TRADE decisions.
+- phase-bounded source I/O;
+- exact-semantic forecaster/runtime optimization.
 
-System G1 as frozen did not earn access to its evaluation period.
+These are not active tasks.
 
-Astra must decide the next strategic disposition without rescuing G1 post hoc.
+## Reopening
 
-The review must distinguish at least:
+A future research allocation requires:
 
-1. permissive G1 variants generated enough trades but materially negative economics;
-2. full corroboration variants produced positive but scientifically unusable 3-4 trade samples;
-3. P2 generated zero trades;
-4. P1 dominated all actual S_FULL trades;
-5. conjunction-heavy corroboration appears to collapse opportunity frequency;
-6. no Phase B evidence exists;
-7. source-layer phase I/O hygiene and forecaster runtime should be improved only if a successor
-   programme is authorized.
+1. a written material changed-case dossier; and
+2. Astra strategic approval.
 
-## Required Astra output
+A material Owner mission/risk/resource change may additionally require Owner approval.
+Real capital always requires explicit Owner authorization.
 
-Choose one strategic path:
-
-### A. SYSTEM_G1_TERMINAL_PARK
-
-No successor system generation is justified under the current product/data/resource envelope.
-
-### B. SYSTEM_G2_BOUNDED_ARCHITECTURAL_SUCCESSOR
-
-Authorize exactly one bounded successor generation only if G1 exposed a correctable **architectural**
-failure rather than merely disappointing performance.
-
-If B, Astra must define:
-
-- what scientific lesson from G1 justifies G2;
-- what remains unchanged from Owner Mission V2;
-- which G1 mechanisms are closed and may not be rescued;
-- whether P1/P2 roles survive, are replaced, or are redefined;
-- how to avoid conjunction-driven sparsity without lowering standards after seeing results;
-- whether continuous prediction should be better integrated with trade actionability;
-- a finite playbook/component/search budget;
-- stage structure and stop condition;
-- whether the 2023-2024 locked period remains untouched for a future G2 evaluation or requires a
-  newly defined development/evaluation partition;
-- required source-I/O and runtime architecture fixes before further market work.
-
-Do not propose a menu of many strategies.
-
-Do not authorize Claude to run market experiments in the Astra report.
-
-No Phase B, G2 implementation or market data read is authorized by this task.
-
-Champion NONE. Validated strategy NONE. Production action NO_TRADE. Real money false.
+No scheduled retry or automatic review is authorized.
