@@ -2811,12 +2811,13 @@
       "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
       "decisions/ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md",
       "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
-      "decisions/ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md"
+      "decisions/ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md",
+      "decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md"
     ],
-    "astra_decision": "ASTRA_PROFESSIONAL_TRADING_SYSTEM_STRATEGIC_ARCHITECTURE_V1",
+    "astra_decision": "ASTRA_SYSTEM_G1_POST_PHASE_A_STRATEGIC_REVIEW_V1",
     "constitution_version": "4.0",
-    "disposition": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
-    "active_alpha_allocation": 1,
+    "disposition": "SYSTEM_G1_TERMINAL_PARK",
+    "active_alpha_allocation": 0,
     "active_candidate": null,
     "candidate_1": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
     "candidate_2": "UNALLOCATED",
@@ -2825,16 +2826,28 @@
     "market_trial_authorized": false,
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
-    "research_task_active": true,
-    "automatic_next_research_package": "ASTRA-SYSTEM-G1-POST-PHASE-A-STRATEGIC-REVIEW",
+    "research_task_active": false,
+    "automatic_next_research_package": null,
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
     "reopening": {
-      "previous_park": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
-      "trigger": "OWNER_PRODUCT_MISSION_V2_MATERIAL_SCOPE_CHANGE",
-      "strategic_approval": "ADR-0044_SYSTEM_G1_ARCHITECTURE_ADOPTED",
-      "next_astra_review": "AFTER_SYSTEM_G1_ADJUDICATION_OR_MATERIAL_ARCHITECTURE_IMPASSE",
+      "previous_active_generation": "SYSTEM_G1",
+      "terminal_disposition": "SYSTEM_G1_TERMINAL_PARK",
+      "required_dossier": "WRITTEN_MATERIAL_CHANGED_CASE",
+      "required_strategic_approval": "ASTRA",
+      "valid_trigger_examples": [
+        "INDEPENDENTLY_SUBSTANTIATED_ARCHITECTURAL_CONTRADICTION_WITH_SPECIFIC_CORRECTION",
+        "RELEVANT_EXTERNAL_EVIDENCE_FOR_FULLY_SPECIFIED_MATERIALLY_DISTINCT_SYSTEM",
+        "OWNER_APPROVED_MATERIAL_MISSION_OR_RESOURCE_CHANGE"
+      ],
+      "insufficient_triggers": [
+        "NEW_INDICATOR_OR_MODEL",
+        "GENERIC_TRADING_PAPER",
+        "ELAPSED_TIME",
+        "RENEWED_INTEREST",
+        "ATTRACTIVE_WEIGHTING_SCHEME"
+      ],
       "owner_decision_required_for_real_capital": true
     },
     "disabled_action_paths": [
@@ -2863,12 +2876,13 @@
       "predictive_research_objective",
       "predictive_generation_v2_objective"
     ],
-    "closure_artifact": "reports/checkpoints/FINAL-PARKED-STATE-RECONCILIATION-V1.md",
-    "preservation_manifest": "reports/handover/PARKED-STATE-PRESERVATION-MANIFEST-V1.md",
-    "active_system_generation": "SYSTEM_G1",
+    "closure_artifact": "reports/checkpoints/SYSTEM-G1-TERMINAL-PARK-CLOSURE-V1.md",
+    "preservation_manifest": "reports/handover/SYSTEM-G1-TERMINAL-PARK-PRESERVATION-V1.md",
+    "active_system_generation": null,
     "architecture": "docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md",
-    "strategic_disposition": "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
-    "action_guard": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY"
+    "strategic_disposition": "SYSTEM_G1_TERMINAL_PARK",
+    "action_guard": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY",
+    "successor_system_generation": "UNALLOCATED"
   },
   "system_g1_checkpoint_1": {
     "checkpoint": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
@@ -2877,7 +2891,7 @@
     "implementation_validation": "reports/validation/SYSTEM-G1-CHECKPOINT-1-IMPLEMENTATION-VALIDATION.json",
     "cycle_synthetic_diagnostics": "reports/research/SYSTEM-G1-CYCLE-SYNTHETIC-DIAGNOSTICS-V1.json",
     "archived_task": "tasks/archive/SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE.md",
-    "next_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
+    "next_work_package": "NONE",
     "implementation_package": "backend/app/g1",
     "evidence_class": "SYNTHETIC_FIXTURE_NOT_MARKET_EVIDENCE",
     "cycle_status": "SYNTHETIC_QUALITY_GATE_ACCEPTED_ACTIVE_COMPONENT_IMPLEMENTATION_PENDING",
@@ -2912,11 +2926,11 @@
     "p1_p2_performance_computed": false,
     "forecaster_fitted": false,
     "sealed_queries": 0,
-    "next_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1"
+    "next_work_package": "NONE"
   },
   "system_g1_development": {
     "work_package": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
-    "status": "REVIEWED",
+    "status": "CLOSED_TERMINAL_PARK",
     "protocol": "research/protocols/SYSTEM-G1-DEVELOPMENT-V1.md",
     "protocol_canonical_sha256": "db0024f1e07fac631bf61c186e6486f0feeb806e23e1dacc3508254dc4dffa88",
     "decision_record": "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
@@ -2944,7 +2958,7 @@
     "sealed_queries": 0,
     "champion_status": "NONE",
     "real_money": false,
-    "next_work_package": "ASTRA-SYSTEM-G1-POST-PHASE-A-STRATEGIC-REVIEW",
+    "next_work_package": "NONE",
     "authorized_phase": null,
     "phase_a_executed": true,
     "phase_b_executed": false,
@@ -2953,6 +2967,11 @@
     "phase_a_selected_configuration": null,
     "phase_a_disposition": "SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE",
     "phase_a_checkpoint_report": "reports/checkpoints/EXECUTE-SYSTEM-G1-PHASE-A-V1.md",
-    "selected_configuration": null
+    "selected_configuration": null,
+    "terminal_disposition": "SYSTEM_G1_TERMINAL_PARK",
+    "astra_review_record": "reports/strategic/ASTRA_SYSTEM_G1_POST_PHASE_A_STRATEGIC_REVIEW_V1.md",
+    "engineering_debt_record": "reports/engineering/SYSTEM-G1-PARKED-ENGINEERING-DEBT-V1.md",
+    "phase_b_authorized": false,
+    "g2_allocated": false
   }
 }
