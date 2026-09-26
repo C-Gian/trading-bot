@@ -458,7 +458,7 @@
     "root_family": "FAM-CFTC-REGULATED-FUTURES-POSITIONING",
     "terminal_classification": "REJECT"
   },
-  "latest_reviewed_checkpoint": "IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1",
+  "latest_reviewed_checkpoint": "SYSTEM-G1-TERMINAL-PARK-CLOSURE-V1",
   "legacy_research_generation": {
     "adr": "decisions/ADR-0026-PREDICTION-FIRST-RESEARCH-OBJECTIVE.md",
     "aligned_historical_results_changed": false,
@@ -478,7 +478,7 @@
     "iso8601": "PT24H",
     "minutes": 1440
   },
-  "next_recommended_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
+  "next_recommended_work_package": "NONE",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
     "content_hash": "d16a5e18d19a9fe30a58ce24999d001d11bf3168d59703b8afd09552632464e5",
@@ -2387,7 +2387,7 @@
     "unquantified_pre_repo_exposure": true,
     "version": "P0_STATISTICAL_GOVERNANCE_V1"
   },
-  "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_REVIEW",
+  "status": "REVIEWED",
   "superseded_prospective_evidence": {
     "contract": "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1.md",
     "evidence_migrated": false,
@@ -2740,8 +2740,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,
@@ -2796,9 +2796,9 @@
     "real_money": false,
     "archived_task": "tasks/archive/EXECUTE-SYSTEM-G1-PHASE-A-V1.md",
     "active_task": "tasks/CURRENT_TASK.md",
-    "next_work_package": "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
+    "next_work_package": "NONE",
     "project_state": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
-    "latest_reviewed_checkpoint_report": "reports/checkpoints/IMPLEMENT-SYSTEM-G1-DEVELOPMENT-V1.md"
+    "latest_reviewed_checkpoint_report": "reports/checkpoints/SYSTEM-G1-TERMINAL-PARK-CLOSURE-V1.md"
   },
   "current_project_status": {
     "precedence": "CANONICAL_CURRENT_STATUS_OVERRIDES_EVERY_HISTORICAL_TOP_LEVEL_FIELD",
