@@ -221,6 +221,62 @@ profitable on BTCUSDT at the product's decision horizon after costs.
 Therefore trend remains professional prior knowledge / potential signal-family evidence, not a
 validated Trading Bot edge.
 
+
+## M-009 — Stable base weights vs uncertain empirical adjustment
+
+### Source says
+
+Carver's portfolio/forecast-combination framework deliberately prefers stable, robust weights over
+point-estimate optimisation. He groups correlated rules, uses handcrafted/bootstrap-informed
+allocations, and treats differences in expected Sharpe differently depending on how certain the
+information is.
+
+A particularly relevant distinction is:
+
+- differences arising from relatively knowable quantities such as trading costs can justify a
+  material weight adjustment;
+- historical performance differences are much less certain and therefore receive smaller
+  adjustments;
+- with insufficient historical evidence he recommends no historical-Sharpe adjustment at all.
+
+This is not the same as the Owner's proposed `peso_base + peso2` architecture, but it is a close
+professional precedent for separating a stable structural allocation from a cautious empirical
+correction.
+
+### Director interpretation
+
+A future signal-family architecture should avoid allowing noisy historical P&L to rewrite the
+professional importance hierarchy.
+
+A useful conceptual separation is:
+
+`base_importance`
+
+derived from source-grounded role/importance,
+
+versus
+
+`empirical_adjustment`
+
+which should be bounded by evidence quality and effective sample size.
+
+The amount of allowed adjustment should itself depend on certainty; "we observed a few winning
+trades" is much weaker evidence than a known cost/execution disadvantage.
+
+### Provisional Trading Bot implication
+
+Do not optimize unrestricted signal weights.
+
+When the knowledge map is mature, investigate:
+
+- fixed or very stable family-level base importance;
+- explicit family role (direction / confirmation / timing / context / risk / veto);
+- dynamic signal strength/quality/relevance;
+- only a bounded second-order empirical modifier whose admissible magnitude depends on evidence
+  quality and search history.
+
+No numeric bound is frozen yet.
+
 ## Next study blocks
 
 Continue without market experimentation:
