@@ -57,3 +57,5 @@
 - [ADR-0047 — G1 implementation review: incomplete-bar correction required](ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md)
 
 - [ADR-0048 — Authorize System G1 Phase A only](ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md)
+
+- [ADR-0049 — Adjudicate System G1 Phase A selection-stage rejection](ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md)
