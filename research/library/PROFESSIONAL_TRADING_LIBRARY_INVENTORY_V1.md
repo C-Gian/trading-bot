@@ -23,8 +23,8 @@ Initial scan found:
 The corpus includes:
 
 - 8 professional books/textbooks/interview books;
-- 5 academic/research-method papers or supplements;
-- 5 institutional/academic trend/value artifacts;
+- 6 academic/research-method papers or supplements;
+- 4 institutional practitioner/secondary research artifacts;
 - 2 documented numeric datasets.
 
 No exact duplicate file has been identified in the initial scan.
