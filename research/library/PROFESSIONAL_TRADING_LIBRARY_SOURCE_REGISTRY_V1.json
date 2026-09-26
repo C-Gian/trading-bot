@@ -334,12 +334,15 @@
         "dataset"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "DATASET_INSPECTED",
+      "study_status": "REVIEWED",
       "rights_status": "AQR_DATA_REFERENCE_ONLY_CHECK_SOURCE_TERMS_BEFORE_REDISTRIBUTION",
       "notes": [
-        "Updated/extended TSMOM factors based on Moskowitz, Ooi & Pedersen (2012).",
-        "Monthly 12-month TSMOM, 1-month holding; columns include all-assets and CM/EQ/FI/FX.",
-        "AQR states the full history is reconstructed when returns are updated."
+        "Complete workbook reviewed on 2026-09-26: all four worksheets, all 497 monthly observations, embedded Definitions/Data Sources/Disclosures objects, continuity and missing-value audit.",
+        "Dossier: research/library/source_notes/LIB-010-TIME-SERIES-MOMENTUM-FACTORS-MONTHLY.md",
+        "Dataset covers monthly TSMOM excess-return factors from 1985-01 through 2026-05 for all assets, CM, EQ, FI and FX.",
+        "Workbook states this is an updated and extended version of the 2012 factors, with possible data-source/methodology differences, and that AQR reconstructs the full history whenever returns are updated.",
+        "Pinned local SHA-256: 33470930e2269c0d97be4732ec2d9c27ddbc69ac8133b059a263e27400263eeb.",
+        "No BTC parameter, signal weight, or strategy is derived from this external dataset."
       ],
       "related_sources": [
         "LIB-011",
