@@ -495,11 +495,14 @@
         "cross_asset"
       ],
       "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "AQR_RESTRICTED_REDISTRIBUTION_REFERENCE_ONLY",
       "notes": [
-        "This Drive artifact is an AQR summary with a secondary-information/not-research disclaimer; not treated as the full JFE paper.",
-        "Associated 2012 paper authors: Moskowitz, Ooi & Pedersen."
+        "Complete local Drive artifact reviewed on 2026-09-26.",
+        "This file is a two-page AQR secondary-information summary, explicitly marked 'not research'; it is not the full underlying academic paper.",
+        "Dossier: research/library/source_notes/LIB-015-TIME-SERIES-MOMENTUM.md",
+        "The source reports 12-month own-return predictability across 58 futures/forward contracts over more than 25 years, with about one year of persistence and later partial reversal.",
+        "No BTC horizon, signal weight, execution rule, or parameter is derived from this artifact."
       ],
       "related_sources": [
         "LIB-010",
