@@ -1,12 +1,10 @@
 # NEW CHAT BOOTSTRAP — Trading Bot
 
-> **Current System G1 programme:** active Constitution is Version 4.0. Read
-> `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`, ADR-0044,
-> `docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md`, current state and
-> `tasks/CURRENT_TASK.md`. The old parked programme remains historical evidence; no System G1
-> historical performance execution is authorized unless the current task explicitly says so.
-> Checkpoint 1 (synthetic vertical slice) awaits Research Director review; the action guard fails
-> closed on a null `validated_strategy`.
+> **Current canonical state:** `SYSTEM_G1_TERMINAL_PARK` under ADR-0050.
+> Owner Product Mission V2 remains active. System G1 is closed, System G2 is unallocated,
+> Phase B is forbidden, active research allocation is zero, and production action is
+> `NO_TRADE`. Read `state/current_state.json` and `tasks/CURRENT_TASK.md` before interpreting
+> any older programme text.
 
 Purpose: make a new ChatGPT conversation recover the project from repository truth without
 depending on the previous chat transcript.
@@ -16,26 +14,28 @@ the files below at the current `main` HEAD.
 
 ## Current operative status — read before anything else
 
-Alpha research is **parked**:
-`PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS`
-([ADR-0042](../../decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md); Candidate #1 closed as
-`CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED`, [ADR-0041](../../decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md)).
-The canonical machine-readable truth is `state/current_state.json` → `current_project_status`,
-which takes precedence over every historical top-level field it lists (old prediction-first,
-ALIGNED, selected-family, phase, runner and prospective-collection values are history, not
-instructions).
+Research is **parked**:
 
-- Active alpha allocation is zero; there is no active Candidate and Candidate Card #2 is
-  unallocated.
-- No Candidate, model, source, feature, horizon, R&D, confirmation or prospective-collection work
-  is authorized, and no old roadmap, generation or lineage may be resumed.
-- `NO_TRADE` is the honest current action output; the app reports parked / no validated
-  strategy.
-- A new market-research allocation requires a written reopening dossier establishing a material
-  changed case (ADR-0042 triggers) **and** Astra approval. A material product, risk or resource
-  scope change may also require Owner approval.
-- Real capital remains forbidden without a separate explicit Owner authorization.
-- `tasks/CURRENT_TASK.md` is `PARKED-NO-ACTIVE-RESEARCH-TASK`: there is no executor work.
+`SYSTEM_G1_TERMINAL_PARK`
+
+([ADR-0050](../../decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md)).
+
+The canonical machine-readable truth is `state/current_state.json -> current_project_status`.
+
+- G1 closed at `SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE`.
+- G2 unallocated.
+- no Phase B;
+- no active market experiment/search/confirmation;
+- no validated strategy or Champion;
+- production action `NO_TRADE`;
+- no real capital.
+- `tasks/CURRENT_TASK.md` is `PARKED-NO-ACTIVE-RESEARCH-TASK`.
+
+The Owner Product Mission V2 remains canonical: professional BTC multi-signal paper system,
+continuous prediction, `LONG / SHORT / NO_TRADE`, multi-timeframe context and causal replay.
+
+Reopening requires a written material changed case and Astra approval. A new indicator/model,
+generic paper, elapsed time or renewed interest is insufficient.
 
 ## Mandatory bootstrap order
 
@@ -104,10 +104,14 @@ one Owner execution/validation step per cycle is the default target.
 
 ## Safety / research boundaries
 
-- BTC spot `LONG` / `NO_TRADE` only unless the Owner explicitly changes product scope.
-- Paper only; no real capital. `NO_TRADE` is a valid permanent outcome.
-- Historical development is exposed exploratory evidence; prospective confirmation is earned
-  only through the Promotion Gate and must resolve its economic MESI within <= 12 months.
-- Sealed/post-cutoff data remains inaccessible to development research.
-- Champion remains NONE until an admissible result explicitly changes it.
-- Search memory never resets merely because a new generation or chat begins.
+- Owner Product Mission V2 remains the active product scope: BTC-focused professional multi-signal
+  paper system with `LONG / SHORT / NO_TRADE`.
+- Current research allocation is zero under `SYSTEM_G1_TERMINAL_PARK`.
+- G1 Phase B and automatic G2/G3 are forbidden.
+- Historical development/search memory remains exposed evidence and never becomes fresh
+  confirmation through renaming/rescoring.
+- 2023-2024 remain locked against new system evaluation under the present allocation and are not
+  relabeled pristine sealed confirmation.
+- post-cutoff data remains protected.
+- Champion remains NONE.
+- Real money remains forbidden without explicit Owner authorization.
