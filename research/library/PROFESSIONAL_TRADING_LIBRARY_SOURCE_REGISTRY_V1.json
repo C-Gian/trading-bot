@@ -663,11 +663,11 @@
       "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Complete connected Drive source reviewed across all 29 chapters on 2026-09-26.",
-        "Deep review concentrated on orders, trader motives, informed/technical trading, manipulation, dealer/adverse-selection mechanics, value/arbitrage, buy-side execution, liquidity, volatility, transaction-cost measurement, and performance evaluation.",
-        "Dossier: research/library/source_notes/LIB-020-TRADING-AND-EXCHANGES-MARKET-MICROSTRUCTURE.md",
-        "2003 institutional/venue specifics are treated as historical; durable microstructure mechanisms are separated from current BTC/Binance claims.",
-        "No numeric Trading Bot signal weight or BTC profitability claim is derived from this source."
+        "Complete 657-page accessible PDF reviewed on 2026-09-26, covering all 29 chapters plus full-document visual scan.",
+        "Operationally critical chapters on orders, informed trading, dealers/spreads, value traders, buy-side execution, liquidity, volatility, transaction costs, and performance prediction were studied in greater depth.",
+        "Dossier: research/library/source_notes/LIB-020-TRADING-AND-EXCHANGES-MARKET-MICROSTRUCTURE-FOR-PRACTITIONERS.md",
+        "Conceptual microstructure/execution reference only: no BTC alpha, numeric signal weight, or parameter is derived from this source.",
+        "Specific market-structure and technology examples reflect circa-2003 markets and require modern crypto-specific verification before implementation."
       ],
       "related_sources": [
         "LIB-001"
