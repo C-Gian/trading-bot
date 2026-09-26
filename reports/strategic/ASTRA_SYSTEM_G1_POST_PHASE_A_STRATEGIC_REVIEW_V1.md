@@ -1,5 +1,7 @@
 # ASTRA_SYSTEM_G1_POST_PHASE_A_STRATEGIC_REVIEW_V1
 
+> **Repository archival note:** this file is a condensed faithful repository record of the Astra strategic review received by the Research Director on 2026-09-26. ADR-0050 is the operative adoption decision; this record preserves the disposition, reasoning boundaries and handoff required for repository bootstrap.
+
 Date: 2026-09-26
 Reviewed reference: `3bd3ad293c5affcc549e51c0f01b002d14efe37e`
 Review type: strategic scientific allocation; no implementation or market execution.
