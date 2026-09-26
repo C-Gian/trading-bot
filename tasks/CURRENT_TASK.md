@@ -1,66 +1,151 @@
-# CURRENT TASK — PARKED-NO-ACTIVE-RESEARCH-TASK
+# CURRENT TASK — PROFESSIONAL-TRADING-KNOWLEDGE-BASE-V1
 
-Status: SYSTEM_G1_TERMINAL_PARK — NO EXECUTOR WORK AUTHORIZED
+Status: RESEARCH-DIRECTOR-CORPUS-STUDY-ACTIVE — MARKET EXECUTION FORBIDDEN
 
-## Canonical authority
+## Authority
 
-- `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`
+- Owner Product Mission V2
 - Constitution 4.0
-- `reports/strategic/ASTRA_SYSTEM_G1_POST_PHASE_A_STRATEGIC_REVIEW_V1.md`
-- `decisions/ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md`
 - `decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md`
+- `decisions/ADR-0051-OWNER-DIRECTED-PROFESSIONAL-TRADING-KNOWLEDGE-BASE-STUDY.md`
+- user-supplied professional-library study specification
 - `state/current_state.json -> current_project_status`
 
-## Current truth
+## Purpose
 
-- System G1: CLOSED / `SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE`
-- strategic disposition: `SYSTEM_G1_TERMINAL_PARK`
+Build a professional trading knowledge base before designing any successor system.
+
+The Google Drive folder `Trading` is the primary private corpus.
+
+The Research Director owns:
+
+1. complete source inventory and provenance;
+2. progressive full-source study;
+3. evidence-tier classification;
+4. methodology/research-hygiene extraction;
+5. contradictions and uncertainty registry;
+6. topic and BTC-relevance maps;
+7. professional signal-family / decision-process knowledge map;
+8. later synthesis into a source-grounded architecture proposal.
+
+## Current corpus state
+
+Initial Drive inventory:
+
+- 20 accessible files;
+- 18 PDFs;
+- 2 Excel datasets.
+
+Canonical records:
+
+- `research/library/PROFESSIONAL_TRADING_LIBRARY_SOURCE_REGISTRY_V1.json`
+- `research/library/PROFESSIONAL_TRADING_LIBRARY_INVENTORY_V1.md`
+- `research/library/PROFESSIONAL_TRADING_LIBRARY_METHODOLOGY_NOTES_V1.md`
+
+Inventory complete does NOT mean study complete.
+
+Use explicit per-source statuses:
+
+- DISCOVERED
+- IDENTIFIED
+- PARTIALLY_REVIEWED
+- REVIEWED
+- DATASET_INSPECTED
+- UNREADABLE
+- DUPLICATE
+- EXTERNAL_REFERENCE
+
+## Study order
+
+Proceed progressively:
+
+1. research methodology / backtest hygiene;
+2. systematic design / forecast combination;
+3. market microstructure / execution / transaction costs;
+4. risk / expected returns / sizing;
+5. trend and time-series-momentum evidence;
+6. trader process / discretionary-professional reasoning;
+7. financial ML only where it materially improves validation or interpretable decision architecture.
+
+For every material source claim distinguish:
+
+- SOURCE CLAIM
+- RESEARCH DIRECTOR INTERPRETATION
+- TESTABLE PROJECT IMPLICATION
+
+Do not force contradictory sources into agreement.
+
+## Owner Mission V2 precedence
+
+Any older LONG/NO_TRADE / 1h-only scope text embedded in the supplied library-study prompt is
+historical and does not override Owner Product Mission V2.
+
+The active product mission remains:
+
+- BTC-focused;
+- professional multi-signal;
+- continuous prediction;
+- LONG / SHORT / NO_TRADE;
+- multi-timeframe context including cycles;
+- causal replay;
+- local web application;
+- paper only.
+
+## Absolute prohibitions
+
+This task does NOT authorize:
+
+- G1 rescue or rerun;
+- System G2;
+- Phase B;
+- reading 2023-2024 configuration economics;
+- BTC market experiments/backtests;
+- parameter optimization;
+- trial/configuration tournaments;
+- new strategy implementation;
+- prospective strategy collection;
+- real or paper strategy orders;
+- real capital.
+
+Active alpha/system market allocation remains zero.
+
+## Engineering / executor status
+
+No Claude Code implementation task is active.
+
+Repository/documentation updates needed to preserve the knowledge study may be performed by the
+Research Director.
+
+The parked forecaster-runtime and phase-bounded-I/O debts remain parked.
+
+## Required progressive outputs
+
+Maintain:
+
+1. source registry;
+2. inventory/classification/evidence map;
+3. methodology notes;
+4. source-specific study notes;
+5. knowledge/topic map;
+6. contradictions/uncertainties;
+7. missing-knowledge map;
+8. research-rule candidates.
+
+Only after sufficient corpus coverage:
+
+- draft a professional signal-family and decision-process architecture;
+- derive any candidate base-importance framework from sources rather than arbitrary backtest fitting;
+- send the synthesized knowledge base/architecture to Astra for independent scientific challenge.
+
+Astra is reviewer, not primary corpus librarian.
+
+## Current operational truth
+
+- System G1: CLOSED / TERMINAL PARK
 - System G2: UNALLOCATED
-- active strategy/system research allocation: 0
-- Phase B: FORBIDDEN
+- active market research allocation: 0
+- knowledge-base study: ACTIVE
 - validated strategy: NONE
 - Champion: NONE
 - operational action: NO_TRADE
-- prospective strategy collection: NOT AUTHORIZED
 - real money: false
-- sealed queries: 0
-
-## No active work
-
-Do not:
-
-- run market experiments;
-- inspect Phase B / 2023-2024 system economics;
-- rerun or rescue G1;
-- create G2;
-- search new playbooks/components/models/sources;
-- compute a G1 funnel;
-- optimize thresholds/stops/targets/timeframes;
-- implement the parked engineering debts;
-- start prospective collection;
-- place real or paper strategy orders.
-
-The application/replay/data/ledger infrastructure is preserved but no G1 policy is active.
-
-## Parked engineering debt
-
-Recorded only:
-
-`reports/engineering/SYSTEM-G1-PARKED-ENGINEERING-DEBT-V1.md`
-
-- phase-bounded source I/O;
-- exact-semantic forecaster/runtime optimization.
-
-These are not active tasks.
-
-## Reopening
-
-A future research allocation requires:
-
-1. a written material changed-case dossier; and
-2. Astra strategic approval.
-
-A material Owner mission/risk/resource change may additionally require Owner approval.
-Real capital always requires explicit Owner authorization.
-
-No scheduled retry or automatic review is authorized.
