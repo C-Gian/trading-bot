@@ -9921,11 +9921,19 @@
           "const": "4.0"
         },
         "disposition": {
-          "enum": [
-            "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
-            "ACTIVE_ALLOCATION",
-            "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
-            "SYSTEM_G1_TERMINAL_PARK"
+          "anyOf": [
+            {
+              "enum": [
+                "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
+                "ACTIVE_ALLOCATION",
+                "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
+                "SYSTEM_G1_TERMINAL_PARK"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^G2_[A-Z0-9_]+$"
+            }
           ]
         },
         "active_alpha_allocation": {
@@ -10017,16 +10025,27 @@
           ]
         },
         "strategic_disposition": {
-          "enum": [
-            "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
-            "SYSTEM_G1_TERMINAL_PARK"
+          "anyOf": [
+            {
+              "enum": [
+                "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING",
+                "SYSTEM_G1_TERMINAL_PARK"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^G2_[A-Z0-9_]+$"
+            }
           ]
         },
         "action_guard": {
           "const": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY"
         },
         "successor_system_generation": {
-          "const": "UNALLOCATED"
+          "enum": [
+            "UNALLOCATED",
+            "G2_DEVELOPMENT_SYSTEM_ALLOCATED"
+          ]
         }
       }
     },
@@ -10417,6 +10436,83 @@
           "const": false
         }
       }
+    },
+    "g2_development_system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "strategic_authority",
+        "adoption_adr",
+        "current_work_package",
+        "development_budget",
+        "evidence_status",
+        "market_backtest_authorized",
+        "protected_evaluation_authorized",
+        "future_paper_authorized",
+        "real_money_authorized"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "pattern": "^G2_[A-Z0-9_]+$"
+        },
+        "strategic_authority": {
+          "type": "string",
+          "pattern": "^reports/strategic/[A-Z0-9_.-]+\\.md$"
+        },
+        "adoption_adr": {
+          "type": "string",
+          "pattern": "^decisions/ADR-[0-9]{4}-[A-Z0-9-]+\\.md$"
+        },
+        "current_work_package": {
+          "type": "string",
+          "pattern": "^G2-[A-Z0-9-]+$"
+        },
+        "development_budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "baseline_versions",
+            "max_substantive_revisions",
+            "total_eligible_versions",
+            "reserved_cycle_revision",
+            "max_group_ablations"
+          ],
+          "properties": {
+            "baseline_versions": {
+              "const": 1
+            },
+            "max_substantive_revisions": {
+              "const": 4
+            },
+            "total_eligible_versions": {
+              "const": 5
+            },
+            "reserved_cycle_revision": {
+              "const": 1
+            },
+            "max_group_ablations": {
+              "const": 2
+            }
+          }
+        },
+        "evidence_status": {
+          "const": "DEVELOPMENT_SYSTEM_ONLY_NOT_VALIDATED_STRATEGY"
+        },
+        "market_backtest_authorized": {
+          "type": "boolean"
+        },
+        "protected_evaluation_authorized": {
+          "type": "boolean"
+        },
+        "future_paper_authorized": {
+          "type": "boolean"
+        },
+        "real_money_authorized": {
+          "const": false
+        }
+      }
     }
   },
   "required": [
@@ -10486,7 +10582,8 @@
     "current_project_status",
     "system_g1_checkpoint_1",
     "system_g1_cycle_quality_gate",
-    "system_g1_development"
+    "system_g1_development",
+    "g2_development_system"
   ],
   "type": "object"
 }

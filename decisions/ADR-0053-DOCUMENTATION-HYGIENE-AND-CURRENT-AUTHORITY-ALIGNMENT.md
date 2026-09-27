@@ -23,6 +23,8 @@ The pre-cleanup tree remains recoverable at commit `0038c4d94f5569eb97353137051b
 
 Compaction changes context/navigation cost only. It does not change the scientific meaning of prior evidence.
 
+The maintenance also repairs the project-state schema so the already-adopted G2 values validate, and reorders `current_state.json` to place `current_project_status` first without changing any state value.
+
 ## Current authority
 
 Live state remains `state/current_state.json -> current_project_status`; current work remains `tasks/CURRENT_TASK.md`.

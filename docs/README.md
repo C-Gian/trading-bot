@@ -4,7 +4,7 @@ This file exists to minimize context usage and prevent stale documents from bein
 
 ## Read first
 
-- `../state/current_state.json` — live machine-readable project status.
+- `../state/current_state.json` — live machine-readable project status; `current_project_status` is intentionally the first block so ordinary bootstrap need not ingest the historical remainder.
 - `../tasks/CURRENT_TASK.md` — only active work package.
 - `canonical/OWNER_PRODUCT_MISSION_V2.md` — Owner product mission.
 - `../governance/SCIENTIFIC_CONSTITUTION.md` — scientific governance.

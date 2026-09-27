@@ -6,7 +6,7 @@ Purpose: recover the project from repository truth with minimum context.
 
 1. resolve current `main` HEAD;
 2. read `AGENTS.md`;
-3. read `state/current_state.json -> current_project_status`;
+3. read only the leading `state/current_state.json -> current_project_status` block first; the file is ordered for this purpose;
 4. read `tasks/CURRENT_TASK.md`;
 5. read `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`;
 6. read `governance/SCIENTIFIC_CONSTITUTION.md`;

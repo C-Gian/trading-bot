@@ -6,7 +6,7 @@ Do not infer current status from historical reports, archived tasks or old archi
 
 Read in this order:
 
-1. `state/current_state.json -> current_project_status`
+1. `state/current_state.json -> current_project_status` (this block is deliberately first in the JSON; do not read the historical remainder unless needed)
 2. `tasks/CURRENT_TASK.md`
 3. `docs/canonical/OWNER_PRODUCT_MISSION_V2.md`
 4. `governance/SCIENTIFIC_CONSTITUTION.md`

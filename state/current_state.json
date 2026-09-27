@@ -1,4 +1,161 @@
 {
+  "current_project_status": {
+    "precedence": "CANONICAL_CURRENT_STATUS_OVERRIDES_EVERY_HISTORICAL_TOP_LEVEL_FIELD",
+    "authority": [
+      "decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md",
+      "decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md",
+      "decisions/ADR-0043-OWNER-PROFESSIONAL-MULTISIGNAL-LONG-SHORT-MISSION.md",
+      "decisions/ADR-0044-ADOPT-SYSTEM-G1-PROFESSIONAL-MULTISIGNAL-ARCHITECTURE.md",
+      "decisions/ADR-0045-ACCEPT-G1-CHECKPOINT-1-AND-FREEZE-CYCLE-QUALITY-GATE.md",
+      "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
+      "decisions/ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md",
+      "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
+      "decisions/ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md",
+      "decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md",
+      "decisions/ADR-0051-OWNER-DIRECTED-PROFESSIONAL-TRADING-KNOWLEDGE-BASE-STUDY.md",
+      "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md"
+    ],
+    "astra_decision": "ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2",
+    "constitution_version": "4.0",
+    "disposition": "G2_00_KNOWLEDGE_TO_CONTRACTS",
+    "active_alpha_allocation": 0,
+    "active_candidate": null,
+    "candidate_1": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
+    "candidate_2": "UNALLOCATED",
+    "validated_strategy": null,
+    "operational_action_output": "NO_TRADE",
+    "market_trial_authorized": false,
+    "confirmation_authorized": false,
+    "prospective_collection_authorized": false,
+    "research_task_active": true,
+    "automatic_next_research_package": "G2-00-KNOWLEDGE-TO-CONTRACTS-V1",
+    "champion_status": "NONE",
+    "real_money_authorized": false,
+    "sealed_queries": 0,
+    "reopening": {
+      "previous_active_generation": "SYSTEM_G1",
+      "terminal_disposition": "SYSTEM_G1_TERMINAL_PARK",
+      "required_dossier": "WRITTEN_MATERIAL_CHANGED_CASE",
+      "required_strategic_approval": "ASTRA",
+      "valid_trigger_examples": [
+        "INDEPENDENTLY_SUBSTANTIATED_ARCHITECTURAL_CONTRADICTION_WITH_SPECIFIC_CORRECTION",
+        "RELEVANT_EXTERNAL_EVIDENCE_FOR_FULLY_SPECIFIED_MATERIALLY_DISTINCT_SYSTEM",
+        "OWNER_APPROVED_MATERIAL_MISSION_OR_RESOURCE_CHANGE"
+      ],
+      "insufficient_triggers": [
+        "NEW_INDICATOR_OR_MODEL",
+        "GENERIC_TRADING_PAPER",
+        "ELAPSED_TIME",
+        "RENEWED_INTEREST",
+        "ATTRACTIVE_WEIGHTING_SCHEME"
+      ],
+      "owner_decision_required_for_real_capital": true,
+      "status": "SATISFIED_FOR_G2_DEVELOPMENT_SYSTEM",
+      "satisfied_by": [
+        "docs/canonical/OWNER_PRODUCT_MISSION_V2.md",
+        "research/library/PROFESSIONAL_TRADING_LIBRARY_SOURCE_REGISTRY_V1.json",
+        "reports/strategic/ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2.md",
+        "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md"
+      ]
+    },
+    "disabled_action_paths": [
+      "POST /api/v1/product/analysis -> NO_TRADE without strategy evaluation (validated_strategy is null)",
+      "POST /api/v1/product/paper-trades -> 409 (validated_strategy is null)",
+      "POST /api/v1/research/runner/runs -> 409 (legacy runner not authorized)"
+    ],
+    "active_project_internal_alpha_schedules": [],
+    "historical_top_level_fields": [
+      "project_phase",
+      "primary_research_phase",
+      "historical_discovery_status",
+      "status",
+      "latest_executor_checkpoint",
+      "latest_reviewed_checkpoint",
+      "next_recommended_work_package",
+      "selected_family",
+      "latest_family",
+      "product_analysis",
+      "paper_trading",
+      "prospective_collection",
+      "prospective_collection_operating_policy",
+      "prospective_shadow_observer",
+      "research_architecture",
+      "research_runner",
+      "predictive_research_objective",
+      "predictive_generation_v2_objective"
+    ],
+    "closure_artifact": "reports/checkpoints/SYSTEM-G1-TERMINAL-PARK-CLOSURE-V1.md",
+    "preservation_manifest": "reports/handover/SYSTEM-G1-TERMINAL-PARK-PRESERVATION-V1.md",
+    "active_system_generation": "G2_DEVELOPMENT_SYSTEM",
+    "architecture": "PENDING_G2_00_CONTRACT_FREEZE",
+    "strategic_disposition": "G2_00_KNOWLEDGE_TO_CONTRACTS",
+    "action_guard": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY",
+    "successor_system_generation": "G2_DEVELOPMENT_SYSTEM_ALLOCATED"
+  },
+  "g2_development_system": {
+    "status": "G2_00_KNOWLEDGE_TO_CONTRACTS",
+    "strategic_authority": "reports/strategic/ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2.md",
+    "adoption_adr": "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md",
+    "current_work_package": "G2-00-KNOWLEDGE-TO-CONTRACTS-V1",
+    "development_budget": {
+      "baseline_versions": 1,
+      "max_substantive_revisions": 4,
+      "total_eligible_versions": 5,
+      "reserved_cycle_revision": 1,
+      "max_group_ablations": 2
+    },
+    "evidence_status": "DEVELOPMENT_SYSTEM_ONLY_NOT_VALIDATED_STRATEGY",
+    "market_backtest_authorized": false,
+    "protected_evaluation_authorized": false,
+    "future_paper_authorized": false,
+    "real_money_authorized": false
+  },
+  "project_name": "Trading Bot",
+  "schema_version": 3,
+  "project_phase": "PREDICTIVE_RESEARCH",
+  "status": "REVIEWED",
+  "champion_status": "NONE",
+  "real_money_authorized": false,
+  "owner_decision_required": false,
+  "development_cutoff": "2024-12-31T23:59:00Z",
+  "development_dataset": {
+    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
+    "coverage": {
+      "end": "2024-12-31T23:59:00Z",
+      "start": "2017-08-17T04:00:00Z"
+    },
+    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
+    "manifest_sha256": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
+    "status": "VALIDATED"
+  },
+  "experiments_completed": 26,
+  "paper_trades_completed": 0,
+  "forward_evidence": "NONE",
+  "backtest_substrate": {
+    "cost_model_version": "BTCUSDT_SPOT_COST_V1",
+    "engine_version": "BACKTEST_ENGINE_V2",
+    "execution_model_version": "EXECUTION_MODEL_V2",
+    "gap_artifact": {
+      "id": "BTCUSDT-SPOT-1M-DEV-v1-GAPS",
+      "sha256": "eaaed86d83897bc47479bbe71fea8775a72c248473a0e205bf4afee9cb551007"
+    },
+    "status": "VALIDATED",
+    "synthetic_validation": {
+      "status": "PASS",
+      "suite_hash": "ca71d3b8b64e3d4cc6d0dcbe1f4df7d96fa1979be6d9d8a957f59dbb9b9db819"
+    }
+  },
+  "canonical_resolution": "1m",
+  "signal_timeframe": "1h",
+  "regime_timeframe": "4h",
+  "max_holding_horizon": {
+    "iso8601": "PT24H",
+    "minutes": 1440
+  },
+  "directions": [
+    "LONG",
+    "NO_TRADE"
+  ],
   "adaptive_challenger": {
     "ablation_sealed_eligibility": "NOT_ELIGIBLE_INCONCLUSIVE",
     "ablation_terminal_classification": "INCONCLUSIVE",
@@ -91,20 +248,6 @@
     "validation_folds": 5,
     "version": "BITCOIN_WIKIPEDIA_ATTENTION_SHOCK_V1"
   },
-  "backtest_substrate": {
-    "cost_model_version": "BTCUSDT_SPOT_COST_V1",
-    "engine_version": "BACKTEST_ENGINE_V2",
-    "execution_model_version": "EXECUTION_MODEL_V2",
-    "gap_artifact": {
-      "id": "BTCUSDT-SPOT-1M-DEV-v1-GAPS",
-      "sha256": "eaaed86d83897bc47479bbe71fea8775a72c248473a0e205bf4afee9cb551007"
-    },
-    "status": "VALIDATED",
-    "synthetic_validation": {
-      "status": "PASS",
-      "suite_hash": "ca71d3b8b64e3d4cc6d0dcbe1f4df7d96fa1979be6d9d8a957f59dbb9b9db819"
-    }
-  },
   "build_provenance": {
     "clean_worktree_required": true,
     "evidence_migration_required": false,
@@ -134,7 +277,6 @@
     "supersedes_status": "SUPERSEDED_BEFORE_FIRST_REAL_OBSERVATION",
     "version": "BUILD_PROVENANCE_V1_1"
   },
-  "canonical_resolution": "1m",
   "cftc_positioning_challenger": {
     "actual_model_fits": 10,
     "cftc_canonical_eligible_rows": 351,
@@ -158,7 +300,6 @@
     "validation_folds": 5,
     "version": "CFTC_LEVERAGED_POSITIONING_CONTEXT_V1"
   },
-  "champion_status": "NONE",
   "contextual_interaction_challenger": {
     "actual_model_fits": 12,
     "context_version": "NFCI_CONTEXT_V1",
@@ -339,21 +480,6 @@
     "target_power": 0.8,
     "version": "P2_CYCLE_POWER_GATE_V1"
   },
-  "development_cutoff": "2024-12-31T23:59:00Z",
-  "development_dataset": {
-    "content_hash": "02168b73d8513d825978cdde3cc133e466b4aebcc0aaa48fecfb473de6e3acb2",
-    "coverage": {
-      "end": "2024-12-31T23:59:00Z",
-      "start": "2017-08-17T04:00:00Z"
-    },
-    "manifest_id": "BTCUSDT-SPOT-1M-DEV-v1",
-    "manifest_sha256": "4689559959b8b2ed1bd604925e52b817dfe1d79aee184bd1212fb3bd00eede04",
-    "status": "VALIDATED"
-  },
-  "directions": [
-    "LONG",
-    "NO_TRADE"
-  ],
   "exogenous_acquisition_pause": {
     "pause_reason": "PAUSED_FOR_PRODUCT_PRIORITY",
     "pilot_expected_requests": 10,
@@ -363,8 +489,6 @@
     "version": "GDELT_NEWS_CONTEXT_V1_1",
     "wp009_finalized": false
   },
-  "experiments_completed": 26,
-  "forward_evidence": "NONE",
   "funding_context_challenger": {
     "actual_model_fits": 10,
     "control": "INTERNAL_HGBR_MATCHED_FUNDING",
@@ -474,10 +598,6 @@
     "results_rewritten": false,
     "transfers_as_predictive_evidence": false
   },
-  "max_holding_horizon": {
-    "iso8601": "PT24H",
-    "minutes": 1440
-  },
   "next_recommended_work_package": "PROFESSIONAL-TRADING-KNOWLEDGE-BASE-V1",
   "observed_material_historical_hypotheses": 12,
   "order_flow_substrate": {
@@ -488,7 +608,6 @@
     "status": "VALIDATED",
     "version": "BTCUSDT-SPOT-ORDERFLOW-DEV-v1"
   },
-  "owner_decision_required": false,
   "owner_economic_policy": {
     "annual_net_excess_return_mesi_percentage_points": 5,
     "buy_and_hold_role": "SECONDARY_PRODUCT_BENCHMARK",
@@ -497,7 +616,6 @@
     "real_money_authorized": false,
     "reference_capital_eur": 5000
   },
-  "paper_trades_completed": 0,
   "paper_trading": {
     "causal_entry_validation": "PASS_SYNTHETIC",
     "champion_status": "NONE",
@@ -1956,8 +2074,6 @@
     "version": "PAPER_RESEARCH_ANALYSIS_V1"
   },
   "product_surface": "LOCAL_WEB_APP",
-  "project_name": "Trading Bot",
-  "project_phase": "PREDICTIVE_RESEARCH",
   "prospective_collection": {
     "activation_mode": "LOCAL_BACKEND_START_ONLY",
     "early_review_conditions": [
@@ -2109,7 +2225,6 @@
     "verified_build_required_for_decision": true,
     "version": "PROSPECTIVE_SHADOW_PAPER_OBSERVER_V1_1"
   },
-  "real_money_authorized": false,
   "regime_conditioned_challenger": {
     "control": "GLOBAL_SINGLE_EXPERT_MATCHED",
     "family_status": "PARKED_REJECTED_NO_TUNING_AUTHORIZED",
@@ -2123,7 +2238,6 @@
     "terminal_classification": "REJECT_COST_DOMINATED",
     "version": "REGIME_CONDITIONED_LINEAR_EXPERTS_V1"
   },
-  "regime_timeframe": "4h",
   "remote_ci": {
     "policy": "Authoritative current remote CI truth per work package, linked to immutable evidence. Historical checkpoint reports are never rewritten when a once-pending external fact resolves.",
     "work_packages": {
@@ -2292,7 +2406,6 @@
     "wp017_runtime": "RESEARCH_RUNTIME_V2_BATCH",
     "wp017_status": "REVIEWED_REJECTED"
   },
-  "schema_version": 3,
   "sealed_evaluation": {
     "authorized_btc_queries": 0,
     "candidates_assessed": 26,
@@ -2356,7 +2469,6 @@
     "version": "ALIGNED_SIGNAL_PERSISTENCE_V1",
     "zero_shift_statistic_computed": false
   },
-  "signal_timeframe": "1h",
   "source_discovery_gate": {
     "backtests": 0,
     "completed_experiments_after": 25,
@@ -2387,7 +2499,6 @@
     "unquantified_pre_repo_exposure": true,
     "version": "P0_STATISTICAL_GOVERNANCE_V1"
   },
-  "status": "REVIEWED",
   "superseded_prospective_evidence": {
     "contract": "docs/contracts/FUTURE_SHADOW_PAPER_EVIDENCE_V1.md",
     "evidence_migrated": false,
@@ -2800,99 +2911,6 @@
     "project_state": "PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS",
     "latest_reviewed_checkpoint_report": "reports/checkpoints/SYSTEM-G1-TERMINAL-PARK-CLOSURE-V1.md"
   },
-  "current_project_status": {
-    "precedence": "CANONICAL_CURRENT_STATUS_OVERRIDES_EVERY_HISTORICAL_TOP_LEVEL_FIELD",
-    "authority": [
-      "decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md",
-      "decisions/ADR-0042-PARK-ACTIVE-ALPHA-RESEARCH.md",
-      "decisions/ADR-0043-OWNER-PROFESSIONAL-MULTISIGNAL-LONG-SHORT-MISSION.md",
-      "decisions/ADR-0044-ADOPT-SYSTEM-G1-PROFESSIONAL-MULTISIGNAL-ARCHITECTURE.md",
-      "decisions/ADR-0045-ACCEPT-G1-CHECKPOINT-1-AND-FREEZE-CYCLE-QUALITY-GATE.md",
-      "decisions/ADR-0046-ACCEPT-G1-CYCLE-QUALITY-AND-ACTIVATE-CYCLE-COMPONENT.md",
-      "decisions/ADR-0047-G1-IMPLEMENTATION-REVIEW-INCOMPLETE-BAR-CORRECTION.md",
-      "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
-      "decisions/ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md",
-      "decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md",
-      "decisions/ADR-0051-OWNER-DIRECTED-PROFESSIONAL-TRADING-KNOWLEDGE-BASE-STUDY.md",
-      "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md"
-    ],
-    "astra_decision": "ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2",
-    "constitution_version": "4.0",
-    "disposition": "G2_00_KNOWLEDGE_TO_CONTRACTS",
-    "active_alpha_allocation": 0,
-    "active_candidate": null,
-    "candidate_1": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
-    "candidate_2": "UNALLOCATED",
-    "validated_strategy": null,
-    "operational_action_output": "NO_TRADE",
-    "market_trial_authorized": false,
-    "confirmation_authorized": false,
-    "prospective_collection_authorized": false,
-    "research_task_active": true,
-    "automatic_next_research_package": "G2-00-KNOWLEDGE-TO-CONTRACTS-V1",
-    "champion_status": "NONE",
-    "real_money_authorized": false,
-    "sealed_queries": 0,
-    "reopening": {
-      "previous_active_generation": "SYSTEM_G1",
-      "terminal_disposition": "SYSTEM_G1_TERMINAL_PARK",
-      "required_dossier": "WRITTEN_MATERIAL_CHANGED_CASE",
-      "required_strategic_approval": "ASTRA",
-      "valid_trigger_examples": [
-        "INDEPENDENTLY_SUBSTANTIATED_ARCHITECTURAL_CONTRADICTION_WITH_SPECIFIC_CORRECTION",
-        "RELEVANT_EXTERNAL_EVIDENCE_FOR_FULLY_SPECIFIED_MATERIALLY_DISTINCT_SYSTEM",
-        "OWNER_APPROVED_MATERIAL_MISSION_OR_RESOURCE_CHANGE"
-      ],
-      "insufficient_triggers": [
-        "NEW_INDICATOR_OR_MODEL",
-        "GENERIC_TRADING_PAPER",
-        "ELAPSED_TIME",
-        "RENEWED_INTEREST",
-        "ATTRACTIVE_WEIGHTING_SCHEME"
-      ],
-      "owner_decision_required_for_real_capital": true,
-      "status": "SATISFIED_FOR_G2_DEVELOPMENT_SYSTEM",
-      "satisfied_by": [
-        "docs/canonical/OWNER_PRODUCT_MISSION_V2.md",
-        "research/library/PROFESSIONAL_TRADING_LIBRARY_SOURCE_REGISTRY_V1.json",
-        "reports/strategic/ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2.md",
-        "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md"
-      ]
-    },
-    "disabled_action_paths": [
-      "POST /api/v1/product/analysis -> NO_TRADE without strategy evaluation (validated_strategy is null)",
-      "POST /api/v1/product/paper-trades -> 409 (validated_strategy is null)",
-      "POST /api/v1/research/runner/runs -> 409 (legacy runner not authorized)"
-    ],
-    "active_project_internal_alpha_schedules": [],
-    "historical_top_level_fields": [
-      "project_phase",
-      "primary_research_phase",
-      "historical_discovery_status",
-      "status",
-      "latest_executor_checkpoint",
-      "latest_reviewed_checkpoint",
-      "next_recommended_work_package",
-      "selected_family",
-      "latest_family",
-      "product_analysis",
-      "paper_trading",
-      "prospective_collection",
-      "prospective_collection_operating_policy",
-      "prospective_shadow_observer",
-      "research_architecture",
-      "research_runner",
-      "predictive_research_objective",
-      "predictive_generation_v2_objective"
-    ],
-    "closure_artifact": "reports/checkpoints/SYSTEM-G1-TERMINAL-PARK-CLOSURE-V1.md",
-    "preservation_manifest": "reports/handover/SYSTEM-G1-TERMINAL-PARK-PRESERVATION-V1.md",
-    "active_system_generation": "G2_DEVELOPMENT_SYSTEM",
-    "architecture": "PENDING_G2_00_CONTRACT_FREEZE",
-    "strategic_disposition": "G2_00_KNOWLEDGE_TO_CONTRACTS",
-    "action_guard": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY",
-    "successor_system_generation": "G2_DEVELOPMENT_SYSTEM_ALLOCATED"
-  },
   "system_g1_checkpoint_1": {
     "checkpoint": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
     "status": "REVIEWED",
@@ -2982,23 +3000,5 @@
     "engineering_debt_record": "reports/engineering/SYSTEM-G1-PARKED-ENGINEERING-DEBT-V1.md",
     "phase_b_authorized": false,
     "g2_allocated": false
-  },
-  "g2_development_system": {
-    "status": "G2_00_KNOWLEDGE_TO_CONTRACTS",
-    "strategic_authority": "reports/strategic/ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2.md",
-    "adoption_adr": "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md",
-    "current_work_package": "G2-00-KNOWLEDGE-TO-CONTRACTS-V1",
-    "development_budget": {
-      "baseline_versions": 1,
-      "max_substantive_revisions": 4,
-      "total_eligible_versions": 5,
-      "reserved_cycle_revision": 1,
-      "max_group_ablations": 2
-    },
-    "evidence_status": "DEVELOPMENT_SYSTEM_ONLY_NOT_VALIDATED_STRATEGY",
-    "market_backtest_authorized": false,
-    "protected_evaluation_authorized": false,
-    "future_paper_authorized": false,
-    "real_money_authorized": false
   }
 }
