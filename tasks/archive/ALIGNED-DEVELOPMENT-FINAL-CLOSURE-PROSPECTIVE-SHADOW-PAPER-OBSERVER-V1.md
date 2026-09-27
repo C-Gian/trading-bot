@@ -1,19 +1,9 @@
-# ALIGNED-DEVELOPMENT-FINAL-CLOSURE + PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1
+# ALIGNED-DEVELOPMENT-FINAL-CLOSURE-PROSPECTIVE-SHADOW-PAPER-OBSERVER-V1.md — historical task pointer
 
-Status: IMPLEMENTED_PENDING_RESEARCH_DIRECTOR_REVIEW
+Status: **HISTORICAL / COMPACTED — DO NOT USE AS CURRENT INSTRUCTION**
 
-Starting HEAD: `9559cab8cfd6a2bc0e42d1bd864cea04e187100f`.
+The full task body was removed from the current branch on 2026-09-27 to reduce repository context noise.
+It remains recoverable from Git history at pre-cleanup commit `0038c4d94f5569eb97353137051b7c84744ae9b7` (original blob `f7c8b98f4f9012443ae975d1f86d4dfad9e4ed5c`).
 
-Accepted final historical ALIGNED closure without executing a historical experiment or
-exposing a hidden coefficient. Allocated primary research to prospective evidence and
-implemented a separate durable automated BTCUSDT shadow-paper observer.
-
-The observer admits only new completed hourly boundaries after activation, enforces a
-five-minute durable-decision window, never backfills missed signals, persists NO_TRADE,
-commits LONG intent before strictly future one-minute entry, enforces one position, and
-reconciles only already-entered trades after downtime. Manual V2 remains unchanged.
-
-All validation uses synthetic clocks and feeds. No genuine prospective observation,
-historical experiment, sealed query, credential, real order, or real money is involved.
-
-Next action: RESEARCH DIRECTOR REVIEW.
+Current work is defined only by [../CURRENT_TASK.md](../CURRENT_TASK.md).
+For scientific history prefer the relevant ADR, checkpoint report, experiment artifact and research-memory registry.

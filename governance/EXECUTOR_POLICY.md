@@ -1,34 +1,17 @@
-# Executor policy
+# Executor Policy
 
-Version 2 — effective 2026-09-25
-([ADR-0036](../decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md)).
+Version 3 — effective 2026-09-27.
 
-- **Owner** — mission, evaluation principles, product/risk objective and any real-capital gate.
-- **Astra** — strategic scientific authority for material research-allocation decisions; the
-  escalation list is in `docs/canonical/RESEARCH_STAGE_POLICY_V1.md` §5.
-- **ChatGPT Research Director** — routine scientific design, architecture, tasking,
-  implementation review, experiment adjudication and ordinary decisions inside Astra's
-  directive.
-- **Claude Code** — the sole coding / repository implementation executor.
-- **Codex** — not part of the normal implementation workflow.
+- **Owner** — mission, product/risk/resource scope and any real-capital gate.
+- **Astra** — material scientific/strategic allocation and exceptions defined by the current research-stage policy.
+- **ChatGPT Research Director** — routine scientific design, architecture, governance, tasking, implementation review and experiment interpretation.
+- **Codex** — primary engineering executor.
+- **Claude Code** — overflow engineering executor when Codex is unavailable or work is intentionally delegated.
 
-These roles are task-allocation policy, never runtime dependencies of the product.
-Scientific truth lives in versioned repository records and deterministic artifacts, not agent
-conversations. No agent can authorize real capital.
+Executors implement bounded repository tasks; they are not scientific authorities.
 
----
+Scientific truth lives in versioned repository artifacts and deterministic results, not agent chat history.
 
-## Superseded Version 1, preserved verbatim
+No agent may authorize real capital.
 
-ChatGPT / GPT-5.6 Sol is the Research Director and scientific/product authority
-within Owner-controlled governance. Codex is the primary high-throughput
-engineering and research executor. Claude Code is the overflow executor when
-Codex usage is unavailable. Tasks and repository records must remain portable
-between Codex and Claude Code.
-
-Astra Ultra is allocated explicitly to selected high-leverage reasoning
-checkpoints; it is not the default for ordinary implementation. These roles are
-task-allocation policy, never runtime dependencies of the product.
-
-Scientific truth lives in versioned repository records and deterministic
-artifacts, not agent conversations. No agent can authorize real capital.
+Prior executor-policy versions remain available in Git history and are not current authority.

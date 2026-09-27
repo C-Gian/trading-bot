@@ -1,130 +1,73 @@
-# Strategic allocation map V1
+# Strategic Allocation Map V1
 
-`STRATEGIC_ALLOCATION_MAP_V1` — effective 2026-09-25 under Constitution Version 3.0
-([ADR-0036](../../decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md)).
+Status: **CURRENT NAVIGATION MAP — 2026-09-27**
 
-These are allocation dispositions, not impossibility claims. Changing one is a strategic
-allocation decision (Astra, see
-[`RESEARCH_STAGE_POLICY_V1.md`](RESEARCH_STAGE_POLICY_V1.md) §5). Search memory and every
-negative or blocked result remain binding regardless of disposition.
+Live authority remains `state/current_state.json -> current_project_status`.
 
-| Mechanism / information area | Disposition |
-|---|---|
-| Tested SMA/trend, breakout, participation, pullback and ALIGNED lineages | **CLOSED / NO HISTORICAL RESCUE** |
-| Internal price structure / ordinary technical descriptors | **SHARED CONTEXT ONLY** |
-| Temporary inventory / positioning-pressure mean reversion | **ELIGIBLE FOR BOUNDED PLAYBOOK RESEARCH** |
-| Positioning-conditioned recovery after a sharp BTC sell-off (Candidate Card #1) | **CLOSED — DEVELOPMENT_REJECTED; NO ORDINARY RESCUE** |
-| Aggressive order flow | **RESERVE; EXISTING RESULTS CLOSED** |
-| Funding, OI and perpetual-relative state | **SHARED INPUTS ONLY FOR AN ADMITTED MECHANISM** |
-| Volatility / liquidity | **SHARED CONTEXT / RISK ONLY** |
-| Support-resistance / VWAP / volume profile | **RESERVE; NO GENERIC SEARCH** |
-| Intermarket / cross-venue / small cross-asset | **RESERVE** |
-| Macro / event information | **CONTEXT ONLY WHERE REQUIRED; NO GENERAL PREDICTOR PROGRAMME** |
-| Calendar / seasonality / cycle timing | **ZERO CURRENT BUDGET** |
-| News / sentiment / attention / on-chain / ETF / options | **PARKED** |
-| Risk / exits / costs / occupancy | **REQUIRED COMMON DISCIPLINE; NO OPTIMIZATION TOURNAMENT** |
-| Shorting / leverage / market making / hedged carry / access-dependent arbitrage | **OUT OF CURRENT PRODUCT SCOPE** |
+## Current allocation
 
-Withdrawn: the prior Astra proposal `90-day paired-noise pilot -> <=12-month
-incremental-flow confirmation` receives zero further allocation.
-
-Candidate Card #2: **not allocated**.
-
-## Candidate #1 admission
-
-The executor support diagnostic (73 / 25) is preserved as
-`EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION` and is non-authoritative
-(Astra: `PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED`).
-Admission is decided once by the Director-frozen specification
-`research/protocols/CANDIDATE-1-FROZEN-ADMISSION-V1.md`
-([ADR-0037](../../decisions/ADR-0037-CANDIDATE-1-ASTRA-ADJUDICATION-AND-FROZEN-ADMISSION-SPEC.md)).
-The operative disposition is recorded in state (`governance_transition_v3.candidate_1`). The
-candidate passed frozen admission under [ADR-0038](../../decisions/ADR-0038-CANDIDATE-1-ADMITTED-FOR-PROTOCOL-DESIGN.md),
-then underwent the single frozen Development execution and was adjudicated `DEVELOPMENT_REJECTED`
-under [ADR-0041](../../decisions/ADR-0041-CANDIDATE-1-DEVELOPMENT-REJECTED-STRONG-STOP.md).
-No ordinary rescue is authorized. The broad area "temporary inventory / positioning-pressure
-mean reversion" is not declared universally disproven, but any new candidate inside it requires
-Astra strategic allocation.
-
-## Programme descriptors
-
-- Allocation posture: `LATE_STAGE_WITHIN_CURRENT_ENVELOPE` / `RESEARCH_WARNING` — a budget
-  posture, not a claim that most trading mechanisms are disproven.
-- Scientific coverage: `MATURE_NEGATIVE_PREDICTOR_RESEARCH_WITH_LIMITED_PLAYBOOK_COVERAGE` —
-  descriptive only; it does not expand the research budget.
-
-## Current project-level allocation state
-
-`PARKED_NO_CREDIBLE_EDGE_UNDER_CURRENT_CONSTRAINTS` — Astra has completed the project-level review. Active alpha allocation is zero. Candidate Card #2 remains unallocated and no new alpha-development, source-search, R&D or confirmation work is authorized unless a legitimate reopening dossier is approved by Astra.
-
-## Reopening rule
-
-Reopening requires a concrete material changed case under ADR-0042 and Astra approval. Untested territory, a new indicator/model, elapsed time or renewed interest are insufficient.
-
-
-## Owner mission V2 scope-reset note
-
-On 2026-09-25 the Owner authorized ADR-0043 / `OWNER_PRODUCT_MISSION_V2`, materially expanding the
-intended product from the predecessor BTC spot LONG/NO_TRADE research programme to a professional
-multi-signal BTC paper system with continuous predictions and selective LONG/SHORT/NO_TRADE.
-
-The parked disposition remains the correct terminal result for the predecessor programme. The scope
-change is a legitimate reopening trigger, but no new allocation is active until Astra completes the
-strategic redesign. Historical family closures remain evidence for their exact tested formulations;
-they must not be erased, but they also must not be mechanically treated as proof that a signal cannot
-serve a different predeclared contextual role inside a genuinely distinct composite playbook.
-
-
-## System G1 current allocation — superseding operational park for the new Owner scope
-
-ADR-0044 adopts `SYSTEM_G1` under Constitution 4.0.
-
-Current strategic disposition:
-`PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT — ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING`.
-
-The ADR-0042 parked disposition remains historical truth for the predecessor BTC spot LONG/NO_TRADE
-programme. Candidate #1 remains closed.
-
-System G1 allocation is finite:
-
-- exactly two initial playbooks (P1 continuation, P2 failed-auction re-entry);
-- one 15m decision clock and one 4h forecast target;
-- one six-scale cycle method family;
-- at most seven predeclared historical development configurations;
-- no automatic G2;
-- no historical performance run until the Research Director freezes and authorizes it.
-
-
-## System G1 terminal disposition — 2026-09-26
-
-Astra's post-Phase-A review is adopted by ADR-0050.
-
-Current strategic disposition:
-
-`SYSTEM_G1_TERMINAL_PARK`
-
-System G1 remains `SYSTEM_G1_DEVELOPMENT_REJECTED_SELECTION_STAGE`.
-
-- G1 Phase B: forbidden / not executed.
-- G2: unallocated.
-- active strategy/system research allocation: zero.
+- Owner Product Mission V2: active.
+- System G1: `SYSTEM_G1_TERMINAL_PARK`.
+- System G2: `G2_DEVELOPMENT_SYSTEM` allocated by ADR-0052.
+- Current package: `G2-00-KNOWLEDGE-TO-CONTRACTS-V1`.
+- Active market/alpha execution allocation during G2-00: 0.
+- Economic BTC backtest: not authorized.
+- Protected evaluation: not authorized.
+- Future paper: not authorized.
+- Validated strategy: NONE.
 - Champion: NONE.
-- validated strategy: NONE.
-- operational action: NO_TRADE.
-- real money: false.
+- Operational action: NO_TRADE.
+- Real money: false.
 
-The Owner Product Mission V2 remains unchanged.
+## Current G2 information allocation
 
-No weighted-score successor, forecast-entry integration, replacement P2, new exit geometry,
-threshold/period rescue, component-removal rescue or fitted ensemble receives current allocation.
+| Area | Current G2 role |
+|---|---|
+| Structure / trend-momentum | bounded development prior for direction/persistence/location |
+| Participation / verified taker flow / price response | conditional confirmation/contradiction; adverse standalone 4h prior retained |
+| Volatility | forecast scale, state and risk; not a directional vote |
+| Cycles / time state | shadow-only in G2-V0; one reserved bounded timing revision if method checkpoint passes |
+| Liquidity / execution | cost, feasibility and execution; not alpha vote |
+| Contract / derivatives context | instrument/funding/cost semantics; not directional alpha in V0 |
+| Daily / weekly | display/context only in G2-V0 |
+| News, sentiment, on-chain, macro, OI, liquidation, basis, options, latent regimes | outside G2-V0 unless Astra later allocates a specific change |
 
-2023-2024 remain locked against new system evaluation under the present allocation and are not
-declared pristine sealed confirmation.
+The exact active dictionary and allowed interactions are defined by `G2_PROFESSIONAL_KNOWLEDGE_MODEL_V1.md`.
 
-Parked reusable engineering debt:
+## Historical closures that remain binding
 
-- phase-bounded source I/O;
-- exact-semantic forecaster/runtime optimization for practical replay.
+- Candidate #1: development rejected; no ordinary rescue.
+- G1: selection-stage rejected and terminally parked.
+- G1 Phase B: forbidden.
+- prior funding predictor families: rejected for their frozen formulations.
+- prior order-flow/taker-flow lineages retain their exact negative/power-limited evidence.
+- old predictive generations retain their exact outcomes.
 
-Reopening requires a documented material changed case and Astra approval. A new indicator/model,
-generic paper, elapsed time or renewed enthusiasm is insufficient.
+A new name does not reset search memory.
+
+## G2 bounded development
+
+G2 is not a validated strategy. It is an authorized development system.
+
+The current development budget is defined in `research/g2/G2_DEVELOPMENT_PROTOCOL_V1.md`:
+- one baseline;
+- at most four substantive revisions total;
+- one of those slots reserved for cycle timing;
+- at most two diagnostic group ablations.
+
+Development can learn from exposed data. It cannot relabel that learning as independent confirmation.
+
+## Escalation
+
+Astra is required for changes outside the bounded G2 authority, including:
+- changing the primary 4h target;
+- changing the research instrument;
+- expanding/replacing the six-family catalogue;
+- adding a new external data family;
+- replacing the bounded transparent model family with a model zoo/black box;
+- exceeding the G2 revision budget;
+- reopening closed lineages.
+
+Real capital always requires the Owner.
+
+Historical allocation narratives are preserved in ADRs and Git history; this map intentionally does not duplicate them.

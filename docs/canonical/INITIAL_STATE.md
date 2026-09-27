@@ -1,34 +1,13 @@
-# Trading Bot — Current State
+# INITIAL_STATE — historical bootstrap state
 
-```json
-{
-  "schema_version": 1,
-  "project_name": "Trading Bot",
-  "project_phase": "BOOTSTRAP",
-  "status": "NEW_PROJECT",
-  "product_surface": "LOCAL_WEB_APP",
-  "research_market": "crypto_spot",
-  "symbols": ["BTCUSDT"],
-  "canonical_resolution": "1m",
-  "signal_timeframe": "1h",
-  "regime_timeframe": "4h",
-  "max_holding_horizon": "~24h",
-  "directions": ["LONG", "NO_TRADE"],
-  "experiments_completed": 0,
-  "sealed_evaluations_completed": 0,
-  "paper_trades_completed": 0,
-  "champion_status": "NONE",
-  "forward_evidence": "NONE",
-  "real_money_authorized": false,
-  "owner_decision_required": false
-}
-```
+Status: **SUPERSEDED / HISTORICAL POINTER**
 
-## Current objective
+This document is no longer an active source of project truth and was compacted on 2026-09-27 to reduce stale-context/token overhead.
 
-Bootstrap a reproducible scientific and engineering repository before downloading market data or testing strategies.
+Current authority: `state/current_state.json` and `tasks/CURRENT_TASK.md`.
 
-The web application is part of the target product, but Phase 0 should create only its architecture/skeleton where useful.
+The complete previous body remains in Git history at pre-cleanup commit `0038c4d94f5569eb97353137051b7c84744ae9b7` (original blob `f355c1dc44bb511c95bffb75f36fec50b4c492ac`).
 
-No strategy has been evaluated.
-No evidence exists yet.
+Initial project state only; never current authority.
+
+Do not use this file to determine current project state, research authorization or implementation semantics.

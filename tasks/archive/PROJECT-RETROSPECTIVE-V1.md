@@ -1,15 +1,9 @@
-# PROJECT-RETROSPECTIVE-V1
+# PROJECT-RETROSPECTIVE-V1.md — historical task pointer
 
-Status: COMPLETED_AND_ACCEPTED_WITH_BLOCKERS
+Status: **HISTORICAL / COMPACTED — DO NOT USE AS CURRENT INSTRUCTION**
 
-Starting HEAD: `49c924795850c431743512e5725a3250259a67ea` on local `main`.
+The full task body was removed from the current branch on 2026-09-27 to reduce repository context noise.
+It remains recoverable from Git history at pre-cleanup commit `0038c4d94f5569eb97353137051b7c84744ae9b7` (original blob `64724e6604383c587ce68574761c0da6ef94cb82`).
 
-The one-time deep project retrospective audited scientific governance, development data,
-time/label/cost/feature/model semantics, reconciliation, historical results, ALIGNED,
-paper trading, Research Runner, web/API integration, tests, performance, architecture,
-research efficiency, and WP-016 readiness.
-
-Research Director review: `reports/reviews/PROJECT-RETROSPECTIVE-V1-RESEARCH-DIRECTOR-REVIEW.md`.
-Verdict: `ACCEPTED_WITH_BLOCKERS`. Historical evidence remains trustworthy at its
-already-exposed development level. ALIGNED remains unchanged and inconclusive. Paper V1
-and WP-016 remain blocked for the reasons recorded in the audit.
+Current work is defined only by [../CURRENT_TASK.md](../CURRENT_TASK.md).
+For scientific history prefer the relevant ADR, checkpoint report, experiment artifact and research-memory registry.

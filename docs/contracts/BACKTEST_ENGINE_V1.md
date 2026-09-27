@@ -1,8 +1,11 @@
-# Backtest engine V1
+# BACKTEST_ENGINE_V1.md
 
-`BACKTEST_ENGINE_V1` is a deterministic, event-driven research simulator for BTCUSDT Spot long intents. It consumes a frozen intent and then a continuous canonical 1m path. It supports one position; later signals are recorded as suppressed under `IGNORE_WHILE_POSITION_OPEN_V1`. No strategy logic, leverage, shorting, exchange connectivity, or order management exists.
+Status: **SUPERSEDED / HISTORICAL POINTER**
 
-Only completed 1h bars may trigger an intent. The decision timestamp equals the signal bar close. Context is the most recent completed 4h bar whose close is no later than that timestamp. The entry is the immediately following canonical minute open. Signal time must precede execution time. Missing required path produces an explicit invalid or unresolved outcome.
+This document is no longer an active source of project truth and was compacted on 2026-09-27 to reduce stale-context/token overhead.
 
-Every run identity hashes its code commit, dataset content hash, preregistration identity, versioned models, configuration, and seeds. Audit timestamps are excluded from the deterministic hash.
+Current authority: `BACKTEST_ENGINE_V2.md` for historical low-level engine lineage; G2 economic semantics live in the G2 contracts.
 
+The complete previous body remains in Git history at pre-cleanup commit `0038c4d94f5569eb97353137051b7c84744ae9b7` (original blob `5404eedd1dd8e54bf23b4b6228990516bf5600eb`).
+
+Do not use this file to determine current project state, research authorization or implementation semantics.

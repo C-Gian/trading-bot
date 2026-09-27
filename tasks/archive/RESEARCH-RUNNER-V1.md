@@ -1,20 +1,9 @@
-# RESEARCH-RUNNER-V1 — Owner-initiated local backtesting
+# RESEARCH-RUNNER-V1.md — historical task pointer
 
-Status: COMPLETED
+Status: **HISTORICAL / COMPACTED — DO NOT USE AS CURRENT INSTRUCTION**
 
-Starting HEAD: `b12f13f1f5fe7ab5d94893f9297e75d8f9c5b467` on `main`.
+The full task body was removed from the current branch on 2026-09-27 to reduce repository context noise.
+It remains recoverable from Git history at pre-cleanup commit `0038c4d94f5569eb97353137051b7c84744ae9b7` (original blob `f739e33b614e43c085b17f9c7a6514b6477039f6`).
 
-Build a local Research Lab workflow with a source-controlled candidate allowlist,
-non-blocking deterministic Python execution, atomic gitignored runtime state, meaningful
-progress, an Owner-facing result summary, and a compact review bundle.
-
-V1 exposes exactly `WP015_REPRODUCTION_V1`. It is a reproduction of already-exposed
-development evidence, not a new experiment. It cannot change scientific counters, paper
-trades, Champion status, sealed-query accounting, or real-money state.
-
-The implementation checkpoint must use only mocked or synthetic test execution. The real
-WP-015 historical workload must not be run by the executor.
-
-Completed with the allowlisted backend runner, persistent refresh-safe lifecycle, fixed
-WP-015 reproduction adapter, Research Lab UI, compact review bundle, synthetic lifecycle
-coverage, and the full no-data repository gate passing. No historical candidate was run.
+Current work is defined only by [../CURRENT_TASK.md](../CURRENT_TASK.md).
+For scientific history prefer the relevant ADR, checkpoint report, experiment artifact and research-memory registry.

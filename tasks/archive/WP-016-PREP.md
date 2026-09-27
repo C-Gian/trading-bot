@@ -1,15 +1,9 @@
-# WP-016 PREPARATION
+# WP-016-PREP.md — historical task pointer
 
-Status: PREREGISTERED_PENDING_OWNER_EXECUTION
+Status: **HISTORICAL / COMPACTED — DO NOT USE AS CURRENT INSTRUCTION**
 
-Starting HEAD: `5adf7c69ffdd4f60419cd4856a315c45faf689fe` on `main`.
+The full task body was removed from the current branch on 2026-09-27 to reduce repository context noise.
+It remains recoverable from Git history at pre-cleanup commit `0038c4d94f5569eb97353137051b7c84744ae9b7` (original blob `a6529f9b6d68f7343f76002d42d4b12d1d60d22a`).
 
-Prepare `FAM-EXTERNAL-PUBLIC-ATTENTION` and the frozen hypothesis
-`WIKIPEDIA_ATTENTION_SHOCK_ADDS_INFORMATION_V1`. Acquire and audit only official
-en.wikipedia daily user pageviews for `Bitcoin`, freeze the conservative point-in-time
-attention-shock feature, preregister the primary and matched funding control, and expose
-`WP016_WIKIPEDIA_ATTENTION_V1` through Research Runner.
-
-The executor must not invoke the real WP-016 walk-forward, observe market results, create
-experiment results, or change completed-experiment accounting. The Owner initiates the
-first run manually from Research Lab after this preparation is committed.
+Current work is defined only by [../CURRENT_TASK.md](../CURRENT_TASK.md).
+For scientific history prefer the relevant ADR, checkpoint report, experiment artifact and research-memory registry.

@@ -1,14 +1,11 @@
-# Execution model V1
+# EXECUTION_MODEL_V1.md
 
-Version: `EXECUTION_MODEL_V1`
+Status: **SUPERSEDED / HISTORICAL POINTER**
 
-- Scope: BTCUSDT Spot, LONG or no entry, no leverage, one open simulated position.
-- Entry: after a completed UTC-aligned 1h signal bar, at the next consecutive 1m open plus adverse entry friction. A missing next minute is `INVALID_MISSING_ENTRY_BAR`.
-- Stop: an open below stop exits at that adverse open; otherwise a low touching stop exits at stop. Adverse exit friction then reduces proceeds.
-- Target: a high touching target exits at target. An open above target still fills at the target, avoiding favorable price improvement.
-- Ambiguity: a minute touching stop and target resolves `STOP_FIRST_V1`.
-- Expiry: exit at the close of the minute whose close reaches the configured horizon, with adverse exit friction.
-- Gaps: any non-consecutive minute while open is `UNRESOLVED_DATA_GAP`; no row is filled or path ordering inferred.
-- End of data: `UNRESOLVED_END_OF_DATA`, without numeric return.
-- Maximum hold: exactly 1,440 minutes. Longer requests and non-positive initial risk are rejected.
+This document is no longer an active source of project truth and was compacted on 2026-09-27 to reduce stale-context/token overhead.
 
+Current authority: `EXECUTION_MODEL_V2.md` for historical low-level execution lineage; G2 semantics live in the G2 contracts.
+
+The complete previous body remains in Git history at pre-cleanup commit `0038c4d94f5569eb97353137051b7c84744ae9b7` (original blob `722fa5e7a7d07efa1247da004bc97bfe292b65c0`).
+
+Do not use this file to determine current project state, research authorization or implementation semantics.

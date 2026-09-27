@@ -1,123 +1,92 @@
-# Research stage policy V1
+# Research Stage Policy V1
 
-`RESEARCH_STAGE_POLICY_V1` — canonical under Constitution Version 3.0
-([ADR-0036](../../decisions/ADR-0036-OWNER-PRACTICAL-ECONOMIC-OBJECTIVE-AND-CONSTITUTION-V3.md)).
+Status: **CURRENT UNDER CONSTITUTION 4.0 / ADR-0052**
 
-Governed sequence:
+This policy defines evidence stages. The active task and generation-specific protocol may tighten it but may not weaken causal, exposure or real-capital protections.
 
-`PLAUSIBLE MECHANISM -> EXPLICIT PLAYBOOK -> BOUNDED HISTORICAL DEVELOPMENT -> PROMOTION GATE -> FROZEN PROSPECTIVE ECONOMIC CONFIRMATION`
+## 1. Stage sequence
 
-This policy may be tightened but not weakened, and never after a result it would govern has
-been observed. Current allocation dispositions live in
-[`STRATEGIC_ALLOCATION_MAP_V1.md`](STRATEGIC_ALLOCATION_MAP_V1.md).
+`SPECIFICATION -> ENGINEERING_REPLAY -> EXPOSED_DEVELOPMENT -> FROZEN_CANDIDATE -> PROTECTED_EVALUATION -> PREDECLARED_STRESS -> FUTURE_PAPER`
 
-## 1. Development Lab
+### SPECIFICATION
+Freeze the causal/data/model/policy/risk/execution contract before economic outcomes governed by it are inspected.
 
-Exposed, pre-cutoff historical work. It is exploratory evidence even when chronological or
-walk-forward.
+### ENGINEERING_REPLAY
+Validate implementation, deterministic parity, timestamp availability, fail-closed behavior and synthetic/path fixtures. Passing engineering checks is not evidence of edge.
 
-Allowed:
+### EXPOSED_DEVELOPMENT
+Learning and bounded adaptation are allowed on declared exposed history. Every material revision is logged and consumes the generation's search budget. Positive results remain development evidence.
 
-- exposed pre-cutoff historical development;
-- mechanism formalization;
-- causal / source / timing feasibility;
-- event frequency and common support;
-- approximate gross and net economics;
-- bounded failure-mode and robustness analysis;
-- engineering validation.
+### FROZEN_CANDIDATE
+Freeze code/data/model manifests, references, primary estimand, support requirements, protected interval and stress plan before protected outcomes are opened.
 
-Before any outcome-producing package, the protocol freezes at least:
+### PROTECTED_EVALUATION
+Evaluate the frozen candidate once under the predeclared plan. If results are used to modify economic rules, the observed interval becomes exposed for the successor.
 
-- mechanism and lineage (historical parents and why prior negatives do not already answer it);
-- the unanswered question;
-- the eligible population;
-- the primary playbook and its comparator / control;
-- the primary economic estimand;
-- materiality thresholds (economic MESI);
-- candidate, analysis and search budget;
-- data, timing, missingness and occupancy semantics;
-- costs and delay;
-- diagnostics and inference (dependence-aware; composition-controlled for selective contrasts);
-- promotion and closure rules.
+### PREDECLARED_STRESS
+Run only stress scenarios frozen before seeing the protected result. Stress is sensitivity evidence, not a second optimization surface.
 
-Outcome-driven parameter rescue is forbidden unless a dimension, range or branch rule was
-explicitly budgeted before inspection. Every inspected version remains part of the exposed
-lineage.
+### FUTURE_PAPER
+Collect genuinely prospective immutable forecasts/decisions under a frozen update rule. Future paper is stronger evidence than historical evaluation.
 
-## 2. Promotion Gate
+Real money is a separate Owner gate after all of the above.
 
-Promotion to prospective confirmation requires **all** of:
+## 2. Development rules
 
-1. integrity (data, timing, code, replay);
-2. mechanism compatibility of the observed behaviour;
-3. material absolute net economics;
-4. material incremental value over a meaningful control;
-5. plausible execution margin;
-6. sufficient support and acceptable concentration;
-7. practical capital-time efficiency;
-8. a confirmatory design able to resolve the economic MESI within <= 12 months.
+Allowed inside an authorized development programme:
+- diagnosis of recurring failures;
+- causal walk-forward fitting;
+- predeclared references/ablations;
+- one minimal falsifiable change per revision;
+- deterministic bug fixes that restore an already frozen specification.
 
-A p-value alone is never promotion. Borderline evidence may be declined by the Research
-Director without escalation. Any requested exception requires Astra.
+Forbidden:
+- unbounded feature/model/timeframe/threshold tournaments;
+- hiding failed variants;
+- calling a result-independent bug anything that changes the economic specification after seeing P&L;
+- recycling protected evaluation as independent evidence after adapting to it;
+- optimizing DSR/PBO or other anti-overfitting diagnostics.
 
-## 3. Confirmation
+Every generation-specific budget lives in its protocol. For current G2 use `research/g2/G2_DEVELOPMENT_PROTOCOL_V1.md`.
 
-Confirmation tests the complete frozen paper system prospectively: information timing,
-eligibility, entry, exit, costs, occupancy and risk.
+## 3. Evidence interpretation
 
-- Default target power: 0.80 at the predeclared economic MESI.
-- Default family-wise false-positive budget: 0.05 across declared confirmatory claims, unless
-  a stronger reason is recorded before confirmation begins.
-- Default calendar ceiling: 12 months.
-- The accessible execution venue/pair and realistic cost, spread and slippage assumptions are
-  frozen when a candidate reaches confirmation. Binance public data may remain an information
-  source independently of the execution venue.
-- Real money remains a separate explicit Owner gate.
+Evidence hierarchy:
 
-## 4. Frontier R&D
+`FUTURE_PAPER > PROTECTED_EVALUATION > PURGED/WALK-FORWARD/ROBUSTNESS/COST-STRESS > EXPOSED_DEVELOPMENT > NARRATIVE`
 
-Exceptional. A frontier-R&D proposal requires all four:
+A lower class can motivate the next stage; it cannot be renamed into a higher class.
 
-1. material economic or scientific scale;
-2. basic robustness to data / timing / control / concentration checks;
-3. substantive distinction from expected ordinary-playbook behaviour;
-4. a plausible mechanism or a compelling, falsifiable unexplained anomaly.
+Prediction quality, trade-policy quality and execution quality are separate questions.
 
-Astra approval is mandatory for R&D admission. Failure of ordinary strategies is never an R&D
-trigger.
+Overlapping financial observations require dependence-aware uncertainty; raw row count is not effective sample size.
 
-## 5. Decision authority and Astra escalation
+## 4. Promotion
 
-- **Owner** — mission, evaluation principles, product/risk objective, real capital.
-- **Astra** — strategic scientific authority for material research-allocation decisions.
-- **Research Director (ChatGPT)** — routine scientific design, architecture, tasking,
-  implementation review, experiment adjudication and ordinary decisions inside Astra's
-  directive.
-- **Claude Code** — sole coding / repository implementation executor. Codex is not part of the
-  normal implementation workflow.
+A policy may be frozen for protected evaluation only when:
+- causal/integrity gates pass;
+- contracts are stable and reproducible;
+- search ledger is complete;
+- exposed development shows enough net utility/support to justify spending protected evidence;
+- cost/risk behavior is credible;
+- a predeclared evaluation plan can resolve a meaningful claim.
 
-Astra is **required** for:
+A technically useful analytical product may remain unpromoted if economic policy evidence is insufficient.
 
-- opening another mechanism / a new Candidate Card;
-- exceeding strategic search or calendar budgets;
-- materially changing mechanism, target, information set or product;
-- reopening a closed or blocked lineage;
-- materially ambiguous novelty overlap;
-- consequential or ambiguous scientific defects;
-- frontier-R&D admission;
-- major anomalies that change strategic interpretation;
-- permanent closure of a broad mechanism family;
-- project-level reallocation after the current allocation is exhausted;
-- Champion designation or major operating/risk expansion.
+## 5. Authority
 
-Astra is **not** required for:
+- **Owner** — mission, product/risk/resource objective and real capital.
+- **Astra** — material allocation, new successor generation, reopening closed lineages, budget expansion, major architecture changes and Champion-level decisions.
+- **ChatGPT Research Director** — routine design, preregistration, architecture, tasking, implementation review and adjudication inside Astra's allocation.
+- **Codex** — primary engineering executor.
+- **Claude Code** — overflow engineering executor.
 
-- ordinary pre-result numerical choices inside an admitted design;
-- selecting a conventional simple matching / inference / implementation method;
-- writing protocols, ADRs and tasks;
-- file layout, libraries, tests and data schemas;
-- routine source checks and deterministic validation;
-- applying already frozen admission / rejection / promotion rules;
-- recording ordinary failure or inconclusion;
-- preparing the one conditionally authorized confirmation when every promotion requirement is
-  unambiguously satisfied within <= 12 months and existing product/resource constraints.
+No executor may authorize scientific expansion or real capital.
+
+## 6. Current G2 exception boundary
+
+ADR-0052 authorizes G2 development but not current economic execution.
+
+Changes outside the exact ordinary-revision authority listed in `G2_DEVELOPMENT_PROTOCOL_V1.md` return to Astra.
+
+This file no longer carries historical programme narratives; those remain in ADRs and Git history.
