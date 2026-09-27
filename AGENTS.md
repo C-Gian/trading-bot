@@ -17,8 +17,8 @@ For a new chat, follow `docs/operations/NEW_CHAT_BOOTSTRAP.md`.
 Current state at this revision:
 - G1: closed / terminal park;
 - G2: `G2_DEVELOPMENT_SYSTEM` allocated;
-- active package: `G2-00-KNOWLEDGE-TO-CONTRACTS-V1`;
-- market/economic execution: forbidden until explicitly authorized by a later task;
+- active package: `G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1`;
+- market/economic execution: forbidden; G2-01 is engineering/causal validation only;
 - validated strategy: NONE;
 - Champion: NONE;
 - operational action: NO_TRADE;

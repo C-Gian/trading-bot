@@ -9,8 +9,8 @@ Live authority remains `state/current_state.json -> current_project_status`.
 - Owner Product Mission V2: active.
 - System G1: `SYSTEM_G1_TERMINAL_PARK`.
 - System G2: `G2_DEVELOPMENT_SYSTEM` allocated by ADR-0052.
-- Current package: `G2-00-KNOWLEDGE-TO-CONTRACTS-V1`.
-- Active market/alpha execution allocation during G2-00: 0.
+- Current package: `G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1`.
+- Active market/alpha execution allocation during G2-01: 0.
 - Economic BTC backtest: not authorized.
 - Protected evaluation: not authorized.
 - Future paper: not authorized.

@@ -19,8 +19,8 @@ Do **not** begin by reading old handovers, archived tasks, every ADR or every Ma
 At the 2026-09-27 documentation cleanup:
 - G1 is closed / terminal parked;
 - Astra allocated `G2_DEVELOPMENT_SYSTEM`;
-- active package is `G2-00-KNOWLEDGE-TO-CONTRACTS-V1`;
-- economic BTC backtests are not yet authorized;
+- active package is `G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1`;
+- economic BTC backtests remain unauthorized; G2-01 permits only synthetic and small exposed engineering windows;
 - protected evaluation and future paper are not authorized;
 - validated strategy and Champion are NONE;
 - operational action is NO_TRADE;
