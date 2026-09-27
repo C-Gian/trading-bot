@@ -209,10 +209,14 @@
         "risk"
       ],
       "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "INSTITUTIONAL_MATERIAL_REFERENCE_ONLY_RIGHTS_UNCLEAR",
       "notes": [
-        "Multi-asset evidence over long historical periods; not direct BTC evidence."
+        "Complete 15-page PDF reviewed on 2026-09-27, including all sections, equations, tables, figures, references and appendix sensitivity analyses.",
+        "Dossier: research/library/source_notes/LIB-006-MAN-AHL-TREND-FOLLOWING-EQUITY-AND-BOND-CRISIS-ALPHA.md",
+        "The paper studies cross-asset monthly trend-following from 1960-2015, including pre/post-1985 bond regimes, skewness and equity/bond crisis-alpha behavior.",
+        "momCTA is a constrained BTOP50-replication calibration, not a pristine independent test of that exact weighting profile.",
+        "Core performance results are simulated and gross of transaction costs and fees; no BTC-specific weight, horizon or parameter is derived."
       ],
       "related_sources": [
         "LIB-007",
