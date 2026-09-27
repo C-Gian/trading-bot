@@ -102,11 +102,14 @@
         "regime"
       ],
       "btcusdt_relevance": "DIRECTLY_RELEVANT",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Reviewed sections on look-ahead, data snooping, costs and strategy refinement.",
-        "Chan permits economically motivated, simple refinement with training/test discipline; this is recorded as a methodological disagreement with López de Prado."
+        "Complete accessible 181-page PDF reviewed on 2026-09-27, covering all 8 chapters plus the MATLAB appendix and a full-document visual scan.",
+        "Dossier: research/library/source_notes/LIB-003-QUANTITATIVE-TRADING-ERNEST-CHAN.md",
+        "The accessible PDF lists Preface and Acknowledgments in the table of contents but those sections are absent from the local artifact; REVIEWED applies to the complete accessible PDF.",
+        "Foundational practitioner reference for research process, causal backtesting, controlled refinement, execution, risk and live/backtest reconciliation.",
+        "No BTC alpha, signal weight, horizon, execution parameter, or System G2 rule is derived from this source."
       ],
       "related_sources": [
         "LIB-004",
