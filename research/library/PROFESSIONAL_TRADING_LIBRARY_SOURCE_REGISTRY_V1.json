@@ -612,11 +612,15 @@
         "cross_validation"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Core framework, limitations, practical example and conclusion reviewed.",
-        "PBO/CSCV evaluates selection overfit but does not repair flawed data timing, cost or execution assumptions and must not become the search objective."
+        "Complete 34-page PDF reviewed on 2026-09-27, including all 13 figures, formal definitions, CSCV algorithm, practical examples, limitations and misuse warnings.",
+        "Dossier: research/library/source_notes/LIB-018-THE-PROBABILITY-OF-BACKTEST-OVERFITTING.md",
+        "Key scope: PBO evaluates strategy/configuration-selection overfit; it does not validate backtest correctness, costs, data timing, or future regime robustness.",
+        "Full legitimate trial disclosure is required; hiding failed trials or padding with obviously bad trials biases the diagnostic.",
+        "PBO/CSCV must not be used as the strategy-search objective itself.",
+        "No BTC alpha, signal weight, parameter, or System G2 rule is derived from this source."
       ],
       "related_sources": [
         "LIB-013",
