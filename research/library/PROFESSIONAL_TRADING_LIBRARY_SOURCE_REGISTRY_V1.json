@@ -71,11 +71,14 @@
         "portfolio_construction"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "IDENTIFIED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Full text is readable through Drive.",
-        "Potentially useful for expected-return reasoning and cross-signal economic interpretation; cross-asset findings are not BTC evidence."
+        "Complete 594-page accessible PDF reviewed on 2026-09-27, covering all 29 chapters, appendices and a full-volume visual scan.",
+        "Dossier: research/library/source_notes/LIB-002-EXPECTED-RETURNS.md",
+        "High conceptual relevance to multi-signal forecasting: value, carry, momentum, macro, sentiment, liquidity/risk, signal strength, predictive ability, correlated-predictor deduplication and regime context.",
+        "No BTC-specific weight, horizon, parameter, cycle rule or executable strategy is derived from this source.",
+        "Book-level synthesis published in 2011; multi-asset and longer-horizon findings require BTC-specific validation before implementation."
       ],
       "related_sources": []
     },
