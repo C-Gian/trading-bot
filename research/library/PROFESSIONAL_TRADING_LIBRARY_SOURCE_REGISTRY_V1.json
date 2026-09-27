@@ -244,10 +244,14 @@
         "systematic_trading"
       ],
       "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "INSTITUTIONAL_MATERIAL_REFERENCE_ONLY_RIGHTS_UNCLEAR",
       "notes": [
-        "Useful practitioner evidence about strategy decay and persistence; does not establish transferability to BTC."
+        "Complete 18-page PDF reviewed on 2026-09-27, including all 12 figures, bibliography and disclosures.",
+        "Dossier: research/library/source_notes/LIB-007-TREND-FOLLOWING-AND-DRAWDOWNS-IS-THIS-TIME-DIFFERENT.md",
+        "Historical index evidence, hypothetical IID-normal simulations, and practitioner opinion are explicitly separated in the dossier.",
+        "Key retained concepts: edge decay can be horizon-specific; drawdown alone does not prove strategy death; whipsaw regimes are structurally hostile to trend; drawdown-based deallocation can create opportunity cost when underlying expectancy is unchanged.",
+        "No BTC trend parameter, signal weight, drawdown threshold or deployment rule is derived from this source."
       ],
       "related_sources": [
         "LIB-006",
