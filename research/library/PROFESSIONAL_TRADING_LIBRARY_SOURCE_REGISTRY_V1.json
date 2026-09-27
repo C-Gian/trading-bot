@@ -41,9 +41,12 @@
       "study_status": "PARTIALLY_REVIEWED",
       "rights_status": "RIGHTS_UNCLEAR_REFERENCE_ONLY_UNTIL_CLARIFIED",
       "notes": [
-        "Scanned/image PDF; Drive text extraction is empty but rendered pages are readable.",
-        "594-page edition visually identified from title/copyright/front matter.",
-        "Particularly relevant to execution and microstructure; not evidence of BTC alpha."
+        "Scanned/image PDF; Drive text extraction is empty. On 2026-09-27 all 594 PDF pages were rendered and OCR-indexed page-by-page.",
+        "Dossier: research/library/source_notes/LIB-001-ALGORITHMIC-TRADING-AND-DMA.md",
+        "Completion blocker: 90 PDF page bodies in the registered Drive artifact render as uniform grey/missing raster data across independent renderers; several are substantive pages in Chapters 6, 7, 11 and 15.",
+        "504 page bodies are readable and were reviewed chapter-by-chapter; exact damaged-page ledger and retained source claims are recorded in the dossier.",
+        "Status intentionally remains PARTIALLY_REVIEWED until an intact copy/scan is obtained and the damaged substantive pages are read.",
+        "Particularly relevant to execution and microstructure; no BTC alpha, signal weight, or Trading Bot numeric parameter is derived from this source."
       ],
       "related_sources": [
         "LIB-020"
