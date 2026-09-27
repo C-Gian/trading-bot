@@ -324,11 +324,14 @@
         "regime"
       ],
       "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Journal of Portfolio Management, Fall 2017.",
-        "Very long-run multi-asset monthly evidence; external evidence only for BTC."
+        "Complete 16-page published paper reviewed on 2026-09-27, including exhibits, appendices, endnotes, references, and visual page inspection.",
+        "Dossier: research/library/source_notes/LIB-009-A-CENTURY-OF-EVIDENCE-ON-TREND-FOLLOWING-INVESTING.md",
+        "Study covers a diversified 67-market monthly time-series-momentum strategy from 1880-2016 using equal-weighted 1m/3m/12m signals, volatility scaling and simulated transaction costs.",
+        "Paper provides strong external trend evidence but does not validate BTCUSDT intraday alpha or any Trading Bot signal weight/parameter.",
+        "Related TSMOM/trend sources must not be counted as fully independent evidence in final synthesis."
       ],
       "related_sources": [
         "LIB-006",
