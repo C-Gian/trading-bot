@@ -164,7 +164,7 @@
         "Jack D. Schwager",
         "George F. Coyle"
       ],
-      "year": 2026,
+      "year": "2025/2026",
       "source_type": "BOOK_INTERVIEWS",
       "classification": "BOOK_TEXTBOOK",
       "evidence_tier": "C",
@@ -176,11 +176,14 @@
         "psychology"
       ],
       "btcusdt_relevance": "HYPOTHESIS_CANDIDATE",
-      "study_status": "IDENTIFIED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Bibliographic inconsistency in file: 'First published in 2025' while copyright/preface indicate 2026.",
-        "Use as practitioner-process evidence, not scientific proof."
+        "Complete 332-page accessible PDF reviewed on 2026-09-27, including both prefaces, all nine trader interviews, trade-chart visual scan, epilogue, all three appendices and performance-verification notes.",
+        "Dossier: research/library/source_notes/LIB-005-MARKET-WIZARDS-THE-NEXT-GENERATION.md",
+        "Bibliographic inconsistency preserved: publication page says first published 2025; copyright and both prefaces indicate 2026.",
+        "Practitioner interview evidence only: performance verification increases authenticity of reported records but does not eliminate selection/survivorship bias or establish causal efficacy of the methods.",
+        "No BTC alpha, numeric signal weight or implementation parameter is derived from this source."
       ],
       "related_sources": []
     },
