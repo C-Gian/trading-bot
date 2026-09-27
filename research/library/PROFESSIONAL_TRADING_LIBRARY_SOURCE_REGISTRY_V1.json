@@ -433,11 +433,14 @@
         "backtesting"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Reviewed chapters/sections on finance CV, purged K-fold, dangers of backtesting and backtest statistics.",
-        "Its strict view that backtesting should discard rather than iteratively improve models conflicts with Chan's refinement approach; disagreement is preserved."
+        "Complete 518-page accessible PDF reviewed on 2026-09-27, covering all 22 chapters plus visual verification of chapter openings and key figures/tables.",
+        "Dossier: research/library/source_notes/LIB-012-ADVANCES-IN-FINANCIAL-MACHINE-LEARNING.md",
+        "Key domains covered: event-based sampling, triple-barrier/meta-labeling, sample uniqueness, fractional differentiation, purged CV/embargo, feature importance, tuning, bet sizing, backtest-overfitting controls, CPCV, backtest statistics, strategy risk, structural breaks, entropy, microstructure, and computational infrastructure.",
+        "López de Prado's strict anti-refinement backtest doctrine is preserved as a source position and explicitly not treated as universal corpus consensus.",
+        "No claim is made that Trading Bot should become a black-box ML system; no BTC signal weight, parameter, System G2 design, or market experiment is derived from this source."
       ],
       "related_sources": [
         "LIB-003",
