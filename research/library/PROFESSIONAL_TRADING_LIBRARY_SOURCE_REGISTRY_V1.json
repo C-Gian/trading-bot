@@ -656,11 +656,15 @@
         "VaR"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "IDENTIFIED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Sixth edition.",
-        "Useful as derivatives/risk background; most options-specific material is outside current product scope."
+        "Complete 811-page accessible PDF reviewed on 2026-09-27, covering all 32 chapters plus reference sections.",
+        "Dossier: research/library/source_notes/LIB-019-OPTIONS-FUTURES-AND-OTHER-DERIVATIVES-6E.md",
+        "Project-relevant chapters on futures mechanics, hedging, forward/futures pricing, Greeks, VaR, dynamic volatility/correlation, and derivatives failures were studied in greater depth.",
+        "Key retained distinction: derivative pricing/carry relationships are not automatically directional forecasts.",
+        "Published in 2006; LIBOR-era and market-structure details require modern verification before any 2026 implementation.",
+        "No BTC alpha, numeric signal weight, timeframe, or trading parameter is derived from this textbook."
       ],
       "related_sources": []
     },
