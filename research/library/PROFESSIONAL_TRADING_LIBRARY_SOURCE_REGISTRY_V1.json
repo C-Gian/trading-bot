@@ -465,11 +465,14 @@
         "non_normality"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Core argument and conclusion reviewed.",
-        "DSR adjusts apparent Sharpe significance for selection/multiple-testing effects and non-normal returns; requires information about unselected trials."
+        "Complete 22-page PDF reviewed on 2026-09-27, including all main sections, appendices, code snippet, exhibits and references, with full visual page verification.",
+        "Dossier: research/library/source_notes/LIB-013-DEFLATED-SHARPE-RATIO.md",
+        "Core retained lesson: Sharpe significance must account for multiple testing/search history, trial redundancy, sample length, skewness and kurtosis.",
+        "DSR is treated as a research-evidence diagnostic, not an alpha generator or substitute for causal data/execution correctness.",
+        "No BTC alpha, signal weight, parameter or System G2 rule is derived from this paper."
       ],
       "related_sources": [
         "LIB-016",
