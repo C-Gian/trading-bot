@@ -10621,6 +10621,62 @@
             "corrections_checkpoint_report": {
               "type": "string",
               "pattern": "^reports/checkpoints/[A-Za-z0-9_.-]+\\.md$"
+            },
+            "gate_b_rereview": {
+              "type": "string",
+              "pattern": "^reports/reviews/[A-Za-z0-9_.-]+\\.md$"
+            }
+          }
+        },
+        "g2_02_development": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "work_package",
+            "status",
+            "baseline_version",
+            "general_revision_slots_consumed",
+            "cycle_revision_slots_consumed",
+            "diagnostic_ablations_authorized",
+            "protected_outcomes_read",
+            "future_paper_authorized",
+            "real_money_authorized"
+          ],
+          "properties": {
+            "work_package": {
+              "const": "G2-02-BASELINE-AND-DIAGNOSTICS-V1"
+            },
+            "status": {
+              "enum": [
+                "AUTHORIZED_NOT_EXECUTED",
+                "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02_REVIEW",
+                "RESEARCH_DIRECTOR_REVIEWED"
+              ]
+            },
+            "baseline_version": {
+              "const": "G2-V0"
+            },
+            "general_revision_slots_consumed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3
+            },
+            "cycle_revision_slots_consumed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "diagnostic_ablations_authorized": {
+              "const": 2
+            },
+            "protected_outcomes_read": {
+              "const": false
+            },
+            "future_paper_authorized": {
+              "const": false
+            },
+            "real_money_authorized": {
+              "const": false
             }
           }
         }

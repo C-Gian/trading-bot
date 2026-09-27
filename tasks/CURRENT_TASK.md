@@ -1,41 +1,41 @@
-# CURRENT TASK — G2-01-GATE-B-CORRECTIONS-DATA-PREFLIGHT-V1
+# CURRENT TASK — G2-02-BASELINE-AND-DIAGNOSTICS-V1
 
-Status: **EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REREVIEW — ECONOMIC MARKET EXECUTION FORBIDDEN**
+Status: **AUTHORIZED EXPOSED DEVELOPMENT — NO ADAPTIVE REVISION**
 
-Executor checkpoint: `reports/checkpoints/G2-01-GATE-B-CORRECTIONS-DATA-PREFLIGHT-V1.md` (Claude Code, overflow).
+Gate B: PASS.
 
-Research Director review:
-`reports/reviews/G2-01-GATE-B-RESEARCH-DIRECTOR-REVIEW-V1.md`
+Implementation package:
+`tasks/G2_02_BASELINE_AND_DIAGNOSTICS_V1.md`
 
-Implementation task:
-`tasks/G2_01_GATE_B_CORRECTIONS_AND_DATA_PREFLIGHT_V1.md`
+Long-job operating standard:
+`docs/operations/LONG_RUNNING_JOB_PROGRESS_V1.md`
 
 ## Executor
 
-Primary: **Codex**.  
-Overflow: Claude Code if needed.
+Primary: Codex.  
+Overflow: Claude Code.
 
 ## Instruction
 
-Execute the correction/preflight task completely and deterministically.
+Execute the package exactly.
 
-Do not reopen frozen economic/scientific choices and do not run G2 economic development.
+First implement the required generic progress/heartbeat visibility. Then execute only the frozen
+G2-V0 baseline, four fixed references and two diagnostic ablations on the authorized exposed
+development interval.
 
-## Current scientific state
+Stop after producing the fixed-batch artifacts and autopsy.
 
-- G2-01 main implementation: substantially accepted, corrections pending;
-- Gate B: PENDING_CORRECTION;
-- cycle method: AVAILABLE_FOR_RESERVED_REVISION, still SHADOW_ONLY in G2-V0;
-- revision slots consumed: 0;
-- G2-02 economic run: FORBIDDEN;
-- validated strategy: NONE;
-- Champion: NONE;
-- operational action: NO_TRADE;
+## Boundaries
+
+- 2020: exposed initialization/training.
+- 2021-2024: exposed scored development.
+- 2025+: forbidden.
+- adaptive revisions: forbidden in this task.
+- cycle: SHADOW_ONLY in V0.
+- validated strategy: NONE.
+- production action: NO_TRADE.
 - real money: false.
 
 ## Completion
 
-Leave:
-`EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REREVIEW`.
-
-The Research Director decides Gate B PASS and any G2-02 authorization.
+`EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02_REVIEW`.
