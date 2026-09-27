@@ -4687,6 +4687,7 @@ def data_checks(state: dict) -> None:
         cross_path,
         open_interest_path,
         ROOT / PUBLIC_TAKER_FLOW_MANIFEST,
+        ROOT / "data/manifests/BTCUSDT-USDM-EXCHANGEINFO-SNAPSHOT-V1.json",
     }
     manifest = validate_json(path, schema)
     flow_manifest = json.loads(flow_path.read_text(encoding="utf-8"))
