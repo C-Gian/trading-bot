@@ -118,6 +118,33 @@ def git(*args: str) -> str:
     return subprocess.check_output(["git", *args], cwd=ROOT, text=True).strip()
 
 
+# ADR-0053 compacted superseded Markdown into pointers; the pre-cleanup tree stays in Git. Checks
+# that bind historical document text read that preserved revision instead of the live pointer.
+# AGENTS.md was rewritten for the terminal park; the prediction-first text lives at its revision.
+PREDICTION_FIRST_REVISION = "8dce89101aa946173e6e3fa2d6a669b720ec4535"
+
+
+def historical_text(path: str, revision: str | None = None) -> str:
+    from app.historical_docs import PRE_COMPACTION_REVISION
+    from app.historical_docs import historical_text as preserved
+
+    return preserved(ROOT, path, revision or PRE_COMPACTION_REVISION)
+
+
+def document_text(path: str) -> str:
+    from app.historical_docs import document_text as text
+
+    return text(ROOT, path)
+
+
+def document_hash(path: str) -> str:
+    return hashlib.sha256(document_text(path).encode("utf-8")).hexdigest()
+
+
+def g2_active(state: dict) -> bool:
+    return state["current_project_status"]["active_system_generation"] == "G2_DEVELOPMENT_SYSTEM"
+
+
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -1696,9 +1723,13 @@ def prediction_first_checks(state: dict) -> None:
     objective = state["predictive_research_objective"]
     legacy = state["legacy_research_generation"]
     constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
-    contract = (ROOT / objective["evaluation_contract"]).read_text(encoding="utf-8")
-    roadmap = (ROOT / objective["source_roadmap"]).read_text(encoding="utf-8")
-    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    contract = document_text(objective["evaluation_contract"])
+    roadmap = document_text(objective["source_roadmap"])
+    agents = (
+        historical_text("AGENTS.md", PREDICTION_FIRST_REVISION)
+        if g2_active(state)
+        else (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    )
 
     # Version 2.0 declared this objective; Version 3.0 (ADR-0036) supersedes it and keeps it
     # verbatim as Appendix B, so the objective record stays a historical 2.0 record.
@@ -3019,7 +3050,7 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
         assert required in guard, required
 
     # The V2 freeze in state, the contract and the scorer must all be the same freeze.
-    contract = (ROOT / objective["evaluation_contract"]).read_text(encoding="utf-8")
+    contract = document_text(objective["evaluation_contract"])
     assert objective["generation"] == "PREDICTIVE_RESEARCH_GENERATION_V2"
     assert objective["status"] in {
         "OPEN_NO_CANDIDATE_EXECUTED",
@@ -3027,8 +3058,8 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
         "SECOND_FAMILY_EXECUTED_PENDING_RESEARCH_DIRECTOR_REVIEW",
         V2_POST_REVIEW_STATUS,
     }
-    assert objective["evaluation_contract_sha256"] == content_hash(
-        ROOT / objective["evaluation_contract"]
+    assert objective["evaluation_contract_sha256"] == document_hash(
+        objective["evaluation_contract"]
     )
     assert objective["scorer_module_sha256"] == content_hash(ROOT / objective["scorer_module"])
     assert objective["prospective_source_guard_sha256"] == content_hash(
@@ -3138,9 +3169,7 @@ def generation_v2_rebaseline_checks(state: dict) -> None:
         "not** applied retrospectively to any V1 model score",
     ):
         assert required in contract, required
-    v1_contract = (ROOT / "docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md").read_text(
-        encoding="utf-8"
-    )
+    v1_contract = document_text("docs/canonical/PREDICTIVE_EVALUATION_CONTRACT_V1.md")
     assert "PREDICTIVE_EVALUATION_CONTRACT_V2" in v1_contract
     constitution = (ROOT / "governance/SCIENTIFIC_CONSTITUTION.md").read_text(encoding="utf-8")
     assert "## Research generations" in constitution
@@ -3404,7 +3433,11 @@ def governance_transition_v3_checks(state: dict) -> None:
     for required in ("0.1871", "0.0005414", "POWER_BLOCKED_NOT_EXECUTED"):
         assert required in qualifications, required
     # The allocation map carries every directive disposition.
-    allocation = (ROOT / record["allocation_map"]).read_text(encoding="utf-8")
+    allocation = (
+        historical_text(record["allocation_map"])
+        if g2_active(state)
+        else (ROOT / record["allocation_map"]).read_text(encoding="utf-8")
+    )
     for required in (
         "CLOSED / NO HISTORICAL RESCUE",
         "SHARED CONTEXT ONLY",
@@ -3422,8 +3455,8 @@ def governance_transition_v3_checks(state: dict) -> None:
         "OUT OF CURRENT PRODUCT SCOPE",
     ):
         assert required in allocation, required
-    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    bootstrap = (ROOT / "docs/operations/NEW_CHAT_BOOTSTRAP.md").read_text(encoding="utf-8")
+    agents = document_text("AGENTS.md")
+    bootstrap = document_text("docs/operations/NEW_CHAT_BOOTSTRAP.md")
     for text in (agents, bootstrap):
         assert "Claude Code" in text and "Astra" in text
         assert record["stage_policy"].split("/")[-1] in text
@@ -3536,7 +3569,116 @@ def fail_closed_state_checks(state: dict) -> None:
     if current["disposition"] == PARKED:
         assert record["project_state"] == PARKED
         return
+    if g2_active(state):
+        g2_checks(state)
+        return
     system_g1_checks(state)
+
+
+G2_AUTHORITY = (
+    "docs/canonical/OWNER_PRODUCT_MISSION_V2.md",
+    "governance/SCIENTIFIC_CONSTITUTION.md",
+    "reports/strategic/ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2.md",
+    "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md",
+    "docs/canonical/G2_PROFESSIONAL_KNOWLEDGE_MODEL_V1.md",
+    "docs/canonical/G2_FORECAST_POLICY_EXECUTION_CONTRACTS_V1.md",
+    "research/g2/G2_DATA_EXPOSURE_AND_EXECUTION_MANIFEST_V1.md",
+    "research/g2/G2_CYCLE_CAUSALITY_CHECKPOINT_V1.md",
+    "research/g2/G2_DEVELOPMENT_PROTOCOL_V1.md",
+    "reports/checkpoints/G2-00-GATE-A-CONTRACT-FREEZE-V1.md",
+)
+
+
+def g2_checks(state: dict) -> None:
+    """G2 (ADR-0052) live-state checks; the G1 records are preserved historical evidence."""
+    from app.g1 import batch
+    from app.g2.validation import ARTIFACT_PATH, CODE_FILES, text_sha256
+
+    current = state["current_project_status"]
+    g2 = state["g2_development_system"]
+    assert current["disposition"] == current["strategic_disposition"]
+    assert current["market_trial_authorized"] is False
+    assert current["confirmation_authorized"] is False
+    assert current["prospective_collection_authorized"] is False
+    assert current["successor_system_generation"] == "G2_DEVELOPMENT_SYSTEM_ALLOCATED"
+    for flag in (
+        "market_backtest_authorized",
+        "protected_evaluation_authorized",
+        "future_paper_authorized",
+        "real_money_authorized",
+    ):
+        assert g2[flag] is False, flag
+    assert current["automatic_next_research_package"] == g2["current_work_package"]
+    task = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
+    assert task.startswith(f"# CURRENT TASK — {g2['current_work_package']}")
+    assert "ECONOMIC MARKET EXECUTION FORBIDDEN" in task
+    for path in G2_AUTHORITY:
+        assert (ROOT / path).is_file(), path
+    # System G1 stays a closed terminal park: Phase B was never run and cannot be authorized.
+    development = state["system_g1_development"]
+    assert development["terminal_disposition"] == "SYSTEM_G1_TERMINAL_PARK"
+    assert development["phase_b_executed"] is False
+    assert not (ROOT / batch.RUN_DIR / batch.EVALUATION_FILE).exists()
+    try:
+        batch.authorize_real_sources("B", ROOT)
+    except batch.ExecutionNotAuthorized:
+        pass
+    else:  # pragma: no cover - Phase B needs its own reviewed authorization and checks
+        raise AssertionError("System G1 Phase B must remain unauthorized")
+    ledger = [
+        json.loads(line)
+        for line in (ROOT / "research/g2/G2_RESEARCH_LEDGER_V1.jsonl")
+        .read_text(encoding="utf-8")
+        .splitlines()
+        if line.strip()
+    ]
+    ids = [record["record_id"] for record in ledger]
+    assert len(ids) == len(set(ids)), "the G2 ledger is append-only with unique identities"
+    assert all(record.get("protected_outcomes_read", False) is False for record in ledger)
+    assert all(record.get("sealed_queries", 0) == 0 for record in ledger)
+    record = g2.get("g2_01_vertical_slice")
+    if record is None:
+        return
+    for key in (
+        "implementation_package",
+        "validation_artifact",
+        "validation_log",
+        "validation_report",
+        "checkpoint_report",
+    ):
+        assert (ROOT / record[key]).is_file(), record[key]
+    assert record["validation_artifact"] == ARTIFACT_PATH
+    window = record["engineering_window_ledger_record"]
+    declared = ids.index(window)
+    if record["status"] == "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW":
+        assert "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW" in task
+        assert record["gate_b"] == "PENDING_RESEARCH_DIRECTOR_REVIEW"
+        completion = ids.index("G2-01-CHECKPOINT-001")
+        assert declared < completion, "the engineering window was declared before its use"
+    artifact = json.loads((ROOT / ARTIFACT_PATH).read_text(encoding="utf-8"))
+    assert artifact["status"] == record["status"]
+    assert artifact["code_canonical_sha256"] == {
+        path: text_sha256(ROOT / path) for path in CODE_FILES
+    }
+    assert all(
+        value is False
+        for key, value in artifact["claims"].items()
+        if key not in ("validated_strategy", "champion", "sealed_queries")
+    )
+    assert artifact["claims"]["sealed_queries"] == 0
+    assert artifact["claims"]["validated_strategy"] is None
+    assert artifact["cycle_checkpoint"]["all_pass"] is True
+    assert artifact["cycle_checkpoint"]["classification"] == "PENDING_RESEARCH_DIRECTOR_REVIEW"
+    assert artifact["synthetic_run"]["economic_summary"] == "NOT_COMPUTED_G2_01_ENGINEERING_ONLY"
+    engineering = artifact["engineering_window"]
+    assert engineering["status"] == "EXECUTED"
+    assert engineering["ledger_record"] == window
+    assert engineering["protected_objects_opened"] is False
+    assert engineering["economic_actions"] == 0 and engineering["model_fits"] == 0
+    determinism = artifact["determinism"]
+    assert determinism["repeat_run_fingerprint_identical"] is True
+    assert all(determinism["replay_speed_identity"].values())
+    assert all(determinism["prefix_invariance_every_record"].values())
 
 
 def system_g1_checks(state: dict) -> None:
@@ -4455,6 +4597,11 @@ def governance_checks(pre_experiment: bool) -> dict:
         "/api/v1/g1/replay/sessions/{session_id}/control",
         "/api/v1/g1/replay/sessions/{session_id}/tick",
         "/api/v1/g1/runs/{run_id}/post-analysis",
+        # G2-01: in-memory causal replay cursor over the authoritative G2 core's immutable
+        # records (NOT performance evidence). No canonical state, order or scientific knob.
+        "/api/v1/g2/replay/sessions",
+        "/api/v1/g2/replay/sessions/{session_id}/control",
+        "/api/v1/g2/replay/sessions/{session_id}/tick",
     }
     for route in app.routes:
         route_path = str(getattr(route, "path", ""))
@@ -4824,6 +4971,7 @@ def main() -> None:
     run([sys.executable, "scripts/audit_p2_cycle_null_v2.py", "--check"])
     run([sys.executable, "scripts/build_g1_cycle_diagnostics.py", "--check"])
     run([sys.executable, "scripts/build_g1_cycle_quality_gate.py", "--check"])
+    run([sys.executable, "scripts/build_g2_validation.py", "--check"])
     for command in (
         [sys.executable, "-m", "ruff", "check", "backend", "scripts"],
         [sys.executable, "-m", "ruff", "format", "--check", "backend", "scripts"],

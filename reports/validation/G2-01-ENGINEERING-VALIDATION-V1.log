@@ -1,0 +1,20 @@
+G2-01 engineering validation build (244.2s, workers=8)
+synthetic run_id=G2RUN-a2c0b442dde95722c62116e2
+synthetic fingerprint=a504bff56339086a6f53d7852d25c045a22a5fe591fd31eeaf9563157e67eb88
+determinism={"prefix_invariance_every_record": {"2001-08-02T05:07:00+00:00": true, "2001-09-03T13:00:00+00:00": true}, "repeat_run_fingerprint_identical": true, "replay_speed_identity": {"1440m_steps": true, "97m_steps": true}}
+cycle checkpoint all_pass=True
+  cycle 01_g1_g2_numeric_parity: pass=True
+  cycle 02_white_noise_gate: pass=True
+  cycle 03_coherent_cycle_gate: pass=True
+  cycle 04_additive_noise_amp1_sd0_5: pass=True
+  cycle 05_pure_linear_trend_no_usable: pass=True
+  cycle 06_isolated_jump_abstention: pass=True
+  cycle 07_varying_frequency_bounded_causal: pass=True
+  cycle 08_prefix_invariance: pass=True
+  cycle 09_gap_reset_full_rewarm: pass=True
+  cycle 10_projection_amplitude_valid: pass=True
+  cycle 11_period_stability_exact: pass=True
+  cycle 12_turn_confirmation_delayed: pass=True
+  cycle 13_replay_speed_identity: pass=True
+engineering window status=EXECUTED ledger=G2-01-ENG-WINDOW-001
+{"aggregation_parity": {"15m": {"bars": 672, "complete": 672, "parity": true}, "1d": {"bars": 7, "complete": 7, "parity": true}, "1h": {"bars": 168, "complete": 168, "parity": true}, "4h": {"bars": 42, "complete": 42, "parity": true}}, "economic_actions": 0, "economic_outputs": "NONE_BY_DECLARATION", "fingerprint": "d4f9d3a6030fc4a73f3db0a7f955d1fcc050166d4e4052b81448edc87fd6f4e4", "forecast_status_counts": {"FORECAST_UNAVAILABLE_MISSING_DATA": 15, "FORECAST_UNAVAILABLE_WARMUP": 657}, "funding_settlements": 21, "funding_settlements_on_8h_grid": true, "ledger_record": "G2-01-ENG-WINDOW-001", "minute_available_at_is_close": true, "minutes_returned": 10080, "model_fits": 0, "opened_objects": ["data/derived/BTCUSDT-USDM-settled-funding-v1.parquet", "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-06.zip"], "parser_parity_with_frozen_g1_parser": true, "predictions_emitted": 672, "prefix_invariance": true, "protected_objects_opened": false, "purposes": ["PARSER_CORRECTNESS", "AGGREGATION_PARITY", "SOURCE_TIMESTAMP_SEMANTICS", "PREFIX_INVARIANCE", "DETERMINISTIC_REPLAY", "API_FRONTEND_RENDERING"], "replay_speed_identity": true, "run_id": "G2RUN-0014752833ad9e2dd96c952a", "status": "EXECUTED", "timestamps_on_minute_grid": true, "timestamps_strictly_increasing": true, "window": ["2024-06-03T00:00:00+00:00", "2024-06-10T00:00:00+00:00"]}

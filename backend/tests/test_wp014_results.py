@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from app.historical_docs import document_text
 from app.predictive.taker_flow_validation import expected_state_pointers
 from app.research.supervised import FULL_FEATURES
 from app.research.wp014_model import HGBR_PARAMETERS
@@ -142,4 +143,4 @@ def test_wp014_result_records_and_state_are_consistent_and_safe() -> None:
     assert state["paper_trades_completed"] == 0
     assert state["champion_status"] == "NONE"
     assert state["real_money_authorized"] is False
-    assert b"## STATUS\nCOMPLETED" in (ROOT / "tasks/archive/WP-014.md").read_bytes()
+    assert "## STATUS\nCOMPLETED" in document_text(ROOT, "tasks/archive/WP-014.md")

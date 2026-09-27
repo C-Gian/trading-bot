@@ -16,6 +16,8 @@ from .backtest import COST_VERSION, ENGINE_VERSION, EXECUTION_VERSION
 from .data.store import available, candles
 from .g1.api import g1_router
 from .g1.service import G1ReplayService
+from .g2.api import g2_router
+from .g2.service import G2ReplayService
 from .product.analysis import RESEARCH_STATUS, STRATEGY_VERSION, VARIANT, analyse
 from .product.analysis_review import build_analysis_review_bundle
 from .product.market_feed import recent_candles
@@ -138,6 +140,7 @@ def create_app(
     shadow_observer: Any | None = None,
     state_schema_path: Path | None = None,
     g1_service: G1ReplayService | None = None,
+    g2_service: G2ReplayService | None = None,
 ) -> FastAPI:
     @asynccontextmanager
     async def lifespan(_: FastAPI):
@@ -171,6 +174,11 @@ def create_app(
     # production action surface above, which stays NO_TRADE while no strategy is validated.
     application.router.routes.extend(
         g1_router(g1_service or G1ReplayService(), repository.load).routes
+    )
+    # G2-01: the engineering replay of the authoritative G2-V0 core (NOT performance evidence).
+    # It is a distinct surface and never changes the fail-closed NO_TRADE action output above.
+    application.router.routes.extend(
+        g2_router(g2_service or G2ReplayService(), repository.load).routes
     )
 
     @application.get("/api/v1/state")

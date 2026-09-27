@@ -969,3 +969,7 @@ button:disabled {
 .replay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
 .replay-run { display: block; margin: 8px 0 12px; }
 .signal-family h3 { font-size: 12px; margin: 8px 0 4px; opacity: .7; }
+
+/* G2-01 engineering replay (presentation only) */
+.replay-mode { gap: 8px; margin-bottom: 12px; }
+.lineage { max-height: 420px; overflow: auto; font-size: 11px; white-space: pre-wrap; margin: 0; }

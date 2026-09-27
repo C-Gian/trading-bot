@@ -10406,6 +10406,9 @@
             "null"
           ]
         },
+        "selected_configuration": {
+          "const": null
+        },
         "phase_a_disposition": {
           "type": [
             "string",
@@ -10511,6 +10514,89 @@
         },
         "real_money_authorized": {
           "const": false
+        },
+        "g2_01_vertical_slice": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "work_package",
+            "status",
+            "implementation_package",
+            "validation_artifact",
+            "validation_log",
+            "validation_report",
+            "checkpoint_report",
+            "engineering_window_ledger_record",
+            "cycle_checkpoint",
+            "gate_b",
+            "economic_market_run_executed",
+            "protected_outcomes_read",
+            "parameters_tuned",
+            "sealed_queries"
+          ],
+          "properties": {
+            "work_package": {
+              "const": "G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1"
+            },
+            "status": {
+              "enum": [
+                "IMPLEMENTATION_ACTIVE",
+                "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW",
+                "GATE_B_PASS",
+                "GATE_B_FAIL"
+              ]
+            },
+            "implementation_package": {
+              "type": "string",
+              "pattern": "^tasks/[A-Za-z0-9_.-]+\\.md$"
+            },
+            "validation_artifact": {
+              "type": "string",
+              "pattern": "^reports/validation/[A-Za-z0-9_.-]+\\.json$"
+            },
+            "validation_log": {
+              "type": "string",
+              "pattern": "^reports/validation/[A-Za-z0-9_.-]+\\.log$"
+            },
+            "validation_report": {
+              "type": "string",
+              "pattern": "^reports/validation/[A-Za-z0-9_.-]+\\.md$"
+            },
+            "checkpoint_report": {
+              "type": "string",
+              "pattern": "^reports/checkpoints/[A-Za-z0-9_.-]+\\.md$"
+            },
+            "engineering_window_ledger_record": {
+              "type": "string",
+              "pattern": "^G2-01-ENG-WINDOW-[0-9]{3}$"
+            },
+            "cycle_checkpoint": {
+              "enum": [
+                "TESTS_EXECUTED_PENDING_RESEARCH_DIRECTOR_CLASSIFICATION",
+                "AVAILABLE_FOR_RESERVED_REVISION",
+                "CYCLE_UNAVAILABLE"
+              ]
+            },
+            "gate_b": {
+              "enum": [
+                "PENDING_RESEARCH_DIRECTOR_REVIEW",
+                "PASS",
+                "FAIL"
+              ]
+            },
+            "economic_market_run_executed": {
+              "const": false
+            },
+            "protected_outcomes_read": {
+              "const": false
+            },
+            "parameters_tuned": {
+              "const": false
+            },
+            "sealed_queries": {
+              "const": 0
+            }
+          }
         }
       }
     }

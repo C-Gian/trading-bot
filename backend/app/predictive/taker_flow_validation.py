@@ -436,6 +436,8 @@ def expected_state_pointers(root: Path, state: dict[str, Any]) -> dict[str, str]
     (ADR-0036) its checkpoint is the latest executor checkpoint, and it is also the latest
     reviewed one only after review. The next work package is the active task's header.
     """
+    if _g2_active(state):
+        return _frozen_historical_pointers(root, state)
     if GOVERNANCE_KEY in state:
         return _governance_pointers(root, state)
     incremental = state[INCREMENTAL_KEY]
@@ -462,6 +464,44 @@ def expected_state_pointers(root: Path, state: dict[str, Any]) -> dict[str, str]
         "next_recommended_work_package": next_work_package,
         "status": "REVIEWED",
         "research_architecture.next_checkpoint": next_work_package.replace("-", "_"),
+    }
+
+
+def _g2_active(state: dict[str, Any]) -> bool:
+    current = state.get("current_project_status", {})
+    return current.get("active_system_generation") == "G2_DEVELOPMENT_SYSTEM"
+
+
+# The two pointer values frozen when System G1 reached its terminal park (ADR-0050): the
+# Constitution 3.0 record never advanced them afterwards.
+TERMINAL_PARK_STATUS = "REVIEWED"
+TERMINAL_PARK_NEXT_CHECKPOINT = "RESEARCH_DIRECTOR_SYSTEM_G1_PHASE_A_ADJUDICATION_V1"
+
+
+def _frozen_historical_pointers(root: Path, state: dict[str, Any]) -> dict[str, str]:
+    """ADR-0052: under G2 the top-level pointers are frozen historical fields.
+
+    `current_project_status` overrides them; the live binding is its next research package, which
+    must be the active task header. The historical pointers stay derived from the preserved
+    Constitution 3.0 governance record.
+    """
+    current = state["current_project_status"]
+    require(
+        active_task_title(root) == current["automatic_next_research_package"],
+        "the active task is not the current G2 work package",
+    )
+    for field in ("latest_executor_checkpoint", "next_recommended_work_package", "status"):
+        require(field in current["historical_top_level_fields"], f"{field} is not historical")
+    record = state[GOVERNANCE_KEY]
+    report = root / record["checkpoint_report"]
+    reviewed = root / record["latest_reviewed_checkpoint_report"]
+    require(report.is_file() and reviewed.is_file(), "a historical checkpoint report is missing")
+    return {
+        "latest_executor_checkpoint": report.stem,
+        "latest_reviewed_checkpoint": reviewed.stem,
+        "next_recommended_work_package": record["next_work_package"],
+        "status": TERMINAL_PARK_STATUS,
+        "research_architecture.next_checkpoint": TERMINAL_PARK_NEXT_CHECKPOINT,
     }
 
 

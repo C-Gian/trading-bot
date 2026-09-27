@@ -1,0 +1,808 @@
+{
+  "artifact": "G2-01-ENGINEERING-VALIDATION-V1",
+  "claims": {
+    "champion": null,
+    "cycle_active_in_forecast_or_policy": false,
+    "economic_market_run_executed": false,
+    "economic_summary_computed": false,
+    "g1_rescue": false,
+    "paper_or_real_orders": false,
+    "parameters_features_thresholds_tuned": false,
+    "protected_2025_objects_opened": false,
+    "protected_2025_outcomes_read": false,
+    "sealed_queries": 0,
+    "validated_strategy": null
+  },
+  "code_canonical_sha256": {
+    "backend/app/g2/__init__.py": "0e5f7bd9064092e0b9dbab6fb0215b90c7048f613012210b94061980e6dcde38",
+    "backend/app/g2/api.py": "4c687efe373d68130cbd18095416b82869c368fbed5aa7169db4e8061c69d88d",
+    "backend/app/g2/bars.py": "76bb221005c65967cac903586448c7a7b2eaeb6d8006b73b0d1bf6f7af80aa94",
+    "backend/app/g2/contract.py": "c3e3d181a659b720b46cbaed6bb4914827fb15f03ac9a90f1c308cfbaa6ba5ad",
+    "backend/app/g2/core.py": "0d4a39c5c96989f16dc24c30cd1abbae9e3428d7b333ed8e769a4965d496fa01",
+    "backend/app/g2/cycle.py": "28902ef67e39c6369cbc03e41c192fa894749ce19092e2784338f5831c7940d4",
+    "backend/app/g2/cycle_checkpoint.py": "fe30d6ff42238445085fb5e8b498b717a9355e2b1ffc156c95eff1451d00cff5",
+    "backend/app/g2/distribution.py": "c30dd9a69883401069ad27f12b3e6aa7674c1220528cb1649e67af4f6edbbaf2",
+    "backend/app/g2/execution.py": "62a525d95f2441634134a29ec826dfab8745fc9a05752e077649c143d862bcc6",
+    "backend/app/g2/features.py": "d31cee0b27bcca746f896cd46c8580d2243948dda9982bc5e156aec2e9deff7d",
+    "backend/app/g2/fixtures.py": "6f6576a3322dc0cd1ab27e7dd7df8a98afd9083b70524b8fc39fa4ea5f0c8299",
+    "backend/app/g2/models.py": "2b6c6e0ba5f4f9759c449fe08caaba8825c61952cb816ee04d6f1c1d6b6b44ff",
+    "backend/app/g2/records.py": "46907b958cfcedc35154011d918eba4f3819f2eb32edc08d8ef1ffc94633f22a",
+    "backend/app/g2/risk.py": "fbbc623d4f5b4220b20d09122fcec69cdfb47263aa180b81b1fe39c2b111085f",
+    "backend/app/g2/runs.py": "4624c5b4c0082780777c1252f384d9b9eb9b3bffbc058cb00210af5892f94cbd",
+    "backend/app/g2/service.py": "952b49e3e4409c6790f828bfc2a123783b94f65ec9bf369bc85d695447321c7d",
+    "backend/app/g2/sources.py": "5ecbf115c6bf9d51fe6f002012ba79ce5be4937eb7f7c13e68d70d68fdfa288a",
+    "backend/app/g2/store.py": "99b3eb552db32e1aea4cb73b53e26b9bb43fbd076dd560aacf2973b878bc6c0d",
+    "backend/app/g2/validation.py": "03fb17a6020fbd1e9695382ac6ec6e902e1fc8143ad3ab5a8dd9028a993dd8fc"
+  },
+  "contract_documents_canonical_sha256": {
+    "docs/canonical/G2_FORECAST_POLICY_EXECUTION_CONTRACTS_V1.md": "35f1ffb282761831e04429e4354c91dde4a4dfeb14d31d71f8955a36e491454d",
+    "docs/canonical/G2_PROFESSIONAL_KNOWLEDGE_MODEL_V1.md": "01eec2f4602b576e1542856eaba7071d531fba049c0b86426b19e7f8e1e470cd",
+    "research/g2/G2_CYCLE_CAUSALITY_CHECKPOINT_V1.md": "bb597a68a4515b3f4ad14163296fd8840e679b1a99f84dab3d300d32a268ef1e",
+    "research/g2/G2_DATA_EXPOSURE_AND_EXECUTION_MANIFEST_V1.md": "6cb6f5c2b813ac2939f07bf3860c15ca34e0c4684739dd7b7904fd58695acfea",
+    "tasks/G2_01_IMPLEMENTATION_PACKAGE_V1.md": "e3d624724324940d54ae35f2790b74cc96a2607f0f7af5a2761ce6f086bc64e5"
+  },
+  "cycle_checkpoint": {
+    "all_pass": true,
+    "classification": "PENDING_RESEARCH_DIRECTOR_REVIEW",
+    "market_data_read": false,
+    "method": "EXISTING_CAUSAL_ACP (unchanged G1 tracker) + G2 amplitude/stability fields",
+    "method_tournament": false,
+    "parameters_tuned": false,
+    "runtime_role": "SHADOW_ONLY",
+    "tests": {
+      "01_g1_g2_numeric_parity": {
+        "max_abs_difference": 0.0,
+        "mismatches": 0,
+        "pass": true
+      },
+      "02_white_noise_gate": {
+        "pass": true,
+        "paths_per_scale": 128,
+        "scales": {
+          "1d": {
+            "median": 0.022460938,
+            "p10": 0.005273438,
+            "p95": 0.057910156,
+            "pass": true
+          },
+          "1w": {
+            "median": 0.025390625,
+            "p10": 0.001953125,
+            "p95": 0.089746094,
+            "pass": true
+          },
+          "3h": {
+            "median": 0.01953125,
+            "p10": 0.005859375,
+            "p95": 0.052734375,
+            "pass": true
+          },
+          "45m": {
+            "median": 0.017578125,
+            "p10": 0.007226563,
+            "p95": 0.046875,
+            "pass": true
+          },
+          "4d": {
+            "median": 0.01953125,
+            "p10": 0.001953125,
+            "p95": 0.067675781,
+            "pass": true
+          },
+          "4w": {
+            "median": 0.01953125,
+            "p10": 0.003320313,
+            "p95": 0.059863281,
+            "pass": true
+          }
+        }
+      },
+      "03_coherent_cycle_gate": {
+        "pass": true,
+        "paths_per_scale": 48,
+        "scales": {
+          "1d": {
+            "clean_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.039246771
+            },
+            "trend_plus_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.039246771
+            }
+          },
+          "1w": {
+            "clean_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.046268005
+            },
+            "trend_plus_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.046268005
+            }
+          },
+          "3h": {
+            "clean_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.041476432
+            },
+            "trend_plus_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.041476432
+            }
+          },
+          "45m": {
+            "clean_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.038738986
+            },
+            "trend_plus_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.038738986
+            }
+          },
+          "4d": {
+            "clean_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.038875389
+            },
+            "trend_plus_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.038875389
+            }
+          },
+          "4w": {
+            "clean_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.04015979
+            },
+            "trend_plus_cycle": {
+              "median": 1.0,
+              "p10": 1.0,
+              "p95": 1.0,
+              "pass": true,
+              "period_error_median": 0.04015979
+            }
+          }
+        }
+      },
+      "04_additive_noise_amp1_sd0_5": {
+        "abstained_bars_total": 20839,
+        "note": "occupancy is diagnostic; the reference values are not tuning targets",
+        "pass": true,
+        "paths_per_scale": 48,
+        "scales": {
+          "1d": {
+            "abstained_bars": 3193,
+            "explicit_quality_label_every_bar": true,
+            "finite": true,
+            "median": 0.874023438,
+            "p10": 0.807617188,
+            "p95": 0.943847656,
+            "pass": true,
+            "period_error_median": 0.065022814,
+            "reference_median_occupancy": 0.861
+          },
+          "1w": {
+            "abstained_bars": 100,
+            "explicit_quality_label_every_bar": true,
+            "finite": true,
+            "median": 1.0,
+            "p10": 0.985742187,
+            "p95": 1.0,
+            "pass": true,
+            "period_error_median": 0.03716569,
+            "reference_median_occupancy": 1.0
+          },
+          "3h": {
+            "abstained_bars": 5197,
+            "explicit_quality_label_every_bar": true,
+            "finite": true,
+            "median": 0.784179688,
+            "p10": 0.720507812,
+            "p95": 0.870996094,
+            "pass": true,
+            "period_error_median": 0.042889685,
+            "reference_median_occupancy": 0.799
+          },
+          "45m": {
+            "abstained_bars": 7377,
+            "explicit_quality_label_every_bar": true,
+            "finite": true,
+            "median": 0.709960938,
+            "p10": 0.615625,
+            "p95": 0.789648438,
+            "pass": true,
+            "period_error_median": 0.057424625,
+            "reference_median_occupancy": 0.674
+          },
+          "4d": {
+            "abstained_bars": 3056,
+            "explicit_quality_label_every_bar": true,
+            "finite": true,
+            "median": 0.880859375,
+            "p10": 0.803710938,
+            "p95": 0.953515625,
+            "pass": true,
+            "period_error_median": 0.064782369,
+            "reference_median_occupancy": 0.876
+          },
+          "4w": {
+            "abstained_bars": 1916,
+            "explicit_quality_label_every_bar": true,
+            "finite": true,
+            "median": 0.926757812,
+            "p10": 0.870117188,
+            "p95": 0.97578125,
+            "pass": true,
+            "period_error_median": 0.058889907,
+            "reference_median_occupancy": 0.926
+          }
+        }
+      },
+      "05_pure_linear_trend_no_usable": {
+        "pass": true,
+        "usable_after_warmup": {
+          "1d": 0,
+          "1w": 0,
+          "3h": 0,
+          "45m": 0,
+          "4d": 0,
+          "4w": 0
+        }
+      },
+      "06_isolated_jump_abstention": {
+        "pass": true,
+        "usable_first_64_post_jump": {
+          "1d": 0,
+          "1w": 0,
+          "3h": 0,
+          "45m": 0,
+          "4d": 0,
+          "4w": 0
+        }
+      },
+      "07_varying_frequency_bounded_causal": {
+        "pass": true,
+        "scales": {
+          "1d": {
+            "bounded": true,
+            "no_look_ahead_prefix_identity": true
+          },
+          "1w": {
+            "bounded": true,
+            "no_look_ahead_prefix_identity": true
+          },
+          "3h": {
+            "bounded": true,
+            "no_look_ahead_prefix_identity": true
+          },
+          "45m": {
+            "bounded": true,
+            "no_look_ahead_prefix_identity": true
+          },
+          "4d": {
+            "bounded": true,
+            "no_look_ahead_prefix_identity": true
+          },
+          "4w": {
+            "bounded": true,
+            "no_look_ahead_prefix_identity": true
+          }
+        }
+      },
+      "08_prefix_invariance": {
+        "pass": true,
+        "scales": {
+          "1d": true,
+          "1w": true,
+          "3h": true,
+          "45m": true,
+          "4d": true,
+          "4w": true
+        }
+      },
+      "09_gap_reset_full_rewarm": {
+        "pass": true,
+        "scales": {
+          "1d": {
+            "counter_restarted": true,
+            "equals_fresh_tracker_after_gap": true,
+            "incomplete_bar_resets": true,
+            "unavailable_during_rewarm": true
+          },
+          "1w": {
+            "counter_restarted": true,
+            "equals_fresh_tracker_after_gap": true,
+            "incomplete_bar_resets": true,
+            "unavailable_during_rewarm": true
+          },
+          "3h": {
+            "counter_restarted": true,
+            "equals_fresh_tracker_after_gap": true,
+            "incomplete_bar_resets": true,
+            "unavailable_during_rewarm": true
+          },
+          "45m": {
+            "counter_restarted": true,
+            "equals_fresh_tracker_after_gap": true,
+            "incomplete_bar_resets": true,
+            "unavailable_during_rewarm": true
+          },
+          "4d": {
+            "counter_restarted": true,
+            "equals_fresh_tracker_after_gap": true,
+            "incomplete_bar_resets": true,
+            "unavailable_during_rewarm": true
+          },
+          "4w": {
+            "counter_restarted": true,
+            "equals_fresh_tracker_after_gap": true,
+            "incomplete_bar_resets": true,
+            "unavailable_during_rewarm": true
+          }
+        }
+      },
+      "10_projection_amplitude_valid": {
+        "checked": 1206,
+        "pass": true,
+        "violations": 0
+      },
+      "11_period_stability_exact": {
+        "checked": 1206,
+        "nulls": 898,
+        "pass": true,
+        "violations": 0
+      },
+      "12_turn_confirmation_delayed": {
+        "pass": true,
+        "turns": 221,
+        "violations": 0
+      },
+      "13_replay_speed_identity": {
+        "pass": true,
+        "records": 1152
+      }
+    }
+  },
+  "determinism": {
+    "prefix_invariance_every_record": {
+      "2001-08-02T05:07:00+00:00": true,
+      "2001-09-03T13:00:00+00:00": true
+    },
+    "repeat_run_fingerprint_identical": true,
+    "replay_speed_identity": {
+      "1440m_steps": true,
+      "97m_steps": true
+    }
+  },
+  "engineering_window": {
+    "aggregation_parity": {
+      "15m": {
+        "bars": 672,
+        "complete": 672,
+        "parity": true
+      },
+      "1d": {
+        "bars": 7,
+        "complete": 7,
+        "parity": true
+      },
+      "1h": {
+        "bars": 168,
+        "complete": 168,
+        "parity": true
+      },
+      "4h": {
+        "bars": 42,
+        "complete": 42,
+        "parity": true
+      }
+    },
+    "economic_actions": 0,
+    "economic_outputs": "NONE_BY_DECLARATION",
+    "fingerprint": "d4f9d3a6030fc4a73f3db0a7f955d1fcc050166d4e4052b81448edc87fd6f4e4",
+    "forecast_status_counts": {
+      "FORECAST_UNAVAILABLE_MISSING_DATA": 15,
+      "FORECAST_UNAVAILABLE_WARMUP": 657
+    },
+    "funding_settlements": 21,
+    "funding_settlements_on_8h_grid": true,
+    "ledger_record": "G2-01-ENG-WINDOW-001",
+    "minute_available_at_is_close": true,
+    "minutes_returned": 10080,
+    "model_fits": 0,
+    "opened_objects": [
+      "data/derived/BTCUSDT-USDM-settled-funding-v1.parquet",
+      "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-06.zip"
+    ],
+    "parser_parity_with_frozen_g1_parser": true,
+    "predictions_emitted": 672,
+    "prefix_invariance": true,
+    "protected_objects_opened": false,
+    "purposes": [
+      "PARSER_CORRECTNESS",
+      "AGGREGATION_PARITY",
+      "SOURCE_TIMESTAMP_SEMANTICS",
+      "PREFIX_INVARIANCE",
+      "DETERMINISTIC_REPLAY",
+      "API_FRONTEND_RENDERING"
+    ],
+    "replay_speed_identity": true,
+    "run_id": "G2RUN-0014752833ad9e2dd96c952a",
+    "status": "EXECUTED",
+    "timestamps_on_minute_grid": true,
+    "timestamps_strictly_increasing": true,
+    "window": [
+      "2024-06-03T00:00:00+00:00",
+      "2024-06-10T00:00:00+00:00"
+    ]
+  },
+  "evidence_class": "ENGINEERING_VALIDATION_NOT_PERFORMANCE_EVIDENCE",
+  "frozen_contract_identity": {
+    "atr_period": 14,
+    "clip": 8.0,
+    "columns": [
+      "LOCAL_STRUCTURE",
+      "CONTEXT_STRUCTURE",
+      "PRICE_EXTENSION",
+      "RELATIVE_PARTICIPATION",
+      "TAKER_IMBALANCE",
+      "VOLATILITY_STATE",
+      "LOCAL_STRUCTURE_X_PARTICIPATION",
+      "IMBALANCE_X_PRICE_RESPONSE"
+    ],
+    "contract": "G2_FORECAST_POLICY_EXECUTION_CONTRACTS_V1",
+    "decision_minutes": 15,
+    "friction": {
+      "BASE": 0.0012,
+      "STRESS_1_5X": 0.0018,
+      "STRESS_2X": 0.0024
+    },
+    "funding_price_proxy": "USDM_1M_LAST_PRICE_CLOSE_AT_FUNDING_TIME_HISTORICAL_APPROXIMATION",
+    "half_lives": {
+      "context": [
+        6,
+        24
+      ],
+      "local": [
+        4,
+        16
+      ],
+      "participation": 96,
+      "volatility": [
+        16,
+        96
+      ]
+    },
+    "horizon_minutes": 240,
+    "initial_equity": 10000.0,
+    "instrument": "BTCUSDT_USDM_PERPETUAL",
+    "mad_factor": 1.4826,
+    "margin_tie": 1e-06,
+    "max_gross_notional": 1.0,
+    "path_drawdown_stop": 0.05,
+    "penalties": [
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      1.0,
+      1.0
+    ],
+    "quantile_method": "linear",
+    "quantiles": [
+      0.1,
+      0.5,
+      0.9
+    ],
+    "residuals": {
+      "max_age_days": 730,
+      "min_days": 30,
+      "min_records": 2000
+    },
+    "risk_fraction": 0.0025,
+    "stop_atr_multiple": 2.0,
+    "system_version": "G2-V0",
+    "training": {
+      "max_days": 730,
+      "min_days": 180,
+      "min_rows": 10000
+    },
+    "warmup_multiple": 4
+  },
+  "reason_codes_canonical": [
+    "CONTRACT_FILTER_NOT_MET",
+    "CYCLE_SHADOW_ONLY",
+    "CYCLE_UNAVAILABLE",
+    "CYCLE_UNRELIABLE",
+    "EXECUTION_ENTRY_DATA_MISSING",
+    "EXECUTION_EXIT_DATA_MISSING",
+    "FORECAST_AVAILABLE",
+    "FORECAST_UNAVAILABLE_INVALID_SIGMA",
+    "FORECAST_UNAVAILABLE_MISSING_DATA",
+    "FORECAST_UNAVAILABLE_NO_MODEL",
+    "FORECAST_UNAVAILABLE_WARMUP",
+    "FUNDING_DATA_INVALID",
+    "INSUFFICIENT_POLICY_EVIDENCE",
+    "LONG_SELECTED",
+    "PATH_DRAWDOWN_STOP_ACTIVE",
+    "PATH_UTILITY_OVERRIDES_TERMINAL_VIEW",
+    "POSITION_ALREADY_OPEN",
+    "PREQUENTIAL_CDF_UNCALIBRATED",
+    "SHORT_SELECTED",
+    "SOURCE_STALE_OR_INVALID",
+    "TRAINING_TARGET_BASELINE_UNVALIDATED",
+    "UTILITY_MARGIN_NOT_POSITIVE",
+    "UTILITY_MARGIN_TIE"
+  ],
+  "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW",
+  "synthetic_run": {
+    "action_counts": {
+      "LONG": 6,
+      "NO_TRADE": 25138,
+      "SHORT": 8
+    },
+    "calibration_status_counts": {
+      "PREQUENTIAL_CDF_UNCALIBRATED": 1664,
+      "TRAINING_TARGET_BASELINE_UNVALIDATED": 2896,
+      "UNAVAILABLE": 20592
+    },
+    "closed_trade_exit_kinds": {
+      "EXPIRY": 14
+    },
+    "dataset": [
+      "2001-01-01T00:00:00+00:00",
+      "2001-09-20T00:00:00+00:00"
+    ],
+    "decision_reason_counts": {
+      "CYCLE_SHADOW_ONLY": 25152,
+      "FORECAST_AVAILABLE": 4560,
+      "FORECAST_UNAVAILABLE_MISSING_DATA": 37,
+      "FORECAST_UNAVAILABLE_NO_MODEL": 18816,
+      "FORECAST_UNAVAILABLE_WARMUP": 1739,
+      "INSUFFICIENT_POLICY_EVIDENCE": 23489,
+      "LONG_SELECTED": 66,
+      "POSITION_ALREADY_OPEN": 224,
+      "PREQUENTIAL_CDF_UNCALIBRATED": 1664,
+      "SHORT_SELECTED": 50,
+      "TRAINING_TARGET_BASELINE_UNVALIDATED": 2896,
+      "UTILITY_MARGIN_NOT_POSITIVE": 1547
+    },
+    "decisions_emitted": 25152,
+    "economic_summary": "NOT_COMPUTED_G2_01_ENGINEERING_ONLY",
+    "eligible_decision_candles": 25152,
+    "entry_rejections": {},
+    "evidence_class": "SYNTHETIC_FIXTURE_NOT_MARKET_EVIDENCE",
+    "fingerprint": "a504bff56339086a6f53d7852d25c045a22a5fe591fd31eeaf9563157e67eb88",
+    "fits": [
+      [
+        "FORECAST",
+        "2001-02-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        1425
+      ],
+      [
+        "LONG_UTILITY",
+        "2001-02-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        1424
+      ],
+      [
+        "SHORT_UTILITY",
+        "2001-02-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        1424
+      ],
+      [
+        "FORECAST",
+        "2001-03-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        4113
+      ],
+      [
+        "LONG_UTILITY",
+        "2001-03-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        4112
+      ],
+      [
+        "SHORT_UTILITY",
+        "2001-03-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        4112
+      ],
+      [
+        "FORECAST",
+        "2001-04-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        7089
+      ],
+      [
+        "LONG_UTILITY",
+        "2001-04-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        7088
+      ],
+      [
+        "SHORT_UTILITY",
+        "2001-04-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        7088
+      ],
+      [
+        "FORECAST",
+        "2001-05-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        9969
+      ],
+      [
+        "LONG_UTILITY",
+        "2001-05-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        9968
+      ],
+      [
+        "SHORT_UTILITY",
+        "2001-05-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        9968
+      ],
+      [
+        "FORECAST",
+        "2001-06-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        12945
+      ],
+      [
+        "LONG_UTILITY",
+        "2001-06-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        12944
+      ],
+      [
+        "SHORT_UTILITY",
+        "2001-06-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        12944
+      ],
+      [
+        "FORECAST",
+        "2001-07-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        15825
+      ],
+      [
+        "LONG_UTILITY",
+        "2001-07-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        15824
+      ],
+      [
+        "SHORT_UTILITY",
+        "2001-07-01T00:00:00+00:00",
+        "UNAVAILABLE_SUPPORT",
+        15824
+      ],
+      [
+        "FORECAST",
+        "2001-08-01T00:00:00+00:00",
+        "FITTED",
+        18801
+      ],
+      [
+        "LONG_UTILITY",
+        "2001-08-01T00:00:00+00:00",
+        "FITTED",
+        18800
+      ],
+      [
+        "SHORT_UTILITY",
+        "2001-08-01T00:00:00+00:00",
+        "FITTED",
+        18800
+      ],
+      [
+        "FORECAST",
+        "2001-09-01T00:00:00+00:00",
+        "FITTED",
+        21777
+      ],
+      [
+        "LONG_UTILITY",
+        "2001-09-01T00:00:00+00:00",
+        "FITTED",
+        21776
+      ],
+      [
+        "SHORT_UTILITY",
+        "2001-09-01T00:00:00+00:00",
+        "FITTED",
+        21776
+      ]
+    ],
+    "funding_events": 5,
+    "max_source_not_after_decision": true,
+    "prediction_reason_counts": {
+      "FORECAST_AVAILABLE": 4560,
+      "FORECAST_UNAVAILABLE_MISSING_DATA": 37,
+      "FORECAST_UNAVAILABLE_NO_MODEL": 18816,
+      "FORECAST_UNAVAILABLE_WARMUP": 1739,
+      "PREQUENTIAL_CDF_UNCALIBRATED": 1664,
+      "TRAINING_TARGET_BASELINE_UNVALIDATED": 2896
+    },
+    "predictions_emitted": 25152,
+    "record_counts": {
+      "ClosedTrade": 14,
+      "CycleShadowState": 25152,
+      "Decision": 25152,
+      "FitManifest": 24,
+      "FundingEvent": 5,
+      "MarketState": 25152,
+      "OrderIntent": 14,
+      "Prediction": 25152,
+      "PredictionOutcome": 25136,
+      "RiskStateEvent": 34,
+      "RunManifest": 1,
+      "ShadowLabel": 50270,
+      "SimulatedFill": 28,
+      "SourceAuditEvent": 1,
+      "StopExpiryEvent": 14
+    },
+    "run_id": "G2RUN-a2c0b442dde95722c62116e2",
+    "run_key": "G2-SYN-V0-ENGINEERING",
+    "scripted_injections": {
+      "missing_minute_states": {
+        "FORECAST_UNAVAILABLE_MISSING_DATA": 21,
+        "FORECAST_UNAVAILABLE_WARMUP": 11
+      },
+      "zero_volume_candle_decision_reasons": [
+        "FORECAST_UNAVAILABLE_MISSING_DATA"
+      ]
+    },
+    "shadow_label_status_counts": {
+      "LONG:AVAILABLE": 25000,
+      "LONG:UNAVAILABLE": 135,
+      "SHORT:AVAILABLE": 25000,
+      "SHORT:UNAVAILABLE": 135
+    },
+    "trade_violation_flags": {}
+  },
+  "system_version": "G2-V0",
+  "work_package": "G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1"
+}

@@ -13,6 +13,7 @@ import { Market } from './Market';
 import { ResearchCandidatePicker } from './ResearchCandidatePicker';
 import { ProspectiveObserver } from './ProspectiveObserver';
 import { Replay } from './Replay';
+import { G2LatestPanel, G2Replay } from './G2Replay';
 import { Advanced, Badge, Empty, KeyValues, Section } from './ui';
 import { refusalCopy } from './format';
 
@@ -32,6 +33,19 @@ function formatElapsed(seconds: number|null|undefined) {
   return hours > 0
     ? `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainder).padStart(2, '0')}`
     : `${String(minutes).padStart(2, '0')}:${String(remainder).padStart(2, '0')}`;
+}
+
+function ReplayPage() {
+  const [mode, setMode] = useState<'G2' | 'G1'>('G2');
+  return (
+    <>
+      <div className="row replay-mode" role="tablist" aria-label="Sistema di replay">
+        <button role="tab" aria-selected={mode === 'G2'} className={mode === 'G2' ? 'btn primary' : 'btn'} onClick={() => setMode('G2')}>G2-V0 · ingegneria</button>
+        <button role="tab" aria-selected={mode === 'G1'} className={mode === 'G1' ? 'btn primary' : 'btn'} onClick={() => setMode('G1')}>G1 · storico sintetico</button>
+      </div>
+      {mode === 'G2' ? <G2Replay /> : <Replay />}
+    </>
+  );
 }
 
 function ResearchLab({
@@ -336,6 +350,7 @@ export function App() {
             </div>
             {active && <ActiveTrade trade={active} busy={busy} onUpdate={update} />}
             <ProspectiveObserver observer={observer} />
+            <G2LatestPanel />
             <Performance stats={stats} />
             <TradeHistory trades={history} />
             <p className="footnote">
@@ -382,7 +397,7 @@ export function App() {
           </>
         )}
 
-        {page === 'Replay' && <Replay />}
+        {page === 'Replay' && <ReplayPage />}
 
         {page === 'Research' && <ResearchLab candidates={candidates} candidate={candidate} run={run} onSelect={setSelectedCandidateId} onStart={startResearch} onCopy={copyReview} />}
 

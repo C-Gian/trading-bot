@@ -108,7 +108,23 @@
     "market_backtest_authorized": false,
     "protected_evaluation_authorized": false,
     "future_paper_authorized": false,
-    "real_money_authorized": false
+    "real_money_authorized": false,
+    "g2_01_vertical_slice": {
+      "work_package": "G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1",
+      "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW",
+      "implementation_package": "tasks/G2_01_IMPLEMENTATION_PACKAGE_V1.md",
+      "validation_artifact": "reports/validation/G2-01-ENGINEERING-VALIDATION-V1.json",
+      "validation_log": "reports/validation/G2-01-ENGINEERING-VALIDATION-V1.log",
+      "validation_report": "reports/validation/G2-01-ENGINEERING-VALIDATION-V1.md",
+      "checkpoint_report": "reports/checkpoints/G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1.md",
+      "engineering_window_ledger_record": "G2-01-ENG-WINDOW-001",
+      "cycle_checkpoint": "TESTS_EXECUTED_PENDING_RESEARCH_DIRECTOR_CLASSIFICATION",
+      "gate_b": "PENDING_RESEARCH_DIRECTOR_REVIEW",
+      "economic_market_run_executed": false,
+      "protected_outcomes_read": false,
+      "parameters_tuned": false,
+      "sealed_queries": 0
+    }
   },
   "project_name": "Trading Bot",
   "schema_version": 3,
@@ -2851,8 +2867,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,

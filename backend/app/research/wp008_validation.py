@@ -9,6 +9,8 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from app.historical_docs import document_text
+
 from .artifacts import ARTIFACT_STORAGE_VERSION, validate_parquet
 from .continuation_lab import PROFILES
 from .evaluation_protocol import terminal_classification
@@ -283,8 +285,7 @@ def validate_wp008(root: Path = ROOT) -> dict[str, Any]:
         # WP-008 owns its own archived task, not whichever work package currently
         # occupies CURRENT_TASK.md.
         (root / "tasks/archive/WP-008.md").is_file()
-        and "## STATUS\nCOMPLETED"
-        in (root / "tasks/archive/WP-008.md").read_text(encoding="utf-8").replace("\r\n", "\n")
+        and "## STATUS\nCOMPLETED" in document_text(root, "tasks/archive/WP-008.md")
         and (root / "reports/checkpoints/WP-008.md").is_file(),
         "WP-008 task/checkpoint archive is incomplete",
     )

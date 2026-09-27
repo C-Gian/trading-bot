@@ -29,7 +29,8 @@ STATE = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8
 G1_DISPOSITION = (
     "PROFESSIONAL_MULTISIGNAL_PAPER_SYSTEM_DEVELOPMENT_ARCHITECTURE_ADOPTED_PROTOCOLS_PENDING"
 )
-DISPOSITIONS = (PARKED_DISPOSITION, "ACTIVE_ALLOCATION", G1_DISPOSITION)
+G2_DISPOSITION = "G2_01_CAUSAL_TRADER_VERTICAL_SLICE"
+DISPOSITIONS = (PARKED_DISPOSITION, "ACTIVE_ALLOCATION", G1_DISPOSITION, G2_DISPOSITION)
 
 
 def _never() -> dict:
@@ -44,16 +45,17 @@ def _state_with(tmp_path: Path, disposition: str) -> Path:
     return path
 
 
-def test_live_state_has_no_validated_strategy_and_g1_disposition() -> None:
+def test_live_state_has_no_validated_strategy_and_g2_disposition() -> None:
     current = STATE["current_project_status"]
     assert fail_closed(STATE) and current["validated_strategy"] is None
-    assert current["disposition"] == current["strategic_disposition"] == G1_DISPOSITION
+    # ADR-0052: G2 is the active development system; G1 is a closed terminal park.
+    assert current["disposition"] == current["strategic_disposition"] == G2_DISPOSITION
     assert "operational_compatibility_note" not in current
     assert current["operational_action_output"] == "NO_TRADE"
     assert current["active_candidate"] is None and current["candidate_2"] == "UNALLOCATED"
     assert current["market_trial_authorized"] is current["confirmation_authorized"] is False
     assert current["prospective_collection_authorized"] is False
-    assert current["active_system_generation"] == "SYSTEM_G1"
+    assert current["active_system_generation"] == "G2_DEVELOPMENT_SYSTEM"
     assert current["active_project_internal_alpha_schedules"] == []
     assert not legacy_runner_authorized(STATE)
     assert {"selected_family", "product_analysis", "project_phase"} <= set(

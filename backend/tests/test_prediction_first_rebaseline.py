@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 import pytest
+from app.historical_docs import document_text
 from app.main import create_app
 from app.predictive.taker_flow_validation import expected_state_pointers
 from app.product.shadow_observer import (
@@ -28,7 +29,8 @@ DISPOSITION = json.loads((ROOT / FINAL_DISPOSITION_PATH).read_text(encoding="utf
 
 
 def _text(relative: str) -> str:
-    return (ROOT / relative).read_text(encoding="utf-8").replace("\r\n", "\n")
+    # ADR-0053: compacted historical documents are read at their preserved Git revision.
+    return document_text(ROOT, relative)
 
 
 # --- Constitution Version 2.0 ------------------------------------------------------
@@ -373,6 +375,7 @@ def test_the_source_roadmap_admits_no_family_by_listing_it() -> None:
 # is "the active task is the declared successor", not its current title, so any known
 # successor is normalized to the rebaseline anchor. Longest first: these names nest.
 SUCCESSOR_TASK_TITLES = (
+    "G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1",
     "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
     "EXECUTE-SYSTEM-G1-PHASE-A-V1",
     "RESEARCH-DIRECTOR-G1-INCOMPLETE-BAR-FIX-REVIEW-V1",

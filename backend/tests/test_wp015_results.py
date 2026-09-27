@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 
+from app.historical_docs import document_text
 from app.predictive.taker_flow_validation import expected_state_pointers
 from app.research.records import validate_result
 
@@ -61,6 +62,7 @@ def test_wp015_independent_reconciliation_is_exact() -> None:
 # is "the active task is the declared successor", not its current title, so any known
 # successor is normalized to the rebaseline anchor. Longest first: these names nest.
 SUCCESSOR_TASK_TITLES = (
+    "G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1",
     "RESEARCH-DIRECTOR-SYSTEM-G1-PHASE-A-ADJUDICATION-V1",
     "EXECUTE-SYSTEM-G1-PHASE-A-V1",
     "RESEARCH-DIRECTOR-G1-INCOMPLETE-BAR-FIX-REVIEW-V1",
@@ -135,7 +137,7 @@ def test_wp015_records_and_state_are_safe() -> None:
     assert state["champion_status"] == "NONE"
     assert state["sealed_evaluation"]["consumed_btc_queries"] == 0
     assert state["real_money_authorized"] is False
-    archived = (ROOT / "tasks/archive/WP-015.md").read_text(encoding="utf-8")
+    archived = document_text(ROOT, "tasks/archive/WP-015.md")
     current = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     current = _normalize_current_task(current)
     assert "# CURRENT TASK — WP-015" in archived
