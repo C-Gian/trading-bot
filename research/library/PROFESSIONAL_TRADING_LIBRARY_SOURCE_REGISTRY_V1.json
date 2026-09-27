@@ -138,11 +138,14 @@
         "portfolio_construction"
       ],
       "btcusdt_relevance": "DIRECTLY_RELEVANT",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Reviewed fitting, hand-crafted weights, combined forecasts and framework structure.",
-        "Strongly relevant to modular signal-family aggregation and robust weighting, but its futures framework must not be copied mechanically to BTC."
+        "Complete accessible 359-page PDF reviewed on 2026-09-27, including all 15 chapters, epilogue, glossary, Appendices A-D, and full-document visual scan.",
+        "Dossier: research/library/source_notes/LIB-004-SYSTEMATIC-TRADING.md",
+        "Key source domains: ideas-first research, fitting/overfitting, continuous normalized forecasts, correlation-aware forecast combination, robust weighting, volatility targeting, position sizing, portfolios, transaction-cost speed limits, position inertia, EWMAC and carry examples.",
+        "The book provides a professional precedent for stable structural weighting with cautious evidence-dependent performance adjustment, but no Trading Bot numeric weights or BTC parameters are derived from it.",
+        "Cross-asset/daily-futures architecture and author-specific numerical heuristics require BTC-specific evidence before any implementation."
       ],
       "related_sources": [
         "LIB-003",
