@@ -10543,7 +10543,8 @@
                 "IMPLEMENTATION_ACTIVE",
                 "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW",
                 "GATE_B_PASS",
-                "GATE_B_FAIL"
+                "GATE_B_FAIL",
+                "RESEARCH_DIRECTOR_CORRECTION_REQUIRED"
               ]
             },
             "implementation_package": {
@@ -10595,6 +10596,14 @@
             },
             "sealed_queries": {
               "const": 0
+            },
+            "review_artifact": {
+              "type": "string",
+              "pattern": "^reports/reviews/[A-Za-z0-9_.-]+\\.md$"
+            },
+            "correction_task": {
+              "type": "string",
+              "pattern": "^tasks/[A-Za-z0-9_.-]+\\.md$"
             }
           }
         }
