@@ -542,11 +542,14 @@
         "data_mining"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Drive manuscript version dated April 20, 2015; later published in Review of Financial Studies.",
-        "The paper's t-statistic guidance is contextual to factor research and must not be copied as a universal Trading Bot threshold."
+        "Complete 101-page SSRN manuscript reviewed on 2026-09-27, including main text, full factor list, bibliography, Appendices A-E, and full-document visual scan.",
+        "Dossier: research/library/source_notes/LIB-016-CROSS-SECTION-OF-EXPECTED-RETURNS.md",
+        "Source-grounded metadata: current manuscript version April 20, 2015; first posted to SSRN April 11, 2013.",
+        "Core use for Trading Bot is research-multiplicity governance: failed/hidden trials, correlated hypotheses, theory-vs-mining distinction, and stronger evidence after broad search.",
+        "The paper's t-statistic guidance is contextual to cross-sectional factor research and is not adopted as a universal BTC strategy threshold."
       ],
       "related_sources": [
         "LIB-013",
