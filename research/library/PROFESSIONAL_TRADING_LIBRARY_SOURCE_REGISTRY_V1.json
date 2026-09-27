@@ -576,10 +576,14 @@
         "simulation"
       ],
       "btcusdt_relevance": "METHODOLOGY_ONLY",
-      "study_status": "PARTIALLY_REVIEWED",
+      "study_status": "REVIEWED",
       "rights_status": "COPYRIGHTED_REFERENCE_ONLY_RIGHTS_UNCLEAR_FOR_RAG_OR_TRAINING",
       "notes": [
-        "Technical supplement to LIB-018; not independent empirical evidence."
+        "Complete 8-page mathematical supplement reviewed on 2026-09-27, including all synthetic test cases, Monte Carlo benchmark, EVT/Gumbel derivation, Python snippets, and final accuracy table.",
+        "Dossier: research/library/source_notes/LIB-017-MATHEMATICAL-APPENDICES-PROBABILITY-OF-BACKTEST-OVERFITTING.md",
+        "The appendix reports CSCV/PBO accuracy under controlled synthetic assumptions; it is not independent trading-alpha evidence.",
+        "Core project implication: candidate-search breadth and sample size jointly determine selection-overfit risk; complete trial logging is required.",
+        "No signal weight, BTC parameter, or strategy design is derived from this source."
       ],
       "related_sources": [
         "LIB-018"
