@@ -2813,11 +2813,12 @@
       "decisions/ADR-0048-AUTHORIZE-SYSTEM-G1-PHASE-A-ONLY.md",
       "decisions/ADR-0049-ADJUDICATE-SYSTEM-G1-PHASE-A-SELECTION-REJECTION.md",
       "decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md",
-      "decisions/ADR-0051-OWNER-DIRECTED-PROFESSIONAL-TRADING-KNOWLEDGE-BASE-STUDY.md"
+      "decisions/ADR-0051-OWNER-DIRECTED-PROFESSIONAL-TRADING-KNOWLEDGE-BASE-STUDY.md",
+      "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md"
     ],
-    "astra_decision": "ASTRA_SYSTEM_G1_POST_PHASE_A_STRATEGIC_REVIEW_V1",
+    "astra_decision": "ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2",
     "constitution_version": "4.0",
-    "disposition": "SYSTEM_G1_TERMINAL_PARK",
+    "disposition": "G2_00_KNOWLEDGE_TO_CONTRACTS",
     "active_alpha_allocation": 0,
     "active_candidate": null,
     "candidate_1": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
@@ -2828,7 +2829,7 @@
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
     "research_task_active": true,
-    "automatic_next_research_package": "PROFESSIONAL-TRADING-KNOWLEDGE-BASE-V1",
+    "automatic_next_research_package": "G2-00-KNOWLEDGE-TO-CONTRACTS-V1",
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
@@ -2849,7 +2850,14 @@
         "RENEWED_INTEREST",
         "ATTRACTIVE_WEIGHTING_SCHEME"
       ],
-      "owner_decision_required_for_real_capital": true
+      "owner_decision_required_for_real_capital": true,
+      "status": "SATISFIED_FOR_G2_DEVELOPMENT_SYSTEM",
+      "satisfied_by": [
+        "docs/canonical/OWNER_PRODUCT_MISSION_V2.md",
+        "research/library/PROFESSIONAL_TRADING_LIBRARY_SOURCE_REGISTRY_V1.json",
+        "reports/strategic/ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2.md",
+        "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md"
+      ]
     },
     "disabled_action_paths": [
       "POST /api/v1/product/analysis -> NO_TRADE without strategy evaluation (validated_strategy is null)",
@@ -2879,11 +2887,11 @@
     ],
     "closure_artifact": "reports/checkpoints/SYSTEM-G1-TERMINAL-PARK-CLOSURE-V1.md",
     "preservation_manifest": "reports/handover/SYSTEM-G1-TERMINAL-PARK-PRESERVATION-V1.md",
-    "active_system_generation": null,
-    "architecture": "docs/canonical/PROFESSIONAL_MULTISIGNAL_SYSTEM_ARCHITECTURE_V1.md",
-    "strategic_disposition": "SYSTEM_G1_TERMINAL_PARK",
+    "active_system_generation": "G2_DEVELOPMENT_SYSTEM",
+    "architecture": "PENDING_G2_00_CONTRACT_FREEZE",
+    "strategic_disposition": "G2_00_KNOWLEDGE_TO_CONTRACTS",
     "action_guard": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY",
-    "successor_system_generation": "UNALLOCATED"
+    "successor_system_generation": "G2_DEVELOPMENT_SYSTEM_ALLOCATED"
   },
   "system_g1_checkpoint_1": {
     "checkpoint": "SYSTEM-G1-CHECKPOINT-1-SYNTHETIC-VERTICAL-SLICE",
@@ -2974,5 +2982,23 @@
     "engineering_debt_record": "reports/engineering/SYSTEM-G1-PARKED-ENGINEERING-DEBT-V1.md",
     "phase_b_authorized": false,
     "g2_allocated": false
+  },
+  "g2_development_system": {
+    "status": "G2_00_KNOWLEDGE_TO_CONTRACTS",
+    "strategic_authority": "reports/strategic/ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2.md",
+    "adoption_adr": "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md",
+    "current_work_package": "G2-00-KNOWLEDGE-TO-CONTRACTS-V1",
+    "development_budget": {
+      "baseline_versions": 1,
+      "max_substantive_revisions": 4,
+      "total_eligible_versions": 5,
+      "reserved_cycle_revision": 1,
+      "max_group_ablations": 2
+    },
+    "evidence_status": "DEVELOPMENT_SYSTEM_ONLY_NOT_VALIDATED_STRATEGY",
+    "market_backtest_authorized": false,
+    "protected_evaluation_authorized": false,
+    "future_paper_authorized": false,
+    "real_money_authorized": false
   }
 }

@@ -1,155 +1,114 @@
-# CURRENT TASK — PROFESSIONAL-TRADING-KNOWLEDGE-BASE-V1
+# CURRENT TASK — G2-00-KNOWLEDGE-TO-CONTRACTS-V1
 
-Status: RESEARCH-DIRECTOR-CORPUS-STUDY-ACTIVE — MARKET EXECUTION FORBIDDEN
+Status: RESEARCH-DIRECTOR-CONTRACT-FREEZE-ACTIVE — MARKET ECONOMIC EXECUTION FORBIDDEN
 
 ## Authority
 
 - Owner Product Mission V2
 - Constitution 4.0
-- `decisions/ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md`
-- `decisions/ADR-0051-OWNER-DIRECTED-PROFESSIONAL-TRADING-KNOWLEDGE-BASE-STUDY.md`
-- user-supplied professional-library study specification
+- `reports/strategic/ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2.md`
+- `decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md`
 - `state/current_state.json -> current_project_status`
 
 ## Purpose
 
-Build a professional trading knowledge base before designing any successor system.
+Translate the completed accessible professional-trading corpus and Astra's G2 directive into one
+fully specified, implementable and causal contract package. This work package closes ambiguity before
+engineering implementation. It does not test profitability.
 
-The Google Drive folder `Trading` is the primary private corpus.
+## Required deliverables
 
-The Research Director owns:
+1. `docs/canonical/G2_PROFESSIONAL_KNOWLEDGE_MODEL_V1.md`
+2. `docs/canonical/G2_FORECAST_POLICY_EXECUTION_CONTRACTS_V1.md`
+3. `research/g2/G2_DATA_EXPOSURE_AND_EXECUTION_MANIFEST_V1.md`
+4. `research/g2/G2_CYCLE_CAUSALITY_CHECKPOINT_V1.md`
+5. `research/g2/G2_DEVELOPMENT_PROTOCOL_V1.md`
+6. `research/g2/G2_RESEARCH_LEDGER_V1.jsonl`
+7. `tasks/G2_01_IMPLEMENTATION_PACKAGE_V1.md`
 
-1. complete source inventory and provenance;
-2. progressive full-source study;
-3. evidence-tier classification;
-4. methodology/research-hygiene extraction;
-5. contradictions and uncertainty registry;
-6. topic and BTC-relevance maps;
-7. professional signal-family / decision-process knowledge map;
-8. later synthesis into a source-grounded architecture proposal.
+## Mandatory checkpoints
 
-## Current corpus state
+### CRYPTO-CONTRACT-01
 
-Initial Drive inventory:
+Use current primary venue documentation only for instrument/price semantics, fields and units,
+taker/aggressor semantics, funding timing/sign, contract filters, mark/index semantics and fee/cost
+provenance. No crypto-alpha conclusion is permitted.
 
-- 20 accessible files;
-- 18 PDFs;
-- 2 Excel datasets.
+### CYCLE-CAUSALITY-01
 
-Canonical records:
+Inspect the existing cycle implementation and lineage first. Use at most one method and validate only
+causality/method quality on synthetic fixtures: noise, sinusoid + noise, trend without cycle,
+changing frequency, jumps, prefix stability, declared lag and explicit `UNRELIABLE` behavior.
+Passing does not establish predictive utility.
 
-- `research/library/PROFESSIONAL_TRADING_LIBRARY_SOURCE_REGISTRY_V1.json`
-- `research/library/PROFESSIONAL_TRADING_LIBRARY_INVENTORY_V1.md`
-- `research/library/PROFESSIONAL_TRADING_LIBRARY_METHODOLOGY_NOTES_V1.md`
+### DATA-EXPOSURE-01
 
-Inventory complete does NOT mean study complete.
+Reconstruct the actual exposure boundary from repository manifests, ADRs and access history without
+opening protected 2025+ price outcomes merely to document the boundary.
 
-Use explicit per-source statuses:
+### DISTRIBUTION-PAYOFF-01
 
-- DISCOVERED
-- IDENTIFIED
-- PARTIALLY_REVIEWED
-- REVIEWED
-- DATASET_INSPECTED
-- UNREADABLE
-- DUPLICATE
-- EXTERNAL_REFERENCE
+Freeze forecast target, label intervals, fit calendar, predictive-distribution semantics, trade
+shadow labels, utility semantics and uncertainty scoring before economic replay.
 
-## Study protocol
+## Design boundary inherited from Astra
 
-Follow:
+- deterministic/versioned runtime;
+- 15m completed-candle decisions;
+- primary 4h market-return forecast;
+- 1m raw/execution substrate;
+- 1h local structure/timing;
+- 4h directional context;
+- completed Daily/Weekly context;
+- six bounded knowledge families;
+- transparent regularized predictive readout;
+- separate transparent entry-utility readout;
+- independent risk governor;
+- market-only historical execution for V1;
+- baseline + at most four substantive development revisions;
+- at most two predeclared diagnostic group ablations;
+- one revision slot reserved for cycle timing if the cycle method passes method quality.
 
-`research/library/PROFESSIONAL_TRADING_LIBRARY_LINEAR_STUDY_PROTOCOL_V2.md`
-
-Primary reading is now strictly linear by source registry order:
-
-`LIB-001 -> LIB-020`.
-
-Each source must be studied independently and receive its own persistent dossier before final
-cross-source synthesis.
-
-Do not group primary reading by topic.
-
-The thematic work already completed on LIB-006, LIB-007, LIB-008, LIB-009 and LIB-015 remains valid,
-but individual dossiers must still be created for those sources.
-
-No final signal weights, professional-trader architecture or System G2 design before corpus
-completion.
-
-After all source dossiers are complete, perform one final cross-source synthesis and then send that
-dossier set + synthesis to Astra for independent challenge. Astra may reopen original sources
-selectively where needed.
-
-## Owner Mission V2 precedence
-
-Any older LONG/NO_TRADE / 1h-only scope text embedded in the supplied library-study prompt is
-historical and does not override Owner Product Mission V2.
-
-The active product mission remains:
-
-- BTC-focused;
-- professional multi-signal;
-- continuous prediction;
-- LONG / SHORT / NO_TRADE;
-- multi-timeframe context including cycles;
-- causal replay;
-- local web application;
-- paper only.
+These are design constraints, not validated alpha facts.
 
 ## Absolute prohibitions
 
-This task does NOT authorize:
+No G1 rescue/rerun, BTC economic backtests, protected 2025+ outcome inspection for design,
+parameter/timeframe/model tournaments, unbounded feature acquisition, DSR/PBO optimization, new
+strategy implementation, prospective strategy collection, paper/real orders, leverage or real
+capital.
 
-- G1 rescue or rerun;
-- System G2;
-- Phase B;
-- reading 2023-2024 configuration economics;
-- BTC market experiments/backtests;
-- parameter optimization;
-- trial/configuration tournaments;
-- new strategy implementation;
-- prospective strategy collection;
-- real or paper strategy orders;
-- real capital.
+Active alpha allocation remains zero.
 
-Active alpha/system market allocation remains zero.
+## Gate A
 
-## Engineering / executor status
+Pass only when the repository answers without interpretation:
 
-No Claude Code implementation task is active.
+- what information was available at decision time;
+- what is forecast and when it matures;
+- how uncertainty, probability and conviction differ;
+- why the action is LONG, SHORT or NO_TRADE;
+- how entry, stop, expiry, payoff and risk are calculated;
+- what happens when cycle/data/model state is unavailable;
+- what is a bug fix versus a scientific revision;
+- how many development attempts remain;
+- which historical data may and may not be read;
+- what G2-01 must implement and test.
 
-Repository/documentation updates needed to preserve the knowledge study may be performed by the
-Research Director.
+No economically material `TBD` may remain before G2-01.
 
-The parked forecaster-runtime and phase-bounded-I/O debts remain parked.
+## Executor status
 
-## Required progressive outputs
-
-Maintain:
-
-1. source registry;
-2. inventory/classification/evidence map;
-3. methodology notes;
-4. source-specific study notes;
-5. knowledge/topic map;
-6. contradictions/uncertainties;
-7. missing-knowledge map;
-8. research-rule candidates.
-
-Only after sufficient corpus coverage:
-
-- draft a professional signal-family and decision-process architecture;
-- derive any candidate base-importance framework from sources rather than arbitrary backtest fitting;
-- send the synthesized knowledge base/architecture to Astra for independent scientific challenge.
-
-Astra is reviewer, not primary corpus librarian.
+No G2 coding implementation task is active until Gate A passes.
 
 ## Current operational truth
 
-- System G1: CLOSED / TERMINAL PARK
-- System G2: UNALLOCATED
-- active market research allocation: 0
-- knowledge-base study: ACTIVE
+- G1: CLOSED / TERMINAL PARK
+- G2: DEVELOPMENT SYSTEM ALLOCATED
+- current package: G2-00
+- economic market execution: FORBIDDEN
+- protected evaluation: NOT AUTHORIZED
+- future paper: NOT AUTHORIZED
 - validated strategy: NONE
 - Champion: NONE
 - operational action: NO_TRADE

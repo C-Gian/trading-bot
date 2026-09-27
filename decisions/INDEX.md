@@ -63,3 +63,5 @@
 - [ADR-0050 — Adopt Astra System G1 terminal park](ADR-0050-ADOPT-ASTRA-SYSTEM-G1-TERMINAL-PARK.md)
 
 - [ADR-0051 — Owner-directed professional trading knowledge-base study](ADR-0051-OWNER-DIRECTED-PROFESSIONAL-TRADING-KNOWLEDGE-BASE-STUDY.md)
+
+- [ADR-0052 — Adopt Astra G2 development-system directive and open G2-00](ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md)
