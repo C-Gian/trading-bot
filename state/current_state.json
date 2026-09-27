@@ -111,7 +111,7 @@
     "real_money_authorized": false,
     "g2_01_vertical_slice": {
       "work_package": "G2-01-CAUSAL-TRADER-VERTICAL-SLICE-V1",
-      "status": "RESEARCH_DIRECTOR_CORRECTION_REQUIRED",
+      "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REREVIEW",
       "implementation_package": "tasks/G2_01_IMPLEMENTATION_PACKAGE_V1.md",
       "validation_artifact": "reports/validation/G2-01-ENGINEERING-VALIDATION-V1.json",
       "validation_log": "reports/validation/G2-01-ENGINEERING-VALIDATION-V1.log",
@@ -125,7 +125,11 @@
       "parameters_tuned": false,
       "sealed_queries": 0,
       "review_artifact": "reports/reviews/G2-01-GATE-B-RESEARCH-DIRECTOR-REVIEW-V1.md",
-      "correction_task": "tasks/G2_01_GATE_B_CORRECTIONS_AND_DATA_PREFLIGHT_V1.md"
+      "correction_task": "tasks/G2_01_GATE_B_CORRECTIONS_AND_DATA_PREFLIGHT_V1.md",
+      "data_preflight_artifact": "reports/validation/G2-02-DATA-INTEGRITY-PREFLIGHT-V1.json",
+      "data_preflight_report": "reports/validation/G2-02-DATA-INTEGRITY-PREFLIGHT-V1.md",
+      "exchange_info_snapshot": "data/manifests/BTCUSDT-USDM-EXCHANGEINFO-SNAPSHOT-V1.json",
+      "corrections_checkpoint_report": "reports/checkpoints/G2-01-GATE-B-CORRECTIONS-DATA-PREFLIGHT-V1.md"
     }
   },
   "project_name": "Trading Bot",
@@ -2869,8 +2873,8 @@
       "lineage_classification": "DISTINCT_BUT_HEAVILY_PRIOR_CONSTRAINED",
       "executor_support_diagnostic": {
         "bundle": "research/candidates/evidence/CANDIDATE-1-EXECUTOR-SUPPORT-DIAGNOSTIC-V1/README.md",
-        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC — DIRECTOR_UNAPPROVED_SPECIFICATION",
-        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE — ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
+        "classification": "EXPOSED_SUPPORT_DIAGNOSTIC \u2014 DIRECTOR_UNAPPROVED_SPECIFICATION",
+        "astra_adjudication": "PRIOR_SUPPORT_DIAGNOSTIC_NONAUTHORITATIVE \u2014 ONE_DIRECTOR_FROZEN_ADMISSION_ALLOWED",
         "authoritative": false,
         "events": 73,
         "joint_state": 25,

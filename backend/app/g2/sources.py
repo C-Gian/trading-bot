@@ -184,3 +184,54 @@ class PhaseBoundedLoader:
             }
         )
         return rows
+
+
+# ------------------------------------------------------------------ pinned contract filters
+EXCHANGE_INFO_ENDPOINT = "https://fapi.binance.com/fapi/v1/exchangeInfo"
+EXCHANGE_INFO_MANIFEST = "data/manifests/BTCUSDT-USDM-EXCHANGEINFO-SNAPSHOT-V1.json"
+
+
+def symbol_object_sha256(symbol: dict[str, Any]) -> str:
+    canonical = json.dumps(symbol, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    return hashlib.sha256(canonical.encode("ascii")).hexdigest()
+
+
+def normalized_filters(symbol: dict[str, Any]) -> dict[str, Any]:
+    """PRICE_FILTER / LOT_SIZE / MARKET_LOT_SIZE / MIN_NOTIONAL values (filters only)."""
+    filters = {f["filterType"]: f for f in symbol["filters"]}
+    price, lot = filters["PRICE_FILTER"], filters["LOT_SIZE"]
+    market = filters.get("MARKET_LOT_SIZE")
+    notional = filters.get("MIN_NOTIONAL", {})
+    return {
+        "contract_type": symbol["contractType"],
+        "status": symbol["status"],
+        "price_filter": {k: price[k] for k in ("tickSize", "minPrice", "maxPrice")},
+        "lot_size": {k: lot[k] for k in ("stepSize", "minQty", "maxQty")},
+        "market_lot_size": None
+        if market is None
+        else {k: market[k] for k in ("stepSize", "minQty", "maxQty")},
+        "min_notional": notional.get("notional"),
+    }
+
+
+def pinned_market_filters(root: Path = ROOT) -> Any:
+    """ExchangeFilters for simulated market orders from the pinned snapshot (MARKET_LOT_SIZE)."""
+    from .risk import ExchangeFilters
+
+    record = json.loads((root / EXCHANGE_INFO_MANIFEST).read_text(encoding="utf-8"))
+    if record["status"] != "PINNED":
+        raise UnauthorizedObservationError("no pinned exchangeInfo snapshot is available")
+    if symbol_object_sha256(record["symbol_object"]) != record["symbol_object_sha256"]:
+        raise UnauthorizedObservationError("the pinned symbol object hash differs")
+    normalized = normalized_filters(record["symbol_object"])
+    if normalized != record["normalized"]:
+        raise UnauthorizedObservationError("the normalized filters differ from the symbol object")
+    lot = normalized["market_lot_size"] or normalized["lot_size"]
+    return ExchangeFilters(
+        f"{record['manifest_id']}@{record['raw_snapshot_sha256'][:16]}",
+        normalized["price_filter"]["tickSize"],
+        lot["stepSize"],
+        lot["minQty"],
+        lot["maxQty"],
+        normalized["min_notional"],
+    )

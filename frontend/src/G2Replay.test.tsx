@@ -29,7 +29,7 @@ function current(action: 'LONG' | 'SHORT' | 'NO_TRADE', reasons: string[]): G2Cu
       decision_id: 'D', prediction_id: 'P', decision_time: '2001-09-02T10:15:00Z', available_at: '2001-09-02T10:15:00Z',
       action, policy_selection: 'LONG_SELECTED', reason_codes: reasons,
       long_utility: utility('LONG', 0.5), short_utility: utility('SHORT', -0.2), forecast_direction: 'UP',
-      position_state: 'OPEN', risk: { equity: 10000, peak_equity: 10000, drawdown: 0, drawdown_stop_active: false, position_open: true, open_trade_id: 'T' },
+      position_state: 'OPEN', risk: { equity: 10000, marked_equity: 10000, peak_equity: 10000, drawdown: 0, drawdown_stop_active: false, position_open: true, open_trade_id: 'T' },
       stop_distance: 240, reference_price: 31000, intended_entry_time: null, intended_expiry_time: null, cycle_role: 'CYCLE_SHADOW_ONLY',
     },
     cycle: {
@@ -37,7 +37,7 @@ function current(action: 'LONG' | 'SHORT' | 'NO_TRADE', reasons: string[]): G2Cu
       reason_codes: ['CYCLE_SHADOW_ONLY'],
       scales: [{ nominal_scale: '3h', input_resolution: '15m', warmup_ready: true, quality_label: 'USABLE', dominant_period_minutes: 210, phase_degrees: 12, projection_amplitude: 0.3, period_stability: 0.01, slope_direction: 'RISING', last_turn_kind: null, reason_code: null }],
     },
-    risk: { kind: 'ENTRY', equity: 10000, peak_equity: 10000, drawdown: 0, drawdown_stop_active: false, position_open: true },
+    risk: { kind: 'ENTRY', equity: 10000, marked_equity: 9998.5, mark_basis: 'ENTRY_FILL_PRICE', peak_equity: 10000, drawdown: 0, drawdown_stop_active: false, position_open: true },
     open_position: null, fit: [],
   };
 }

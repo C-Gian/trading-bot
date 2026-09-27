@@ -10544,7 +10544,8 @@
                 "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW",
                 "GATE_B_PASS",
                 "GATE_B_FAIL",
-                "RESEARCH_DIRECTOR_CORRECTION_REQUIRED"
+                "RESEARCH_DIRECTOR_CORRECTION_REQUIRED",
+                "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REREVIEW"
               ]
             },
             "implementation_package": {
@@ -10604,6 +10605,22 @@
             "correction_task": {
               "type": "string",
               "pattern": "^tasks/[A-Za-z0-9_.-]+\\.md$"
+            },
+            "data_preflight_artifact": {
+              "type": "string",
+              "pattern": "^reports/validation/[A-Za-z0-9_.-]+\\.json$"
+            },
+            "data_preflight_report": {
+              "type": "string",
+              "pattern": "^reports/validation/[A-Za-z0-9_.-]+\\.md$"
+            },
+            "exchange_info_snapshot": {
+              "type": "string",
+              "pattern": "^data/manifests/[A-Za-z0-9_.-]+\\.json$"
+            },
+            "corrections_checkpoint_report": {
+              "type": "string",
+              "pattern": "^reports/checkpoints/[A-Za-z0-9_.-]+\\.md$"
             }
           }
         }

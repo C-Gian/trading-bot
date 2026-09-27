@@ -18,7 +18,7 @@
     "backend/app/g2/api.py": "4c687efe373d68130cbd18095416b82869c368fbed5aa7169db4e8061c69d88d",
     "backend/app/g2/bars.py": "76bb221005c65967cac903586448c7a7b2eaeb6d8006b73b0d1bf6f7af80aa94",
     "backend/app/g2/contract.py": "c3e3d181a659b720b46cbaed6bb4914827fb15f03ac9a90f1c308cfbaa6ba5ad",
-    "backend/app/g2/core.py": "0d4a39c5c96989f16dc24c30cd1abbae9e3428d7b333ed8e769a4965d496fa01",
+    "backend/app/g2/core.py": "6730188fbdaec8fee0e6f34067a19c9d8bcadfd1e0a1d7d9ddb92bbaff5e94e3",
     "backend/app/g2/cycle.py": "28902ef67e39c6369cbc03e41c192fa894749ce19092e2784338f5831c7940d4",
     "backend/app/g2/cycle_checkpoint.py": "fe30d6ff42238445085fb5e8b498b717a9355e2b1ffc156c95eff1451d00cff5",
     "backend/app/g2/distribution.py": "c30dd9a69883401069ad27f12b3e6aa7674c1220528cb1649e67af4f6edbbaf2",
@@ -26,13 +26,14 @@
     "backend/app/g2/features.py": "d31cee0b27bcca746f896cd46c8580d2243948dda9982bc5e156aec2e9deff7d",
     "backend/app/g2/fixtures.py": "6f6576a3322dc0cd1ab27e7dd7df8a98afd9083b70524b8fc39fa4ea5f0c8299",
     "backend/app/g2/models.py": "2b6c6e0ba5f4f9759c449fe08caaba8825c61952cb816ee04d6f1c1d6b6b44ff",
-    "backend/app/g2/records.py": "46907b958cfcedc35154011d918eba4f3819f2eb32edc08d8ef1ffc94633f22a",
+    "backend/app/g2/preflight.py": "46d25f8e0802ae61a6fbc1e2a7bee6fdf8d039489988d0ff9c6bed93f7e47d5e",
+    "backend/app/g2/records.py": "6ad5a3f49baec654ebe19b74222e4b43b2ad6e4fc251f458ab9117d41b82e658",
     "backend/app/g2/risk.py": "fbbc623d4f5b4220b20d09122fcec69cdfb47263aa180b81b1fe39c2b111085f",
     "backend/app/g2/runs.py": "4624c5b4c0082780777c1252f384d9b9eb9b3bffbc058cb00210af5892f94cbd",
     "backend/app/g2/service.py": "952b49e3e4409c6790f828bfc2a123783b94f65ec9bf369bc85d695447321c7d",
-    "backend/app/g2/sources.py": "5ecbf115c6bf9d51fe6f002012ba79ce5be4937eb7f7c13e68d70d68fdfa288a",
+    "backend/app/g2/sources.py": "3ad7a1c6a24420991025d676758ef4d26a519541b34f7c32abc100fca50f59fa",
     "backend/app/g2/store.py": "99b3eb552db32e1aea4cb73b53e26b9bb43fbd076dd560aacf2973b878bc6c0d",
-    "backend/app/g2/validation.py": "03fb17a6020fbd1e9695382ac6ec6e902e1fc8143ad3ab5a8dd9028a993dd8fc"
+    "backend/app/g2/validation.py": "c98b85f99ce1bbbe37ec29e53c10e4ef146f6547e81289c56df10c222f2c98b2"
   },
   "contract_documents_canonical_sha256": {
     "docs/canonical/G2_FORECAST_POLICY_EXECUTION_CONTRACTS_V1.md": "35f1ffb282761831e04429e4354c91dde4a4dfeb14d31d71f8955a36e491454d",
@@ -43,7 +44,8 @@
   },
   "cycle_checkpoint": {
     "all_pass": true,
-    "classification": "PENDING_RESEARCH_DIRECTOR_REVIEW",
+    "classification": "AVAILABLE_FOR_RESERVED_REVISION",
+    "classification_record": "G2-01-GATE-B-REVIEW-001",
     "market_data_read": false,
     "method": "EXISTING_CAUSAL_ACP (unchanged G1 tracker) + G2 amplitude/stability fields",
     "method_tournament": false,
@@ -434,7 +436,7 @@
     },
     "economic_actions": 0,
     "economic_outputs": "NONE_BY_DECLARATION",
-    "fingerprint": "d4f9d3a6030fc4a73f3db0a7f955d1fcc050166d4e4052b81448edc87fd6f4e4",
+    "fingerprint": "49febdbfada4788740442e04f5b90bf3b568c2ea0adbb73b444f6aefdf9d8170",
     "forecast_status_counts": {
       "FORECAST_UNAVAILABLE_MISSING_DATA": 15,
       "FORECAST_UNAVAILABLE_WARMUP": 657
@@ -571,7 +573,7 @@
     "UTILITY_MARGIN_NOT_POSITIVE",
     "UTILITY_MARGIN_TIE"
   ],
-  "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW",
+  "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REREVIEW",
   "synthetic_run": {
     "action_counts": {
       "LONG": 6,
@@ -609,7 +611,7 @@
     "eligible_decision_candles": 25152,
     "entry_rejections": {},
     "evidence_class": "SYNTHETIC_FIXTURE_NOT_MARKET_EVIDENCE",
-    "fingerprint": "a504bff56339086a6f53d7852d25c045a22a5fe591fd31eeaf9563157e67eb88",
+    "fingerprint": "512afebfeebbff4e9b0634741bd18411ca1a3257c8d7ca801a54af6830f9b0f3",
     "fits": [
       [
         "FORECAST",

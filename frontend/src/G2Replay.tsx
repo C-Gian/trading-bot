@@ -120,7 +120,8 @@ export function G2CurrentDetail({ current, productionAction }: { current: G2Curr
         <div className="pad" data-testid="g2-risk">
           {risk ? (
             <KeyValues rows={[
-              ['Equity di ricerca (virtuale)', num(risk.equity, 2)],
+              ['Equity realizzata (virtuale)', num(risk.equity, 2)],
+              ['Equity marcata', `${num(risk.marked_equity, 2)} · ${risk.mark_basis} · evento ${risk.kind}`],
               ['Picco / drawdown', `${num(risk.peak_equity, 2)} / ${pct(risk.drawdown, 2)}`],
               ['Blocco drawdown 5%', risk.drawdown_stop_active ? 'ATTIVO' : 'no'],
               ['Posizione aperta', current.open_position ? `${current.open_position.side} ${current.open_position.quantity} @ ${current.open_position.raw_price}` : 'nessuna'],

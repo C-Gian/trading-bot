@@ -1,0 +1,804 @@
+{
+  "artifact": "G2-02-DATA-INTEGRITY-PREFLIGHT-V1",
+  "claims": {
+    "economic_decisions": false,
+    "forecast_scoring": false,
+    "model_fitting": false,
+    "pnl_return_sharpe_profit_factor": false,
+    "protected_2025_observations": false,
+    "variant_comparison_or_tuning": false
+  },
+  "decision_coverage": {
+    "after_initial_warmup": {
+      "atr14_unavailable_decisions": 0,
+      "context_4h_rewarm_decisions": 0,
+      "context_4h_rewarm_share": 0.0,
+      "context_4h_rewarm_sole_cause_decisions": 0,
+      "context_4h_rewarm_sole_cause_share": 0.0,
+      "decisions": 173857,
+      "term_missing_decisions": {
+        "CONTEXT_STRUCTURE": 0,
+        "IMBALANCE_X_PRICE_RESPONSE": 16,
+        "LOCAL_STRUCTURE": 0,
+        "LOCAL_STRUCTURE_X_PARTICIPATION": 0,
+        "PRICE_EXTENSION": 0,
+        "RELATIVE_PARTICIPATION": 0,
+        "TAKER_IMBALANCE": 16,
+        "VOLATILITY_STATE": 0
+      },
+      "term_warmup_decisions": {
+        "CONTEXT_STRUCTURE": 0,
+        "IMBALANCE_X_PRICE_RESPONSE": 0,
+        "LOCAL_STRUCTURE": 0,
+        "LOCAL_STRUCTURE_X_PARTICIPATION": 0,
+        "PRICE_EXTENSION": 0,
+        "RELATIVE_PARTICIPATION": 0,
+        "TAKER_IMBALANCE": 0,
+        "VOLATILITY_STATE": 0
+      },
+      "unavailable": 16,
+      "unavailable_by_reason": {
+        "FORECAST_UNAVAILABLE_MISSING_DATA": 16
+      },
+      "unavailable_share": 9.203e-05
+    },
+    "by_year": {
+      "2020": {
+        "decisions": 35135,
+        "unavailable": 1535
+      },
+      "2021": {
+        "decisions": 35040,
+        "unavailable": 3
+      },
+      "2022": {
+        "decisions": 35040,
+        "unavailable": 3
+      },
+      "2023": {
+        "decisions": 35040,
+        "unavailable": 6
+      },
+      "2024": {
+        "decisions": 35136,
+        "unavailable": 4
+      },
+      "2025": {
+        "decisions": 1,
+        "unavailable": 0
+      }
+    },
+    "decision_instants": 175392,
+    "first_available_decision": "2020-01-17T00:00:00+00:00",
+    "initial_warmup_decisions": 1535,
+    "note": "availability of the frozen state only; no model, forecast or action. The single decision instant 2025-01-01T00:00Z is the close of the final 2024 candle; no 2025 observation is read.",
+    "state_unavailable_share": 0.008843049,
+    "state_unavailable_total": 1551,
+    "unavailable_by_reason": {
+      "FORECAST_UNAVAILABLE_MISSING_DATA": 31,
+      "FORECAST_UNAVAILABLE_WARMUP": 1520
+    }
+  },
+  "evidence_class": "NON_ECONOMIC_DATA_INTEGRITY_PREFLIGHT",
+  "funding": {
+    "duplicate_settlement_minutes": 0,
+    "exact_duplicate_timestamps": 0,
+    "expected_8h_settlements": 5481,
+    "first": "2020-01-01T00:00:00+00:00",
+    "historical_8h_grid_assumption_valid": true,
+    "last": "2024-12-31T16:00:00+00:00",
+    "missing_expected_settlements": [],
+    "non_finite_rates": 0,
+    "off_grid_settlements": [],
+    "records_in_window": 5481,
+    "strictly_increasing": true,
+    "timestamp_precision": {
+      "EXACT": 3078,
+      "SUB_SECOND_OFFSET": 2403
+    }
+  },
+  "instrument": "BTCUSDT_USDM_PERPETUAL",
+  "interval": [
+    "2020-01-01T00:00:00+00:00",
+    "2025-01-01T00:00:00+00:00"
+  ],
+  "interval_end_exclusive": true,
+  "klines": {
+    "by_month": {
+      "2020-01": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2020-02": {
+        "expected_minutes": 41760,
+        "missing_minutes": 0,
+        "rows": 41760,
+        "valid_minutes": 41760
+      },
+      "2020-03": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2020-04": {
+        "expected_minutes": 43200,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2020-05": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2020-06": {
+        "expected_minutes": 43200,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2020-07": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2020-08": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2020-09": {
+        "expected_minutes": 43200,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200,
+        "zero_volume_valid_minutes": 2
+      },
+      "2020-10": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2020-11": {
+        "expected_minutes": 43200,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2020-12": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2021-01": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2021-02": {
+        "expected_minutes": 40320,
+        "missing_minutes": 0,
+        "rows": 40320,
+        "valid_minutes": 40320
+      },
+      "2021-03": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640,
+        "zero_volume_valid_minutes": 59
+      },
+      "2021-04": {
+        "expected_minutes": 43200,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2021-05": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2021-06": {
+        "expected_minutes": 43200,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2021-07": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2021-08": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2021-09": {
+        "expected_minutes": 43200,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2021-10": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2021-11": {
+        "expected_minutes": 43200,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2021-12": {
+        "expected_minutes": 44640,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2022-01": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2022-02": {
+        "expected_minutes": 40320,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 40320,
+        "valid_minutes": 40320
+      },
+      "2022-03": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2022-04": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2022-05": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640,
+        "zero_volume_valid_minutes": 64
+      },
+      "2022-06": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2022-07": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2022-08": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2022-09": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2022-10": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2022-11": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2022-12": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2023-01": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2023-02": {
+        "expected_minutes": 40320,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 40320,
+        "valid_minutes": 40320
+      },
+      "2023-03": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2023-04": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2023-05": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2023-06": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2023-07": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2023-08": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2023-09": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200,
+        "zero_volume_valid_minutes": 19
+      },
+      "2023-10": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2023-11": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200,
+        "zero_volume_valid_minutes": 99
+      },
+      "2023-12": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2024-01": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2024-02": {
+        "expected_minutes": 41760,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 41760,
+        "valid_minutes": 41760
+      },
+      "2024-03": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2024-04": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2024-05": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2024-06": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2024-07": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2024-08": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      },
+      "2024-09": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2024-10": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640,
+        "zero_volume_valid_minutes": 89
+      },
+      "2024-11": {
+        "expected_minutes": 43200,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 43200,
+        "valid_minutes": 43200
+      },
+      "2024-12": {
+        "expected_minutes": 44640,
+        "header_rows": 1,
+        "missing_minutes": 0,
+        "rows": 44640,
+        "valid_minutes": 44640
+      }
+    },
+    "by_year": {
+      "2020": {
+        "expected_minutes": 527040,
+        "missing_minutes": 0,
+        "rows": 527040,
+        "valid_minutes": 527040,
+        "zero_volume_valid_minutes": 2
+      },
+      "2021": {
+        "expected_minutes": 525600,
+        "missing_minutes": 0,
+        "rows": 525600,
+        "valid_minutes": 525600,
+        "zero_volume_valid_minutes": 59
+      },
+      "2022": {
+        "expected_minutes": 525600,
+        "header_rows": 12,
+        "missing_minutes": 0,
+        "rows": 525600,
+        "valid_minutes": 525600,
+        "zero_volume_valid_minutes": 64
+      },
+      "2023": {
+        "expected_minutes": 525600,
+        "header_rows": 12,
+        "missing_minutes": 0,
+        "rows": 525600,
+        "valid_minutes": 525600,
+        "zero_volume_valid_minutes": 118
+      },
+      "2024": {
+        "expected_minutes": 527040,
+        "header_rows": 12,
+        "missing_minutes": 0,
+        "rows": 527040,
+        "valid_minutes": 527040,
+        "zero_volume_valid_minutes": 89
+      }
+    },
+    "objects": {
+      "manifest_object_index_sha256": "7c0a3528538db230822c4314e06658b79360c5275d213a0e03c4e43c7cee9283",
+      "months_expected": 60,
+      "months_in_manifest": 60,
+      "months_missing_from_manifest": [],
+      "objects_authorized": [
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-12.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-12.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-12.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-12.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-12.zip"
+      ],
+      "objects_missing_locally": [],
+      "objects_read": [
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-12.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-12.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-12.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-12.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-01.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-02.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-03.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-04.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-05.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-06.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-07.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-08.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-09.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-10.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-11.zip",
+        "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-12.zip"
+      ]
+    },
+    "status": "EXECUTED"
+  },
+  "ledger_declaration": "G2-02-DATA-PREFLIGHT-DECLARATION-001",
+  "manifest_identity": {
+    "funding_file_sha256": "bab36514c4b8ff9fe1f64e9148f19adfd448021747f032dce05e1b45a35eceef",
+    "funding_last_time": "2024-12-31T16:00:00Z",
+    "funding_manifest": "BTCUSDT-USDM-FUNDING-DEV-v1",
+    "kline_manifest": "BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1",
+    "kline_object_index_sha256": "7c0a3528538db230822c4314e06658b79360c5275d213a0e03c4e43c7cee9283",
+    "kline_request_ceiling": "2024-12-31T23:59:59.999Z"
+  },
+  "minute_grid": {
+    "bars": {
+      "15m": {
+        "absent": 0,
+        "complete": 175392,
+        "incomplete_partial": 0,
+        "windows": 175392
+      },
+      "1h": {
+        "absent": 0,
+        "complete": 43848,
+        "incomplete_partial": 0,
+        "windows": 43848
+      },
+      "4h": {
+        "absent": 0,
+        "complete": 10962,
+        "incomplete_partial": 0,
+        "windows": 10962
+      }
+    },
+    "gap_count_by_length": {
+      "1-1": 0,
+      "1441-inf": 0,
+      "16-60": 0,
+      "2-5": 0,
+      "241-1440": 0,
+      "6-15": 0,
+      "61-240": 0
+    },
+    "gap_runs": 0,
+    "longest_gap": null,
+    "missing_minutes": 0,
+    "missing_minutes_by_gap_length": {
+      "1-1": 0,
+      "1441-inf": 0,
+      "16-60": 0,
+      "2-5": 0,
+      "241-1440": 0,
+      "6-15": 0,
+      "61-240": 0
+    },
+    "ten_longest_gaps": [],
+    "total_expected_minutes": 2630880,
+    "valid_minutes": 2630880
+  },
+  "opened_objects": [
+    "data/derived/BTCUSDT-USDM-settled-funding-v1.parquet",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-01.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-02.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-03.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-04.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-05.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-06.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-07.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-08.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-09.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-10.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-11.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2020-12.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-01.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-02.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-03.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-04.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-05.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-06.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-07.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-08.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-09.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-10.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-11.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2021-12.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-01.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-02.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-03.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-04.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-05.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-06.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-07.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-08.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-09.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-10.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-11.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2022-12.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-01.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-02.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-03.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-04.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-05.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-06.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-07.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-08.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-09.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-10.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-11.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2023-12.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-01.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-02.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-03.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-04.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-05.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-06.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-07.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-08.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-09.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-10.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-11.zip",
+    "data/raw/public-taker-flow/um/BTCUSDT-1m-2024-12.zip"
+  ],
+  "protected_objects_opened": false,
+  "status": "EXECUTED"
+}

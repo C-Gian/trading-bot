@@ -188,7 +188,7 @@ class G2Core:
         self.store.append(manifest)
         for event in audit:
             self.store.append(event)
-        self._risk_event(self.start, "INITIAL")
+        self._risk_event(self.start, "INITIAL", "INITIAL_EQUITY")
 
     # ------------------------------------------------------------------ driving
     @property
@@ -235,7 +235,7 @@ class G2Core:
             self._decide(t)
 
     # ------------------------------------------------------------------ execution
-    def _risk_event(self, t: datetime, kind: str) -> None:
+    def _risk_event(self, t: datetime, kind: str, basis: str) -> None:
         g = self.governor
         self.store.append(
             RiskStateEvent(
@@ -245,12 +245,25 @@ class G2Core:
                 t,
                 kind,
                 g.equity,
+                g.mark,
+                basis,
                 g.peak,
                 g.drawdown,
                 g.locked,
-                g.open_trade is not None,
+                self.trade is not None,
             )
         )
+
+    def _remark(self, t: datetime, price: float | None, basis: str) -> None:
+        """Mark the account at `price` (flat: realized equity); a lock triggers at `t`."""
+        trade = self.trade
+        mark = (
+            self.governor.equity
+            if trade is None or price is None
+            else trade.mark(self.governor.equity, price)
+        )
+        if self.governor.mark_to(mark):
+            self._risk_event(t, "DRAWDOWN_STOP_TRIGGERED", basis)
 
     def _execute(self, t: datetime, minute: Minute | None) -> None:
         intent = self.intent
@@ -269,13 +282,7 @@ class G2Core:
                 self._close(t, trade, minute.open_time, *verdict)
         if minute is not None:
             self.last_close = minute.close
-            mark = (
-                self.governor.equity
-                if self.trade is None
-                else self.trade.mark(self.governor.equity, minute.close)
-            )
-            if self.governor.mark_to(mark):
-                self._risk_event(t, "DRAWDOWN_STOP_TRIGGERED")
+            self._remark(t, minute.close, "1M_CLOSE")
 
     def _reject(self, t: datetime, intent: OrderIntent, reason: Reason, raw: float | None) -> None:
         self.store.append(
@@ -324,6 +331,8 @@ class G2Core:
         self.governor.equity -= trade.entry_cost
         self.governor.open_trade = trade_id
         self.trade = trade
+        # The causal mark at the fill instant is the fill price: post-friction equity.
+        self._remark(t, raw, "ENTRY_FILL_PRICE")
         self.store.append(
             SimulatedFill(
                 record_key("G2X", self.run_id, intent.intent_id, "ENTRY"),
@@ -341,7 +350,7 @@ class G2Core:
                 (),
             )
         )
-        self._risk_event(t, "ENTRY")
+        self._risk_event(t, "ENTRY", "ENTRY_FILL_PRICE")
 
     def _close(
         self,
@@ -426,7 +435,8 @@ class G2Core:
         )
         self.trade = None
         self.governor.open_trade = None
-        self._risk_event(t, "EXIT")
+        self._remark(t, None, "FLAT_AFTER_EXIT")
+        self._risk_event(t, "EXIT", "FLAT_AFTER_EXIT")
 
     def _funding(self, t: datetime) -> None:
         trade = self.trade
@@ -470,7 +480,8 @@ class G2Core:
                     reasons,
                 )
             )
-            self._risk_event(t, "FUNDING")
+            self._remark(t, proxy if proxy is not None else self.last_close, "FUNDING_PRICE_PROXY")
+            self._risk_event(t, "FUNDING", "FUNDING_PRICE_PROXY")
 
     # ------------------------------------------------------------------ maturity
     def _mature_forecasts(self, t: datetime) -> None:
@@ -837,10 +848,11 @@ class G2Core:
             position_state,
             RiskSnapshot(
                 governor.equity,
+                governor.mark,
                 governor.peak,
                 governor.drawdown,
                 governor.locked,
-                position_state != "FLAT",
+                self.trade is not None,
                 governor.open_trade,
             ),
             stop_distance,

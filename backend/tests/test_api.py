@@ -10,10 +10,10 @@ from fastapi.testclient import TestClient
 
 def fixture_state(tmp_path, **changes):
     root = __import__("pathlib").Path(__file__).resolve().parents[2]
-    state = json.loads((root / "state/current_state.json").read_text())
+    state = json.loads((root / "state/current_state.json").read_text(encoding="utf-8"))
     state.update(changes)
     path = tmp_path / "state.json"
-    path.write_text(json.dumps(state))
+    path.write_text(json.dumps(state), encoding="utf-8")
     return path
 
 

@@ -205,11 +205,12 @@ class UtilityView:
 
 @dataclass(frozen=True)
 class RiskSnapshot:
-    equity: float
+    equity: float  # realized research equity
+    marked_equity: float  # latest causal mark (realized + open-position mark)
     peak_equity: float
     drawdown: float
     drawdown_stop_active: bool
-    position_open: bool
+    position_open: bool  # an actual open trade only (ENTRY_PENDING is Decision.position_state)
     open_trade_id: str | None
 
 
@@ -361,7 +362,9 @@ class RiskStateEvent:
     event_time: datetime
     available_at: datetime
     kind: str  # INITIAL / ENTRY / EXIT / FUNDING / DRAWDOWN_STOP_TRIGGERED
-    equity: float
+    equity: float  # realized research equity after the event
+    marked_equity: float  # causal mark after the event
+    mark_basis: str  # price basis of that mark
     peak_equity: float
     drawdown: float
     drawdown_stop_active: bool

@@ -43,6 +43,7 @@ ROOT = Path(__file__).resolve().parents[3]
 ARTIFACT_PATH = "reports/validation/G2-01-ENGINEERING-VALIDATION-V1.json"
 ARTIFACT_ID = "G2-01-ENGINEERING-VALIDATION-V1"
 DIGITS = 9
+REREVIEW_STATUS = "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REREVIEW"
 CODE_FILES = tuple(
     f"backend/app/g2/{name}.py"
     for name in (
@@ -58,6 +59,7 @@ CODE_FILES = tuple(
         "features",
         "fixtures",
         "models",
+        "preflight",
         "records",
         "risk",
         "runs",
@@ -438,7 +440,8 @@ def build(root: Path = ROOT, workers: int = 8, data: bool = True) -> dict[str, A
             "parameters_tuned": False,
             "method_tournament": False,
             "runtime_role": "SHADOW_ONLY",
-            "classification": "PENDING_RESEARCH_DIRECTOR_REVIEW",
+            "classification": "AVAILABLE_FOR_RESERVED_REVISION",
+            "classification_record": "G2-01-GATE-B-REVIEW-001",
         },
         "engineering_window": window,
         "claims": {
@@ -455,5 +458,5 @@ def build(root: Path = ROOT, workers: int = 8, data: bool = True) -> dict[str, A
             "sealed_queries": 0,
         },
         "reason_codes_canonical": sorted(str(r) for r in Reason),
-        "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW",
+        "status": REREVIEW_STATUS,
     }

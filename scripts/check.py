@@ -3592,7 +3592,8 @@ G2_AUTHORITY = (
 def g2_checks(state: dict) -> None:
     """G2 (ADR-0052) live-state checks; the G1 records are preserved historical evidence."""
     from app.g1 import batch
-    from app.g2.validation import ARTIFACT_PATH, CODE_FILES, text_sha256
+    from app.g2.preflight import LEDGER_DECLARATION as PREFLIGHT_DECLARATION
+    from app.g2.validation import ARTIFACT_PATH, CODE_FILES, REREVIEW_STATUS, text_sha256
 
     current = state["current_project_status"]
     g2 = state["g2_development_system"]
@@ -3650,13 +3651,25 @@ def g2_checks(state: dict) -> None:
     assert record["validation_artifact"] == ARTIFACT_PATH
     window = record["engineering_window_ledger_record"]
     declared = ids.index(window)
-    if record["status"] == "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW":
-        assert "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_GATE_B_REVIEW" in task
+    assert declared < ids.index("G2-01-CHECKPOINT-001"), "window declared before its use"
+    assert record["gate_b"] != "PASS" or record["status"] == "GATE_B_PASS"
+    if record["status"] == REREVIEW_STATUS:
+        assert REREVIEW_STATUS in task
         assert record["gate_b"] == "PENDING_RESEARCH_DIRECTOR_REVIEW"
-        completion = ids.index("G2-01-CHECKPOINT-001")
-        assert declared < completion, "the engineering window was declared before its use"
+        assert record["cycle_checkpoint"] == "AVAILABLE_FOR_RESERVED_REVISION"
+        # B-03: qualification appended (never a rewrite) and preflight declared before use.
+        qualification = ids.index("G2-01-PROVENANCE-QUALIFICATION-001")
+        preflight_declared = ids.index(PREFLIGHT_DECLARATION)
+        completion = ids.index("G2-01-CORRECTIONS-CHECKPOINT-001")
+        assert ids.index("G2-01-CHECKPOINT-001") < qualification < completion
+        assert preflight_declared < completion
+        for key in ("timestamp_utc",):
+            for index in (qualification, preflight_declared, completion):
+                assert datetime.fromisoformat(ledger[index][key]).tzinfo is not None
+        g2_preflight_checks(record)
     artifact = json.loads((ROOT / ARTIFACT_PATH).read_text(encoding="utf-8"))
-    assert artifact["status"] == record["status"]
+    if record["status"] == REREVIEW_STATUS:
+        assert artifact["status"] == record["status"]
     assert artifact["code_canonical_sha256"] == {
         path: text_sha256(ROOT / path) for path in CODE_FILES
     }
@@ -3668,7 +3681,7 @@ def g2_checks(state: dict) -> None:
     assert artifact["claims"]["sealed_queries"] == 0
     assert artifact["claims"]["validated_strategy"] is None
     assert artifact["cycle_checkpoint"]["all_pass"] is True
-    assert artifact["cycle_checkpoint"]["classification"] == "PENDING_RESEARCH_DIRECTOR_REVIEW"
+    assert artifact["cycle_checkpoint"]["classification"] == "AVAILABLE_FOR_RESERVED_REVISION"
     assert artifact["synthetic_run"]["economic_summary"] == "NOT_COMPUTED_G2_01_ENGINEERING_ONLY"
     engineering = artifact["engineering_window"]
     assert engineering["status"] == "EXECUTED"
@@ -3679,6 +3692,33 @@ def g2_checks(state: dict) -> None:
     assert determinism["repeat_run_fingerprint_identical"] is True
     assert all(determinism["replay_speed_identity"].values())
     assert all(determinism["prefix_invariance_every_record"].values())
+
+
+def g2_preflight_checks(record: dict) -> None:
+    """Pre-G2-02 exposed-data integrity preflight and pinned contract-filter snapshot."""
+    from app.g2.preflight import ARTIFACT_PATH as PREFLIGHT_PATH
+    from app.g2.sources import (
+        EXCHANGE_INFO_ENDPOINT,
+        EXCHANGE_INFO_MANIFEST,
+        pinned_market_filters,
+    )
+
+    assert record["data_preflight_artifact"] == PREFLIGHT_PATH
+    assert record["exchange_info_snapshot"] == EXCHANGE_INFO_MANIFEST
+    for key in ("data_preflight_artifact", "data_preflight_report", "exchange_info_snapshot"):
+        assert (ROOT / record[key]).is_file(), record[key]
+    preflight = json.loads((ROOT / PREFLIGHT_PATH).read_text(encoding="utf-8"))
+    assert preflight["status"] in ("EXECUTED", "BLOCKED_MISSING_SOURCE_OBJECTS")
+    assert preflight["protected_objects_opened"] is False
+    assert not any(preflight["claims"].values())
+    assert preflight["interval"][1] == "2025-01-01T00:00:00+00:00"
+    snapshot = json.loads((ROOT / EXCHANGE_INFO_MANIFEST).read_text(encoding="utf-8"))
+    assert snapshot["endpoint"] == EXCHANGE_INFO_ENDPOINT and snapshot["credentials_used"] is False
+    if snapshot["status"] == "PINNED":
+        assert snapshot["precision_fields_used_for_filters"] is False
+        pinned_market_filters(ROOT)  # hash- and normalization-verified
+    else:
+        assert snapshot["status"] == "BLOCKED_PRIMARY_SOURCE_UNAVAILABLE"
 
 
 def system_g1_checks(state: dict) -> None:
@@ -3928,6 +3968,8 @@ def dataset_scope_checks() -> None:
         cross_section,
         open_interest,
         public_taker_flow,
+        # G2 Gate-B correction: the pinned BTCUSDT USD-M exchangeInfo contract-filter snapshot.
+        ROOT / "data/manifests/BTCUSDT-USDM-EXCHANGEINFO-SNAPSHOT-V1.json",
     }
     if wp009_final:
         expected |= {gdelt, exogenous}
@@ -4972,6 +5014,7 @@ def main() -> None:
     run([sys.executable, "scripts/build_g1_cycle_diagnostics.py", "--check"])
     run([sys.executable, "scripts/build_g1_cycle_quality_gate.py", "--check"])
     run([sys.executable, "scripts/build_g2_validation.py", "--check"])
+    run([sys.executable, "scripts/build_g2_data_preflight.py", "--check"])
     for command in (
         [sys.executable, "-m", "ruff", "check", "backend", "scripts"],
         [sys.executable, "-m", "ruff", "format", "--check", "backend", "scripts"],

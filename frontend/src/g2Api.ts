@@ -14,7 +14,7 @@ export type G2Decision = {
   decision_id: string; prediction_id: string; decision_time: string; available_at: string;
   action: 'LONG' | 'SHORT' | 'NO_TRADE'; policy_selection: string; reason_codes: string[];
   long_utility: G2Utility; short_utility: G2Utility; forecast_direction: string; position_state: string;
-  risk: { equity: number; peak_equity: number; drawdown: number; drawdown_stop_active: boolean; position_open: boolean; open_trade_id: string | null };
+  risk: { equity: number; marked_equity: number; peak_equity: number; drawdown: number; drawdown_stop_active: boolean; position_open: boolean; open_trade_id: string | null };
   stop_distance: number | null; reference_price: number | null; intended_entry_time: string | null; intended_expiry_time: string | null;
   cycle_role: string;
 };
@@ -44,7 +44,7 @@ export type G2Fill = {
   event_time: string; available_at: string; raw_price: number | null; accounting_price: number | null;
   quantity: number; friction_cost: number; reason_codes: string[];
 };
-export type G2Risk = { kind: string; equity: number; peak_equity: number; drawdown: number; drawdown_stop_active: boolean; position_open: boolean };
+export type G2Risk = { kind: string; equity: number; marked_equity: number; mark_basis: string; peak_equity: number; drawdown: number; drawdown_stop_active: boolean; position_open: boolean };
 export type G2Current = {
   state: G2State | null; prediction: G2Prediction | null; decision: G2Decision | null; cycle: G2Cycle | null;
   risk: G2Risk | null; open_position: G2Fill | null; fit: { head: string; status: string; fit_boundary: string; rows: number }[];

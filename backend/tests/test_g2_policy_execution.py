@@ -395,3 +395,90 @@ def test_core_gap_stop_and_drawdown_lock():
     later = [d for d in core.store.of_type(Decision) if d.decision_time > T + 31 * M]
     assert later and all("PATH_DRAWDOWN_STOP_ACTIVE" in d.reason_codes for d in later)
     assert all(d.action is Action.NO_TRADE for d in later)
+
+
+# ---------------------------------------------------------------- Gate-B corrections (B-01/B-02)
+
+
+def risk_events(core: G2Core) -> dict[str, RiskStateEvent]:
+    return {e.kind: e for e in core.store.of_type(RiskStateEvent)}
+
+
+def test_entry_exit_and_funding_risk_events_are_post_event_and_fresh():
+    core = run_with_intent(path({119: (100, 100.5, 100, 100.5), 240: (101, 101, 101, 101)}))
+    events = risk_events(core)
+    entry, funding, exit_ = events["ENTRY"], events["FUNDING"], events["EXIT"]
+    entry_cost = 12.5 * 100 * F
+    assert entry.equity == pytest.approx(10_000 - entry_cost)  # post-entry friction
+    assert (
+        entry.marked_equity == pytest.approx(entry.equity)
+        and entry.mark_basis == "ENTRY_FILL_PRICE"
+    )
+    assert entry.drawdown == pytest.approx(1 - entry.marked_equity / entry.peak_equity)
+    assert entry.position_open and entry.available_at == T + 2 * M
+    (settlement,) = core.store.of_type(FundingEvent)
+    assert funding.equity == pytest.approx(entry.equity + settlement.amount)
+    assert funding.marked_equity == pytest.approx(funding.equity + 12.5 * (100.5 - 100))
+    assert funding.mark_basis == "FUNDING_PRICE_PROXY" and funding.position_open
+    (trade,) = core.store.of_type(ClosedTrade)
+    assert not exit_.position_open and exit_.mark_basis == "FLAT_AFTER_EXIT"
+    assert exit_.equity == pytest.approx(10_000 + trade.net_pnl)  # includes the exit friction
+    assert exit_.marked_equity == pytest.approx(exit_.equity)
+    assert exit_.drawdown == pytest.approx(max(0.0, 1 - exit_.marked_equity / exit_.peak_equity))
+
+
+def test_funding_that_crosses_the_drawdown_threshold_locks_at_the_same_instant():
+    settlement = START + timedelta(hours=8)
+    core = run_with_intent(path(), funding=((settlement, 0.45),))  # 562.5 USDT: > 5% alone
+    events = {e.kind: e for e in core.store.of_type(RiskStateEvent)}
+    lock, funding = events["DRAWDOWN_STOP_TRIGGERED"], events["FUNDING"]
+    assert lock.available_at == funding.available_at == settlement
+    assert funding.drawdown_stop_active and funding.drawdown >= 0.05
+    at_settlement = next(d for d in core.store.of_type(Decision) if d.decision_time == settlement)
+    assert "PATH_DRAWDOWN_STOP_ACTIVE" in at_settlement.reason_codes
+    assert at_settlement.risk.drawdown_stop_active
+    before = next(
+        d
+        for d in core.store.of_type(Decision)
+        if d.decision_time == settlement - timedelta(minutes=15)
+    )
+    assert not before.risk.drawdown_stop_active
+
+
+def test_decision_position_open_means_an_actual_open_trade_only():
+    core, built = make_core(path())
+    for m in built.minutes:
+        if m.available_at > T:
+            break
+        core.advance_to(m.open_time)
+        core.ingest(m)
+    core.advance_to(T)
+    entry = T + timedelta(minutes=16)
+    intent = OrderIntent(
+        record_key("G2I", core.run_id, T),
+        core.run_id,
+        record_key("G2D", core.run_id, T),
+        "LONG",
+        T,
+        entry,
+        entry + timedelta(minutes=14),
+        entry + timedelta(hours=4) - M,
+        2.0,
+        100.0,
+        12.5,
+        "MARKET_HISTORICAL_BAR_SIMULATION",
+    )
+    core.intent = intent
+    core.governor.pending_intent = intent.intent_id
+    drive_rest = [m for m in built.minutes if m.available_at > T]
+    for m in drive_rest:
+        core.advance_to(m.open_time)
+        core.ingest(m)
+    core.advance_to(built.manifest.dataset_end)
+    decisions = {d.decision_time: d for d in core.store.of_type(Decision)}
+    pending = decisions[T + timedelta(minutes=15)]
+    assert pending.position_state == "ENTRY_PENDING"
+    assert pending.risk.position_open is False and pending.risk.open_trade_id is None
+    assert "POSITION_ALREADY_OPEN" in pending.reason_codes  # still blocked from a new entry
+    held = decisions[T + timedelta(minutes=30)]
+    assert held.position_state == "OPEN" and held.risk.position_open is True

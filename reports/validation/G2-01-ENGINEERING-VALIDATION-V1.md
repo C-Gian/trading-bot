@@ -1,6 +1,6 @@
 # G2-01 Engineering Validation V1
 
-Status: **EXECUTOR COMPLETE — PENDING RESEARCH DIRECTOR GATE B REVIEW**
+Status: **EXECUTOR COMPLETE — PENDING RESEARCH DIRECTOR GATE B RE-REVIEW** (rebuilt after the B-01/B-02 corrections; see `reports/checkpoints/G2-01-GATE-B-CORRECTIONS-DATA-PREFLIGHT-V1.md`)
 Evidence class: **ENGINEERING VALIDATION — NOT PERFORMANCE EVIDENCE**
 Machine-readable truth: `reports/validation/G2-01-ENGINEERING-VALIDATION-V1.json` (canonical,
 replayed byte-for-byte by `python scripts/build_g2_validation.py --check`, which `scripts/check.py`
