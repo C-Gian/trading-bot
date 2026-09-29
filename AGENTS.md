@@ -130,13 +130,53 @@ Do not read all Markdown files “for context.” Read only the active chain and
 For an implementation task:
 1. read the smallest referenced file set;
 2. implement the full bounded checkpoint;
-3. run deterministic validation;
-4. save verbose logs/artifacts to files;
-5. update state only after the gate actually passes;
-6. preserve failed results;
-7. return a concise report.
+3. use focused/fast deterministic validation while iterating;
+4. run the complete repository/scientific validation only when the checkpoint requires final validation;
+5. save verbose logs/artifacts to files;
+6. update state only after the gate actually passes;
+7. preserve failed results;
+8. return a concise report.
 
 Do not ask the Owner to write code, debug, inspect raw logs or reconstruct project history.
+
+### Executor-run vs Owner-run jobs
+
+Normal engineering work remains autonomous. Executors may run:
+- focused tests;
+- lint/type checks;
+- builds;
+- ordinary deterministic validations;
+- medium-duration repository checks.
+
+Do not weaken validation merely to make execution faster.
+
+A job is `HEAVY_OWNER_RUN` when either:
+- the active task explicitly classifies it that way; or
+- available evidence indicates it is likely to take roughly one hour or more / is naturally an hours-scale backtest, development run, evaluation, stress run, large replay or large data job.
+
+For `HEAVY_OWNER_RUN` jobs:
+- Codex/Claude must prepare the runner, configuration, manifests, frozen identities and pre-run checks completely;
+- the executor must **not** start the heavy job, including in a background/detached shell;
+- stop with the exact marker `WAITING_FOR_OWNER_RUN`;
+- report the exact command the Owner should execute;
+- report the canonical output artifact paths that will contain the results;
+- after the Owner reports completion, read those artifacts directly from the repository/workspace; do not ask the Owner to paste or manually summarize results;
+- interrupted/partial runtime state is not scientific evidence.
+
+This boundary does **not** apply to an ordinary 10–30 minute validation solely because it is inconvenient. Medium jobs may remain executor-run when they are observable.
+
+### Long-job observability
+
+Any executor-run job expected to take more than about one minute must follow
+`docs/operations/LONG_RUNNING_JOB_PROGRESS_V1.md`.
+
+In particular:
+- use progress/heartbeat output instead of a silent wait;
+- when Claude Code runs a shell command in background, keep it inspectable through Claude Code's task/background-shell monitoring rather than hiding progress behind repeated polling;
+- expose phase, elapsed time, heartbeat and ETA when defensibly estimable;
+- never fabricate percentage or ETA.
+
+During development, prefer focused tests after a local fix. If a final full check fails late, diagnose and repair with the smallest affected checks first, then perform the required final full validation once the candidate is ready. Do not repeatedly rerun the whole repository gate after every small fix.
 
 ## 10. Git / repository history
 
@@ -144,4 +184,26 @@ Scientific history is append-only. Never rewrite Git history to make past work d
 
 Historical Markdown may be compacted in the current tree when its authoritative content is already preserved by Git plus ADR/checkpoint/experiment records. A compacted pointer is not current authority.
 
-Do not push or perform external deployment unless the active task explicitly authorizes it.
+### Owner-controlled Git mutations
+
+Git mutation is Owner-controlled unless the Owner explicitly overrides this rule for a specific action.
+
+Executors may use read-only Git commands such as:
+- `git status`;
+- `git diff`;
+- `git log`;
+- `git show`.
+
+Executors must not autonomously:
+- commit;
+- push;
+- pull/merge;
+- rebase;
+- reset;
+- tag;
+- create/delete/move branches;
+- force-update refs.
+
+File edits in the working tree are allowed and expected. The Owner handles repository-history mutations.
+
+External deployment also requires explicit authorization from the active task or Owner.
