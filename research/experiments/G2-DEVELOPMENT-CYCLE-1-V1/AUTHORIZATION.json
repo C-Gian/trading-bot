@@ -1,0 +1,343 @@
+{
+ "ablations": {
+  "ABL-G2-01": {
+   "active_columns": [
+    "LOCAL_STRUCTURE",
+    "CONTEXT_STRUCTURE",
+    "PRICE_EXTENSION",
+    "VOLATILITY_STATE"
+   ],
+   "cycle_role": "NOT_COMPUTED_ZERO_ROLE",
+   "definition": "FULL_MINUS_PARTICIPATION_FLOW_RESPONSE: remove RELATIVE_PARTICIPATION, TAKER_IMBALANCE, LOCAL_STRUCTURE_X_PARTICIPATION, IMBALANCE_X_PRICE_RESPONSE; same ridge/calendar/window/penalties in forecast and both utility heads. Diagnostic only; not promotable.",
+   "forecast_mode": "RIDGE",
+   "penalties_of_active_columns": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "policy_mode": "UTILITY",
+   "removed_columns": [
+    "RELATIVE_PARTICIPATION",
+    "TAKER_IMBALANCE",
+    "LOCAL_STRUCTURE_X_PARTICIPATION",
+    "IMBALANCE_X_PRICE_RESPONSE"
+   ],
+   "role": "DIAGNOSTIC_ABLATION",
+   "run_key": "ABL-G2-01",
+   "systems": [
+    "ABL-G2-01"
+   ],
+   "utility_heads": true
+  },
+  "ABL-G2-02": {
+   "active_columns": [
+    "LOCAL_STRUCTURE",
+    "CONTEXT_STRUCTURE",
+    "PRICE_EXTENSION",
+    "RELATIVE_PARTICIPATION",
+    "TAKER_IMBALANCE",
+    "VOLATILITY_STATE"
+   ],
+   "cycle_role": "NOT_COMPUTED_ZERO_ROLE",
+   "definition": "FULL_ADDITIVE_ONLY: retain the six main observables, remove both interaction terms; same ridge/calendar/window/penalties in forecast and both utility heads. Diagnostic only.",
+   "forecast_mode": "RIDGE",
+   "penalties_of_active_columns": [
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25
+   ],
+   "policy_mode": "UTILITY",
+   "removed_columns": [
+    "LOCAL_STRUCTURE_X_PARTICIPATION",
+    "IMBALANCE_X_PRICE_RESPONSE"
+   ],
+   "role": "DIAGNOSTIC_ABLATION",
+   "run_key": "ABL-G2-02",
+   "systems": [
+    "ABL-G2-02"
+   ],
+   "utility_heads": true
+  }
+ },
+ "adaptive_revision_authorized": false,
+ "author": "Claude Code (AI executor, overflow for Codex)",
+ "autopsy": {
+  "extended_entry_threshold_scaled_units": 2.0,
+  "favorable_trades": 5,
+  "missed_classes": [
+   "MODEL_ABSTENTION",
+   "RISK_OR_CAPACITY_ABSTENTION",
+   "EXECUTION_FAILURE",
+   "COUNTERFACTUAL_REFERENCE_OPPORTUNITY"
+  ],
+  "pseudo_random_missed_episodes": 5,
+  "pseudo_random_trades": 5,
+  "seed": "SeedSequence(2026092702, spawn_key=(1,))",
+  "standardized_opportunity": "shadow NET_R >= +1.0R at a NO_TRADE decision; episodes group qualifying decisions <= 4h apart; representative = first decision",
+  "structure": "FACT -> CAUSAL HYPOTHESIS -> REQUIRED TEST; no test executed in G2-02",
+  "system": "G2-V0",
+  "unfavorable_trades": 5
+ },
+ "baseline": {
+  "active_columns": [
+   "LOCAL_STRUCTURE",
+   "CONTEXT_STRUCTURE",
+   "PRICE_EXTENSION",
+   "RELATIVE_PARTICIPATION",
+   "TAKER_IMBALANCE",
+   "VOLATILITY_STATE",
+   "LOCAL_STRUCTURE_X_PARTICIPATION",
+   "IMBALANCE_X_PRICE_RESPONSE"
+  ],
+  "cycle_role": "SHADOW_ONLY",
+  "definition": "Frozen Gate-A/B G2-V0: eight-column forecast ridge, LONG/SHORT NET_R utility heads, prudential margin, one-position risk governor; cycle SHADOW_ONLY.",
+  "forecast_mode": "RIDGE",
+  "penalties_of_active_columns": [
+   0.25,
+   0.25,
+   0.25,
+   0.25,
+   0.25,
+   0.25,
+   1.0,
+   1.0
+  ],
+  "policy_mode": "UTILITY",
+  "removed_columns": [],
+  "role": "BASELINE",
+  "run_key": "G2-V0",
+  "systems": [
+   "G2-V0"
+  ],
+  "utility_heads": true
+ },
+ "code_sha256": {
+  "backend/app/g2/bars.py": "76bb221005c65967cac903586448c7a7b2eaeb6d8006b73b0d1bf6f7af80aa94",
+  "backend/app/g2/contract.py": "c3e3d181a659b720b46cbaed6bb4914827fb15f03ac9a90f1c308cfbaa6ba5ad",
+  "backend/app/g2/core.py": "6730188fbdaec8fee0e6f34067a19c9d8bcadfd1e0a1d7d9ddb92bbaff5e94e3",
+  "backend/app/g2/cycle.py": "28902ef67e39c6369cbc03e41c192fa894749ce19092e2784338f5831c7940d4",
+  "backend/app/g2/development/__init__.py": "c95b0f561813920f1611b5070345f3cca5b566ba027e277e53251b80fd9e11da",
+  "backend/app/g2/development/autopsy.py": "a84a6138fee8a390223fb76c0d657cf2d55d55bea5277d4a50db98d94a74b980",
+  "backend/app/g2/development/batch.py": "2769fe851130292ae1ec4e25f1742f74aaeaa6ca0c193fbb6b5e1602a7f03419",
+  "backend/app/g2/development/core.py": "27fbdfcb26b0591e8a109e103487659885d6e571b13473c0eb655450296bfb8c",
+  "backend/app/g2/development/reports.py": "6ae9c241ea34b00a7f9bd516781a0562bf9cae63b282239d995019fc99748283",
+  "backend/app/g2/development/runner.py": "c72da3ecd40ecdbeeab92be67828ecaa40f52496f67e6084794e1ea61ceb2ab9",
+  "backend/app/g2/development/scoring.py": "d3c24a394da227fcf2a1fc7a0131e41e6f35755147092942f14e61c3771e08c4",
+  "backend/app/g2/development/variants.py": "0462d648f08829465bba69fb6de8781410eded09c497c01ccde226288a8b6d8f",
+  "backend/app/g2/distribution.py": "c30dd9a69883401069ad27f12b3e6aa7674c1220528cb1649e67af4f6edbbaf2",
+  "backend/app/g2/execution.py": "62a525d95f2441634134a29ec826dfab8745fc9a05752e077649c143d862bcc6",
+  "backend/app/g2/features.py": "d31cee0b27bcca746f896cd46c8580d2243948dda9982bc5e156aec2e9deff7d",
+  "backend/app/g2/models.py": "2b6c6e0ba5f4f9759c449fe08caaba8825c61952cb816ee04d6f1c1d6b6b44ff",
+  "backend/app/g2/records.py": "6ad5a3f49baec654ebe19b74222e4b43b2ad6e4fc251f458ab9117d41b82e658",
+  "backend/app/g2/risk.py": "fbbc623d4f5b4220b20d09122fcec69cdfb47263aa180b81b1fe39c2b111085f",
+  "backend/app/g2/runs.py": "4624c5b4c0082780777c1252f384d9b9eb9b3bffbc058cb00210af5892f94cbd",
+  "backend/app/g2/sources.py": "3ad7a1c6a24420991025d676758ef4d26a519541b34f7c32abc100fca50f59fa",
+  "backend/app/g2/store.py": "99b3eb552db32e1aea4cb73b53e26b9bb43fbd076dd560aacf2973b878bc6c0d",
+  "scripts/run_g2_development.py": "58721783437c45fb03267c6d5e4cc153bdd7487a69ccf5c82590472f10841684"
+ },
+ "common_state_support": "all systems share the eight-column G2-V0 state availability and training-row finiteness gates",
+ "cycle_revision_slots_consumed": 0,
+ "data": {
+  "exchange_filters": {
+   "max_qty": 120.0,
+   "min_notional": 50.0,
+   "min_qty": 0.001,
+   "step_size": 0.001,
+   "tick_size": 0.1
+  },
+  "exchange_filters_sha256": "99672751cd0fbcae1ee409ca825d118c96b75872587325523f5b84d389524ad2",
+  "exchange_filters_source": "BTCUSDT-USDM-EXCHANGEINFO-SNAPSHOT-V1@4964a8bc91d461be",
+  "exchange_info_manifest": "data/manifests/BTCUSDT-USDM-EXCHANGEINFO-SNAPSHOT-V1.json",
+  "exchange_info_raw_sha256": "4964a8bc91d461beef58eee9aeaf1e756baca4bc668c4a075c8c432d45cba635",
+  "funding_file_sha256": "bab36514c4b8ff9fe1f64e9148f19adfd448021747f032dce05e1b45a35eceef",
+  "funding_manifest": "data/manifests/BTCUSDT-USDM-FUNDING-DEV-v1.json",
+  "funding_manifest_id": "BTCUSDT-USDM-FUNDING-DEV-v1",
+  "kline_manifest": "data/manifests/BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1.json",
+  "kline_manifest_id": "BTCUSDT-PUBLIC-TAKER-FLOW-KLINES-DEV-v1",
+  "kline_object_index_sha256": "7c0a3528538db230822c4314e06658b79360c5275d213a0e03c4e43c7cee9283"
+ },
+ "determinism": "G2-V0 simulated twice; fingerprints and cache hashes must be identical",
+ "evidence_class": "EXPOSED_DEVELOPMENT_EVIDENCE_NOT_VALIDATION",
+ "friction": {
+  "per_side": 0.0012,
+  "scenario": "BASE",
+  "stress_scenarios_executed": false
+ },
+ "frozen_contract_identity_sha256": "3d2749b3aac668e4ccc105a889929bea5bc4d8803e3a6cabd18e33bf92d00670",
+ "general_revision_slots_consumed": 0,
+ "generation": "G2_DEVELOPMENT_SYSTEM",
+ "interval": {
+  "end_exclusive": true,
+  "forbidden": "any 2025+ observation (phase-bounded loader refuses it before I/O)",
+  "initialization_training": [
+   "2020-01-01T00:00:00+00:00",
+   "2021-01-01T00:00:00+00:00"
+  ],
+  "scored_exposed_development": [
+   "2021-01-01T00:00:00+00:00",
+   "2025-01-01T00:00:00+00:00"
+  ]
+ },
+ "package_sha256": "bf06bc3ae137efa9d0839d9255f4018d6d86d058880a307f29d5784272903f2e",
+ "package_version": "tasks/G2_02_BASELINE_AND_DIAGNOSTICS_V1.md",
+ "protected_outcomes_read": false,
+ "real_money_authorized": false,
+ "record_id": "G2-02-DEV-RUN-AUTHORIZATION-001",
+ "record_type": "DEVELOPMENT_RUN_AUTHORIZATION",
+ "references": {
+  "CASH_REFERENCE": {
+   "definition": "zero exposure"
+  },
+  "NULL_FORECAST": {
+   "active_columns": [],
+   "cycle_role": "NOT_COMPUTED_ZERO_ROLE",
+   "definition": "NULL_FORECAST: location zero (mu_z = 0) with the same causal residual rule (training-target baseline, then the prequential archive) and the same SIGMA_4H scale; forecast reference only.",
+   "forecast_mode": "NULL",
+   "penalties_of_active_columns": [],
+   "policy_mode": "NONE",
+   "removed_columns": [
+    "LOCAL_STRUCTURE",
+    "CONTEXT_STRUCTURE",
+    "PRICE_EXTENSION",
+    "RELATIVE_PARTICIPATION",
+    "TAKER_IMBALANCE",
+    "VOLATILITY_STATE",
+    "LOCAL_STRUCTURE_X_PARTICIPATION",
+    "IMBALANCE_X_PRICE_RESPONSE"
+   ],
+   "role": "FIXED_REFERENCE",
+   "run_key": "NULL-FORECAST",
+   "systems": [
+    "NULL_FORECAST"
+   ],
+   "utility_heads": false
+  },
+  "TREND_ONLY_FORECAST+TREND_REFERENCE_POLICY": {
+   "active_columns": [
+    "LOCAL_STRUCTURE",
+    "CONTEXT_STRUCTURE",
+    "PRICE_EXTENSION"
+   ],
+   "cycle_role": "NOT_COMPUTED_ZERO_ROLE",
+   "definition": "TREND_ONLY_FORECAST (LOCAL_STRUCTURE, CONTEXT_STRUCTURE, PRICE_EXTENSION; same calendar, scaling, target, ridge and residual rule) and TREND_REFERENCE_POLICY (LONG iff q10 > 0, SHORT iff q90 < 0, else NO_TRADE; identical entry/stop/expiry/friction/funding/risk).",
+   "forecast_mode": "RIDGE",
+   "penalties_of_active_columns": [
+    0.25,
+    0.25,
+    0.25
+   ],
+   "policy_mode": "TREND_QUANTILE",
+   "removed_columns": [
+    "RELATIVE_PARTICIPATION",
+    "TAKER_IMBALANCE",
+    "VOLATILITY_STATE",
+    "LOCAL_STRUCTURE_X_PARTICIPATION",
+    "IMBALANCE_X_PRICE_RESPONSE"
+   ],
+   "role": "FIXED_REFERENCE",
+   "run_key": "TREND-REFERENCE",
+   "systems": [
+    "TREND_ONLY_FORECAST",
+    "TREND_REFERENCE_POLICY"
+   ],
+   "utility_heads": false
+  }
+ },
+ "scorecards": {
+  "execution": [
+   "decision-to-fill delay",
+   "raw vs accounting fills (12bp/side convention)",
+   "friction paid; funding paid/received",
+   "gap stops, ambiguous fills, rejected entries, late exits, funding-invalid events",
+   "entry implementation shortfall vs decision close (no historical quotes exist)"
+  ],
+  "forecast": {
+   "primary": "mean CRPS of the issued empirical predictive distribution (return units)",
+   "scored_decisions": "2021-01-01T00:00Z <= T < 2025-01-01T00:00Z with a forecast and a matured 4h target",
+   "secondary": [
+    "q10/q50/q90 pinball loss",
+    "Brier score of r4h > 0 using uncalibrated p_positive",
+    "q10-q90 empirical coverage",
+    "MAE of the median forecast",
+    "direction hit rate (descriptive only)",
+    "fixed strata: view strength WEAK <0.25 / MODERATE <0.75 / STRONG, by residual evidence source",
+    "availability/support counts"
+   ]
+  },
+  "policy": {
+   "economic_window": "no economic position may be opened before 2021-01-01T00:00Z; initial virtual equity 10,000 USDT at the window start",
+   "primary": "common-timeline simulated portfolio net return relative CASH: mean simple 15m return of marked equity on the 2021-01-01..2025-01-01 UTC grid",
+   "secondary": [
+    "mean realized NET_R of executed trades",
+    "total net return",
+    "max drawdown and time under water (marked 15m grid)",
+    "turnover per year",
+    "occupancy (position time fraction)",
+    "LONG/SHORT mix",
+    "friction and funding share of |gross|",
+    "trade count and calendar distribution (year/quarter), top-5 concentration",
+    "NO_TRADE primary reasons (fixed precedence) and all reason-code counts",
+    "standardized LONG/SHORT shadow NET_R distributions (unconditional and policy-selected)"
+   ]
+  }
+ },
+ "sealed_queries": 0,
+ "statement": "No adaptive revision is authorized. G2-V0, the four references and the two ablations are executed as frozen, once each (G2-V0 is additionally re-simulated once, unchanged, only to prove byte-identical determinism); no parameter, feature, threshold, cost, risk or cycle change; no change card; no R1/R2/R3/RCYCLE; no 2025+ access.",
+ "timestamp_utc": "2026-09-29T15:40:28.394241+00:00",
+ "uncertainty": {
+  "blocks": "contiguous UTC calendar weeks (Monday 00:00) of the scored window; the partial first/last weeks are their own blocks",
+  "forecast_comparisons": [
+   [
+    "G2-V0",
+    "NULL_FORECAST"
+   ],
+   [
+    "G2-V0",
+    "TREND_ONLY_FORECAST"
+   ],
+   [
+    "G2-V0",
+    "ABL-G2-01"
+   ],
+   [
+    "G2-V0",
+    "ABL-G2-02"
+   ]
+  ],
+  "forecast_paired_metrics": [
+   "crps",
+   "brier"
+  ],
+  "interpretation": "internal stability diagnostic only; not independent validation and not a discovery p-value",
+  "path_metrics": "max drawdown reported raw plus a weekly-block path distribution",
+  "policy_comparisons": [
+   [
+    "G2-V0",
+    "TREND_REFERENCE_POLICY"
+   ],
+   [
+    "G2-V0",
+    "CASH_REFERENCE"
+   ],
+   [
+    "G2-V0",
+    "ABL-G2-01"
+   ],
+   [
+    "G2-V0",
+    "ABL-G2-02"
+   ]
+  ],
+  "policy_paired_metric": "15m marked-equity simple return (common grid)",
+  "replicates": 5000,
+  "reported": "point delta and 10th/50th/90th percentiles",
+  "resampling": "complete weeks with replacement; one common resampling matrix for every comparison",
+  "rng": "numpy.random.default_rng(seed).integers(0, weeks, size=(replicates, weeks))",
+  "seed": 2026092702
+ },
+ "work_package": "G2-02-BASELINE-AND-DIAGNOSTICS-V1"
+}
