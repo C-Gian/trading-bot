@@ -9957,7 +9957,7 @@
           "const": "NO_TRADE"
         },
         "market_trial_authorized": {
-          "const": false
+          "type": "boolean"
         },
         "confirmation_authorized": {
           "const": false
@@ -10677,6 +10677,34 @@
             },
             "real_money_authorized": {
               "const": false
+            },
+            "results_artifact": {
+              "type": "string",
+              "pattern": "^research/experiments/[A-Za-z0-9_./-]+\\.json$"
+            },
+            "autopsy_artifact": {
+              "type": "string",
+              "pattern": "^research/experiments/[A-Za-z0-9_./-]+\\.json$"
+            },
+            "validation_artifact": {
+              "type": "string",
+              "pattern": "^reports/validation/[A-Za-z0-9_.-]+\\.json$"
+            },
+            "checkpoint_report": {
+              "type": "string",
+              "pattern": "^reports/checkpoints/[A-Za-z0-9_.-]+\\.md$"
+            },
+            "authorization_record": {
+              "type": "string"
+            },
+            "executed_systems": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "determinism_fingerprint_identical": {
+              "type": "boolean"
             }
           }
         }

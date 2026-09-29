@@ -29,3 +29,5 @@ frontend/dist/
 *.tsbuildinfo
 *.pyc
 *.egg-info/
+# Long-job progress telemetry (operational only, never scientific evidence).
+.runtime/

@@ -18,6 +18,7 @@ from .g1.api import g1_router
 from .g1.service import G1ReplayService
 from .g2.api import g2_router
 from .g2.service import G2ReplayService
+from .operations.api import operations_router
 from .product.analysis import RESEARCH_STATUS, STRATEGY_VERSION, VARIANT, analyse
 from .product.analysis_review import build_analysis_review_bundle
 from .product.market_feed import recent_candles
@@ -141,6 +142,7 @@ def create_app(
     state_schema_path: Path | None = None,
     g1_service: G1ReplayService | None = None,
     g2_service: G2ReplayService | None = None,
+    operations_root: Path | None = None,
 ) -> FastAPI:
     @asynccontextmanager
     async def lifespan(_: FastAPI):
@@ -179,6 +181,12 @@ def create_app(
     # It is a distinct surface and never changes the fail-closed NO_TRADE action output above.
     application.router.routes.extend(
         g2_router(g2_service or G2ReplayService(), repository.load).routes
+    )
+    # Read-only long-job progress telemetry (operational, never scientific evidence).
+    application.router.routes.extend(
+        (
+            operations_router() if operations_root is None else operations_router(operations_root)
+        ).routes
     )
 
     @application.get("/api/v1/state")

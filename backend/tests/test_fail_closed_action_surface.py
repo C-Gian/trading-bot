@@ -54,7 +54,12 @@ def test_live_state_has_no_validated_strategy_and_g2_disposition() -> None:
     assert "operational_compatibility_note" not in current
     assert current["operational_action_output"] == "NO_TRADE"
     assert current["active_candidate"] is None and current["candidate_2"] == "UNALLOCATED"
-    assert current["market_trial_authorized"] is current["confirmation_authorized"] is False
+    # G2-02: exposed-development market backtests are authorized only through the G2-02 package.
+    g2 = STATE["g2_development_system"]
+    exposed_development = "g2_02_development" in g2 and g2["market_backtest_authorized"] is True
+    assert current["market_trial_authorized"] is exposed_development
+    assert current["confirmation_authorized"] is False
+    assert g2["protected_evaluation_authorized"] is g2["future_paper_authorized"] is False
     assert current["prospective_collection_authorized"] is False
     assert current["active_system_generation"] == "G2_DEVELOPMENT_SYSTEM"
     assert current["active_project_internal_alpha_schedules"] == []

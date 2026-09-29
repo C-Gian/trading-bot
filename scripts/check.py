@@ -108,10 +108,22 @@ EXPERIMENTS = {
 }
 
 
+# Long-job telemetry (docs/operations/LONG_RUNNING_JOB_PROGRESS_V1.md); operational only.
+JOB = None
+
+
 def run(command: list[str], cwd: Path = ROOT) -> None:
-    subprocess.run(
-        command, cwd=cwd, check=True, shell=sys.platform == "win32" and command[0] == "npm"
-    )
+    shell = sys.platform == "win32" and command[0] == "npm"
+    if JOB is None:
+        subprocess.run(command, cwd=cwd, check=True, shell=shell)
+        return
+    label = " ".join(Path(part).name if index == 0 else part for index, part in enumerate(command))
+    child = subprocess.Popen(command, cwd=cwd, shell=shell)
+    JOB.note(f"running {label} (child pid {child.pid} alive)")
+    code = child.wait()
+    JOB.note(f"finished {label} (exit {code})")
+    if code:
+        raise subprocess.CalledProcessError(code, command)
 
 
 def git(*args: str) -> str:
@@ -3598,12 +3610,14 @@ def g2_checks(state: dict) -> None:
     current = state["current_project_status"]
     g2 = state["g2_development_system"]
     assert current["disposition"] == current["strategic_disposition"]
-    assert current["market_trial_authorized"] is False
+    # G2-02 (Gate B PASS): exposed-development market backtests only, through that package.
+    exposed_development = "g2_02_development" in g2
+    assert current["market_trial_authorized"] is exposed_development
+    assert g2["market_backtest_authorized"] is exposed_development
     assert current["confirmation_authorized"] is False
     assert current["prospective_collection_authorized"] is False
     assert current["successor_system_generation"] == "G2_DEVELOPMENT_SYSTEM_ALLOCATED"
     for flag in (
-        "market_backtest_authorized",
         "protected_evaluation_authorized",
         "future_paper_authorized",
         "real_money_authorized",
@@ -3612,7 +3626,11 @@ def g2_checks(state: dict) -> None:
     assert current["automatic_next_research_package"] == g2["current_work_package"]
     task = (ROOT / "tasks/CURRENT_TASK.md").read_text(encoding="utf-8")
     assert task.startswith(f"# CURRENT TASK — {g2['current_work_package']}")
-    assert "ECONOMIC MARKET EXECUTION FORBIDDEN" in task
+    if exposed_development:
+        assert "AUTHORIZED EXPOSED DEVELOPMENT" in task and "2025+: forbidden" in task
+        g2_02_checks(g2["g2_02_development"], task)
+    else:
+        assert "ECONOMIC MARKET EXECUTION FORBIDDEN" in task
     for path in G2_AUTHORITY:
         assert (ROOT / path).is_file(), path
     # System G1 stays a closed terminal park: Phase B was never run and cannot be authorized.
@@ -3692,6 +3710,36 @@ def g2_checks(state: dict) -> None:
     assert determinism["repeat_run_fingerprint_identical"] is True
     assert all(determinism["replay_speed_identity"].values())
     assert all(determinism["prefix_invariance_every_record"].values())
+
+
+def g2_02_checks(record: dict, task: str) -> None:
+    """G2-02 fixed batch: no revision slot consumed; completion bound to ledger and artifacts."""
+    from app.g2.development import batch
+    from app.g2.development.runner import AUTHORIZATION_RECORD
+
+    assert record["general_revision_slots_consumed"] == 0
+    assert record["cycle_revision_slots_consumed"] == 0
+    assert record["protected_outcomes_read"] is False
+    ids = [entry["record_id"] for entry in batch.read_ledger(ROOT)]
+    if record["status"] == "AUTHORIZED_NOT_EXECUTED":
+        assert "G2-02-CHECKPOINT-001" not in ids
+        return
+    assert record["status"] == batch.STATUS
+    assert batch.STATUS in task
+    assert ids.index(AUTHORIZATION_RECORD) < ids.index("G2-02-CHECKPOINT-001")
+    for key, path in (
+        ("results_artifact", batch.RESULTS_PATH),
+        ("autopsy_artifact", batch.AUTOPSY_PATH),
+        ("validation_artifact", batch.VALIDATION_PATH),
+        ("checkpoint_report", batch.CHECKPOINT_REPORT),
+    ):
+        assert record[key] == path and (ROOT / path).is_file(), key
+    results = json.loads((ROOT / batch.RESULTS_PATH).read_text(encoding="utf-8"))
+    assert results["status"] == record["status"]
+    assert results["claims"]["validated_strategy"] is None
+    assert not any(
+        value for key, value in results["claims"].items() if key not in ("validated_strategy",)
+    )
 
 
 def g2_preflight_checks(record: dict) -> None:
@@ -5001,38 +5049,68 @@ def data_checks(state: dict) -> None:
     assert json_bytes(block_support_report(grids, donors, ROOT)) == support_path.read_bytes()
 
 
+CHECK_SCRIPTS = (
+    "scripts/check_numerical_environment.py",
+    "scripts/audit_statistical_evidence.py --check",
+    "scripts/audit_p1a_power_gate.py --check",
+    "scripts/audit_p2_cycle_power_gate.py --check",
+    "scripts/audit_p2_cycle_null_v2.py --check",
+    "scripts/build_g1_cycle_diagnostics.py --check",
+    "scripts/build_g1_cycle_quality_gate.py --check",
+    "scripts/build_g2_validation.py --check",
+    "scripts/build_g2_data_preflight.py --check",
+    "scripts/run_g2_development.py --check",
+)
+PYTHON_TOOLS = (
+    ("ruff check", ["-m", "ruff", "check", "backend", "scripts"]),
+    ("ruff format", ["-m", "ruff", "format", "--check", "backend", "scripts"]),
+    ("mypy", ["-m", "mypy", "backend"]),
+    ("pytest", ["-m", "pytest", "-q"]),
+)
+NPM_TOOLS = ("lint", "typecheck", "test", "build")
+
+
 def main() -> None:
+    global JOB
+    from app.operations.jobs import Job, stderr_echo
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-data", action="store_true")
     parser.add_argument("--pre-experiment", action="store_true")
+    parser.add_argument(
+        "--progress", action="store_true", help="print phase/heartbeat/ETA progress to stderr"
+    )
     options = parser.parse_args()
-    state = governance_checks(options.pre_experiment)
-    run([sys.executable, "scripts/check_numerical_environment.py"])
-    run([sys.executable, "scripts/audit_statistical_evidence.py", "--check"])
-    run([sys.executable, "scripts/audit_p1a_power_gate.py", "--check"])
-    run([sys.executable, "scripts/audit_p2_cycle_power_gate.py", "--check"])
-    run([sys.executable, "scripts/audit_p2_cycle_null_v2.py", "--check"])
-    run([sys.executable, "scripts/build_g1_cycle_diagnostics.py", "--check"])
-    run([sys.executable, "scripts/build_g1_cycle_quality_gate.py", "--check"])
-    run([sys.executable, "scripts/build_g2_validation.py", "--check"])
-    run([sys.executable, "scripts/build_g2_data_preflight.py", "--check"])
-    for command in (
-        [sys.executable, "-m", "ruff", "check", "backend", "scripts"],
-        [sys.executable, "-m", "ruff", "format", "--check", "backend", "scripts"],
-        [sys.executable, "-m", "mypy", "backend"],
-        [sys.executable, "-m", "pytest", "-q"],
-    ):
-        run(command)
-    for command in (
-        ["npm", "run", "lint"],
-        ["npm", "run", "typecheck"],
-        ["npm", "run", "test"],
-        ["npm", "run", "build"],
-    ):
-        run(command, ROOT / "frontend")
+    phases = [
+        "governance checks",
+        *(script.split()[0].rsplit("/", 1)[-1] for script in CHECK_SCRIPTS),
+        *(name for name, _ in PYTHON_TOOLS),
+        *(f"npm {name}" for name in NPM_TOOLS),
+    ]
     if not options.no_data:
-        data_checks(state)
-    assert not git("status", "--porcelain"), "working tree must be clean at checkpoint validation"
+        phases.append("data checks")
+    phases.append("clean tree")
+    with Job("repository-check", phases, echo=stderr_echo(options.progress)) as job:
+        JOB = job
+        job.phase("governance checks")
+        state = governance_checks(options.pre_experiment)
+        for script in CHECK_SCRIPTS:
+            path, *arguments = script.split()
+            job.phase(path.rsplit("/", 1)[-1])
+            run([sys.executable, path, *arguments])
+        for name, arguments in PYTHON_TOOLS:
+            job.phase(name)
+            run([sys.executable, *arguments])
+        for name in NPM_TOOLS:
+            job.phase(f"npm {name}")
+            run(["npm", "run", name], ROOT / "frontend")
+        if not options.no_data:
+            job.phase("data checks")
+            data_checks(state)
+        job.phase("clean tree")
+        assert not git("status", "--porcelain"), (
+            "working tree must be clean at checkpoint validation"
+        )
     print("WP-009 deterministic validation: PASS (information integrity, not profitability)")
 
 

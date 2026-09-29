@@ -14,11 +14,12 @@ import { ResearchCandidatePicker } from './ResearchCandidatePicker';
 import { ProspectiveObserver } from './ProspectiveObserver';
 import { Replay } from './Replay';
 import { G2LatestPanel, G2Replay } from './G2Replay';
+import { Operations } from './Operations';
 import { Advanced, Badge, Empty, KeyValues, Section } from './ui';
 import { refusalCopy } from './format';
 
 const PRIMARY = ['Dashboard', 'Trade', 'Risultati'] as const;
-const SECONDARY = ['Replay', 'Research', 'Altro'] as const;
+const SECONDARY = ['Replay', 'Research', 'Operazioni', 'Altro'] as const;
 type Page = (typeof PRIMARY)[number] | (typeof SECONDARY)[number];
 
 function researchMetric(value: number|null|undefined, suffix = ' R/trade') {
@@ -398,6 +399,8 @@ export function App() {
         )}
 
         {page === 'Replay' && <ReplayPage />}
+
+        {page === 'Operazioni' && <Operations />}
 
         {page === 'Research' && <ResearchLab candidates={candidates} candidate={candidate} run={run} onSelect={setSelectedCandidateId} onStart={startResearch} onCopy={copyReview} />}
 

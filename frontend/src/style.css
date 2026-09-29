@@ -973,3 +973,11 @@ button:disabled {
 /* G2-01 engineering replay (presentation only) */
 .replay-mode { gap: 8px; margin-bottom: 12px; }
 .lineage { max-height: 420px; overflow: auto; font-size: 11px; white-space: pre-wrap; margin: 0; }
+/* Operations (read-only long-job telemetry) */
+.ops-list { display: grid; gap: var(--s4); }
+.ops-job { display: grid; gap: 8px; padding: var(--s4); border: 1px solid var(--ink-700); border-radius: 12px; }
+.ops-job-head h3 { margin: 0; }
+.ops-id { font-family: ui-monospace, monospace; font-size: 12px; word-break: break-all; }
+.ops-phase { margin: 0; color: var(--text-2); }
+.ops-children { margin: 0; padding-left: 18px; font-size: 13px; color: var(--text-2); }
+.ops-log { margin: 0; max-height: 360px; overflow: auto; font-size: 12px; white-space: pre-wrap; word-break: break-word; }
