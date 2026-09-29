@@ -1,0 +1,142 @@
+{
+ "favorable_episodes": [],
+ "missed_opportunities": {
+  "class_counts": {
+   "MODEL_ABSTENTION": {
+    "episodes": 1478,
+    "mean_counterfactual_net_r": 1.2635156913915988
+   }
+  },
+  "counterfactual_reference_class": "COUNTERFACTUAL_REFERENCE_OPPORTUNITY",
+  "episodes": 1478,
+  "pseudo_random_missed_episodes": [
+   {
+    "CAUSAL_HYPOTHESIS": "The utility heads' prudential margins did not clear zero although the standardized LONG shadow reached +1R: the margin (prediction + residual q10) may be too conservative for this state, or the state lacked the information.",
+    "FACT": {
+     "class": "MODEL_ABSTENTION",
+     "counterfactual_shadow_net_r_first_decision": 1.1685633436393772,
+     "decisions_in_episode": 1,
+     "first_decision_index": 74656,
+     "first_decision_time": "2022-02-16T16:15:00Z",
+     "long_margin": -1.1005574881180653,
+     "primary_reason": "UTILITY_MARGIN_NOT_POSITIVE",
+     "short_margin": -1.050134292882113,
+     "side": "LONG",
+     "trend_reference_selected_same_side": false,
+     "v0_policy_selection": 0
+    },
+    "REQUIRED_TEST": {
+     "executed_in_g2_02": false,
+     "test": "Distribution of shadow NET_R at MODEL_ABSTENTION decisions vs policy-selected decisions (weekly blocks); any margin change is an actionability revision needing a change card and a slot."
+    }
+   },
+   {
+    "CAUSAL_HYPOTHESIS": "The utility heads' prudential margins did not clear zero although the standardized SHORT shadow reached +1R: the margin (prediction + residual q10) may be too conservative for this state, or the state lacked the information.",
+    "FACT": {
+     "class": "MODEL_ABSTENTION",
+     "counterfactual_shadow_net_r_first_decision": 1.317604940630266,
+     "decisions_in_episode": 10,
+     "first_decision_index": 80878,
+     "first_decision_time": "2022-04-22T11:45:00Z",
+     "long_margin": -1.0970664555278016,
+     "primary_reason": "UTILITY_MARGIN_NOT_POSITIVE",
+     "short_margin": -1.0206914524904913,
+     "side": "SHORT",
+     "trend_reference_selected_same_side": false,
+     "v0_policy_selection": 0
+    },
+    "REQUIRED_TEST": {
+     "executed_in_g2_02": false,
+     "test": "Distribution of shadow NET_R at MODEL_ABSTENTION decisions vs policy-selected decisions (weekly blocks); any margin change is an actionability revision needing a change card and a slot."
+    }
+   },
+   {
+    "CAUSAL_HYPOTHESIS": "The utility heads' prudential margins did not clear zero although the standardized SHORT shadow reached +1R: the margin (prediction + residual q10) may be too conservative for this state, or the state lacked the information.",
+    "FACT": {
+     "class": "MODEL_ABSTENTION",
+     "counterfactual_shadow_net_r_first_decision": 1.3148324242697567,
+     "decisions_in_episode": 1,
+     "first_decision_index": 97299,
+     "first_decision_time": "2022-10-10T13:00:00Z",
+     "long_margin": -1.085528812834691,
+     "primary_reason": "UTILITY_MARGIN_NOT_POSITIVE",
+     "short_margin": -1.0185495229486075,
+     "side": "SHORT",
+     "trend_reference_selected_same_side": false,
+     "v0_policy_selection": 0
+    },
+    "REQUIRED_TEST": {
+     "executed_in_g2_02": false,
+     "test": "Distribution of shadow NET_R at MODEL_ABSTENTION decisions vs policy-selected decisions (weekly blocks); any margin change is an actionability revision needing a change card and a slot."
+    }
+   },
+   {
+    "CAUSAL_HYPOTHESIS": "The utility heads' prudential margins did not clear zero although the standardized SHORT shadow reached +1R: the margin (prediction + residual q10) may be too conservative for this state, or the state lacked the information.",
+    "FACT": {
+     "class": "MODEL_ABSTENTION",
+     "counterfactual_shadow_net_r_first_decision": 1.005344246107155,
+     "decisions_in_episode": 5,
+     "first_decision_index": 103630,
+     "first_decision_time": "2022-12-15T11:45:00Z",
+     "long_margin": -1.1355381341626487,
+     "primary_reason": "UTILITY_MARGIN_NOT_POSITIVE",
+     "short_margin": -1.0289653464867037,
+     "side": "SHORT",
+     "trend_reference_selected_same_side": false,
+     "v0_policy_selection": 0
+    },
+    "REQUIRED_TEST": {
+     "executed_in_g2_02": false,
+     "test": "Distribution of shadow NET_R at MODEL_ABSTENTION decisions vs policy-selected decisions (weekly blocks); any margin change is an actionability revision needing a change card and a slot."
+    }
+   },
+   {
+    "CAUSAL_HYPOTHESIS": "The utility heads' prudential margins did not clear zero although the standardized LONG shadow reached +1R: the margin (prediction + residual q10) may be too conservative for this state, or the state lacked the information.",
+    "FACT": {
+     "class": "MODEL_ABSTENTION",
+     "counterfactual_shadow_net_r_first_decision": 1.4736185662235448,
+     "decisions_in_episode": 2,
+     "first_decision_index": 113658,
+     "first_decision_time": "2023-03-29T22:45:00Z",
+     "long_margin": -1.1458909934663337,
+     "primary_reason": "UTILITY_MARGIN_NOT_POSITIVE",
+     "short_margin": -1.1064222776794497,
+     "side": "LONG",
+     "trend_reference_selected_same_side": false,
+     "v0_policy_selection": 0
+    },
+    "REQUIRED_TEST": {
+     "executed_in_g2_02": false,
+     "test": "Distribution of shadow NET_R at MODEL_ABSTENTION decisions vs policy-selected decisions (weekly blocks); any margin change is an actionability revision needing a change card and a slot."
+    }
+   }
+  ],
+  "trend_reference_selected_same_side": 0
+ },
+ "pseudo_random_trade_episodes": [],
+ "realized_net_r_by_year": {},
+ "rules": {
+  "counterfactual_payoff": "diagnostic only, not booked P&L; no infinite capital, no simultaneous accounting of overlapping shadows",
+  "episode_gap_decisions": 16,
+  "extended_entry_scaled_units": 2.0,
+  "favorable": 5,
+  "missed_representative": "first decision of the episode (no hindsight best entry)",
+  "pseudo_random_missed": 5,
+  "pseudo_random_trades": 5,
+  "seed": "SeedSequence(2026092702, spawn_key=(1,))",
+  "standardized_opportunity_net_r": 1.0,
+  "unfavorable": 5
+ },
+ "system": "G2-V0",
+ "trade_category_counts": {
+  "counts": {},
+  "denominator_trades": 0
+ },
+ "unfavorable_episodes": [],
+ "verification_first": {
+  "execution_accounting": "trade net = gross - friction + funding (checked per trade)",
+  "model_version_identity": "run manifests/fingerprints in the batch manifest",
+  "rule_compliance": "one position, no pyramiding/flip; drawdown lock audited",
+  "timestamps_and_data_quality": "see anomalies section"
+ }
+}

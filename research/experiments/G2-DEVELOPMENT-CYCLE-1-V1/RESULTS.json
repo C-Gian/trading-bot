@@ -1,0 +1,1998 @@
+{
+ "artifact": "G2-DEVELOPMENT-CYCLE-1-V1/RESULTS",
+ "authorization_record": "G2-02-DEV-RUN-AUTHORIZATION-001",
+ "authorization_timestamp_utc": "2026-09-29T15:40:28.394241+00:00",
+ "autopsy_artifact": "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/AUTOPSY.json",
+ "claims": {
+  "adaptive_revision_executed": false,
+  "candidate_or_champion_declared": false,
+  "change_card_created": false,
+  "paper_trading_enabled": false,
+  "protected_2025_outcomes_read": false,
+  "real_money_authorized": false,
+  "sealed_queries": 0,
+  "stress_scenarios_executed": false,
+  "validated_strategy": null
+ },
+ "coverage": {
+  "all_run_forecast_unavailable_by_reason_including_2020_warmup": {
+   "FORECAST_UNAVAILABLE_MISSING_DATA": 31,
+   "FORECAST_UNAVAILABLE_NO_MODEL": 18912,
+   "FORECAST_UNAVAILABLE_WARMUP": 1520
+  },
+  "funding_records": 5481,
+  "preflight_reference": "reports/validation/G2-02-DATA-INTEGRITY-PREFLIGHT-V1.json (332 zero-volume minutes; 16 post-warmup unavailable decision instants)",
+  "scored_decisions": 140256,
+  "scored_forecast_unavailable_by_reason": {
+   "FORECAST_UNAVAILABLE_MISSING_DATA": 16
+  },
+  "source_minutes": 2630880,
+  "zero_volume_minutes_2020_2024": 332,
+  "zero_volume_semantics": "retained under frozen V0 fail-closed semantics (taker imbalance undefined when V <= 0); not reclassified, deleted or interpolated"
+ },
+ "data_execution_anomalies": {
+  "ABL-G2-01": {
+   "entry_rejections": 0,
+   "forecast_targets_unmatured_at_ceiling": 15,
+   "funding_invalid_events": 0,
+   "invalid_minutes_ingested": 0,
+   "late_exit_data_missing": 0,
+   "open_trade_at_observation_ceiling": null,
+   "pending_intent_at_observation_ceiling": null,
+   "shadow_label_unavailable_scored": {
+    "LONG:NO_LABEL": 16,
+    "SHORT:NO_LABEL": 16
+   }
+  },
+  "ABL-G2-02": {
+   "entry_rejections": 0,
+   "forecast_targets_unmatured_at_ceiling": 15,
+   "funding_invalid_events": 0,
+   "invalid_minutes_ingested": 0,
+   "late_exit_data_missing": 0,
+   "open_trade_at_observation_ceiling": null,
+   "pending_intent_at_observation_ceiling": null,
+   "shadow_label_unavailable_scored": {
+    "LONG:NO_LABEL": 16,
+    "SHORT:NO_LABEL": 16
+   }
+  },
+  "G2-V0": {
+   "entry_rejections": 0,
+   "forecast_targets_unmatured_at_ceiling": 15,
+   "funding_invalid_events": 0,
+   "invalid_minutes_ingested": 0,
+   "late_exit_data_missing": 0,
+   "open_trade_at_observation_ceiling": null,
+   "pending_intent_at_observation_ceiling": null,
+   "shadow_label_unavailable_scored": {
+    "LONG:NO_LABEL": 16,
+    "SHORT:NO_LABEL": 16
+   }
+  },
+  "NULL_FORECAST": {
+   "entry_rejections": 0,
+   "forecast_targets_unmatured_at_ceiling": 15,
+   "funding_invalid_events": 0,
+   "invalid_minutes_ingested": 0,
+   "late_exit_data_missing": 0,
+   "open_trade_at_observation_ceiling": null,
+   "pending_intent_at_observation_ceiling": null,
+   "shadow_label_unavailable_scored": {
+    "LONG:NO_LABEL": 16,
+    "SHORT:NO_LABEL": 16
+   }
+  },
+  "TREND_REFERENCE_POLICY": {
+   "entry_rejections": 0,
+   "forecast_targets_unmatured_at_ceiling": 15,
+   "funding_invalid_events": 0,
+   "invalid_minutes_ingested": 0,
+   "late_exit_data_missing": 0,
+   "open_trade_at_observation_ceiling": null,
+   "pending_intent_at_observation_ceiling": null,
+   "shadow_label_unavailable_scored": {
+    "LONG:NO_LABEL": 16,
+    "SHORT:NO_LABEL": 16
+   }
+  }
+ },
+ "determinism": {
+  "cache_identical": true,
+  "fingerprint_identical": true,
+  "repeat_fingerprint": "34e97b9fa85c1b47c39817990dd45c1c4557a44f934727b461ce07c1446a7e53",
+  "repeated_run": "G2-V0"
+ },
+ "evidence_class": "EXPOSED_DEVELOPMENT_EVIDENCE_NOT_VALIDATION",
+ "evidence_statement": "Exposed development evidence only. Not validation, not a discovery test, not a candidate or Champion. Production action remains NO_TRADE.",
+ "execution_scorecards": {
+  "ABL-G2-01": {
+   "ambiguous_fills": {
+    "basis": "no take-profit exists; same-bar ordering cannot create a favourable ambiguity; stops fill at the worse of open-through or stop price",
+    "count": 0
+   },
+   "decision_to_fill_delay_minutes": {
+    "definition": "entry price instant (open of the T+1m bar) minus decision instant T",
+    "distinct_values": []
+   },
+   "entries_filled": 0,
+   "entries_rejected": 0,
+   "entry_implementation_shortfall_bps": {
+    "count": 0
+   },
+   "entry_rejection_reasons": {},
+   "exit_kinds": {},
+   "exits_filled": 0,
+   "friction_paid": 0.0,
+   "funding_events": 0,
+   "funding_invalid_events": 0,
+   "funding_paid": 0.0,
+   "funding_received": 0.0,
+   "gap_stop_exits": 0,
+   "implementation_shortfall_definition": "side-signed (raw T+1m open - decision close) in bp of the decision close; no historical quotes exist, so no bid/ask shortfall",
+   "invalid_minutes_ingested": 0,
+   "late_exit_data_missing": 0,
+   "raw_vs_accounting_friction_bps_per_side": {
+    "convention": "historical 12bp all-in adverse haircut per executed side",
+    "max": null,
+    "min": null
+   },
+   "system": "ABL-G2-01",
+   "trades_with_violation_flags": 0
+  },
+  "ABL-G2-02": {
+   "ambiguous_fills": {
+    "basis": "no take-profit exists; same-bar ordering cannot create a favourable ambiguity; stops fill at the worse of open-through or stop price",
+    "count": 0
+   },
+   "decision_to_fill_delay_minutes": {
+    "definition": "entry price instant (open of the T+1m bar) minus decision instant T",
+    "distinct_values": []
+   },
+   "entries_filled": 0,
+   "entries_rejected": 0,
+   "entry_implementation_shortfall_bps": {
+    "count": 0
+   },
+   "entry_rejection_reasons": {},
+   "exit_kinds": {},
+   "exits_filled": 0,
+   "friction_paid": 0.0,
+   "funding_events": 0,
+   "funding_invalid_events": 0,
+   "funding_paid": 0.0,
+   "funding_received": 0.0,
+   "gap_stop_exits": 0,
+   "implementation_shortfall_definition": "side-signed (raw T+1m open - decision close) in bp of the decision close; no historical quotes exist, so no bid/ask shortfall",
+   "invalid_minutes_ingested": 0,
+   "late_exit_data_missing": 0,
+   "raw_vs_accounting_friction_bps_per_side": {
+    "convention": "historical 12bp all-in adverse haircut per executed side",
+    "max": null,
+    "min": null
+   },
+   "system": "ABL-G2-02",
+   "trades_with_violation_flags": 0
+  },
+  "CASH_REFERENCE": {
+   "definition": "no executions (zero exposure)",
+   "system": "CASH_REFERENCE"
+  },
+  "G2-V0": {
+   "ambiguous_fills": {
+    "basis": "no take-profit exists; same-bar ordering cannot create a favourable ambiguity; stops fill at the worse of open-through or stop price",
+    "count": 0
+   },
+   "decision_to_fill_delay_minutes": {
+    "definition": "entry price instant (open of the T+1m bar) minus decision instant T",
+    "distinct_values": []
+   },
+   "entries_filled": 0,
+   "entries_rejected": 0,
+   "entry_implementation_shortfall_bps": {
+    "count": 0
+   },
+   "entry_rejection_reasons": {},
+   "exit_kinds": {},
+   "exits_filled": 0,
+   "friction_paid": 0.0,
+   "funding_events": 0,
+   "funding_invalid_events": 0,
+   "funding_paid": 0.0,
+   "funding_received": 0.0,
+   "gap_stop_exits": 0,
+   "implementation_shortfall_definition": "side-signed (raw T+1m open - decision close) in bp of the decision close; no historical quotes exist, so no bid/ask shortfall",
+   "invalid_minutes_ingested": 0,
+   "late_exit_data_missing": 0,
+   "raw_vs_accounting_friction_bps_per_side": {
+    "convention": "historical 12bp all-in adverse haircut per executed side",
+    "max": null,
+    "min": null
+   },
+   "system": "G2-V0",
+   "trades_with_violation_flags": 0
+  },
+  "TREND_REFERENCE_POLICY": {
+   "ambiguous_fills": {
+    "basis": "no take-profit exists; same-bar ordering cannot create a favourable ambiguity; stops fill at the worse of open-through or stop price",
+    "count": 0
+   },
+   "decision_to_fill_delay_minutes": {
+    "definition": "entry price instant (open of the T+1m bar) minus decision instant T",
+    "distinct_values": []
+   },
+   "entries_filled": 0,
+   "entries_rejected": 0,
+   "entry_implementation_shortfall_bps": {
+    "count": 0
+   },
+   "entry_rejection_reasons": {},
+   "exit_kinds": {},
+   "exits_filled": 0,
+   "friction_paid": 0.0,
+   "funding_events": 0,
+   "funding_invalid_events": 0,
+   "funding_paid": 0.0,
+   "funding_received": 0.0,
+   "gap_stop_exits": 0,
+   "implementation_shortfall_definition": "side-signed (raw T+1m open - decision close) in bp of the decision close; no historical quotes exist, so no bid/ask shortfall",
+   "invalid_minutes_ingested": 0,
+   "late_exit_data_missing": 0,
+   "raw_vs_accounting_friction_bps_per_side": {
+    "convention": "historical 12bp all-in adverse haircut per executed side",
+    "max": null,
+    "min": null
+   },
+   "system": "TREND_REFERENCE_POLICY",
+   "trades_with_violation_flags": 0
+  }
+ },
+ "forecast_scorecards": {
+  "ABL-G2-01": {
+   "by_year": [
+    {
+     "brier": 0.25278048673971537,
+     "count": 35037,
+     "covered": 0.7858264120786597,
+     "crps": 0.009380121742627225,
+     "year": 2021
+    },
+    {
+     "brier": 0.25057474037193234,
+     "count": 35037,
+     "covered": 0.8126266518252133,
+     "crps": 0.006560783823330968,
+     "year": 2022
+    },
+    {
+     "brier": 0.2511817005973183,
+     "count": 35034,
+     "covered": 0.8204601244505337,
+     "crps": 0.004242198503948624,
+     "year": 2023
+    },
+    {
+     "brier": 0.2510935304982733,
+     "count": 35117,
+     "covered": 0.7775721160691403,
+     "crps": 0.0055660192216605104,
+     "year": 2024
+    }
+   ],
+   "metric_definitions": {
+    "abs_error_median": "mean |r4h - median forecast|",
+    "brier": "mean (p_positive - 1{r4h > 0})^2; p_positive is uncalibrated",
+    "covered": "fraction of r4h inside [q10, q90] (nominal central 80%)",
+    "crps": "mean CRPS of the issued empirical predictive distribution (return units)",
+    "direction_hit": "descriptive only: sign(median) == sign(r4h), zeros excluded",
+    "pinball_q10": "mean pinball loss of q10 (tau 0.10)",
+    "pinball_q50": "mean pinball loss of q50 (tau 0.50)",
+    "pinball_q90": "mean pinball loss of q90 (tau 0.90)"
+   },
+   "metrics": {
+    "abs_error_median": 0.008535411602525201,
+    "brier": 0.25140744019643513,
+    "covered": 0.7991085755036549,
+    "crps": 0.006436830719977647,
+    "direction_hit": 0.49487499554192377,
+    "pinball_q10": 0.002308252593380917,
+    "pinball_q50": 0.004267705801262601,
+    "pinball_q90": 0.0022601734947188807
+   },
+   "reconstruction_verification": {
+    "bit_identical": true,
+    "checked": 500,
+    "mismatched": 0
+   },
+   "strata": [
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    },
+    {
+     "abs_error_median": 0.008501341336814232,
+     "brier": 0.25129918719146577,
+     "count": 139896,
+     "covered": 0.7992866129124493,
+     "crps": 0.006412395984758146,
+     "direction_hit": 0.494988060000286,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": 0.002299833191196018,
+     "pinball_q50": 0.004250670668407116,
+     "pinball_q90": 0.002252746621319336,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": 0.02302262707943018,
+     "brier": 0.29743832889912936,
+     "count": 329,
+     "covered": 0.723404255319149,
+     "crps": 0.016826866337811643,
+     "direction_hit": 0.44680851063829785,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": 0.00588831547501781,
+     "pinball_q50": 0.01151131353971509,
+     "pinball_q90": 0.005418197449438334,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    }
+   ],
+   "support": {
+    "availability_fraction": 0.9998859228838695,
+    "available_not_matured_at_observation_ceiling": 15,
+    "forecast_available": 140240,
+    "forecast_unavailable": 16,
+    "matured_scoreable": 140225,
+    "residual_source_counts": {
+     "NONE": 16,
+     "PREQUENTIAL_CDF_UNCALIBRATED": 140240,
+     "TRAINING_TARGET_BASELINE_UNVALIDATED": 0
+    },
+    "scored_decisions": 140256
+   }
+  },
+  "ABL-G2-02": {
+   "by_year": [
+    {
+     "brier": 0.2529490929100325,
+     "count": 35037,
+     "covered": 0.7857407883095013,
+     "crps": 0.009380883940219046,
+     "year": 2021
+    },
+    {
+     "brier": 0.2507445017561657,
+     "count": 35037,
+     "covered": 0.8124839455432828,
+     "crps": 0.006562214624704888,
+     "year": 2022
+    },
+    {
+     "brier": 0.2513142151736665,
+     "count": 35034,
+     "covered": 0.8206028429525604,
+     "crps": 0.004243584829434553,
+     "year": 2023
+    },
+    {
+     "brier": 0.25120119106511934,
+     "count": 35117,
+     "covered": 0.777856878434946,
+     "crps": 0.005566416602751808,
+     "year": 2024
+    }
+   ],
+   "metric_definitions": {
+    "abs_error_median": "mean |r4h - median forecast|",
+    "brier": "mean (p_positive - 1{r4h > 0})^2; p_positive is uncalibrated",
+    "covered": "fraction of r4h inside [q10, q90] (nominal central 80%)",
+    "crps": "mean CRPS of the issued empirical predictive distribution (return units)",
+    "direction_hit": "descriptive only: sign(median) == sign(r4h), zeros excluded",
+    "pinball_q10": "mean pinball loss of q10 (tau 0.10)",
+    "pinball_q50": "mean pinball loss of q50 (tau 0.50)",
+    "pinball_q90": "mean pinball loss of q90 (tau 0.90)"
+   },
+   "metrics": {
+    "abs_error_median": 0.008537337389589736,
+    "brier": 0.2515520550354617,
+    "covered": 0.7991584952754501,
+    "crps": 0.006437824547494991,
+    "direction_hit": 0.4916794464852527,
+    "pinball_q10": 0.002309789927261318,
+    "pinball_q50": 0.004268668694794868,
+    "pinball_q90": 0.0022587023587526634
+   },
+   "reconstruction_verification": {
+    "bit_identical": true,
+    "checked": 500,
+    "mismatched": 0
+   },
+   "strata": [
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    },
+    {
+     "abs_error_median": 0.008499031991556036,
+     "brier": 0.251452756479625,
+     "count": 139874,
+     "covered": 0.7993622831977351,
+     "crps": 0.006410423575629872,
+     "direction_hit": 0.49174079688796085,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": 0.0023009068690106296,
+     "pinball_q50": 0.004249515995778018,
+     "pinball_q90": 0.0022496993569101607,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": 0.02380209307211365,
+     "brier": 0.2911226709872979,
+     "count": 351,
+     "covered": 0.717948717948718,
+     "crps": 0.017357150868469007,
+     "direction_hit": 0.4672364672364672,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": 0.005849701294089689,
+     "pinball_q50": 0.011901046536056826,
+     "pinball_q90": 0.005846411417778971,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    }
+   ],
+   "support": {
+    "availability_fraction": 0.9998859228838695,
+    "available_not_matured_at_observation_ceiling": 15,
+    "forecast_available": 140240,
+    "forecast_unavailable": 16,
+    "matured_scoreable": 140225,
+    "residual_source_counts": {
+     "NONE": 16,
+     "PREQUENTIAL_CDF_UNCALIBRATED": 140240,
+     "TRAINING_TARGET_BASELINE_UNVALIDATED": 0
+    },
+    "scored_decisions": 140256
+   }
+  },
+  "G2-V0": {
+   "by_year": [
+    {
+     "brier": 0.2529292032978229,
+     "count": 35037,
+     "covered": 0.785912035847818,
+     "crps": 0.009380461099309758,
+     "year": 2021
+    },
+    {
+     "brier": 0.25084111070706905,
+     "count": 35037,
+     "covered": 0.8126266518252133,
+     "crps": 0.0065640846002201405,
+     "year": 2022
+    },
+    {
+     "brier": 0.2514617114950828,
+     "count": 35034,
+     "covered": 0.8206028429525604,
+     "crps": 0.004245880264339704,
+     "year": 2023
+    },
+    {
+     "brier": 0.25107587235746504,
+     "count": 35117,
+     "covered": 0.7776860210154626,
+     "crps": 0.005565084276614881,
+     "year": 2024
+    }
+   ],
+   "metric_definitions": {
+    "abs_error_median": "mean |r4h - median forecast|",
+    "brier": "mean (p_positive - 1{r4h > 0})^2; p_positive is uncalibrated",
+    "covered": "fraction of r4h inside [q10, q90] (nominal central 80%)",
+    "crps": "mean CRPS of the issued empirical predictive distribution (return units)",
+    "direction_hit": "descriptive only: sign(median) == sign(r4h), zeros excluded",
+    "pinball_q10": "mean pinball loss of q10 (tau 0.10)",
+    "pinball_q50": "mean pinball loss of q50 (tau 0.50)",
+    "pinball_q90": "mean pinball loss of q90 (tau 0.90)"
+   },
+   "metrics": {
+    "abs_error_median": 0.008537126537247352,
+    "brier": 0.25157669104571384,
+    "covered": 0.799194152255304,
+    "crps": 0.006438425968245257,
+    "direction_hit": 0.4910446164271194,
+    "pinball_q10": 0.0023104985010091953,
+    "pinball_q50": 0.004268563268623676,
+    "pinball_q90": 0.0022592981881603366
+   },
+   "reconstruction_verification": {
+    "bit_identical": true,
+    "checked": 500,
+    "mismatched": 0
+   },
+   "strata": [
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    },
+    {
+     "abs_error_median": 0.008497701810652156,
+     "brier": 0.25145050159092514,
+     "count": 139845,
+     "covered": 0.7994779934927956,
+     "crps": 0.006410197537416118,
+     "direction_hit": 0.49116332296248616,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": 0.0023015327451439763,
+     "pinball_q50": 0.004248850905326078,
+     "pinball_q90": 0.0022500365006767444,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": 0.02304594467068186,
+     "brier": 0.2980160707955335,
+     "count": 380,
+     "covered": 0.6947368421052632,
+     "crps": 0.016826859940089988,
+     "direction_hit": 0.4473684210526316,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": 0.005610014629881886,
+     "pinball_q50": 0.01152297233534093,
+     "pinball_q90": 0.005667721046431216,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    }
+   ],
+   "support": {
+    "availability_fraction": 0.9998859228838695,
+    "available_not_matured_at_observation_ceiling": 15,
+    "forecast_available": 140240,
+    "forecast_unavailable": 16,
+    "matured_scoreable": 140225,
+    "residual_source_counts": {
+     "NONE": 16,
+     "PREQUENTIAL_CDF_UNCALIBRATED": 140240,
+     "TRAINING_TARGET_BASELINE_UNVALIDATED": 0
+    },
+    "scored_decisions": 140256
+   }
+  },
+  "NULL_FORECAST": {
+   "by_year": [
+    {
+     "brier": 0.25056640748153136,
+     "count": 35037,
+     "covered": 0.785369751976482,
+     "crps": 0.00931761887563015,
+     "year": 2021
+    },
+    {
+     "brier": 0.25034720322932796,
+     "count": 35037,
+     "covered": 0.811998744184719,
+     "crps": 0.006558990463047511,
+     "year": 2022
+    },
+    {
+     "brier": 0.25002287322098393,
+     "count": 35034,
+     "covered": 0.8214876976651253,
+     "crps": 0.004230381360746534,
+     "year": 2023
+    },
+    {
+     "brier": 0.2497473981890995,
+     "count": 35117,
+     "covered": 0.7785687843494604,
+     "crps": 0.005553241818006795,
+     "year": 2024
+    }
+   ],
+   "metric_definitions": {
+    "abs_error_median": "mean |r4h - median forecast|",
+    "brier": "mean (p_positive - 1{r4h > 0})^2; p_positive is uncalibrated",
+    "covered": "fraction of r4h inside [q10, q90] (nominal central 80%)",
+    "crps": "mean CRPS of the issued empirical predictive distribution (return units)",
+    "direction_hit": "descriptive only: sign(median) == sign(r4h), zeros excluded",
+    "pinball_q10": "mean pinball loss of q10 (tau 0.10)",
+    "pinball_q50": "mean pinball loss of q50 (tau 0.50)",
+    "pinball_q90": "mean pinball loss of q90 (tau 0.90)"
+   },
+   "metrics": {
+    "abs_error_median": 0.008495311349661182,
+    "brier": 0.2501707320456904,
+    "covered": 0.79934391157069,
+    "crps": 0.006414613192473437,
+    "direction_hit": 0.5071415174642564,
+    "pinball_q10": 0.002308485866180345,
+    "pinball_q50": 0.004247655674830591,
+    "pinball_q90": 0.0022541706662067692
+   },
+   "reconstruction_verification": {
+    "bit_identical": true,
+    "checked": 500,
+    "mismatched": 0
+   },
+   "strata": [
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    },
+    {
+     "abs_error_median": 0.008495311349661182,
+     "brier": 0.2501707320456904,
+     "count": 140225,
+     "covered": 0.79934391157069,
+     "crps": 0.006414613192473437,
+     "direction_hit": 0.5071415174642564,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": 0.002308485866180345,
+     "pinball_q50": 0.004247655674830591,
+     "pinball_q90": 0.0022541706662067692,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    }
+   ],
+   "support": {
+    "availability_fraction": 0.9998859228838695,
+    "available_not_matured_at_observation_ceiling": 15,
+    "forecast_available": 140240,
+    "forecast_unavailable": 16,
+    "matured_scoreable": 140225,
+    "residual_source_counts": {
+     "NONE": 16,
+     "PREQUENTIAL_CDF_UNCALIBRATED": 140240,
+     "TRAINING_TARGET_BASELINE_UNVALIDATED": 0
+    },
+    "scored_decisions": 140256
+   }
+  },
+  "TREND_ONLY_FORECAST": {
+   "by_year": [
+    {
+     "brier": 0.25261504135940044,
+     "count": 35037,
+     "covered": 0.7860547421297486,
+     "crps": 0.00937484900620206,
+     "year": 2021
+    },
+    {
+     "brier": 0.25044643828101343,
+     "count": 35037,
+     "covered": 0.8127693581071439,
+     "crps": 0.006559465011160647,
+     "year": 2022
+    },
+    {
+     "brier": 0.25112725889436316,
+     "count": 35034,
+     "covered": 0.8204601244505337,
+     "crps": 0.004241871611552644,
+     "year": 2023
+    },
+    {
+     "brier": 0.25113093864448643,
+     "count": 35117,
+     "covered": 0.777458211122818,
+     "crps": 0.005567230379573022,
+     "year": 2024
+    }
+   ],
+   "metric_definitions": {
+    "abs_error_median": "mean |r4h - median forecast|",
+    "brier": "mean (p_positive - 1{r4h > 0})^2; p_positive is uncalibrated",
+    "covered": "fraction of r4h inside [q10, q90] (nominal central 80%)",
+    "crps": "mean CRPS of the issued empirical predictive distribution (return units)",
+    "direction_hit": "descriptive only: sign(median) == sign(r4h), zeros excluded",
+    "pinball_q10": "mean pinball loss of q10 (tau 0.10)",
+    "pinball_q50": "mean pinball loss of q50 (tau 0.50)",
+    "pinball_q90": "mean pinball loss of q90 (tau 0.90)"
+   },
+   "metrics": {
+    "abs_error_median": 0.008533061913299151,
+    "brier": 0.2513298101097859,
+    "covered": 0.7991727580673917,
+    "crps": 0.006435405380673478,
+    "direction_hit": 0.4953956988480331,
+    "pinball_q10": 0.0023087780919189473,
+    "pinball_q50": 0.004266530956649576,
+    "pinball_q90": 0.0022594087590608967
+   },
+   "reconstruction_verification": {
+    "bit_identical": true,
+    "checked": 500,
+    "mismatched": 0
+   },
+   "strata": [
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "TRAINING_TARGET_BASELINE_UNVALIDATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    },
+    {
+     "abs_error_median": 0.008495061310889373,
+     "brier": 0.25122365513640355,
+     "count": 139880,
+     "covered": 0.7994423791821561,
+     "crps": 0.006408021489625704,
+     "direction_hit": 0.49548802288165894,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": 0.0022996739919854403,
+     "pinball_q50": 0.004247530655444687,
+     "pinball_q90": 0.002250746894436972,
+     "view_strength": "WEAK"
+    },
+    {
+     "abs_error_median": 0.023940378623674437,
+     "brier": 0.29437026714376213,
+     "count": 345,
+     "covered": 0.6898550724637681,
+     "crps": 0.01753818416259359,
+     "direction_hit": 0.4579710144927536,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": 0.0060000288127856705,
+     "pinball_q50": 0.011970189311837218,
+     "pinball_q90": 0.005771355494117561,
+     "view_strength": "MODERATE"
+    },
+    {
+     "abs_error_median": null,
+     "brier": null,
+     "count": 0,
+     "covered": null,
+     "crps": null,
+     "direction_hit": null,
+     "evidence": "PREQUENTIAL_CDF_UNCALIBRATED",
+     "pinball_q10": null,
+     "pinball_q50": null,
+     "pinball_q90": null,
+     "view_strength": "STRONG"
+    }
+   ],
+   "support": {
+    "availability_fraction": 0.9998859228838695,
+    "available_not_matured_at_observation_ceiling": 15,
+    "forecast_available": 140240,
+    "forecast_unavailable": 16,
+    "matured_scoreable": 140225,
+    "residual_source_counts": {
+     "NONE": 16,
+     "PREQUENTIAL_CDF_UNCALIBRATED": 140240,
+     "TRAINING_TARGET_BASELINE_UNVALIDATED": 0
+    },
+    "scored_decisions": 140256
+   }
+  }
+ },
+ "policy_scorecards": {
+  "ABL-G2-01": {
+   "all_reason_code_counts_scored": {
+    "CYCLE_SHADOW_ONLY": 140256,
+    "FORECAST_AVAILABLE": 140240,
+    "FORECAST_UNAVAILABLE_MISSING_DATA": 16,
+    "INSUFFICIENT_POLICY_EVIDENCE": 16,
+    "PREQUENTIAL_CDF_UNCALIBRATED": 140240,
+    "UTILITY_MARGIN_NOT_POSITIVE": 140240
+   },
+   "cagr": 0.0,
+   "concentration": {
+    "top5_trades_share_of_total_net": null,
+    "total_net_excluding_top5_trades": 0.0
+   },
+   "decision_counts_scored": {
+    "decisions": 140256,
+    "long_actions": 0,
+    "no_trade": 140256,
+    "policy_long_selections": 0,
+    "policy_short_selections": 0,
+    "short_actions": 0
+   },
+   "drawdown_stop_triggered_at": null,
+   "end_marked_equity": 10000.0,
+   "friction_share_of_abs_gross": 0.0,
+   "funding_share_of_abs_gross": 0.0,
+   "long_short_mix": {
+    "LONG": {
+     "count": 0,
+     "mean_net_r": null,
+     "net_pnl": 0.0
+    },
+    "SHORT": {
+     "count": 0,
+     "mean_net_r": null,
+     "net_pnl": 0.0
+    }
+   },
+   "longest_under_water_days": 0.0,
+   "longest_under_water_start_index": null,
+   "max_drawdown": 0.0,
+   "max_drawdown_at_index": 0,
+   "mean_realized_net_r": null,
+   "median_realized_net_r": null,
+   "net_pnl_by_year": {},
+   "no_trade_primary_reasons": {
+    "FORECAST_UNAVAILABLE_MISSING_DATA": 16,
+    "UTILITY_MARGIN_NOT_POSITIVE": 140240
+   },
+   "occupancy_fraction": 0.0,
+   "open_trade_at_observation_ceiling": null,
+   "primary": {
+    "definition": "mean simple return per 15m interval of marked equity on the common 2021-01-01..2025-01-01 UTC grid, relative to CASH_REFERENCE (return 0)",
+    "intervals": 140256,
+    "mean_15m_return_relative_cash": 0.0
+   },
+   "shadow_payoffs": {
+    "all_eligible_long": {
+     "count": 140240,
+     "fraction_positive": 0.3547775242441529,
+     "mean": -0.17097630374258682,
+     "p10": -1.127760740912059,
+     "p25": -0.5283014230697313,
+     "p5": -1.190978078274028,
+     "p50": -0.17178186174499455,
+     "p75": 0.14991702229303577,
+     "p90": 0.546746006758194,
+     "p95": 0.891033547837081
+    },
+    "all_eligible_short": {
+     "count": 140240,
+     "fraction_positive": 0.34452367370222475,
+     "mean": -0.17325154267758328,
+     "p10": -1.1170378629935955,
+     "p25": -0.520113102540751,
+     "p5": -1.1886309041082137,
+     "p50": -0.18217656189994635,
+     "p75": 0.1382194167336073,
+     "p90": 0.5436077376765007,
+     "p95": 0.893790590827474
+    },
+    "executed_decisions_selected_side": {
+     "count": 0
+    },
+    "note": "overlapping 15m labels; descriptive distributions, not independent samples",
+    "policy_selected_long": {
+     "count": 0
+    },
+    "policy_selected_short": {
+     "count": 0
+    },
+    "policy_selected_side": {
+     "count": 0
+    },
+    "unavailable_labels_scored": {
+     "LONG": 16,
+     "SHORT": 16
+    }
+   },
+   "start_equity": 10000.0,
+   "system": "ABL-G2-01",
+   "time_under_water_fraction": 0.0,
+   "total_friction": 0.0,
+   "total_funding_pnl": 0.0,
+   "total_gross_pnl": 0.0,
+   "total_net_pnl": 0.0,
+   "total_net_return": 0.0,
+   "trade_count": 0,
+   "trades_by_quarter": {},
+   "trades_by_year": {},
+   "turnover_per_year": 0.0,
+   "weekly_mean_return_bootstrap": {
+    "count": 140256,
+    "fraction_replicates_above_zero": 0.0,
+    "p10": 0.0,
+    "p50": 0.0,
+    "p90": 0.0,
+    "point": 0.0,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "weeks_with_data": 210
+   },
+   "win_fraction_descriptive": null
+  },
+  "ABL-G2-02": {
+   "all_reason_code_counts_scored": {
+    "CYCLE_SHADOW_ONLY": 140256,
+    "FORECAST_AVAILABLE": 140240,
+    "FORECAST_UNAVAILABLE_MISSING_DATA": 16,
+    "INSUFFICIENT_POLICY_EVIDENCE": 16,
+    "PREQUENTIAL_CDF_UNCALIBRATED": 140240,
+    "UTILITY_MARGIN_NOT_POSITIVE": 140240
+   },
+   "cagr": 0.0,
+   "concentration": {
+    "top5_trades_share_of_total_net": null,
+    "total_net_excluding_top5_trades": 0.0
+   },
+   "decision_counts_scored": {
+    "decisions": 140256,
+    "long_actions": 0,
+    "no_trade": 140256,
+    "policy_long_selections": 0,
+    "policy_short_selections": 0,
+    "short_actions": 0
+   },
+   "drawdown_stop_triggered_at": null,
+   "end_marked_equity": 10000.0,
+   "friction_share_of_abs_gross": 0.0,
+   "funding_share_of_abs_gross": 0.0,
+   "long_short_mix": {
+    "LONG": {
+     "count": 0,
+     "mean_net_r": null,
+     "net_pnl": 0.0
+    },
+    "SHORT": {
+     "count": 0,
+     "mean_net_r": null,
+     "net_pnl": 0.0
+    }
+   },
+   "longest_under_water_days": 0.0,
+   "longest_under_water_start_index": null,
+   "max_drawdown": 0.0,
+   "max_drawdown_at_index": 0,
+   "mean_realized_net_r": null,
+   "median_realized_net_r": null,
+   "net_pnl_by_year": {},
+   "no_trade_primary_reasons": {
+    "FORECAST_UNAVAILABLE_MISSING_DATA": 16,
+    "UTILITY_MARGIN_NOT_POSITIVE": 140240
+   },
+   "occupancy_fraction": 0.0,
+   "open_trade_at_observation_ceiling": null,
+   "primary": {
+    "definition": "mean simple return per 15m interval of marked equity on the common 2021-01-01..2025-01-01 UTC grid, relative to CASH_REFERENCE (return 0)",
+    "intervals": 140256,
+    "mean_15m_return_relative_cash": 0.0
+   },
+   "shadow_payoffs": {
+    "all_eligible_long": {
+     "count": 140240,
+     "fraction_positive": 0.3547775242441529,
+     "mean": -0.17097630374258682,
+     "p10": -1.127760740912059,
+     "p25": -0.5283014230697313,
+     "p5": -1.190978078274028,
+     "p50": -0.17178186174499455,
+     "p75": 0.14991702229303577,
+     "p90": 0.546746006758194,
+     "p95": 0.891033547837081
+    },
+    "all_eligible_short": {
+     "count": 140240,
+     "fraction_positive": 0.34452367370222475,
+     "mean": -0.17325154267758328,
+     "p10": -1.1170378629935955,
+     "p25": -0.520113102540751,
+     "p5": -1.1886309041082137,
+     "p50": -0.18217656189994635,
+     "p75": 0.1382194167336073,
+     "p90": 0.5436077376765007,
+     "p95": 0.893790590827474
+    },
+    "executed_decisions_selected_side": {
+     "count": 0
+    },
+    "note": "overlapping 15m labels; descriptive distributions, not independent samples",
+    "policy_selected_long": {
+     "count": 0
+    },
+    "policy_selected_short": {
+     "count": 0
+    },
+    "policy_selected_side": {
+     "count": 0
+    },
+    "unavailable_labels_scored": {
+     "LONG": 16,
+     "SHORT": 16
+    }
+   },
+   "start_equity": 10000.0,
+   "system": "ABL-G2-02",
+   "time_under_water_fraction": 0.0,
+   "total_friction": 0.0,
+   "total_funding_pnl": 0.0,
+   "total_gross_pnl": 0.0,
+   "total_net_pnl": 0.0,
+   "total_net_return": 0.0,
+   "trade_count": 0,
+   "trades_by_quarter": {},
+   "trades_by_year": {},
+   "turnover_per_year": 0.0,
+   "weekly_mean_return_bootstrap": {
+    "count": 140256,
+    "fraction_replicates_above_zero": 0.0,
+    "p10": 0.0,
+    "p50": 0.0,
+    "p90": 0.0,
+    "point": 0.0,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "weeks_with_data": 210
+   },
+   "win_fraction_descriptive": null
+  },
+  "CASH_REFERENCE": {
+   "definition": "zero exposure; equity constant at 10,000 USDT",
+   "system": "CASH_REFERENCE"
+  },
+  "G2-V0": {
+   "all_reason_code_counts_scored": {
+    "CYCLE_SHADOW_ONLY": 140256,
+    "FORECAST_AVAILABLE": 140240,
+    "FORECAST_UNAVAILABLE_MISSING_DATA": 16,
+    "INSUFFICIENT_POLICY_EVIDENCE": 16,
+    "PREQUENTIAL_CDF_UNCALIBRATED": 140240,
+    "UTILITY_MARGIN_NOT_POSITIVE": 140240
+   },
+   "cagr": 0.0,
+   "concentration": {
+    "top5_trades_share_of_total_net": null,
+    "total_net_excluding_top5_trades": 0.0
+   },
+   "decision_counts_scored": {
+    "decisions": 140256,
+    "long_actions": 0,
+    "no_trade": 140256,
+    "policy_long_selections": 0,
+    "policy_short_selections": 0,
+    "short_actions": 0
+   },
+   "drawdown_stop_triggered_at": null,
+   "end_marked_equity": 10000.0,
+   "friction_share_of_abs_gross": 0.0,
+   "funding_share_of_abs_gross": 0.0,
+   "long_short_mix": {
+    "LONG": {
+     "count": 0,
+     "mean_net_r": null,
+     "net_pnl": 0.0
+    },
+    "SHORT": {
+     "count": 0,
+     "mean_net_r": null,
+     "net_pnl": 0.0
+    }
+   },
+   "longest_under_water_days": 0.0,
+   "longest_under_water_start_index": null,
+   "max_drawdown": 0.0,
+   "max_drawdown_at_index": 0,
+   "mean_realized_net_r": null,
+   "median_realized_net_r": null,
+   "net_pnl_by_year": {},
+   "no_trade_primary_reasons": {
+    "FORECAST_UNAVAILABLE_MISSING_DATA": 16,
+    "UTILITY_MARGIN_NOT_POSITIVE": 140240
+   },
+   "occupancy_fraction": 0.0,
+   "open_trade_at_observation_ceiling": null,
+   "primary": {
+    "definition": "mean simple return per 15m interval of marked equity on the common 2021-01-01..2025-01-01 UTC grid, relative to CASH_REFERENCE (return 0)",
+    "intervals": 140256,
+    "mean_15m_return_relative_cash": 0.0
+   },
+   "shadow_payoffs": {
+    "all_eligible_long": {
+     "count": 140240,
+     "fraction_positive": 0.3547775242441529,
+     "mean": -0.17097630374258682,
+     "p10": -1.127760740912059,
+     "p25": -0.5283014230697313,
+     "p5": -1.190978078274028,
+     "p50": -0.17178186174499455,
+     "p75": 0.14991702229303577,
+     "p90": 0.546746006758194,
+     "p95": 0.891033547837081
+    },
+    "all_eligible_short": {
+     "count": 140240,
+     "fraction_positive": 0.34452367370222475,
+     "mean": -0.17325154267758328,
+     "p10": -1.1170378629935955,
+     "p25": -0.520113102540751,
+     "p5": -1.1886309041082137,
+     "p50": -0.18217656189994635,
+     "p75": 0.1382194167336073,
+     "p90": 0.5436077376765007,
+     "p95": 0.893790590827474
+    },
+    "executed_decisions_selected_side": {
+     "count": 0
+    },
+    "note": "overlapping 15m labels; descriptive distributions, not independent samples",
+    "policy_selected_long": {
+     "count": 0
+    },
+    "policy_selected_short": {
+     "count": 0
+    },
+    "policy_selected_side": {
+     "count": 0
+    },
+    "unavailable_labels_scored": {
+     "LONG": 16,
+     "SHORT": 16
+    }
+   },
+   "start_equity": 10000.0,
+   "system": "G2-V0",
+   "time_under_water_fraction": 0.0,
+   "total_friction": 0.0,
+   "total_funding_pnl": 0.0,
+   "total_gross_pnl": 0.0,
+   "total_net_pnl": 0.0,
+   "total_net_return": 0.0,
+   "trade_count": 0,
+   "trades_by_quarter": {},
+   "trades_by_year": {},
+   "turnover_per_year": 0.0,
+   "weekly_mean_return_bootstrap": {
+    "count": 140256,
+    "fraction_replicates_above_zero": 0.0,
+    "p10": 0.0,
+    "p50": 0.0,
+    "p90": 0.0,
+    "point": 0.0,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "weeks_with_data": 210
+   },
+   "win_fraction_descriptive": null
+  },
+  "TREND_REFERENCE_POLICY": {
+   "all_reason_code_counts_scored": {
+    "CYCLE_SHADOW_ONLY": 140256,
+    "FORECAST_AVAILABLE": 140240,
+    "FORECAST_UNAVAILABLE_MISSING_DATA": 16,
+    "PREQUENTIAL_CDF_UNCALIBRATED": 140240,
+    "TREND_REFERENCE_FORECAST_UNAVAILABLE": 16,
+    "TREND_REFERENCE_QUANTILES_NOT_DIRECTIONAL": 140240
+   },
+   "cagr": 0.0,
+   "concentration": {
+    "top5_trades_share_of_total_net": null,
+    "total_net_excluding_top5_trades": 0.0
+   },
+   "decision_counts_scored": {
+    "decisions": 140256,
+    "long_actions": 0,
+    "no_trade": 140256,
+    "policy_long_selections": 0,
+    "policy_short_selections": 0,
+    "short_actions": 0
+   },
+   "drawdown_stop_triggered_at": null,
+   "end_marked_equity": 10000.0,
+   "friction_share_of_abs_gross": 0.0,
+   "funding_share_of_abs_gross": 0.0,
+   "long_short_mix": {
+    "LONG": {
+     "count": 0,
+     "mean_net_r": null,
+     "net_pnl": 0.0
+    },
+    "SHORT": {
+     "count": 0,
+     "mean_net_r": null,
+     "net_pnl": 0.0
+    }
+   },
+   "longest_under_water_days": 0.0,
+   "longest_under_water_start_index": null,
+   "max_drawdown": 0.0,
+   "max_drawdown_at_index": 0,
+   "mean_realized_net_r": null,
+   "median_realized_net_r": null,
+   "net_pnl_by_year": {},
+   "no_trade_primary_reasons": {
+    "FORECAST_UNAVAILABLE_MISSING_DATA": 16,
+    "TREND_REFERENCE_QUANTILES_NOT_DIRECTIONAL": 140240
+   },
+   "occupancy_fraction": 0.0,
+   "open_trade_at_observation_ceiling": null,
+   "primary": {
+    "definition": "mean simple return per 15m interval of marked equity on the common 2021-01-01..2025-01-01 UTC grid, relative to CASH_REFERENCE (return 0)",
+    "intervals": 140256,
+    "mean_15m_return_relative_cash": 0.0
+   },
+   "shadow_payoffs": {
+    "all_eligible_long": {
+     "count": 140240,
+     "fraction_positive": 0.3547775242441529,
+     "mean": -0.17097630374258682,
+     "p10": -1.127760740912059,
+     "p25": -0.5283014230697313,
+     "p5": -1.190978078274028,
+     "p50": -0.17178186174499455,
+     "p75": 0.14991702229303577,
+     "p90": 0.546746006758194,
+     "p95": 0.891033547837081
+    },
+    "all_eligible_short": {
+     "count": 140240,
+     "fraction_positive": 0.34452367370222475,
+     "mean": -0.17325154267758328,
+     "p10": -1.1170378629935955,
+     "p25": -0.520113102540751,
+     "p5": -1.1886309041082137,
+     "p50": -0.18217656189994635,
+     "p75": 0.1382194167336073,
+     "p90": 0.5436077376765007,
+     "p95": 0.893790590827474
+    },
+    "executed_decisions_selected_side": {
+     "count": 0
+    },
+    "note": "overlapping 15m labels; descriptive distributions, not independent samples",
+    "policy_selected_long": {
+     "count": 0
+    },
+    "policy_selected_short": {
+     "count": 0
+    },
+    "policy_selected_side": {
+     "count": 0
+    },
+    "unavailable_labels_scored": {
+     "LONG": 16,
+     "SHORT": 16
+    }
+   },
+   "start_equity": 10000.0,
+   "system": "TREND_REFERENCE_POLICY",
+   "time_under_water_fraction": 0.0,
+   "total_friction": 0.0,
+   "total_funding_pnl": 0.0,
+   "total_gross_pnl": 0.0,
+   "total_net_pnl": 0.0,
+   "total_net_return": 0.0,
+   "trade_count": 0,
+   "trades_by_quarter": {},
+   "trades_by_year": {},
+   "turnover_per_year": 0.0,
+   "weekly_mean_return_bootstrap": {
+    "count": 140256,
+    "fraction_replicates_above_zero": 0.0,
+    "p10": 0.0,
+    "p50": 0.0,
+    "p90": 0.0,
+    "point": 0.0,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "weeks_with_data": 210
+   },
+   "win_fraction_descriptive": null
+  }
+ },
+ "reconciliation": {
+  "ABL-G2-01": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "ABL-G2-01"
+  },
+  "ABL-G2-02": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "ABL-G2-02"
+  },
+  "G2-V0": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "G2-V0"
+  },
+  "NULL_FORECAST": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "NULL_FORECAST"
+  },
+  "TREND_REFERENCE_POLICY": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "TREND_REFERENCE_POLICY"
+  }
+ },
+ "runs": {
+  "ABL-G2-01": {
+   "cache_sha256": {
+    "arrays_sha256": "009a78c31a7011363f88331e9b4331ce19d4ba423b20113dc8a9267da95a49c3",
+    "events_sha256": "a0d261b4adcb719cb7f30aa1fd7531316da39d24d6a9f93b958a6403a69f803d"
+   },
+   "fingerprint": "05ae8379a1ec45a008bf4a863796ae5f14ea6b81db90a3b2d8689c57aafbe461",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 180,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-b2692e27b6b3798f696362d7"
+  },
+  "ABL-G2-02": {
+   "cache_sha256": {
+    "arrays_sha256": "3ba4e81c1afc85b5525a52c0408b86bb6aeff08385699ca701a17124b9cdf3f2",
+    "events_sha256": "5baee9bf34c94c01b9ccf2b3a7810a51a111f59750a26605dc5f309c98ab4a56"
+   },
+   "fingerprint": "5b68abfd17fe17369f390651a66c459963ff040e65a5fea4e280d15c386be33e",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 180,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-fe5024739e86dc101fb45740"
+  },
+  "G2-V0": {
+   "cache_sha256": {
+    "arrays_sha256": "cee2aac8524ebfb475bffe90983fa2b32532d5d7e5625756fe1f4dcb8ec331f2",
+    "events_sha256": "1da3daede7b1d22f9ad84ed9f3b808aa96e0ddb11dfd2a37a7b1e6521358743e"
+   },
+   "fingerprint": "34e97b9fa85c1b47c39817990dd45c1c4557a44f934727b461ce07c1446a7e53",
+   "record_counts": {
+    "CycleShadowState": 175392,
+    "Decision": 175392,
+    "FitManifest": 180,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-a54a7701240dfc1c7edad0d5"
+  },
+  "NULL-FORECAST": {
+   "cache_sha256": {
+    "arrays_sha256": "02d85f1cd8ff67ea5c57d55de7687eab80e21de0f9655b567eb544b5f133bc82",
+    "events_sha256": "797d076d89329b27c15a53ebd5810a88ec3b6108afe638a8616a4a27d40c09f2"
+   },
+   "fingerprint": "976b46e055583a706660dcfc0c8845c0afe576ac6d3439870964e90e4e18ee11",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 60,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-e27e7fe43bf060c852421cf1"
+  },
+  "TREND-REFERENCE": {
+   "cache_sha256": {
+    "arrays_sha256": "ca267d211a418554bbdc99398baa8cd8e9310f1ffe06f66aeccf15f1804db8d9",
+    "events_sha256": "24e8d310140fbae2aa8b1ac2d9bc20b3814ccff4e4a61e987d897ccb7b1d3ddb"
+   },
+   "fingerprint": "06180b2606c1f0e1397787b41f363540838a074bf483898af9f0958100ed4c65",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 60,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-d19cb54c2e90e8fb35d02a0b"
+  }
+ },
+ "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02_REVIEW",
+ "systems": {
+  "ablations_promotable": false,
+  "baseline": [
+   "G2-V0"
+  ],
+  "diagnostic_ablations": [
+   "ABL-G2-01",
+   "ABL-G2-02"
+  ],
+  "fixed_references": [
+   "NULL_FORECAST",
+   "TREND_ONLY_FORECAST",
+   "TREND_REFERENCE_POLICY",
+   "CASH_REFERENCE"
+  ]
+ },
+ "uncertainty": {
+  "forecast_comparisons": [
+   {
+    "common_support": 140225,
+    "count": 140225,
+    "delta_definition": "mean(crps[G2-V0] - crps[NULL_FORECAST]) on common support; negative favours the first system (lower is better)",
+    "fraction_replicates_above_zero": 1.0,
+    "metric": "crps",
+    "p10": 1.8373373085393036e-05,
+    "p50": 2.350152720820229e-05,
+    "p90": 2.944164717351879e-05,
+    "point": 2.381277577181904e-05,
+    "realized_targets_identical": true,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "NULL_FORECAST",
+    "weeks_with_data": 210
+   },
+   {
+    "common_support": 140225,
+    "count": 140225,
+    "delta_definition": "mean(brier[G2-V0] - brier[NULL_FORECAST]) on common support; negative favours the first system (lower is better)",
+    "fraction_replicates_above_zero": 1.0,
+    "metric": "brier",
+    "p10": 0.001185378738737287,
+    "p50": 0.0014071600830247292,
+    "p90": 0.00162510690744028,
+    "point": 0.0014059590000234914,
+    "realized_targets_identical": true,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "NULL_FORECAST",
+    "weeks_with_data": 210
+   },
+   {
+    "common_support": 140225,
+    "count": 140225,
+    "delta_definition": "mean(crps[G2-V0] - crps[TREND_ONLY_FORECAST]) on common support; negative favours the first system (lower is better)",
+    "fraction_replicates_above_zero": 0.997,
+    "metric": "crps",
+    "p10": 1.6144273328387814e-06,
+    "p50": 2.978737337329362e-06,
+    "p90": 4.4397960811867326e-06,
+    "point": 3.0205875717795734e-06,
+    "realized_targets_identical": true,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "TREND_ONLY_FORECAST",
+    "weeks_with_data": 210
+   },
+   {
+    "common_support": 140225,
+    "count": 140225,
+    "delta_definition": "mean(brier[G2-V0] - brier[TREND_ONLY_FORECAST]) on common support; negative favours the first system (lower is better)",
+    "fraction_replicates_above_zero": 0.9996,
+    "metric": "brier",
+    "p10": 0.00016146413483967995,
+    "p50": 0.00024525300915451077,
+    "p90": 0.00033283161081585933,
+    "point": 0.00024688093592797417,
+    "realized_targets_identical": true,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "TREND_ONLY_FORECAST",
+    "weeks_with_data": 210
+   },
+   {
+    "common_support": 140225,
+    "count": 140225,
+    "delta_definition": "mean(crps[G2-V0] - crps[ABL-G2-01]) on common support; negative favours the first system (lower is better)",
+    "fraction_replicates_above_zero": 0.9414,
+    "metric": "crps",
+    "p10": 2.840103504216823e-07,
+    "p50": 1.5835312128523842e-06,
+    "p90": 2.9302204893978823e-06,
+    "point": 1.5952482676098896e-06,
+    "realized_targets_identical": true,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "ABL-G2-01",
+    "weeks_with_data": 210
+   },
+   {
+    "common_support": 140225,
+    "count": 140225,
+    "delta_definition": "mean(brier[G2-V0] - brier[ABL-G2-01]) on common support; negative favours the first system (lower is better)",
+    "fraction_replicates_above_zero": 0.9984,
+    "metric": "brier",
+    "p10": 9.936534844083544e-05,
+    "p50": 0.0001691841784980307,
+    "p90": 0.00023885025347070664,
+    "point": 0.0001692508492787765,
+    "realized_targets_identical": true,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "ABL-G2-01",
+    "weeks_with_data": 210
+   },
+   {
+    "common_support": 140225,
+    "count": 140225,
+    "delta_definition": "mean(crps[G2-V0] - crps[ABL-G2-02]) on common support; negative favours the first system (lower is better)",
+    "fraction_replicates_above_zero": 0.744,
+    "metric": "crps",
+    "p10": -5.37342472885757e-07,
+    "p50": 5.816832621431637e-07,
+    "p90": 1.7625356294942988e-06,
+    "point": 6.014207502646139e-07,
+    "realized_targets_identical": true,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "ABL-G2-02",
+    "weeks_with_data": 210
+   },
+   {
+    "common_support": 140225,
+    "count": 140225,
+    "delta_definition": "mean(brier[G2-V0] - brier[ABL-G2-02]) on common support; negative favours the first system (lower is better)",
+    "fraction_replicates_above_zero": 0.7024,
+    "metric": "brier",
+    "p10": -3.654054589824933e-05,
+    "p50": 2.487890944826999e-05,
+    "p90": 8.2755882855875e-05,
+    "point": 2.4636010252203315e-05,
+    "realized_targets_identical": true,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "ABL-G2-02",
+    "weeks_with_data": 210
+   }
+  ],
+  "path_distributions": {
+   "ABL-G2-01": {
+    "raw_max_drawdown": 0.0,
+    "weekly_block_path_max_drawdown": {
+     "p10": 0.0,
+     "p50": 0.0,
+     "p90": 0.0,
+     "replicates": 5000,
+     "seed": 2026092702
+    }
+   },
+   "ABL-G2-02": {
+    "raw_max_drawdown": 0.0,
+    "weekly_block_path_max_drawdown": {
+     "p10": 0.0,
+     "p50": 0.0,
+     "p90": 0.0,
+     "replicates": 5000,
+     "seed": 2026092702
+    }
+   },
+   "G2-V0": {
+    "raw_max_drawdown": 0.0,
+    "weekly_block_path_max_drawdown": {
+     "p10": 0.0,
+     "p50": 0.0,
+     "p90": 0.0,
+     "replicates": 5000,
+     "seed": 2026092702
+    }
+   },
+   "TREND_REFERENCE_POLICY": {
+    "raw_max_drawdown": 0.0,
+    "weekly_block_path_max_drawdown": {
+     "p10": 0.0,
+     "p50": 0.0,
+     "p90": 0.0,
+     "replicates": 5000,
+     "seed": 2026092702
+    }
+   }
+  },
+  "policy_comparisons": [
+   {
+    "count": 140256,
+    "delta_definition": "mean(r[G2-V0] - r[TREND_REFERENCE_POLICY]) per 15m interval; positive favours the first system",
+    "fraction_replicates_above_zero": 0.0,
+    "metric": "15m marked-equity simple return",
+    "p10": 0.0,
+    "p50": 0.0,
+    "p90": 0.0,
+    "point": 0.0,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "TREND_REFERENCE_POLICY",
+    "weeks_with_data": 210
+   },
+   {
+    "count": 140256,
+    "delta_definition": "mean(r[G2-V0] - r[CASH_REFERENCE]) per 15m interval; positive favours the first system",
+    "fraction_replicates_above_zero": 0.0,
+    "metric": "15m marked-equity simple return",
+    "p10": 0.0,
+    "p50": 0.0,
+    "p90": 0.0,
+    "point": 0.0,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "CASH_REFERENCE",
+    "weeks_with_data": 210
+   },
+   {
+    "count": 140256,
+    "delta_definition": "mean(r[G2-V0] - r[ABL-G2-01]) per 15m interval; positive favours the first system",
+    "fraction_replicates_above_zero": 0.0,
+    "metric": "15m marked-equity simple return",
+    "p10": 0.0,
+    "p50": 0.0,
+    "p90": 0.0,
+    "point": 0.0,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "ABL-G2-01",
+    "weeks_with_data": 210
+   },
+   {
+    "count": 140256,
+    "delta_definition": "mean(r[G2-V0] - r[ABL-G2-02]) per 15m interval; positive favours the first system",
+    "fraction_replicates_above_zero": 0.0,
+    "metric": "15m marked-equity simple return",
+    "p10": 0.0,
+    "p50": 0.0,
+    "p90": 0.0,
+    "point": 0.0,
+    "replicates": 5000,
+    "seed": 2026092702,
+    "system": "G2-V0",
+    "versus": "ABL-G2-02",
+    "weeks_with_data": 210
+   }
+  ],
+  "rules": {
+   "blocks": "contiguous UTC calendar weeks (Monday 00:00) of the scored window; the partial first/last weeks are their own blocks",
+   "forecast_comparisons": [
+    [
+     "G2-V0",
+     "NULL_FORECAST"
+    ],
+    [
+     "G2-V0",
+     "TREND_ONLY_FORECAST"
+    ],
+    [
+     "G2-V0",
+     "ABL-G2-01"
+    ],
+    [
+     "G2-V0",
+     "ABL-G2-02"
+    ]
+   ],
+   "forecast_paired_metrics": [
+    "crps",
+    "brier"
+   ],
+   "interpretation": "internal stability diagnostic only; not independent validation and not a discovery p-value",
+   "path_metrics": "max drawdown reported raw plus a weekly-block path distribution",
+   "policy_comparisons": [
+    [
+     "G2-V0",
+     "TREND_REFERENCE_POLICY"
+    ],
+    [
+     "G2-V0",
+     "CASH_REFERENCE"
+    ],
+    [
+     "G2-V0",
+     "ABL-G2-01"
+    ],
+    [
+     "G2-V0",
+     "ABL-G2-02"
+    ]
+   ],
+   "policy_paired_metric": "15m marked-equity simple return (common grid)",
+   "replicates": 5000,
+   "reported": "point delta and 10th/50th/90th percentiles",
+   "resampling": "complete weeks with replacement; one common resampling matrix for every comparison",
+   "rng": "numpy.random.default_rng(seed).integers(0, weeks, size=(replicates, weeks))",
+   "seed": 2026092702
+  },
+  "weeks": 210
+ },
+ "work_package": "G2-02-BASELINE-AND-DIAGNOSTICS-V1"
+}

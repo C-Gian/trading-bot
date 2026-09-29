@@ -1,0 +1,245 @@
+{
+ "artifact": "G2-02-DEVELOPMENT-BATCH-VALIDATION-V1",
+ "artifacts_sha256": {
+  "reports/checkpoints/G2-02-BASELINE-AND-DIAGNOSTICS-V1.md": "7e60b2706d02ffd5f0b05e346bafc19b1edbe4b010503ffb81714e806b419ea3",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/AUTOPSY.json": "e9a4ad730c8fe75746eafef2367e470eadaab6a2a5e902e56360b52355217e67",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/README.md": "656f3751e7877ff3e1e85d4c91740020e21ee75c602e7ad6f8080c050b938236",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/RESULTS.json": "b15a7d66109c6e5ba96632f42efffd399e9f3f0bbbc1630ac497a11a0faba9fd",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/TRADES-ABL-G2-01.csv": "480b7f96ba997a3d92e8f7bb7627c7db01ba34cc09117ee6fa2b7c33750cecb6",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/TRADES-ABL-G2-02.csv": "480b7f96ba997a3d92e8f7bb7627c7db01ba34cc09117ee6fa2b7c33750cecb6",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/TRADES-G2-V0.csv": "480b7f96ba997a3d92e8f7bb7627c7db01ba34cc09117ee6fa2b7c33750cecb6",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/TRADES-TREND_REFERENCE_POLICY.csv": "480b7f96ba997a3d92e8f7bb7627c7db01ba34cc09117ee6fa2b7c33750cecb6"
+ },
+ "authorization_record": "G2-02-DEV-RUN-AUTHORIZATION-001",
+ "authorization_timestamp_utc": "2026-09-29T15:40:28.394241+00:00",
+ "claims": {
+  "adaptive_revision_executed": false,
+  "candidate_or_champion_declared": false,
+  "change_card_created": false,
+  "paper_trading_enabled": false,
+  "protected_2025_outcomes_read": false,
+  "real_money_authorized": false,
+  "sealed_queries": 0,
+  "stress_scenarios_executed": false,
+  "validated_strategy": null
+ },
+ "determinism": {
+  "cache_identical": true,
+  "fingerprint_identical": true,
+  "repeat_fingerprint": "34e97b9fa85c1b47c39817990dd45c1c4557a44f934727b461ce07c1446a7e53",
+  "repeated_run": "G2-V0"
+ },
+ "development_core_equivalence": "G2-V0 DevelopmentCore record-stream fingerprint equals the frozen G2Core synthetic fingerprint (test_g2_development.py)",
+ "pre_execution_focused_tests": [
+  "backend/tests/test_g2_development.py",
+  "backend/tests/test_operations_jobs.py"
+ ],
+ "reconciliation": {
+  "ABL-G2-01": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "ABL-G2-01"
+  },
+  "ABL-G2-02": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "ABL-G2-02"
+  },
+  "G2-V0": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "G2-V0"
+  },
+  "NULL_FORECAST": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "NULL_FORECAST"
+  },
+  "TREND_REFERENCE_POLICY": {
+   "closed_trade_net_sum": 0,
+   "drawdown_lock_time": null,
+   "entries_after_drawdown_lock": 0,
+   "first_entry_time": null,
+   "invalid_minutes": 0,
+   "loader_max_returned_instant": "2025-01-01T00:00:00+00:00",
+   "no_entry_before_economic_window": true,
+   "no_observation_at_or_after_2025": true,
+   "one_position_at_a_time": true,
+   "per_trade_net_equals_gross_minus_friction_plus_funding": true,
+   "realized_equity_change": 0.0,
+   "realized_equity_change_equals_closed_net_plus_open_adjustment": true,
+   "scored_decisions": 140256,
+   "system": "TREND_REFERENCE_POLICY"
+  }
+ },
+ "reconstruction_verification": {
+  "ABL-G2-01": {
+   "bit_identical": true,
+   "checked": 500,
+   "mismatched": 0
+  },
+  "ABL-G2-02": {
+   "bit_identical": true,
+   "checked": 500,
+   "mismatched": 0
+  },
+  "G2-V0": {
+   "bit_identical": true,
+   "checked": 500,
+   "mismatched": 0
+  },
+  "NULL_FORECAST": {
+   "bit_identical": true,
+   "checked": 500,
+   "mismatched": 0
+  },
+  "TREND_ONLY_FORECAST": {
+   "bit_identical": true,
+   "checked": 500,
+   "mismatched": 0
+  }
+ },
+ "runs": {
+  "ABL-G2-01": {
+   "cache_sha256": {
+    "arrays_sha256": "009a78c31a7011363f88331e9b4331ce19d4ba423b20113dc8a9267da95a49c3",
+    "events_sha256": "a0d261b4adcb719cb7f30aa1fd7531316da39d24d6a9f93b958a6403a69f803d"
+   },
+   "fingerprint": "05ae8379a1ec45a008bf4a863796ae5f14ea6b81db90a3b2d8689c57aafbe461",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 180,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-b2692e27b6b3798f696362d7"
+  },
+  "ABL-G2-02": {
+   "cache_sha256": {
+    "arrays_sha256": "3ba4e81c1afc85b5525a52c0408b86bb6aeff08385699ca701a17124b9cdf3f2",
+    "events_sha256": "5baee9bf34c94c01b9ccf2b3a7810a51a111f59750a26605dc5f309c98ab4a56"
+   },
+   "fingerprint": "5b68abfd17fe17369f390651a66c459963ff040e65a5fea4e280d15c386be33e",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 180,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-fe5024739e86dc101fb45740"
+  },
+  "G2-V0": {
+   "cache_sha256": {
+    "arrays_sha256": "cee2aac8524ebfb475bffe90983fa2b32532d5d7e5625756fe1f4dcb8ec331f2",
+    "events_sha256": "1da3daede7b1d22f9ad84ed9f3b808aa96e0ddb11dfd2a37a7b1e6521358743e"
+   },
+   "fingerprint": "34e97b9fa85c1b47c39817990dd45c1c4557a44f934727b461ce07c1446a7e53",
+   "record_counts": {
+    "CycleShadowState": 175392,
+    "Decision": 175392,
+    "FitManifest": 180,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-a54a7701240dfc1c7edad0d5"
+  },
+  "NULL-FORECAST": {
+   "cache_sha256": {
+    "arrays_sha256": "02d85f1cd8ff67ea5c57d55de7687eab80e21de0f9655b567eb544b5f133bc82",
+    "events_sha256": "797d076d89329b27c15a53ebd5810a88ec3b6108afe638a8616a4a27d40c09f2"
+   },
+   "fingerprint": "976b46e055583a706660dcfc0c8845c0afe576ac6d3439870964e90e4e18ee11",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 60,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-e27e7fe43bf060c852421cf1"
+  },
+  "TREND-REFERENCE": {
+   "cache_sha256": {
+    "arrays_sha256": "ca267d211a418554bbdc99398baa8cd8e9310f1ffe06f66aeccf15f1804db8d9",
+    "events_sha256": "24e8d310140fbae2aa8b1ac2d9bc20b3814ccff4e4a61e987d897ccb7b1d3ddb"
+   },
+   "fingerprint": "06180b2606c1f0e1397787b41f363540838a074bf483898af9f0958100ed4c65",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 60,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-d19cb54c2e90e8fb35d02a0b"
+  }
+ },
+ "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02_REVIEW"
+}

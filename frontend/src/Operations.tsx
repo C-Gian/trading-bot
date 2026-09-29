@@ -10,7 +10,7 @@ export type Job = {
   job_id: string; job_type: string; status: 'QUEUED' | 'RUNNING' | 'PASS' | 'FAIL' | 'CANCELLED';
   phase: string | null; phase_index: number; phase_count: number; last_completed_phase: string | null;
   completed_units: number | null; total_units: number | null; unit_label: string | null;
-  phase_percent: number | null; elapsed_seconds: number; eta_seconds: number | null; eta_basis: string;
+  phase_percent: number | null; elapsed_seconds: number; eta_seconds: number | null; phase_eta_seconds?: number | null; eta_basis: string;
   heartbeat_age_seconds: number | null; stale: boolean; message: string | null;
   exit_code: number | null; error: string | null; children: JobChild[]; log_tail?: string[];
 };
@@ -57,6 +57,7 @@ function JobCard({ job, selected, onSelect }: { job: Job; selected: boolean; onS
       <div className="research-live-meta">
         <span>Trascorsi {formatDuration(job.elapsed_seconds)}</span>
         <span>ETA {job.status === 'RUNNING' ? formatDuration(job.eta_seconds) : '—'}</span>
+        {job.status === 'RUNNING' && job.eta_seconds == null && job.phase_eta_seconds != null && <span>ETA fase {formatDuration(job.phase_eta_seconds)}</span>}
         <span>Heartbeat {job.heartbeat_age_seconds == null ? '—' : `${Math.floor(job.heartbeat_age_seconds)}s fa`}</span>
       </div>
       {job.message && <p className="summary">{job.message}</p>}

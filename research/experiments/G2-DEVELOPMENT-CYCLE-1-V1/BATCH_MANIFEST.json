@@ -1,0 +1,146 @@
+{
+ "artifact": "G2-DEVELOPMENT-CYCLE-1-V1/BATCH_MANIFEST",
+ "artifacts_sha256": {
+  "reports/checkpoints/G2-02-BASELINE-AND-DIAGNOSTICS-V1.md": "7e60b2706d02ffd5f0b05e346bafc19b1edbe4b010503ffb81714e806b419ea3",
+  "reports/validation/G2-02-DEVELOPMENT-BATCH-VALIDATION-V1.json": "b64ef6dd8f37033e01abfdcc683e1f71e3c011b43aa149f975b749bf245a93f4",
+  "reports/validation/G2-02-DEVELOPMENT-BATCH-VALIDATION-V1.log": "f5e9adefddc8103ef8f6b27ef5a491463a63fcc75be0296137599b2af1607410",
+  "reports/validation/G2-02-DEVELOPMENT-BATCH-VALIDATION-V1.md": "c2c3ae5e05771ae3534f0c4f69aced89e2d1d20d73410a87484e9e5ddfa68b40",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/AUTOPSY.json": "e9a4ad730c8fe75746eafef2367e470eadaab6a2a5e902e56360b52355217e67",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/README.md": "656f3751e7877ff3e1e85d4c91740020e21ee75c602e7ad6f8080c050b938236",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/RESULTS.json": "b15a7d66109c6e5ba96632f42efffd399e9f3f0bbbc1630ac497a11a0faba9fd",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/TRADES-ABL-G2-01.csv": "480b7f96ba997a3d92e8f7bb7627c7db01ba34cc09117ee6fa2b7c33750cecb6",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/TRADES-ABL-G2-02.csv": "480b7f96ba997a3d92e8f7bb7627c7db01ba34cc09117ee6fa2b7c33750cecb6",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/TRADES-G2-V0.csv": "480b7f96ba997a3d92e8f7bb7627c7db01ba34cc09117ee6fa2b7c33750cecb6",
+  "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/TRADES-TREND_REFERENCE_POLICY.csv": "480b7f96ba997a3d92e8f7bb7627c7db01ba34cc09117ee6fa2b7c33750cecb6"
+ },
+ "authorization_record": "G2-02-DEV-RUN-AUTHORIZATION-001",
+ "code_sha256": {
+  "backend/app/g2/bars.py": "76bb221005c65967cac903586448c7a7b2eaeb6d8006b73b0d1bf6f7af80aa94",
+  "backend/app/g2/contract.py": "c3e3d181a659b720b46cbaed6bb4914827fb15f03ac9a90f1c308cfbaa6ba5ad",
+  "backend/app/g2/core.py": "6730188fbdaec8fee0e6f34067a19c9d8bcadfd1e0a1d7d9ddb92bbaff5e94e3",
+  "backend/app/g2/cycle.py": "28902ef67e39c6369cbc03e41c192fa894749ce19092e2784338f5831c7940d4",
+  "backend/app/g2/development/__init__.py": "c95b0f561813920f1611b5070345f3cca5b566ba027e277e53251b80fd9e11da",
+  "backend/app/g2/development/autopsy.py": "a84a6138fee8a390223fb76c0d657cf2d55d55bea5277d4a50db98d94a74b980",
+  "backend/app/g2/development/batch.py": "2769fe851130292ae1ec4e25f1742f74aaeaa6ca0c193fbb6b5e1602a7f03419",
+  "backend/app/g2/development/core.py": "27fbdfcb26b0591e8a109e103487659885d6e571b13473c0eb655450296bfb8c",
+  "backend/app/g2/development/reports.py": "6ae9c241ea34b00a7f9bd516781a0562bf9cae63b282239d995019fc99748283",
+  "backend/app/g2/development/runner.py": "c72da3ecd40ecdbeeab92be67828ecaa40f52496f67e6084794e1ea61ceb2ab9",
+  "backend/app/g2/development/scoring.py": "d3c24a394da227fcf2a1fc7a0131e41e6f35755147092942f14e61c3771e08c4",
+  "backend/app/g2/development/variants.py": "0462d648f08829465bba69fb6de8781410eded09c497c01ccde226288a8b6d8f",
+  "backend/app/g2/distribution.py": "c30dd9a69883401069ad27f12b3e6aa7674c1220528cb1649e67af4f6edbbaf2",
+  "backend/app/g2/execution.py": "62a525d95f2441634134a29ec826dfab8745fc9a05752e077649c143d862bcc6",
+  "backend/app/g2/features.py": "d31cee0b27bcca746f896cd46c8580d2243948dda9982bc5e156aec2e9deff7d",
+  "backend/app/g2/models.py": "2b6c6e0ba5f4f9759c449fe08caaba8825c61952cb816ee04d6f1c1d6b6b44ff",
+  "backend/app/g2/records.py": "6ad5a3f49baec654ebe19b74222e4b43b2ad6e4fc251f458ab9117d41b82e658",
+  "backend/app/g2/risk.py": "fbbc623d4f5b4220b20d09122fcec69cdfb47263aa180b81b1fe39c2b111085f",
+  "backend/app/g2/runs.py": "4624c5b4c0082780777c1252f384d9b9eb9b3bffbc058cb00210af5892f94cbd",
+  "backend/app/g2/sources.py": "3ad7a1c6a24420991025d676758ef4d26a519541b34f7c32abc100fca50f59fa",
+  "backend/app/g2/store.py": "99b3eb552db32e1aea4cb73b53e26b9bb43fbd076dd560aacf2973b878bc6c0d",
+  "scripts/run_g2_development.py": "58721783437c45fb03267c6d5e4cc153bdd7487a69ccf5c82590472f10841684"
+ },
+ "determinism": {
+  "cache_identical": true,
+  "fingerprint_identical": true,
+  "repeat_fingerprint": "34e97b9fa85c1b47c39817990dd45c1c4557a44f934727b461ce07c1446a7e53",
+  "repeated_run": "G2-V0"
+ },
+ "run_cache_schema": "G2-02-RUN-CACHE-V1",
+ "runs": {
+  "ABL-G2-01": {
+   "cache_sha256": {
+    "arrays_sha256": "009a78c31a7011363f88331e9b4331ce19d4ba423b20113dc8a9267da95a49c3",
+    "events_sha256": "a0d261b4adcb719cb7f30aa1fd7531316da39d24d6a9f93b958a6403a69f803d"
+   },
+   "fingerprint": "05ae8379a1ec45a008bf4a863796ae5f14ea6b81db90a3b2d8689c57aafbe461",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 180,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-b2692e27b6b3798f696362d7"
+  },
+  "ABL-G2-02": {
+   "cache_sha256": {
+    "arrays_sha256": "3ba4e81c1afc85b5525a52c0408b86bb6aeff08385699ca701a17124b9cdf3f2",
+    "events_sha256": "5baee9bf34c94c01b9ccf2b3a7810a51a111f59750a26605dc5f309c98ab4a56"
+   },
+   "fingerprint": "5b68abfd17fe17369f390651a66c459963ff040e65a5fea4e280d15c386be33e",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 180,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-fe5024739e86dc101fb45740"
+  },
+  "G2-V0": {
+   "cache_sha256": {
+    "arrays_sha256": "cee2aac8524ebfb475bffe90983fa2b32532d5d7e5625756fe1f4dcb8ec331f2",
+    "events_sha256": "1da3daede7b1d22f9ad84ed9f3b808aa96e0ddb11dfd2a37a7b1e6521358743e"
+   },
+   "fingerprint": "34e97b9fa85c1b47c39817990dd45c1c4557a44f934727b461ce07c1446a7e53",
+   "record_counts": {
+    "CycleShadowState": 175392,
+    "Decision": 175392,
+    "FitManifest": 180,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-a54a7701240dfc1c7edad0d5"
+  },
+  "NULL-FORECAST": {
+   "cache_sha256": {
+    "arrays_sha256": "02d85f1cd8ff67ea5c57d55de7687eab80e21de0f9655b567eb544b5f133bc82",
+    "events_sha256": "797d076d89329b27c15a53ebd5810a88ec3b6108afe638a8616a4a27d40c09f2"
+   },
+   "fingerprint": "976b46e055583a706660dcfc0c8845c0afe576ac6d3439870964e90e4e18ee11",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 60,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-e27e7fe43bf060c852421cf1"
+  },
+  "TREND-REFERENCE": {
+   "cache_sha256": {
+    "arrays_sha256": "ca267d211a418554bbdc99398baa8cd8e9310f1ffe06f66aeccf15f1804db8d9",
+    "events_sha256": "24e8d310140fbae2aa8b1ac2d9bc20b3814ccff4e4a61e987d897ccb7b1d3ddb"
+   },
+   "fingerprint": "06180b2606c1f0e1397787b41f363540838a074bf483898af9f0958100ed4c65",
+   "record_counts": {
+    "Decision": 175392,
+    "FitManifest": 60,
+    "MarketState": 175392,
+    "Prediction": 175392,
+    "PredictionOutcome": 175376,
+    "RiskStateEvent": 1,
+    "RunManifest": 1,
+    "ShadowLabel": 350750,
+    "SourceAuditEvent": 3
+   },
+   "run_id": "G2DEV-d19cb54c2e90e8fb35d02a0b"
+  }
+ }
+}

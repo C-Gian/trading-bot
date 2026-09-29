@@ -328,6 +328,8 @@ def status_line(state: dict[str, Any]) -> str:
             f" {state.get('unit_label') or 'units'})"
         )
     parts.append(f"ETA {format_seconds(state.get('eta_seconds'))}")
+    if state.get("eta_seconds") is None and state.get("phase_eta_seconds") is not None:
+        parts.append(f"phase ETA {format_seconds(state['phase_eta_seconds'])}")
     parts.append("heartbeat ok")
     if state.get("message"):
         parts.append(str(state["message"])[:120])

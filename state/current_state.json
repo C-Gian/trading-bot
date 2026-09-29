@@ -134,14 +134,29 @@
     },
     "g2_02_development": {
       "work_package": "G2-02-BASELINE-AND-DIAGNOSTICS-V1",
-      "status": "AUTHORIZED_NOT_EXECUTED",
+      "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02_REVIEW",
       "baseline_version": "G2-V0",
       "general_revision_slots_consumed": 0,
       "cycle_revision_slots_consumed": 0,
       "diagnostic_ablations_authorized": 2,
       "protected_outcomes_read": false,
       "future_paper_authorized": false,
-      "real_money_authorized": false
+      "real_money_authorized": false,
+      "authorization_record": "G2-02-DEV-RUN-AUTHORIZATION-001",
+      "executed_systems": [
+        "G2-V0",
+        "NULL_FORECAST",
+        "TREND_ONLY_FORECAST",
+        "TREND_REFERENCE_POLICY",
+        "CASH_REFERENCE",
+        "ABL-G2-01",
+        "ABL-G2-02"
+      ],
+      "results_artifact": "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/RESULTS.json",
+      "autopsy_artifact": "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/AUTOPSY.json",
+      "validation_artifact": "reports/validation/G2-02-DEVELOPMENT-BATCH-VALIDATION-V1.json",
+      "checkpoint_report": "reports/checkpoints/G2-02-BASELINE-AND-DIAGNOSTICS-V1.md",
+      "determinism_fingerprint_identical": true
     }
   },
   "project_name": "Trading Bot",

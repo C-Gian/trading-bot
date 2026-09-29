@@ -2,6 +2,9 @@
 
 Status: **AUTHORIZED EXPOSED DEVELOPMENT — NO ADAPTIVE REVISION**
 
+Executor status: `EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02_REVIEW`  
+Checkpoint: `reports/checkpoints/G2-02-BASELINE-AND-DIAGNOSTICS-V1.md`
+
 Gate B: PASS.
 
 Implementation package:

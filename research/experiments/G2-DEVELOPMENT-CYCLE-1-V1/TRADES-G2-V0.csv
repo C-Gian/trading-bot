@@ -1,0 +1,1 @@
+trade_id,side,intended_entry_time,entry_time,exit_time,exit_kind,raw_entry,raw_exit,stop_price,quantity,planned_risk,gross_pnl,friction_cost,funding_pnl,net_pnl,realized_net_r,entry_shortfall,violation_flags
