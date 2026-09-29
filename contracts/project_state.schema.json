@@ -10705,6 +10705,63 @@
             },
             "determinism_fingerprint_identical": {
               "type": "boolean"
+            },
+            "review_artifact": {
+              "type": "string",
+              "pattern": "^reports/reviews/[A-Za-z0-9_.-]+\\.md$"
+            },
+            "disposition": {
+              "type": "string"
+            }
+          }
+        },
+        "g2_02a_utility_diagnostic": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "work_package",
+            "status",
+            "source_results",
+            "source_autopsy",
+            "general_revision_slots_consumed",
+            "cycle_revision_slots_consumed",
+            "new_economic_simulation_authorized",
+            "protected_outcomes_read",
+            "real_money_authorized"
+          ],
+          "properties": {
+            "work_package": {
+              "const": "G2-02A-UTILITY-READOUT-DIAGNOSTIC-V1"
+            },
+            "status": {
+              "enum": [
+                "AUTHORIZED_NOT_EXECUTED",
+                "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02A_REVIEW",
+                "RESEARCH_DIRECTOR_REVIEWED"
+              ]
+            },
+            "source_results": {
+              "type": "string",
+              "pattern": "^research/experiments/[A-Za-z0-9_.\\/-]+\\.json$"
+            },
+            "source_autopsy": {
+              "type": "string",
+              "pattern": "^research/experiments/[A-Za-z0-9_.\\/-]+\\.json$"
+            },
+            "general_revision_slots_consumed": {
+              "const": 0
+            },
+            "cycle_revision_slots_consumed": {
+              "const": 0
+            },
+            "new_economic_simulation_authorized": {
+              "const": false
+            },
+            "protected_outcomes_read": {
+              "const": false
+            },
+            "real_money_authorized": {
+              "const": false
             }
           }
         }

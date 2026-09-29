@@ -17,7 +17,7 @@
     ],
     "astra_decision": "ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2",
     "constitution_version": "4.0",
-    "disposition": "G2_02_EXPOSED_DEVELOPMENT",
+    "disposition": "G2_02A_UTILITY_READOUT_DIAGNOSTIC",
     "active_alpha_allocation": 1,
     "active_candidate": null,
     "candidate_1": "CANDIDATE_1_CLOSED_DEVELOPMENT_REJECTED",
@@ -28,7 +28,7 @@
     "confirmation_authorized": false,
     "prospective_collection_authorized": false,
     "research_task_active": true,
-    "automatic_next_research_package": "G2-02-BASELINE-AND-DIAGNOSTICS-V1",
+    "automatic_next_research_package": "G2-02A-UTILITY-READOUT-DIAGNOSTIC-V1",
     "champion_status": "NONE",
     "real_money_authorized": false,
     "sealed_queries": 0,
@@ -88,15 +88,15 @@
     "preservation_manifest": "reports/handover/SYSTEM-G1-TERMINAL-PARK-PRESERVATION-V1.md",
     "active_system_generation": "G2_DEVELOPMENT_SYSTEM",
     "architecture": "G2_GATE_A_FROZEN",
-    "strategic_disposition": "G2_02_EXPOSED_DEVELOPMENT",
+    "strategic_disposition": "G2_02A_UTILITY_READOUT_DIAGNOSTIC",
     "action_guard": "FAIL_CLOSED_ON_NULL_VALIDATED_STRATEGY",
     "successor_system_generation": "G2_DEVELOPMENT_SYSTEM_ALLOCATED"
   },
   "g2_development_system": {
-    "status": "G2_02_EXPOSED_DEVELOPMENT",
+    "status": "G2_02A_UTILITY_READOUT_DIAGNOSTIC",
     "strategic_authority": "reports/strategic/ASTRA_TRADING_BOT_DEVELOPMENT_SYSTEM_DIRECTIVE_V2.md",
     "adoption_adr": "decisions/ADR-0052-ADOPT-ASTRA-G2-DEVELOPMENT-SYSTEM-AND-OPEN-G2-00.md",
-    "current_work_package": "G2-02-BASELINE-AND-DIAGNOSTICS-V1",
+    "current_work_package": "G2-02A-UTILITY-READOUT-DIAGNOSTIC-V1",
     "development_budget": {
       "baseline_versions": 1,
       "max_substantive_revisions": 4,
@@ -134,7 +134,7 @@
     },
     "g2_02_development": {
       "work_package": "G2-02-BASELINE-AND-DIAGNOSTICS-V1",
-      "status": "EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02_REVIEW",
+      "status": "RESEARCH_DIRECTOR_REVIEWED",
       "baseline_version": "G2-V0",
       "general_revision_slots_consumed": 0,
       "cycle_revision_slots_consumed": 0,
@@ -156,7 +156,20 @@
       "autopsy_artifact": "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/AUTOPSY.json",
       "validation_artifact": "reports/validation/G2-02-DEVELOPMENT-BATCH-VALIDATION-V1.json",
       "checkpoint_report": "reports/checkpoints/G2-02-BASELINE-AND-DIAGNOSTICS-V1.md",
-      "determinism_fingerprint_identical": true
+      "determinism_fingerprint_identical": true,
+      "review_artifact": "reports/reviews/G2-02-RESEARCH-DIRECTOR-REVIEW-V1.md",
+      "disposition": "BASELINE_NOT_PROMOTABLE_ZERO_ACTION_POLICY_UNINFORMATIVE_FORECAST_BELOW_NULL"
+    },
+    "g2_02a_utility_diagnostic": {
+      "work_package": "G2-02A-UTILITY-READOUT-DIAGNOSTIC-V1",
+      "status": "AUTHORIZED_NOT_EXECUTED",
+      "source_results": "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/RESULTS.json",
+      "source_autopsy": "research/experiments/G2-DEVELOPMENT-CYCLE-1-V1/AUTOPSY.json",
+      "general_revision_slots_consumed": 0,
+      "cycle_revision_slots_consumed": 0,
+      "new_economic_simulation_authorized": false,
+      "protected_outcomes_read": false,
+      "real_money_authorized": false
     }
   },
   "project_name": "Trading Bot",

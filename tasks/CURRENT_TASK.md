@@ -1,44 +1,37 @@
-# CURRENT TASK — G2-02-BASELINE-AND-DIAGNOSTICS-V1
+# CURRENT TASK — G2-02A-UTILITY-READOUT-DIAGNOSTIC-V1
 
-Status: **AUTHORIZED EXPOSED DEVELOPMENT — NO ADAPTIVE REVISION**
+Status: **AUTHORIZED DIAGNOSTIC — NO NEW ECONOMIC RUN**
 
-Executor status: `EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02_REVIEW`  
-Checkpoint: `reports/checkpoints/G2-02-BASELINE-AND-DIAGNOSTICS-V1.md`
-
-Gate B: PASS.
+Research Director review:
+`reports/reviews/G2-02-RESEARCH-DIRECTOR-REVIEW-V1.md`
 
 Implementation package:
-`tasks/G2_02_BASELINE_AND_DIAGNOSTICS_V1.md`
-
-Long-job operating standard:
-`docs/operations/LONG_RUNNING_JOB_PROGRESS_V1.md`
+`tasks/G2_02A_UTILITY_READOUT_DIAGNOSTIC_V1.md`
 
 ## Executor
 
 Primary: Codex.  
 Overflow: Claude Code.
 
-## Instruction
+## Objective
 
-Execute the package exactly.
+Execute the existing-cache utility-readout diagnostic exactly as specified.
 
-First implement the required generic progress/heartbeat visibility. Then execute only the frozen
-G2-V0 baseline, four fixed references and two diagnostic ablations on the authorized exposed
-development interval.
+Do not rerun G2-02 economics and do not change any scientific/economic rule.
 
-Stop after producing the fixed-batch artifacts and autopsy.
+## Current disposition
 
-## Boundaries
-
-- 2020: exposed initialization/training.
-- 2021-2024: exposed scored development.
-- 2025+: forbidden.
-- adaptive revisions: forbidden in this task.
-- cycle: SHADOW_ONLY in V0.
-- validated strategy: NONE.
-- production action: NO_TRADE.
+- G2-02 fixed batch: reviewed;
+- G2-V0 forecast: no exposed incremental value vs NULL;
+- G2-V0 policy economics: uninformative / zero actions;
+- general revision slots consumed: 0;
+- cycle revision slots consumed: 0;
+- R1/R2/R3/RCYCLE: not authorized;
+- protected 2025+: forbidden;
+- validated strategy: NONE;
+- production action: NO_TRADE;
 - real money: false.
 
 ## Completion
 
-`EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02_REVIEW`.
+`EXECUTOR_COMPLETE_PENDING_RESEARCH_DIRECTOR_G2_02A_REVIEW`.
