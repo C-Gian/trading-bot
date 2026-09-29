@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import json
 from pathlib import Path
 
 import pytest
@@ -20,6 +21,7 @@ from app.main import create_app
 from fastapi.testclient import TestClient
 
 ROOT = Path(__file__).resolve().parents[2]
+STATE = json.loads((ROOT / "state/current_state.json").read_text(encoding="utf-8"))
 G1 = ROOT / "backend/app/g1"
 DECISION_PATH_MODULES = (
     "bars.py",
@@ -59,7 +61,10 @@ def test_status_reports_fail_closed_synthetic_only(client) -> None:
     status = client.get("/api/v1/g1/status").json()
     assert status["validated_strategy"] is None and status["operational_action"] == "NO_TRADE"
     assert status["cycle_active_in_decisions"] is True  # ADR-0046 active component
-    assert status["historical_market_trial_authorized"] is False
+    # The G1 status mirrors the live flag; only the G2-02 exposed-development package sets it.
+    g2 = STATE["g2_development_system"]
+    exposed_development = "g2_02_development" in g2 and g2["market_backtest_authorized"] is True
+    assert status["historical_market_trial_authorized"] is exposed_development
     assert status["evidence"] == "SYNTHETIC_FIXTURE_ONLY"
     # The production action surface stays fail-closed alongside the G1 replay slice.
     assert client.post("/api/v1/product/analysis").json()["decision"] == "NO_TRADE"
